@@ -5,12 +5,20 @@ import layerActions from 'actions/LayerActions';
 import dispatcher from 'js/dispatcher';
 import {layerPanelText} from 'js/config';
 
+const getDefaultTab = () => {
+  var tab = tabKeys.LAYERS;
+  try {
+    tab = window.innerWidth > 950 ? tab : '';
+  } catch (e) {} //eslint-disable-line no-empty
+  return tab;
+};
+
 class MapStore {
 
   constructor () {
 
     // if were on mobile, default is closed
-    this.activeTab = window && window.innerWidth > 950 ? tabKeys.LAYERS : '';
+    this.activeTab = getDefaultTab();
 
     this.activeLayers = [];
     this.allLayers = [];

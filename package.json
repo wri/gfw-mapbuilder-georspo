@@ -1,6 +1,6 @@
 {
   "name": "forest_atlas_template",
-  "version": "1.0.1",
+  "version": "0.1.0",
   "description": "Template for the WRI Forest Atlas that will be available through ArcGIS Online.",
   "main": "gulpfile.js",
   "scripts": {
@@ -9,6 +9,7 @@
     "babel": "babel src --out-dir build",
     "bundle": "r.js -o rjs.main.js; r.js -o rjs.report.js;",
     "test": "echo \"No tests  yet\" && exit 0",
+    "prerender": "npm run babel; gulp prerender;",
     "postinstall": "bower install"
   },
   "repository": {

@@ -46,6 +46,6 @@ html
         callback: function () {require(['js/main']);}
       };
     //- PROD: if new modules are added, regenerate the JSAPI build
-    //- script(src='', async)
+    script(src='http://js.arcgis.com/o/RobertW/GFW-MapBuilder-0.1.0/dojo/dojo.js', async)
     //- DEV: Use the normal JSAPI
-    script(src='http://js.arcgis.com/#{esriVersion}/init.js', async)
+    //- script(src='http://js.arcgis.com/#{esriVersion}/init.js', async)

@@ -1,5 +1,5 @@
 import layerActions from 'actions/LayerActions';
-import layerUtils from 'js/utils/layerUtils';
+import layerUtils from 'utils/layerUtils';
 import LayersHelper from 'helpers/LayersHelper';
 import {layerPanelText} from 'js/config';
 import React, { Component, PropTypes } from 'react';
