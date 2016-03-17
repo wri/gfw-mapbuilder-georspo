@@ -370,7 +370,7 @@ export default {
       }
 
       //- Currently we do not support points, so if its a point, just bail
-      if (feature.geometry.type === analysisKeys.GEOMETRY_POLYGON) {
+      if (feature.geometry.type !== analysisKeys.GEOMETRY_POLYGON) {
         return;
       }
 
