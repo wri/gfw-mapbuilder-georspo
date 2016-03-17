@@ -5,20 +5,14 @@ import layerActions from 'actions/LayerActions';
 import dispatcher from 'js/dispatcher';
 import {layerPanelText} from 'js/config';
 
-const getDefaultTab = () => {
-  var tab = tabKeys.LAYERS;
-  try {
-    tab = window.innerWidth > 950 ? tab : '';
-  } catch (e) {} //eslint-disable-line no-empty
-  return tab;
-};
-
 class MapStore {
 
   constructor () {
 
-    // if were on mobile, default is closed
-    this.activeTab = getDefaultTab();
+    //- Default is closed, using any value as default will cause an ugly
+    //- appearance on mobile when loading, set the default in the
+    //- TabView Component in componentDidMount
+    this.activeTab = '';
 
     this.activeLayers = [];
     this.allLayers = [];

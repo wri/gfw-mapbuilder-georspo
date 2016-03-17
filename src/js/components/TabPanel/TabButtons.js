@@ -26,6 +26,11 @@ export default class TabButtons extends Component {
     language: PropTypes.string.isRequired
   };
 
+  componentDidMount() {
+    let activeTab = window && window.innerWidth > 950 ? LAYERS : '';
+    mapActions.changeActiveTab(activeTab);
+  }
+
   changeTab = (evt) => {
     const {currentTarget} = evt;
     const {activeTab} = this.props;
