@@ -1,0 +1,7 @@
+export default {
+  ACTIVE_FIRES: 'ACTIVE_FIRES',
+  TREE_COVER: 'TREE_COVER',
+  LAND_COVER: 'LAND_COVER',
+  GAIN: 'GAIN',
+  LOSS: 'LOSS'
+};

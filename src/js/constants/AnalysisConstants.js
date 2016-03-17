@@ -1,0 +1,11 @@
+export default {
+  TC_LOSS: 'TC_LOSS',
+  TC_LOSS_GAIN: 'TC_LOSS_GAIN',
+  LC_LOSS: 'LC_LOSS',
+  BIO_LOSS: 'BIO_LOSS',
+  INTACT_LOSS: 'INTACT_LOSS',
+  FIRES: 'FIRES',
+  LCC: 'LCC',
+  SLOPE: 'SLOPE',
+  GEOMETRY_POLYGON: 'polygon'
+};
