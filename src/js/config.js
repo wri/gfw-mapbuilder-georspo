@@ -2,7 +2,8 @@ import analysisKeys from 'constants/AnalysisConstants';
 // import layerKeys from 'constants/LayerConstants';
 // import stringKeys from 'constants/StringKeys';
 
-const analysisImageService = 'http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis/ImageServer';
+// OLD - const analysisImageService = 'http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis/ImageServer';
+const analysisImageService = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer';
 
 const config = {
   map: {
@@ -24,7 +25,7 @@ const config = {
 
   // Note these will need to be copied in with the bulid script since they are not part of the main bundle
   assets: {
-    jQuery: 'vendor/jquery/dist/jquery.min.js',
+    // jQuery: 'vendor/jquery/dist/jquery.min.js',
     highcharts: '//code.highcharts.com/highcharts.js',
     highchartsMore: '//code.highcharts.com/highcharts-more.js'
   },
