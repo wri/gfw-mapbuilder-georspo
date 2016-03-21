@@ -1,4 +1,5 @@
 import mapStore from 'stores/MapStore';
+import ReportSubscribeButtons from 'components/Shared/ReportSubscribe';
 import React, {
   Component,
   PropTypes
@@ -60,10 +61,7 @@ export default class InfoWindow extends Component {
         </div>
         <div className='attribute-display custom-scroll'>
           {attributes.map(this.attribute)}
-        </div>
-        <div className={`actions flex ${selectedFeature ? '' : 'hidden'}`}>
-          <button class='actionButton'>Print Report</button>
-          <button class='actionButton'>Subscribe</button>
+          <ReportSubscribeButtons />
         </div>
       </div>
     );
