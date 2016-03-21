@@ -39,7 +39,7 @@ export default class LayerPanel extends Component {
 
   renderLayerGroup = (group, layers) => {
     return (
-      <LayerGroup key={group} activeLayers={this.state.activeLayers} label={group}>
+      <LayerGroup key={group} dynamicLayers={this.state.dynamicLayers} activeLayers={this.state.activeLayers} label={group}>
         {layers.map(this.checkboxMap(group), this)}
       </LayerGroup>
     );
@@ -49,7 +49,13 @@ export default class LayerPanel extends Component {
     let basemapLayers = [];
     if (basemaps) {
       let basemapNames = Object.keys(basemaps);
-      basemapLayers = basemapNames.map((bm) => {
+      console.log('basemapNames', basemapNames);
+      basemapNames = basemapNames.filter(bm => {
+        // Rather than showing traditional tiled and vector tile basemap options,
+        // only show the vector tile basemap.
+        return !basemaps.hasOwnProperty(bm+'-vector');
+      });
+      basemapLayers = basemapNames.map(bm => {
         return (
           <BasemapLayer icon={basemaps[bm].thumbnailUrl} label={basemaps[bm].title} basemap={bm} />
         );
@@ -135,17 +141,13 @@ export default class LayerPanel extends Component {
       }
 
       if (layer.esriLayer && layer.esriLayer.updating) {
-        console.log('\tlayer still updating', layer.subId, layer);
+        // console.log('\tlayer still updating', layer.subId, layer);
         return null;
       }
 
       let checkbox;
       if (layer.subId) {
-        // console.log('dynamicLayers', dynamicLayers);
-        // console.log('LayerPanel::checkbox', layer);
         let checked = dynamicLayers[layer.id] && dynamicLayers[layer.id].indexOf(layer.subIndex) > -1;
-        // let checked = activeLayers.indexOf(layer.id) > -1;
-        // console.log('checked for', layer.subId, checked);
         checkbox = <LayerCheckbox key={layer.subId} layer={layer} subLayer={true} checked={checked}>
           {childComponent}
         </LayerCheckbox>
@@ -155,9 +157,6 @@ export default class LayerPanel extends Component {
         </LayerCheckbox>;
       }
       return checkbox;
-      // return <LayerCheckbox key={layer.id} layer={layer} checked={activeLayers.indexOf(layer.id) > -1}>
-      // </LayerCheckbox>;
-
     };
   }
 
