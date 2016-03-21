@@ -13,12 +13,18 @@ export default class InfoWindow extends Component {
   };
 
   attribute (item) {
-    return (
-      <dl className='source-row'>
-        <dt>{item.label}</dt>
-        <dd>{item.value}</dd>
-      </dl>
-    );
+    if (item.value === '') {
+      return (
+        <p>{item.label}</p>
+      );
+    } else {
+      return (
+        <dl className='source-row'>
+          <dt>{item.label}</dt>
+          <dd>{item.value}</dd>
+        </dl>
+      );
+    }
   }
 
   previous () {
