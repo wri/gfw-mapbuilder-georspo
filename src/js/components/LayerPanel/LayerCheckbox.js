@@ -46,7 +46,7 @@ export default class LayerCheckbox extends React.Component {
     let {language} = this.context;
     let checked = this.props.checked ? 'active' : '';
     let disabled = layer.disabled ? 'disabled': '';
-    let hidden = LayersHelper.isLayerVisible(layer, language) ? '' : 'hidden';
+    let hidden = LayersHelper.isLayerVisible(layer) ? '' : 'hidden';
 
     return (
       <div className={`layer-checkbox relative ${layer.className} ${checked} ${disabled} ${hidden}`} >

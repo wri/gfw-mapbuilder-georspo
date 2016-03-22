@@ -3,6 +3,7 @@ import tabKeys from 'constants/TabViewConstants';
 import mapActions from 'actions/MapActions';
 import layerActions from 'actions/LayerActions';
 import dispatcher from 'js/dispatcher';
+import LayersHelper from 'helpers/LayersHelper';
 import {layerPanelText} from 'js/config';
 
 class MapStore {
@@ -73,6 +74,7 @@ class MapStore {
 
   addSubLayer (info) {
     this.dynamicLayers[info.id].push(info.subIndex);
+    this.addActiveLayer(info.subId);
   }
 
   removeSubLayer (info) {
@@ -80,6 +82,7 @@ class MapStore {
     if (subLayerIndex > -1) {
       this.dynamicLayers[info.id].splice(subLayerIndex, 1);
     }
+    this.removeActiveLayer(info.subId);
   }
 
   addAll () {
@@ -96,18 +99,20 @@ class MapStore {
   }
 
   createLayers (layers) {
-    this.activeLayers = layers.filter((layer) => layer.visible).map((layer) => layer.id);
+    this.activeLayers = layers.filter((layer) => layer.visible && !layer.subId).map((layer) => layer.id);
     this.allLayers = layers;
     layers.forEach(layer => {
       if (layer.type === 'dynamic' || layer.subId) {
         if (layer.esriLayer && !this.dynamicLayers.hasOwnProperty(layer.id)) {
-          // console.log('dynamic layer, visibleLayers', layer);
           this.dynamicLayers[layer.id] = layer.esriLayer.visibleLayers;
+        }
+        if (layer.subId && layer.esriLayer.visibleLayers.indexOf(layer.subIndex) > -1) {
+          if (LayersHelper.isLayerVisible(layer)) {
+            this.activeLayers.push(layer.subId);
+          }
         }
       }
     });
-    // console.log('create layers, dynamic layers', this.dynamicLayers);
-    // console.log('create layers, active layers', this.activeLayers);
   }
 
   changeActiveTab (payload) {

@@ -211,22 +211,21 @@ let LayersHelper = {
     }
   },
 
-  isLayerVisible (layerInfo, lang) {
+  isLayerVisible (layerInfo) {
     let visible = true;
     // Non-webmap layers, always assume visible.
     if (layerInfo.group !== resources.webmapMenuName) {
       return visible;
     }
-    if (brApp.map && !brApp.map.updating) {
-      // Regular layers have a visibleAtMapScale property which make this easy.
-      let layer = brApp.map.getLayer(layerInfo.id);
-      if (layer) {
-        visible = layer.visibleAtMapScale;
-        // Explicitly check scale depencency for sub-layers in a dynamic map service.
-        let scale = brApp.map.getScale();
-        if (layerInfo.hasScaleDependency && (scale > layerInfo.minScale || scale < layerInfo.maxScale)) {
-          visible = false;
-        }
+    // Layers have a visibleAtMapScale property which make this easy.
+    if (layerInfo.esriLayer.loaded && !layerInfo.esriLayer.visibleAtMapScale) {
+      visible = false;
+    }
+    if (brApp.map && layerInfo.esriLayer) {
+      // Explicitly check scale depencency for sub-layers in a dynamic map service.
+      let scale = brApp.map.getScale();
+      if (layerInfo.hasScaleDependency && (scale > layerInfo.minScale || scale < layerInfo.maxScale)) {
+        visible = false;
       }
     }
     return visible;

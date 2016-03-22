@@ -49,7 +49,6 @@ export default class LayerPanel extends Component {
     let basemapLayers = [];
     if (basemaps) {
       let basemapNames = Object.keys(basemaps);
-      console.log('basemapNames', basemapNames);
       basemapNames = basemapNames.filter(bm => {
         // Rather than showing traditional tiled and vector tile basemap options,
         // only show the vector tile basemap.
@@ -138,11 +137,6 @@ export default class LayerPanel extends Component {
       //     break;
         default:
           childComponent = null;
-      }
-
-      if (layer.esriLayer && layer.esriLayer.updating) {
-        // console.log('\tlayer still updating', layer.subId, layer);
-        return null;
       }
 
       let checkbox;
