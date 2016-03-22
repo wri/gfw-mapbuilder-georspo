@@ -1,4 +1,8 @@
 import mapStore from 'stores/MapStore';
+import ReportSubscribeButtons from 'components/Shared/ReportSubscribe';
+import DateFormats from 'constants/DateFormats';
+import dojoDate from 'dojo/date/locale';
+import dojoNumber from 'dojo/number';
 import React, {
   Component,
   PropTypes
@@ -12,12 +16,18 @@ export default class InfoWindow extends Component {
   };
 
   attribute (item) {
-    return (
-      <dl className='source-row'>
-        <dt>{item.label}</dt>
-        <dd>{item.value}</dd>
-      </dl>
-    );
+    if (item.value === '') {
+      return (
+        <p>{item.label}</p>
+      );
+    } else {
+      return (
+        <dl className='source-row'>
+          <dt>{item.label}</dt>
+          <dd>{item.value}</dd>
+        </dl>
+      );
+    }
   }
 
   previous () {
@@ -33,6 +43,7 @@ export default class InfoWindow extends Component {
     let count = 0;
     let selectedFeature, selectedIndex = 0;
     let layerName, attributes = [];
+    let displayInfo, visibleFields;
 
     if ( infoWindow && infoWindow.getSelectedFeature ) {
       count = infoWindow.count;
@@ -40,9 +51,23 @@ export default class InfoWindow extends Component {
       selectedIndex = infoWindow.selectedIndex;
     }
     if ( selectedFeature ) {
-      attributes = Object.keys(selectedFeature.attributes);
-      attributes = attributes.map((a) => {
-        return { label: a, value: selectedFeature.attributes[a] }
+      displayInfo = selectedFeature.infoTemplate || selectedFeature._graphicsLayer.infoTemplate;
+      visibleFields = displayInfo.info.fieldInfos.filter(f => f.visible);
+      attributes = visibleFields.map(f => {
+        let info = { label: f.label, value: selectedFeature.attributes[f.fieldName] };
+        // Use date and number formats for each field if they exist.
+        if (f.format) {
+          if (f.format.hasOwnProperty('dateFormat')) {
+            // Date as a timestamp that needs to be turned into a string.
+            let when = new Date(info.value);
+            info.value = dojoDate.format(when, DateFormats[f.format.dateFormat]);
+          }
+          if (f.format.hasOwnProperty('places')) {
+            // Number to format with dojo/number.
+            info.value = dojoNumber.format(info.value, f.format);
+          }
+        }
+        return info;
       });
       layerName = selectedFeature._layer.name;
     } else {
@@ -60,10 +85,7 @@ export default class InfoWindow extends Component {
         </div>
         <div className='attribute-display custom-scroll'>
           {attributes.map(this.attribute)}
-        </div>
-        <div className={`actions flex ${selectedFeature ? '' : 'hidden'}`}>
-          <button class='actionButton'>Print Report</button>
-          <button class='actionButton'>Subscribe</button>
+          <ReportSubscribeButtons />
         </div>
       </div>
     );
