@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import keys from 'constants/StringKeys';
+import mapStore from 'stores/MapStore';
 import appUtils from 'utils/AppUtils';
 import text from 'js/languages';
 
@@ -16,10 +17,11 @@ export default class ReportSubscribeButtons extends Component {
     const selectedFeature = map.infoWindow && map.infoWindow.getSelectedFeature();
 
     if (selectedFeature) {
+      let {canopyDensity} = mapStore.getState();
       appUtils.generateReport({
         selectedFeature: selectedFeature,
+        canopyDensity: canopyDensity,
         settings: settings,
-        canopyDensity: 30,
         lang: language
       });
     }

@@ -61,12 +61,13 @@ export default class Analysis extends Component {
     const {
       selectedFeature,
       activeTab,
-      activeAnalysisType
+      activeAnalysisType,
+      canopyDensity
     } = this.props;
 
     if (selectedFeature && activeTab === tabKeys.ANALYSIS) {
       getRawGeometry(selectedFeature).then((geometry) => {
-        performAnalysis(activeAnalysisType, geometry, 30, settings).then((results) => {
+        performAnalysis(activeAnalysisType, geometry, canopyDensity, settings).then((results) => {
           this.setState({ results: results, isLoading: false });
         });
       });
@@ -79,7 +80,8 @@ export default class Analysis extends Component {
     const {
       selectedFeature,
       activeTab,
-      activeAnalysisType
+      activeAnalysisType,
+      canopyDensity
     } = nextProps;
 
     if (
@@ -91,7 +93,7 @@ export default class Analysis extends Component {
       this.setState(getDefaultState());
       const {settings} = this.context;
       getRawGeometry(selectedFeature).then((geometry) => {
-        performAnalysis(activeAnalysisType, geometry, 30, settings).then((results) => {
+        performAnalysis(activeAnalysisType, geometry, canopyDensity, settings).then((results) => {
           this.setState({ results: results, isLoading: false });
         });
       });

@@ -112,8 +112,12 @@ strings.en[keys.ANALYZE] = 'Analyze';
 strings.en[keys.DOCS] = 'Docs';
 strings.en[keys.MORE] = 'More';
 
-//- Miscellaneous
+//- Modals
 strings.en[keys.CANOPY_MODAL_TEXT] = 'Adjust the minimum canopy density for tree cover and tree cover loss';
+strings.en[keys.DENSITY_FIRST] = 'Displaying';
+strings.en[keys.DENSITY_SECOND] = 'canopy density.';
+
+//- Miscellaneous
 strings.en[keys.PRINT_BUTTON_LABEL] = 'Choose a print template';
 strings.en[keys.PRINT_REPORT] = 'Print Report';
 strings.en[keys.SUBSCRIBE] = 'Subscribe';
@@ -226,8 +230,12 @@ strings.fr[keys.ANALYZE] = 'Analyze';
 strings.fr[keys.DOCS] = 'Docs';
 strings.fr[keys.MORE] = 'More';
 
-//- Miscellaneous
+//- Modals
 strings.fr[keys.CANOPY_MODAL_TEXT] = 'Adjust the minimum canopy density for tree cover and tree cover loss';
+strings.fr[keys.DENSITY_FIRST] = 'Displaying';
+strings.fr[keys.DENSITY_SECOND] = 'canopy density.';
+
+//- Miscellaneous
 strings.fr[keys.PRINT_BUTTON_LABEL] = 'Choose a print template';
 strings.fr[keys.PRINT_REPORT] = 'Print Report';
 strings.fr[keys.SUBSCRIBE] = 'Subscribe';
@@ -340,8 +348,12 @@ strings.es[keys.ANALYZE] = 'Analyze';
 strings.es[keys.DOCS] = 'Docs';
 strings.es[keys.MORE] = 'More';
 
-//- Miscellaneous
+//- Modals
 strings.es[keys.CANOPY_MODAL_TEXT] = 'Adjust the minimum canopy density for tree cover and tree cover loss';
+strings.es[keys.DENSITY_FIRST] = 'Displaying';
+strings.es[keys.DENSITY_SECOND] = 'canopy density.';
+
+//- Miscellaneous
 strings.es[keys.PRINT_BUTTON_LABEL] = 'Choose a print template';
 strings.es[keys.PRINT_REPORT] = 'Print Report';
 strings.es[keys.SUBSCRIBE] = 'Subscribe';
@@ -454,8 +466,12 @@ strings.pt[keys.ANALYZE] = 'Analyze';
 strings.pt[keys.DOCS] = 'Docs';
 strings.pt[keys.MORE] = 'More';
 
-//- Miscellaneous
+//- Modals
 strings.pt[keys.CANOPY_MODAL_TEXT] = 'Adjust the minimum canopy density for tree cover and tree cover loss';
+strings.pt[keys.DENSITY_FIRST] = 'Displaying';
+strings.pt[keys.DENSITY_SECOND] = 'canopy density.';
+
+//- Miscellaneous
 strings.pt[keys.PRINT_BUTTON_LABEL] = 'Choose a print template';
 strings.pt[keys.PRINT_REPORT] = 'Print Report';
 strings.pt[keys.SUBSCRIBE] = 'Subscribe';

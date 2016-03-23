@@ -40,8 +40,7 @@ export default class CanopyModal extends Component {
   }
 
   sliderChanged (data) {
-    console.log(data.from_value);
-    // modalActions.updateCanopyDensity(data.from_value);
+    mapActions.updateCanopyDensity(data.from_value);
     // LayersHelper.updateTreeCoverDefinitions(data.from_value);
   }
 

@@ -1,5 +1,4 @@
 import analysisKeys from 'constants/AnalysisConstants';
-import tabKeys from 'constants/TabViewConstants';
 import mapActions from 'actions/MapActions';
 import layerActions from 'actions/LayerActions';
 import dispatcher from 'js/dispatcher';
@@ -28,6 +27,7 @@ class MapStore {
     this.printModalVisible = false;
     this.searchModalVisible = false;
     this.canopyModalVisible = false;
+    this.canopyDensity = 30;
 
     this.bindListeners({
       mapUpdated: mapActions.mapUpdated,
@@ -38,6 +38,7 @@ class MapStore {
       toggleSearchModal: mapActions.toggleSearchModal,
       toggleCanopyModal: mapActions.toggleCanopyModal,
       toggleAnalysisModal: mapActions.toggleAnalysisModal,
+      updateCanopyDensity: mapActions.updateCanopyDensity,
       changeBasemap: mapActions.changeBasemap,
       toggleLandsat: mapActions.toggleLandsat,
       addActiveLayer: layerActions.addActiveLayer,
@@ -92,10 +93,7 @@ class MapStore {
     this.activeLayers = [];
   }
 
-  mapUpdated () {
-    // console.log('MapStore::mapUpdated', e);
-    // this.selectedFeatures = e.target.features || [];
-  }
+  mapUpdated () {}
 
   createLayers (layers) {
     this.activeLayers = layers.filter((layer) => layer.visible).map((layer) => layer.id);
@@ -130,6 +128,10 @@ class MapStore {
 
   toggleCanopyModal (payload) {
     this.canopyModalVisible = payload.visible;
+  }
+
+  updateCanopyDensity (payload) {
+    this.canopyDensity = payload.density;
   }
 
   toggleSearchModal (payload) {

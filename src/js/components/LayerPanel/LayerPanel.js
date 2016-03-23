@@ -1,7 +1,7 @@
 // import WaterStressLegend from 'components/LayerPanel/WaterStressLegend';
 // import LandCoverLegend from 'components/LayerPanel/LandCoverLegend';
 // import SedimentLegend from 'components/LayerPanel/SedimentLegend';
-// import DensityDisplay from 'components/LayerPanel/DensityDisplay';
+import DensityDisplay from 'components/LayerPanel/DensityDisplay';
 // import WetlandsLegend from 'components/LayerPanel/WetlandsLegend';
 import LayerCheckbox from 'components/LayerPanel/LayerCheckbox';
 import FiresControls from 'components/LayerPanel/FiresControls';
@@ -10,8 +10,8 @@ import LayerGroup from 'components/LayerPanel/LayerGroup';
 import BasemapGroup from 'components/LayerPanel/BasemapGroup';
 import LandsatLayer from 'components/LayerPanel/LandsatLayer';
 import BasemapLayer from 'components/LayerPanel/BasemapLayer';
+import LayerKeys from 'constants/LayerConstants';
 import basemaps from 'esri/basemaps';
-import resources from 'resources';
 // import DamsLegend from 'components/LayerPanel/DamsLegend';
 import mapStore from 'stores/MapStore';
 // import layersHelper from 'js/helpers/LayersHelper';
@@ -121,9 +121,9 @@ export default class LayerPanel extends Component {
         case 'TREE_COVER_LOSS':
           childComponent = <LossControls layerId={layer.id} loaded={this.props.loaded} {...this.state} />;
           break;
-      //   case KEYS.treeCover:
-      //     childComponent = <DensityDisplay {...this.state} />;
-      //     break;
+        case LayerKeys.TREE_COVER:
+          childComponent = <DensityDisplay {...this.state} />;
+          break;
       //   case KEYS.landCover:
       //     childComponent = <LandCoverLegend url={layer.url} layerIds={layer.layerIds} />;
       //     break;

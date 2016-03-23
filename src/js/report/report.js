@@ -333,7 +333,7 @@ export default {
   appUtils.generateReport({
     selectedFeature: selectedFeature,
     settings: settings,
-    canopyDensity: 30,
+    canopyDensity: canopyDensity,
     lang: language
   });
   */

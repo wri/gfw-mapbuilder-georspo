@@ -8,8 +8,6 @@ class MapActions {
   //- if necessary
   mapUpdated () {
     return {};
-    // console.log('MapActions', e);
-    // return e;
   }
 
   changeActiveTab (tabId) {
@@ -25,27 +23,23 @@ class MapActions {
   }
 
   toggleAnalysisModal (data) {
-    return {
-      visible: data.visible
-    };
+    return data;
   }
 
   togglePrintModal (data) {
-    return {
-      visible: data.visible
-    };
+    return data;
   }
 
   toggleSearchModal (data) {
-    return {
-      visible: data.visible
-    };
+    return data;
   }
 
   toggleCanopyModal (data) {
-    return {
-      visible: data.visible
-    };
+    return data;
+  }
+
+  updateCanopyDensity (density) {
+    return { density };
   }
 
   toggleLegendVisible = () => { return {}; };
