@@ -27,6 +27,7 @@ class MapStore {
     this.analysisModalVisible = false;
     this.printModalVisible = false;
     this.searchModalVisible = false;
+    this.canopyModalVisible = false;
 
     this.bindListeners({
       mapUpdated: mapActions.mapUpdated,
@@ -35,6 +36,7 @@ class MapStore {
       setAnalysisType: mapActions.setAnalysisType,
       togglePrintModal: mapActions.togglePrintModal,
       toggleSearchModal: mapActions.toggleSearchModal,
+      toggleCanopyModal: mapActions.toggleCanopyModal,
       toggleAnalysisModal: mapActions.toggleAnalysisModal,
       changeBasemap: mapActions.changeBasemap,
       toggleLandsat: mapActions.toggleLandsat,
@@ -126,6 +128,9 @@ class MapStore {
     this.printModalVisible = payload.visible;
   }
 
+  toggleCanopyModal (payload) {
+    this.canopyModalVisible = payload.visible;
+  }
 
   toggleSearchModal (payload) {
     this.searchModalVisible = payload.visible;

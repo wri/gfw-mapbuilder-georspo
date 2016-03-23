@@ -25,9 +25,12 @@ const config = {
 
   // Note these will need to be copied in with the bulid script since they are not part of the main bundle
   assets: {
-    // jQuery: 'vendor/jquery/dist/jquery.min.js',
+    jQuery: 'vendor/jquery/dist/jquery.min.js',
     highcharts: '//code.highcharts.com/highcharts.js',
-    highchartsMore: '//code.highcharts.com/highcharts-more.js'
+    highchartsMore: '//code.highcharts.com/highcharts-more.js',
+    ionCSS: 'vendor/ion.rangeslider/css/ion.rangeSlider.css',
+    ionSkinCSS: 'vendor/ion.rangeslider/css/ion.rangeSlider.skinNice.css',
+    rangeSlider: 'vendor/ion.rangeslider/js/ion.rangeSlider.min.js'
   },
 
   urls: {
@@ -184,7 +187,6 @@ const config = {
       }
     },
     canopy: {
-      title: 'Adjust the minimum canopy density for tree cover  and tree cover loss',
       slider: [0, 10, 15, 20, 25, 30, 50, 75, 100]
     },
     share: {

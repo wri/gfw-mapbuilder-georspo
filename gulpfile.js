@@ -43,6 +43,10 @@ var config = {
     files: ['build/**/*.html', 'build/**/*.js', 'build/**/*.css'],
     port: process.env.PORT || 3000,
     baseDir: 'build'
+  },
+  copy: {
+    jquery: { src: 'build/vendor/jquery/dist/jquery.min.js', dest: 'dist/vendor/jquery/dist/'},
+    ion: { src: 'build/vendor/ion.rangeslider/**/*', dest: 'dist/vendor/ion.rangeslider/'}
   }
 };
 
@@ -95,6 +99,13 @@ gulp.task('imagemin-dist', function () {
     .pipe(gulp.dest(config.imagemin.dist));
 });
 
+gulp.task('copy', function () {
+  gulp.src(config.copy.jquery.src)
+    .pipe(gulp.dest(config.copy.jquery.dest));
+  gulp.src(config.copy.ion.src)
+    .pipe(gulp.dest(config.copy.ion.dest));
+});
+
 gulp.task('prerender', function () {
   var htmlFile = path.join(__dirname, 'dist/index.html'),
       component = 'js/components/App',
@@ -131,4 +142,4 @@ gulp.task('browser-sync', function () {
 
 gulp.task('serve', ['browser-sync']);
 gulp.task('start', ['stylus-build', 'jade-build', 'imagemin-build', 'stylus-watch', 'jade-watch']);
-gulp.task('production', ['stylus-dist', 'jade-dist', 'imagemin-dist']);
+gulp.task('production', ['stylus-dist', 'jade-dist', 'imagemin-dist', 'copy']);

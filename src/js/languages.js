@@ -113,6 +113,7 @@ strings.en[keys.DOCS] = 'Docs';
 strings.en[keys.MORE] = 'More';
 
 //- Miscellaneous
+strings.en[keys.CANOPY_MODAL_TEXT] = 'Adjust the minimum canopy density for tree cover and tree cover loss';
 strings.en[keys.PRINT_BUTTON_LABEL] = 'Choose a print template';
 strings.en[keys.PRINT_REPORT] = 'Print Report';
 strings.en[keys.SUBSCRIBE] = 'Subscribe';
@@ -226,6 +227,7 @@ strings.fr[keys.DOCS] = 'Docs';
 strings.fr[keys.MORE] = 'More';
 
 //- Miscellaneous
+strings.fr[keys.CANOPY_MODAL_TEXT] = 'Adjust the minimum canopy density for tree cover and tree cover loss';
 strings.fr[keys.PRINT_BUTTON_LABEL] = 'Choose a print template';
 strings.fr[keys.PRINT_REPORT] = 'Print Report';
 strings.fr[keys.SUBSCRIBE] = 'Subscribe';
@@ -339,6 +341,7 @@ strings.es[keys.DOCS] = 'Docs';
 strings.es[keys.MORE] = 'More';
 
 //- Miscellaneous
+strings.es[keys.CANOPY_MODAL_TEXT] = 'Adjust the minimum canopy density for tree cover and tree cover loss';
 strings.es[keys.PRINT_BUTTON_LABEL] = 'Choose a print template';
 strings.es[keys.PRINT_REPORT] = 'Print Report';
 strings.es[keys.SUBSCRIBE] = 'Subscribe';
@@ -452,6 +455,7 @@ strings.pt[keys.DOCS] = 'Docs';
 strings.pt[keys.MORE] = 'More';
 
 //- Miscellaneous
+strings.pt[keys.CANOPY_MODAL_TEXT] = 'Adjust the minimum canopy density for tree cover and tree cover loss';
 strings.pt[keys.PRINT_BUTTON_LABEL] = 'Choose a print template';
 strings.pt[keys.PRINT_REPORT] = 'Print Report';
 strings.pt[keys.SUBSCRIBE] = 'Subscribe';

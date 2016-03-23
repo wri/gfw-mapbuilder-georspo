@@ -42,6 +42,12 @@ class MapActions {
     };
   }
 
+  toggleCanopyModal (data) {
+    return {
+      visible: data.visible
+    };
+  }
+
   toggleLegendVisible = () => { return {}; };
 
   // setSelectedFeature (evt) {

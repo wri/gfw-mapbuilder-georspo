@@ -30,8 +30,8 @@ class ModalActions {
   }
 
   showCanopyModal () {
-    brApp.debug('ModalActions >>> showCanopyModal');
     domClass.remove('canopy-modal', 'hidden');
+    return {};
   }
 
   showBasicModal (title, text) {
@@ -41,8 +41,8 @@ class ModalActions {
   }
 
   hideModal (node) {
-    brApp.debug('ModalActions >>> hideModal');
     domClass.add(node, 'hidden');
+    return {};
   }
 
   updateCanopyDensity (newDensity) {
