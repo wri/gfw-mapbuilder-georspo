@@ -103,7 +103,6 @@ export default class Map extends Component {
       // basemap switcher in the layer panel works.
       let basemap = itemData && itemData.baseMap;
       if (basemap.baseMapLayers.length) {
-        console.log('basemap from arcgis.com', basemap.baseMapLayers);
         let basemapName = layerUtils.getBasemapName(basemap.baseMapLayers);
         basemap.baseMapLayers.forEach(bm => this.map.removeLayer(bm.layerObject));
         this.map.setBasemap(basemapName);
@@ -116,10 +115,11 @@ export default class Map extends Component {
       this.map.on('zoom-end', mapActions.mapUpdated);
 
       let updateEnd = this.map.on('update-end', () => {
+        console.log(`Map's update-end fired, all layers`, settings.layers[language]);
         updateEnd.remove();
         mapActions.createLayers(this.map, settings.layers[language]);
         mapActions.createLegend(this.map, settings.layers[language]);
-        mapActions.mapUpdated();
+        // mapActions.mapUpdated();
       });
       //- When custom features are clicked, apply them to the info window, this will trigger above event
       this.map.graphics.on('click', (evt) => {
