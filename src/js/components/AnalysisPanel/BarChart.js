@@ -15,7 +15,7 @@ export default class BarChart extends Component {
 
   render () {
     return (
-      <div ref='chart'></div>
+      <div ref='chart' className='analysis__chart-container'></div>
     );
   }
 }

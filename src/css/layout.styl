@@ -13,19 +13,21 @@ body
 
 .app-header
   position absolute
+  background rgba(255, 255, 255, 0.95)
   box-sizing border-box
   height $headerHeight
   display flex
   width 100%
+  z-index 10
   left 0
   top 0
 
 .map-container
   position absolute
-  top $headerHeight
   bottom 0
   right 0
   left 0
+  top 0
 
 @media (max-width: $mobileBreak)
   .map-container

@@ -42,10 +42,10 @@ export default class RestorationCharts extends Component {
   render () {
     return (
       <div className='restoration-charts'>
-        <div ref='slopeChart' />
-        <div ref='landCoverChart' />
-        <div ref='populationChart' />
-        <div ref='treeCoverChart' />
+        <div ref='slopeChart' className='analysis__chart-container' />
+        <div ref='landCoverChart' className='analysis__chart-container' />
+        <div ref='populationChart' className='analysis__chart-container' />
+        <div ref='treeCoverChart' className='analysis__chart-container' />
       </div>
     );
   }

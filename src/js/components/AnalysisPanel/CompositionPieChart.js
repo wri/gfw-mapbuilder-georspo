@@ -17,7 +17,7 @@ export default class CompositionPieChart extends Component {
 
   render () {
     return (
-      <div ref='chart'></div>
+      <div ref='chart' className='analysis__chart-container'></div>
     );
   }
 }

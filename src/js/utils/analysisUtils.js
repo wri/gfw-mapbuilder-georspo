@@ -354,10 +354,10 @@ export default {
       //- getCounts slices the first value, I need to slice the no data value as well
       if (!results.error) {
         promise.resolve({
-          landCover: formatters.getCounts(results[0], content.pixelSize).counts,
-          treeCover: formatters.getCounts(results[1], content.pixelSize).counts,
-          population: formatters.getCounts(results[2], content.pixelSize).counts,
-          slope: formatters.getCounts(results[3], content.pixelSize).counts
+          landCover: results[0] ? formatters.getCounts(results[0], content.pixelSize).counts : [0],
+          treeCover: results[1] ? formatters.getCounts(results[1], content.pixelSize).counts : [0],
+          population: results[2] ? formatters.getCounts(results[2], content.pixelSize).counts : [0],
+          slope: results[3] ? formatters.getCounts(results[3], content.pixelSize).counts : [0]
         });
       } else {
         promise.resolve(results);

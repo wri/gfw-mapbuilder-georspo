@@ -22,6 +22,7 @@ export default {
         maxPadding: 0.5
       },
       yAxis: { title: { text: null }},
+      tooltip: { useHTML: true },
       series: series,
       colors: colors,
       credits: { enabled: false }
@@ -54,6 +55,7 @@ export default {
         // Subtract a decent amount for padding
         itemStyle: { width: `${legendWidth - 20}px` }
       },
+      tooltip: { useHTML: true },
       series: series,
       credits: { enabled: false }
     });
@@ -72,7 +74,7 @@ export default {
       xAxis: { categories: [name] },
       yAxis: { reversedStacks: false, title: { enabled: false }},
       plotOptions: { series: { stacking: 'normal'}},
-      tooltip: { valueSuffix: ' (Ha)' },
+      tooltip: { valueSuffix: ' (Ha)', useHTML: true },
       series: series,
       credits: { enabled: false }
     });
@@ -90,6 +92,25 @@ export default {
   * it would effect them all without this id
   */
   makeSlopeBarChart: (el, labels, colors, tooltips, series) => {
+    //- Break the string on spaces and add a <br> after at least 20
+    //- characters at the end of the next word
+    const breakLabel = (tooltip) => {
+      let result = [], str = '', words = tooltip.split(' ');
+      words.forEach((word, index) => {
+        if (str.length > 20) {
+          result.push(`${str} ${word}`);
+          str = '';
+        } else {
+          str = `${str} ${word}`;
+          // If this is the last word, push it on the array
+          if (words.length - 1 === index) { result.push(`${str}`); }
+        }
+      });
+      //- Add a colon to the last word
+      result[result.length - 1] += ':';
+      return result.join('<br>');
+    };
+
     const chart = new Highcharts.Chart({
       chart: { renderTo: el, type: 'bar' },
       title: { text: null },
@@ -99,9 +120,16 @@ export default {
         title: { text: null }
       },
       yAxis: { title: { text: 'Hectares' }},
-      tooltip: { valueSuffix: ' (Ha)' }, //formatter: function () { console.log(tooltips[this.point.index]); }
+      tooltip: {
+        useHTML: true,
+        valueSuffix: ' (Ha)',
+        formatter: function () {
+          return `${breakLabel(tooltips[this.point.index])} <b>${Highcharts.numberFormat(this.y, 0)} (Ha)</b>`;
+        }
+      },
       plotOptions: { bar: { colorByPoint: true, colors: colors } },
       series: series,
+      legend: { enabled: false },
       credits: { enabled: false }
     });
 
@@ -120,7 +148,7 @@ export default {
     if (el.id) {
       addTooltips(`#${el.id} .highcharts-xaxis-labels text`);
     } else {
-      console.warn('Attempting to add tooltips, you should give this chart element an ID so this does not interfer with other charts.');
+      console.warn('Attempting to add tooltips, you should give this chart element an ID so this does not interfere with other charts.');
       addTooltips('.highcharts-xaxis-labels text');
     }
 
@@ -156,6 +184,7 @@ export default {
         // Subtract a decent amount for padding
         itemStyle: { width: `${legendWidth - 20}px` }
       },
+      tooltip: { useHTML: true },
       plotOptions: { series: { stacking: 'normal' }},
       credits: { enabled: false },
       series: series,

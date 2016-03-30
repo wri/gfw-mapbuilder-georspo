@@ -6,17 +6,13 @@ export default class SlopeBarChart extends Component {
   componentDidMount() {
     const {labels, colors, counts, tooltips} = this.props;
     const element = this.refs.chart;
-    const series = [{
-      name: 'Get from Callee',
-      data: counts
-    }];
-
+    const series = [{ data: counts }];
     charts.makeSlopeBarChart(element, labels, colors, tooltips, series);
   }
 
   render () {
     return (
-      <div ref='chart' id='slope-breakdown'></div>
+      <div ref='chart' id='slope-breakdown' className='analysis__chart-container'></div>
     );
   }
 }
