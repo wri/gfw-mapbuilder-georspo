@@ -1,4 +1,3 @@
-import mapStore from 'stores/MapStore';
 import ReportSubscribeButtons from 'components/Shared/ReportSubscribe';
 import DateFormats from 'constants/DateFormats';
 import dojoDate from 'dojo/date/locale';
@@ -41,8 +40,8 @@ export default class InfoWindow extends Component {
   render () {
     let {infoWindow} = this.props.map;
     let count = 0;
-    let selectedFeature, selectedIndex = 0;
-    let layerName, attributes = [];
+    let selectedFeature, selectedIndex = 0, title = '';
+    let attributes = [];
     let displayInfo, visibleFields;
 
     if ( infoWindow && infoWindow.getSelectedFeature ) {
@@ -53,6 +52,7 @@ export default class InfoWindow extends Component {
     if ( selectedFeature ) {
       displayInfo = selectedFeature.infoTemplate || selectedFeature._graphicsLayer.infoTemplate;
       visibleFields = displayInfo.info.fieldInfos.filter(f => f.visible);
+      title = selectedFeature.getTitle();
       attributes = visibleFields.map(f => {
         let info = { label: f.label, value: selectedFeature.attributes[f.fieldName] };
         // Use date and number formats for each field if they exist.
@@ -69,22 +69,26 @@ export default class InfoWindow extends Component {
         }
         return info;
       });
-      layerName = selectedFeature._layer.name;
     } else {
       attributes = [{ label: 'No features selected. Click the map to make a selection.', value: '' }];
     }
+
     return (
-      <div className='infoWindow'>
-        <div className={`feature-controls ${selectedFeature ? '' : 'hidden'}`}>
-          <span>{count} features selected.</span>
-          <span className={`arrow right ${selectedIndex < count-1 ? '' : 'disabled'}`} onClick={this.next.bind(this)}>Next</span>
-          <span className={`arrow left ${selectedIndex > 0 ? '' : 'disabled'}`} onClick={this.previous.bind(this)}>Prev</span>
+      <div className='infoWindow relative'>
+        <div className='infoWindow__content'>
+          <div className={`feature-controls ${selectedFeature ? '' : 'hidden'}`}>
+            <span>{count} features selected.</span>
+            <span className={`arrow right ${selectedIndex < count - 1 ? '' : 'disabled'}`} onClick={this.next.bind(this)}>Next</span>
+            <span className={`arrow left ${selectedIndex > 0 ? '' : 'disabled'}`} onClick={this.previous.bind(this)}>Prev</span>
+          </div>
+          <div className={`feature-name ${selectedFeature ? '' : 'hidden'}`}>
+            {title}
+          </div>
+          <div className='attribute-display custom-scroll'>
+            {attributes.map(this.attribute)}
+          </div>
         </div>
-        <div className={`layer-name ${selectedFeature ? '' : 'hidden'}`}>
-          Layer:  {layerName}
-        </div>
-        <div className='attribute-display custom-scroll'>
-          {attributes.map(this.attribute)}
+        <div className='infoWindow__footer'>
           <ReportSubscribeButtons />
         </div>
       </div>

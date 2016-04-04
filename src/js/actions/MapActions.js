@@ -6,8 +6,9 @@ import landsatHelper from 'helpers/LandsatHelper';
 class MapActions {
   //- Action to notify the store the map has changed so we can rerender UI changes
   //- if necessary
-  mapUpdated () {
-    return {};
+  mapUpdated () { return {}; }
+  infoWindowUpdated ({target}) {
+    return (target && target.getSelectedFeature && target.getSelectedFeature()) || false;
   }
 
   changeActiveTab (tabId) {
@@ -42,14 +43,15 @@ class MapActions {
     return { density };
   }
 
-  toggleLegendVisible = () => { return {}; };
+  toggleTOCVisible (data) {
+    return data;
+  }
 
-  // setSelectedFeature (evt) {
-  //   let {target} = evt;
-  //   return {
-  //     feature: target.getSelectedFeature ? target.getSelectedFeature() : undefined
-  //   };
-  // }
+  openTOCAccordion (groupKey) {
+    return groupKey;
+  }
+
+  toggleLegendVisible = () => { return {}; };
 
   createLayers (map, layers) {
     brApp.debug('MapActions >>> createLayers');
@@ -62,11 +64,9 @@ class MapActions {
         existingIds.push(layer.id);
       }
     });
-    // console.log('existingIds', existingIds);
     //- remove layers from config that have no url unless they are of type graphic(which have no url)
     //- sort by order from the layer config
     //- return an arcgis layer for each config object
-    // let esriLayers = layers.filter(layer => layer && (layer.url || layer.type === 'graphic')).sort((a, b) => a.order - b.order).map(layerFactory);
     let esriLayers = uniqueLayers.filter(layer => layer && (layer.url || layer.type === 'graphic')).sort((a, b) => a.order - b.order).map(layerFactory);
     map.addLayers(esriLayers);
     // If there is an error with a particular layer, handle that here
@@ -96,10 +96,8 @@ class MapActions {
     landsatHelper.changeYear(map, lang, year);
   }
 
-  createLegend(map, layers) {
-    legendHelper({
-      map: map
-    }, 'legend');
+  createLegend(map) {
+    legendHelper({ map: map }, 'legend');
   }
 
 }

@@ -1,3 +1,4 @@
+import mapActions from 'actions/MapActions';
 import React from 'react';
 
 let closeSymbolCode = 9660,
@@ -21,26 +22,24 @@ let getCount = (activeLayers, children) => {
 
 export default class LayerGroup extends React.Component {
 
-  constructor (props) {
-    super(props);
-    this.state = { open: true };
-  }
-
   render() {
+    const {activeTOCGroup, groupKey} = this.props;
+    const active = activeTOCGroup === groupKey;
+
     return (
       <div className='layer-category'>
         <div className='layer-category-label pointer' onClick={this.toggle.bind(this)}>
           {this.props.label}
           <span className='active-layer-count'>({getCount(this.props.activeLayers, this.props.children)})</span>
-          <span className='layer-category-caret'>{String.fromCharCode(this.state.open ? closeSymbolCode : openSymbolCode)}</span>
+          <span className='layer-category-caret'>{String.fromCharCode(active ? closeSymbolCode : openSymbolCode)}</span>
         </div>
-        <div className={`layer-category-content ${this.state.open ? '' : 'closed'}`}>{this.props.children}</div>
+        <div className={`layer-category-content ${active ? '' : 'closed'}`}>{this.props.children}</div>
       </div>
     );
   }
 
   toggle () {
-    this.setState({ open: !this.state.open });
+    mapActions.openTOCAccordion(this.props.groupKey);
   }
 
 }

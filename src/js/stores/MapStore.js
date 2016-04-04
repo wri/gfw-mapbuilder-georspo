@@ -1,4 +1,6 @@
 import analysisKeys from 'constants/AnalysisConstants';
+import layerKeys from 'constants/LayerConstants';
+import tabKeys from 'constants/TabViewConstants';
 import mapActions from 'actions/MapActions';
 import layerActions from 'actions/LayerActions';
 import dispatcher from 'js/dispatcher';
@@ -19,11 +21,12 @@ class MapStore {
     this.basemap = null;
     this.landsatVisible = false;
     this.dynamicLayers = {};
-    // this.selectedFeatures = [];
     this.activeAnalysisType = analysisKeys.TC_LOSS;
     this.lossFromSelectIndex = 0;
     this.lossToSelectIndex = layerPanelText.lossOptions.length - 1;
     this.firesSelectIndex = layerPanelText.firesOptions.length - 1;
+    this.tableOfContentsVisible = true;
+    this.activeTOCGroup = layerKeys.GROUP_WEBMAP;
     this.analysisModalVisible = false;
     this.printModalVisible = false;
     this.searchModalVisible = false;
@@ -32,6 +35,7 @@ class MapStore {
 
     this.bindListeners({
       mapUpdated: mapActions.mapUpdated,
+      infoWindowUpdated: mapActions.infoWindowUpdated,
       createLayers: mapActions.createLayers,
       changeActiveTab: mapActions.changeActiveTab,
       setAnalysisType: mapActions.setAnalysisType,
@@ -39,6 +43,8 @@ class MapStore {
       toggleSearchModal: mapActions.toggleSearchModal,
       toggleCanopyModal: mapActions.toggleCanopyModal,
       toggleAnalysisModal: mapActions.toggleAnalysisModal,
+      toggleTOCVisible: mapActions.toggleTOCVisible,
+      openTOCAccordion: mapActions.openTOCAccordion,
       updateCanopyDensity: mapActions.updateCanopyDensity,
       changeBasemap: mapActions.changeBasemap,
       toggleLandsat: mapActions.toggleLandsat,
@@ -98,6 +104,12 @@ class MapStore {
 
   mapUpdated () {}
 
+  infoWindowUpdated (selectedFeature) {
+    if (selectedFeature) {
+      this.activeTab = tabKeys.INFO_WINDOW;
+    }
+  }
+
   createLayers (layers) {
     this.activeLayers = layers.filter((layer) => layer.visible && !layer.subId).map((layer) => layer.id);
     this.allLayers = layers;
@@ -141,6 +153,14 @@ class MapStore {
 
   toggleSearchModal (payload) {
     this.searchModalVisible = payload.visible;
+  }
+
+  toggleTOCVisible (payload) {
+    this.tableOfContentsVisible = payload.visible;
+  }
+
+  openTOCAccordion (groupKey) {
+    this.activeTOCGroup = groupKey;
   }
 
   changeLossFromTimeline (activeIndex) {

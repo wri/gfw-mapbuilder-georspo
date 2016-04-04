@@ -52,7 +52,6 @@ export default {
         resources.labels[resources.language] = {
           title: resources.title,
           subtitle: resources.subtitle
-          // flagTitle: resources.flagTitle
         };
         //- parse map themes for default laguage if present
         let names = resources.mapThemes ? parseIntoArray(resources.mapThemes) : [];
@@ -71,7 +70,6 @@ export default {
           resources.labels[resources.alternativeLanguage] = {
             title: resources.alternativeLanguageTitle,
             subtitle: resources.alternativeLanguageSubtitle
-            // flagTitle: resources.secondLanguageFlagTitle
           };
           //- parse map themes for second laguage if present
           let secondNames = resources.alternativeMapThemes ? parseIntoArray(resources.alternativeMapThemes) : [];
@@ -87,8 +85,34 @@ export default {
         }
         //- LANGUAGE SETTINGS END
 
-        //- TODO: Remove Layers from resources.layers if configured
+        //- Restoration Module Configurations
+        if (resources.restorationModule) {
+          //- Parse the restoration module options if they are in AGOL
+          if (resources.restorationOptions) {
+            let optionLabels = parseIntoArray(resources.restorationOptions);
+            let rasterIds = parseIntoArray(resources.restorationOptionsRasterIds);
+            //- Make it in a format easier to consume in our components
+            resources.restorationModuleOptions = [];
+            optionLabels.forEach((label, index) => {
+              resources.restorationModuleOptions.push({
+                id: rasterIds[index],
+                label: label
+              });
+            });
+          }
+          //- Parse slope class names if present
+          if (resources.slopeClassNames) {
+            resources.slopeClasses = parseIntoArray(resources.slopeClassNames);
+            resources.slopeColors = parseIntoArray(resources.slopeClassColors);
+          }
+          //- Parse tree cover class names if present
+          if (resources.treeCoverClassNames) {
+            resources.treeCoverClasses = parseIntoArray(resources.treeCoverClassNames);
+            resources.treeCoverColors = parseIntoArray(resources.treeCoverClassColors);
+          }
+        }
 
+        //- TODO: Remove Layers from resources.layers if configured
         promise.resolve(resources);
       }
 

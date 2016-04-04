@@ -218,7 +218,7 @@ let LayersHelper = {
       return visible;
     }
     // Layers have a visibleAtMapScale property which make this easy.
-    if (layerInfo.esriLayer.loaded && !layerInfo.esriLayer.visibleAtMapScale) {
+    if (layerInfo.esriLayer && layerInfo.esriLayer.loaded && !layerInfo.esriLayer.visibleAtMapScale) {
       visible = false;
     }
     if (brApp.map && layerInfo.esriLayer) {

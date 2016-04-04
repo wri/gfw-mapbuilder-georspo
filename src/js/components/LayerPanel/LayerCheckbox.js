@@ -43,19 +43,19 @@ export default class LayerCheckbox extends React.Component {
     // console.log('checkbox render', this.props.layer.id);
     let {layer} = this.props;
     let {label, sublabel} = layer;
-    let {language} = this.context;
+    // let {language} = this.context;
     let checked = this.props.checked ? 'active' : '';
-    let disabled = layer.disabled ? 'disabled': '';
+    let disabled = layer.disabled ? 'disabled' : '';
     let hidden = LayersHelper.isLayerVisible(layer) ? '' : 'hidden';
 
     return (
-      <div className={`layer-checkbox relative ${layer.className} ${checked} ${disabled} ${hidden}`} >
-        <span onClick={this.toggleLayer.bind(this)} className='toggle-switch pointer'><span/></span>
+      <div className={`layer-checkbox relative ${checked} ${disabled} ${hidden}`} >
+        <span onClick={this.toggleLayer.bind(this)} className='toggle-switch pointer'><span /></span>
         <span onClick={this.toggleLayer.bind(this)} className='layer-checkbox-label pointer'>{label}</span>
-        {!sublabel ? null : <div className='layer-checkbox-sublabel'>{sublabel}</div>}
         <span className='info-icon pointer' onClick={this.showInfo.bind(this)}>
           <svg dangerouslySetInnerHTML={{ __html: useSvg }}/>
         </span>
+        {!sublabel ? null : <div className='layer-checkbox-sublabel'>{sublabel}</div>}
         {!this.props.children ? null :
           <div className={`layer-content-container flex ${this.props.checked ? '' : 'hidden'}`}>
             {this.props.children}

@@ -1,7 +1,6 @@
 import layerActions from 'actions/LayerActions';
 import layerUtils from 'utils/layerUtils';
 import LayersHelper from 'helpers/LayersHelper';
-import {layerPanelText} from 'js/config';
 import React, { Component, PropTypes } from 'react';
 
 let lossOptions = [];
@@ -23,7 +22,6 @@ export default class LossControls extends Component {
   }
 
   componentDidMount () {
-    // TODO:  pull from config.
     let url = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear/ImageServer';
     layerUtils.getLayerMetadata(url).then((results) => {
       let min = results.minValues[0];
@@ -33,13 +31,13 @@ export default class LossControls extends Component {
       }
       this.setState({
         loaded: true,
-        lossFromSelectIndex: lossOptions.length-2,
-        lossToSelectIndex: lossOptions.length-1
+        lossFromSelectIndex: lossOptions.length - 2,
+        lossToSelectIndex: lossOptions.length - 1
       });
     });
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate () {
     if (this.state.loaded && this.context.map.loaded) {
       let {lossFromSelectIndex, lossToSelectIndex} = this.state;
       let layer = this.context.map.getLayer(this.props.layerId);
@@ -52,9 +50,10 @@ export default class LossControls extends Component {
 
   renderSelects () {
     let selects = <div className='timeline-container loss flex'>loading...</div>;
-    if ( this.props.loaded ) {
+    if ( this.props.loaded && this.state.loaded ) {
       let fromItem = lossOptions[this.state.lossFromSelectIndex];
       let toItem = lossOptions[this.state.lossToSelectIndex];
+
       selects = <div className='timeline-container loss flex'>
         <div className='loss-from relative'>
           <select onChange={this.fromChanged.bind(this)} className='pointer' value={fromItem.value}>

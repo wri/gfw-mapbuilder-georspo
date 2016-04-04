@@ -1,3 +1,5 @@
+import layerKeys from 'constants/LayerConstants';
+import mapActions from 'actions/MapActions';
 import React, {
   Component,
   PropTypes
@@ -8,29 +10,25 @@ let closeSymbolCode = 9660,
 
 export default class BasemapGroup extends Component {
 
-  constructor (props) {
-    super(props);
-    this.state = {
-      open: false
-    };
-  }
-
   render() {
-    let styles = { display: this.state.open ? 'block' : 'none' };
+    let {activeTOCGroup, label} = this.props;
+    let active = activeTOCGroup === layerKeys.GROUP_BASEMAP;
+    let styles = { display: active ? 'block' : 'none' };
+
     return (
       <div className='layer-category'>
-        <div className='layer-category-label pointer' onClick={this.toggle.bind(this)}>
-          {this.props.label}
-          <span className='layer-category-caret'>{String.fromCharCode(this.state.open ? closeSymbolCode : openSymbolCode)}</span>
+        <div className='layer-category-label pointer' onClick={this.toggle}>
+          {label}
+          <span className='layer-category-caret'>{String.fromCharCode(active ? closeSymbolCode : openSymbolCode)}</span>
         </div>
         <div className='layer-category-content' style={styles}>{this.props.children}</div>
       </div>
     );
   }
 
-  toggle () {
-    this.setState({ open: !this.state.open });
-  }
+  toggle = () => {
+    mapActions.openTOCAccordion(layerKeys.GROUP_BASEMAP);
+  };
 
 }
 

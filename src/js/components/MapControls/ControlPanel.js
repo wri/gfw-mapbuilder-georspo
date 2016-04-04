@@ -15,6 +15,9 @@ const drawSvg = '<use xlink:href="#icon-draw-upload" />';
 const printSvg = '<use xlink:href="#icon-print" />';
 const searchSvg = '<use xlink:href="#icon-control-search" />';
 const legendSvg = '<use xlink:href="#icon-legend" />';
+const toggleSvgOff = '<use xlink:href="#icon-controls-toggle__off" />';
+const toggleSvgOn = '<use xlink:href="#icon-controls-toggle__on" />';
+const resetIconSvg = '<use xlink:href="#icon-reset" />';
 
 export default class ControlPanel extends Component {
 
@@ -60,7 +63,17 @@ export default class ControlPanel extends Component {
     mapActions.toggleLegendVisible();
   };
 
+  togglePanels = () => {
+    mapActions.toggleTOCVisible({ visible: !this.props.tableOfContentsVisible });
+  };
+
+  resetPage = () => {
+    window.location.reload();
+  };
+
   render () {
+    let {tableOfContentsVisible} = this.props;
+
     return (
       <div className='control-panel map-component shadow'>
         <ul className='control-panel__list'>
@@ -81,6 +94,12 @@ export default class ControlPanel extends Component {
           </li>
           <li className='control-panel__locate-me pointer' title='Search' onClick={this.search}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: searchSvg }}/>
+          </li>
+          <li className='control-panel__toggle-panels pointer mobile-hide' title='Toggle Panel' onClick={this.togglePanels}>
+            <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: tableOfContentsVisible ? toggleSvgOn : toggleSvgOff }}/>
+          </li>
+          <li className='control-panel__reset pointer mobile-hide' title='Reset' onClick={this.resetPage}>
+            <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: resetIconSvg }}/>
           </li>
           <li className='control-panel__legend pointer mobile-show' title='Legend' onClick={this.showLegend}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: legendSvg }}/>

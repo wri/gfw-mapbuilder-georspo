@@ -169,21 +169,57 @@
     }, {
       "type": "string",
       "fieldName": "restorationImageServer",
-      "tooltip": "Please see the Github Wiki on how to include configure this service.",
+      "tooltip": "Please see the Github Wiki on how to configure this service.",
       "label": "Enter a url for the properly configured Image Server",
       "placeholder": "e.g. http://...../ImageServer"
     }, {
       "type": "string",
-      "fieldName": "slopeRestorationOptions",
+      "fieldName": "slopePotentialOptions",
       "tooltip": "This should be configured as Raster #5 in the above Image Server",
-      "label": "Enter a semi-colon separated list of the slope options (Raster $5) in the order of the values in the data",
+      "label": "Enter a semi-colon separated list of the slope restoration options (Raster $5) in the order of the values in the data",
       "placeholder": "e.g. Potential for ...;Two Restoration options ...;Three or more ..."
     }, {
       "type": "string",
-      "fieldName": "slopeRestorationColors",
+      "fieldName": "slopePotentialColors",
       "tooltip": "This should have the same number of entries as above",
-      "label": "Enter a semi-colon separated list of the colors (Hex Format) you want to represent your above Slope Options",
+      "label": "Enter a semi-colon separated list of the colors (Hex Format) you want to represent your above Slope Restoration Options",
       "placeholder": "e.g. #EAC7FD"
+    }, {
+      "type": "string",
+      "fieldName": "restorationOptions",
+      "tooltip": "These show up under Restoration potential for ...",
+      "label": "Enter a semi-colon separated list of restoration analysis options.",
+      "placeholder": "establishing natural forest;restocking degraded natural forest;agri-silviculture..."
+    }, {
+      "type": "string",
+      "fieldName": "restorationOptionsRasterIds",
+      "tooltip": "These ID's must be in the exact same order as the restoration analysis options above",
+      "label": "Enter a semi-colon separated list of restoration analysis raster ids in the same order as the options above.",
+      "placeholder": "$6;$7;$8;"
+    }, {
+      "type": "string",
+      "fieldName": "slopeClassNames",
+      "tooltip": "Enter a semi-colon separated list of class names for your slope classes",
+      "label": "Enter a semi-colon separated list of class names for your slope classes",
+      "placeholder": "No Data;<= 30%;30 - 60%;> 60%;"
+    }, {
+      "type": "string",
+      "fieldName": "slopeClassColors",
+      "tooltip": "Enter a semi-colon separated list of colors for your slope classes",
+      "label": "Enter a semi-colon separated list of colors for your slope classes",
+      "placeholder": "rgb(0, 0, 0);rgb(255, 235, 175);rgb(115, 115, 0);rgb(168, 0, 0);"
+    }, {
+      "type": "string",
+      "fieldName": "treeCoverClassNames",
+      "tooltip": "Enter a semi-colon separated list of class names for your tree cover classes",
+      "label": "Enter a semi-colon separated list of class names for your tree cover classes",
+      "placeholder": "No Data;<= 10%;10 - 30%;> 30%;"
+    }, {
+      "type": "string",
+      "fieldName": "treeCoverClassColors",
+      "tooltip": "Enter a semi-colon separated list of colors for your tree cover classes",
+      "label": "Enter a semi-colon separated list of colors for your tree cover classes",
+      "placeholder": "rgb(0, 0, 0);rgb(180, 215, 158);rgb(245, 245, 122);rgb(205, 170, 102);"
     }]
   }],
 
@@ -218,7 +254,14 @@
 
     "restorationModule": false,
     "restorationImageServer": "http://gis-gfw.wri.org/arcgis/rest/services/country_data/ETH_Restoration/ImageServer",
-    "slopeRestorationOptions": "Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential",
-    "slopeRestorationColors": "#EAC7FD;#FDB22E;#587E0F;#D29374;#F5D08B;#B1B124;#1AB090;#AF0F8F;#D9FEC7;#FFFE89"
+    "slopePotentialOptions": "Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential",
+    "slopePotentialColors": "#EAC7FD;#FDB22E;#587E0F;#D29374;#F5D08B;#B1B124;#1AB090;#AF0F8F;#D9FEC7;#FFFE89",
+    "restorationOptions": "establishing natural forest outside of cropland;restocking of degraded natural forest;agri-silviculture and agro-silvo-pastoralism;silvo-pastoralism;woodlot;commercial plantation on bare soil and shrubland;commercial plantation as buffer zone to national forest priority areas and protected areas;tree-based buffer zone along rivers, lakes and reservoirs;",
+    "restorationOptionsRasterIds": "$9;$10;$6;$11;$13;$8;$7;$12;",
+    "slopeClassNames": "No Data;<= 30%;30 - 60%;> 60%;",
+    "slopeClassColors": "rgb(0, 0, 0);rgb(255, 235, 175);rgb(115, 115, 0);rgb(168, 0, 0);",
+    "treeCoverClassNames": "No Data;<= 10%;10 - 30%;> 30%;",
+    "treeCoverClassColors": "rgb(0, 0, 0);rgb(180, 215, 158);rgb(245, 245, 122);rgb(205, 170, 102);"
+
   }
 }

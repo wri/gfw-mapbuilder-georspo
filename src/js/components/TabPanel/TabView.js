@@ -33,14 +33,14 @@ export default class TabView extends Component {
   };
 
   getContainerClass = () => {
-    const {activeTab} = this.props;
+    const {activeTab, tableOfContentsVisible} = this.props;
     return (
       activeTab === DOCUMENTS ||
       activeTab === LAYERS ||
       activeTab === ANALYSIS ||
       activeTab === INFO_WINDOW ||
       activeTab === MORE
-    ) ? '' : 'hidden';
+    ) && tableOfContentsVisible ? '' : 'hidden';
   };
 
   render () {
@@ -51,7 +51,7 @@ export default class TabView extends Component {
         <div className={this.getClassName(LAYERS)}>
           <h3 className='tab-view__mobile-header mobile-show'>{text[language][keys.LAYERS]}</h3>
           <LayerToggles />
-          <LayerPanel loaded={map.loaded} />
+          <LayerPanel loaded={map.loaded} {...this.props} />
         </div>
         <div className={this.getClassName(INFO_WINDOW)}>
           <h3 className='tab-view__mobile-header mobile-show'>{text[language][keys.DATA]}</h3>

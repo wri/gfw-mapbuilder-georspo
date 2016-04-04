@@ -104,6 +104,7 @@ strings.en[keys.ANALYSIS_SELECT_TYPE_OPTIONS] = [
 strings.en[keys.ANALYSIS_GROUP_RESTORATION] = 'Restoration potential for';
 strings.en[keys.ANALYSIS_GROUP_SLOPE] = 'Potential according to';
 strings.en[keys.ANALYSIS_GROUP_OTHER] = 'Other analysis';
+strings.en[keys.ANALYSIS_RESTORATION_ERROR] = 'Area not meeting criteria for potential/No data';
 
 //- Mobile
 strings.en[keys.LAYERS] = 'Layers';
@@ -222,6 +223,7 @@ strings.fr[keys.ANALYSIS_SELECT_TYPE_OPTIONS] = [
 strings.fr[keys.ANALYSIS_GROUP_RESTORATION] = 'Restoration potential for';
 strings.fr[keys.ANALYSIS_GROUP_SLOPE] = 'Potential according to';
 strings.fr[keys.ANALYSIS_GROUP_OTHER] = 'Other analysis';
+strings.fr[keys.ANALYSIS_RESTORATION_ERROR] = 'Area not meeting criteria for potential/No data';
 
 //- Mobile
 strings.fr[keys.LAYERS] = 'Layers';
@@ -340,6 +342,7 @@ strings.es[keys.ANALYSIS_SELECT_TYPE_OPTIONS] = [
 strings.es[keys.ANALYSIS_GROUP_RESTORATION] = 'Restoration potential for';
 strings.es[keys.ANALYSIS_GROUP_SLOPE] = 'Potential according to';
 strings.es[keys.ANALYSIS_GROUP_OTHER] = 'Other analysis';
+strings.es[keys.ANALYSIS_RESTORATION_ERROR] = 'Area not meeting criteria for potential/No data';
 
 //- Mobile
 strings.es[keys.LAYERS] = 'Layers';
@@ -458,6 +461,7 @@ strings.pt[keys.ANALYSIS_SELECT_TYPE_OPTIONS] = [
 strings.pt[keys.ANALYSIS_GROUP_RESTORATION] = 'Restoration potential for';
 strings.pt[keys.ANALYSIS_GROUP_SLOPE] = 'Potential according to';
 strings.pt[keys.ANALYSIS_GROUP_OTHER] = 'Other analysis';
+strings.pt[keys.ANALYSIS_RESTORATION_ERROR] = 'Area not meeting criteria for potential/No data';
 
 //- Mobile
 strings.pt[keys.LAYERS] = 'Layers';

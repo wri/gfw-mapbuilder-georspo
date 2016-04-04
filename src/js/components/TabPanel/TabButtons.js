@@ -47,37 +47,38 @@ export default class TabButtons extends Component {
 
   render () {
     const {settings, language} = this.context;
+    let {tableOfContentsVisible} = this.props;
 
     return (
-      <nav className='tab-buttons map-component'>
+      <nav className={`tab-buttons map-component ${tableOfContentsVisible ? '' : 'hidden'}`}>
         <ul className='tab-buttons__header'>
-          <li className={this.getClassName(LAYERS)} data-value={LAYERS} onClick={this.changeTab}>
+          <li className={this.getClassName(LAYERS)} data-value={LAYERS} onClick={this.changeTab} title={text[language][keys.LAYERS]}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: layersSvg }}/>
             <span className='tab-buttons__tab-label mobile-show'>
               {text[language][keys.LAYERS]}
             </span>
           </li>
-          <li className={this.getClassName(INFO_WINDOW)} data-value={INFO_WINDOW} onClick={this.changeTab}>
+          <li className={this.getClassName(INFO_WINDOW)} data-value={INFO_WINDOW} onClick={this.changeTab} title={text[language][keys.DATA]}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: dataSvg }}/>
             <span className='tab-buttons__tab-label mobile-show'>
               {text[language][keys.DATA]}
             </span>
           </li>
-          <li className={this.getClassName(ANALYSIS)} data-value={ANALYSIS} onClick={this.changeTab}>
+          <li className={this.getClassName(ANALYSIS)} data-value={ANALYSIS} onClick={this.changeTab} title={text[language][keys.ANALYZE]}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: analysisSvg }}/>
             <span className='tab-buttons__tab-label mobile-show'>
               {text[language][keys.ANALYZE]}
             </span>
           </li>
           {!settings.includeDocumentsTab ? null :
-            <li className={this.getClassName(DOCUMENTS)} data-value={DOCUMENTS} onClick={this.changeTab}>
+            <li className={this.getClassName(DOCUMENTS)} data-value={DOCUMENTS} onClick={this.changeTab} title={text[language][keys.DOCUMENTS]}>
               <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: documentsSvg }}/>
               <span className='tab-buttons__tab-label mobile-show'>
                 {text[language][keys.DOCS]}
               </span>
             </li>
           }
-          <li className={`${this.getClassName(MORE)} mobile-show`} data-value={MORE} onClick={this.changeTab}>
+          <li className={`${this.getClassName(MORE)} mobile-show`} data-value={MORE} onClick={this.changeTab} title={text[language][keys.MORE]}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: menuSvg }}/>
             <span className='tab-buttons__tab-label mobile-show'>
               {text[language][keys.MORE]}

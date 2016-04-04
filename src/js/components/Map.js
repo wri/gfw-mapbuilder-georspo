@@ -7,6 +7,7 @@ import SearchModal from 'components/Modals/SearchModal';
 import PrintModal from 'components/Modals/PrintModal';
 import {applyStateFromUrl} from 'utils/shareUtils';
 import TabView from 'components/TabPanel/TabView';
+import layerKeys from 'constants/LayerConstants';
 import arcgisUtils from 'esri/arcgis/utils';
 import mapActions from 'actions/MapActions';
 import {getUrlParams} from 'utils/params';
@@ -66,7 +67,6 @@ export default class Map extends Component {
       let {itemData} = response.itemInfo;
       itemData.operationalLayers.forEach((ol) => {
         // TODO:  filter out layers specific to selected language.
-        //
         // For dynamic layers, create a layer entry for each sublayer.
         if (ol.layerType === 'ArcGISMapServiceLayer') {
           ol.resourceInfo.layers.forEach(lyr => {
@@ -80,6 +80,7 @@ export default class Map extends Component {
               maxScale: lyr.maxScale,
               minScale: lyr.minScale,
               group: settings.webmapMenuName,
+              groupKey: layerKeys.GROUP_WEBMAP,
               label: lyr.name,
               opacity: 1,
               visible: visible,
@@ -90,6 +91,7 @@ export default class Map extends Component {
           settings.layers[language].push({
             id: ol.id,
             group: settings.webmapMenuName,
+            groupKey: layerKeys.GROUP_WEBMAP,
             label: ol.title,
             opacity: ol.opacity,
             visible: ol.visibility,
@@ -97,7 +99,7 @@ export default class Map extends Component {
           });
         }
       });
-      // console.log('all layers', settings.layers[language]);
+
       this.map = response.map;
       // Remove any basemap or reference layers so they don't interfere with the
       // basemap switcher in the layer panel works.
@@ -111,11 +113,10 @@ export default class Map extends Component {
       this.map.graphics.clear();
       this.map.infoWindow.set('popupWindow', false);
       //- Attach events I need for the info window
-      this.map.infoWindow.on('show, hide, set-features, selection-change', mapActions.mapUpdated);
+      this.map.infoWindow.on('show, hide, set-features, selection-change', mapActions.infoWindowUpdated);
       this.map.on('zoom-end', mapActions.mapUpdated);
 
       let updateEnd = this.map.on('update-end', () => {
-        console.log(`Map's update-end fired, all layers`, settings.layers[language]);
         updateEnd.remove();
         mapActions.createLayers(this.map, settings.layers[language]);
         mapActions.createLegend(this.map, settings.layers[language]);
@@ -146,8 +147,8 @@ export default class Map extends Component {
     return (
       <div className='map-container'>
         <div ref='map' className='map'>
-          <Controls />
-          <TabButtons activeTab={activeTab} />
+          <Controls {...this.state} />
+          <TabButtons activeTab={activeTab} {...this.state} />
           <TabView activeTab={activeTab} {...this.state} />
           <Legend />
         </div>

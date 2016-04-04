@@ -136,8 +136,8 @@ export default class Analysis extends Component {
       case analysisKeys.SLOPE:
         const {counts} = results;
         labels = counts.map((v, index) => text[language][keys.ANALYSIS_SLOPE_OPTION] + (index + 1));
-        const colors = settings.slopeAnalysisRestorationColors;
-        const tooltips = settings.slopeAnalysisRestorationOptions;
+        const colors = settings.slopeAnalysisPotentialColors;
+        const tooltips = settings.slopeAnalysisPotentialOptions;
         //- Need a new chart to handle these values correctly
         return <SlopeBarChart counts={counts} colors={colors} labels={labels} tooltips={tooltips} />;
       default:
@@ -157,17 +157,21 @@ export default class Analysis extends Component {
     }
 
     return (
-      <div className='analysis-results'>
+      <div className='analysis-results relative'>
         <Loader active={isLoading} />
-        <h3 className='analysis-results__title'>
-          {selectedFeature.getTitle ? selectedFeature.getTitle() : ''}
-        </h3>
-        <div className='analysis-results__select-label'>
-          {text[language][keys.ANALYSIS_SELECT_TYPE_LABEL]}
+        <div className='analysis-results__content custom-scroll'>
+          <h3 className='analysis-results__title'>
+            {selectedFeature.getTitle ? selectedFeature.getTitle() : ''}
+          </h3>
+          <div className='analysis-results__select-label'>
+            {text[language][keys.ANALYSIS_SELECT_TYPE_LABEL]}
+          </div>
+          <AnalysisTypeSelect {...this.props} />
+          {chart}
         </div>
-        <AnalysisTypeSelect {...this.props} />
-        {chart}
-        <ReportSubscribeButtons />
+        <div className='analysis-results__footer'>
+          <ReportSubscribeButtons />
+        </div>
       </div>
     );
   }
