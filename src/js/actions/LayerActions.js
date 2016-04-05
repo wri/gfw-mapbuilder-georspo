@@ -39,7 +39,6 @@ class LayerActions {
   }
 
   changeOpacity (parameters) {
-    console.log('LayerActions >>> changeOpacity');
     return parameters;
   }
 

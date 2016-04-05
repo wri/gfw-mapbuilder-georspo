@@ -40,7 +40,6 @@ export default class LayerCheckbox extends React.Component {
   }
 
   render() {
-    // console.log('checkbox render', this.props.layer.id);
     let {layer} = this.props;
     let {label, sublabel} = layer;
     // let {language} = this.context;
@@ -67,7 +66,6 @@ export default class LayerCheckbox extends React.Component {
   }
 
   showInfo () {
-    console.log('showInfo for layer', this.props.layer.id);
     let layer = this.props.layer;
     if (layer.disabled) { return; }
     modalActions.showLayerInfo(this.props.layer.id);
@@ -78,7 +76,6 @@ export default class LayerCheckbox extends React.Component {
     if (layer.disabled) { return; }
     if (layer.subId) {
       // TODO:  Update visible layers.
-      // console.log('sub layer', layer);
       if (this.props.checked) {
         layerActions.removeSubLayer(layer);
       } else {

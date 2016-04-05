@@ -9,7 +9,7 @@
     "babel": "babel src --out-dir build",
     "bundle": "r.js -o rjs.main.js; r.js -o rjs.report.js;",
     "test": "echo \"No tests  yet\" && exit 0",
-    "prerender": "npm run babel; gulp prerender;",
+    "prerender": "gulp prerender;",
     "postinstall": "bower install"
   },
   "repository": {

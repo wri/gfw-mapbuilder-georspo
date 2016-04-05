@@ -9,7 +9,6 @@ class ModalActions {
     let emptyObj = {};
     let layerInfo = layerInformation[layerId] || emptyObj;
     brApp.debug('ModalAction >>> layerInfo', layerInfo);
-    console.log(layerInfo);
     if (layerInfo !== emptyObj) {
       domClass.remove('layer-modal', 'hidden');
     }

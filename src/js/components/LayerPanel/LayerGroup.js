@@ -28,7 +28,7 @@ export default class LayerGroup extends React.Component {
 
     return (
       <div className='layer-category'>
-        <div className='layer-category-label pointer' onClick={this.toggle.bind(this)}>
+        <div className='layer-category-label pointer' onClick={this.toggle}>
           {this.props.label}
           <span className='active-layer-count'>({getCount(this.props.activeLayers, this.props.children)})</span>
           <span className='layer-category-caret'>{String.fromCharCode(active ? closeSymbolCode : openSymbolCode)}</span>
@@ -38,9 +38,11 @@ export default class LayerGroup extends React.Component {
     );
   }
 
-  toggle () {
-    mapActions.openTOCAccordion(this.props.groupKey);
-  }
+  toggle = () => {
+    const {activeTOCGroup, groupKey} = this.props;
+    let updatedKey = activeTOCGroup === groupKey ? '' : groupKey;
+    mapActions.openTOCAccordion(updatedKey);
+  };
 
 }
 

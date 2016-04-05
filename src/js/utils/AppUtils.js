@@ -6,7 +6,7 @@ const utils = {
   * @param {array} - items - Array to search
   * @param {string} - field - Property of unique identifier in object
   * @param {string} - value - value of the unique id
-  * @return {Any} - Return whatever object is matched or undefined for no match
+  * @return {Any} - Return whatever object is matched
   */
   getObject: (items, field, value) => {
     let obj;
@@ -17,6 +17,17 @@ const utils = {
       }
     });
     return obj;
+  },
+
+  /**
+  * Retrieve the object from a given array based on id and value
+  * @param {array} - items - Array to search
+  * @param {string} - field - Property of unique identifier in object
+  * @param {string} - value - value of the unique id
+  * @return {boolean} - Return true if object is matched
+  */
+  containsObject: (items, field, value) => {
+    return items.some(item => item[field] === value);
   },
 
   /**

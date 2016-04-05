@@ -24,14 +24,12 @@ export default {
   },
 
   getBasemapName: (basemapLayers) => {
-    console.log('getBasemapName', basemapLayers);
     let name;
     basemapLayers.forEach((layer) => {
       let url = layer.url.toLowerCase().replace(/_/g, '-');
       for ( let i = 0; i < basemapNames.length; i++ ) {
         if (url.indexOf(basemapNames[i]) > -1 ) {
           name = basemapNames[i];
-          console.log('getBasemapName found one!', name);
           break;
         }
       }

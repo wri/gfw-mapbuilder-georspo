@@ -27,7 +27,9 @@ export default class BasemapGroup extends Component {
   }
 
   toggle = () => {
-    mapActions.openTOCAccordion(layerKeys.GROUP_BASEMAP);
+    const {activeTOCGroup} = this.props;
+    const updatedKey = activeTOCGroup === layerKeys.GROUP_BASEMAP ? '' : layerKeys.GROUP_BASEMAP;
+    mapActions.openTOCAccordion(updatedKey);
   };
 
 }

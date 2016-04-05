@@ -1,8 +1,4 @@
-// import WaterStressLegend from 'components/LayerPanel/WaterStressLegend';
-// import LandCoverLegend from 'components/LayerPanel/LandCoverLegend';
-// import SedimentLegend from 'components/LayerPanel/SedimentLegend';
 import DensityDisplay from 'components/LayerPanel/DensityDisplay';
-// import WetlandsLegend from 'components/LayerPanel/WetlandsLegend';
 import LayerCheckbox from 'components/LayerPanel/LayerCheckbox';
 import FiresControls from 'components/LayerPanel/FiresControls';
 import LossControls from 'components/LayerPanel/LossControls';
@@ -12,9 +8,7 @@ import LandsatLayer from 'components/LayerPanel/LandsatLayer';
 import BasemapLayer from 'components/LayerPanel/BasemapLayer';
 import LayerKeys from 'constants/LayerConstants';
 import basemaps from 'esri/basemaps';
-// import DamsLegend from 'components/LayerPanel/DamsLegend';
-// import mapStore from 'stores/MapStore';
-// import layersHelper from 'js/helpers/LayersHelper';
+import utils from 'utils/AppUtils';
 import React, {
   Component,
   PropTypes
@@ -86,7 +80,8 @@ export default class LayerPanel extends Component {
     let groups = [];
     //- Get a unique list of groups
     layers.forEach((layer) => {
-      if (groups.indexOf(layer.group) === -1) {
+      if (!utils.containsObject(groups, 'key', layer.groupKey)) {
+      // if (groups.indexOf(layer.group) === -1) {
         groups.push({
           label: layer.group,
           key: layer.groupKey

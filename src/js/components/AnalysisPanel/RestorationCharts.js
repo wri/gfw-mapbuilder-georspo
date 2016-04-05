@@ -37,7 +37,6 @@ export default class RestorationCharts extends Component {
     const lcData = formatData(results.landCover, text[language][keys.ANALYSIS_RESTORATION_LC_LABELS], config.landCoverColors);
     const popData = formatData(results.population, config.populationClasses, config.populationColors);
     const tcData = formatData(results.treeCover, settings.treeCoverClasses, settings.treeCoverColors);
-    console.log(settings);
     //- Generate Charts if there is data
     if (slopeData.length && lcData.length && popData.length && tcData.length) {
       charts.makeRestorationBarChart(slopeChart, 'Slope', slopeData);
