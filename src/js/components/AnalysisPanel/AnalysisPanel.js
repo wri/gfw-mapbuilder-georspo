@@ -1,7 +1,8 @@
 import Instructions from 'components/AnalysisPanel/Instructions';
+import DrawTools from 'components/AnalysisPanel/DrawTools';
+import Upload from 'components/AnalysisPanel/Upload';
 import Analysis from 'components/AnalysisPanel/Analysis';
 import analysisKeys from 'constants/AnalysisConstants';
-import Tools from 'components/AnalysisPanel/Tools';
 import React, {
   Component,
   PropTypes
@@ -30,7 +31,7 @@ export default class AnalysisPanel extends Component {
     ) {
       content = <Analysis selectedFeature={selectedFeature} {...this.props} />;
     } else {
-      content = [<Instructions key='instructions' />, <Tools key='tools' />];
+      content = [<Instructions key='instructions' />, <DrawTools key='tools' />, <Upload key='upload'/>];
     }
 
     return (

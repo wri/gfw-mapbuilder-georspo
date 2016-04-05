@@ -5,10 +5,8 @@ import dispatcher from 'js/dispatcher';
 class ModalActions {
 
   showLayerInfo (layerId) {
-    brApp.debug('ModalActions >>> showLayerInfo');
     let emptyObj = {};
     let layerInfo = layerInformation[layerId] || emptyObj;
-    brApp.debug('ModalAction >>> layerInfo', layerInfo);
     if (layerInfo !== emptyObj) {
       domClass.remove('layer-modal', 'hidden');
     }
@@ -16,7 +14,6 @@ class ModalActions {
   }
 
   showShareModal (params) {
-    brApp.debug('ModalActions >>> showShareModal');
     //TODO: Generate a url from bitly that includes Map Store state, this way we can share params
     let url = document.location.href.split('?')[0];
     domClass.remove('share-modal', 'hidden');
@@ -24,7 +21,6 @@ class ModalActions {
   }
 
   showAlertsModal () {
-    brApp.debug('ModalActions >>> showAlertsModal');
     domClass.remove('alerts-modal', 'hidden');
   }
 
@@ -34,7 +30,6 @@ class ModalActions {
   }
 
   showBasicModal (title, text) {
-    brApp.debug('ModalActions >>> showBasicModal');
     this.dispatch({ title: title, text: text });
     domClass.remove('basic-modal', 'hidden');
   }
@@ -45,7 +40,6 @@ class ModalActions {
   }
 
   updateCanopyDensity (newDensity) {
-    brApp.debug('ModalActions >>> updateCanopyDensity');
     this.dispatch(newDensity);
   }
 

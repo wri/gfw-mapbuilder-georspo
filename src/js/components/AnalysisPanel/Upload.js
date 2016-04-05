@@ -5,7 +5,6 @@ import mapActions from 'actions/MapActions';
 import keys from 'constants/StringKeys';
 import {uploadConfig} from 'js/config';
 import Loader from 'components/Loader';
-import Draw from 'esri/toolbars/draw';
 import request from 'utils/request';
 import text from 'js/languages';
 import React, {
@@ -20,10 +19,6 @@ const TYPE = {
   GEOJSON: 'geojson'
 };
 
-const drawSvg = '<use xlink:href="#icon-analysis-draw" />';
-
-let toolbar;
-
 export default class Tools extends Component {
 
   static contextTypes = {
@@ -35,30 +30,9 @@ export default class Tools extends Component {
     super(props);
     this.state = {
       dndActive: false,
-      drawButtonActive: false,
       isUploading: false
     };
   }
-
-  componentWillReceiveProps() {
-    const {map} = this.context;
-    if (!toolbar && map.loaded) {
-      toolbar = new Draw(map);
-      toolbar.on('draw-end', (evt) => {
-        toolbar.deactivate();
-        this.setState({ drawButtonActive: false });
-        let graphic = geometryUtils.generateDrawnPolygon(evt.geometry);
-        map.graphics.add(graphic);
-      });
-    }
-  }
-
-  draw = () => {
-    toolbar.activate(Draw.FREEHAND_POLYGON);
-    this.setState({ drawButtonActive: true });
-    //- If the analysis modal is visible, hide it
-    mapActions.toggleAnalysisModal({ visible: false });
-  };
 
   //- DnD Functions
   prevent = (evt) => {
@@ -134,24 +108,7 @@ export default class Tools extends Component {
     const {language} = this.context;
 
     return (
-      <div className='analysis-instructions__draw'>
-        <h4 className='analysis-instructions__header'>
-          {text[language][keys.ANALYSIS_DRAW_HEADER]}
-        </h4>
-        <ol className='analysis-instructions__olist'>
-          {text[language][keys.ANALYSIS_DRAW_INSTRUCTIONS].map(this.renderInstructionList)}
-        </ol>
-        <div className='analysis-instructions__draw-icon-container'>
-          <svg className='analysis-instructions__draw-icon' dangerouslySetInnerHTML={{ __html: drawSvg }} />
-        </div>
-        <div
-          className={`fa-button gold analysis-instructions__draw-button ${this.state.drawButtonActive ? 'active' : ''}`}
-          onClick={this.draw}>
-          {text[language][keys.ANALYSIS_DRAW_BUTTON]}
-        </div>
-        <div className='analysis-instructions__separator'>
-          <span className='analysis-instructions__separator-text'>{text[language][keys.ANALYSIS_OR]}</span>
-        </div>
+      <div className='analysis-instructions__upload'>
         <h4 className='analysis-instructions__header--additional'>
           <span dangerouslySetInnerHTML={{ __html: text[language][keys.ANALYSIS_INSTRUCTION_ADDITIONAL] }} />
         </h4>
@@ -163,10 +120,9 @@ export default class Tools extends Component {
           onDragOver={this.prevent}
           onDrop={this.drop}
           name='upload'
-          ref='upload'
-          >
+          ref='upload'>
           <Loader active={this.state.isUploading} />
-          <span className='analysis-instructions__upload'>
+          <span className='analysis-instructions__upload-label'>
             {text[language][keys.ANALYSIS_SHAPEFILE_UPLOAD]}
           </span>
           <input type='file' name='file' ref='fileInput' />

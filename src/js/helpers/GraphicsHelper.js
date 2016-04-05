@@ -1,53 +1,8 @@
 import Polygon from 'esri/geometry/Polygon';
 import Point from 'esri/geometry/Point';
-import Symbols from 'helpers/Symbols';
 import Graphic from 'esri/graphic';
-// import KEYS from 'js/constants';
 
 const graphicsHelper = {
-  /**
-  * Add a feature to the map for the purpose of showing an active watershed for analysis
-  * @param {Graphic} feature - Esri Feature object returned from a query
-  */
-  addActiveWatershed: feature => {
-    let layer = brApp.map.getLayer(KEYS.watershedAnalysis);
-    if (layer) {
-      layer.add(new Graphic(
-        feature.geometry,
-        Symbols.getWatershedHoverSymbol(),
-        feature.attributes
-      ));
-    }
-  },
-
-  /**
-  * Add upstream watershed to the map
-  * @param {Feature} feature - Esri feature returned from GeoProcessor.submitJob
-  */
-  addUpstreamGraphic: feature => {
-    let layer = brApp.map.getLayer(KEYS.customAnalysis);
-    if (layer) {
-      layer.add(new Graphic(
-        feature.geometry,
-        Symbols.getUpstreamSymbol(),
-        feature.attributes
-      ));
-    }
-  },
-
-  /**
-  * Add a point to the map from the draw tool or lat long tool, this is for CustomArea Analysis ONLY
-  * @param {object} geometry - Esri Point geometry
-  */
-  addCustomPoint: geometry => {
-    let layer = brApp.map.getLayer(KEYS.customAnalysis);
-    if (layer) {
-      layer.add(new Graphic(
-        geometry,
-        Symbols.getSVGPointSymbol()
-      ));
-    }
-  },
 
   /**
   * Generate a point from the lat/lon inputs, or any valid lat/lon
@@ -71,35 +26,6 @@ const graphicsHelper = {
       null, //- No symbol necessary
       feature.attributes || {}
     );
-  },
-
-  /**
-  * Generate a Graphic from the provided feature JSON
-  * @param {object} feature - must have geometry and should have attributes
-  * @return {Graphic} - return an Esri Graphic object that can be used for future methods
-  */
-  makePoint: (geometry, attributes) => {
-    return new Graphic(
-      new Point(geometry),
-      Symbols.getSVGPointSymbol(),
-      attributes || null
-    );
-  },
-
-  /**
-  * Clear features from the custom analysis graphics layer
-  */
-  clearActiveWatersheds () {
-    let layer = brApp.map.getLayer(KEYS.watershedAnalysis);
-    if (layer) { layer.clear(); }
-  },
-
-  /**
-  * Clear features from the custom analysis graphics layer
-  */
-  clearCustomAreas () {
-    let layer = brApp.map.getLayer(KEYS.customAnalysis);
-    if (layer) { layer.clear(); }
   },
 
   /**

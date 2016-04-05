@@ -37,3 +37,9 @@ Please fork off of the `develop` branch and submit your pull requests to `develo
 * Add Documentation
 * Add some tests
 * Automate the inclusion of the built ArcGIS Module
+* Start looking into deploying the application in various formats
+  * Deploy a built javascript file with version number in the name (hosted on CDN)
+  * Deploy a built css file with version in the name (hosted on CDN)
+  * Deploy a build where the resources file comes from another location (also on some CDN)
+  * Deploy a build where the html file is hosted on a cdn with the resources file, with js and css files on another CDN
+  * Deploy a build in Portal with all assets coming from the app

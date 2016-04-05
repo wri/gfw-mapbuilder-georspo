@@ -17,8 +17,6 @@ class ModalStore {
   }
 
   showLayerInfo (layerInfo) {
-    brApp.debug('ModalStore >>> showLayerInfo');
-    console.log('layerInfo', layerInfo);
     this.modalLayerInfo = layerInfo;
   }
 

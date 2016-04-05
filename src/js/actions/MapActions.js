@@ -2,11 +2,13 @@ import dispatcher from 'js/dispatcher';
 import layerFactory from 'helpers/LayerFactory';
 import legendHelper from 'helpers/LegendHelper';
 import landsatHelper from 'helpers/LandsatHelper';
+import layerKeys from 'constants/LayerConstants';
 
 class MapActions {
   //- Action to notify the store the map has changed so we can rerender UI changes
   //- if necessary
   mapUpdated () { return {}; }
+
   infoWindowUpdated ({target}) {
     return (target && target.getSelectedFeature && target.getSelectedFeature()) || false;
   }
@@ -23,38 +25,29 @@ class MapActions {
     };
   }
 
-  toggleAnalysisModal (data) {
-    return data;
-  }
+  //- Straight through dispatches, all have the following format
+  /**
+  * @param {object} - data
+  * @param {boolean} - data.visible
+  * @return {object} - data
+  */
+  toggleAnalysisModal = (data) => data;
+  togglePrintModal = (data) => data;
+  toggleSearchModal = (data) => data;
+  toggleCanopyModal = (data) => data;
+  toggleTOCVisible = (data) => data;
 
-  togglePrintModal (data) {
-    return data;
-  }
-
-  toggleSearchModal (data) {
-    return data;
-  }
-
-  toggleCanopyModal (data) {
-    return data;
-  }
+  toggleLegendVisible = () => { return {}; };
 
   updateCanopyDensity (density) {
     return { density };
-  }
-
-  toggleTOCVisible (data) {
-    return data;
   }
 
   openTOCAccordion (groupKey) {
     return groupKey;
   }
 
-  toggleLegendVisible = () => { return {}; };
-
   createLayers (map, layers) {
-    brApp.debug('MapActions >>> createLayers');
     //- make sure there's only one entry for each dynamic layer
     let uniqueLayers = [];
     let existingIds = [];
@@ -75,8 +68,11 @@ class MapActions {
       // Check for Errors
       var layerErrors = addedLayers.filter(layer => layer.error);
       if (layerErrors.length > 0) { console.error(layerErrors); }
-      // Connect events to the layers that need them
-      // LayersHelper.connectLayerEvents();
+      //- Sort the layers, Some layers need to be put beneath the layers from the webmap
+      let landCoverLayers = layers.filter((layer) => layer.groupKey === layerKeys.GROUP_LC);
+      landCoverLayers.forEach((layer) => {
+        map.reorderLayer(map.getLayer(layer.id), layer.order);
+      });
     });
     //- Return the layers through the dispatcher so the mapstore can update visible layers
     return layers;

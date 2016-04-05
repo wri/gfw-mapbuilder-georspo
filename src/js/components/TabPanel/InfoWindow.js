@@ -51,7 +51,7 @@ export default class InfoWindow extends Component {
     }
     if ( selectedFeature ) {
       displayInfo = selectedFeature.infoTemplate || selectedFeature._graphicsLayer.infoTemplate;
-      visibleFields = displayInfo.info.fieldInfos.filter(f => f.visible);
+      visibleFields = displayInfo ? displayInfo.info.fieldInfos.filter(f => f.visible) : [];
       title = selectedFeature.getTitle();
       attributes = visibleFields.map(f => {
         let info = { label: f.label, value: selectedFeature.attributes[f.fieldName] };

@@ -1,8 +1,12 @@
 import ControlledModalWrapper from 'components/Modals/ControlledModalWrapper';
+import layerKeys from 'constants/LayerConstants';
+import rasterFuncs from 'utils/rasterFunctions';
 import {modalText, assetUrls} from 'js/config';
 import {loadJS, loadCSS} from 'utils/loaders';
 import mapActions from 'actions/MapActions';
 import keys from 'constants/StringKeys';
+import mapStore from 'stores/MapStore';
+import utils from 'utils/AppUtils';
 import text from 'js/languages';
 import React, {
   Component,
@@ -12,7 +16,9 @@ import React, {
 export default class CanopyModal extends Component {
 
   static contextTypes = {
-    language: PropTypes.string.isRequired
+    language: PropTypes.string.isRequired,
+    settings: PropTypes.object.isRequired,
+    map: PropTypes.object.isRequired
   };
 
   componentDidMount() {
@@ -34,15 +40,34 @@ export default class CanopyModal extends Component {
     }, console.error);
     loadCSS(assetUrls.ionCSS);
     loadCSS(assetUrls.ionSkinCSS);
-    // Update with the default values
-    // let defaults = mapStore.getState();
-    // LayersHelper.updateTreeCoverDefinitions(defaults.canopyDensity);
   }
 
-  sliderChanged (data) {
-    mapActions.updateCanopyDensity(data.from_value);
-    // LayersHelper.updateTreeCoverDefinitions(data.from_value);
+  componentDidUpdate(prevProps, prevState, prevContext) {
+    //- Set the default canopy density when the map loads
+    if (!prevContext.map.loaded && this.context.map.loaded) {
+      const {canopyDensity} = mapStore.getState();
+      this.updateTreeCoverDefinitions(canopyDensity);
+    }
   }
+
+  updateTreeCoverDefinitions = (density) => {
+    const {map, settings} = this.context;
+    if (map.loaded) {
+      //- Get the layer config, I am hardcoding en becuase I do not need anything language specific, just its config
+      let layerConfig = utils.getObject(settings.layers.en, 'id', layerKeys.TREE_COVER);
+      let renderingRule = rasterFuncs.getColormapRemap(layerConfig.colormap, [density, layerConfig.inputRange[1]], layerConfig.outputRange);
+      let layer = map.getLayer(layerKeys.TREE_COVER);
+
+      if (layer) {
+        layer.setRenderingRule(renderingRule);
+      }
+    }
+  };
+
+  sliderChanged = (data) => {
+    mapActions.updateCanopyDensity(data.from_value);
+    this.updateTreeCoverDefinitions(data.from_value);
+  };
 
   close = () => {
     mapActions.toggleCanopyModal({ visible: false });

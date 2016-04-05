@@ -120,7 +120,6 @@ export default class Map extends Component {
         updateEnd.remove();
         mapActions.createLayers(this.map, settings.layers[language]);
         mapActions.createLegend(this.map, settings.layers[language]);
-        // mapActions.mapUpdated();
       });
       //- When custom features are clicked, apply them to the info window, this will trigger above event
       this.map.graphics.on('click', (evt) => {
