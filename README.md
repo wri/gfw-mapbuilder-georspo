@@ -32,3 +32,8 @@ npm run dist
 
 ### Contributing
 Please fork off of the `develop` branch and submit your pull requests to `develop`.
+
+### TODO
+* Add Documentation
+* Add some tests
+* Automate the inclusion of the built ArcGIS Module
