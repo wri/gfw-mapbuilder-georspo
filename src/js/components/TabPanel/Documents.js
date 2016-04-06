@@ -1,4 +1,3 @@
-import keys from 'constants/StringKeys';
 import Loader from 'components/Loader';
 import request from 'utils/request';
 import text from 'js/languages';
@@ -21,7 +20,7 @@ const getLayerId = (language) => {
 const DocumentInstructions = ({language}) => {
   return (
     <div className='documents-instructions'>
-      {text[language][keys.DOCS_INSTRUCTIONS]}
+      {text[language].DOCS_INSTRUCTIONS}
     </div>
   );
 };
@@ -29,7 +28,7 @@ const DocumentInstructions = ({language}) => {
 const DocumentsNotAvailable = ({language}) => {
   return (
     <div className='documents-unavailable'>
-      {text[language][keys.DOCS_NOT_AVAILABLE]}
+      {text[language].DOCS_NOT_AVAILABLE}
     </div>
   );
 };
@@ -86,10 +85,10 @@ class DocumentResults extends Component {
     return (
       <table className='documents-table'>
         <thead>
-          <th>{text[language][keys.DOCS_TYPE]}</th>
-          <th>{text[language][keys.DOCS_AUTHOR]}</th>
-          <th>{text[language][keys.DOCS_YEAR]}</th>
-          <th>{text[language][keys.DOCS_PDF]}</th>
+          <th>{text[language].DOCS_TYPE}</th>
+          <th>{text[language].DOCS_AUTHOR}</th>
+          <th>{text[language].DOCS_YEAR}</th>
+          <th>{text[language].DOCS_PDF}</th>
         </thead>
         <tbody>
           {documents.map((doc) => {

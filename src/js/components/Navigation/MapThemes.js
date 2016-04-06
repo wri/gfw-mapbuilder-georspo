@@ -1,4 +1,3 @@
-import keys from 'constants/StringKeys';
 import text from 'js/languages';
 import React, {
   Component,
@@ -28,7 +27,7 @@ export default class MapThemes extends Component {
     return (
       <li className='app-header__nav-link app-header__nav-link--map-themes pointer'>
         <svg className='svg-icon__nav' dangerouslySetInnerHTML={{ __html: themesSvg }}/>
-        {text[language][keys.NAV_MAP_THEMES]}
+        {text[language].NAV_MAP_THEMES}
         <ul className='app-header__theme-list shadow'>
           {themes.map(this.renderThemeList)}
         </ul>

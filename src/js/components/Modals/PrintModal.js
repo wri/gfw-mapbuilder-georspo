@@ -2,7 +2,6 @@ import ControlledModalWrapper from 'components/Modals/ControlledModalWrapper';
 import PrintTemplate from 'esri/tasks/PrintTemplate';
 import mapActions from 'actions/MapActions';
 import PrintDijit from 'esri/dijit/Print';
-import keys from 'constants/StringKeys';
 import text from 'js/languages';
 import React, { Component, PropTypes } from 'react';
 
@@ -73,7 +72,7 @@ export default class PrintModal extends Component {
       <ControlledModalWrapper onClose={this.close}>
         {!settings.country ? undefined :
           <div className='print-dijit-label'>
-            {text[language][keys.PRINT_BUTTON_LABEL]}
+            {text[language].PRINT_BUTTON_LABEL}
           </div>
         }
         <div ref='print' className='print-dijit' />

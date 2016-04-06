@@ -1,6 +1,5 @@
 import analysisKeys from 'constants/AnalysisConstants';
 import mapActions from 'actions/MapActions';
-import keys from 'constants/StringKeys';
 import text from 'js/languages';
 import React, {
   Component,
@@ -18,7 +17,7 @@ export default class AnalysisTypeSelect extends Component {
     super(props);
 
     const {language, settings} = context;
-    this.options = text[language][keys.ANALYSIS_SELECT_TYPE_OPTIONS];
+    this.options = text[language].ANALYSIS_SELECT_TYPE_OPTIONS;
     //- Remove options not included based on settings
     this.options = this.options.filter((option) => {
       switch (option.value) {
@@ -44,7 +43,7 @@ export default class AnalysisTypeSelect extends Component {
         this.options.unshift({
           value: restorationOption.id,
           label: restorationOption.label,
-          group: keys.ANALYSIS_GROUP_RESTORATION
+          group: analysisKeys.ANALYSIS_GROUP_RESTORATION
         });
       });
     }

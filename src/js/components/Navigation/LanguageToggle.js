@@ -1,5 +1,4 @@
 import appActions from 'actions/AppActions';
-import keys from 'constants/StringKeys';
 import text from 'js/languages';
 import React, {
   Component,
@@ -62,7 +61,7 @@ export default class LanguageToggle extends Component {
     return (
       <li className='app-header__nav-link app-header__nav-link--language pointer'>
         <svg className='svg-icon__nav' dangerouslySetInnerHTML={{ __html: languageSvg }}/>
-        {text[language][keys.NAV_LANGUAGE]}
+        {text[language].NAV_LANGUAGE}
         <ul className='app-header__language-list shadow pointer'>
           {languageButtons}
         </ul>

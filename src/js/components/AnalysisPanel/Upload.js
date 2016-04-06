@@ -2,7 +2,6 @@ import scaleUtils from 'esri/geometry/scaleUtils';
 import geometryUtils from 'utils/geometryUtils';
 import graphicsUtils from 'esri/graphicsUtils';
 import mapActions from 'actions/MapActions';
-import keys from 'constants/StringKeys';
 import {uploadConfig} from 'js/config';
 import Loader from 'components/Loader';
 import request from 'utils/request';
@@ -110,7 +109,7 @@ export default class Tools extends Component {
     return (
       <div className='analysis-instructions__upload'>
         <h4 className='analysis-instructions__header--additional'>
-          <span dangerouslySetInnerHTML={{ __html: text[language][keys.ANALYSIS_INSTRUCTION_ADDITIONAL] }} />
+          <span dangerouslySetInnerHTML={{ __html: text[language].ANALYSIS_INSTRUCTION_ADDITIONAL}} />
         </h4>
         <form
           className={`analysis-instructions__upload-container mobile-hide ${this.state.dndActive ? 'active' : ''}`}
@@ -123,7 +122,7 @@ export default class Tools extends Component {
           ref='upload'>
           <Loader active={this.state.isUploading} />
           <span className='analysis-instructions__upload-label'>
-            {text[language][keys.ANALYSIS_SHAPEFILE_UPLOAD]}
+            {text[language].ANALYSIS_SHAPEFILE_UPLOAD}
           </span>
           <input type='file' name='file' ref='fileInput' />
           <input type='hidden' name='publishParameters' value='{}' />

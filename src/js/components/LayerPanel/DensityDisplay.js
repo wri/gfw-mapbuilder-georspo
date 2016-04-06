@@ -1,5 +1,4 @@
 import mapActions from 'actions/MapActions';
-import keys from 'constants/StringKeys';
 import text from 'js/languages';
 import React, {
   Component,
@@ -21,9 +20,9 @@ export default class DensityDisplay extends Component {
 
     return (
       <div className='tree-cover-canopy-display'>
-        <span className='canopy-label'>{text[language][keys.DENSITY_FIRST]}</span>
+        <span className='canopy-label'>{text[language].DENSITY_FIRST}</span>
         <span className='canopy-button pointer' onClick={showModal}>{this.props.canopyDensity}</span>
-        <span className='canopy-label'>{text[language][keys.DENSITY_SECOND]}</span>
+        <span className='canopy-label'>{text[language].DENSITY_SECOND}</span>
       </div>
     );
   }

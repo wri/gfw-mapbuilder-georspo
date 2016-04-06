@@ -1,7 +1,6 @@
 import ReportSubscribeButtons from 'components/Shared/ReportSubscribe';
 import DateFormats from 'constants/DateFormats';
 import dojoDate from 'dojo/date/locale';
-import keys from 'constants/StringKeys';
 import dojoNumber from 'dojo/number';
 import text from 'js/languages';
 import React, {
@@ -99,10 +98,10 @@ export default class InfoWindow extends Component {
         </div>
         <div className={`infoWindow__instructions ${selectedFeature ? 'hidden' : ''}`}>
           <h4 className='analysis-instructions__header'>
-            {text[language][keys.INFO_WINDOW_INSTRUCTION_HEADER]}
+            {text[language].INFO_WINDOW_INSTRUCTION_HEADER}
           </h4>
           <ol className='analysis-instructions__olist'>
-            {text[language][keys.INFO_WINDOW_INSTRUCTION_LIST].map(this.renderInstructionList)}
+            {text[language].INFO_WINDOW_INSTRUCTION_LIST.map(this.renderInstructionList)}
           </ol>
           <div className='analysis-instructions__draw-icon-container'>
             <svg className='analysis-instructions__draw-icon' dangerouslySetInnerHTML={{ __html: polygonSvg }} />

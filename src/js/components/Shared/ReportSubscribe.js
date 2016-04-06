@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import keys from 'constants/StringKeys';
 import mapStore from 'stores/MapStore';
 import appUtils from 'utils/AppUtils';
 import text from 'js/languages';
@@ -34,10 +33,10 @@ export default class ReportSubscribeButtons extends Component {
     return (
       <div className='report-sub-buttons'>
         <button className='fa-button gold' onClick={this.printReport}>
-          {text[language][keys.PRINT_REPORT]}
+          {text[language].PRINT_REPORT}
         </button>
         <button className='fa-button gold'>
-          {text[language][keys.SUBSCRIBE]}
+          {text[language].SUBSCRIBE}
         </button>
       </div>
     );

@@ -1,6 +1,5 @@
 import LanguageToggle from 'components/Navigation/LanguageToggle';
 import MapThemes from 'components/Navigation/MapThemes';
-import keys from 'constants/StringKeys';
 import text from 'js/languages';
 import React, {
   Component,
@@ -41,20 +40,20 @@ export default class Navigation extends Component {
           <li className='app-header__nav-link pointer'>
             <a target='_blank' href={settings.aboutLinkUrl}>
               <svg className='svg-icon__nav' dangerouslySetInnerHTML={{ __html: aboutSvg }}/>
-              {text[language][keys.NAV_ABOUT]}
+              {text[language].NAV_ABOUT}
             </a>
           </li>
           <li className='app-header__nav-link pointer'>
             <a target='_blank' href={settings.downloadLinkUrl}>
               <svg className='svg-icon__nav' dangerouslySetInnerHTML={{ __html: downloadSvg }}/>
-              {text[language][keys.NAV_DOWNLOAD]}
+              {text[language].NAV_DOWNLOAD}
             </a>
           </li>
           {ThemeComponent}
           <li className='app-header__nav-link pointer'>
             <a target='_blank'>
               <svg className='svg-icon__nav' dangerouslySetInnerHTML={{ __html: myGFWSvg }}/>
-              {text[language][keys.NAV_MY_GFW]}
+              {text[language].NAV_MY_GFW}
             </a>
           </li>
           {LanguageComponent}

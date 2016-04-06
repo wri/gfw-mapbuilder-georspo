@@ -1,6 +1,5 @@
-import keys from 'constants/StringKeys';
-import text from 'js/languages';
 import React, {PropTypes} from 'react';
+import text from 'js/languages';
 
 const LossGainBadge = (props, context) => {
   const {lossCounts, gainCounts} = props;
@@ -12,14 +11,14 @@ const LossGainBadge = (props, context) => {
   return (
     <div className='results__loss-gain'>
       <div className='results__loss-badge'>
-        <div className='results__loss-gain--label'>{text[language][keys.ANALYSIS_TOTAL_LOSS_LABEL]}</div>
-        <div className='results__loss-gain--range'>{text[language][keys.ANALYSIS_TOTAL_LOSS_RANGE]}</div>
+        <div className='results__loss-gain--label'>{text[language].ANALYSIS_TOTAL_LOSS_LABEL}</div>
+        <div className='results__loss-gain--range'>{text[language].ANALYSIS_TOTAL_LOSS_RANGE}</div>
         <span className='results__loss--count'>{lossTotal}</span>
         <span className='results__loss--unit'>Ha</span>
       </div>
       <div className='results__gain-badge'>
-        <div className='results__loss-gain--label'>{text[language][keys.ANALYSIS_TOTAL_GAIN_LABEL]}</div>
-        <div className='results__loss-gain--range'>{text[language][keys.ANALYSIS_TOTAL_GAIN_RANGE]}</div>
+        <div className='results__loss-gain--label'>{text[language].ANALYSIS_TOTAL_GAIN_LABEL}</div>
+        <div className='results__loss-gain--range'>{text[language].ANALYSIS_TOTAL_GAIN_RANGE}</div>
         <span className='results__gain--count'>{gainTotal}</span>
         <span className='results__gain--unit'>Ha</span>
       </div>

@@ -5,7 +5,6 @@ import performAnalysis from 'utils/performAnalysis';
 import Polygon from 'esri/geometry/Polygon';
 import {getUrlParams} from 'utils/params';
 import {analysisConfig} from 'js/config';
-import keys from 'constants/StringKeys';
 import esriRequest from 'esri/request';
 import locale from 'dojo/date/locale';
 // import template from 'utils/template';
@@ -207,27 +206,27 @@ const runAnalysis = function runAnalysis (params, feature) {
     const totalLoss = results.lossCounts.reduce((a, b) => a + b, 0);
     const totalGain = results.gainCounts.reduce((a, b) => a + b, 0);
     //- Generate chart for Tree Cover Loss
-    const name = text[lang][keys.ANALYSIS_TC_CHART_NAME];
+    const name = text[lang].ANALYSIS_TC_CHART_NAME;
     const colors = analysisConfig[analysisKeys.TC_LOSS].colors;
     const tcLossNode = document.getElementById('tc-loss');
     const series = [{ name: name, data: results.lossCounts }];
     charts.makeSimpleBarChart(tcLossNode, lossLabels, colors, series);
     //- Generate content for Loss and Gain Badges
     //- Loss
-    document.querySelector('#total-loss-badge .results__loss-gain--label').innerHTML = text[lang][keys.ANALYSIS_TOTAL_LOSS_LABEL];
-    document.querySelector('#total-loss-badge .results__loss-gain--range').innerHTML = text[lang][keys.ANALYSIS_TOTAL_LOSS_RANGE];
+    document.querySelector('#total-loss-badge .results__loss-gain--label').innerHTML = text[lang].ANALYSIS_TOTAL_LOSS_LABEL;
+    document.querySelector('#total-loss-badge .results__loss-gain--range').innerHTML = text[lang].ANALYSIS_TOTAL_LOSS_RANGE;
     document.querySelector('.results__loss--count').innerHTML = totalLoss;
     document.getElementById('total-loss-badge').classList.remove('hidden');
     //- Gain
-    document.querySelector('#total-gain-badge .results__loss-gain--label').innerHTML = text[lang][keys.ANALYSIS_TOTAL_GAIN_LABEL];
-    document.querySelector('#total-gain-badge .results__loss-gain--range').innerHTML = text[lang][keys.ANALYSIS_TOTAL_GAIN_RANGE];
+    document.querySelector('#total-gain-badge .results__loss-gain--label').innerHTML = text[lang].ANALYSIS_TOTAL_GAIN_LABEL;
+    document.querySelector('#total-gain-badge .results__loss-gain--range').innerHTML = text[lang].ANALYSIS_TOTAL_GAIN_RANGE;
     document.querySelector('.results__gain--count').innerHTML = totalGain;
     document.getElementById('total-gain-badge').classList.remove('hidden');
   });
   //- Land Cover with Loss Analysis
   performAnalysis(analysisKeys.LC_LOSS, feature.geometry, tcd).then((results) => {
     const configuredColors = analysisConfig[analysisKeys.LC_LOSS].colors;
-    const labels = text[lang][keys.ANALYSIS_LC_LABELS];
+    const labels = text[lang].ANALYSIS_LC_LABELS;
     const node = document.getElementById('lc-loss');
     const { counts, encoder } = results;
     const Xs = encoder.A;
@@ -267,7 +266,7 @@ const runAnalysis = function runAnalysis (params, feature) {
   //- Intact Forest with Loss Analysis
   performAnalysis(analysisKeys.INTACT_LOSS, feature.geometry, tcd).then((results) => {
     const configuredColors = analysisConfig[analysisKeys.INTACT_LOSS].colors;
-    const labels = text[lang][keys.ANALYSIS_IFL_LABELS];
+    const labels = text[lang].ANALYSIS_IFL_LABELS;
     const node = document.getElementById('intact-loss');
     const { counts, encoder } = results;
     const Xs = encoder.A;
@@ -290,8 +289,8 @@ const runAnalysis = function runAnalysis (params, feature) {
     const node = document.getElementById('lc-composition');
     const series = charts.formatCompositionAnalysis({
       colors: analysisConfig[analysisKeys.LCC].colors,
-      name: text[lang][keys.ANALYSIS_LCC_CHART_NAME],
-      labels: text[lang][keys.ANALYSIS_LC_LABELS],
+      name: text[lang].ANALYSIS_LCC_CHART_NAME,
+      labels: text[lang].ANALYSIS_LC_LABELS,
       counts: results.counts
     });
 
@@ -299,10 +298,10 @@ const runAnalysis = function runAnalysis (params, feature) {
   });
   //- Fires Analysis
   performAnalysis(analysisKeys.FIRES, feature.geometry, tcd).then((results) => {
-    document.querySelector('.results__fires-pre').innerHTML = text[lang][keys.ANALYSIS_FIRES_PRE];
+    document.querySelector('.results__fires-pre').innerHTML = text[lang].ANALYSIS_FIRES_PRE;
     document.querySelector('.results__fires-count').innerHTML = results.fireCount;
-    document.querySelector('.results__fires-active').innerHTML = text[lang][keys.ANALYSIS_FIRES_ACTIVE];
-    document.querySelector('.results__fires-post').innerHTML = text[lang][keys.ANALYSIS_FIRES_POST];
+    document.querySelector('.results__fires-active').innerHTML = text[lang].ANALYSIS_FIRES_ACTIVE;
+    document.querySelector('.results__fires-post').innerHTML = text[lang].ANALYSIS_FIRES_POST;
     document.getElementById('fires-badge').classList.remove('hidden');
   });
 };

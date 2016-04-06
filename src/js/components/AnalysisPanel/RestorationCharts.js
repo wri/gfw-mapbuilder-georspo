@@ -1,8 +1,7 @@
 //- These charts have a dependency of highcharts
-import text from 'js/languages';
-import keys from 'constants/StringKeys';
 import React, {PropTypes, Component} from 'react';
 import charts from 'utils/charts';
+import text from 'js/languages';
 
 const formatData = (counts, labels, colors) => {
   return labels.map((label, index) => {
@@ -34,7 +33,7 @@ export default class RestorationCharts extends Component {
     const {language, settings} = this.context;
     //- Format the data into series highcharts can easily consume
     const slopeData = formatData(results.slope, settings.slopeClasses, settings.slopeColors);
-    const lcData = formatData(results.landCover, text[language][keys.ANALYSIS_RESTORATION_LC_LABELS], config.landCoverColors);
+    const lcData = formatData(results.landCover, text[language].ANALYSIS_RESTORATION_LC_LABELS, config.landCoverColors);
     const popData = formatData(results.population, config.populationClasses, config.populationColors);
     const tcData = formatData(results.treeCover, settings.treeCoverClasses, settings.treeCoverColors);
     //- Generate Charts if there is data
@@ -52,7 +51,7 @@ export default class RestorationCharts extends Component {
     const {language} = this.context;
     const {hasErrors} = this.state; // ANALYSIS_RESTORATION_ERROR
 
-    return hasErrors ? <div className='restoration-error'>{text[language][keys.ANALYSIS_RESTORATION_ERROR]}</div> :
+    return hasErrors ? <div className='restoration-error'>{text[language].ANALYSIS_RESTORATION_ERROR}</div> :
       (
         <div className='restoration-charts'>
           <div ref='slopeChart' className='analysis__chart-container' />

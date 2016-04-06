@@ -1,6 +1,5 @@
 import tabKeys from 'constants/TabViewConstants';
 import mapActions from 'actions/MapActions';
-import keys from 'constants/StringKeys';
 import text from 'js/languages';
 import React, {Component, PropTypes} from 'react';
 
@@ -54,38 +53,38 @@ export default class TabButtons extends Component {
         <ul className='tab-buttons__header'>
           <li className={this.getClassName(LAYERS)} data-value={LAYERS} onClick={this.changeTab}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: layersSvg }}/>
-            <span className='tab-tooltip'>{text[language][keys.LAYERS]}</span>
+            <span className='tab-tooltip'>{text[language].LAYERS}</span>
             <span className='tab-buttons__tab-label mobile-show'>
-              {text[language][keys.LAYERS]}
+              {text[language].LAYERS}
             </span>
           </li>
           <li className={this.getClassName(INFO_WINDOW)} data-value={INFO_WINDOW} onClick={this.changeTab}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: dataSvg }}/>
-            <span className='tab-tooltip'>{text[language][keys.DATA]}</span>
+            <span className='tab-tooltip'>{text[language].DATA}</span>
             <span className='tab-buttons__tab-label mobile-show'>
-              {text[language][keys.DATA]}
+              {text[language].DATA}
             </span>
           </li>
-          <li className={this.getClassName(ANALYSIS)} data-value={ANALYSIS} onClick={this.changeTab} title={text[language][keys.ANALYZE]}>
+          <li className={this.getClassName(ANALYSIS)} data-value={ANALYSIS} onClick={this.changeTab}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: analysisSvg }}/>
-            <span className='tab-tooltip'>{text[language][keys.ANALYZE]}</span>
+            <span className='tab-tooltip'>{text[language].ANALYZE}</span>
             <span className='tab-buttons__tab-label mobile-show'>
-              {text[language][keys.ANALYZE]}
+              {text[language].ANALYZE}
             </span>
           </li>
           {!settings.includeDocumentsTab ? null :
-            <li className={this.getClassName(DOCUMENTS)} data-value={DOCUMENTS} onClick={this.changeTab} title={text[language][keys.DOCUMENTS]}>
+            <li className={this.getClassName(DOCUMENTS)} data-value={DOCUMENTS} onClick={this.changeTab}>
               <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: documentsSvg }}/>
-              <span className='tab-tooltip'>{text[language][keys.DOCUMENTS]}</span>
+              <span className='tab-tooltip'>{text[language].DOCUMENTS}</span>
               <span className='tab-buttons__tab-label mobile-show'>
-                {text[language][keys.DOCS]}
+                {text[language].DOCS}
               </span>
             </li>
           }
           <li className={`${this.getClassName(MORE)} mobile-show`} data-value={MORE} onClick={this.changeTab}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: menuSvg }}/>
             <span className='tab-buttons__tab-label mobile-show'>
-              {text[language][keys.MORE]}
+              {text[language].MORE}
             </span>
           </li>
         </ul>

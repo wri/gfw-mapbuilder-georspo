@@ -2,7 +2,6 @@ import ControlledModalWrapper from 'components/Modals/ControlledModalWrapper';
 import graphicsUtils from 'esri/graphicsUtils';
 import mapActions from 'actions/MapActions';
 import ComboBox from 'dijit/form/ComboBox';
-import keys from 'constants/StringKeys';
 import Memory from 'dojo/store/Memory';
 import request from 'utils/request';
 import text from 'js/languages';
@@ -34,7 +33,7 @@ export default class SearchModal extends Component {
     searchDijit = new ComboBox({
       store: searchStore,
       searchAttr: 'name',
-      placeholder: text[language][keys.SEARCH],
+      placeholder: text[language].SEARCH,
       onKeyUp: (evt) => {
         let {webmapInfo} = this.context;
         language = this.context.language;

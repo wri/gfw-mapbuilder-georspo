@@ -4,7 +4,6 @@ import rasterFuncs from 'utils/rasterFunctions';
 import {modalText, assetUrls} from 'js/config';
 import {loadJS, loadCSS} from 'utils/loaders';
 import mapActions from 'actions/MapActions';
-import keys from 'constants/StringKeys';
 import mapStore from 'stores/MapStore';
 import utils from 'utils/AppUtils';
 import text from 'js/languages';
@@ -78,7 +77,7 @@ export default class CanopyModal extends Component {
 
     return (
       <ControlledModalWrapper onClose={this.close}>
-        <div className='canopy-modal-title'>{text[language][keys.CANOPY_MODAL_TEXT]}</div>
+        <div className='canopy-modal-title'>{text[language].CANOPY_MODAL_TEXT}</div>
         <div className='trees'>
           <div className='tree-icon' />
           <div className='forest-icon' />

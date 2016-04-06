@@ -1,4 +1,3 @@
-import keys from 'constants/StringKeys';
 import text from 'js/languages';
 import React, {
   Component,
@@ -25,16 +24,16 @@ export default class Instructions extends Component {
     return (
       <div className='analysis-instructions'>
         <h4 className='analysis-instructions__header'>
-          {text[language][keys.ANALYSIS_INSTRUCTION_HEADER]}
+          {text[language].ANALYSIS_INSTRUCTION_HEADER}
         </h4>
         <ol className='analysis-instructions__olist'>
-          {text[language][keys.ANALYSIS_INSTRUCTION_LIST].map(this.renderInstructionList)}
+          {text[language].ANALYSIS_INSTRUCTION_LIST.map(this.renderInstructionList)}
         </ol>
         <div className='analysis-instructions__draw-icon-container'>
           <svg className='analysis-instructions__draw-icon' dangerouslySetInnerHTML={{ __html: polygonSvg }} />
         </div>
         <div className='analysis-instructions__separator'>
-          <span className='analysis-instructions__separator-text'>{text[language][keys.ANALYSIS_OR]}</span>
+          <span className='analysis-instructions__separator-text'>{text[language].ANALYSIS_OR}</span>
         </div>
       </div>
     );

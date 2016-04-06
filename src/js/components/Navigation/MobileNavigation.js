@@ -1,5 +1,4 @@
 import appActions from 'actions/AppActions';
-import keys from 'constants/StringKeys';
 import text from 'js/languages';
 import React, {
   Component,
@@ -83,17 +82,17 @@ export default class Navigation extends Component {
         <ul className='mobile-menu__nav-list'>
           <li className='mobile-menu__nav-link pointer'>
             <a target='_blank' href={settings.aboutLinkUrl}>
-              {text[language][keys.NAV_ABOUT]}
+              {text[language].NAV_ABOUT}
             </a>
           </li>
           <li className='mobile-menu__nav-link pointer'>
             <a target='_blank' href={settings.downloadLinkUrl}>
-              {text[language][keys.NAV_DOWNLOAD]}
+              {text[language].NAV_DOWNLOAD}
             </a>
           </li>
           <li className='mobile-menu__nav-link pointer'>
             <a target='_blank'>
-              {text[language][keys.NAV_MY_GFW]}
+              {text[language].NAV_MY_GFW}
             </a>
           </li>
           {ThemeComponent}

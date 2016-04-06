@@ -11,7 +11,6 @@ import analysisKeys from 'constants/AnalysisConstants';
 import performAnalysis from 'utils/performAnalysis';
 import tabKeys from 'constants/TabViewConstants';
 import {analysisConfig} from 'js/config';
-import keys from 'constants/StringKeys';
 import Loader from 'components/Loader';
 import Deferred from 'dojo/Deferred';
 import request from 'utils/request';
@@ -111,21 +110,21 @@ export default class Analysis extends Component {
         return <LossGainBadge lossCounts={results.lossCounts} gainCounts={results.gainCounts} />;
       case analysisKeys.LCC:
         return <CompositionPieChart
-          name={text[language][keys.ANALYSIS_LCC_CHART_NAME]}
+          name={text[language].ANALYSIS_LCC_CHART_NAME}
           counts={results.counts}
           colors={analysisConfig[type].colors}
-          labels={text[language][keys.ANALYSIS_LC_LABELS]} />;
+          labels={text[language].ANALYSIS_LC_LABELS} />;
       case analysisKeys.TC_LOSS:
         return <BarChart
-          name={text[language][keys.ANALYSIS_TC_CHART_NAME]}
+          name={text[language].ANALYSIS_TC_CHART_NAME}
           counts={results.counts}
           colors={analysisConfig[type].colors}
           labels={lossLabels} />;
       case analysisKeys.LC_LOSS:
       case analysisKeys.BIO_LOSS:
       case analysisKeys.INTACT_LOSS:
-        labels = (type === analysisKeys.LC_LOSS ? text[language][keys.ANALYSIS_LC_LABELS] :
-          (type === analysisKeys.INTACT_LOSS ? text[language][keys.ANALYSIS_IFL_LABELS] : analysisConfig[type].labels));
+        labels = (type === analysisKeys.LC_LOSS ? text[language].ANALYSIS_LC_LABELS :
+          (type === analysisKeys.INTACT_LOSS ? text[language].ANALYSIS_IFL_LABELS : analysisConfig[type].labels));
         return <TotalLossChart
           counts={results.counts}
           encoder={results.encoder}
@@ -135,7 +134,7 @@ export default class Analysis extends Component {
           colors={analysisConfig[type].colors} />;
       case analysisKeys.SLOPE:
         const {counts} = results;
-        labels = counts.map((v, index) => text[language][keys.ANALYSIS_SLOPE_OPTION] + (index + 1));
+        labels = counts.map((v, index) => text[language].ANALYSIS_SLOPE_OPTION + (index + 1));
         const colors = settings.slopeAnalysisPotentialColors;
         const tooltips = settings.slopeAnalysisPotentialOptions;
         //- Need a new chart to handle these values correctly
@@ -164,7 +163,7 @@ export default class Analysis extends Component {
             {selectedFeature.getTitle ? selectedFeature.getTitle() : ''}
           </h3>
           <div className='analysis-results__select-label'>
-            {text[language][keys.ANALYSIS_SELECT_TYPE_LABEL]}
+            {text[language].ANALYSIS_SELECT_TYPE_LABEL}
           </div>
           <AnalysisTypeSelect {...this.props} />
           {chart}

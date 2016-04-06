@@ -1,6 +1,5 @@
 import geometryUtils from 'utils/geometryUtils';
 import mapActions from 'actions/MapActions';
-import keys from 'constants/StringKeys';
 import Draw from 'esri/toolbars/draw';
 import text from 'js/languages';
 import React, {
@@ -58,10 +57,10 @@ export default class Tools extends Component {
     return (
       <div className='analysis-instructions__draw'>
         <h4 className='analysis-instructions__header'>
-          {text[language][keys.ANALYSIS_DRAW_HEADER]}
+          {text[language].ANALYSIS_DRAW_HEADER}
         </h4>
         <ol className='analysis-instructions__olist'>
-          {text[language][keys.ANALYSIS_DRAW_INSTRUCTIONS].map(this.renderInstructionList)}
+          {text[language].ANALYSIS_DRAW_INSTRUCTIONS.map(this.renderInstructionList)}
         </ol>
         <div className='analysis-instructions__draw-icon-container'>
           <svg className='analysis-instructions__draw-icon' dangerouslySetInnerHTML={{ __html: drawSvg }} />
@@ -69,10 +68,10 @@ export default class Tools extends Component {
         <div
           className={`fa-button gold analysis-instructions__draw-button ${this.state.drawButtonActive ? 'active' : ''}`}
           onClick={this.draw}>
-          {text[language][keys.ANALYSIS_DRAW_BUTTON]}
+          {text[language].ANALYSIS_DRAW_BUTTON}
         </div>
         <div className='analysis-instructions__separator'>
-          <span className='analysis-instructions__separator-text'>{text[language][keys.ANALYSIS_OR]}</span>
+          <span className='analysis-instructions__separator-text'>{text[language].ANALYSIS_OR}</span>
         </div>
       </div>
     );

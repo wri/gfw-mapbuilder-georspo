@@ -1,6 +1,4 @@
 import analysisKeys from 'constants/AnalysisConstants';
-// import layerKeys from 'constants/LayerConstants';
-// import stringKeys from 'constants/StringKeys';
 
 const analysisImageService = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer';
 
