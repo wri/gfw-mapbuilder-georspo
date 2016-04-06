@@ -29,6 +29,7 @@ export default {
   documentsDirectory: 'https://wri-public-data.s3.amazonaws.com/forest_atlas/cmr/doc_pdf/',
   documentsMapserver: 'http://54.88.79.102/arcgis/rest/services/CMR/documents_administratifs/MapServer',
   //- Layers/Analysis Settings
+  iso: '',
   activeFires: true,
   intactForests: true,
   aboveGroundBiomass: true,
@@ -197,6 +198,13 @@ export default {
       label: 'Land cover',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
       layerIds: [10]
+    }, {
+      id: 'MASK',
+      order: 100,
+      type: 'dynamic',
+      url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
+      opacity: 0.35,
+      layerIds: [0]
     }],
     fr: [{
       id: 'TREE_COVER_LOSS',
@@ -256,6 +264,13 @@ export default {
       group: 'Land Cover',
       groupKey: layerKeys.GROUP_LC,
       label: 'Land cover',
+      layerIds: [0]
+    }, {
+      id: 'MASK',
+      order: 100,
+      type: 'dynamic',
+      url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
+      opacity: 0.35,
       layerIds: [0]
     }],
     es: [{
@@ -317,6 +332,13 @@ export default {
       groupKey: layerKeys.GROUP_LC,
       label: 'Land cover',
       layerIds: [0]
+    }, {
+      id: 'MASK',
+      order: 100,
+      type: 'dynamic',
+      url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
+      opacity: 0.35,
+      layerIds: [0]
     }],
     pt: [{
       id: 'TREE_COVER_LOSS',
@@ -376,6 +398,13 @@ export default {
       group: 'Land Cover',
       groupKey: layerKeys.GROUP_LC,
       label: 'Land cover',
+      layerIds: [0]
+    }, {
+      id: 'MASK',
+      order: 100,
+      type: 'dynamic',
+      url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
+      opacity: 0.35,
       layerIds: [0]
     }]
   },

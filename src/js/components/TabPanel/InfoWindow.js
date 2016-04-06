@@ -1,11 +1,15 @@
 import ReportSubscribeButtons from 'components/Shared/ReportSubscribe';
 import DateFormats from 'constants/DateFormats';
 import dojoDate from 'dojo/date/locale';
+import keys from 'constants/StringKeys';
 import dojoNumber from 'dojo/number';
+import text from 'js/languages';
 import React, {
   Component,
   PropTypes
 } from 'react';
+
+const polygonSvg = '<use xlink:href="#icon-analysis-poly" />';
 
 export default class InfoWindow extends Component {
 
@@ -29,16 +33,23 @@ export default class InfoWindow extends Component {
     }
   }
 
-  previous () {
+  previous = () => {
     this.props.map.infoWindow.selectPrevious();
-  }
+  };
 
-  next () {
+  next = () => {
     this.props.map.infoWindow.selectNext();
-  }
+  };
+
+  renderInstructionList = (instruction, index) => {
+    return (
+      <li key={index}>{instruction}</li>
+    );
+  };
 
   render () {
-    let {infoWindow} = this.props.map;
+    const {infoWindow} = this.props.map;
+    const {language} = this.context;
     let count = 0;
     let selectedFeature, selectedIndex = 0, title = '';
     let attributes = [];
@@ -69,23 +80,32 @@ export default class InfoWindow extends Component {
         }
         return info;
       });
-    } else {
-      attributes = [{ label: 'No features selected. Click the map to make a selection.', value: '' }];
     }
 
     return (
       <div className='infoWindow relative'>
-        <div className='infoWindow__content'>
-          <div className={`feature-controls ${selectedFeature ? '' : 'hidden'}`}>
+        <div className={`infoWindow__content ${selectedFeature ? '' : 'hidden'}`}>
+          <div className='feature-controls'>
             <span>{count} features selected.</span>
-            <span className={`arrow right ${selectedIndex < count - 1 ? '' : 'disabled'}`} onClick={this.next.bind(this)}>Next</span>
-            <span className={`arrow left ${selectedIndex > 0 ? '' : 'disabled'}`} onClick={this.previous.bind(this)}>Prev</span>
+            <span className={`arrow right ${selectedIndex < count - 1 ? '' : 'disabled'}`} onClick={this.next}>Next</span>
+            <span className={`arrow left ${selectedIndex > 0 ? '' : 'disabled'}`} onClick={this.previous}>Prev</span>
           </div>
-          <div className={`feature-name ${selectedFeature ? '' : 'hidden'}`}>
+          <div className='feature-name'>
             {title}
           </div>
           <div className='attribute-display custom-scroll'>
             {attributes.map(this.attribute)}
+          </div>
+        </div>
+        <div className={`infoWindow__instructions ${selectedFeature ? 'hidden' : ''}`}>
+          <h4 className='analysis-instructions__header'>
+            {text[language][keys.INFO_WINDOW_INSTRUCTION_HEADER]}
+          </h4>
+          <ol className='analysis-instructions__olist'>
+            {text[language][keys.INFO_WINDOW_INSTRUCTION_LIST].map(this.renderInstructionList)}
+          </ol>
+          <div className='analysis-instructions__draw-icon-container'>
+            <svg className='analysis-instructions__draw-icon' dangerouslySetInnerHTML={{ __html: polygonSvg }} />
           </div>
         </div>
         <div className='infoWindow__footer'>

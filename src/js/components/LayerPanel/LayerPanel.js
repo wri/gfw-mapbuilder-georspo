@@ -21,16 +21,6 @@ export default class LayerPanel extends Component {
     settings: PropTypes.object.isRequired
   };
 
-  constructor (props) {
-    super(props);
-    // mapStore.listen(this.storeUpdated.bind(this));
-    // this.state = mapStore.getState();
-  }
-
-  storeUpdated () {
-    // this.setState(mapStore.getState());
-  }
-
   renderLayerGroup = (group, layers) => {
     return (
       <LayerGroup
@@ -78,8 +68,8 @@ export default class LayerPanel extends Component {
     const layers = settings.layers && settings.layers[language] || [];
     const extraBasemaps = settings.basemaps && settings.basemaps[language] || [];
     let groups = [];
-    //- Get a unique list of groups
-    layers.forEach((layer) => {
+    //- Get a unique list of groups, first remove layers that dont belong to a group
+    layers.filter(layer => layer.group).forEach((layer) => {
       if (!utils.containsObject(groups, 'key', layer.groupKey)) {
       // if (groups.indexOf(layer.group) === -1) {
         groups.push({

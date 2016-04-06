@@ -42,7 +42,7 @@ export default class TabButtons extends Component {
 
   getClassName = (id) => {
     const {activeTab} = this.props;
-    return `tab-buttons__tab pointer ${activeTab === id ? 'active' : ''}`;
+    return `tab-buttons__tab pointer relative ${activeTab === id ? 'active' : ''}`;
   };
 
   render () {
@@ -52,20 +52,23 @@ export default class TabButtons extends Component {
     return (
       <nav className={`tab-buttons map-component ${tableOfContentsVisible ? '' : 'hidden'}`}>
         <ul className='tab-buttons__header'>
-          <li className={this.getClassName(LAYERS)} data-value={LAYERS} onClick={this.changeTab} title={text[language][keys.LAYERS]}>
+          <li className={this.getClassName(LAYERS)} data-value={LAYERS} onClick={this.changeTab}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: layersSvg }}/>
+            <span className='tab-tooltip'>{text[language][keys.LAYERS]}</span>
             <span className='tab-buttons__tab-label mobile-show'>
               {text[language][keys.LAYERS]}
             </span>
           </li>
-          <li className={this.getClassName(INFO_WINDOW)} data-value={INFO_WINDOW} onClick={this.changeTab} title={text[language][keys.DATA]}>
+          <li className={this.getClassName(INFO_WINDOW)} data-value={INFO_WINDOW} onClick={this.changeTab}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: dataSvg }}/>
+            <span className='tab-tooltip'>{text[language][keys.DATA]}</span>
             <span className='tab-buttons__tab-label mobile-show'>
               {text[language][keys.DATA]}
             </span>
           </li>
           <li className={this.getClassName(ANALYSIS)} data-value={ANALYSIS} onClick={this.changeTab} title={text[language][keys.ANALYZE]}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: analysisSvg }}/>
+            <span className='tab-tooltip'>{text[language][keys.ANALYZE]}</span>
             <span className='tab-buttons__tab-label mobile-show'>
               {text[language][keys.ANALYZE]}
             </span>
@@ -73,12 +76,13 @@ export default class TabButtons extends Component {
           {!settings.includeDocumentsTab ? null :
             <li className={this.getClassName(DOCUMENTS)} data-value={DOCUMENTS} onClick={this.changeTab} title={text[language][keys.DOCUMENTS]}>
               <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: documentsSvg }}/>
+              <span className='tab-tooltip'>{text[language][keys.DOCUMENTS]}</span>
               <span className='tab-buttons__tab-label mobile-show'>
                 {text[language][keys.DOCS]}
               </span>
             </li>
           }
-          <li className={`${this.getClassName(MORE)} mobile-show`} data-value={MORE} onClick={this.changeTab} title={text[language][keys.MORE]}>
+          <li className={`${this.getClassName(MORE)} mobile-show`} data-value={MORE} onClick={this.changeTab}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: menuSvg }}/>
             <span className='tab-buttons__tab-label mobile-show'>
               {text[language][keys.MORE]}

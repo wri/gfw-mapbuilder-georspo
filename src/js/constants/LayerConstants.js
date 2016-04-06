@@ -4,6 +4,7 @@ export default {
   LAND_COVER: 'LAND_COVER',
   GAIN: 'GAIN',
   LOSS: 'LOSS',
+  MASK: 'MASK',
   GROUP_LCD: 'GROUP_LCD',
   GROUP_LC: 'GROUP_LC',
   GROUP_WEBMAP: 'GROUP_WEBMAP',

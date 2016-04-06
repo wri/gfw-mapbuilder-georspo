@@ -115,16 +115,29 @@ export default class Map extends Component {
       //- Attach events I need for the info window
       this.map.infoWindow.on('show, hide, set-features, selection-change', mapActions.infoWindowUpdated);
       this.map.on('zoom-end', mapActions.mapUpdated);
+      //- When custom features are clicked, apply them to the info window, this will trigger above event
+      this.map.graphics.on('click', (evt) => {
+        evt.stopPropagation();
+        this.map.infoWindow.setFeatures([evt.graphic]);
+      });
 
       let updateEnd = this.map.on('update-end', () => {
         updateEnd.remove();
         mapActions.createLayers(this.map, settings.layers[language]);
         mapActions.createLegend(this.map, settings.layers[language]);
-      });
-      //- When custom features are clicked, apply them to the info window, this will trigger above event
-      this.map.graphics.on('click', (evt) => {
-        evt.stopPropagation();
-        this.map.infoWindow.setFeatures([evt.graphic]);
+
+        //- Apply the mask layer defintion if present
+        if (settings.iso && settings.iso !== '') {
+          let maskLayer = this.map.getLayer(layerKeys.MASK);
+          if (maskLayer) {
+            let layerDefs = [];
+            maskLayer.visibleLayers.forEach((layerNum) => {
+              layerDefs[layerNum] = `code_iso3 <> '${encodeURIComponent(settings.iso)}'`;
+            });
+            maskLayer.setLayerDefinitions(layerDefs);
+            maskLayer.show();
+          }
+        }
       });
       //- Load any shared state if available
       applyStateFromUrl(this.map, getUrlParams(location.search));

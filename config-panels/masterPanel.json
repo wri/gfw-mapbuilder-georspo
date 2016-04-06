@@ -135,6 +135,12 @@
   }, {
     "category": "Layers/Analysis Settings",
     "fields": [{
+      "type": "string",
+      "fieldName": "iso",
+      "label": "ISO Code for your mask layer",
+      "tooltip": "Please enter the 3-digit ISO code of your country atlas",
+      "placeholder": "e.g. CMR or COD"
+    }, {
       "type": "boolean",
       "fieldName": "activeFires",
       "tooltip": "This will include/exclude this layer from the report, analysis, and layer list",

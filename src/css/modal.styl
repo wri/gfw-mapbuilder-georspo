@@ -68,20 +68,18 @@
   width 320px
 
 @media (min-width: $mobileBreak)
-  .analysis-modal-container .modal
-    width 850px
-
-  .analysis-modal-container .modal-content
-    display flex
-    & > div
-      flex 1 0 0
-
-  .analysis-instructions__header--additional
-    font-size inherit
-    margin 5px 0
-
-  .analysis-instructions__separator
-    display none
+  .analysis-modal-container
+    & .modal
+      width 850px
+    & .modal-content
+      display flex
+      & > div
+        flex 1 0 0
+    & .analysis-instructions__header--additional
+      font-size inherit
+      margin 5px 0
+    & .analysis-instructions__separator
+      display none
 
 //- Share Modal
 #share-modal

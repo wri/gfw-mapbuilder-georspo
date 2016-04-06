@@ -31,6 +31,12 @@ strings.en[keys.DOCS_TYPE] = 'Type';
 strings.en[keys.DOCS_AUTHOR] = 'Author';
 strings.en[keys.DOCS_YEAR] = 'Year';
 strings.en[keys.DOCS_PDF] = 'PDF';
+//- Info Window
+strings.en[keys.INFO_WINDOW_INSTRUCTION_HEADER] = 'Select a shape on the map';
+strings.en[keys.INFO_WINDOW_INSTRUCTION_LIST] = [
+  'Use the layers tab to turn on a data layer',
+  'Select a shape on the map'
+];
 //- Analysis
 strings.en[keys.ANALYSIS_INSTRUCTION_HEADER] = 'Analyze a shape on the map';
 strings.en[keys.ANALYSIS_INSTRUCTION_LIST] = [
@@ -126,17 +132,6 @@ strings.en[keys.SEARCH] = 'Search';
 
 
 //- NOTE: French
-// strings.fr[keys.LAND_COVER_LABEL] = 'Land cover';
-// strings.fr[keys.ACTIVE_FIRES_LABEL] = 'Active fires';
-// strings.fr[keys.ACTIVE_FIRES_SUB_LABEL] = '(daily, 1km, global, NASA)';
-// strings.fr[keys.TREE_COVER_LABEL] = 'Tree cover';
-// strings.fr[keys.TREE_COVER_SUB_LABEL] = '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)';
-// strings.fr[keys.GAIN_LABEL] = 'Tree cover gain';
-// strings.fr[keys.GAIN_SUB_LABEL] = '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)';
-// strings.fr[keys.LOSS_LABEL] = 'Tree cover loss';
-// strings.fr[keys.LOSS_SUB_LABEL] = '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)';
-// strings.fr[keys.IFL_LABEL] = 'Intact forest loss';
-// strings.fr[keys.CARBON_LABEL] = 'Above ground biomass';
 //- Header
 strings.fr[keys.NAV_ABOUT] = 'About';
 strings.fr[keys.NAV_DOWNLOAD] = 'Download Data';
@@ -150,6 +145,12 @@ strings.fr[keys.DOCS_TYPE] = 'Type';
 strings.fr[keys.DOCS_AUTHOR] = 'Author';
 strings.fr[keys.DOCS_YEAR] = 'Year';
 strings.fr[keys.DOCS_PDF] = 'PDF';
+//- Info Window
+strings.fr[keys.INFO_WINDOW_INSTRUCTION_HEADER] = 'Select a shape on the map';
+strings.fr[keys.INFO_WINDOW_INSTRUCTION_LIST] = [
+  'Use the layers tab to turn on a data layer',
+  'Select a shape on the map'
+];
 //- Analysis
 strings.fr[keys.ANALYSIS_INSTRUCTION_HEADER] = 'Analyze a shape on the map';
 strings.fr[keys.ANALYSIS_INSTRUCTION_LIST] = [
@@ -245,17 +246,6 @@ strings.fr[keys.SEARCH] = 'Search';
 
 
 //- NOTE: Spanish
-// strings.es[keys.LAND_COVER_LABEL] = 'Land cover';
-// strings.es[keys.ACTIVE_FIRES_LABEL] = 'Active fires';
-// strings.es[keys.ACTIVE_FIRES_SUB_LABEL] = '(daily, 1km, global, NASA)';
-// strings.es[keys.TREE_COVER_LABEL] = 'Tree cover';
-// strings.es[keys.TREE_COVER_SUB_LABEL] = '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)';
-// strings.es[keys.GAIN_LABEL] = 'Tree cover gain';
-// strings.es[keys.GAIN_SUB_LABEL] = '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)';
-// strings.es[keys.LOSS_LABEL] = 'Tree cover loss';
-// strings.es[keys.LOSS_SUB_LABEL] = '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)';
-// strings.es[keys.IFL_LABEL] = 'Intact forest loss';
-// strings.es[keys.CARBON_LABEL] = 'Above ground biomass';
 //- Header
 strings.es[keys.NAV_ABOUT] = 'About';
 strings.es[keys.NAV_DOWNLOAD] = 'Download Data';
@@ -269,6 +259,12 @@ strings.es[keys.DOCS_TYPE] = 'Type';
 strings.es[keys.DOCS_AUTHOR] = 'Author';
 strings.es[keys.DOCS_YEAR] = 'Year';
 strings.es[keys.DOCS_PDF] = 'PDF';
+//- Info Window
+strings.es[keys.INFO_WINDOW_INSTRUCTION_HEADER] = 'Select a shape on the map';
+strings.es[keys.INFO_WINDOW_INSTRUCTION_LIST] = [
+  'Use the layers tab to turn on a data layer',
+  'Select a shape on the map'
+];
 //- Analysis
 strings.es[keys.ANALYSIS_INSTRUCTION_HEADER] = 'Analyze a shape on the map';
 strings.es[keys.ANALYSIS_INSTRUCTION_LIST] = [
@@ -363,17 +359,6 @@ strings.es[keys.SUBSCRIBE] = 'Subscribe';
 strings.es[keys.SEARCH] = 'Search';
 
 //- NOTE: Portugese
-// strings.pt[keys.LAND_COVER_LABEL] = 'Land cover';
-// strings.pt[keys.ACTIVE_FIRES_LABEL] = 'Active fires';
-// strings.pt[keys.ACTIVE_FIRES_SUB_LABEL] = '(daily, 1km, global, NASA)';
-// strings.pt[keys.TREE_COVER_LABEL] = 'Tree cover';
-// strings.pt[keys.TREE_COVER_SUB_LABEL] = '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)';
-// strings.pt[keys.GAIN_LABEL] = 'Tree cover gain';
-// strings.pt[keys.GAIN_SUB_LABEL] = '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)';
-// strings.pt[keys.LOSS_LABEL] = 'Tree cover loss';
-// strings.pt[keys.LOSS_SUB_LABEL] = '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)';
-// strings.pt[keys.IFL_LABEL] = 'Intact forest loss';
-// strings.pt[keys.CARBON_LABEL] = 'Above ground biomass';
 //- Header
 strings.pt[keys.NAV_ABOUT] = 'About';
 strings.pt[keys.NAV_DOWNLOAD] = 'Download Data';
@@ -387,6 +372,12 @@ strings.pt[keys.DOCS_TYPE] = 'Type';
 strings.pt[keys.DOCS_AUTHOR] = 'Author';
 strings.pt[keys.DOCS_YEAR] = 'Year';
 strings.pt[keys.DOCS_PDF] = 'PDF';
+//- Info Window
+strings.pt[keys.INFO_WINDOW_INSTRUCTION_HEADER] = 'Select a shape on the map';
+strings.pt[keys.INFO_WINDOW_INSTRUCTION_LIST] = [
+  'Use the layers tab to turn on a data layer',
+  'Select a shape on the map'
+];
 //- Analysis
 strings.pt[keys.ANALYSIS_INSTRUCTION_HEADER] = 'Analyze a shape on the map';
 strings.pt[keys.ANALYSIS_INSTRUCTION_LIST] = [
