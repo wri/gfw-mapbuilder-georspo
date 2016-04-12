@@ -31,9 +31,14 @@ export default class LossControls extends Component {
     });
   }
 
-  componentDidUpdate () {
-    if (this.props.lossOptions.length && this.context.map.loaded) {
-      let {lossFromSelectIndex, lossToSelectIndex, canopyDensity} = this.props;
+  componentDidUpdate (prevProps) {
+    //- If the options are ready and something has changed
+    let {lossFromSelectIndex, lossToSelectIndex, canopyDensity} = this.props;
+    if (this.props.lossOptions.length &&
+        (prevProps.lossFromSelectIndex !== lossFromSelectIndex ||
+        prevProps.lossToSelectIndex !== lossToSelectIndex ||
+        prevProps.canopyDensity !== canopyDensity)
+    ) {
       let layer = this.context.map.getLayer(layerKeys.TREE_COVER_LOSS);
       let fromYear = lossOptions[lossFromSelectIndex].label;
       let toYear = lossOptions[lossToSelectIndex].label;

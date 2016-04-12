@@ -46,7 +46,6 @@ export default class CanopyModal extends Component {
     if (!prevContext.map.loaded && this.context.map.loaded) {
       const {canopyDensity} = mapStore.getState();
       this.updateTreeCoverDefinitions(canopyDensity);
-      this.updateTreeCoverLossDefinitions(canopyDensity);
     }
   }
 
@@ -64,24 +63,10 @@ export default class CanopyModal extends Component {
     }
   };
 
-  updateTreeCoverLossDefinitions = (density) => {
-    const {lossFromSelectIndex, lossToSelectIndex, lossOptions} = mapStore.getState();
-    const {map} = this.context;
-    if (map.loaded && lossOptions.length) {
-      let fromYear = lossOptions[lossFromSelectIndex].label;
-      let toYear = lossOptions[lossToSelectIndex].label;
-      let renderingRule = rasterFuncs.buildCanopyFunction(fromYear, toYear, density);
-      let layer = map.getLayer(layerKeys.TREE_COVER_LOSS);
-      if (layer) {
-        layer.setRenderingRule(renderingRule);
-      }
-    }
-  };
-
   sliderChanged = (data) => {
-    mapActions.updateCanopyDensity(data.from_value);
     this.updateTreeCoverDefinitions(data.from_value);
-    this.updateTreeCoverLossDefinitions(data.from_value);
+    //- Update the store, this will allow any other layers interested in this information to react
+    mapActions.updateCanopyDensity(data.from_value);
   };
 
   close = () => {
