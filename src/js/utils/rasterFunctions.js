@@ -24,6 +24,18 @@ export default {
       },
       'variableName': 'Raster'
     });
+  },
+
+  buildCanopyFunction: (minYear, maxYear, miniumCanopyDensity) => {
+    return new RasterFunction({
+      'rasterFunction': 'ForestCover_lossyear_density',
+      'rasterFunctionArguments': {
+        'min_year': +minYear,
+        'max_year': +maxYear,
+        'min_density': miniumCanopyDensity,
+        'max_density': 100
+      }
+    });
   }
 
 };

@@ -22,8 +22,9 @@ class MapStore {
     this.landsatVisible = false;
     this.dynamicLayers = {};
     this.activeAnalysisType = analysisKeys.TC_LOSS;
-    this.lossFromSelectIndex = 0;
-    this.lossToSelectIndex = layerPanelText.lossOptions.length - 1;
+    this.lossFromSelectIndex = 0; // Will get initialized when the data is fetched
+    this.lossToSelectIndex = 0;
+    this.lossOptions = [];
     this.firesSelectIndex = layerPanelText.firesOptions.length - 1;
     this.tableOfContentsVisible = true;
     this.activeTOCGroup = layerKeys.GROUP_WEBMAP;
@@ -55,8 +56,8 @@ class MapStore {
       removeSubLayer: layerActions.removeSubLayer,
       addAll: layerActions.addAll,
       removeAll: layerActions.removeAll,
-      changeLossToTimeline: layerActions.changeLossToTimeline,
-      changeLossFromTimeline: layerActions.changeLossFromTimeline,
+      setLossOptions: layerActions.setLossOptions,
+      updateLossTimeline: layerActions.updateLossTimeline,
       changeOpacity: layerActions.changeOpacity
     });
   }
@@ -163,12 +164,13 @@ class MapStore {
     this.activeTOCGroup = groupKey;
   }
 
-  changeLossFromTimeline (activeIndex) {
-    this.lossFromSelectIndex = activeIndex;
+  setLossOptions (lossOptionsData) {
+    this.lossOptions = lossOptionsData;
   }
 
-  changeLossToTimeline (activeIndex) {
-    this.lossToSelectIndex = activeIndex;
+  updateLossTimeline (payload) {
+    this.lossFromSelectIndex = payload.from;
+    this.lossToSelectIndex = payload.to;
   }
 
   changeOpacity (parameters) {

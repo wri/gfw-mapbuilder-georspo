@@ -1,6 +1,5 @@
 import layerKeys from 'constants/LayerConstants';
 import rasterFuncs from 'utils/rasterFunctions';
-import utils from 'utils/AppUtils';
 import resources from 'resources';
 
 let LayersHelper = {
@@ -43,21 +42,6 @@ let LayersHelper = {
     //   firesLayer.visibleLayers.forEach(val => { defs[val] = queryString; });
     //   firesLayer.setLayerDefinitions(defs, dontRefresh);
     // }
-  },
-
-  /**
-  * @param {Layer} layer - tree cover loss layer
-  * @param {string} lang - current language, used to look up layer info
-  * @param {number} fromValue - selected index of first tree cover loss select
-  * @param {number} toValue - selected index of second tree cover loss select
-  */
-  updateLossLayerDefinitions (layer, lang, fromValue, toValue) {
-    let layerConfig = utils.getObject(resources.layers[lang], 'id', layer.id);
-    let rasterFunction = rasterFuncs.getColormapRemap(layerConfig.colormap, [fromValue, (toValue + 1)], layerConfig.outputRange);
-
-    if (layer) {
-      layer.setRenderingRule(rasterFunction);
-    }
   },
 
   /**

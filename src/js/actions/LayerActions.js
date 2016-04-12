@@ -30,12 +30,15 @@ class LayerActions {
     return selectedIndex;
   }
 
-  changeLossFromTimeline (selectedIndex) {
-    return selectedIndex;
+  updateLossTimeline (data) {
+    return {
+      from: data.fromSelectedIndex,
+      to: data.toSelectedIndex
+    };
   }
 
-  changeLossToTimeline (selectedIndex) {
-    return selectedIndex;
+  setLossOptions (lossOptionsData) {
+    return lossOptionsData;
   }
 
   changeOpacity (parameters) {

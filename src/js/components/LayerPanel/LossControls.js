@@ -1,6 +1,7 @@
 import layerActions from 'actions/LayerActions';
 import layerUtils from 'utils/layerUtils';
-import LayersHelper from 'helpers/LayersHelper';
+import layerKeys from 'constants/LayerConstants';
+import rasterFuncs from 'utils/rasterFunctions';
 import React, { Component, PropTypes } from 'react';
 
 let lossOptions = [];
@@ -12,15 +13,6 @@ export default class LossControls extends Component {
     settings: PropTypes.object.isRequired
   };
 
-  constructor (props) {
-    super(props);
-    this.state = {
-      loaded: false,
-      lossFromSelectIndex: null,
-      lossToSelectIndex: null
-    };
-  }
-
   componentDidMount () {
     let url = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear/ImageServer';
     layerUtils.getLayerMetadata(url).then((results) => {
@@ -29,32 +21,39 @@ export default class LossControls extends Component {
       for ( let i = min; i <= max; i++ ) {
         lossOptions.push({ label: 2000 + i + '', value: i });
       }
-      this.setState({
-        loaded: true,
-        lossFromSelectIndex: lossOptions.length - 2,
-        lossToSelectIndex: lossOptions.length - 1
+      //- Update the defaults to be the last year
+      layerActions.updateLossTimeline({
+        fromSelectedIndex: lossOptions.length - 2,
+        toSelectedIndex: lossOptions.length - 1
       });
+      //- Set the options in the store so others can use it
+      layerActions.setLossOptions(lossOptions);
     });
   }
 
   componentDidUpdate () {
-    if (this.state.loaded && this.context.map.loaded) {
-      let {lossFromSelectIndex, lossToSelectIndex} = this.state;
-      let layer = this.context.map.getLayer(this.props.layerId);
-      let {language} = this.context;
+    if (this.props.lossOptions.length && this.context.map.loaded) {
+      let {lossFromSelectIndex, lossToSelectIndex, canopyDensity} = this.props;
+      let layer = this.context.map.getLayer(layerKeys.TREE_COVER_LOSS);
+      let fromYear = lossOptions[lossFromSelectIndex].label;
+      let toYear = lossOptions[lossToSelectIndex].label;
+      let renderingRule = rasterFuncs.buildCanopyFunction(fromYear, toYear, canopyDensity);
       if (layer) {
-        LayersHelper.updateLossLayerDefinitions(layer, language, lossFromSelectIndex, lossToSelectIndex);
+        layer.setRenderingRule(renderingRule);
       }
     }
   }
 
-  renderSelects () {
-    let selects = <div className='timeline-container loss flex'>loading...</div>;
-    if ( this.props.loaded && this.state.loaded ) {
-      let fromItem = lossOptions[this.state.lossFromSelectIndex];
-      let toItem = lossOptions[this.state.lossToSelectIndex];
+  render () {
+    if (lossOptions.length === 0) {
+      return <div className='timeline-container loss flex'>loading...</div>;
+    }
 
-      selects = <div className='timeline-container loss flex'>
+    let fromItem = lossOptions[this.props.lossFromSelectIndex];
+    let toItem = lossOptions[this.props.lossToSelectIndex];
+
+    return (
+      <div className='timeline-container loss flex'>
         <div className='loss-from relative'>
           <select onChange={this.fromChanged.bind(this)} className='pointer' value={fromItem.value}>
             {lossOptions.map(this.optionsMap('from'))}
@@ -69,21 +68,14 @@ export default class LossControls extends Component {
           <div className='loss-to-button fa-button sml white'>{toItem.label}</div>
         </div>
       </div>
-    }
-    return selects;
-  }
-
-  render () {
-    return (
-      this.renderSelects()
     );
   }
 
   optionsMap (selectType) {
     // Disable options in the 'from' select that are greater than the selected value in the 'to' select
     // and vice versa, disable 'to' options less than the selected value in the 'from' select
-    let fromMax = lossOptions[this.state.lossToSelectIndex].value;
-    let toMin = lossOptions[this.state.lossFromSelectIndex].value;
+    let fromMax = lossOptions[this.props.lossToSelectIndex].value;
+    let toMin = lossOptions[this.props.lossFromSelectIndex].value;
     return (item, index) => {
       let disabled = selectType === 'from' ? item.value >= fromMax : item.value <= toMin;
       return <option key={index} value={item.value} disabled={disabled}>{item.label}</option>;
@@ -91,29 +83,21 @@ export default class LossControls extends Component {
   }
 
   fromChanged (evt) {
-    if (evt.target.selectedIndex !== this.state.lossFromSelectIndex) {
-      this.setState({
-        loaded: true,
-        lossFromSelectIndex: evt.target.selectedIndex,
-        lossToSelectIndex: this.state.lossToSelectIndex
+    if (evt.target.selectedIndex !== this.props.lossFromSelectIndex) {
+      layerActions.updateLossTimeline({
+        fromSelectedIndex: evt.target.selectedIndex,
+        toSelectedIndex: this.props.lossToSelectIndex
       });
-      layerActions.changeLossFromTimeline(evt.target.selectedIndex);
     }
   }
 
   toChanged (evt) {
-    if (evt.target.selectedIndex !== this.state.lossToSelectIndex) {
-      this.setState({
-        loaded: true,
-        lossFromSelectIndex: this.state.lossFromSelectIndex,
-        lossToSelectIndex: evt.target.selectedIndex
+    if (evt.target.selectedIndex !== this.props.lossToSelectIndex) {
+      layerActions.updateLossTimeline({
+        fromSelectedIndex: this.props.lossFromSelectIndex,
+        toSelectedIndex: evt.target.selectedIndex
       });
-      layerActions.changeLossToTimeline(evt.target.selectedIndex);
     }
   }
 
 }
-
-LossControls.propTypes = {
-  layerId: PropTypes.string.isRequired
-};
