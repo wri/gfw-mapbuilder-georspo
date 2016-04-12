@@ -35,7 +35,7 @@ export default class AnalysisPanel extends Component {
     }
 
     return (
-      <div className='analysis-panel custom-scroll'>
+      <div className='analysis-panel custom-scroll relative'>
         {content}
       </div>
     );

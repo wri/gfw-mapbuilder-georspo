@@ -9,7 +9,8 @@ export default {
   webmap: 'e148ac47cd374d9da4d208aacfe690cf',
   title: 'Forest Atlas',
   subtitle: 'Application subtitle',
-  logoUrl: 'http://cmr.forest-atlas.org/map/app/images/CMR_flag_new.png',
+  logoUrl: './css/images/gfw-fires-logo.png',
+  // logoUrl: 'http://cmr.forest-atlas.org/map/app/images/CMR_flag_new.png',
   logoLinkUrl: 'http://www.minfof.cm/',
   aboutLinkUrl: 'http://www.wri.org/our-work/project/',
   downloadLinkUrl: 'http://data.globalforestwatch.org/',
@@ -147,7 +148,7 @@ export default {
       groupKey: layerKeys.GROUP_LCD,
       label: 'Tree cover loss',
       sublabel: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear/ImageServer',
+      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
       colormap: [[1, 219, 101, 152]],
       inputRange: [1, 15],
       outputRange: [1]
@@ -215,7 +216,7 @@ export default {
       groupKey: layerKeys.GROUP_LCD,
       label: 'Tree cover loss',
       sublabel: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear/ImageServer',
+      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
       colormap: [[1, 219, 101, 152]],
       inputRange: [1, 15],
       outputRange: [1]
@@ -282,7 +283,7 @@ export default {
       groupKey: layerKeys.GROUP_LCD,
       label: 'Tree cover loss',
       sublabel: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear/ImageServer',
+      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
       colormap: [[1, 219, 101, 152]],
       inputRange: [1, 15],
       outputRange: [1]
@@ -349,7 +350,7 @@ export default {
       groupKey: layerKeys.GROUP_LCD,
       label: 'Tree cover loss',
       sublabel: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear/ImageServer',
+      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
       colormap: [[1, 219, 101, 152]],
       inputRange: [1, 15],
       outputRange: [1]

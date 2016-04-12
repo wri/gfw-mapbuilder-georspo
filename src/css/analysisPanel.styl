@@ -91,7 +91,6 @@
 
 .analysis-results
   color $grayFont
-  height 100%
   width 100%
 
 .analysis-results__title
@@ -149,9 +148,10 @@
   right 0
   left 0
 
-.analysis__chart-container
-  max-width 270px
-  width 270px
+@media (min-width: $mobileBreak)
+  .analysis__chart-container
+    max-width 270px
+    width 270px
 
 //- Restoration Charts should be shorter than others
 .restoration-charts .analysis__chart-container

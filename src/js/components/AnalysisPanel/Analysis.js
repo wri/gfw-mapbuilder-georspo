@@ -156,7 +156,7 @@ export default class Analysis extends Component {
     }
 
     return (
-      <div className='analysis-results relative'>
+      <div className='analysis-results'>
         <Loader active={isLoading} />
         <div className='analysis-results__content custom-scroll'>
           <h3 className='analysis-results__title'>
