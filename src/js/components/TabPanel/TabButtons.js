@@ -16,7 +16,7 @@ const {
 const documentsSvg = '<use xlink:href="#icon-documents" />';
 const dataSvg = '<use xlink:href="#icon-data" />';
 const layersSvg = '<use xlink:href="#icon-basemap" />';
-const narrativeSvg = '<use xlink:href="#icon-narrative" />';
+const narrativeSvg = '<use xlink:href="#shape-info" />';
 const analysisSvg = '<use xlink:href="#icon-analysis" />';
 const menuSvg = '<use xlink:href="#icon-menu" />';
 
@@ -54,7 +54,7 @@ export default class TabButtons extends Component {
       <nav className={`tab-buttons map-component ${tableOfContentsVisible ? '' : 'hidden'}`}>
         <ul className='tab-buttons__header'>
           <li className={this.getClassName(NARRATIVE)} data-value={NARRATIVE} onClick={this.changeTab}>
-            <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: narrativeSvg }}/>
+            <svg className='svg-icon tab-icon-narrative' dangerouslySetInnerHTML={{ __html: narrativeSvg }}/>
             <span className='tab-tooltip'>{text[language].NARRATIVE}</span>
             <span className='tab-buttons__tab-label mobile-show'>
               {text[language].NARRATIVE}

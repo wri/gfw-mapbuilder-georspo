@@ -10,7 +10,7 @@ import React, {
 // Info Icon Markup for innerHTML
 let useSvg = '<use xlink:href="#shape-info" />';
 
-export default class LayerCheckbox extends React.Component {
+export default class LayerCheckbox extends Component {
 
   static contextTypes = {
     language: PropTypes.string.isRequired,
