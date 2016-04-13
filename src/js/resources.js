@@ -18,6 +18,7 @@ export default {
   maskServiceUrl: 'http://gis-forest-atlas.wri.org/arcgis/rest/services/CMR/CMR_00_Africa/MapServer',
   mapThemeIds: '1c38ba1095fe49e3ba234bf9105c1077;c76d788b7487476bae4d09a4e933be19',
   mapThemes: 'Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea',
+  narrative: 'Explore the Forest Atlas of Cameroon to discover ...',
   //- Language Settings
   language: 'en',
   useAlternativeLanguage: 'true',
@@ -25,6 +26,8 @@ export default {
   alternativeLanguageTitle: 'Forest Atlas',
   alternativeLanguageSubtitle: 'Application subtitle',
   alternativeMapThemes: 'Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea',
+  alternativeNarrative: 'Explore the Forest Atlas of Cameroon to discover ...',
+  alternativeWebmapMenuName: 'Land Use',
   //- Documents Settings
   includeDocumentsTab: false,
   documentsDirectory: 'https://wri-public-data.s3.amazonaws.com/forest_atlas/cmr/doc_pdf/',
@@ -35,6 +38,7 @@ export default {
   intactForests: true,
   aboveGroundBiomass: true,
   landCover: true,
+  webmapMenuName: 'Land Use',
   //- Restoration Module settings
   restorationModule: false,
   restorationImageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/country_data/ETH_Restoration/ImageServer',
@@ -100,6 +104,8 @@ export default {
     'en': {
       'title': 'Forest Atlas of Cameroon',
       'subtitle': 'Ministry of Forestry and Wildlife',
+      'webmapMenuName': 'Land Use',
+      'narrative': 'Explore the Forest Atlas of Cameroon to discover ...',
       'themes': [{
         'label': 'Forest Atlas of Democratic Republic of Congo',
         'url': 'http://wri.github.io/forest_atlas_template/?appid=edfa3967f09f4236ae9249dd82265687'
@@ -111,6 +117,8 @@ export default {
     'fr': {
       'title': 'Atlas Forestier du Cameroon',
       'subtitle': 'Ministère des Forêts et de la Faune',
+      'webmapMenuName': 'Land Use',
+      'narrative': 'Explore the Forest Atlas of Cameroon to discover ...',
       'themes': [{
         'label': 'Testing Congo',
         'url': 'http://wri.github.io/forest_atlas_template/?appid=edfa3967f09f4236ae9249dd82265687'
@@ -502,6 +510,5 @@ export default {
         '2014'
       ]
     }]
-  },
-  webmapMenuName: 'Land Use'
+  }
 };

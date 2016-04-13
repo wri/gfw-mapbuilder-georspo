@@ -21,13 +21,13 @@ export default class LayerCheckbox extends React.Component {
     if (prevProps.checked !== this.props.checked) {
       if (this.props.checked) {
         if (this.props.subLayer) {
-          LayersHelper.showSubLayer(this.props.layer)
+          LayersHelper.showSubLayer(this.props.layer);
         } else {
           LayersHelper.showLayer(this.props.layer.id);
         }
       } else {
         if (this.props.subLayer) {
-          LayersHelper.hideSubLayer(this.props.layer)
+          LayersHelper.hideSubLayer(this.props.layer);
         } else {
           LayersHelper.hideLayer(this.props.layer.id);
         }

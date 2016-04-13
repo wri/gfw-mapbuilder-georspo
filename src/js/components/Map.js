@@ -79,7 +79,7 @@ export default class Map extends Component {
               hasScaleDependency: scaleDependency,
               maxScale: lyr.maxScale,
               minScale: lyr.minScale,
-              group: settings.webmapMenuName,
+              group: settings.labels[language].webmapMenuName,
               groupKey: layerKeys.GROUP_WEBMAP,
               label: lyr.name,
               opacity: 1,
@@ -90,7 +90,7 @@ export default class Map extends Component {
         } else {
           settings.layers[language].push({
             id: ol.id,
-            group: settings.webmapMenuName,
+            group: settings.labels[language].webmapMenuName,
             groupKey: layerKeys.GROUP_WEBMAP,
             label: ol.title,
             opacity: ol.opacity,
@@ -149,7 +149,6 @@ export default class Map extends Component {
 
   render () {
     const {
-      activeTab,
       printModalVisible,
       analysisModalVisible,
       searchModalVisible,
@@ -160,9 +159,9 @@ export default class Map extends Component {
       <div className='map-container'>
         <div ref='map' className='map'>
           <Controls {...this.state} />
-          <TabButtons activeTab={activeTab} {...this.state} />
-          <TabView activeTab={activeTab} {...this.state} />
-          <Legend />
+          <TabButtons {...this.state} />
+          <TabView {...this.state} />
+          <Legend {...this.state} />
         </div>
         <div className={`analysis-modal-container modal-wrapper ${analysisModalVisible ? '' : 'hidden'}`}>
           <AnalysisModal />

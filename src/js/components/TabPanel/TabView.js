@@ -16,6 +16,7 @@ const {
   LAYERS,
   ANALYSIS,
   INFO_WINDOW,
+  NARRATIVE,
   MORE
 } = tabKeys;
 
@@ -38,15 +39,21 @@ export default class TabView extends Component {
       activeTab === LAYERS ||
       activeTab === ANALYSIS ||
       activeTab === INFO_WINDOW ||
+      activeTab === NARRATIVE ||
       activeTab === MORE
     ) && tableOfContentsVisible ? '' : 'hidden';
   };
 
   render () {
     let {map, settings, language} = this.context;
+    let narrative = settings.labels && settings.labels[language] && settings.labels[language].narrative || '';
 
     return (
       <div className={`tab-view map-component custom-scroll shadow ${this.getContainerClass()}`}>
+        <div className={this.getClassName(NARRATIVE)}>
+          <h3 className='tab-view__mobile-header mobile-show'>NARRATIVE</h3>
+          <p className='tab-view__narrative'>{narrative}</p>
+        </div>
         <div className={this.getClassName(LAYERS)}>
           <h3 className='tab-view__mobile-header mobile-show'>{text[language].LAYERS}</h3>
           <LayerToggles />

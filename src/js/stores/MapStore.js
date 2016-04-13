@@ -12,13 +12,13 @@ class MapStore {
   constructor () {
 
     //- Default is closed, using any value as default will cause an ugly
-    //- appearance on mobile when loading, set the default in the
-    //- TabView Component in componentDidMount
+    //- appearance on mobile when loading, set the default in TabButtons componentDidMount
     this.activeTab = '';
 
     this.activeLayers = [];
     this.allLayers = [];
     this.basemap = null;
+    this.legendOpen = true;
     this.landsatVisible = false;
     this.dynamicLayers = {};
     this.activeAnalysisType = analysisKeys.TC_LOSS;

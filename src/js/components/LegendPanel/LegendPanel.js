@@ -1,5 +1,4 @@
 import mapActions from 'actions/MapActions';
-import mapStore from 'stores/MapStore';
 import React from 'react';
 
 let closeSymbolCode = 9660,
@@ -9,31 +8,8 @@ const closeSvg = '<use xlink:href="#shape-close" />';
 
 export default class LegendPanel extends React.Component {
 
-  constructor (props) {
-    super(props);
-    mapStore.listen(this.storeUpdated.bind(this));
-    const defaultState = mapStore.getState();
-    this.state = {
-      layers: [],
-      open: defaultState.legendOpen
-    };
-  }
-
-  storeUpdated () {
-    const newState = mapStore.getState();
-    let all = newState.allLayers.map((lyr) => brApp.map.getLayer(lyr.id));
-    all = all.filter(a => a)
-    // this.setState({
-    //   layers: all,
-    //   open: this.state.open
-    // })
-    if (this.state.open !== newState.legendOpen) {
-      this.setState({ open: newState.legendOpen });
-    }
-  }
-
   render () {
-    let rootClasses = this.state.open ? 'legend-panel map-component shadow' : 'legend-panel map-component shadow legend-collapsed';
+    let rootClasses = this.props.legendOpen ? 'legend-panel map-component shadow' : 'legend-panel map-component shadow legend-collapsed';
 
     return (
       <div className={rootClasses}>
@@ -43,7 +19,7 @@ export default class LegendPanel extends React.Component {
             Legend
           </span>
           <span className='layer-category-caret' onClick={mapActions.toggleLegendVisible}>
-            {String.fromCharCode(this.state.open ? closeSymbolCode : openSymbolCode)}
+            {String.fromCharCode(this.props.legendOpen ? closeSymbolCode : openSymbolCode)}
           </span>
         </div>
 
@@ -52,7 +28,7 @@ export default class LegendPanel extends React.Component {
         </div>
 
         <div className='legend-layers'>
-          <div id='legend' className={`${this.state.open ? '' : 'hidden'}`}></div>
+          <div id='legend' className={`${this.props.legendOpen ? '' : 'hidden'}`}></div>
         </div>
       </div>
     );

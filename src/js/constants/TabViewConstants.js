@@ -3,5 +3,6 @@ export default {
   ANALYSIS: 'ANALYSIS',
   LAYERS: 'LAYERS',
   DOCUMENTS: 'DOCUMENTS',
-  MORE: 'MORE'
+  MORE: 'MORE',
+  NARRATIVE: 'NARRATIVE'
 };

@@ -111,13 +111,6 @@ strings.en.ANALYSIS_SELECT_TYPE_OPTIONS = [
   }
 ];
 
-//- Mobile
-strings.en.LAYERS = 'Layers';
-strings.en.DATA = 'Data';
-strings.en.ANALYZE = 'Analyze';
-strings.en.DOCS = 'Docs';
-strings.en.MORE = 'More';
-
 //- Modals
 strings.en.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover and tree cover loss';
 strings.en.DENSITY_FIRST = 'Displaying';
@@ -128,6 +121,12 @@ strings.en.PRINT_BUTTON_LABEL = 'Choose a print template';
 strings.en.PRINT_REPORT = 'Print Report';
 strings.en.SUBSCRIBE = 'Subscribe';
 strings.en.SEARCH = 'Search';
+strings.en.LAYERS = 'Layers';
+strings.en.DATA = 'Data';
+strings.en.ANALYZE = 'Analyze';
+strings.en.DOCS = 'Docs';
+strings.en.NARRATIVE = 'Narrative';
+strings.en.MORE = 'More';
 
 
 //- NOTE: French
@@ -225,13 +224,6 @@ strings.fr.ANALYSIS_SELECT_TYPE_OPTIONS = [
   }
 ];
 
-//- Mobile
-strings.fr.LAYERS = 'Layers';
-strings.fr.DATA = 'Data';
-strings.fr.ANALYZE = 'Analyze';
-strings.fr.DOCS = 'Docs';
-strings.fr.MORE = 'More';
-
 //- Modals
 strings.fr.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover and tree cover loss';
 strings.fr.DENSITY_FIRST = 'Displaying';
@@ -242,6 +234,12 @@ strings.fr.PRINT_BUTTON_LABEL = 'Choose a print template';
 strings.fr.PRINT_REPORT = 'Print Report';
 strings.fr.SUBSCRIBE = 'Subscribe';
 strings.fr.SEARCH = 'Search';
+strings.fr.LAYERS = 'Layers';
+strings.fr.DATA = 'Data';
+strings.fr.ANALYZE = 'Analyze';
+strings.fr.DOCS = 'Docs';
+strings.fr.NARRATIVE = 'Narrative';
+strings.fr.MORE = 'More';
 
 
 //- NOTE: Spanish
@@ -339,13 +337,6 @@ strings.es.ANALYSIS_SELECT_TYPE_OPTIONS = [
   }
 ];
 
-//- Mobile
-strings.es.LAYERS = 'Layers';
-strings.es.DATA = 'Data';
-strings.es.ANALYZE = 'Analyze';
-strings.es.DOCS = 'Docs';
-strings.es.MORE = 'More';
-
 //- Modals
 strings.es.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover and tree cover loss';
 strings.es.DENSITY_FIRST = 'Displaying';
@@ -356,6 +347,12 @@ strings.es.PRINT_BUTTON_LABEL = 'Choose a print template';
 strings.es.PRINT_REPORT = 'Print Report';
 strings.es.SUBSCRIBE = 'Subscribe';
 strings.es.SEARCH = 'Search';
+strings.es.LAYERS = 'Layers';
+strings.es.DATA = 'Data';
+strings.es.ANALYZE = 'Analyze';
+strings.es.DOCS = 'Docs';
+strings.es.NARRATIVE = 'Narrative';
+strings.es.MORE = 'More';
 
 //- NOTE: Portugese
 //- Header
@@ -452,13 +449,6 @@ strings.pt.ANALYSIS_SELECT_TYPE_OPTIONS = [
   }
 ];
 
-//- Mobile
-strings.pt.LAYERS = 'Layers';
-strings.pt.DATA = 'Data';
-strings.pt.ANALYZE = 'Analyze';
-strings.pt.DOCS = 'Docs';
-strings.pt.MORE = 'More';
-
 //- Modals
 strings.pt.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover and tree cover loss';
 strings.pt.DENSITY_FIRST = 'Displaying';
@@ -469,5 +459,11 @@ strings.pt.PRINT_BUTTON_LABEL = 'Choose a print template';
 strings.pt.PRINT_REPORT = 'Print Report';
 strings.pt.SUBSCRIBE = 'Subscribe';
 strings.pt.SEARCH = 'Search';
+strings.pt.LAYERS = 'Layers';
+strings.pt.DATA = 'Data';
+strings.pt.ANALYZE = 'Analyze';
+strings.pt.DOCS = 'Docs';
+strings.pt.NARRATIVE = 'Narrative';
+strings.pt.MORE = 'More';
 
 export { strings as default };

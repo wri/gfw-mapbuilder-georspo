@@ -51,7 +51,9 @@ export default {
         resources.labels = {};
         resources.labels[resources.language] = {
           title: resources.title,
-          subtitle: resources.subtitle
+          subtitle: resources.subtitle,
+          narrative: resources.narrative,
+          webmapMenuName: resources.webmapMenuName
         };
         //- parse map themes for default laguage if present
         let names = resources.mapThemes ? parseIntoArray(resources.mapThemes) : [];
@@ -69,7 +71,9 @@ export default {
         if (resources.useAlternativeLanguage) {
           resources.labels[resources.alternativeLanguage] = {
             title: resources.alternativeLanguageTitle,
-            subtitle: resources.alternativeLanguageSubtitle
+            subtitle: resources.alternativeLanguageSubtitle,
+            narrative: resources.alternativeNarrative || resources.narrative,
+            webmapMenuName: resources.alternativeWebmapMenuName || resources.webmapMenuName
           };
           //- parse map themes for second laguage if present
           let secondNames = resources.alternativeMapThemes ? parseIntoArray(resources.alternativeMapThemes) : [];

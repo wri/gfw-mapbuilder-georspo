@@ -71,11 +71,8 @@ let LayersHelper = {
   },
 
   isLayerVisible (layerInfo) {
-    let visible = true;
     // Non-webmap layers, always assume visible.
-    if (layerInfo.group !== resources.webmapMenuName) {
-      return visible;
-    }
+    let visible = true;
     // Layers have a visibleAtMapScale property which make this easy.
     if (layerInfo.esriLayer && layerInfo.esriLayer.loaded && !layerInfo.esriLayer.visibleAtMapScale) {
       visible = false;
