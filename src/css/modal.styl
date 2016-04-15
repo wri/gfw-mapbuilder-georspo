@@ -30,19 +30,24 @@
   & a
     word-break break-word
     word-wrap break-word
-  & .close-icon
+
+.close-icon
+  position absolute
+  height 40px
+  width 40px
+  right 0
+  top 0
+  & svg
+    transform translate(-50%, -50%)
     position absolute
-    height 40px
-    width 40px
-    right 0
-    top 0
-    & svg
-      transform translate(-50%, -50%)
-      position absolute
-      height 50%
-      width 50%
-      left 50%
-      top 50%
+    height 50%
+    width 50%
+    left 50%
+    top 50%
+
+.mobile-show.close-icon
+  height 60px
+  width 60px
 
 .modal-title
   padding 10px 20px 0

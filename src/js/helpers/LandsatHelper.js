@@ -25,7 +25,7 @@ let LandsatHelper = {
   changeYear (map, lang, year) {
     let info = resources.basemaps[lang][0];
     let layer = map.getLayer(info.title);
-    let template = info.templateUrl.replace(/year\=\d{4}/, 'year=' + year);
+    let template = info.templateUrl.replace(/\/\d{4}\//, `/${year}/`);
     if (layer) {
       map.removeLayer(layer);
     }
@@ -33,6 +33,6 @@ let LandsatHelper = {
     map.addLayer(layer, landsatMapIndex);
     return layer;
   }
-}
+};
 
-export default LandsatHelper
+export default LandsatHelper;

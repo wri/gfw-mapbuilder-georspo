@@ -4,6 +4,7 @@ import MobileMenu from 'components/TabPanel/MobileMenu';
 import LayerToggles from 'components/LayerPanel/LayerToggles';
 import InfoWindow from 'components/TabPanel/InfoWindow';
 import Documents from 'components/TabPanel/Documents';
+import mapActions from 'actions/MapActions';
 import tabKeys from 'constants/TabViewConstants';
 import text from 'js/languages';
 import React, {
@@ -19,6 +20,8 @@ const {
   NARRATIVE,
   MORE
 } = tabKeys;
+
+const closeSvg = '<use xlink:href="#shape-close" />';
 
 export default class TabView extends Component {
 
@@ -44,6 +47,11 @@ export default class TabView extends Component {
     ) && tableOfContentsVisible ? '' : 'hidden';
   };
 
+  hideTabView = () => {
+    //- Setting to an empty string will hide all tabs, so it works well enough for this too
+    mapActions.changeActiveTab('');
+  };
+
   render () {
     let {map, settings, language} = this.context;
     let narrative = settings.labels && settings.labels[language] && settings.labels[language].narrative || '';
@@ -51,29 +59,47 @@ export default class TabView extends Component {
     return (
       <div className={`tab-view map-component custom-scroll shadow ${this.getContainerClass()}`}>
         <div className={this.getClassName(NARRATIVE)}>
+          <div title='close' className='close-icon pointer mobile-show' onClick={this.hideTabView} >
+            <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
+          </div>
           <h3 className='tab-view__mobile-header mobile-show'>NARRATIVE</h3>
           <p className='tab-view__narrative'>{narrative}</p>
         </div>
         <div className={this.getClassName(LAYERS)}>
+          <div title='close' className='close-icon pointer mobile-show' onClick={this.hideTabView} >
+            <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
+          </div>
           <h3 className='tab-view__mobile-header mobile-show'>{text[language].LAYERS}</h3>
           <LayerToggles />
           <LayerPanel loaded={map.loaded} {...this.props} />
         </div>
         <div className={this.getClassName(INFO_WINDOW)}>
+          <div title='close' className='close-icon pointer mobile-show' onClick={this.hideTabView} >
+            <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
+          </div>
           <h3 className='tab-view__mobile-header mobile-show'>{text[language].DATA}</h3>
           <InfoWindow map={map} />
         </div>
         <div className={this.getClassName(ANALYSIS)}>
+          <div title='close' className='close-icon pointer mobile-show' onClick={this.hideTabView} >
+            <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
+          </div>
           <h3 className='tab-view__mobile-header mobile-show'>{text[language].ANALYZE}</h3>
           <AnalysisPanel {...this.props} />
         </div>
         {!settings.includeDocumentsTab ? null :
           <div className={this.getClassName(DOCUMENTS)}>
+            <div title='close' className='close-icon pointer mobile-show' onClick={this.hideTabView} >
+              <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
+            </div>
             <h3 className='tab-view__mobile-header mobile-show'>{text[language].DOCS}</h3>
             <Documents active={this.props.activeTab === DOCUMENTS} />
           </div>
         }
         <div className={`${this.getClassName(MORE)} mobile-show`}>
+          <div title='close' className='close-icon pointer mobile-show' onClick={this.hideTabView} >
+            <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
+          </div>
           <h3 className='tab-view__mobile-header mobile-show'>{text[language].MORE}</h3>
           <MobileMenu />
         </div>

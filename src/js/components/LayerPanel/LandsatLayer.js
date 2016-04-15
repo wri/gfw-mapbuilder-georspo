@@ -17,13 +17,13 @@ export default class LandsatLayer extends Component {
     this.state = {
       visible: false,
       yearSelected: null
-    }
+    };
   }
 
   componentDidMount () {
     this.setState({
-      yearSelected: this.props.years[this.props.years.length-1]
-    })
+      yearSelected: this.props.years[this.props.years.length - 1]
+    });
   }
 
   render () {
@@ -43,10 +43,10 @@ export default class LandsatLayer extends Component {
   }
 
   yearOption (year, index) {
-    let selected = (this.props.years.length-1 === index) ? true : false;
+    let selected = (this.props.years.length - 1 === index) ? true : false;
     return (
       <option value={year} selected={selected}>{year}</option>
-    )
+    );
   }
 
   toggle () {

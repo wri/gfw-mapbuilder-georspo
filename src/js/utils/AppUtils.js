@@ -99,13 +99,23 @@ const utils = {
 
     //- Is this a custom feature or a feature from the webmap
     const layer = selectedFeature._layer;
+    //- NOTE: LAYER ID FOR REPORT
+    //- Depending on how they created the layer in AGOL, there may be different ways to parse these values
+    const getLayerId = function getLayerId () {
+      return layer.source ? layer.source.mapLayerId : layer.layerId;
+    };
     //- from service
     if (layer.url) {
       const objectIdField = layer.objectIdField;
       const idvalue = selectedFeature.attributes[objectIdField];
-      const layerid = layer.layerId;
+      const layerid = getLayerId(layer);
       const layerName = layer.id;
-      const service = layer.url.split(`/${layerid}`)[0];
+      //- NOTE: SERVICE URL FOR REPORT
+      //- This may need more testing, the report needs only the service url, see the following:
+      //- http://gis..../MapServer and not http://gis..../MapServer/8
+      //- http://gis..../MapServer and not http://gis..../MapServer/dynamicServer
+      //- These can also vary by how they are created in AGOL
+      const service = layer.url.slice(0, layer.url.lastIndexOf('/'));
       const labels = settings.labels[lang];
 
       const path = toQuery({

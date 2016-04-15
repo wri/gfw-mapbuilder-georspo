@@ -421,7 +421,7 @@ export default {
     en: [{
       title: 'Landsat',
       thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
-      templateUrl: 'http://api.globalforestwatch.org//gee/landsat_composites/${level}/${col}/${row}.png?year=2014',
+      templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
       years: [
         '1999',
         '2000',
@@ -437,14 +437,13 @@ export default {
         '2010',
         '2011',
         '2012',
-        '2013',
-        '2014'
+        '2013'
       ]
     }],
     fr: [{
       title: 'Landsat',
       thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
-      templateUrl: 'http://api.globalforestwatch.org//gee/landsat_composites/${z}/${x}/${y}.png',
+      templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
       years: [
         '1999',
         '2000',
@@ -460,14 +459,13 @@ export default {
         '2010',
         '2011',
         '2012',
-        '2013',
-        '2014'
+        '2013'
       ]
     }],
     es: [{
       title: 'Landsat',
       thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
-      templateUrl: 'http://api.globalforestwatch.org//gee/landsat_composites/${z}/${x}/${y}.png',
+      templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
       years: [
         '1999',
         '2000',
@@ -483,14 +481,13 @@ export default {
         '2010',
         '2011',
         '2012',
-        '2013',
-        '2014'
+        '2013'
       ]
     }],
     pt: [{
       title: 'Landsat',
       thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
-      templateUrl: 'http://api.globalforestwatch.org//gee/landsat_composites/${z}/${x}/${y}.png',
+      templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
       years: [
         '1999',
         '2000',
@@ -506,8 +503,7 @@ export default {
         '2010',
         '2011',
         '2012',
-        '2013',
-        '2014'
+        '2013'
       ]
     }]
   }

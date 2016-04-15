@@ -340,6 +340,7 @@ export default {
   run () {
     //- Get params necessary for the report
     const params = getUrlParams(location.href);
+    if (brApp.debug) { console.log(params); }
     //- Add Title, Subtitle, and logo right away
     addHeaderContent(params);
     //- Create the map as soon as possible

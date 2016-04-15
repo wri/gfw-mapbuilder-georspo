@@ -351,13 +351,13 @@ export default {
       computeHistogram(url, popContent),
       computeHistogram(url, slopeContent)
     ]).always((results) => {
-      //- getCounts slices the first value, I need to slice the no data value as well
+      //- the first value is No Data, don't slice as the charts formatting function will remove this
       if (!results.error) {
         promise.resolve({
-          landCover: results[0] ? formatters.getCounts(results[0], content.pixelSize).counts : [0],
-          treeCover: results[1] ? formatters.getCounts(results[1], content.pixelSize).counts : [0],
-          population: results[2] ? formatters.getCounts(results[2], content.pixelSize).counts : [0],
-          slope: results[3] ? formatters.getCounts(results[3], content.pixelSize).counts : [0]
+          landCover: results[0] ? formatters.getCounts(results[0], content.pixelSize, true).counts : [0],
+          treeCover: results[1] ? formatters.getCounts(results[1], content.pixelSize, true).counts : [0],
+          population: results[2] ? formatters.getCounts(results[2], content.pixelSize, true).counts : [0],
+          slope: results[3] ? formatters.getCounts(results[3], content.pixelSize, true).counts : [0]
         });
       } else {
         promise.resolve(results);

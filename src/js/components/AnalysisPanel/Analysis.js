@@ -5,6 +5,7 @@ import TotalLossChart from 'components/AnalysisPanel/TotalLossChart';
 import ReportSubscribeButtons from 'components/Shared/ReportSubscribe';
 import LossGainBadge from 'components/AnalysisPanel/LossGainBadge';
 import SlopeBarChart from 'components/AnalysisPanel/SlopeBarChart';
+import DensityDisplay from 'components/LayerPanel/DensityDisplay';
 import FiresBadge from 'components/AnalysisPanel/FiresBadge';
 import BarChart from 'components/AnalysisPanel/BarChart';
 import analysisKeys from 'constants/AnalysisConstants';
@@ -146,7 +147,7 @@ export default class Analysis extends Component {
   };
 
   render () {
-    const {selectedFeature, activeAnalysisType} = this.props;
+    const {selectedFeature, activeAnalysisType, canopyDensity} = this.props;
     const {results, isLoading} = this.state;
     const {language} = this.context;
     let chart;
@@ -166,6 +167,9 @@ export default class Analysis extends Component {
             {text[language].ANALYSIS_SELECT_TYPE_LABEL}
           </div>
           <AnalysisTypeSelect {...this.props} />
+          <div className={`analysis-results__density-display ${activeAnalysisType === analysisKeys.TC_LOSS ? '' : 'hidden'}`}>
+            <DensityDisplay canopyDensity={canopyDensity} />
+          </div>
           {chart}
         </div>
         <div className='analysis-results__footer'>
