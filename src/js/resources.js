@@ -423,7 +423,6 @@ export default {
       thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
       templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
       years: [
-        '1999',
         '2000',
         '2001',
         '2002',
@@ -445,7 +444,6 @@ export default {
       thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
       templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
       years: [
-        '1999',
         '2000',
         '2001',
         '2002',
@@ -467,7 +465,6 @@ export default {
       thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
       templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
       years: [
-        '1999',
         '2000',
         '2001',
         '2002',
@@ -489,7 +486,6 @@ export default {
       thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
       templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
       years: [
-        '1999',
         '2000',
         '2001',
         '2002',
