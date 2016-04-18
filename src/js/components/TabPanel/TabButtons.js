@@ -28,7 +28,9 @@ export default class TabButtons extends Component {
   };
 
   componentDidMount() {
-    let activeTab = window && window.innerWidth > 950 ? NARRATIVE : '';
+    let {settings, language} = this.context;
+    let narrative = settings.labels && settings.labels[language] && settings.labels[language].narrative || '';
+    let activeTab = window && window.innerWidth > 950 ? (narrative ? NARRATIVE : LAYERS) : '';
     mapActions.changeActiveTab(activeTab);
   }
 
@@ -49,17 +51,20 @@ export default class TabButtons extends Component {
   render () {
     const {settings, language} = this.context;
     let {tableOfContentsVisible} = this.props;
+    let narrative = settings.labels && settings.labels[language] && settings.labels[language].narrative || '';
 
     return (
       <nav className={`tab-buttons map-component ${tableOfContentsVisible ? '' : 'hidden'}`}>
         <ul className='tab-buttons__header'>
-          <li className={this.getClassName(NARRATIVE)} data-value={NARRATIVE} onClick={this.changeTab}>
-            <svg className='svg-icon tab-icon-narrative' dangerouslySetInnerHTML={{ __html: narrativeSvg }}/>
-            <span className='tab-tooltip'>{text[language].NARRATIVE}</span>
-            <span className='tab-buttons__tab-label mobile-show'>
-              {text[language].NARRATIVE}
-            </span>
-          </li>
+          {!narrative ? null :
+            <li className={this.getClassName(NARRATIVE)} data-value={NARRATIVE} onClick={this.changeTab}>
+              <svg className='svg-icon tab-icon-narrative' dangerouslySetInnerHTML={{ __html: narrativeSvg }}/>
+              <span className='tab-tooltip'>{text[language].NARRATIVE}</span>
+              <span className='tab-buttons__tab-label mobile-show'>
+                {text[language].NARRATIVE}
+              </span>
+            </li>
+          }
           <li className={this.getClassName(LAYERS)} data-value={LAYERS} onClick={this.changeTab}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: layersSvg }}/>
             <span className='tab-tooltip'>{text[language].LAYERS}</span>

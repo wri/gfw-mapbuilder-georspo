@@ -88,11 +88,11 @@ export default class AnalysisTypeSelect extends Component {
       <div className='relative'>
         <select
           value={activeAnalysisType}
-          className='analysis-results__select'
+          className='analysis-results__select pointer'
           onChange={mapActions.setAnalysisType}>
           {options}
         </select>
-        <div className='analysis-results__select-style pointer'>
+        <div className='analysis-results__select-style'>
           {activeOption.label || ''}
         </div>
       </div>

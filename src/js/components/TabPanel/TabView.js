@@ -58,13 +58,15 @@ export default class TabView extends Component {
 
     return (
       <div className={`tab-view map-component custom-scroll shadow ${this.getContainerClass()}`}>
-        <div className={this.getClassName(NARRATIVE)}>
-          <div title='close' className='close-icon pointer mobile-show' onClick={this.hideTabView} >
-            <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
+        {!narrative ? null :
+          <div className={this.getClassName(NARRATIVE)}>
+            <div title='close' className='close-icon pointer mobile-show' onClick={this.hideTabView} >
+              <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
+            </div>
+            <h3 className='tab-view__mobile-header mobile-show'>NARRATIVE</h3>
+            <p className='tab-view__narrative'>{narrative}</p>
           </div>
-          <h3 className='tab-view__mobile-header mobile-show'>NARRATIVE</h3>
-          <p className='tab-view__narrative'>{narrative}</p>
-        </div>
+        }
         <div className={this.getClassName(LAYERS)}>
           <div title='close' className='close-icon pointer mobile-show' onClick={this.hideTabView} >
             <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>

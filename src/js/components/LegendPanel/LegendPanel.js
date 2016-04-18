@@ -9,7 +9,17 @@ const closeSvg = '<use xlink:href="#shape-close" />';
 export default class LegendPanel extends React.Component {
 
   render () {
-    let rootClasses = this.props.legendOpen ? 'legend-panel map-component shadow' : 'legend-panel map-component shadow legend-collapsed';
+    let {
+      tableOfContentsVisible,
+      legendOpen
+    } = this.props;
+
+    let rootClasses = legendOpen ? 'legend-panel map-component shadow' : 'legend-panel map-component shadow legend-collapsed';
+
+    //- Hide the legend if the TOC is not visible (eye button)
+    if (!tableOfContentsVisible) {
+      rootClasses += ' hidden';
+    }
 
     return (
       <div className={rootClasses}>
@@ -19,7 +29,7 @@ export default class LegendPanel extends React.Component {
             Legend
           </span>
           <span className='layer-category-caret' onClick={mapActions.toggleLegendVisible}>
-            {String.fromCharCode(this.props.legendOpen ? closeSymbolCode : openSymbolCode)}
+            {String.fromCharCode(legendOpen ? closeSymbolCode : openSymbolCode)}
           </span>
         </div>
 
@@ -28,7 +38,7 @@ export default class LegendPanel extends React.Component {
         </div>
 
         <div className='legend-layers'>
-          <div id='legend' className={`${this.props.legendOpen ? '' : 'hidden'}`}></div>
+          <div id='legend' className={`${legendOpen ? '' : 'hidden'}`}></div>
         </div>
       </div>
     );

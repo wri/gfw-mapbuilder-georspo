@@ -70,9 +70,9 @@ export default {
   makeRestorationBarChart: (el, name, series) => {
     const chart = new Highcharts.Chart({
       chart: { renderTo: el, type: 'bar' },
-      title: { text: null },
-      xAxis: { categories: [name] },
-      yAxis: { reversedStacks: false, title: { enabled: false }},
+      title: { text: name },
+      xAxis: { title: { enabled: false}},
+      yAxis: { reversedStacks: false, title: { text: 'Hectares (k = 1000)' }},
       plotOptions: { series: { stacking: 'normal'}},
       tooltip: { valueSuffix: ' (Ha)', useHTML: true },
       series: series,
@@ -119,7 +119,7 @@ export default {
         maxPadding: 0.5,
         title: { text: null }
       },
-      yAxis: { title: { text: 'Hectares' }},
+      yAxis: { title: { text: 'Hectares (k = 1000)' }},
       tooltip: {
         useHTML: true,
         valueSuffix: ' (Ha)',
