@@ -1,19 +1,20 @@
 import analysisKeys from 'constants/AnalysisConstants';
 import analysisUtils from 'utils/analysisUtils';
 import {analysisConfig} from 'js/config';
+import mapStore from 'stores/MapStore';
 import Deferred from 'dojo/Deferred';
 import all from 'dojo/promise/all';
 
 /**
 * @param {string} analysisType - Value from Analysis Select, also key to options in config
 * @param {Polygon} geometry - Esri Polygon
-* @param {number} canopyDensity - Tree Cover Canopy density setting
 * @param {object} settings - Application settings from resources.js
 * @return {promise}
 */
-export default function performAnalysis (analysisType, geometry, canopyDensity, settings) {
+export default function performAnalysis (analysisType, geometry, settings) {
   const restorationUrl = settings && settings.restorationImageServer;
   const config = analysisConfig[analysisType];
+  const {canopyDensity, activeSlopeClass} = mapStore.getState();
   let promise = new Deferred();
 
   switch (analysisType) {
@@ -27,7 +28,8 @@ export default function performAnalysis (analysisType, geometry, canopyDensity, 
       analysisUtils.getCountsWithDensity(config.id, geometry, canopyDensity).then(promise.resolve);
     break;
     case analysisKeys.SLOPE:
-      analysisUtils.getSlope(restorationUrl, 1, config.id, config.restoration, geometry).then(promise.resolve);
+      let slopeValue = settings.slopeClasses.indexOf(activeSlopeClass);
+      analysisUtils.getSlope(restorationUrl, slopeValue, config.id, config.restoration, geometry).then(promise.resolve);
     break;
     case analysisKeys.TC_LOSS_GAIN:
       all([

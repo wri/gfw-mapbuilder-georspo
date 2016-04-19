@@ -3,6 +3,7 @@ import CompositionPieChart from 'components/AnalysisPanel/CompositionPieChart';
 import RestorationCharts from 'components/AnalysisPanel/RestorationCharts';
 import TotalLossChart from 'components/AnalysisPanel/TotalLossChart';
 import ReportSubscribeButtons from 'components/Shared/ReportSubscribe';
+import SlopeSelect from 'components/AnalysisPanel/SlopeClassSelect';
 import LossGainBadge from 'components/AnalysisPanel/LossGainBadge';
 import SlopeBarChart from 'components/AnalysisPanel/SlopeBarChart';
 import DensityDisplay from 'components/LayerPanel/DensityDisplay';
@@ -61,13 +62,12 @@ export default class Analysis extends Component {
     const {
       selectedFeature,
       activeTab,
-      activeAnalysisType,
-      canopyDensity
+      activeAnalysisType
     } = this.props;
 
     if (selectedFeature && activeTab === tabKeys.ANALYSIS) {
       getRawGeometry(selectedFeature).then((geometry) => {
-        performAnalysis(activeAnalysisType, geometry, canopyDensity, settings).then((results) => {
+        performAnalysis(activeAnalysisType, geometry, settings).then((results) => {
           this.setState({ results: results, isLoading: false });
         });
       });
@@ -81,19 +81,24 @@ export default class Analysis extends Component {
       selectedFeature,
       activeTab,
       activeAnalysisType,
-      canopyDensity
+      canopyDensity,
+      activeSlopeClass
     } = nextProps;
 
+    //- Only rerun the analysis if one of these things changes
     if (
       (selectedFeature !== this.props.selectedFeature ||
       activeAnalysisType !== this.props.activeAnalysisType ||
-      activeTab !== this.props.activeTab) &&
+      activeTab !== this.props.activeTab ||
+      canopyDensity !== this.props.canopyDensity ||
+      activeSlopeClass !== this.props.activeSlopeClass
+      ) &&
       activeTab === tabKeys.ANALYSIS
     ) {
       this.setState(getDefaultState());
       const {settings} = this.context;
       getRawGeometry(selectedFeature).then((geometry) => {
-        performAnalysis(activeAnalysisType, geometry, canopyDensity, settings).then((results) => {
+        performAnalysis(activeAnalysisType, geometry, settings).then((results) => {
           this.setState({ results: results, isLoading: false });
         });
       });
@@ -147,7 +152,7 @@ export default class Analysis extends Component {
   };
 
   render () {
-    const {selectedFeature, activeAnalysisType, canopyDensity} = this.props;
+    const {selectedFeature, activeAnalysisType, canopyDensity, activeSlopeClass} = this.props;
     const {results, isLoading} = this.state;
     const {language} = this.context;
     let chart;
@@ -169,6 +174,9 @@ export default class Analysis extends Component {
           <AnalysisTypeSelect {...this.props} />
           <div className={`analysis-results__density-display ${activeAnalysisType === analysisKeys.TC_LOSS ? '' : 'hidden'}`}>
             <DensityDisplay canopyDensity={canopyDensity} />
+          </div>
+          <div className={`analysis-results__density-display ${activeAnalysisType === analysisKeys.SLOPE ? '' : 'hidden'}`}>
+            <SlopeSelect activeSlopeClass={activeSlopeClass}/>
           </div>
           {chart}
         </div>

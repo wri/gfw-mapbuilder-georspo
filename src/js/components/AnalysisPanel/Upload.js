@@ -18,7 +18,7 @@ const TYPE = {
   GEOJSON: 'geojson'
 };
 
-export default class Tools extends Component {
+export default class Upload extends Component {
 
   static contextTypes = {
     language: PropTypes.string.isRequired,

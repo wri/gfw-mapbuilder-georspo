@@ -11,7 +11,7 @@ const drawSvg = '<use xlink:href="#icon-analysis-draw" />';
 
 let toolbar;
 
-export default class Tools extends Component {
+export default class DrawTools extends Component {
 
   static contextTypes = {
     language: PropTypes.string.isRequired,

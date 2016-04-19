@@ -1,6 +1,7 @@
 import analysisKeys from 'constants/AnalysisConstants';
 import layerKeys from 'constants/LayerConstants';
 import tabKeys from 'constants/TabViewConstants';
+import appActions from 'actions/AppActions';
 import mapActions from 'actions/MapActions';
 import layerActions from 'actions/LayerActions';
 import dispatcher from 'js/dispatcher';
@@ -33,8 +34,10 @@ class MapStore {
     this.searchModalVisible = false;
     this.canopyModalVisible = false;
     this.canopyDensity = 30;
+    this.activeSlopeClass = null;
 
     this.bindListeners({
+      setDefaults: appActions.applySettings,
       mapUpdated: mapActions.mapUpdated,
       infoWindowUpdated: mapActions.infoWindowUpdated,
       createLayers: mapActions.createLayers,
@@ -49,6 +52,7 @@ class MapStore {
       updateCanopyDensity: mapActions.updateCanopyDensity,
       changeBasemap: mapActions.changeBasemap,
       toggleLandsat: mapActions.toggleLandsat,
+      updateActiveSlopeClass: mapActions.updateActiveSlopeClass,
       addActiveLayer: layerActions.addActiveLayer,
       removeActiveLayer: layerActions.removeActiveLayer,
       toggleLegendVisible: mapActions.toggleLegendVisible,
@@ -60,6 +64,11 @@ class MapStore {
       updateLossTimeline: layerActions.updateLossTimeline,
       changeOpacity: layerActions.changeOpacity
     });
+  }
+
+  setDefaults (settings) {
+    //- Set the default value to the first actual value in the select, 0 is No Data
+    this.activeSlopeClass = settings.slopeClasses && settings.slopeClasses[1];
   }
 
   addActiveLayer (layerId) {
@@ -166,6 +175,10 @@ class MapStore {
 
   setLossOptions (lossOptionsData) {
     this.lossOptions = lossOptionsData;
+  }
+
+  updateActiveSlopeClass (newSlopeClass) {
+    this.activeSlopeClass = newSlopeClass;
   }
 
   updateLossTimeline (payload) {

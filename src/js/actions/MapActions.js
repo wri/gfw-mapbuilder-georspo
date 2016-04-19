@@ -43,6 +43,10 @@ class MapActions {
     return { density };
   }
 
+  updateActiveSlopeClass (classValue) {
+    return classValue;
+  }
+
   openTOCAccordion (groupKey) {
     return groupKey;
   }

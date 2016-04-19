@@ -118,6 +118,7 @@
   width 100%
 
 .analysis-results__select-style:after
+.slope-class-selector__select-style:after
   pointer-events none
   position absolute
   content '\25BC'
@@ -125,7 +126,11 @@
   right 5px
   top 2px
 
+.slope-class-selector__select-style:after
+  top 5px
+
 .analysis-results__select
+.slope-class-selector
   -webkit-appearance none
   position absolute
   height 100%
@@ -165,3 +170,24 @@
   font-weight 500
   padding 10px
   color black
+
+//- Slope specific css
+.slope-class-select
+  font-size 10px
+  margin 5px 0
+
+.slope-class-select__label
+  margin-right 10px
+
+.slope-class-select__container
+  display inline-block
+  width 100px
+
+.slope-class-selector__select-style
+  border 1px solid $lightGray
+  display inline-block
+  padding-right 15px
+  padding-left 5px
+  font-size 13px
+  color black
+  width 100%

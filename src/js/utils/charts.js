@@ -71,7 +71,7 @@ export default {
     const chart = new Highcharts.Chart({
       chart: { renderTo: el, type: 'bar' },
       title: { text: name },
-      xAxis: { title: { enabled: false}},
+      xAxis: { title: { enabled: false}, labels: { enabled: false}},
       yAxis: { reversedStacks: false, title: { text: 'Hectares (k = 1000)' }},
       plotOptions: { series: { stacking: 'normal'}},
       tooltip: { valueSuffix: ' (Ha)', useHTML: true },

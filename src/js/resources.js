@@ -43,9 +43,9 @@ export default {
   restorationModule: false,
   restorationImageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/country_data/ETH_Restoration/ImageServer',
   slopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
-  slopePotentialColors: '#EAC7FD;#FDB22E;#587E0F;#D29374;#F5D08B;#B1B124;#1AB090;#AF0F8F;#D9FEC7;#FFFE89',
+  slopePotentialColors: 'rgb(234,199,253);rgb(253,178,46);rgb(88,126,15);rgb(210,147,116);rgb(245,208,139);rgb(177,177,36);rgb(26,176,144);rgb(175,15,143);rgb(217,254,199);rgb(255,254,137);',
   restorationOptions: 'establishing natural forest outside of cropland;restocking of degraded natural forest;agri-silviculture and agro-silvo-pastoralism;silvo-pastoralism;woodlot;commercial plantation on bare soil and shrubland;commercial plantation as buffer zone to national forest priority areas and protected areas;tree-based buffer zone along rivers, lakes and reservoirs;',
-  restorationOptionsRasterIds: '$9;$10;$6;$11;$13;$8;$7;$12;',
+  restorationOptionsRasterIds: '9;10;6;11;13;8;7;12;',
   slopeClassNames: 'No Data;<= 30%;30 - 60%;> 60%;',
   slopeClassColors: 'rgb(0, 0, 0);rgb(255, 235, 175);rgb(115, 115, 0);rgb(168, 0, 0);',
   treeCoverClassNames: 'No Data;<= 10%;10 - 30%;> 30%;',
@@ -66,7 +66,7 @@ export default {
     'Three or more restoration options identified as having potential'
   ],
   //- Based on slopePotentialColors
-  slopeAnalysisPotentialColors: ['#EAC7FD', '#FDB22E', '#587E0F', '#D29374', '#F5D08B', '#B1B124', '#1AB090', '#AF0F8F', '#D9FEC7', '#FFFE89'],
+  slopeAnalysisPotentialColors: ['rgb(234,199,253)', 'rgb(253,178,46)', 'rgb(88,126,15)', 'rgb(210,147,116)', 'rgb(245,208,139)', 'rgb(177,177,36)', 'rgb(26,176,144)', 'rgb(175,15,143)', 'rgb(217,254,199)', 'rgb(255,254,137)'],
   //- Based on all the variations of restorationOptions
   restorationModuleOptions: [{
     id: '$9',

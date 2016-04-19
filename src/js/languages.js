@@ -68,6 +68,7 @@ strings.en.ANALYSIS_TOTAL_LOSS_RANGE = '(2001 - 2014):';
 strings.en.ANALYSIS_TOTAL_GAIN_LABEL = 'Total tree cover gained';
 strings.en.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.en.ANALYSIS_SLOPE_OPTION = 'Option #';
+strings.en.SLOPE_SELECT_LABEL = 'Choose slope percent:';
 strings.en.ANALYSIS_RESTORATION_LC_LABELS = [
   'No Data', 'Forestland', 'Grassland', 'Cropland', 'Wetland and Waterbodies', 'Settlement', 'Bare soil'
 ];
@@ -181,6 +182,7 @@ strings.fr.ANALYSIS_TOTAL_LOSS_RANGE = '(2001 - 2014):';
 strings.fr.ANALYSIS_TOTAL_GAIN_LABEL = 'Total tree cover gained';
 strings.fr.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.fr.ANALYSIS_SLOPE_OPTION = 'Option #';
+strings.fr.SLOPE_SELECT_LABEL = 'Choose slope percent:';
 strings.fr.ANALYSIS_RESTORATION_LC_LABELS = [
   'No Data', 'Forestland', 'Grassland', 'Cropland', 'Wetland and Waterbodies', 'Settlement', 'Bare soil'
 ];
@@ -294,6 +296,7 @@ strings.es.ANALYSIS_TOTAL_LOSS_RANGE = '(2001 - 2014):';
 strings.es.ANALYSIS_TOTAL_GAIN_LABEL = 'Total tree cover gained';
 strings.es.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.es.ANALYSIS_SLOPE_OPTION = 'Option #';
+strings.es.SLOPE_SELECT_LABEL = 'Choose slope percent:';
 strings.es.ANALYSIS_RESTORATION_LC_LABELS = [
   'No Data', 'Forestland', 'Grassland', 'Cropland', 'Wetland and Waterbodies', 'Settlement', 'Bare soil'
 ];
@@ -406,6 +409,7 @@ strings.pt.ANALYSIS_TOTAL_LOSS_RANGE = '(2001 - 2014):';
 strings.pt.ANALYSIS_TOTAL_GAIN_LABEL = 'Total tree cover gained';
 strings.pt.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.pt.ANALYSIS_SLOPE_OPTION = 'Option #';
+strings.pt.SLOPE_SELECT_LABEL = 'Choose slope percent:';
 strings.pt.ANALYSIS_RESTORATION_LC_LABELS = [
   'No Data', 'Forestland', 'Grassland', 'Cropland', 'Wetland and Waterbodies', 'Settlement', 'Bare soil'
 ];

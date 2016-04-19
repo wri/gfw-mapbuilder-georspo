@@ -99,7 +99,7 @@ export default {
             resources.restorationModuleOptions = [];
             optionLabels.forEach((label, index) => {
               resources.restorationModuleOptions.push({
-                id: rasterIds[index],
+                id: `$${rasterIds[index]}`,
                 label: label
               });
             });
