@@ -31,9 +31,9 @@ const getDefaultState = function () {
 
 //- If we cant get the raw geometry, just use the generalized geometry for now
 const getRawGeometry = function (feature) {
-  let promise = new Deferred();
-  let layer = feature._layer;
-  let url = layer && layer._url && layer._url.path;
+  const promise = new Deferred();
+  const layer = feature._layer;
+  const url = layer && layer._url && layer._url.path;
   if (url) {
     request.queryTaskById(url, feature.attributes.OBJECTID).then((results) => {
       if (results.features.length) {
@@ -161,6 +161,14 @@ export default class Analysis extends Component {
       chart = this.renderResults(activeAnalysisType, results, language);
     }
 
+    const showDensityDisplay = (
+      activeAnalysisType === analysisKeys.TC_LOSS ||
+      activeAnalysisType === analysisKeys.TC_LOSS_GAIN ||
+      activeAnalysisType === analysisKeys.LC_LOSS ||
+      activeAnalysisType === analysisKeys.BIO_LOSS ||
+      activeAnalysisType === analysisKeys.INTACT_LOSS
+    );
+
     return (
       <div className='analysis-results'>
         <Loader active={isLoading} />
@@ -172,7 +180,7 @@ export default class Analysis extends Component {
             {text[language].ANALYSIS_SELECT_TYPE_LABEL}
           </div>
           <AnalysisTypeSelect {...this.props} />
-          <div className={`analysis-results__density-display ${activeAnalysisType === analysisKeys.TC_LOSS ? '' : 'hidden'}`}>
+          <div className={`analysis-results__density-display ${showDensityDisplay ? '' : 'hidden'}`}>
             <DensityDisplay canopyDensity={canopyDensity} />
           </div>
           <div className={`analysis-results__density-display ${activeAnalysisType === analysisKeys.SLOPE ? '' : 'hidden'}`}>

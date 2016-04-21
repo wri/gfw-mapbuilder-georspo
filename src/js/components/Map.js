@@ -10,6 +10,7 @@ import TabView from 'components/TabPanel/TabView';
 import layerKeys from 'constants/LayerConstants';
 import arcgisUtils from 'esri/arcgis/utils';
 import mapActions from 'actions/MapActions';
+import Scalebar from 'esri/dijit/Scalebar';
 import {getUrlParams} from 'utils/params';
 import layerUtils from 'utils/layerUtils';
 import MapStore from 'stores/MapStore';
@@ -64,14 +65,14 @@ export default class Map extends Component {
     arcgisUtils.createMap(settings.webmap, this.refs.map, { mapOptions: mapConfig.options }).then(response => {
       this.webmapInfo = response.itemInfo.itemData;
       // Add operational layers from the webmap to the array of layers from the config file.
-      let {itemData} = response.itemInfo;
+      const {itemData} = response.itemInfo;
       itemData.operationalLayers.forEach((ol) => {
         // TODO:  filter out layers specific to selected language.
         // For dynamic layers, create a layer entry for each sublayer.
         if (ol.layerType === 'ArcGISMapServiceLayer') {
           ol.resourceInfo.layers.forEach(lyr => {
-            let visible = ol.layerObject.visibleLayers.indexOf(lyr.id) > -1;
-            let scaleDependency = (lyr.minScale > 0 || lyr.maxScale > 0);
+            const visible = ol.layerObject.visibleLayers.indexOf(lyr.id) > -1;
+            const scaleDependency = (lyr.minScale > 0 || lyr.maxScale > 0);
             settings.layers[language].push({
               id: ol.id,
               subId: `${ol.id}_${lyr.id}`,
@@ -103,13 +104,14 @@ export default class Map extends Component {
       this.map = response.map;
       // Remove any basemap or reference layers so they don't interfere with the
       // basemap switcher in the layer panel works.
-      let basemap = itemData && itemData.baseMap;
+      const basemap = itemData && itemData.baseMap;
       if (basemap.baseMapLayers.length) {
-        let basemapName = layerUtils.getBasemapName(basemap.baseMapLayers);
+        const basemapName = layerUtils.getBasemapName(basemap.baseMapLayers);
         basemap.baseMapLayers.forEach(bm => this.map.removeLayer(bm.layerObject));
         this.map.setBasemap(basemapName);
         mapActions.changeBasemap(this.map, basemapName);
       }
+
       this.map.graphics.clear();
       this.map.infoWindow.set('popupWindow', false);
       //- Attach events I need for the info window
@@ -121,16 +123,21 @@ export default class Map extends Component {
         this.map.infoWindow.setFeatures([evt.graphic]);
       });
 
-      let updateEnd = this.map.on('update-end', () => {
+      //- Add a scalebar
+      const scalebar = new Scalebar({
+        map: this.map
+      });
+
+      const updateEnd = this.map.on('update-end', () => {
         updateEnd.remove();
         mapActions.createLayers(this.map, settings.layers[language]);
         mapActions.createLegend(this.map, settings.layers[language]);
 
         //- Apply the mask layer defintion if present
         if (settings.iso && settings.iso !== '') {
-          let maskLayer = this.map.getLayer(layerKeys.MASK);
+          const maskLayer = this.map.getLayer(layerKeys.MASK);
           if (maskLayer) {
-            let layerDefs = [];
+            const layerDefs = [];
             maskLayer.visibleLayers.forEach((layerNum) => {
               layerDefs[layerNum] = `code_iso3 <> '${encodeURIComponent(settings.iso)}'`;
             });

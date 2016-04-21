@@ -22,7 +22,6 @@ export default class App extends Component {
     };
   };
 
-
   constructor (props) {
     super(props);
     this.state = AppStore.getState();
@@ -32,11 +31,26 @@ export default class App extends Component {
     AppStore.listen(this.storeDidUpdate);
     template.getAppInfo().then(settings => {
       appActions.applySettings(settings);
+      this.updateTitle(settings);
     });
   }
 
   storeDidUpdate = () => {
     this.setState(AppStore.getState());
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.language !== prevState.language) {
+      this.updateTitle(this.state.settings);
+    }
+  }
+
+  updateTitle = (settings) => {
+    const {language} = this.state;
+    const labels = settings.labels[language];
+    if (labels && labels.title) {
+      document.title = labels.title;
+    }
   };
 
   render () {

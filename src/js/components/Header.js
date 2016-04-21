@@ -37,8 +37,8 @@ export default class Header extends Component {
           </a>
         </div>
         <div className='app-header__title-container'>
-          <div className='app-header__title'>{title}</div>
-          <div className='app-header__subtitle'>{subtitle}</div>
+          <div title={title} className='app-header__title'>{title}</div>
+          <div title={subtitle} className='app-header__subtitle'>{subtitle}</div>
         </div>
         <Navigation />
       </div>

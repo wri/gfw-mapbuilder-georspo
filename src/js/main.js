@@ -33,11 +33,11 @@ window.requestAnimationFrame = (function () {
     function (callback) { window.setTimeout(callback, 1000 / 60); };
 })();
 
-let configureApp = () => {
+const configureApp = () => {
   corsServers.forEach((server) => { esriConfig.defaults.io.corsEnabledServers.push(server); });
 };
 
-let lazyloadAssets = () => {
+const lazyloadAssets = () => {
   loadCSS('http://fonts.googleapis.com/css?family=Fira+Sans:400,500,300');
   loadJS(assetUrls.highcharts).then(() => {
     Highcharts.setOptions({
@@ -47,11 +47,11 @@ let lazyloadAssets = () => {
   });
   loadJS(assetUrls.highchartsMore);
   loadCSS(`css/app.css?${window._versions.cache}`);
-  loadCSS(`https://js.arcgis.com/3.16/dijit/themes/nihilo/nihilo.css`);
-  loadCSS(`http://js.arcgis.com/${window._versions.esri}/esri/css/esri.css`);
+  loadCSS(`https://js.arcgis.com/${window._versions.esri}/esri/themes/calcite/dijit/calcite.css`);
+  loadCSS(`https://js.arcgis.com/${window._versions.esri}/esri/themes/calcite/esri/esri.css`);
 };
 
-let initializeApp = () => {
+const initializeApp = () => {
   ReactDOM.render(<App />, document.getElementById('root'));
   ReactDOM.render(<LayerModal />, document.getElementById('layer-modal'));
   ReactDOM.render(<ShareModal />, document.getElementById('share-modal'));

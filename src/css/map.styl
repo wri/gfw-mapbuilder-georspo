@@ -2,3 +2,14 @@
   min-height 100%
   height 100%
   width 100%
+
+//- Esri Overrides
+@media (min-width: $mobileBreak)
+  .esriScalebar
+    left 50% !important
+    & > div
+      transform translate(-50%, 0)
+
+@media (max-width: $mobileBreak)
+  .esriScalebar
+    bottom 60px !important
