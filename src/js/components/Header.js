@@ -17,11 +17,11 @@ export default class Header extends Component {
       settings
     } = this.context;
 
-    let {labels} = settings,
-        title, subtitle;
+    const {labels} = settings;
+    let title, subtitle;
 
     if (labels) {
-      let text = labels[language];
+      const text = labels[language];
       title = text.title;
       subtitle = text.subtitle;
     } else {

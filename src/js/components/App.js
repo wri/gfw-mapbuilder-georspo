@@ -32,6 +32,7 @@ export default class App extends Component {
     template.getAppInfo().then(settings => {
       appActions.applySettings(settings);
       this.updateTitle(settings);
+      this.createAnalyticsTracker(settings);
     });
   }
 
@@ -50,6 +51,13 @@ export default class App extends Component {
     const labels = settings.labels[language];
     if (labels && labels.title) {
       document.title = labels.title;
+    }
+  };
+
+  createAnalyticsTracker = (settings) => {
+    if (settings.analyticsCode) {
+      ga('create', settings.analyticsCode, 'auto');
+      ga('send', 'pageview');
     }
   };
 

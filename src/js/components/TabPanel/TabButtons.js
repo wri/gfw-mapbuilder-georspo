@@ -28,9 +28,9 @@ export default class TabButtons extends Component {
   };
 
   componentDidMount() {
-    let {settings, language} = this.context;
-    let narrative = settings.labels && settings.labels[language] && settings.labels[language].narrative || '';
-    let activeTab = window && window.innerWidth > 950 ? (narrative ? NARRATIVE : LAYERS) : '';
+    const {settings, language} = this.context;
+    const narrative = settings.labels && settings.labels[language] && settings.labels[language].narrative || '';
+    const activeTab = window && window.innerWidth > 950 ? (narrative ? NARRATIVE : LAYERS) : '';
     mapActions.changeActiveTab(activeTab);
   }
 

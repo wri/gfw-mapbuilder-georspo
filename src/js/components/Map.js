@@ -1,3 +1,5 @@
+/* eslint no-unused-vars: 0 */
+/* Creating some esri dijits needs the above rule disabled, choosing this over no-new */
 import AnalysisModal from 'components/Modals/AnalysisModal';
 import Controls from 'components/MapControls/ControlPanel';
 import CanopyModal from 'components/Modals/CanopyModal';

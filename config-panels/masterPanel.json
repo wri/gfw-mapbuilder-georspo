@@ -69,6 +69,12 @@
       "label": "Enter a narrative about your map to give your users some insight about it.",
       "tooltip": "This will be visible in the table of contents.",
       "placeholder": "Explore the Forest Atlas of Cameroon to discover ..."
+    }, {
+      "type": "string",
+      "fieldName": "analyticsCode",
+      "label": "Enter your Google Analytics tracking ID to enable trcking analytics of this application.",
+      "tooltip": "This will track events and pageviews",
+      "placeholder": "e.g. UA-XXXXX-Y"
     }]
   }, {
     "category": "Language Settings",
@@ -266,6 +272,7 @@
     "mapThemeIds": "1c38ba1095fe49e3ba234bf9105c1077;c76d788b7487476bae4d09a4e933be19",
     "mapThemes": "Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea",
     "narrative": "Explore the Forest Atlas of Cameroon to discover ...",
+    "analyticsCode": "",
 
     "language": "en",
     "useAlternativeLanguage": "true",
@@ -280,6 +287,7 @@
     "documentsDirectory": "https://wri-public-data.s3.amazonaws.com/forest_atlas/cmr/doc_pdf/",
     "documentsMapserver": "http://54.88.79.102/arcgis/rest/services/CMR/documents_administratifs/MapServer",
 
+    "iso": "",
     "activeFires": true,
     "intactForests": true,
     "aboveGroundBiomass": true,
