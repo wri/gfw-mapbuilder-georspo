@@ -64,12 +64,12 @@ export default class InfoWindow extends Component {
       visibleFields = displayInfo ? displayInfo.info.fieldInfos.filter(f => f.visible) : [];
       title = selectedFeature.getTitle();
       attributes = visibleFields.map(f => {
-        let info = { label: f.label, value: selectedFeature.attributes[f.fieldName] };
+        const info = { label: f.label, value: selectedFeature.attributes[f.fieldName] };
         // Use date and number formats for each field if they exist.
         if (f.format) {
           if (f.format.hasOwnProperty('dateFormat')) {
             // Date as a timestamp that needs to be turned into a string.
-            let when = new Date(info.value);
+            const when = new Date(info.value);
             info.value = dojoDate.format(when, DateFormats[f.format.dateFormat]);
           }
           if (f.format.hasOwnProperty('places')) {

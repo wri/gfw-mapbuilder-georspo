@@ -14,6 +14,8 @@ import React, {
   PropTypes
 } from 'react';
 
+const INCLUDED_BASEMAP_NAMES = ['satellite', 'hybrid', 'osm'];
+
 export default class LayerPanel extends Component {
 
   static contextTypes = {
@@ -40,7 +42,9 @@ export default class LayerPanel extends Component {
       basemapNames = basemapNames.filter(bm => {
         // Rather than showing traditional tiled and vector tile basemap options,
         // only show the vector tile basemap.
-        return !basemaps.hasOwnProperty(bm + '-vector');
+        // return !basemaps.hasOwnProperty(bm + '-vector');
+        /* Only show basemaps WRI wants */
+        return INCLUDED_BASEMAP_NAMES.indexOf(bm) > -1;
       });
       basemapLayers = basemapNames.map(bm => {
         return (
@@ -49,7 +53,7 @@ export default class LayerPanel extends Component {
       });
     }
 
-    let landsat = extraBasemaps[0];
+    const landsat = extraBasemaps[0];
     if (landsat) {
       basemapLayers.unshift(
         <LandsatLayer icon={landsat.thumbnailUrl} label={landsat.title} years={landsat.years} />
@@ -67,7 +71,7 @@ export default class LayerPanel extends Component {
     const {settings, language} = this.context;
     const layers = settings.layers && settings.layers[language] || [];
     const extraBasemaps = settings.basemaps && settings.basemaps[language] || [];
-    let groups = [];
+    const groups = [];
     //- Get a unique list of groups, first remove layers that dont belong to a group
     layers.filter(layer => layer.group).forEach((layer) => {
       if (!utils.containsObject(groups, 'key', layer.groupKey)) {
@@ -81,12 +85,12 @@ export default class LayerPanel extends Component {
     //- Swap the last two entries, the name can change so we can't use that for the swap
     //- but we need Land Use (or whatever it gets namedin between the two Land Cover groups)
     if (groups.length > 2) {
-      let swap = groups[groups.length - 1];
+      const swap = groups[groups.length - 1];
       groups[groups.length - 1] = groups[groups.length - 2];
       groups[groups.length - 2] = swap;
     }
     //- Create the layerGroup components
-    let layerGroups = groups.map((group, index) => {
+    const layerGroups = groups.map((group, index) => {
       return this.renderLayerGroup(group, layers, index);
     });
 
@@ -101,7 +105,7 @@ export default class LayerPanel extends Component {
 
   checkboxMap (groupKey) {
     return layer => {
-      let {activeLayers, dynamicLayers, ...props} = this.props;
+      const {activeLayers, dynamicLayers, ...props} = this.props;
       // Exclude Layers not part of this group
       if (layer.groupKey !== groupKey) { return null; }
       // TODO: Remove once current layer panel design is approved
@@ -128,7 +132,7 @@ export default class LayerPanel extends Component {
 
       let checkbox;
       if (layer.subId) {
-        let checked = dynamicLayers[layer.id] && dynamicLayers[layer.id].indexOf(layer.subIndex) > -1;
+        const checked = dynamicLayers[layer.id] && dynamicLayers[layer.id].indexOf(layer.subIndex) > -1;
         checkbox = <LayerCheckbox key={layer.subId} layer={layer} subLayer={true} checked={checked}>
           {childComponent}
         </LayerCheckbox>;

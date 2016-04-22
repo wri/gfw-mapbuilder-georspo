@@ -67,9 +67,9 @@ export default class AnalysisTypeSelect extends Component {
   };
 
   render () {
-    let {activeAnalysisType} = this.props;
+    const {activeAnalysisType} = this.props;
     let groupKeys = [];
-    let groups = {};
+    const groups = {};
     let activeOption;
     let options;
     //- Get a unique list of groups so I can render groups if necessary

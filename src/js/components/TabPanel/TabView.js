@@ -53,8 +53,8 @@ export default class TabView extends Component {
   };
 
   render () {
-    let {map, settings, language} = this.context;
-    let narrative = settings.labels && settings.labels[language] && settings.labels[language].narrative || '';
+    const {map, settings, language} = this.context;
+    const narrative = settings.labels && settings.labels[language] && settings.labels[language].narrative || '';
 
     return (
       <div className={`tab-view map-component custom-scroll shadow ${this.getContainerClass()}`}>

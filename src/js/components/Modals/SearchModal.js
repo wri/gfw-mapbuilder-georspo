@@ -35,12 +35,12 @@ export default class SearchModal extends Component {
       searchAttr: 'name',
       placeholder: text[language].SEARCH,
       onKeyUp: (evt) => {
-        let {webmapInfo} = this.context;
+        const {webmapInfo} = this.context;
         language = this.context.language;
         searchLayer = webmapInfo.operationalLayers.filter((layer) => {
           return layer.id.search(`_${language}`) > -1;
         })[0];
-        let {target, keyCode} = evt;
+        const {target, keyCode} = evt;
         if (searchLayer && searchLayer.url && target.value !== '' && keyCode !== 13) {
           if (currentPromise && !currentPromise.isResolved()) {
             currentPromise.cancel();
@@ -48,7 +48,7 @@ export default class SearchModal extends Component {
 
           currentPromise = request.findTaskByLayer(target.value, searchLayer);
           currentPromise.then((results) => {
-            let data = [];
+            const data = [];
             results.forEach((result) => {
               data.push({
                 id: result.feature.attributes.OBJECTID,
@@ -63,9 +63,10 @@ export default class SearchModal extends Component {
       },
       onChange: () => {
         const {map} = this.context;
-        let {item} = searchDijit;
+        const {item} = searchDijit;
+        console.log(searchLayer);
         if (item) {
-          let url = `${searchLayer.url}/${item.layerId}`;
+          const url = `${searchLayer.url}/${item.layerId}`;
           request.queryTaskById(url, item.id).then((response) => {
             // TODO: DISCUSS, THIS IS A HACK TO MAKE TO THE CURRENT SETUP WORK,
             // WE SHOULD REVISE THE WHOLE SEARCH EXPERIENCE FOR MANY REASONS,
@@ -76,7 +77,7 @@ export default class SearchModal extends Component {
             });
             map.infoWindow.setFeatures(response.features);
             this.onClose();
-            let extent = graphicsUtils.graphicsExtent(response.features);
+            const extent = graphicsUtils.graphicsExtent(response.features);
             if (extent) {
               map.setExtent(extent.expand(1.2), true);
             }

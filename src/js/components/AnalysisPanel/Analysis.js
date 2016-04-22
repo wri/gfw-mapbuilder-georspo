@@ -14,7 +14,7 @@ import performAnalysis from 'utils/performAnalysis';
 import tabKeys from 'constants/TabViewConstants';
 import {analysisConfig} from 'js/config';
 import Loader from 'components/Loader';
-import Deferred from 'dojo/Deferred';
+// import Deferred from 'dojo/Deferred';
 import request from 'utils/request';
 import text from 'js/languages';
 import React, {
@@ -30,23 +30,27 @@ const getDefaultState = function () {
 };
 
 //- If we cant get the raw geometry, just use the generalized geometry for now
-const getRawGeometry = function (feature) {
-  const promise = new Deferred();
-  const layer = feature._layer;
-  const url = layer && layer._url && layer._url.path;
-  if (url) {
-    request.queryTaskById(url, feature.attributes.OBJECTID).then((results) => {
-      if (results.features.length) {
-        promise.resolve(results.features[0].geometry);
-      } else {
-        promise.resolve(feature.geometry);
-      }
-    }, () => { promise.resolve(feature.geometry); });
-  } else {
-    promise.resolve(feature.geometry);
-  }
-  return promise;
-};
+// const getRawGeometry = function (feature) {
+//   const promise = new Deferred();
+//   const layer = feature._layer;
+//   const url = layer && layer._url && layer._url.path;
+//   // request.getRawGeometry(feature).then((geometry) => {
+//   //   // console.log('Hey Ohh');
+//   //   // console.log(geometry);
+//   // });
+//   if (url) {
+//     request.queryTaskById(url, feature.attributes.OBJECTID).then((results) => {
+//       if (results.features.length) {
+//         promise.resolve(results.features[0].geometry);
+//       } else {
+//         promise.resolve(feature.geometry);
+//       }
+//     }, () => { promise.resolve(feature.geometry); });
+//   } else {
+//     promise.resolve(feature.geometry);
+//   }
+//   return promise;
+// };
 
 export default class Analysis extends Component {
 
@@ -66,7 +70,7 @@ export default class Analysis extends Component {
     } = this.props;
 
     if (selectedFeature && activeTab === tabKeys.ANALYSIS) {
-      getRawGeometry(selectedFeature).then((geometry) => {
+      request.getRawGeometry(selectedFeature).then((geometry) => {
         performAnalysis(activeAnalysisType, geometry, settings).then((results) => {
           this.setState({ results: results, isLoading: false });
         });
@@ -97,7 +101,7 @@ export default class Analysis extends Component {
     ) {
       this.setState(getDefaultState());
       const {settings} = this.context;
-      getRawGeometry(selectedFeature).then((geometry) => {
+      request.getRawGeometry(selectedFeature).then((geometry) => {
         performAnalysis(activeAnalysisType, geometry, settings).then((results) => {
           this.setState({ results: results, isLoading: false });
         });

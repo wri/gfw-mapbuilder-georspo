@@ -1,3 +1,4 @@
+import SpatialReference from 'esri/SpatialReference';
 import Polygon from 'esri/geometry/Polygon';
 import symbols from 'utils/symbols';
 import Graphic from 'esri/graphic';
@@ -21,15 +22,28 @@ export default {
   },
 
   /**
+  * Create a polygon so I have a valid ArcGIS Polygon to use for requests since querying a
+  * MapService/dynamicLayer would return just the geometry and not a polygon
+  * @param {object} geometry - returned from a query against a MapService/dynamicLayer
+  * @param {number} spatialReference - numeric value for the desired spatial ref, e.g. 102100 or 4326
+  * @return {Polygon} - Valid Esri Polygon
+  */
+  generatePolygonInSr: (geometry, spatialReference) => {
+    const polygon = new Polygon(geometry);
+    polygon.setSpatialReference(new SpatialReference(spatialReference));
+    return polygon;
+  },
+
+  /**
   * This currently only supports polygon uploads
   * @param {object} - featureCollection - Feature Collection returned from Esri's generate features API
   * @return {array<Graphic>}
   */
   generatePolygonsFromUpload: (featureCollection) => {
-    let graphics = [];
+    const graphics = [];
     // Create an array of features from all the layers and feature sets
     featureCollection.layers.forEach((layer) => {
-      let {featureSet} = layer;
+      const {featureSet} = layer;
       featureSet.features.forEach((feature) => {
         graphics.push(new Graphic(
           new Polygon(feature.geometry),
