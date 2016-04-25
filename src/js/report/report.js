@@ -64,7 +64,7 @@ const getFeature = function getFeature (params) {
   if (idvalue && service && layerid) {
     //- This assumes id field is object id, if thats not the case, will need a different request method
     request.queryTaskById(`${service}//${layerid}`, idvalue).then((results) => {
-      let feature = results.features[0];
+      const feature = results.features[0];
       if (feature) {
         promise.resolve({
           attributes: feature.attributes,
@@ -202,7 +202,11 @@ const runAnalysis = function runAnalysis (params, feature) {
   const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
   const { tcd, lang } = params;
   //- Loss/Gain Analysis
-  performAnalysis(analysisKeys.TC_LOSS_GAIN, feature.geometry, tcd).then((results) => {
+  performAnalysis({
+    type: analysisKeys.TC_LOSS_GAIN,
+    geometry: feature.geometry,
+    canopyDensity: tcd
+  }).then((results) => {
     const totalLoss = results.lossCounts.reduce((a, b) => a + b, 0);
     const totalGain = results.gainCounts.reduce((a, b) => a + b, 0);
     //- Generate chart for Tree Cover Loss
@@ -224,7 +228,11 @@ const runAnalysis = function runAnalysis (params, feature) {
     document.getElementById('total-gain-badge').classList.remove('hidden');
   });
   //- Land Cover with Loss Analysis
-  performAnalysis(analysisKeys.LC_LOSS, feature.geometry, tcd).then((results) => {
+  performAnalysis({
+    type: analysisKeys.LC_LOSS,
+    geometry: feature.geometry,
+    canopyDensity: tcd
+  }).then((results) => {
     const configuredColors = analysisConfig[analysisKeys.LC_LOSS].colors;
     const labels = text[lang].ANALYSIS_LC_LABELS;
     const node = document.getElementById('lc-loss');
@@ -244,7 +252,11 @@ const runAnalysis = function runAnalysis (params, feature) {
     charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
   });
   //- Carbon Stocks with Loss Analysis
-  performAnalysis(analysisKeys.BIO_LOSS, feature.geometry, tcd).then((results) => {
+  performAnalysis({
+    type: analysisKeys.BIO_LOSS,
+    geometry: feature.geometry,
+    canopyDensity: tcd
+  }).then((results) => {
     const { labels, colors } = analysisConfig[analysisKeys.BIO_LOSS];
     const node = document.getElementById('bio-loss');
     const { counts, encoder } = results;
@@ -264,7 +276,11 @@ const runAnalysis = function runAnalysis (params, feature) {
 
   });
   //- Intact Forest with Loss Analysis
-  performAnalysis(analysisKeys.INTACT_LOSS, feature.geometry, tcd).then((results) => {
+  performAnalysis({
+    type: analysisKeys.INTACT_LOSS,
+    geometry: feature.geometry,
+    canopyDensity: tcd
+  }).then((results) => {
     const configuredColors = analysisConfig[analysisKeys.INTACT_LOSS].colors;
     const labels = text[lang].ANALYSIS_IFL_LABELS;
     const node = document.getElementById('intact-loss');
@@ -285,7 +301,11 @@ const runAnalysis = function runAnalysis (params, feature) {
     charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
   });
   //- Land Cover Composition Analysis
-  performAnalysis(analysisKeys.LCC, feature.geometry, tcd).then((results) => {
+  performAnalysis({
+    type: analysisKeys.LCC,
+    geometry: feature.geometry,
+    canopyDensity: tcd
+  }).then((results) => {
     const node = document.getElementById('lc-composition');
     const series = charts.formatCompositionAnalysis({
       colors: analysisConfig[analysisKeys.LCC].colors,
@@ -297,7 +317,11 @@ const runAnalysis = function runAnalysis (params, feature) {
     charts.makeCompositionPieChart(node, series);
   });
   //- Fires Analysis
-  performAnalysis(analysisKeys.FIRES, feature.geometry, tcd).then((results) => {
+  performAnalysis({
+    type: analysisKeys.FIRES,
+    geometry: feature.geometry,
+    canopyDensity: tcd
+  }).then((results) => {
     document.querySelector('.results__fires-pre').innerHTML = text[lang].ANALYSIS_FIRES_PRE;
     document.querySelector('.results__fires-count').innerHTML = results.fireCount;
     document.querySelector('.results__fires-active').innerHTML = text[lang].ANALYSIS_FIRES_ACTIVE;

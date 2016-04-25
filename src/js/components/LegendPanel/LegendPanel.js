@@ -20,6 +20,12 @@ export default class LegendPanel extends Component {
     map: PropTypes.object.isRequired
   };
 
+  componentDidMount() {
+    if (window && window.innerWidth > 950) {
+      mapActions.toggleLegendVisible();
+    }
+  }
+
   componentDidUpdate() {
     const {map} = this.context;
     if (map.loaded && !legend) {

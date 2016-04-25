@@ -19,7 +19,7 @@ class MapStore {
     this.activeLayers = [];
     this.allLayers = [];
     this.basemap = null;
-    this.legendOpen = window && window.innerWidth > 950;
+    this.legendOpen = false;
     this.landsatVisible = false;
     this.dynamicLayers = {};
     this.activeAnalysisType = analysisKeys.TC_LOSS;

@@ -66,12 +66,20 @@ export default class Analysis extends Component {
     const {
       selectedFeature,
       activeTab,
-      activeAnalysisType
+      activeAnalysisType,
+      canopyDensity,
+      activeSlopeClass
     } = this.props;
 
     if (selectedFeature && activeTab === tabKeys.ANALYSIS) {
       request.getRawGeometry(selectedFeature).then((geometry) => {
-        performAnalysis(activeAnalysisType, geometry, settings).then((results) => {
+        performAnalysis({
+          type: activeAnalysisType,
+          geometry: geometry,
+          canopyDensity: canopyDensity,
+          activeSlopeClass: activeSlopeClass,
+          settings: settings
+        }).then((results) => {
           this.setState({ results: results, isLoading: false });
         });
       });
@@ -102,7 +110,13 @@ export default class Analysis extends Component {
       this.setState(getDefaultState());
       const {settings} = this.context;
       request.getRawGeometry(selectedFeature).then((geometry) => {
-        performAnalysis(activeAnalysisType, geometry, settings).then((results) => {
+        performAnalysis({
+          type: activeAnalysisType,
+          geometry: geometry,
+          canopyDensity: canopyDensity,
+          activeSlopeClass: activeSlopeClass,
+          settings: settings
+        }).then((results) => {
           this.setState({ results: results, isLoading: false });
         });
       });

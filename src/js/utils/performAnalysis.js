@@ -1,23 +1,25 @@
 import analysisKeys from 'constants/AnalysisConstants';
 import analysisUtils from 'utils/analysisUtils';
 import {analysisConfig} from 'js/config';
-import mapStore from 'stores/MapStore';
 import Deferred from 'dojo/Deferred';
 import all from 'dojo/promise/all';
 
 /**
-* @param {string} analysisType - Value from Analysis Select, also key to options in config
-* @param {Polygon} geometry - Esri Polygon
-* @param {object} settings - Application settings from resources.js
+* @param {object} options - Value from Analysis Select, also key to options in config
+* @param {string} options.type - Value from Analysis Select, also key to options in config
+* @param {Polygon} options.geometry - Esri Polygon
+* @param {number} options.canopyDensity - Tree Canopy Density Value
+* @param {string=} options.activeSlopeClass - Current slope class setting
+* @param {object=} options.settings - Application settings from resources.js
 * @return {promise}
 */
-export default function performAnalysis (analysisType, geometry, settings) {
+export default function performAnalysis (options) {
+  const {type, geometry, canopyDensity, activeSlopeClass, settings} = options;
   const restorationUrl = settings && settings.restorationImageServer;
-  const config = analysisConfig[analysisType];
-  const {canopyDensity, activeSlopeClass} = mapStore.getState();
-  let promise = new Deferred();
+  const config = analysisConfig[type];
+  const promise = new Deferred();
 
-  switch (analysisType) {
+  switch (type) {
     case analysisKeys.FIRES:
       analysisUtils.getFireCount(config.url, geometry).then(promise.resolve);
     break;
@@ -28,7 +30,7 @@ export default function performAnalysis (analysisType, geometry, settings) {
       analysisUtils.getCountsWithDensity(config.id, geometry, canopyDensity).then(promise.resolve);
     break;
     case analysisKeys.SLOPE:
-      let slopeValue = settings.slopeClasses.indexOf(activeSlopeClass);
+      const slopeValue = settings.slopeClasses.indexOf(activeSlopeClass);
       analysisUtils.getSlope(restorationUrl, slopeValue, config.id, config.restoration, geometry).then(promise.resolve);
     break;
     case analysisKeys.TC_LOSS_GAIN:
@@ -56,7 +58,7 @@ export default function performAnalysis (analysisType, geometry, settings) {
     break;
     default:
       //- This should only be the restoration analysis, since analysisType is a rasterId
-      analysisUtils.getRestoration(restorationUrl, analysisType, geometry).then(promise.resolve);
+      analysisUtils.getRestoration(restorationUrl, type, geometry).then(promise.resolve);
     break;
   }
 
