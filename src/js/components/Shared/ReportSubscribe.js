@@ -16,7 +16,7 @@ export default class ReportSubscribeButtons extends Component {
     const selectedFeature = map.infoWindow && map.infoWindow.getSelectedFeature();
 
     if (selectedFeature) {
-      let {canopyDensity} = mapStore.getState();
+      const {canopyDensity} = mapStore.getState();
       appUtils.generateReport({
         selectedFeature: selectedFeature,
         canopyDensity: canopyDensity,
@@ -28,16 +28,18 @@ export default class ReportSubscribeButtons extends Component {
   };
 
   render () {
-    const { language } = this.context;
+    const { language, settings } = this.context;
 
     return (
       <div className='report-sub-buttons'>
         <button className='fa-button gold' onClick={this.printReport}>
           {text[language].PRINT_REPORT}
         </button>
-        <button className='fa-button gold'>
-          {text[language].SUBSCRIBE}
-        </button>
+        {!settings.includeSubscribeButton ? null :
+          <button className='fa-button gold'>
+            {text[language].SUBSCRIBE}
+          </button>
+        }
       </div>
     );
   }

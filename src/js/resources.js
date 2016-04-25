@@ -19,6 +19,8 @@ export default {
   mapThemeIds: '1c38ba1095fe49e3ba234bf9105c1077;c76d788b7487476bae4d09a4e933be19',
   mapThemes: 'Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea',
   narrative: '',
+  includeSubscribeButton: false,
+  includeMyGFWLogin: false,
   //- Language Settings
   language: 'en',
   useAlternativeLanguage: 'true',
