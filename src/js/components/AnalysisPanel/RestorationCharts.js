@@ -1,4 +1,3 @@
-//- These charts have a dependency of highcharts
 import React, {PropTypes, Component} from 'react';
 import charts from 'utils/charts';
 import text from 'js/languages';

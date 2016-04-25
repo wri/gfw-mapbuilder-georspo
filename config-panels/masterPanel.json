@@ -75,6 +75,16 @@
       "label": "Enter your Google Analytics tracking ID to enable trcking analytics of this application.",
       "tooltip": "This will track events and pageviews",
       "placeholder": "e.g. UA-XXXXX-Y"
+    }, {
+      "type": "boolean",
+      "fieldName": "includeSubscribeButton",
+      "tooltip": "This will include the subscribe button in the info window and anlysis panel",
+      "label": "Would you like include an subscribe button"
+    }, {
+      "type": "boolean",
+      "fieldName": "includeMyGFWLogin",
+      "tooltip": "This will include the My GFW Login in the header",
+      "label": "Would you like include an My GFW Login"
     }]
   }, {
     "category": "Language Settings",
@@ -273,6 +283,8 @@
     "mapThemes": "Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea",
     "narrative": "Explore the Forest Atlas of Cameroon to discover ...",
     "analyticsCode": "",
+    "includeSubscribeButton": false,
+    "includeMyGFWLogin": false,
 
     "language": "en",
     "useAlternativeLanguage": "true",

@@ -30,7 +30,7 @@ export default class Header extends Component {
     }
 
     return (
-      <div className='app-header mobile-hide'>
+      <div className='app-header'>
         <div className='app-header__logo-container'>
           <a href={settings.logoLinkUrl} target='_blank'>
             <img className='app-header__logo' src={settings.logoUrl} />

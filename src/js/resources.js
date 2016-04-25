@@ -278,7 +278,8 @@ export default {
       group: 'Land Cover',
       groupKey: layerKeys.GROUP_LC,
       label: 'Land cover',
-      layerIds: [0]
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [10]
     }, {
       id: 'MASK',
       order: 100,
@@ -345,7 +346,8 @@ export default {
       group: 'Land Cover',
       groupKey: layerKeys.GROUP_LC,
       label: 'Land cover',
-      layerIds: [0]
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [10]
     }, {
       id: 'MASK',
       order: 100,
@@ -412,7 +414,8 @@ export default {
       group: 'Land Cover',
       groupKey: layerKeys.GROUP_LC,
       label: 'Land cover',
-      layerIds: [0]
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [10]
     }, {
       id: 'MASK',
       order: 100,
