@@ -26,7 +26,7 @@ export default class Navigation extends Component {
   };
 
   renderMapThemes = (language, settings) => {
-    let shouldRender = settings.labels &&
+    const shouldRender = settings.labels &&
                        settings.labels[language] &&
                        settings.labels[language].themes !== undefined;
 
@@ -90,11 +90,13 @@ export default class Navigation extends Component {
               {text[language].NAV_DOWNLOAD}
             </a>
           </li>
-          <li className='mobile-menu__nav-link pointer'>
-            <a target='_blank'>
-              {text[language].NAV_MY_GFW}
-            </a>
-          </li>
+          {!settings.includeMyGFWLogin ? null :
+            <li className='mobile-menu__nav-link pointer'>
+              <a target='_blank'>
+                {text[language].NAV_MY_GFW}
+              </a>
+            </li>
+          }
           {ThemeComponent}
           {LanguageComponent}
         </ul>

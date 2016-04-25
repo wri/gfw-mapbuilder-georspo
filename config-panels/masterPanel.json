@@ -287,7 +287,7 @@
     "includeMyGFWLogin": false,
 
     "language": "en",
-    "useAlternativeLanguage": "true",
+    "useAlternativeLanguage": true,
     "alternativeLanguage": "fr",
     "alternativeLanguageTitle": "Forest Atlas",
     "alternativeLanguageSubtitle": "Application subtitle",
