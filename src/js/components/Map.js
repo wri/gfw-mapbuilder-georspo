@@ -133,8 +133,6 @@ export default class Map extends Component {
       const updateEnd = this.map.on('update-end', () => {
         updateEnd.remove();
         mapActions.createLayers(this.map, settings.layers[language]);
-        mapActions.createLegend(this.map, settings.layers[language]);
-
         //- Apply the mask layer defintion if present
         if (settings.iso && settings.iso !== '') {
           const maskLayer = this.map.getLayer(layerKeys.MASK);

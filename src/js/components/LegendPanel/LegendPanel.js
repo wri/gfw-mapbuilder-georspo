@@ -1,15 +1,86 @@
+import layerKeys from 'constants/LayerConstants';
+import React, {PropTypes, Component} from 'react';
 import mapActions from 'actions/MapActions';
-import React from 'react';
+import Legend from 'esri/dijit/Legend';
+import utils from 'utils/AppUtils';
 
-let closeSymbolCode = 9660,
-    openSymbolCode = 9650;
+const closeSymbolCode = 9660,
+    openSymbolCode = 9650,
+    closeSvg = '<use xlink:href="#shape-close" />';
 
-const closeSvg = '<use xlink:href="#shape-close" />';
+let legend;
 
-export default class LegendPanel extends React.Component {
+
+export default class LegendPanel extends Component {
+
+  static contextTypes = {
+    webmapInfo: PropTypes.object.isRequired,
+    settings: PropTypes.object.isRequired,
+    language: PropTypes.string.isRequired,
+    map: PropTypes.object.isRequired
+  };
+
+  componentDidUpdate() {
+    const {map} = this.context;
+    if (map.loaded && !legend) {
+      legend = new Legend({
+        map: map,
+        layerInfos: this.getLayersForLegend()
+      }, this.refs.legendNode);
+      legend.startup();
+    } else if (legend) {
+      legend.refresh(this.getLayersForLegend());
+    }
+  }
+
+  getLayersForLegend () {
+    const {map, webmapInfo, settings, language} = this.context;
+    const layersConfig = settings.layers[language];
+    let layers = [];
+
+    //- Get layers from the webmap
+    layers = webmapInfo.operationalLayers.filter((item) => {
+      return item.layerObject;
+    }).map((layer) => {
+      return {
+        layer: layer.layerObject,
+        title: '' // layer.layerObject.name
+      };
+    });
+
+    //- Get layers from the Map
+    let layer = map.getLayer(layerKeys.ACTIVE_FIRES);
+    // let conf = utils.getObject(layersConfig, 'id', layerKeys.ACTIVE_FIRES);
+    if (layer) {
+      layers.push({
+        layer: layer,
+        title: '' // conf.label
+      });
+    }
+
+    layer = map.getLayer(layerKeys.LAND_COVER);
+    // conf = utils.getObject(layersConfig, 'id', layerKeys.LAND_COVER);
+    if (layer) {
+      layers.push({
+        layer: layer,
+        title: '' // conf.label
+      });
+    }
+
+    layer = map.getLayer(layerKeys.LEGEND_LAYER);
+    // conf = utils.getObject(layersConfig, 'id', layerKeys.LAND_COVER);
+    if (layer) {
+      layers.push({
+        layer: layer,
+        title: '' // conf.label
+      });
+    }
+
+    return layers;
+  }
 
   render () {
-    let {
+    const {
       tableOfContentsVisible,
       legendOpen
     } = this.props;
@@ -38,7 +109,7 @@ export default class LegendPanel extends React.Component {
         </div>
 
         <div className='legend-layers'>
-          <div id='legend' className={`${legendOpen ? '' : 'hidden'}`}></div>
+          <div id='legend' ref='legendNode' className={`${legendOpen ? '' : 'hidden'}`}></div>
         </div>
       </div>
     );

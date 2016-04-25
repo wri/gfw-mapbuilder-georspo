@@ -164,7 +164,8 @@ export default {
       url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
       colormap: [[1, 219, 101, 152]],
       inputRange: [1, 15],
-      outputRange: [1]
+      outputRange: [1],
+      legendLayer: 0
     },
     {
       id: 'TREE_COVER_GAIN',
@@ -175,7 +176,8 @@ export default {
       groupKey: layerKeys.GROUP_LCD,
       label: 'Tree cover gain',
       sublabel: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer'
+      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
+      legendLayer: 1
     },
     {
       id: 'ACTIVE_FIRES',
@@ -201,7 +203,8 @@ export default {
       inputRange: [30, 101],
       outputRange: [1],
       visible: false,
-      opacity: 0.8
+      opacity: 0.8,
+      legendLayer: 2
     },
     {
       id: 'LAND_COVER',
@@ -219,6 +222,14 @@ export default {
       url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
       opacity: 0.35,
       layerIds: [0]
+    }, {
+      id: 'LEGEND_LAYER',
+      order: 101,
+      type: 'dynamic',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
+      visible: false,
+      opacity: 0,
+      layerIds: []
     }],
     fr: [{
       id: 'TREE_COVER_LOSS',

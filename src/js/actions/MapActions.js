@@ -1,6 +1,5 @@
 import dispatcher from 'js/dispatcher';
 import layerFactory from 'helpers/LayerFactory';
-import legendHelper from 'helpers/LegendHelper';
 import landsatHelper from 'helpers/LandsatHelper';
 import layerKeys from 'constants/LayerConstants';
 
@@ -94,10 +93,6 @@ class MapActions {
 
   changeLandsatYear (map, lang, year) {
     landsatHelper.changeYear(map, lang, year);
-  }
-
-  createLegend(map) {
-    legendHelper({ map: map }, 'legend');
   }
 
 }

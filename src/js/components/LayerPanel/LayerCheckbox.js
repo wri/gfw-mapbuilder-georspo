@@ -1,19 +1,22 @@
+import layerKeys from 'constants/LayerConstants';
 import layerActions from 'actions/LayerActions';
 import modalActions from 'actions/ModalActions';
 import LayersHelper from 'helpers/LayersHelper';
 import LayerTransparency from './LayerTransparency';
+import utils from 'utils/AppUtils';
 import React, {
   Component,
   PropTypes
 } from 'react';
 
 // Info Icon Markup for innerHTML
-let useSvg = '<use xlink:href="#shape-info" />';
+const useSvg = '<use xlink:href="#shape-info" />';
 
 export default class LayerCheckbox extends Component {
 
   static contextTypes = {
     language: PropTypes.string.isRequired,
+    settings: PropTypes.object.isRequired,
     map: PropTypes.object.isRequired
   };
 
@@ -24,12 +27,41 @@ export default class LayerCheckbox extends Component {
           LayersHelper.showSubLayer(this.props.layer);
         } else {
           LayersHelper.showLayer(this.props.layer.id);
+          //- If the legend layer is present, update it
+          this.updateLegendLayer(this.props.layer.id, { visible: true });
         }
       } else {
         if (this.props.subLayer) {
           LayersHelper.hideSubLayer(this.props.layer);
         } else {
           LayersHelper.hideLayer(this.props.layer.id);
+          //- If the legend layer is present, update it
+          this.updateLegendLayer(this.props.layer.id, { visible: false });
+        }
+      }
+    }
+  }
+
+  /**
+  * There is a dynamic layer with opacity set to 0, turn on or off its sub layers so they show up in the
+  * legend, this is great for image services or other layers that don't have a legend but need one
+  */
+  updateLegendLayer (layerId, options) {
+    const {settings, map, language} = this.context;
+    const layersConfig = settings.layers[language];
+
+    const conf = utils.getObject(layersConfig, 'id', layerId);
+    if (conf && conf.legendLayer !== undefined) {
+      const layer = map.getLayer(layerKeys.LEGEND_LAYER);
+      const {visibleLayers} = layer;
+
+      if (options.visible) {
+        visibleLayers.push(conf.legendLayer);
+        layer.show();
+      } else {
+        visibleLayers.splice(visibleLayers.indexOf(conf.legendLayer), 1);
+        if (visibleLayers.length === 0) {
+          layer.hide();
         }
       }
     }
@@ -40,12 +72,12 @@ export default class LayerCheckbox extends Component {
   }
 
   render() {
-    let {layer} = this.props;
-    let {label, sublabel} = layer;
+    const {layer} = this.props;
+    const {label, sublabel} = layer;
     // let {language} = this.context;
-    let checked = this.props.checked ? 'active' : '';
-    let disabled = layer.disabled ? 'disabled' : '';
-    let hidden = LayersHelper.isLayerVisible(layer) ? '' : 'hidden';
+    const checked = this.props.checked ? 'active' : '';
+    const disabled = layer.disabled ? 'disabled' : '';
+    const hidden = LayersHelper.isLayerVisible(layer) ? '' : 'hidden';
 
     return (
       <div className={`layer-checkbox relative ${checked} ${disabled} ${hidden}`} >
@@ -66,13 +98,13 @@ export default class LayerCheckbox extends Component {
   }
 
   showInfo () {
-    let layer = this.props.layer;
+    const layer = this.props.layer;
     if (layer.disabled) { return; }
     modalActions.showLayerInfo(this.props.layer.id);
   }
 
   toggleLayer () {
-    let {layer} = this.props;
+    const {layer} = this.props;
     if (layer.disabled) { return; }
     if (layer.subId) {
       // TODO:  Update visible layers.
