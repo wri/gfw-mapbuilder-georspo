@@ -1,9 +1,3 @@
-// import {layerConfig, errors} from 'js/config';
-// import SpatialReference from 'esri/SpatialReference';
-// import Polygon from 'esri/geometry/Polygon';
-// import GraphicsHelper from 'helpers/GraphicsHelper';
-// import GeoProcessor from 'esri/tasks/Geoprocessor';
-// import FeatureSet from 'esri/tasks/FeatureSet';
 import FindParameters from 'esri/tasks/FindParameters';
 import QueryTask from 'esri/tasks/QueryTask';
 import FindTask from 'esri/tasks/FindTask';
@@ -11,8 +5,6 @@ import esriRequest from 'esri/request';
 import Query from 'esri/tasks/query';
 import Deferred from 'dojo/Deferred';
 import geometryUtils from 'utils/geometryUtils';
-// import utils from 'utils/AppUtils';
-// import KEYS from 'js/constants';
 
 const needsDynamicQuery = function needsDynamicQuery (url) {
   return /\/dynamicLayer$/.test(url);

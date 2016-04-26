@@ -1,7 +1,9 @@
 import analysisKeys from 'constants/AnalysisConstants';
+import layerKeys from 'constants/LayerConstants';
 import analysisUtils from 'utils/analysisUtils';
 import {analysisConfig} from 'js/config';
 import Deferred from 'dojo/Deferred';
+import utils from 'utils/AppUtils';
 import all from 'dojo/promise/all';
 
 /**
@@ -9,13 +11,15 @@ import all from 'dojo/promise/all';
 * @param {string} options.type - Value from Analysis Select, also key to options in config
 * @param {Polygon} options.geometry - Esri Polygon
 * @param {number} options.canopyDensity - Tree Canopy Density Value
+* @param {string} options.language - current language, Needed to get layer config from settings
 * @param {string=} options.activeSlopeClass - Current slope class setting
-* @param {object=} options.settings - Application settings from resources.js
+* @param {object=} options.settings - Application settings from resources.j
 * @return {promise}
 */
 export default function performAnalysis (options) {
-  const {type, geometry, canopyDensity, activeSlopeClass, settings} = options;
+  const {type, geometry, canopyDensity, activeSlopeClass, settings, language} = options;
   const restorationUrl = settings && settings.restorationImageServer;
+  const landCoverConfig = settings && settings.layers ? utils.getObject(settings.layers[language], 'id', layerKeys.LAND_COVER) : {};
   const config = analysisConfig[type];
   const promise = new Deferred();
 
@@ -24,7 +28,7 @@ export default function performAnalysis (options) {
       analysisUtils.getFireCount(config.url, geometry).then(promise.resolve);
     break;
     case analysisKeys.LCC:
-      analysisUtils.getMosaic(config.lockRaster, geometry).then(promise.resolve);
+      analysisUtils.getMosaic(landCoverConfig.rasterId, geometry).then(promise.resolve);
     break;
     case analysisKeys.TC_LOSS:
       analysisUtils.getCountsWithDensity(config.id, geometry, canopyDensity).then(promise.resolve);
@@ -45,6 +49,13 @@ export default function performAnalysis (options) {
       });
     break;
     case analysisKeys.LC_LOSS:
+      analysisUtils.getCrossedWithLoss({
+        id: landCoverConfig.rasterId,
+        bounds: landCoverConfig.bounds
+      }, analysisConfig[analysisKeys.TC_LOSS], geometry, {
+        canopyDensity: canopyDensity
+      }).then(promise.resolve);
+    break;
     case analysisKeys.BIO_LOSS:
       analysisUtils.getCrossedWithLoss(config, analysisConfig[analysisKeys.TC_LOSS], geometry, {
         canopyDensity: canopyDensity

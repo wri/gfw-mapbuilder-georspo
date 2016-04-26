@@ -21,8 +21,8 @@ export default (layer) => {
 
   if ((!layer.url && layer.type !== 'graphic') || !layer.type) { throw new Error(errors.missingLayerConfig); }
 
-
-  let esriLayer, options = {};
+  const options = {};
+  let esriLayer;
 
   switch (layer.type) {
     case 'tiled':

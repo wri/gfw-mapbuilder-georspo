@@ -248,11 +248,11 @@ config.analysis[analysisKeys.BIO_LOSS] = {
   }
 };
 
-config.analysis[analysisKeys.LC_LOSS] = {
-  id: '$523',
-  bounds: [1, 20],
-  colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92']
-};
+// config.analysis[analysisKeys.LC_LOSS] = {
+//   id: '$523',
+//   bounds: [1, 20],
+//   colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92']
+// };
 
 config.analysis[analysisKeys.SLOPE] = {
   id: '$3',
@@ -277,10 +277,10 @@ config.analysis[analysisKeys.TC_LOSS] = {
   labels: [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014]
 };
 
-config.analysis[analysisKeys.LCC] = {
-  lockRaster: 523,
-  colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92']
-};
+// config.analysis[analysisKeys.LCC] = {
+//   lockRaster: 523,
+//   colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92']
+// };
 
 config.analysis[analysisKeys.FIRES] = {
   url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer/4'

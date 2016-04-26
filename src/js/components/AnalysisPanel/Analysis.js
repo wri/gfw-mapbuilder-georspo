@@ -12,10 +12,12 @@ import BarChart from 'components/AnalysisPanel/BarChart';
 import analysisKeys from 'constants/AnalysisConstants';
 import performAnalysis from 'utils/performAnalysis';
 import tabKeys from 'constants/TabViewConstants';
+import layerKeys from 'constants/LayerConstants';
 import {analysisConfig} from 'js/config';
 import Loader from 'components/Loader';
 // import Deferred from 'dojo/Deferred';
 import request from 'utils/request';
+import utils from 'utils/AppUtils';
 import text from 'js/languages';
 import React, {
   Component,
@@ -62,7 +64,7 @@ export default class Analysis extends Component {
   state = getDefaultState();
 
   componentDidMount() {
-    const {settings} = this.context;
+    const {settings, language} = this.context;
     const {
       selectedFeature,
       activeTab,
@@ -78,7 +80,8 @@ export default class Analysis extends Component {
           geometry: geometry,
           canopyDensity: canopyDensity,
           activeSlopeClass: activeSlopeClass,
-          settings: settings
+          settings: settings,
+          language: language
         }).then((results) => {
           this.setState({ results: results, isLoading: false });
         });
@@ -108,14 +111,15 @@ export default class Analysis extends Component {
       activeTab === tabKeys.ANALYSIS
     ) {
       this.setState(getDefaultState());
-      const {settings} = this.context;
+      const {settings, language} = this.context;
       request.getRawGeometry(selectedFeature).then((geometry) => {
         performAnalysis({
           type: activeAnalysisType,
           geometry: geometry,
           canopyDensity: canopyDensity,
           activeSlopeClass: activeSlopeClass,
-          settings: settings
+          settings: settings,
+          language: language
         }).then((results) => {
           this.setState({ results: results, isLoading: false });
         });
@@ -126,18 +130,19 @@ export default class Analysis extends Component {
   renderResults = (type, results, language) => {
     const {settings} = this.context;
     const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
-    let labels;
+    let labels, layerConf, colors;
     switch (type) {
       case analysisKeys.FIRES:
         return <FiresBadge count={results.fireCount} />;
       case analysisKeys.TC_LOSS_GAIN:
         return <LossGainBadge lossCounts={results.lossCounts} gainCounts={results.gainCounts} />;
       case analysisKeys.LCC:
+        layerConf = utils.getObject(settings.layers[language], 'id', layerKeys.LAND_COVER);
         return <CompositionPieChart
           name={text[language].ANALYSIS_LCC_CHART_NAME}
           counts={results.counts}
-          colors={analysisConfig[type].colors}
-          labels={text[language].ANALYSIS_LC_LABELS} />;
+          colors={layerConf.colors}
+          labels={layerConf.classes} />;
       case analysisKeys.TC_LOSS:
         return <BarChart
           name={text[language].ANALYSIS_TC_CHART_NAME}
@@ -147,19 +152,23 @@ export default class Analysis extends Component {
       case analysisKeys.LC_LOSS:
       case analysisKeys.BIO_LOSS:
       case analysisKeys.INTACT_LOSS:
-        labels = (type === analysisKeys.LC_LOSS ? text[language].ANALYSIS_LC_LABELS :
-          (type === analysisKeys.INTACT_LOSS ? text[language].ANALYSIS_IFL_LABELS : analysisConfig[type].labels));
+        layerConf = utils.getObject(settings.layers[language], 'id', layerKeys.LAND_COVER);
+        labels = (type === analysisKeys.LC_LOSS ? layerConf.classes :
+          (type === analysisKeys.INTACT_LOSS ? text[language].ANALYSIS_IFL_LABELS :
+            analysisConfig[type].labels)
+        );
+        colors = type === analysisKeys.LC_LOSS ? layerConf.colors : analysisConfig[type].colors;
         return <TotalLossChart
           counts={results.counts}
           encoder={results.encoder}
           options={results.options}
           labels={labels}
           lossLabels={lossLabels}
-          colors={analysisConfig[type].colors} />;
+          colors={colors} />;
       case analysisKeys.SLOPE:
         const {counts} = results;
         labels = counts.map((v, index) => text[language].ANALYSIS_SLOPE_OPTION + (index + 1));
-        const colors = settings.slopeAnalysisPotentialColors;
+        colors = settings.slopeAnalysisPotentialColors;
         const tooltips = settings.slopeAnalysisPotentialOptions;
         //- Need a new chart to handle these values correctly
         return <SlopeBarChart counts={counts} colors={colors} labels={labels} tooltips={tooltips} />;

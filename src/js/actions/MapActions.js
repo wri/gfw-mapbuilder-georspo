@@ -1,5 +1,5 @@
 import dispatcher from 'js/dispatcher';
-import layerFactory from 'helpers/LayerFactory';
+import layerFactory from 'utils/layerFactory';
 import landsatHelper from 'helpers/LandsatHelper';
 import layerKeys from 'constants/LayerConstants';
 

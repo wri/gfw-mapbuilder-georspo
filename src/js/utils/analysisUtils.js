@@ -45,7 +45,7 @@ const formatters = {
   },
   //TODO: Cleanup and remove noSlice, make it an explicit option so using this function does not pass in an anonymous boolean
   getCounts: (response, pixelSize, noSlice) => {
-    let {histograms} = response;
+    const {histograms} = response;
     let counts = histograms && histograms.length === 1 ? histograms[0].counts : [];
     counts = counts.map((value) => ((value * Math.pow(pixelSize, 2) / 10000)));
     //- Normalize the results based on the pixelSize, then remove the first count as it is nulls
@@ -134,7 +134,7 @@ class Encoder {
 
   /* Helper function */
   fromBounds = (bounds) => {
-    let result = [], current = bounds[0], end = bounds[1];
+    const result = [], current = bounds[0], end = bounds[1];
     for (;current <= end; current++) {
       result.push(current);
     }
@@ -156,7 +156,7 @@ class Encoder {
   getSimpleRule (rasterA, rasterB, canopyDensity) {
     const tcd = analysisConfig.tcd;
     const tcdRemap = rules.remap(tcd.id, tcd.inputRanges(canopyDensity), tcd.outputValues);
-    let outputRule = rules.arithmetic(
+    const outputRule = rules.arithmetic(
       tcdRemap,
       rules.arithmetic(rasterA, rasterB, OP_MULTIPLY),
       OP_MULTIPLY
@@ -170,7 +170,7 @@ class Encoder {
     const tcd = analysisConfig.tcd;
     const remapRule = rules.remap(rasterA, [this.A[0], (this.A[this.A.length - 1]) + 1], [this.B.length]);
     const tcdRemap = rules.remap(tcd.id, tcd.inputRanges(canopyDensity), tcd.outputValues);
-    let outputRule = rules.arithmetic(
+    const outputRule = rules.arithmetic(
       tcdRemap,
       rules.arithmetic(
         rules.arithmetic(remapRule, rasterA, OP_MULTIPLY),
@@ -193,7 +193,7 @@ export default {
   getFireCount: (url, geometry) => {
     const queryTask = new QueryTask(url);
     const promise = new Deferred();
-    let query = new Query();
+    const query = new Query();
     query.geometry = geometry;
     query.returnGeometry = false;
     query.outFields = [''];
@@ -212,7 +212,7 @@ export default {
     const densityRule = rules.remap(tcd.id, tcd.inputRanges(canopyDensity), tcd.outputValues);
     const {imageService, pixelSize} = analysisConfig;
 
-    let content = {
+    const content = {
       pixelSize: pixelSize,
       geometry: geometry,
       renderingRule: rules.arithmetic(densityRule, rasterId, OP_MULTIPLY)
@@ -238,7 +238,7 @@ export default {
   getMosaic: (lockRaster, geometry) => {
     const promise = new Deferred();
     const {imageService, pixelSize} = analysisConfig;
-    let content = {
+    const content = {
       pixelSize: pixelSize,
       geometry: geometry,
       mosaicRule: rules.mosaicRule(lockRaster)
@@ -270,7 +270,7 @@ export default {
                           encoder.getSimpleRule(lossConfig.id, rasterId, options.canopyDensity) :
                           encoder.getRule(lossConfig.id, rasterId, options.canopyDensity);
 
-    let content = {
+    const content = {
       geometry: geometry,
       pixelSize: pixelSize,
       renderingRule: renderingRule
@@ -308,7 +308,7 @@ export default {
       OP_MULTIPLY
     );
 
-    let content = {
+    const content = {
       pixelSize: pixelSize,
       geometry: geometry,
       renderingRule: renderingRule
@@ -316,7 +316,7 @@ export default {
 
     const success = (response) => {
       //- get the counts and remove the no data value, which is the first value
-      let counts = formatters.getCounts(response, content.pixelSize).counts;
+      const counts = formatters.getCounts(response, content.pixelSize).counts;
       promise.resolve({
         counts: counts.slice(1)
       });

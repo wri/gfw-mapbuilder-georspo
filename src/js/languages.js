@@ -58,7 +58,6 @@ strings.en.ANALYSIS_SELECT_TYPE_LABEL = 'Select Analysis:';
 //- Chart Labels in the Analysis
 strings.en.ANALYSIS_TC_CHART_NAME = 'Tree cover loss in Hectares';
 strings.en.ANALYSIS_LCC_CHART_NAME = 'Land Cover Composition';
-strings.en.ANALYSIS_LC_LABELS = ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'];
 strings.en.ANALYSIS_IFL_LABELS = ['Intact Forest'];
 strings.en.ANALYSIS_FIRES_PRE = 'There are';
 strings.en.ANALYSIS_FIRES_ACTIVE = 'active fires';
@@ -172,7 +171,6 @@ strings.fr.ANALYSIS_SELECT_TYPE_LABEL = 'Select Analysis:';
 //- Chart Labels in the Analysis
 strings.fr.ANALYSIS_TC_CHART_NAME = 'Tree cover loss in Hectares';
 strings.fr.ANALYSIS_LCC_CHART_NAME = 'Land Cover Composition';
-strings.fr.ANALYSIS_LC_LABELS = ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'];
 strings.fr.ANALYSIS_IFL_LABELS = ['Intact Forest'];
 strings.fr.ANALYSIS_FIRES_PRE = 'There are';
 strings.fr.ANALYSIS_FIRES_ACTIVE = 'active fires';
@@ -286,7 +284,6 @@ strings.es.ANALYSIS_SELECT_TYPE_LABEL = 'Select Analysis:';
 //- Chart Labels in the Analysis
 strings.es.ANALYSIS_TC_CHART_NAME = 'Tree cover loss in Hectares';
 strings.es.ANALYSIS_LCC_CHART_NAME = 'Land Cover Composition';
-strings.es.ANALYSIS_LC_LABELS = ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'];
 strings.es.ANALYSIS_IFL_LABELS = ['Intact Forest'];
 strings.es.ANALYSIS_FIRES_PRE = 'There are';
 strings.es.ANALYSIS_FIRES_ACTIVE = 'active fires';
@@ -399,7 +396,6 @@ strings.pt.ANALYSIS_SELECT_TYPE_LABEL = 'Select Analysis:';
 //- Chart Labels in the Analysis
 strings.pt.ANALYSIS_TC_CHART_NAME = 'Tree cover loss in Hectares';
 strings.pt.ANALYSIS_LCC_CHART_NAME = 'Land Cover Composition';
-strings.pt.ANALYSIS_LC_LABELS = ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'];
 strings.pt.ANALYSIS_IFL_LABELS = ['Intact Forest'];
 strings.pt.ANALYSIS_FIRES_PRE = 'There are';
 strings.pt.ANALYSIS_FIRES_ACTIVE = 'active fires';

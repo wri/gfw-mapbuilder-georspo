@@ -40,8 +40,9 @@ export default class LegendPanel extends Component {
   }
 
   getLayersForLegend () {
-    const {map, webmapInfo, settings, language} = this.context;
-    const layersConfig = settings.layers[language];
+    const {map, webmapInfo} = this.context;
+    // const {settings, language} = this.context;
+    // const layersConfig = settings.layers[language];
     let layers = [];
 
     //- Get layers from the webmap
@@ -73,12 +74,29 @@ export default class LegendPanel extends Component {
       });
     }
 
-    layer = map.getLayer(layerKeys.LEGEND_LAYER);
-    // conf = utils.getObject(layersConfig, 'id', layerKeys.LAND_COVER);
+    layer = map.getLayer(layerKeys.IFL);
+    // conf = utils.getObject(layersConfig, 'id', layerKeys.IFL);
     if (layer) {
       layers.push({
         layer: layer,
         title: '' // conf.label
+      });
+    }
+
+    layer = map.getLayer(layerKeys.AG_BIOMASS);
+    // conf = utils.getObject(layersConfig, 'id', layerKeys.AG_BIOMASS);
+    if (layer) {
+      layers.push({
+        layer: layer,
+        title: '' // conf.label
+      });
+    }
+
+    layer = map.getLayer(layerKeys.LEGEND_LAYER);
+    if (layer) {
+      layers.push({
+        layer: layer,
+        title: ''
       });
     }
 

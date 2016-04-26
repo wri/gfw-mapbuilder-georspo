@@ -2,17 +2,19 @@ import DynamicLayer from 'esri/layers/ArcGISDynamicMapServiceLayer';
 import ImageParameters from 'esri/layers/ImageParameters';
 import analysisKeys from 'constants/AnalysisConstants';
 import performAnalysis from 'utils/performAnalysis';
+import layerKeys from 'constants/LayerConstants';
 import Polygon from 'esri/geometry/Polygon';
 import {getUrlParams} from 'utils/params';
 import {analysisConfig} from 'js/config';
 import esriRequest from 'esri/request';
+import appUtils from 'utils/AppUtils';
 import locale from 'dojo/date/locale';
-// import template from 'utils/template';
 import Deferred from 'dojo/Deferred';
 import symbols from 'utils/symbols';
 import request from 'utils/request';
 import all from 'dojo/promise/all';
 import Graphic from 'esri/graphic';
+import resources from 'resources';
 import charts from 'utils/charts';
 import number from 'dojo/number';
 import text from 'js/languages';
@@ -205,7 +207,9 @@ const runAnalysis = function runAnalysis (params, feature) {
   performAnalysis({
     type: analysisKeys.TC_LOSS_GAIN,
     geometry: feature.geometry,
-    canopyDensity: tcd
+    settings: resources,
+    canopyDensity: tcd,
+    language: lang
   }).then((results) => {
     const totalLoss = results.lossCounts.reduce((a, b) => a + b, 0);
     const totalGain = results.gainCounts.reduce((a, b) => a + b, 0);
@@ -231,10 +235,13 @@ const runAnalysis = function runAnalysis (params, feature) {
   performAnalysis({
     type: analysisKeys.LC_LOSS,
     geometry: feature.geometry,
-    canopyDensity: tcd
+    settings: resources,
+    canopyDensity: tcd,
+    language: lang
   }).then((results) => {
-    const configuredColors = analysisConfig[analysisKeys.LC_LOSS].colors;
-    const labels = text[lang].ANALYSIS_LC_LABELS;
+    const layerConf = appUtils.getObject(resources.layers[lang], 'id', layerKeys.LAND_COVER);
+    const configuredColors = layerConf.colors;
+    const labels = layerConf.classes;
     const node = document.getElementById('lc-loss');
     const { counts, encoder } = results;
     const Xs = encoder.A;
@@ -255,7 +262,9 @@ const runAnalysis = function runAnalysis (params, feature) {
   performAnalysis({
     type: analysisKeys.BIO_LOSS,
     geometry: feature.geometry,
-    canopyDensity: tcd
+    settings: resources,
+    canopyDensity: tcd,
+    language: lang
   }).then((results) => {
     const { labels, colors } = analysisConfig[analysisKeys.BIO_LOSS];
     const node = document.getElementById('bio-loss');
@@ -279,7 +288,9 @@ const runAnalysis = function runAnalysis (params, feature) {
   performAnalysis({
     type: analysisKeys.INTACT_LOSS,
     geometry: feature.geometry,
-    canopyDensity: tcd
+    settings: resources,
+    canopyDensity: tcd,
+    language: lang
   }).then((results) => {
     const configuredColors = analysisConfig[analysisKeys.INTACT_LOSS].colors;
     const labels = text[lang].ANALYSIS_IFL_LABELS;
@@ -304,13 +315,16 @@ const runAnalysis = function runAnalysis (params, feature) {
   performAnalysis({
     type: analysisKeys.LCC,
     geometry: feature.geometry,
-    canopyDensity: tcd
+    settings: resources,
+    canopyDensity: tcd,
+    language: lang
   }).then((results) => {
+    const layerConf = appUtils.getObject(resources.layers[lang], 'id', layerKeys.LAND_COVER);
     const node = document.getElementById('lc-composition');
     const series = charts.formatCompositionAnalysis({
-      colors: analysisConfig[analysisKeys.LCC].colors,
+      colors: layerConf.colors,
       name: text[lang].ANALYSIS_LCC_CHART_NAME,
-      labels: text[lang].ANALYSIS_LC_LABELS,
+      labels: layerConf.classes,
       counts: results.counts
     });
 
@@ -320,7 +334,9 @@ const runAnalysis = function runAnalysis (params, feature) {
   performAnalysis({
     type: analysisKeys.FIRES,
     geometry: feature.geometry,
-    canopyDensity: tcd
+    settings: resources,
+    canopyDensity: tcd,
+    language: lang
   }).then((results) => {
     document.querySelector('.results__fires-pre').innerHTML = text[lang].ANALYSIS_FIRES_PRE;
     document.querySelector('.results__fires-count').innerHTML = results.fireCount;

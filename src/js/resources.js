@@ -7,9 +7,9 @@ export default {
 
   //- General Settings
   webmap: 'e148ac47cd374d9da4d208aacfe690cf',
-  title: 'Forest Atlas',
-  subtitle: 'Application subtitle',
-  logoUrl: './css/images/gfw-fires-logo.png',
+  title: 'GFW Mapbuilder',
+  subtitle: 'Make maps that matter',
+  logoUrl: './css/images/gfw-logo.png',
   // logoUrl: 'http://cmr.forest-atlas.org/map/app/images/CMR_flag_new.png',
   logoLinkUrl: 'http://www.minfof.cm/',
   aboutLinkUrl: 'http://www.wri.org/our-work/project/',
@@ -157,7 +157,7 @@ export default {
   layers: {
     en: [{
       id: 'TREE_COVER_LOSS',
-      order: 3,
+      order: 5,
       type: 'image',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -169,10 +169,9 @@ export default {
       inputRange: [1, 15],
       outputRange: [1],
       legendLayer: 0
-    },
-    {
+    }, {
       id: 'TREE_COVER_GAIN',
-      order: 4,
+      order: 6,
       type: 'tiled',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -181,10 +180,9 @@ export default {
       sublabel: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
       url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
       legendLayer: 1
-    },
-    {
+    }, {
       id: 'ACTIVE_FIRES',
-      order: 5,
+      order: 7,
       type: 'dynamic',
       group: 'Land Cover Dynamics',
       groupKey: layerKeys.GROUP_LCD,
@@ -192,8 +190,7 @@ export default {
       sublabel: '(daily, 1km, global, NASA)',
       url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
       layerIds: [0, 1, 2, 3]
-    },
-    {
+    }, {
       id: 'TREE_COVER',
       order: 1,
       type: 'image',
@@ -208,8 +205,7 @@ export default {
       visible: false,
       opacity: 0.8,
       legendLayer: 2
-    },
-    {
+    }, {
       id: 'LAND_COVER',
       order: 2,
       type: 'dynamic',
@@ -217,7 +213,29 @@ export default {
       groupKey: layerKeys.GROUP_LC,
       label: 'Land cover',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [10]
+      layerIds: [10],
+      rasterId: '$523',
+      bounds: [1, 20],
+      classes: ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'],
+      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92']
+    }, {
+      id: 'IFL',
+      order: 3,
+      type: 'dynamic',
+      group: 'Land Cover',
+      groupKey: layerKeys.GROUP_LC,
+      label: 'Intact Forest Landscape',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [0]
+    }, {
+      id: 'AG_BIOMASS',
+      order: 4,
+      type: 'dynamic',
+      group: 'Land Cover',
+      groupKey: layerKeys.GROUP_LC,
+      label: 'Above ground biomass',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [1]
     }, {
       id: 'MASK',
       order: 100,
@@ -236,7 +254,7 @@ export default {
     }],
     fr: [{
       id: 'TREE_COVER_LOSS',
-      order: 3,
+      order: 5,
       type: 'image',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -248,10 +266,9 @@ export default {
       inputRange: [1, 15],
       outputRange: [1],
       legendLayer: 0
-    },
-    {
+    }, {
       id: 'TREE_COVER_GAIN',
-      order: 4,
+      order: 6,
       type: 'tiled',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -260,10 +277,9 @@ export default {
       sublabel: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
       url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
       legendLayer: 1
-    },
-    {
+    }, {
       id: 'ACTIVE_FIRES',
-      order: 5,
+      order: 7,
       type: 'dynamic',
       group: 'Land Cover Dynamics',
       groupKey: layerKeys.GROUP_LCD,
@@ -271,8 +287,7 @@ export default {
       sublabel: '(daily, 1km, global, NASA)',
       url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
       layerIds: [0, 1, 2, 3]
-    },
-    {
+    }, {
       id: 'TREE_COVER',
       order: 1,
       type: 'image',
@@ -287,8 +302,7 @@ export default {
       visible: false,
       opacity: 0.8,
       legendLayer: 2
-    },
-    {
+    }, {
       id: 'LAND_COVER',
       order: 2,
       type: 'dynamic',
@@ -296,7 +310,29 @@ export default {
       groupKey: layerKeys.GROUP_LC,
       label: 'Land cover',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [10]
+      layerIds: [10],
+      rasterId: '$523',
+      bounds: [1, 20],
+      classes: ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'],
+      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92']
+    }, {
+      id: 'IFL',
+      order: 3,
+      type: 'dynamic',
+      group: 'Land Cover',
+      groupKey: layerKeys.GROUP_LC,
+      label: 'Intact Forest Landscape',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [0]
+    }, {
+      id: 'AG_BIOMASS',
+      order: 4,
+      type: 'dynamic',
+      group: 'Land Cover',
+      groupKey: layerKeys.GROUP_LC,
+      label: 'Above ground biomass',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [1]
     }, {
       id: 'MASK',
       order: 100,
@@ -315,7 +351,7 @@ export default {
     }],
     es: [{
       id: 'TREE_COVER_LOSS',
-      order: 3,
+      order: 5,
       type: 'image',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -327,10 +363,9 @@ export default {
       inputRange: [1, 15],
       outputRange: [1],
       legendLayer: 0
-    },
-    {
+    }, {
       id: 'TREE_COVER_GAIN',
-      order: 4,
+      order: 6,
       type: 'tiled',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -339,10 +374,9 @@ export default {
       sublabel: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
       url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
       legendLayer: 1
-    },
-    {
+    }, {
       id: 'ACTIVE_FIRES',
-      order: 5,
+      order: 7,
       type: 'dynamic',
       group: 'Land Cover Dynamics',
       groupKey: layerKeys.GROUP_LCD,
@@ -350,8 +384,7 @@ export default {
       sublabel: '(daily, 1km, global, NASA)',
       url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
       layerIds: [0, 1, 2, 3]
-    },
-    {
+    }, {
       id: 'TREE_COVER',
       order: 1,
       type: 'image',
@@ -366,8 +399,7 @@ export default {
       visible: false,
       opacity: 0.8,
       legendLayer: 2
-    },
-    {
+    }, {
       id: 'LAND_COVER',
       order: 2,
       type: 'dynamic',
@@ -375,7 +407,29 @@ export default {
       groupKey: layerKeys.GROUP_LC,
       label: 'Land cover',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [10]
+      layerIds: [10],
+      rasterId: '$523',
+      bounds: [1, 20],
+      classes: ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'],
+      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92']
+    }, {
+      id: 'IFL',
+      order: 3,
+      type: 'dynamic',
+      group: 'Land Cover',
+      groupKey: layerKeys.GROUP_LC,
+      label: 'Intact Forest Landscape',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [0]
+    }, {
+      id: 'AG_BIOMASS',
+      order: 4,
+      type: 'dynamic',
+      group: 'Land Cover',
+      groupKey: layerKeys.GROUP_LC,
+      label: 'Above ground biomass',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [1]
     }, {
       id: 'MASK',
       order: 100,
@@ -394,7 +448,7 @@ export default {
     }],
     pt: [{
       id: 'TREE_COVER_LOSS',
-      order: 3,
+      order: 5,
       type: 'image',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -406,10 +460,9 @@ export default {
       inputRange: [1, 15],
       outputRange: [1],
       legendLayer: 0
-    },
-    {
+    }, {
       id: 'TREE_COVER_GAIN',
-      order: 4,
+      order: 6,
       type: 'tiled',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -418,10 +471,9 @@ export default {
       sublabel: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
       url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
       legendLayer: 1
-    },
-    {
+    }, {
       id: 'ACTIVE_FIRES',
-      order: 5,
+      order: 7,
       type: 'dynamic',
       group: 'Land Cover Dynamics',
       groupKey: layerKeys.GROUP_LCD,
@@ -429,8 +481,7 @@ export default {
       sublabel: '(daily, 1km, global, NASA)',
       url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
       layerIds: [0, 1, 2, 3]
-    },
-    {
+    }, {
       id: 'TREE_COVER',
       order: 1,
       type: 'image',
@@ -445,8 +496,7 @@ export default {
       visible: false,
       opacity: 0.8,
       legendLayer: 2
-    },
-    {
+    }, {
       id: 'LAND_COVER',
       order: 2,
       type: 'dynamic',
@@ -454,7 +504,29 @@ export default {
       groupKey: layerKeys.GROUP_LC,
       label: 'Land cover',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [10]
+      layerIds: [10],
+      rasterId: '$523',
+      bounds: [1, 20],
+      classes: ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'],
+      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92']
+    }, {
+      id: 'IFL',
+      order: 3,
+      type: 'dynamic',
+      group: 'Land Cover',
+      groupKey: layerKeys.GROUP_LC,
+      label: 'Intact Forest Landscape',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [0]
+    }, {
+      id: 'AG_BIOMASS',
+      order: 4,
+      type: 'dynamic',
+      group: 'Land Cover',
+      groupKey: layerKeys.GROUP_LC,
+      label: 'Above ground biomass',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [1]
     }, {
       id: 'MASK',
       order: 100,
