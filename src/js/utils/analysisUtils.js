@@ -134,7 +134,8 @@ class Encoder {
 
   /* Helper function */
   fromBounds = (bounds) => {
-    const result = [], current = bounds[0], end = bounds[1];
+    const result = [], end = bounds[1];
+    let current = bounds[0];
     for (;current <= end; current++) {
       result.push(current);
     }
