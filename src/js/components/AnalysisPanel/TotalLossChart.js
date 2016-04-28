@@ -6,8 +6,6 @@ export default class TotalLossChart extends Component {
   componentDidMount() {
     const {labels, colors, counts, encoder, options, lossLabels} = this.props;
     const element = this.refs.chart;
-    let Xs = encoder.A; // Loss Bounds
-    let Ys = encoder.B; // Raster were crossing with
 
     const chartInfo = charts.formatSeriesWithEncoder({
       isSimple: options.simple,
@@ -15,8 +13,8 @@ export default class TotalLossChart extends Component {
       counts: counts,
       labels: labels,
       colors: colors,
-      Xs: Xs,
-      Ys: Ys
+      Xs: encoder.A, // Loss Bounds
+      Ys: encoder.B // Raster were crossing with
     });
 
     charts.makeTotalLossBarChart(element, lossLabels, chartInfo.colors, chartInfo.series);

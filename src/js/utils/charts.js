@@ -95,7 +95,8 @@ export default {
     //- Break the string on spaces and add a <br> after at least 20
     //- characters at the end of the next word
     const breakLabel = (tooltip) => {
-      let result = [], str = '', words = tooltip.split(' ');
+      const result = [], words = tooltip.split(' ');
+      let str = '';
       words.forEach((word, index) => {
         if (str.length > 20) {
           result.push(`${str} ${word}`);
@@ -206,7 +207,8 @@ export default {
   */
   formatSeriesWithEncoder: (options) => {
     const {Xs, Ys, encoder, labels, counts, colors, isSimple} = options;
-    let data, index, series = [], outputColors = [];
+    const series = [], outputColors = [];
+    let index, data;
     //- Simple means that the layer does not have many classes and is a binary raster,
     //- it used a simplified rendering rule to fetch the data and does not need the encoder
     if (isSimple) {
@@ -249,7 +251,7 @@ export default {
   */
   formatCompositionAnalysis: (options) => {
     const {name, counts, labels, colors} = options;
-    let data = [];
+    const data = [];
     //- Ignore counts with a 0 value
     counts.forEach((count, index) => {
       if (count) {
