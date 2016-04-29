@@ -4,6 +4,7 @@ import mapActions from 'actions/MapActions';
 import ComboBox from 'dijit/form/ComboBox';
 import Memory from 'dojo/store/Memory';
 import request from 'utils/request';
+import utils from 'utils/AppUtils';
 import text from 'js/languages';
 import React, {
   Component,
@@ -64,7 +65,6 @@ export default class SearchModal extends Component {
       onChange: () => {
         const {map} = this.context;
         const {item} = searchDijit;
-        console.log(searchLayer);
         if (item) {
           const url = `${searchLayer.url}/${item.layerId}`;
           request.queryTaskById(url, item.id).then((response) => {
@@ -73,7 +73,9 @@ export default class SearchModal extends Component {
             // Current search depends on dynamic layers with language code and only works on 1,
             // Does not include any geosearch capabilities, just a search on a layer
             response.features.map((feature) => {
+              const layerInfo = utils.getObject(searchLayer.layers, 'id', item.layerId);
               feature._layer = { name: item.layerName };
+              feature.infoTemplate = { info: layerInfo ? layerInfo.popupInfo : {} };
             });
             map.infoWindow.setFeatures(response.features);
             this.onClose();
