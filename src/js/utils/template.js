@@ -1,3 +1,4 @@
+import layerKeys from 'constants/LayerConstants';
 import arcgisUtils from 'esri/arcgis/utils';
 import {getUrlParams} from 'utils/params';
 import Deferred from 'dojo/Deferred';
@@ -25,7 +26,7 @@ export default {
   * @return {promise} promise
   */
   getAppInfo: (id) => {
-    let promise = new Deferred();
+    const promise = new Deferred();
     const appid = id ? id : getUrlParams(location.href).appid;
 
     if (!appid) {
@@ -35,7 +36,7 @@ export default {
 
     arcgisUtils.getItem(appid).then(res => {
 
-      let agolValues = res.itemData && res.itemData.values;
+      const agolValues = res.itemData && res.itemData.values;
 
       //- If we dont have agol settings, save the defaults, else merge them in
       if (!agolValues) {
@@ -56,8 +57,8 @@ export default {
           webmapMenuName: resources.webmapMenuName
         };
         //- parse map themes for default laguage if present
-        let names = resources.mapThemes ? parseIntoArray(resources.mapThemes) : [];
-        let appids = resources.mapThemeIds ? parseIntoArray(resources.mapThemeIds) : [];
+        const names = resources.mapThemes ? parseIntoArray(resources.mapThemes) : [];
+        const appids = resources.mapThemeIds ? parseIntoArray(resources.mapThemeIds) : [];
         if (names.length === appids.length && names.length > 0) {
           resources.labels[resources.language].themes = [];
           names.forEach((name, i) => {
@@ -76,7 +77,7 @@ export default {
             webmapMenuName: resources.alternativeWebmapMenuName || resources.webmapMenuName
           };
           //- parse map themes for second laguage if present
-          let secondNames = resources.alternativeMapThemes ? parseIntoArray(resources.alternativeMapThemes) : [];
+          const secondNames = resources.alternativeMapThemes ? parseIntoArray(resources.alternativeMapThemes) : [];
           if (secondNames.length === appids.length && names.length > 0) {
             resources.labels[resources.alternativeLanguage].themes = [];
             secondNames.forEach((name, i) => {
@@ -93,8 +94,8 @@ export default {
         if (resources.restorationModule) {
           //- Parse the restoration module options if they are in AGOL
           if (resources.restorationOptions) {
-            let optionLabels = parseIntoArray(resources.restorationOptions);
-            let rasterIds = parseIntoArray(resources.restorationOptionsRasterIds);
+            const optionLabels = parseIntoArray(resources.restorationOptions);
+            const rasterIds = parseIntoArray(resources.restorationOptionsRasterIds);
             //- Make it in a format easier to consume in our components
             resources.restorationModuleOptions = [];
             optionLabels.forEach((label, index) => {
@@ -117,6 +118,25 @@ export default {
         }
 
         //- TODO: Remove Layers from resources.layers if configured
+        Object.keys(resources.layers).forEach((language) => {
+          resources.layers[language] = resources.layers[language].filter((layer) => {
+            switch (layer.id) {
+              case layerKeys.ACTIVE_FIRES:
+                return resources.activeFires;
+              case layerKeys.LAND_COVER:
+                return resources.landCover;
+              case layerKeys.AG_BIOMASS:
+                return resources.aboveGroundBiomass;
+              case layerKeys.IFL:
+                return resources.intactForests;
+              default:
+                return true;
+            }
+          });
+        });
+
+        console.log(resources);
+
         promise.resolve(resources);
       }
 

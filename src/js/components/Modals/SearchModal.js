@@ -124,8 +124,13 @@ export default class SearchModal extends Component {
   // };
 
   render () {
+    const {language} = this.context;
+
     return (
       <ControlledModalWrapper onClose={this.onClose}>
+        <div className='search-widget-label'>
+          {text[language].SEARCH_WIDGET_TITLE}
+        </div>
         <div id='search-widget'></div>
       </ControlledModalWrapper>
     );

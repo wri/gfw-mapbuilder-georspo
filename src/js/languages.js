@@ -115,6 +115,7 @@ strings.en.ANALYSIS_SELECT_TYPE_OPTIONS = [
 strings.en.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover and tree cover loss';
 strings.en.DENSITY_FIRST = 'Displaying';
 strings.en.DENSITY_SECOND = 'canopy density.';
+strings.en.SEARCH_WIDGET_TITLE = 'Search for feature:';
 
 //- Miscellaneous
 strings.en.PRINT_BUTTON_LABEL = 'Choose a print template';
@@ -228,6 +229,7 @@ strings.fr.ANALYSIS_SELECT_TYPE_OPTIONS = [
 strings.fr.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover and tree cover loss';
 strings.fr.DENSITY_FIRST = 'Displaying';
 strings.fr.DENSITY_SECOND = 'canopy density.';
+strings.fr.SEARCH_WIDGET_TITLE = 'Search for feature:';
 
 //- Miscellaneous
 strings.fr.PRINT_BUTTON_LABEL = 'Choose a print template';
@@ -341,6 +343,7 @@ strings.es.ANALYSIS_SELECT_TYPE_OPTIONS = [
 strings.es.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover and tree cover loss';
 strings.es.DENSITY_FIRST = 'Displaying';
 strings.es.DENSITY_SECOND = 'canopy density.';
+strings.es.SEARCH_WIDGET_TITLE = 'Search for feature:';
 
 //- Miscellaneous
 strings.es.PRINT_BUTTON_LABEL = 'Choose a print template';
@@ -453,6 +456,7 @@ strings.pt.ANALYSIS_SELECT_TYPE_OPTIONS = [
 strings.pt.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover and tree cover loss';
 strings.pt.DENSITY_FIRST = 'Displaying';
 strings.pt.DENSITY_SECOND = 'canopy density.';
+strings.pt.SEARCH_WIDGET_TITLE = 'Search for feature:';
 
 //- Miscellaneous
 strings.pt.PRINT_BUTTON_LABEL = 'Choose a print template';
