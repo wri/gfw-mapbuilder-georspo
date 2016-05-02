@@ -111,7 +111,6 @@ export default class Map extends Component {
         const basemapName = layerUtils.getBasemapName(basemap.baseMapLayers);
         basemap.baseMapLayers.forEach(bm => this.map.removeLayer(bm.layerObject));
         this.map.setBasemap(basemapName);
-        mapActions.changeBasemap(this.map, basemapName);
       }
 
       this.map.graphics.clear();
@@ -133,6 +132,8 @@ export default class Map extends Component {
       const updateEnd = this.map.on('update-end', () => {
         updateEnd.remove();
         mapActions.createLayers(this.map, settings.layers[language]);
+        //- Set the default basemap in the store
+        mapActions.changeBasemap(this.map.getBasemap());
         //- Apply the mask layer defintion if present
         if (settings.iso && settings.iso !== '') {
           const maskLayer = this.map.getLayer(layerKeys.MASK);

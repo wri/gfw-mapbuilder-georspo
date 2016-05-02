@@ -1,6 +1,5 @@
 import dispatcher from 'js/dispatcher';
 import layerFactory from 'utils/layerFactory';
-import landsatHelper from 'helpers/LandsatHelper';
 import layerKeys from 'constants/LayerConstants';
 
 class MapActions {
@@ -36,6 +35,10 @@ class MapActions {
   toggleCanopyModal = (data) => data;
   toggleTOCVisible = (data) => data;
 
+  changeBasemap (basemap) {
+    return basemap;
+  }
+
   toggleLegendVisible = () => { return {}; };
 
   updateCanopyDensity (density) {
@@ -52,8 +55,8 @@ class MapActions {
 
   createLayers (map, layers) {
     //- make sure there's only one entry for each dynamic layer
-    let uniqueLayers = [];
-    let existingIds = [];
+    const uniqueLayers = [];
+    const existingIds = [];
     layers.forEach(layer => {
       if (existingIds.indexOf(layer.id) === -1) {
         uniqueLayers.push(layer);
@@ -63,36 +66,22 @@ class MapActions {
     //- remove layers from config that have no url unless they are of type graphic(which have no url)
     //- sort by order from the layer config
     //- return an arcgis layer for each config object
-    let esriLayers = uniqueLayers.filter(layer => layer && (layer.url || layer.type === 'graphic')).sort((a, b) => a.order - b.order).map(layerFactory);
+    const esriLayers = uniqueLayers.filter(layer => layer && (layer.url || layer.type === 'graphic')).sort((a, b) => a.order - b.order).map(layerFactory);
     map.addLayers(esriLayers);
     // If there is an error with a particular layer, handle that here
     map.on('layers-add-result', result => {
-      let addedLayers = result.layers;
+      const addedLayers = result.layers;
       // Check for Errors
       var layerErrors = addedLayers.filter(layer => layer.error);
       if (layerErrors.length > 0) { console.error(layerErrors); }
       //- Sort the layers, Some layers need to be put beneath the layers from the webmap
-      let landCoverLayers = layers.filter((layer) => layer.groupKey === layerKeys.GROUP_LC);
+      const landCoverLayers = layers.filter((layer) => layer.groupKey === layerKeys.GROUP_LC);
       landCoverLayers.forEach((layer) => {
         map.reorderLayer(map.getLayer(layer.id), layer.order);
       });
     });
     //- Return the layers through the dispatcher so the mapstore can update visible layers
     return layers;
-  }
-
-  changeBasemap (map, basemap) {
-    basemap = basemap.toLowerCase();
-    map.setBasemap(basemap);
-    return basemap;
-  }
-
-  toggleLandsat (map, lang) {
-    return landsatHelper.toggle(map, lang);
-  }
-
-  changeLandsatYear (map, lang, year) {
-    landsatHelper.changeYear(map, lang, year);
   }
 
 }

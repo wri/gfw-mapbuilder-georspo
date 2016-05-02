@@ -4,9 +4,11 @@ import FiresControls from 'components/LayerPanel/FiresControls';
 import LossControls from 'components/LayerPanel/LossControls';
 import LayerGroup from 'components/LayerPanel/LayerGroup';
 import BasemapGroup from 'components/LayerPanel/BasemapGroup';
+import WRIBasemapLayer from 'components/LayerPanel/WRIBasemapLayer';
 import LandsatLayer from 'components/LayerPanel/LandsatLayer';
 import BasemapLayer from 'components/LayerPanel/BasemapLayer';
 import LayerKeys from 'constants/LayerConstants';
+import basemapUtils from 'utils/basemapUtils';
 import basemaps from 'esri/basemaps';
 import utils from 'utils/AppUtils';
 import React, {
@@ -14,13 +16,12 @@ import React, {
   PropTypes
 } from 'react';
 
-const INCLUDED_BASEMAP_NAMES = ['satellite', 'hybrid', 'osm'];
-
 export default class LayerPanel extends Component {
 
   static contextTypes = {
     language: PropTypes.string.isRequired,
-    settings: PropTypes.object.isRequired
+    settings: PropTypes.object.isRequired,
+    map: PropTypes.object.isRequired
   };
 
   renderLayerGroup = (group, layers) => {
@@ -35,7 +36,27 @@ export default class LayerPanel extends Component {
     );
   };
 
+  componentDidUpdate(prevProps) {
+    const {basemap} = this.props;
+    const {map, language, settings} = this.context;
+    if (map.loaded) {
+      //- Make sure to include the default basemap from the webmap in our basemap gallery
+      const defaultBasemap = map.getBasemap();
+      if (basemapUtils.arcgisBasemaps.indexOf(defaultBasemap) === -1) {
+        basemapUtils.arcgisBasemaps.push(defaultBasemap);
+      }
+
+      //- Basemap changed, update that here since it's behavior is more like a radio button
+      if (prevProps.basemap !== basemap) {
+        //- pass in the custom basemap configuration so I can access its properties
+        //- may not need these most of the time but will to create layers
+        basemapUtils.updateBasemap(map, basemap, settings.basemaps[language]);
+      }
+    }
+  }
+
   renderBasemapGroup = (extraBasemaps) => {
+    const {basemap} = this.props;
     let basemapLayers = [];
     if (basemaps) {
       let basemapNames = Object.keys(basemaps);
@@ -44,19 +65,50 @@ export default class LayerPanel extends Component {
         // only show the vector tile basemap.
         // return !basemaps.hasOwnProperty(bm + '-vector');
         /* Only show basemaps WRI wants */
-        return INCLUDED_BASEMAP_NAMES.indexOf(bm) > -1;
+        return basemapUtils.arcgisBasemaps.indexOf(bm) > -1;
       });
       basemapLayers = basemapNames.map(bm => {
         return (
-          <BasemapLayer icon={basemaps[bm].thumbnailUrl} label={basemaps[bm].title} basemap={bm} />
+          <BasemapLayer
+            icon={basemaps[bm].thumbnailUrl}
+            label={basemaps[bm].title}
+            basemap={bm}
+            active={basemap === bm} />
         );
       });
     }
 
-    const landsat = extraBasemaps[0];
+    const wriMonoBasemap = extraBasemaps.wri_mono;
+    if (wriMonoBasemap) {
+      basemapLayers.unshift(
+        <WRIBasemapLayer
+          layerId='wri_mono'
+          label={wriMonoBasemap.title}
+          icon={wriMonoBasemap.thumbnailUrl}
+          active={basemap === 'wri_mono'} />
+      );
+    }
+
+    const wriContextualBasemap = extraBasemaps.wri_contextual;
+    if (wriContextualBasemap) {
+      basemapLayers.unshift(
+        <WRIBasemapLayer
+          layerId='wri_contextual'
+          label={wriContextualBasemap.title}
+          icon={wriContextualBasemap.thumbnailUrl}
+          active={basemap === 'wri_contextual'} />
+      );
+    }
+
+    const landsat = extraBasemaps.landsat;
     if (landsat) {
       basemapLayers.unshift(
-        <LandsatLayer icon={landsat.thumbnailUrl} label={landsat.title} years={landsat.years} />
+        <LandsatLayer
+          layerId='landsat'
+          icon={landsat.thumbnailUrl}
+          label={landsat.title}
+          years={landsat.years}
+          active={basemap === 'landsat'} />
       );
     }
 

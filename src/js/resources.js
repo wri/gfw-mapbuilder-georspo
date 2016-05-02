@@ -545,89 +545,137 @@ export default {
     }]
   },
   basemaps: {
-    en: [{
-      title: 'Landsat',
-      thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
-      templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
-      years: [
-        '2000',
-        '2001',
-        '2002',
-        '2003',
-        '2004',
-        '2005',
-        '2006',
-        '2007',
-        '2008',
-        '2009',
-        '2010',
-        '2011',
-        '2012',
-        '2013'
-      ]
-    }],
-    fr: [{
-      title: 'Landsat',
-      thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
-      templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
-      years: [
-        '2000',
-        '2001',
-        '2002',
-        '2003',
-        '2004',
-        '2005',
-        '2006',
-        '2007',
-        '2008',
-        '2009',
-        '2010',
-        '2011',
-        '2012',
-        '2013'
-      ]
-    }],
-    es: [{
-      title: 'Landsat',
-      thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
-      templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
-      years: [
-        '2000',
-        '2001',
-        '2002',
-        '2003',
-        '2004',
-        '2005',
-        '2006',
-        '2007',
-        '2008',
-        '2009',
-        '2010',
-        '2011',
-        '2012',
-        '2013'
-      ]
-    }],
-    pt: [{
-      title: 'Landsat',
-      thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
-      templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
-      years: [
-        '2000',
-        '2001',
-        '2002',
-        '2003',
-        '2004',
-        '2005',
-        '2006',
-        '2007',
-        '2008',
-        '2009',
-        '2010',
-        '2011',
-        '2012',
-        '2013'
-      ]
-    }]
+    en: {
+      'landsat': {
+        title: 'Landsat',
+        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
+        years: [
+          '2000',
+          '2001',
+          '2002',
+          '2003',
+          '2004',
+          '2005',
+          '2006',
+          '2007',
+          '2008',
+          '2009',
+          '2010',
+          '2011',
+          '2012',
+          '2013'
+        ]
+      },
+      'wri_mono': {
+        title: 'WRI Mono',
+        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        mapboxId: 'wri.c974eefc'
+      },
+      'wri_contextual': {
+        title: 'WRI Contextual',
+        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        mapboxId: 'wri.b71b0f45'
+      }
+    },
+    fr: {
+      'landsat': {
+        title: 'Landsat',
+        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
+        years: [
+          '2000',
+          '2001',
+          '2002',
+          '2003',
+          '2004',
+          '2005',
+          '2006',
+          '2007',
+          '2008',
+          '2009',
+          '2010',
+          '2011',
+          '2012',
+          '2013'
+        ]
+      },
+      'wri_mono': {
+        title: 'WRI Mono',
+        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        mapboxId: 'wri.c974eefc'
+      },
+      'wri_contextual': {
+        title: 'WRI Contextual',
+        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        mapboxId: 'wri.b71b0f45'
+      }
+    },
+    es: {
+      'landsat': {
+        title: 'Landsat',
+        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
+        years: [
+          '2000',
+          '2001',
+          '2002',
+          '2003',
+          '2004',
+          '2005',
+          '2006',
+          '2007',
+          '2008',
+          '2009',
+          '2010',
+          '2011',
+          '2012',
+          '2013'
+        ]
+      },
+      'wri_mono': {
+        title: 'WRI Mono',
+        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        mapboxId: 'wri.c974eefc'
+      },
+      'wri_contextual': {
+        title: 'WRI Contextual',
+        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        mapboxId: 'wri.b71b0f45'
+      }
+    },
+    pt: {
+      'landsat': {
+        title: 'Landsat',
+        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
+        years: [
+          '2000',
+          '2001',
+          '2002',
+          '2003',
+          '2004',
+          '2005',
+          '2006',
+          '2007',
+          '2008',
+          '2009',
+          '2010',
+          '2011',
+          '2012',
+          '2013'
+        ]
+      },
+      'wri_mono': {
+        title: 'WRI Mono',
+        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        mapboxId: 'wri.c974eefc'
+      },
+      'wri_contextual': {
+        title: 'WRI Contextual',
+        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        mapboxId: 'wri.b71b0f45'
+      }
+    }
   }
 };

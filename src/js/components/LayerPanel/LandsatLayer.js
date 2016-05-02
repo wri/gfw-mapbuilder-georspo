@@ -1,3 +1,4 @@
+import basemapUtils from 'utils/basemapUtils';
 import mapActions from 'actions/MapActions';
 
 import React, {
@@ -9,29 +10,25 @@ export default class LandsatLayer extends Component {
 
   static contextTypes = {
     language: PropTypes.string.isRequired,
+    settings: PropTypes.object.isRequired,
     map: PropTypes.object.isRequired
   };
 
   constructor (props) {
     super(props);
-    this.state = {
-      visible: false,
-      yearSelected: null
-    };
+    this.state = { yearSelected: null };
   }
 
   componentDidMount () {
-    this.setState({
-      yearSelected: this.props.years[this.props.years.length - 1]
-    });
+    this.setState({ yearSelected: this.props.years[this.props.years.length - 1] });
   }
 
   render () {
-    let classes = this.state.visible ? 'layer-basemap selected' : 'layer-basemap';
+    const classes = this.props.active ? 'layer-basemap selected' : 'layer-basemap';
     return (
       <div className={classes}>
-        <span className='layer-basemap-icon landsat' onClick={this.toggle.bind(this)}></span>
-        <span className='layer-basemap-label' onClick={this.toggle.bind(this)}>{this.props.label}</span>
+        <span className='layer-basemap-icon landsat' onClick={this.toggle}></span>
+        <span className='layer-basemap-label' onClick={this.toggle}>{this.props.label}</span>
         <div className='relative'>
           <select className='pointer' onChange={this.changeYear.bind(this)}>
             {this.props.years.map(this.yearOption.bind(this))}
@@ -43,23 +40,22 @@ export default class LandsatLayer extends Component {
   }
 
   yearOption (year, index) {
-    let selected = (this.props.years.length - 1 === index) ? true : false;
+    const selected = (this.props.years.length - 1 === index) ? true : false;
     return (
       <option value={year} selected={selected}>{year}</option>
     );
   }
 
-  toggle () {
-    let {map, language} = this.context;
-    this.setState({ visible: !this.state.visible });
-    mapActions.toggleLandsat(map, language);
-  }
+  toggle = () => {
+    mapActions.changeBasemap(this.props.layerId);
+  };
 
   changeYear (evt) {
-    let {map, language} = this.context;
-    let year = this.props.years[evt.target.selectedIndex];
+    const {map, language, settings} = this.context;
+    const year = this.props.years[evt.target.selectedIndex];
     this.setState({ yearSelected: year });
-    mapActions.changeLandsatYear(map, language, year);
+    mapActions.changeBasemap(this.props.layerId);
+    basemapUtils.changeLandsatYear(map, year, settings.basemaps[language].landsat);
   }
 }
 

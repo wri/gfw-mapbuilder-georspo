@@ -51,7 +51,6 @@ class MapStore {
       openTOCAccordion: mapActions.openTOCAccordion,
       updateCanopyDensity: mapActions.updateCanopyDensity,
       changeBasemap: mapActions.changeBasemap,
-      toggleLandsat: mapActions.toggleLandsat,
       updateActiveSlopeClass: mapActions.updateActiveSlopeClass,
       addActiveLayer: layerActions.addActiveLayer,
       removeActiveLayer: layerActions.removeActiveLayer,
