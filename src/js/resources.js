@@ -569,12 +569,12 @@ export default {
       },
       'wri_mono': {
         title: 'WRI Mono',
-        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        thumbnailUrl: './css/images/wri_mono.png',
         mapboxId: 'wri.c974eefc'
       },
       'wri_contextual': {
         title: 'WRI Contextual',
-        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        thumbnailUrl: './css/images/wri_contextual.png',
         mapboxId: 'wri.b71b0f45'
       }
     },
@@ -602,12 +602,12 @@ export default {
       },
       'wri_mono': {
         title: 'WRI Mono',
-        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        thumbnailUrl: './css/images/wri_mono.png',
         mapboxId: 'wri.c974eefc'
       },
       'wri_contextual': {
         title: 'WRI Contextual',
-        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        thumbnailUrl: './css/images/wri_contextual.png',
         mapboxId: 'wri.b71b0f45'
       }
     },
@@ -635,12 +635,12 @@ export default {
       },
       'wri_mono': {
         title: 'WRI Mono',
-        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        thumbnailUrl: './css/images/wri_mono.png',
         mapboxId: 'wri.c974eefc'
       },
       'wri_contextual': {
         title: 'WRI Contextual',
-        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        thumbnailUrl: './css/images/wri_contextual.png',
         mapboxId: 'wri.b71b0f45'
       }
     },
@@ -668,12 +668,12 @@ export default {
       },
       'wri_mono': {
         title: 'WRI Mono',
-        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        thumbnailUrl: './css/images/wri_mono.png',
         mapboxId: 'wri.c974eefc'
       },
       'wri_contextual': {
         title: 'WRI Contextual',
-        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        thumbnailUrl: './css/images/wri_contextual.png',
         mapboxId: 'wri.b71b0f45'
       }
     }

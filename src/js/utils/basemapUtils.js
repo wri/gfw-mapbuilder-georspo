@@ -13,6 +13,11 @@ export default {
 
   arcgisBasemaps: ['satellite', 'hybrid', 'osm'],
 
+  /**
+  * Remove custom basemaps and hide the esri basemaps so only one is active at a time
+  * then, add whichever basemap we need to, for custom layers, re add the layers, for
+  * arcgis layers, just call setBasemap, this will unhide the layer if necessary
+  */
   updateBasemap (map, basemap, customBasemaps) {
 
     //- Remove custom basemap layer if it exists
@@ -24,6 +29,12 @@ export default {
     if (customLabelLayer) {
       map.removeLayer(customLabelLayer);
     }
+
+    //- Hide the esri basemap layers, this gives it a more pleasing visual appearance
+    //- and prevents the flicker when switching between wri basemaps and arcgis basemaps
+    map.basemapLayerIds.forEach((id) => {
+      map.getLayer(id).hide();
+    });
 
     //- If the basemap is that of a arcgis basemap, update it here
     if (this.arcgisBasemaps.indexOf(basemap) > -1) {
