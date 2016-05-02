@@ -74,8 +74,11 @@ export default class SearchModal extends Component {
             // Does not include any geosearch capabilities, just a search on a layer
             response.features.map((feature) => {
               const layerInfo = utils.getObject(searchLayer.layers, 'id', item.layerId);
-              feature._layer = { name: item.layerName };
               feature.infoTemplate = { info: layerInfo ? layerInfo.popupInfo : {} };
+              feature._layer = {
+                name: item.layerName,
+                _url: { path: url }
+              };
             });
             map.infoWindow.setFeatures(response.features);
             this.onClose();
