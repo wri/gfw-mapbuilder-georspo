@@ -10,19 +10,19 @@ export default {
   subtitle: 'Make maps that matter',
   logoUrl: './css/images/gfw-logo.png',
   // logoUrl: 'http://cmr.forest-atlas.org/map/app/images/CMR_flag_new.png',
-  logoLinkUrl: 'http://www.minfof.cm/',
-  aboutLinkUrl: 'http://www.wri.org/our-work/project/',
+  logoLinkUrl: 'http://www.gfw-mapbuilder.org/',
+  aboutLinkUrl: 'http://www.gfw-mapbuilder.org/',
   downloadLinkUrl: 'http://data.globalforestwatch.org/',
-  printServiceUrl: 'http://gis-forest-atlas.wri.org/arcgis/rest/services/CMR/CMRExportWebMap/GPServer/Export%20Web%20Map',
-  maskServiceUrl: 'http://gis-forest-atlas.wri.org/arcgis/rest/services/CMR/CMR_00_Africa/MapServer',
-  mapThemeIds: '1c38ba1095fe49e3ba234bf9105c1077;c76d788b7487476bae4d09a4e933be19',
-  mapThemes: 'Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea',
+  printServiceUrl: 'http://gis.forest-atlas.org/arcgis/rest/services/print/ExportWebMap/GPServer/Export%20Web%20Map',
+  maskServiceUrl: '',
+  mapThemeIds: '',
+  mapThemes: '',
   narrative: '',
   includeSubscribeButton: false,
   includeMyGFWLogin: false,
   //- Language Settings
   language: 'en',
-  useAlternativeLanguage: 'true',
+  useAlternativeLanguage: 'false',
   alternativeLanguage: 'fr',
   alternativeLanguageTitle: 'GFW Mapbuilder',
   alternativeLanguageSubtitle: 'Make maps that matter',
@@ -31,8 +31,8 @@ export default {
   alternativeWebmapMenuName: 'Land Use',
   //- Documents Settings
   includeDocumentsTab: false,
-  documentsDirectory: 'https://wri-public-data.s3.amazonaws.com/forest_atlas/cmr/doc_pdf/',
-  documentsMapserver: 'http://54.88.79.102/arcgis/rest/services/CMR/documents_administratifs/MapServer',
+  documentsDirectory: 'https://cmr.forest-atlas.org/resources/docs/',
+  documentsMapserver: 'http://gis.forest-atlas.org/arcgis/rest/services/CMR/documents_administratifs/MapServer',
   //- Layers/Analysis Settings
   iso: '',
   activeFires: true,
@@ -107,26 +107,14 @@ export default {
       'subtitle': 'Make maps that matter',
       'webmapMenuName': 'Land Use',
       'narrative': '',
-      'themes': [{
-        'label': 'Forest Atlas of Democratic Republic of Congo',
-        'url': 'http://wri.github.io/forest_atlas_template/?appid=edfa3967f09f4236ae9249dd82265687'
-      }, {
-        'label': 'Forest Atlas of Equatorial Guinea',
-        'url': 'http://wri.github.io/forest_atlas_template/?appid=c76d788b7487476bae4d09a4e933be19'
-      }]
+      'themes': []
     },
     'fr': {
       'title': 'Atlas Forestier du Cameroon',
       'subtitle': 'Make maps that matter',
       'webmapMenuName': 'Land Use',
       'narrative': '',
-      'themes': [{
-        'label': 'Atlas Forestier de la République Démocratique du Congo',
-        'url': 'http://wri.github.io/forest_atlas_template/?appid=edfa3967f09f4236ae9249dd82265687'
-      }, {
-        'label': 'Atlas Forestier du Guinea',
-        'url': 'http://wri.github.io/forest_atlas_template/?appid=c76d788b7487476bae4d09a4e933be19'
-      }]
+      'themes': []
     }
   },
 
