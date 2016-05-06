@@ -32,7 +32,7 @@ export default class DrawTools extends Component {
       toolbar.on('draw-end', (evt) => {
         toolbar.deactivate();
         this.setState({ drawButtonActive: false });
-        let graphic = geometryUtils.generateDrawnPolygon(evt.geometry);
+        const graphic = geometryUtils.generateDrawnPolygon(evt.geometry);
         map.graphics.add(graphic);
       });
     }
@@ -52,7 +52,11 @@ export default class DrawTools extends Component {
   };
 
   render () {
+    const {embeddedInModal} = this.props;
     const {language} = this.context;
+    const instructions = embeddedInModal ?
+            text[language].ANALYSIS_DRAW_INSTRUCTIONS.slice(1) :
+            text[language].ANALYSIS_DRAW_INSTRUCTIONS;
 
     return (
       <div className='analysis-instructions__draw'>
@@ -60,7 +64,7 @@ export default class DrawTools extends Component {
           {text[language].ANALYSIS_DRAW_HEADER}
         </h4>
         <ol className='analysis-instructions__olist'>
-          {text[language].ANALYSIS_DRAW_INSTRUCTIONS.map(this.renderInstructionList)}
+          {instructions.map(this.renderInstructionList)}
         </ol>
         <div className='analysis-instructions__draw-icon-container'>
           <svg className='analysis-instructions__draw-icon' dangerouslySetInnerHTML={{ __html: drawSvg }} />
@@ -78,3 +82,7 @@ export default class DrawTools extends Component {
   }
 
 }
+
+DrawTools.propTypes = {
+  embeddedInModal: PropTypes.boolean
+};

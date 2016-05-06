@@ -135,8 +135,6 @@ export default {
           });
         });
 
-        console.log(resources);
-
         promise.resolve(resources);
       }
 

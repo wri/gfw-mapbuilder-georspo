@@ -128,6 +128,7 @@ strings.en.ANALYZE = 'Analyze';
 strings.en.DOCS = 'Docs';
 strings.en.NARRATIVE = 'Narrative';
 strings.en.MORE = 'More';
+strings.en.DELETE = 'Delete';
 
 
 //- NOTE: French
@@ -242,6 +243,7 @@ strings.fr.ANALYZE = 'Analyze';
 strings.fr.DOCS = 'Docs';
 strings.fr.NARRATIVE = 'Narrative';
 strings.fr.MORE = 'More';
+strings.fr.DELETE = 'Delete';
 
 
 //- NOTE: Spanish
@@ -356,6 +358,7 @@ strings.es.ANALYZE = 'Analyze';
 strings.es.DOCS = 'Docs';
 strings.es.NARRATIVE = 'Narrative';
 strings.es.MORE = 'More';
+strings.es.DELETE = 'Delete';
 
 //- NOTE: Portugese
 //- Header
@@ -469,5 +472,6 @@ strings.pt.ANALYZE = 'Analyze';
 strings.pt.DOCS = 'Docs';
 strings.pt.NARRATIVE = 'Narrative';
 strings.pt.MORE = 'More';
+strings.pt.DELETE = 'Delete';
 
 export { strings as default };

@@ -1,4 +1,5 @@
 import SpatialReference from 'esri/SpatialReference';
+import InfoTemplate from 'esri/InfoTemplate';
 import Polygon from 'esri/geometry/Polygon';
 import symbols from 'utils/symbols';
 import Graphic from 'esri/graphic';
@@ -14,10 +15,20 @@ export default {
   * @return {Graphic}
   */
   generateDrawnPolygon: (geometry) => {
+    const id = customFeatureUUIDGenerator();
     return new Graphic(
       new Polygon(geometry),
       symbols.getCustomSymbol(),
-      { OBJECTID: customFeatureUUIDGenerator() }
+      {
+        cfid: id,
+        OBJECTID: id,
+        __source: 'draw',
+        Name: `Custom Feature #${id}`
+      },
+      new InfoTemplate({
+        title: 'Name: ${Name}',
+        content: '<div class=\'custom-feature__content\'>Object Id: ${OBJECTID}</div>'
+      })
     );
   },
 

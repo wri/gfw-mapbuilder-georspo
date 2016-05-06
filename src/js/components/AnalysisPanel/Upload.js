@@ -104,13 +104,21 @@ export default class Upload extends Component {
   };
 
   render () {
+    const {embeddedInModal} = this.props;
     const {language} = this.context;
+    let header;
 
-    return (
-      <div className='analysis-instructions__upload'>
+    if (!embeddedInModal) {
+      header = (
         <h4 className='analysis-instructions__header--additional'>
           <span dangerouslySetInnerHTML={{ __html: text[language].ANALYSIS_INSTRUCTION_ADDITIONAL}} />
         </h4>
+      );
+    }
+
+    return (
+      <div className='analysis-instructions__upload'>
+        {header}
         <form
           className={`analysis-instructions__upload-container mobile-hide ${this.state.dndActive ? 'active' : ''}`}
           encType='multipart/form-data'
@@ -134,3 +142,7 @@ export default class Upload extends Component {
   }
 
 }
+
+Upload.propTypes = {
+  embeddedInModal: PropTypes.boolean
+};

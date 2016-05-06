@@ -116,7 +116,7 @@ const request = {
           promise.resolve(feature.geometry);
         }
       }, () => { promise.resolve(feature.geometry); });
-    } else {
+    } else if (url) {
       this.queryTaskById(url, feature.attributes.OBJECTID).then((results) => {
         if (results.features.length) {
           promise.resolve(results.features[0].geometry);
@@ -124,6 +124,8 @@ const request = {
           promise.resolve(feature.geometry);
         }
       }, () => { promise.resolve(feature.geometry); });
+    } else {
+      promise.resolve(feature.geometry);
     }
 
     return promise;

@@ -31,29 +31,6 @@ const getDefaultState = function () {
   };
 };
 
-//- If we cant get the raw geometry, just use the generalized geometry for now
-// const getRawGeometry = function (feature) {
-//   const promise = new Deferred();
-//   const layer = feature._layer;
-//   const url = layer && layer._url && layer._url.path;
-//   // request.getRawGeometry(feature).then((geometry) => {
-//   //   // console.log('Hey Ohh');
-//   //   // console.log(geometry);
-//   // });
-//   if (url) {
-//     request.queryTaskById(url, feature.attributes.OBJECTID).then((results) => {
-//       if (results.features.length) {
-//         promise.resolve(results.features[0].geometry);
-//       } else {
-//         promise.resolve(feature.geometry);
-//       }
-//     }, () => { promise.resolve(feature.geometry); });
-//   } else {
-//     promise.resolve(feature.geometry);
-//   }
-//   return promise;
-// };
-
 export default class Analysis extends Component {
 
   static contextTypes = {

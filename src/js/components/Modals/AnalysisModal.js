@@ -1,5 +1,4 @@
 import ControlledModalWrapper from 'components/Modals/ControlledModalWrapper';
-import Instructions from 'components/AnalysisPanel/Instructions';
 import DrawTools from 'components/AnalysisPanel/DrawTools';
 import Upload from 'components/AnalysisPanel/Upload';
 import mapActions from 'actions/MapActions';
@@ -14,9 +13,8 @@ export default class AnalysisModal extends Component {
   render () {
     return (
       <ControlledModalWrapper onClose={this.close}>
-        <Instructions />
-        <DrawTools />
-        <Upload />
+        <DrawTools embeddedInModal={true} />
+        <Upload embeddedInModal={true} />
       </ControlledModalWrapper>
     );
   }

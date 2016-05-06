@@ -1,13 +1,12 @@
+import CustomFeatureControl from 'components/AnalysisPanel/CustomFeatureControl';
 import ReportSubscribeButtons from 'components/Shared/ReportSubscribe';
-import DateFormats from 'constants/DateFormats';
-import dojoDate from 'dojo/date/locale';
-import dojoNumber from 'dojo/number';
 import text from 'js/languages';
 import React, {
   Component,
   PropTypes
 } from 'react';
 
+const closeSvg = '<use xlink:href="#shape-close" />';
 const polygonSvg = '<use xlink:href="#icon-analysis-poly" />';
 
 export default class InfoWindow extends Component {
@@ -17,27 +16,17 @@ export default class InfoWindow extends Component {
     map: PropTypes.object.isRequired
   };
 
-  attribute (item) {
-    if (item.value === '') {
-      return (
-        <p>{item.label}</p>
-      );
-    } else {
-      return (
-        <dl className='source-row'>
-          <dt>{item.label}</dt>
-          <dd>{item.value}</dd>
-        </dl>
-      );
-    }
-  }
-
   previous = () => {
     this.props.map.infoWindow.selectPrevious();
   };
 
   next = () => {
     this.props.map.infoWindow.selectNext();
+  };
+
+  clearFeatures = () => {
+    const {map} = this.context;
+    map.infoWindow.clearFeatures();
   };
 
   renderInstructionList = (instruction, index) => {
@@ -49,36 +38,33 @@ export default class InfoWindow extends Component {
   render () {
     const {infoWindow} = this.props.map;
     const {language} = this.context;
-    let count = 0;
-    let selectedFeature, selectedIndex = 0, title = '';
-    let attributes = [];
-    let displayInfo, visibleFields;
+    let count = 0, selectedIndex = 0;
+    let selectedFeature, content, title;
 
     if ( infoWindow && infoWindow.getSelectedFeature ) {
       count = infoWindow.count;
       selectedFeature = infoWindow.getSelectedFeature();
       selectedIndex = infoWindow.selectedIndex;
+      content = infoWindow._contentPane.innerHTML;
     }
-    if ( selectedFeature ) {
-      displayInfo = selectedFeature.infoTemplate || selectedFeature._graphicsLayer.infoTemplate;
-      visibleFields = displayInfo ? displayInfo.info.fieldInfos.filter(f => f.visible) : [];
-      title = selectedFeature.getTitle();
-      attributes = visibleFields.map(f => {
-        const info = { label: f.label, value: selectedFeature.attributes[f.fieldName] };
-        // Use date and number formats for each field if they exist.
-        if (f.format) {
-          if (f.format.hasOwnProperty('dateFormat')) {
-            // Date as a timestamp that needs to be turned into a string.
-            const when = new Date(info.value);
-            info.value = dojoDate.format(when, DateFormats[f.format.dateFormat]);
-          }
-          if (f.format.hasOwnProperty('places')) {
-            // Number to format with dojo/number.
-            info.value = dojoNumber.format(info.value, f.format);
-          }
-        }
-        return info;
-      });
+
+    if (selectedFeature) {
+      // TODO: make __source values constants, have search and draw so far
+      if (selectedFeature.attributes.__source === 'search') {
+        title = (
+          <div className='infoWindow__title'>
+            {selectedFeature.infoTemplate.title}
+          </div>
+        );
+      }
+      //- For Drawn Features, Give them a Control which can rename or delete the feature
+      if (selectedFeature.attributes.__source === 'draw') {
+        title = (
+          <div className='infoWindow__title'>
+            <CustomFeatureControl feature={selectedFeature} />
+          </div>
+        );
+      }
     }
 
     return (
@@ -86,14 +72,15 @@ export default class InfoWindow extends Component {
         <div className={`infoWindow__content ${selectedFeature ? '' : 'hidden'}`}>
           <div className='feature-controls'>
             <span>{count} features selected.</span>
+            <svg onClick={this.clearFeatures}
+              className='infoWindow__clearFeatures-icon pointer'
+              dangerouslySetInnerHTML={{ __html: closeSvg }} />
             <span className={`arrow right ${selectedIndex < count - 1 ? '' : 'disabled'}`} onClick={this.next}>Next</span>
             <span className={`arrow left ${selectedIndex > 0 ? '' : 'disabled'}`} onClick={this.previous}>Prev</span>
           </div>
-          <div className='feature-name'>
+          <div className='infoWindow__attribute-display custom-scroll'>
             {title}
-          </div>
-          <div className='attribute-display custom-scroll'>
-            {attributes.map(this.attribute)}
+            <div dangerouslySetInnerHTML={{__html: content }} />
           </div>
         </div>
         <div className={`infoWindow__instructions ${selectedFeature ? 'hidden' : ''}`}>

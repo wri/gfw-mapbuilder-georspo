@@ -114,7 +114,6 @@ export default class Map extends Component {
       }
 
       this.map.graphics.clear();
-      this.map.infoWindow.set('popupWindow', false);
       //- Attach events I need for the info window
       this.map.infoWindow.on('show, hide, set-features, selection-change', mapActions.infoWindowUpdated);
       this.map.on('zoom-end', mapActions.mapUpdated);
@@ -123,7 +122,6 @@ export default class Map extends Component {
         evt.stopPropagation();
         this.map.infoWindow.setFeatures([evt.graphic]);
       });
-
       //- Add a scalebar
       const scalebar = new Scalebar({
         map: this.map

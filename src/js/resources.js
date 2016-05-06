@@ -3,10 +3,9 @@ import layerKeys from 'constants/LayerConstants';
 export default {
 
   //- NOTE: New Forest Atlas 2.0 Options, These are the raw values coming from ArcGIS Online from
-  //- Application Id: ...
 
   //- General Settings
-  webmap: 'e148ac47cd374d9da4d208aacfe690cf',
+  webmap: 'de85e3fcc07948238aa6c1afd2a4ceb0',
   title: 'GFW Mapbuilder',
   subtitle: 'Make maps that matter',
   logoUrl: './css/images/gfw-logo.png',
@@ -25,8 +24,8 @@ export default {
   language: 'en',
   useAlternativeLanguage: 'true',
   alternativeLanguage: 'fr',
-  alternativeLanguageTitle: 'Forest Atlas',
-  alternativeLanguageSubtitle: 'Application subtitle',
+  alternativeLanguageTitle: 'GFW Mapbuilder',
+  alternativeLanguageSubtitle: 'Make maps that matter',
   alternativeMapThemes: 'Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea',
   alternativeNarrative: '',
   alternativeWebmapMenuName: 'Land Use',
@@ -104,8 +103,8 @@ export default {
   //- Built based on title, subtitle, language settings, and map themes
   labels: {
     'en': {
-      'title': 'Forest Atlas of Cameroon',
-      'subtitle': 'Ministry of Forestry and Wildlife',
+      'title': 'GFW Mapbuilder',
+      'subtitle': 'Make maps that matter',
       'webmapMenuName': 'Land Use',
       'narrative': '',
       'themes': [{
@@ -118,14 +117,14 @@ export default {
     },
     'fr': {
       'title': 'Atlas Forestier du Cameroon',
-      'subtitle': 'Ministère des Forêts et de la Faune',
+      'subtitle': 'Make maps that matter',
       'webmapMenuName': 'Land Use',
       'narrative': '',
       'themes': [{
-        'label': 'Testing Congo',
+        'label': 'Atlas Forestier de la République Démocratique du Congo',
         'url': 'http://wri.github.io/forest_atlas_template/?appid=edfa3967f09f4236ae9249dd82265687'
       }, {
-        'label': 'Testing Guinea',
+        'label': 'Atlas Forestier du Guinea',
         'url': 'http://wri.github.io/forest_atlas_template/?appid=c76d788b7487476bae4d09a4e933be19'
       }]
     }

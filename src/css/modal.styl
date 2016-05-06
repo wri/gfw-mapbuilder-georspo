@@ -71,20 +71,14 @@
 .analysis-modal-container .modal
   overflow hidden
   width 320px
+  & .analysis-instructions__separator
+    display none
 
 @media (min-width: $mobileBreak)
   .analysis-modal-container
-    & .modal
-      width 850px
-    & .modal-content
-      display flex
-      & > div
-        flex 1 0 0
     & .analysis-instructions__header--additional
       font-size inherit
       margin 5px 0
-    & .analysis-instructions__separator
-      display none
 
 //- Share Modal
 #share-modal

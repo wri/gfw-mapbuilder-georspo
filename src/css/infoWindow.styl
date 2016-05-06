@@ -16,12 +16,6 @@
     font-size 12px
     text-transform none
 
-  .attribute-display
-    overflow-y auto
-    flex-grow 1
-    p
-      padding 0 10px
-
   .arrow
     cursor pointer
     float right
@@ -43,6 +37,39 @@
       text-transform uppercase
       width 40%
 
+//- Esri Overrides
+.esriViewPopup .header
+  padding 0 10px
+
+.esriViewPopup .header
+.infoWindow__title
+.custom-feature__input
+.custom-feature__delete
+  color $grayFont
+  font-size 14px
+
+.esriViewPopup .hzLine
+  margin 5px 10px
+
+.calcite .esriViewPopup .mainSection .attrTable td.attrName
+  padding-left 10px !important
+
+.esriViewPopup .attrTable tr:nth-child(even)
+  background-color $selectionGray
+
+.calcite .esriPopup
+  display none
+//- Esri Overrides
+
+
+.infoWindow__title
+  border-bottom 1px solid #efefef
+  margin 0 10px
+
+.infoWindow__attribute-display
+  overflow-y auto
+  flex-grow 1
+
 .infoWindow__content
   flex-direction column
   position absolute
@@ -60,3 +87,23 @@
   width 100%
   bottom 0
   left 0
+
+.infoWindow__clearFeatures-icon
+  margin-left 1em
+  float right
+  height 20px
+  width 20px
+
+.infoWindow__no-configure
+  margin 10px
+
+.custom-feature__input
+  -webkit-appearance none
+  outline none
+  border none
+
+.custom-feature__delete
+  float right
+
+.custom-feature__content
+  padding 10px

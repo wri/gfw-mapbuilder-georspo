@@ -1,29 +1,25 @@
-import layerKeys from 'constants/LayerConstants';
-import rasterFuncs from 'utils/rasterFunctions';
-import resources from 'resources';
-
-let LayersHelper = {
+const LayersHelper = {
 
   /**
   * @param {string} layerId - id of layer to show
   */
   showLayer (layerId) {
-    let layer = brApp.map.getLayer(layerId);
+    const layer = brApp.map.getLayer(layerId);
     if (layer) { layer.show(); }
   },
   showSubLayer (layer) {
-    let {esriLayer} = layer;
+    const {esriLayer} = layer;
     esriLayer.setVisibleLayers(esriLayer.visibleLayers);
   },
   /**
   * @param {string} layerId - id of layer to hide
   */
   hideLayer (layerId) {
-    let layer = brApp.map.getLayer(layerId);
+    const layer = brApp.map.getLayer(layerId);
     if (layer) { layer.hide(); }
   },
   hideSubLayer (layer) {
-    let {esriLayer} = layer;
+    const {esriLayer} = layer;
     esriLayer.setVisibleLayers(esriLayer.visibleLayers);
   },
 
@@ -55,15 +51,15 @@ let LayersHelper = {
       return '1 = 1';
     }
 
-    let date = new Date();
+    const date = new Date();
     // Set the date to filterValue amount of days before today
     date.setDate(date.getDate() - filterValue);
-    let dateString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+    const dateString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
     return 'ACQ_DATE > date \'' + dateString + '\'';
   },
 
   changeOpacity (parameters) {
-    let layer = brApp.map.getLayer(parameters.layerId);
+    const layer = brApp.map.getLayer(parameters.layerId);
     if ( layer ) {
       // TODO:  check that value is >= 0 and <= 1.
       layer.setOpacity(parameters.value);
@@ -79,7 +75,7 @@ let LayersHelper = {
     }
     if (brApp.map && layerInfo.esriLayer) {
       // Explicitly check scale depencency for sub-layers in a dynamic map service.
-      let scale = brApp.map.getScale();
+      const scale = brApp.map.getScale();
       if (layerInfo.hasScaleDependency && (scale > layerInfo.minScale || scale < layerInfo.maxScale)) {
         visible = false;
       }
