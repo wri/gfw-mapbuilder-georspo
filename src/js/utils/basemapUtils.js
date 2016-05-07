@@ -1,10 +1,15 @@
 import WebTiledLayer from 'esri/layers/WebTiledLayer';
+import mapActions from 'actions/MapActions';
+import basemaps from 'esri/basemaps';
 
 const mapboxToken = 'pk.eyJ1Ijoid3JpIiwiYSI6IjU3NWNiNGI4Njc4ODk4MmIyODFkYmJmM2NhNDgxMWJjIn0.v1tciCeBElMdpnrikGDrPg';
 const mapboxApiBase = 'https://api.tiles.mapbox.com/v4/';
 const mapboxLabelsId = 'wri.acf5a04e';
 const newBasemapIndex = 1;
 const newBasemapLabelsIndex = 2;
+
+const mono_mapboxid = 'wri.c974eefc';
+const contextual_mapboxid = 'wri.b71b0f45';
 
 let customBasemapLayer;
 let customLabelLayer;
@@ -32,9 +37,11 @@ export default {
 
     //- Hide the esri basemap layers, this gives it a more pleasing visual appearance
     //- and prevents the flicker when switching between wri basemaps and arcgis basemaps
-    map.basemapLayerIds.forEach((id) => {
-      map.getLayer(id).hide();
-    });
+    if (map.basemapLayerIds) {
+      map.basemapLayerIds.forEach((id) => {
+        map.getLayer(id).hide();
+      });
+    }
 
     //- If the basemap is that of a arcgis basemap, update it here
     if (this.arcgisBasemaps.indexOf(basemap) > -1) {
@@ -44,12 +51,12 @@ export default {
 
     //- if the basemap is a WRI Mono Basemap, add/update that here
     if (basemap === 'wri_mono') {
-      this.addWRILayer(map, customBasemaps.wri_mono.mapboxId);
+      this.addWRILayer(map, mono_mapboxid);
     }
 
     //- if the basemap is a WRI Contextual Basemap, add/update that here
     if (basemap === 'wri_contextual') {
-      this.addWRILayer(map, customBasemaps.wri_contextual.mapboxId);
+      this.addWRILayer(map, contextual_mapboxid);
     }
 
     //- if it is a landsat basemap, add/update that here
@@ -79,6 +86,49 @@ export default {
     const template = config.templateUrl.replace(/\/\d{4}\//, `/${year}/`);
     customBasemapLayer = new WebTiledLayer(template, {});
     map.addLayer(customBasemapLayer, newBasemapIndex);
+  },
+
+  prepareDefaultBasemap (map, basemapLayers) {
+    const basemapNames = Object.keys(basemaps);
+    let name, wriName;
+    if (basemapLayers) {
+      //- Check to see if this is a default esri basemap
+      basemapLayers.forEach((layer) => {
+        const url = layer.url && layer.url.toLowerCase().replace(/_/g, '-');
+        //- If there is no URL, this is probably a custom basemap, so just return
+        if (!url) { return; }
+        //- Try to find the name so it can be added to the basemap gallery
+        name = basemapNames.filter((basemap) => {
+          return url.indexOf(basemap) > -1;
+        })[0];
+      });
+
+      //- Check to see if this is a WRI basemap
+      basemapLayers.forEach((layer) => {
+        const url = layer.templateUrl;
+        if (url && url.indexOf(mono_mapboxid) > -1) {
+          wriName = 'wri_mono';
+        } else if (url && url.indexOf(contextual_mapboxid) > -1) {
+          wriName = 'wri_contextual';
+        }
+      });
+
+      //- Certain basemaps can cause issues with layer ordering and other things,
+      //- remove them here, if the default layer is a WRI Basemap, make that update
+      basemapLayers.forEach(bm => map.removeLayer(bm.layerObject));
+    }
+
+    //- Set the default basemap, this will trigger an update from the LayerPanel
+    //- It listens for changes to the basemap in the store, and then triggers updateBasemap above
+    if (name) {
+      mapActions.changeBasemap(name);
+    } else if (wriName) {
+      mapActions.changeBasemap(wriName);
+    } else {
+      mapActions.changeBasemap(map.getBasemap());
+    }
+
+    //- TODO: Add support for a custom basemap
   }
 
 };

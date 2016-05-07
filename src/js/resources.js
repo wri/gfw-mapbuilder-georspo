@@ -568,13 +568,11 @@ export default {
       },
       'wri_mono': {
         title: 'WRI Mono',
-        thumbnailUrl: './css/images/wri_mono.png',
-        mapboxId: 'wri.c974eefc'
+        thumbnailUrl: './css/images/wri_mono.png'
       },
       'wri_contextual': {
         title: 'WRI Contextual',
-        thumbnailUrl: './css/images/wri_contextual.png',
-        mapboxId: 'wri.b71b0f45'
+        thumbnailUrl: './css/images/wri_contextual.png'
       }
     },
     fr: {
@@ -601,13 +599,11 @@ export default {
       },
       'wri_mono': {
         title: 'WRI Mono',
-        thumbnailUrl: './css/images/wri_mono.png',
-        mapboxId: 'wri.c974eefc'
+        thumbnailUrl: './css/images/wri_mono.png'
       },
       'wri_contextual': {
         title: 'WRI Contextual',
-        thumbnailUrl: './css/images/wri_contextual.png',
-        mapboxId: 'wri.b71b0f45'
+        thumbnailUrl: './css/images/wri_contextual.png'
       }
     },
     es: {
@@ -634,13 +630,11 @@ export default {
       },
       'wri_mono': {
         title: 'WRI Mono',
-        thumbnailUrl: './css/images/wri_mono.png',
-        mapboxId: 'wri.c974eefc'
+        thumbnailUrl: './css/images/wri_mono.png'
       },
       'wri_contextual': {
         title: 'WRI Contextual',
-        thumbnailUrl: './css/images/wri_contextual.png',
-        mapboxId: 'wri.b71b0f45'
+        thumbnailUrl: './css/images/wri_contextual.png'
       }
     },
     pt: {
@@ -667,13 +661,11 @@ export default {
       },
       'wri_mono': {
         title: 'WRI Mono',
-        thumbnailUrl: './css/images/wri_mono.png',
-        mapboxId: 'wri.c974eefc'
+        thumbnailUrl: './css/images/wri_mono.png'
       },
       'wri_contextual': {
         title: 'WRI Contextual',
-        thumbnailUrl: './css/images/wri_contextual.png',
-        mapboxId: 'wri.b71b0f45'
+        thumbnailUrl: './css/images/wri_contextual.png'
       }
     }
   }

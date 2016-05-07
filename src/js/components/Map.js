@@ -14,7 +14,7 @@ import arcgisUtils from 'esri/arcgis/utils';
 import mapActions from 'actions/MapActions';
 import Scalebar from 'esri/dijit/Scalebar';
 import {getUrlParams} from 'utils/params';
-import layerUtils from 'utils/layerUtils';
+import basemapUtils from 'utils/basemapUtils';
 import MapStore from 'stores/MapStore';
 import {mapConfig} from 'js/config';
 import React, {
@@ -106,12 +106,12 @@ export default class Map extends Component {
       this.map = response.map;
       // Remove any basemap or reference layers so they don't interfere with the
       // basemap switcher in the layer panel works.
-      const basemap = itemData && itemData.baseMap;
-      if (basemap.baseMapLayers.length) {
-        const basemapName = layerUtils.getBasemapName(basemap.baseMapLayers);
-        basemap.baseMapLayers.forEach(bm => this.map.removeLayer(bm.layerObject));
-        this.map.setBasemap(basemapName);
-      }
+      // const basemap = itemData && itemData.baseMap;
+      // if (basemap.baseMapLayers.length) {
+      //   const basemapName = basemapUtils.prepareDefaultBasemap(this.map, basemap.baseMapLayers);
+      //   // basemap.baseMapLayers.forEach(bm => this.map.removeLayer(bm.layerObject));
+      //   // this.map.setBasemap(basemapName);
+      // }
 
       this.map.graphics.clear();
       //- Attach events I need for the info window
@@ -131,7 +131,8 @@ export default class Map extends Component {
         updateEnd.remove();
         mapActions.createLayers(this.map, settings.layers[language]);
         //- Set the default basemap in the store
-        mapActions.changeBasemap(this.map.getBasemap());
+        const basemap = itemData && itemData.baseMap;
+        basemapUtils.prepareDefaultBasemap(this.map, basemap.baseMapLayers);
         //- Apply the mask layer defintion if present
         if (settings.iso && settings.iso !== '') {
           const maskLayer = this.map.getLayer(layerKeys.MASK);
