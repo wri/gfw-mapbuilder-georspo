@@ -11,6 +11,8 @@ const newBasemapLabelsIndex = 2;
 const mono_mapboxid = 'wri.c974eefc';
 const contextual_mapboxid = 'wri.b71b0f45';
 
+const landsatLayerId = 'LANDSAT';
+
 let customBasemapLayer;
 let customLabelLayer;
 
@@ -77,20 +79,24 @@ export default {
   },
 
   addLandsatBasemap (map, config) {
-    customBasemapLayer = new WebTiledLayer(config.templateUrl, {});
+    customBasemapLayer = new WebTiledLayer(config.templateUrl, { id: landsatLayerId });
     map.addLayer(customBasemapLayer, newBasemapIndex);
   },
 
   changeLandsatYear (map, year, config) {
+    if (customBasemapLayer && customBasemapLayer.id === landsatLayerId) {
+      map.removeLayer(customBasemapLayer);
+    }
     // - Update the template and add the layer
     const template = config.templateUrl.replace(/\/\d{4}\//, `/${year}/`);
-    customBasemapLayer = new WebTiledLayer(template, {});
+    customBasemapLayer = new WebTiledLayer(template, { id: landsatLayerId });
     map.addLayer(customBasemapLayer, newBasemapIndex);
   },
 
   prepareDefaultBasemap (map, basemapLayers) {
     const basemapNames = Object.keys(basemaps);
-    let name, wriName;
+
+    let arcgisBasemap, wriName;
     if (basemapLayers) {
       //- Check to see if this is a default esri basemap
       basemapLayers.forEach((layer) => {
@@ -98,9 +104,14 @@ export default {
         //- If there is no URL, this is probably a custom basemap, so just return
         if (!url) { return; }
         //- Try to find the name so it can be added to the basemap gallery
-        name = basemapNames.filter((basemap) => {
+        arcgisBasemap = basemapNames.filter((basemap) => {
           return url.indexOf(basemap) > -1;
         })[0];
+
+        //- Check for other matches here that are known not to work with the above method
+        if (!arcgisBasemap && url.indexOf('natgeo') > -1) {
+          arcgisBasemap = 'national-geographic';
+        }
       });
 
       //- Check to see if this is a WRI basemap
@@ -120,12 +131,17 @@ export default {
 
     //- Set the default basemap, this will trigger an update from the LayerPanel
     //- It listens for changes to the basemap in the store, and then triggers updateBasemap above
-    if (name) {
-      mapActions.changeBasemap(name);
+
+    if (arcgisBasemap) {
+      this.arcgisBasemaps.push(arcgisBasemap);
+      mapActions.changeBasemap(arcgisBasemap);
     } else if (wriName) {
       mapActions.changeBasemap(wriName);
-    } else {
+    } else if (map.getBasemap()) {
       mapActions.changeBasemap(map.getBasemap());
+    } else {
+      //- Use this as a fallback
+      mapActions.changeBasemap('wri_mono');
     }
 
     //- TODO: Add support for a custom basemap

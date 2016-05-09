@@ -25,6 +25,7 @@ const config = {
     jQuery: 'vendor/jquery/dist/jquery.min.js',
     highcharts: '//code.highcharts.com/highcharts.js',
     highchartsMore: '//code.highcharts.com/highcharts-more.js',
+    highchartsExports: '//code.highcharts.com/modules/exporting.js',
     ionCSS: 'vendor/ion.rangeslider/css/ion.rangeSlider.css',
     ionSkinCSS: 'vendor/ion.rangeslider/css/ion.rangeSlider.skinNice.css',
     rangeSlider: 'vendor/ion.rangeslider/js/ion.rangeSlider.min.js'

@@ -41,10 +41,10 @@ export default class LayerPanel extends Component {
     const {map, language, settings} = this.context;
     if (map.loaded) {
       //- Make sure to include the default basemap from the webmap in our basemap gallery
-      const defaultBasemap = map.getBasemap();
-      if (basemapUtils.arcgisBasemaps.indexOf(defaultBasemap) === -1) {
-        basemapUtils.arcgisBasemaps.push(defaultBasemap);
-      }
+      // const defaultBasemap = map.getBasemap();
+      // if (basemapUtils.arcgisBasemaps.indexOf(defaultBasemap) === -1) {
+      //   basemapUtils.arcgisBasemaps.push(defaultBasemap);
+      // }
 
       //- Basemap changed, update that here since it's behavior is more like a radio button
       if (prevProps.basemap !== basemap) {
