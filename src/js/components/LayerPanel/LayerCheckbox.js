@@ -12,6 +12,35 @@ import React, {
 // Info Icon Markup for innerHTML
 const useSvg = '<use xlink:href="#shape-info" />';
 
+const showSubLayer = function showSubLayer (layerItem) {
+  const {esriLayer, subIndex} = layerItem;
+  //- If this layer is not already in visible layers, add it, then set visible layers
+  if (esriLayer.visibleLayers.indexOf(subIndex) === -1) {
+    esriLayer.visibleLayers.push(subIndex);
+  }
+  esriLayer.setVisibleLayers(esriLayer.visibleLayers);
+};
+
+const hideSubLayer = function hideSubLayer (layerItem) {
+  const {esriLayer, subIndex} = layerItem;
+  //- If this layer is in visible layers, remove it, then set visible layers
+  const location = esriLayer.visibleLayers.indexOf(subIndex);
+  if (location > -1) {
+    esriLayer.visibleLayers.splice(location, 1);
+  }
+  esriLayer.setVisibleLayers(esriLayer.visibleLayers);
+};
+
+const showLayer = function showLayer (map, layerId) {
+  const layer = map.getLayer(layerId);
+  if (layer) { layer.show(); }
+};
+
+const hideLayer = function hideLayer (map, layerId) {
+  const layer = map.getLayer(layerId);
+  if (layer) { layer.hide(); }
+};
+
 export default class LayerCheckbox extends Component {
 
   static contextTypes = {
@@ -21,20 +50,21 @@ export default class LayerCheckbox extends Component {
   };
 
   componentDidUpdate(prevProps) {
+    const {map} = this.context;
     if (prevProps.checked !== this.props.checked) {
       if (this.props.checked) {
         if (this.props.subLayer) {
-          LayersHelper.showSubLayer(this.props.layer);
+          showSubLayer(this.props.layer);
         } else {
-          LayersHelper.showLayer(this.props.layer.id);
+          showLayer(map, this.props.layer.id);
           //- If the legend layer is present, update it
           this.updateLegendLayer(this.props.layer.id, { visible: true });
         }
       } else {
         if (this.props.subLayer) {
-          LayersHelper.hideSubLayer(this.props.layer);
+          hideSubLayer(this.props.layer);
         } else {
-          LayersHelper.hideLayer(this.props.layer.id);
+          hideLayer(map, this.props.layer.id);
           //- If the legend layer is present, update it
           this.updateLegendLayer(this.props.layer.id, { visible: false });
         }

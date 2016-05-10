@@ -104,15 +104,6 @@ export default class Map extends Component {
       });
 
       this.map = response.map;
-      // Remove any basemap or reference layers so they don't interfere with the
-      // basemap switcher in the layer panel works.
-      // const basemap = itemData && itemData.baseMap;
-      // if (basemap.baseMapLayers.length) {
-      //   const basemapName = basemapUtils.prepareDefaultBasemap(this.map, basemap.baseMapLayers);
-      //   // basemap.baseMapLayers.forEach(bm => this.map.removeLayer(bm.layerObject));
-      //   // this.map.setBasemap(basemapName);
-      // }
-
       this.map.graphics.clear();
       //- Attach events I need for the info window
       this.map.infoWindow.on('show, hide, set-features, selection-change', mapActions.infoWindowUpdated);

@@ -10,6 +10,7 @@
 .tab-buttons__tab
   border-left 1px solid $lightGray
   background $lightGrayHighlight
+  transition all 0.15s easeinout
   justify-content center
   flex-direction column
   align-items center
@@ -25,6 +26,43 @@
 
 .tab-buttons__tab.active
   background white
+
+.tab-buttons__tab.animate-pulse
+  & .svg-icon
+    animation-name animate-pulse
+    animation-iteration-count infinite
+    animation-duration 1000ms
+  &:after
+    background $goldTheme
+    border-radius 5px
+    margin-bottom 1px
+    content " "
+    height 3px
+    width 5px
+
+@keyframes animate-pulse
+  0%
+    transform scale(1)
+  10%
+    transform scale(0.95)
+  20%
+    transform scale(0.9)
+  30%
+    transform scale(0.85)
+  40%
+    transform scale(0.8)
+  50%
+    transform scale(0.75)
+  60%
+    transform scale(0.8)
+  70%
+    transform scale(0.85)
+  80%
+    transform scale(0.9)
+  90%
+    transform scale(0.95)
+  100%
+    transform scale(1)
 
 .tab-buttons__header .tab-buttons__tab:first-child
   border-left none
