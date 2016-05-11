@@ -5,8 +5,8 @@ import basemaps from 'esri/basemaps';
 const mapboxToken = 'pk.eyJ1Ijoid3JpIiwiYSI6IjU3NWNiNGI4Njc4ODk4MmIyODFkYmJmM2NhNDgxMWJjIn0.v1tciCeBElMdpnrikGDrPg';
 const mapboxApiBase = 'https://api.tiles.mapbox.com/v4/';
 const mapboxLabelsId = 'wri.acf5a04e';
-const newBasemapIndex = 1;
-const newBasemapLabelsIndex = 2;
+const newBasemapIndex = 0;
+const newBasemapLabelsIndex = 1;
 
 const mono_mapboxid = 'wri.c974eefc';
 const contextual_mapboxid = 'wri.b71b0f45';

@@ -154,7 +154,7 @@ export default {
 
     }, err => {
       if (brApp.debug) { console.warn(`template.getAppInfo >> ${err.message}`); }
-      promise.resolve();
+      promise.resolve(resources);
     });
 
     return promise;

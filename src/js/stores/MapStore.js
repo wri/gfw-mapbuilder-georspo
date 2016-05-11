@@ -13,7 +13,8 @@ class MapStore {
   constructor () {
 
     //- Default is closed, using any value as default will cause an ugly
-    //- appearance on mobile when loading, set the default in TabButtons componentDidMount
+    //- appearance on mobile when loading, set the default in TabButtons componentWillReceiveProps
+    //- the default may change based on device, and content available from AGOL
     this.activeTab = '';
 
     this.activeLayers = [];

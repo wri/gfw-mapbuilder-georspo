@@ -20,7 +20,7 @@ const narrativeSvg = '<use xlink:href="#shape-info" />';
 const analysisSvg = '<use xlink:href="#icon-analysis" />';
 const menuSvg = '<use xlink:href="#icon-menu" />';
 
-let currentId, timeout;
+let currentId, timeout, initialTabSet = false;
 
 export default class TabButtons extends Component {
 
@@ -37,16 +37,25 @@ export default class TabButtons extends Component {
     };
   }
 
-  componentDidMount() {
-    const {settings, language} = this.context;
-    const narrative = settings.labels && settings.labels[language] && settings.labels[language].narrative || '';
-    const activeTab = window && window.innerWidth > 950 ? (narrative ? NARRATIVE : LAYERS) : '';
-    mapActions.changeActiveTab(activeTab);
-  }
+  // componentDidMount() {
+  //   const {settings, language} = this.context;
+  //   const narrative = settings.labels && settings.labels[language] && settings.labels[language].narrative || '';
+  //   const activeTab = window && window.innerWidth > 950 ? (narrative ? NARRATIVE : LAYERS) : '';
+  //   mapActions.changeActiveTab(activeTab);
+  // }
 
   componentWillReceiveProps() {
-    const {map} = this.context;
+    const {map, settings, language} = this.context;
     const feature = map.infoWindow && map.infoWindow.getSelectedFeature();
+    /**
+    * Set the default tab for the container once the map is ready and settings are here
+    */
+    if (!initialTabSet && map.loaded) {
+      const narrative = settings.labels && settings.labels[language] && settings.labels[language].narrative || '';
+      const activeTab = window && window.innerWidth > 950 ? (narrative ? NARRATIVE : LAYERS) : '';
+      mapActions.changeActiveTab.defer(activeTab);
+      initialTabSet = true;
+    }
     /**
     * If a feature is selected, and it is not the same feature that is already selected
     * add some animation here, otherwise, set the currentId to undefined so it can animate
