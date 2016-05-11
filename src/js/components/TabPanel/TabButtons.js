@@ -20,7 +20,7 @@ const narrativeSvg = '<use xlink:href="#shape-info" />';
 const analysisSvg = '<use xlink:href="#icon-analysis" />';
 const menuSvg = '<use xlink:href="#icon-menu" />';
 
-let currentId, timeout, initialTabSet = false;
+let currentFeature, timeout, initialTabSet = false;
 
 export default class TabButtons extends Component {
 
@@ -62,8 +62,8 @@ export default class TabButtons extends Component {
     * when the next feature is selected
     */
     if (feature) {
-      if (currentId === feature.attributes.OBJECTID) { return; }
-      currentId = feature.attributes.OBJECTID;
+      if (currentFeature === feature) { return; }
+      currentFeature = feature;
       //- Update the state so we can add some animations to bring awareness to the buttons
       this.setState({ isAnimating: true });
       if (timeout) { clearTimeout(timeout); }
@@ -73,7 +73,7 @@ export default class TabButtons extends Component {
         timeout = undefined;
       }, 3000);
     } else {
-      currentId = undefined;
+      currentFeature = undefined;
     }
   }
 
