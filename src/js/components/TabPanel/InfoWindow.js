@@ -1,5 +1,6 @@
 import CustomFeatureControl from 'components/AnalysisPanel/CustomFeatureControl';
 import ReportSubscribeButtons from 'components/Shared/ReportSubscribe';
+import {attributes} from 'constants/AppConstants';
 import text from 'js/languages';
 import React, {
   Component,
@@ -49,8 +50,7 @@ export default class InfoWindow extends Component {
     }
 
     if (selectedFeature) {
-      // TODO: make __source values constants, have search and draw so far
-      if (selectedFeature.attributes.__source === 'search') {
+      if (selectedFeature.attributes.__source === attributes.SOURCE_SEARCH) {
         title = (
           <div className='infoWindow__title'>
             {selectedFeature.infoTemplate.title}
@@ -58,7 +58,7 @@ export default class InfoWindow extends Component {
         );
       }
       //- For Drawn Features, Give them a Control which can rename or delete the feature
-      if (selectedFeature.attributes.__source === 'draw') {
+      if (selectedFeature.attributes.__source === attributes.SOURCE_DRAW) {
         title = (
           <div className='infoWindow__title'>
             <CustomFeatureControl feature={selectedFeature} />

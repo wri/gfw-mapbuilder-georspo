@@ -1,5 +1,6 @@
-import AnalysisTypeSelect from 'components/AnalysisPanel/AnalysisTypeSelect';
+import CustomFeatureControl from 'components/AnalysisPanel/CustomFeatureControl';
 import CompositionPieChart from 'components/AnalysisPanel/CompositionPieChart';
+import AnalysisTypeSelect from 'components/AnalysisPanel/AnalysisTypeSelect';
 import RestorationCharts from 'components/AnalysisPanel/RestorationCharts';
 import TotalLossChart from 'components/AnalysisPanel/TotalLossChart';
 import ReportSubscribeButtons from 'components/Shared/ReportSubscribe';
@@ -11,6 +12,7 @@ import FiresBadge from 'components/AnalysisPanel/FiresBadge';
 import BarChart from 'components/AnalysisPanel/BarChart';
 import analysisKeys from 'constants/AnalysisConstants';
 import performAnalysis from 'utils/performAnalysis';
+import {attributes} from 'constants/AppConstants';
 import tabKeys from 'constants/TabViewConstants';
 import layerKeys from 'constants/LayerConstants';
 import {analysisConfig} from 'js/config';
@@ -159,7 +161,7 @@ export default class Analysis extends Component {
     const {selectedFeature, activeAnalysisType, canopyDensity, activeSlopeClass} = this.props;
     const {results, isLoading} = this.state;
     const {language} = this.context;
-    let chart;
+    let chart, title;
 
     if (results) {
       chart = this.renderResults(activeAnalysisType, results, language);
@@ -173,13 +175,25 @@ export default class Analysis extends Component {
       activeAnalysisType === analysisKeys.INTACT_LOSS
     );
 
+    if (selectedFeature.attributes.__source === attributes.SOURCE_DRAW) {
+      title = (
+        <div className='analysis-results__title'>
+          <CustomFeatureControl feature={selectedFeature} />
+        </div>
+      );
+    } else {
+      title = (
+        <h3 className='analysis-results__title'>
+          {selectedFeature.getTitle ? selectedFeature.getTitle() : ''}
+        </h3>
+      );
+    }
+
     return (
       <div className='analysis-results'>
         <Loader active={isLoading} />
         <div className='analysis-results__content custom-scroll'>
-          <h3 className='analysis-results__title'>
-            {selectedFeature.getTitle ? selectedFeature.getTitle() : ''}
-          </h3>
+          {title}
           <div className='analysis-results__select-label'>
             {text[language].ANALYSIS_SELECT_TYPE_LABEL}
           </div>

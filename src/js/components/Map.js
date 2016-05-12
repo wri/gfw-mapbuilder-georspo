@@ -53,7 +53,7 @@ export default class Map extends Component {
 
   componentDidUpdate (prevProps) {
     const settings = this.props.settings;
-    if (prevProps.settings.webmap !== settings.webmap) {
+    if (prevProps.settings.webmap === undefined && settings.webmap) {
       this.createMap(settings);
     }
   }
@@ -68,41 +68,8 @@ export default class Map extends Component {
       this.webmapInfo = response.itemInfo.itemData;
       // Add operational layers from the webmap to the array of layers from the config file.
       const {itemData} = response.itemInfo;
-      itemData.operationalLayers.forEach((ol) => {
-        // TODO:  filter out layers specific to selected language.
-        // For dynamic layers, create a layer entry for each sublayer.
-        if (ol.layerType === 'ArcGISMapServiceLayer') {
-          ol.resourceInfo.layers.forEach(lyr => {
-            const visible = ol.layerObject.visibleLayers.indexOf(lyr.id) > -1;
-            const scaleDependency = (lyr.minScale > 0 || lyr.maxScale > 0);
-            settings.layers[language].push({
-              id: ol.id,
-              subId: `${ol.id}_${lyr.id}`,
-              subIndex: lyr.id,
-              hasScaleDependency: scaleDependency,
-              maxScale: lyr.maxScale,
-              minScale: lyr.minScale,
-              group: settings.labels[language].webmapMenuName,
-              groupKey: layerKeys.GROUP_WEBMAP,
-              label: lyr.name,
-              opacity: 1,
-              visible: visible,
-              esriLayer: ol.layerObject
-            });
-          });
-        } else {
-          settings.layers[language].push({
-            id: ol.id,
-            group: settings.labels[language].webmapMenuName,
-            groupKey: layerKeys.GROUP_WEBMAP,
-            label: ol.title,
-            opacity: ol.opacity,
-            visible: ol.visibility,
-            esriLayer: ol.layerObject
-          });
-        }
-      });
-
+      this.addLayersToLayerPanel(settings, itemData.operationalLayers);
+      // Store a map reference and clear out any default graphics
       this.map = response.map;
       this.map.graphics.clear();
       //- Attach events I need for the info window
@@ -119,6 +86,14 @@ export default class Map extends Component {
       });
 
       const updateEnd = this.map.on('update-end', () => {
+        // if (settings.webmap !== '9b6aa8982b7f41f9a6699b855765d5a9') {
+        //   setTimeout(() => {
+        //     alert('Hey Hey');
+        //     settings.webmap = '9b6aa8982b7f41f9a6699b855765d5a9';
+        //     this.map.destroy();
+        //     this.createMap(settings);
+        //   }, 10000);
+        // }
         updateEnd.remove();
         mapActions.createLayers(this.map, settings.layers[language]);
         //- Set the default basemap in the store
@@ -142,6 +117,44 @@ export default class Map extends Component {
       //- Make the map a global in debug mode for easier debugging
       if (brApp.debug) { brApp.map = this.map; }
 
+    });
+  };
+
+  addLayersToLayerPanel = (settings, operationalLayers) => {
+    const {language} = this.context;
+    // TODO - Need to prevent this from firing more than once per language so the
+    // layer list does not grow or just remove the group webmap layers each time
+    operationalLayers.forEach((layer) => {
+      if (layer.layerType === 'ArcGISMapServiceLayer') {
+        layer.resourceInfo.layers.forEach((sublayer) => {
+          const visible = layer.layerObject.visibleLayers.indexOf(sublayer.id) > -1;
+          const scaleDependency = (sublayer.minScale > 0 || sublayer.maxScale > 0);
+          settings.layers[language].push({
+            id: layer.id,
+            subId: `${layer.id}_${sublayer.id}`,
+            subIndex: sublayer.id,
+            hasScaleDependency: scaleDependency,
+            maxScale: sublayer.maxScale,
+            minScale: sublayer.minScale,
+            group: settings.labels[language].webmapMenuName,
+            groupKey: layerKeys.GROUP_WEBMAP,
+            label: sublayer.name,
+            opacity: 1,
+            visible: visible,
+            esriLayer: layer.layerObject
+          });
+        });
+      } else {
+        settings.layers[language].push({
+          id: layer.id,
+          group: settings.labels[language].webmapMenuName,
+          groupKey: layerKeys.GROUP_WEBMAP,
+          label: layer.title,
+          opacity: layer.opacity,
+          visible: layer.visibility,
+          esriLayer: layer.layerObject
+        });
+      }
     });
   };
 

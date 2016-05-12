@@ -11,6 +11,10 @@ export default class CustomFeatureControl extends Component {
   editName = ({target}) => {
     const {feature} = this.props;
     feature.attributes.Name = target.value;
+    // This is generally bad practice, I should update state, but the Name already exists
+    // in the feature passed in as props, doing this negates the need for state storing duplicate
+    // data which would be an anti-pattern anyway
+    this.forceUpdate();
   };
 
   deleteFeature = () => {
@@ -26,7 +30,7 @@ export default class CustomFeatureControl extends Component {
 
     return (
       <div className='custom-feature__header'>
-        <input className='custom-feature__input' type='text' defaultValue={feature.attributes.Name} onChange={this.editName} />
+        <input className='custom-feature__input' type='text' value={feature.attributes.Name} onChange={this.editName} />
         <div className='custom-feature__delete pointer' onClick={this.deleteFeature}>{text[language].DELETE}</div>
       </div>
     );

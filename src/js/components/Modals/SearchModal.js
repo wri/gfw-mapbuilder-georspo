@@ -1,4 +1,5 @@
 import ControlledModalWrapper from 'components/Modals/ControlledModalWrapper';
+import {attributes} from 'constants/AppConstants';
 import graphicsUtils from 'esri/graphicsUtils';
 import mapActions from 'actions/MapActions';
 import ComboBox from 'dijit/form/ComboBox';
@@ -77,7 +78,7 @@ export default class SearchModal extends Component {
               const layer = map.getLayer(`${searchLayer.layerObject.id}_${item.layerId}`);
               let title = '', content = '';
               //- Set this attribute so I can do custom things in InfoWindow
-              feature.attributes.__source = 'search';
+              feature.attributes.__source = attributes.SOURCE_SEARCH;
               //- We need to build up the content, if the layer does not exist,
               //- its because no info template was configured in AGOL
               if (layer && layer.infoTemplate && layer.infoTemplate.info) {
@@ -128,35 +129,6 @@ export default class SearchModal extends Component {
   onClose = () => {
     mapActions.toggleSearchModal({ visible: false });
   };
-
-  // keyUp = ({target}) => {
-  //   const {language, webmapInfo} = this.context;
-  //   //- Find a layer to search, this logic comes from the old Forest Atlas,
-  //   //- We will need to discuss how to implement in the new version to support as many layers/fields as possible
-  //   //- and still be performant
-  //   let searchLayer = webmapInfo.operationalLayers.filter((layer) => {
-  //     return layer.id.search(`_${language}`) > -1;
-  //   })[0];
-  //
-  //   if (searchLayer && searchLayer.url && target.value !== '') {
-  //     if (currentPromise && !currentPromise.isResolved()) {
-  //       currentPromise.cancel();
-  //     }
-  //
-  //     currentPromise = request.findTaskByLayer(target.value, searchLayer);
-  //     currentPromise.then((results) => {
-  //       this.setState({ suggestions: results});
-  //     });
-  //   } else {
-  //     this.setState({ suggestions: []});
-  //   }
-  // };
-  //
-  // renderSuggestions = (suggestion) => {
-  //   return (
-  //     <div>{suggestion.value}</div>
-  //   );
-  // };
 
   render () {
     const {language} = this.context;

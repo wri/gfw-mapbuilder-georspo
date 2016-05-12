@@ -15,8 +15,8 @@ export default {
   downloadLinkUrl: 'http://data.globalforestwatch.org/',
   printServiceUrl: 'http://gis-forest-atlas.wri.org/arcgis/rest/services/CMR/CMRExportWebMap/GPServer/Export%20Web%20Map',
   maskServiceUrl: 'http://gis-forest-atlas.wri.org/arcgis/rest/services/CMR/CMR_00_Africa/MapServer',
-  mapThemeIds: '1c38ba1095fe49e3ba234bf9105c1077;c76d788b7487476bae4d09a4e933be19',
-  mapThemes: 'Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea',
+  mapThemeIds: '', // e.g. 1c38ba1095fe49e3ba234bf9105c1077;c76d788b7487476bae4d09a4e933be19
+  mapThemes: '', // e.g. Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea
   narrative: '',
   includeSubscribeButton: false,
   includeMyGFWLogin: false,
@@ -26,7 +26,7 @@ export default {
   alternativeLanguage: 'fr',
   alternativeLanguageTitle: 'GFW Mapbuilder',
   alternativeLanguageSubtitle: 'Make maps that matter',
-  alternativeMapThemes: 'Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea',
+  alternativeMapThemes: '', // e.g. Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea
   alternativeNarrative: '',
   alternativeWebmapMenuName: 'Land Use',
   //- Documents Settings

@@ -1,4 +1,5 @@
 import analysisKeys from 'constants/AnalysisConstants';
+import {attributes} from 'constants/AppConstants';
 import layerKeys from 'constants/LayerConstants';
 import tabKeys from 'constants/TabViewConstants';
 import appActions from 'actions/AppActions';
@@ -125,7 +126,12 @@ class MapStore {
 
   infoWindowUpdated (selectedFeature) {
     if (selectedFeature) {
-      this.activeTab = tabKeys.INFO_WINDOW;
+      // If this is a custom feature, active tab should be the analysis tab
+      if (selectedFeature.attributes.__source === attributes.SOURCE_DRAW) {
+        this.activeTab = tabKeys.ANALYSIS;
+      } else {
+        this.activeTab = tabKeys.INFO_WINDOW;
+      }
     }
   }
 

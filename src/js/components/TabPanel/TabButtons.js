@@ -101,7 +101,6 @@ export default class TabButtons extends Component {
     const {settings, language} = this.context;
     const {tableOfContentsVisible} = this.props;
     const narrative = settings.labels && settings.labels[language] && settings.labels[language].narrative || '';
-    const {isAnimating} = this.state;
 
     return (
       <nav className={`tab-buttons map-component ${tableOfContentsVisible ? '' : 'hidden'}`}>
