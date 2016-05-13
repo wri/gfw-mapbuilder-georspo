@@ -130,11 +130,9 @@ strings.en.NARRATIVE = 'Narrative';
 strings.en.MORE = 'More';
 strings.en.DELETE = 'Delete';
 strings.en.DOCUMENTS = 'Documents';
-
-
 //- NOTE: French
 //- Header
-strings.fr.NAV_ABOUT = 'A Propos';
+strings.fr.NAV_ABOUT = '`À Propos';
 strings.fr.NAV_DOWNLOAD = 'Téléchargez les Données';
 strings.fr.NAV_MAP_THEMES = 'Thèmes';
 strings.fr.NAV_MY_GFW = 'Se connecter à GFW';
@@ -147,27 +145,27 @@ strings.fr.DOCS_AUTHOR = 'Auteur';
 strings.fr.DOCS_YEAR = 'Année';
 strings.fr.DOCS_PDF = 'PDF';
 //- Info Window
-strings.fr.INFO_WINDOW_INSTRUCTION_HEADER = 'Sélectionnez un polygone sur la carte';
+strings.fr.INFO_WINDOW_INSTRUCTION_HEADER = 'Sélectionnez un polygone à partir de la carte';
 strings.fr.INFO_WINDOW_INSTRUCTION_LIST = [
-  'Utiliser l\'onglet Couches pour activer une couche de données',
+  'Utiliser l\'onglet Couches pour activer une couche de cartographique',
   'Sélectionnez un polygone sur la carte'
 ];
 //- Analysis
-strings.fr.ANALYSIS_INSTRUCTION_HEADER = 'Analysez un polygone sur la carte';
+strings.fr.ANALYSIS_INSTRUCTION_HEADER = 'Analysez à partir d\'une couche cartographique';
 strings.fr.ANALYSIS_INSTRUCTION_LIST = [
-  'Utilisez l\'onglet Couches pour activer une couche de données',
-  'Sélectionnez une entité sur la carte',
-  'Cliquez sur l\'onglet analyse'
+  'Onglet couches : activez une des couches cartographiques',
+  'Sélectionnez un polygone de la couche affichée',
+  'Lancez l\'analyse en cliquant sur l\'onglet Analyser'
 ];
 strings.fr.ANALYSIS_OR = 'Ou';
-strings.fr.ANALYSIS_DRAW_HEADER = 'Analysez votre propre polygone';
+strings.fr.ANALYSIS_DRAW_HEADER = 'Tracez vous-même la zone d\'analyse';
 //- ${drawIcon} references a variable above, do not translate
 strings.fr.ANALYSIS_DRAW_INSTRUCTIONS = [
-  `Utiliser l\'outil dessin ${drawIcon} dans la boîte à outil`,
+  `Utiliser l\'outil dessin ${drawIcon} de la boîte à outil`,
   'Tracez un polygone sur la carte',
-  'Cliquez sur le polygone pour lancer l\'analyse'
+  'Cliquez sur le polygone tracé pour lancer l\'analyse'
 ];
-strings.fr.ANALYSIS_DRAW_BUTTON = 'Débutez le dessin';
+strings.fr.ANALYSIS_DRAW_BUTTON = 'Tracez le polygone';
 strings.fr.ANALYSIS_INSTRUCTION_ADDITIONAL = `Ajouter des polygones supplémentaires grâce à l\'outil dessin ${drawIcon}`;
 strings.fr.ANALYSIS_SHAPEFILE_UPLOAD = 'ou glissez un shapefile ici';
 strings.fr.ANALYSIS_SELECT_TYPE_LABEL = 'Choisissez le type d\'analyse:';
@@ -184,7 +182,7 @@ strings.fr.ANALYSIS_TOTAL_GAIN_LABEL = 'Total Gain en couvert arboré';
 strings.fr.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.fr.ANALYSIS_SLOPE_OPTION = 'Option #';
 strings.fr.SLOPE_SELECT_LABEL = 'Choisissez la pente (%):';
-strings.fr.ANALYSIS_RESTORATION_LC_LABELS = [
+strings.fr.ANALYSIS_RESTORATIaON_LC_LABELS = [
   'Pas de données', 'Forêts', 'Prairies', 'Cultures', 'Milieux humides et eaux de surface', 'Lieux habités', 'Sols nus'
 ];
 strings.fr.ANALYSIS_RESTORATION_ERROR = 'Région ne correspondant pas aux critères/Pas de données';
@@ -228,7 +226,7 @@ strings.fr.ANALYSIS_SELECT_TYPE_OPTIONS = [
 ];
 
 //- Modals
-strings.fr.CANOPY_MODAL_TEXT = 'Ajuster la densité minimum de la canopée pour le couvert arboré et la perte en couvert arboré';
+strings.fr.CANOPY_MODAL_TEXT = 'Ajuster la densité minimale de la canopée pour le couvert arboré et la perte en couvert arboré';
 strings.fr.DENSITY_FIRST = 'Affichage';
 strings.fr.DENSITY_SECOND = 'Densité de la canopée.';
 strings.fr.SEARCH_WIDGET_TITLE = 'Recherch de polygones:';
