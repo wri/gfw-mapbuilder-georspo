@@ -43,12 +43,11 @@ export default class ControlPanel extends Component {
 
   share = () => {
     const {map, language, settings} = this.context;
-    let shareState = prepareStateForShare({
+    modalActions.showShareModal(toQuery(prepareStateForShare({
       map: map,
       language: language,
       settings: settings
-    });
-    modalActions.showShareModal(toQuery(shareState));
+    })));
   };
 
   showAnalysisTools = () => {

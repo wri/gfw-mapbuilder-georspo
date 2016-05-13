@@ -1,4 +1,5 @@
 import SpatialReference from 'esri/SpatialReference';
+import {attributes} from 'constants/AppConstants';
 import InfoTemplate from 'esri/InfoTemplate';
 import Polygon from 'esri/geometry/Polygon';
 import symbols from 'utils/symbols';
@@ -22,11 +23,11 @@ export default {
       {
         cfid: id,
         OBJECTID: id,
-        __source: 'draw',
+        __source: attributes.SOURCE_DRAW,
         Name: `Custom Feature #${id}`
       },
       new InfoTemplate({
-        title: 'Name: ${Name}',
+        title: '${Name}',
         content: '<div class=\'custom-feature__content\'>Object Id: ${OBJECTID}</div>'
       })
     );

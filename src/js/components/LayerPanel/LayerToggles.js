@@ -1,7 +1,6 @@
 import layerActions from 'actions/LayerActions';
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
 
 export default class LayerToggles extends Component {
@@ -12,7 +11,7 @@ export default class LayerToggles extends Component {
         <span onClick={this.clearAll.bind(this)} className='right small'>clear all</span>
         <span onClick={this.selectAll.bind(this)} className='right small'>select all</span>
       </div>
-    )
+    );
   }
 
   clearAll () {

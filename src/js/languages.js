@@ -129,6 +129,7 @@ strings.en.DOCS = 'Docs';
 strings.en.NARRATIVE = 'Narrative';
 strings.en.MORE = 'More';
 strings.en.DELETE = 'Delete';
+strings.en.DOCUMENTS = 'Documents';
 
 
 //- NOTE: French
@@ -244,7 +245,7 @@ strings.fr.DOCS = 'Docs';
 strings.fr.NARRATIVE = 'Narrative';
 strings.fr.MORE = 'More';
 strings.fr.DELETE = 'Delete';
-
+strings.fr.DOCUMENTS = 'Documents';
 
 //- NOTE: Spanish
 //- Header
@@ -359,6 +360,7 @@ strings.es.DOCS = 'Docs';
 strings.es.NARRATIVE = 'Narrative';
 strings.es.MORE = 'More';
 strings.es.DELETE = 'Delete';
+strings.es.DOCUMENTS = 'Documents';
 
 //- NOTE: Portugese
 //- Header
@@ -473,5 +475,6 @@ strings.pt.DOCS = 'Docs';
 strings.pt.NARRATIVE = 'Narrative';
 strings.pt.MORE = 'More';
 strings.pt.DELETE = 'Delete';
+strings.pt.DOCUMENTS = 'Documents';
 
 export { strings as default };

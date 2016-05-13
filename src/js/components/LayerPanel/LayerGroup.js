@@ -1,7 +1,7 @@
 import mapActions from 'actions/MapActions';
 import React from 'react';
 
-let closeSymbolCode = 9660,
+const closeSymbolCode = 9660,
     openSymbolCode = 9650;
 
 /**
@@ -40,7 +40,7 @@ export default class LayerGroup extends React.Component {
 
   toggle = () => {
     const {activeTOCGroup, groupKey} = this.props;
-    let updatedKey = activeTOCGroup === groupKey ? '' : groupKey;
+    const updatedKey = activeTOCGroup === groupKey ? '' : groupKey;
     mapActions.openTOCAccordion(updatedKey);
   };
 

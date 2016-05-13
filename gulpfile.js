@@ -45,6 +45,7 @@ var config = {
     baseDir: 'build'
   },
   copy: {
+    filesaver: { src: 'build/vendor/file-saver.js/FileSaver.js', dest: 'dist/vendor/file-saver.js/'},
     jquery: { src: 'build/vendor/jquery/dist/jquery.min.js', dest: 'dist/vendor/jquery/dist/'},
     ion: { src: 'build/vendor/ion.rangeslider/**/*', dest: 'dist/vendor/ion.rangeslider/'}
   }
@@ -104,6 +105,8 @@ gulp.task('copy', function () {
     .pipe(gulp.dest(config.copy.jquery.dest));
   gulp.src(config.copy.ion.src)
     .pipe(gulp.dest(config.copy.ion.dest));
+  gulp.src(config.copy.filesaver.src)
+    .pipe(gulp.dest(config.copy.filesaver.dest));
 });
 
 gulp.task('prerender', function () {

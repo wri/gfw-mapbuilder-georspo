@@ -1,4 +1,5 @@
 /* eslint no-unused-vars: 0 */
+import analysisKeys from 'constants/AnalysisConstants';
 /**
 * Module to help in generating charts and also in formatting data for the charts
 * Formatting functions should start with formatXXXX and return series and optionally colors
@@ -76,7 +77,8 @@ export default {
       plotOptions: { series: { stacking: 'normal'}},
       tooltip: { valueSuffix: ' (Ha)', useHTML: true },
       series: series,
-      credits: { enabled: false }
+      credits: { enabled: false },
+      analysis: analysisKeys.ANALYSIS_TYPE_RESTORATION
     });
   },
 
@@ -131,7 +133,8 @@ export default {
       plotOptions: { bar: { colorByPoint: true, colors: colors } },
       series: series,
       legend: { enabled: false },
-      credits: { enabled: false }
+      credits: { enabled: false },
+      analysis: analysisKeys.ANALYSIS_TYPE_SLOPE
     });
 
     const addTooltips = (querystring) => {

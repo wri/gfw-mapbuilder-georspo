@@ -3,12 +3,19 @@
   height 100%
   width 100%
 
-//- Esri Overrides
-.calcite .esriLegendServiceLabel
+//- Esri Overrides, they need multiple classes to make them higher priority, either that or !important
+.calcite .map .esriLegendServiceLabel
   display none
+
+.calcite .map .esriLegendService
+  padding-bottom 0
+  margin-bottom 0
 
 .esriLegendLayer
   font-size 12px
+
+.calcite .map .esriScalebar
+  z-index 4
 
 @media (min-width: $mobileBreak)
   .esriScalebar

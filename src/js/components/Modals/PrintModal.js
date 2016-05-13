@@ -2,6 +2,7 @@ import ControlledModalWrapper from 'components/Modals/ControlledModalWrapper';
 import PrintTemplate from 'esri/tasks/PrintTemplate';
 import mapActions from 'actions/MapActions';
 import PrintDijit from 'esri/dijit/Print';
+import esriConfig from 'esri/config';
 import text from 'js/languages';
 import React, { Component, PropTypes } from 'react';
 
@@ -13,6 +14,11 @@ const createPrintWidget = function createPrintWidget (settings, map, node) {
   const layouts = [{
     name: 'MAP_ONLY',
     label: 'Map Image (jpg)',
+    format: 'jpg',
+    options: options
+  }, {
+    name: 'GFW_Mapbuilder_Landscape',
+    label: 'GFW Mapbuilder Landscape',
     format: 'jpg',
     options: options
   }];
@@ -28,7 +34,7 @@ const createPrintWidget = function createPrintWidget (settings, map, node) {
   }
 
   const templates = layouts.map((layout) => {
-    let template = new PrintTemplate();
+    const template = new PrintTemplate();
     template.layout = layout.name;
     template.label = layout.label;
     template.format = layout.format;
@@ -41,6 +47,9 @@ const createPrintWidget = function createPrintWidget (settings, map, node) {
     templates: templates,
     map: map
   }, node);
+
+  //- Add the service to Cors Enabled Servers
+  esriConfig.defaults.io.corsEnabledServers.push(settings.printServiceUrl);
 
   print.startup();
 };

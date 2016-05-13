@@ -1,4 +1,5 @@
 import analysisKeys from 'constants/AnalysisConstants';
+import {attributes} from 'constants/AppConstants';
 import layerKeys from 'constants/LayerConstants';
 import tabKeys from 'constants/TabViewConstants';
 import appActions from 'actions/AppActions';
@@ -13,7 +14,8 @@ class MapStore {
   constructor () {
 
     //- Default is closed, using any value as default will cause an ugly
-    //- appearance on mobile when loading, set the default in TabButtons componentDidMount
+    //- appearance on mobile when loading, set the default in TabButtons componentWillReceiveProps
+    //- the default may change based on device, and content available from AGOL
     this.activeTab = '';
 
     this.activeLayers = [];
@@ -71,20 +73,20 @@ class MapStore {
   }
 
   addActiveLayer (layerId) {
-    let index = this.activeLayers.indexOf(layerId);
+    const index = this.activeLayers.indexOf(layerId);
     if (index === -1) {
       // Create a copy of the strings array for easy change detection
-      let layers = this.activeLayers.slice();
+      const layers = this.activeLayers.slice();
       layers.push(layerId);
       this.activeLayers = layers;
     }
   }
 
   removeActiveLayer (layerId) {
-    let index = this.activeLayers.indexOf(layerId);
+    const index = this.activeLayers.indexOf(layerId);
     if (index !== -1) {
       // Create a copy of the strings array for easy change detection
-      let layers = this.activeLayers.slice();
+      const layers = this.activeLayers.slice();
       layers.splice(index, 1);
       this.activeLayers = layers;
     }
@@ -96,7 +98,7 @@ class MapStore {
   }
 
   removeSubLayer (info) {
-    let subLayerIndex = this.dynamicLayers[info.id].indexOf(info.subIndex);
+    const subLayerIndex = this.dynamicLayers[info.id].indexOf(info.subIndex);
     if (subLayerIndex > -1) {
       this.dynamicLayers[info.id].splice(subLayerIndex, 1);
     }
@@ -105,17 +107,31 @@ class MapStore {
 
   addAll () {
     this.activeLayers = this.allLayers.map(l => l.id);
+    this.allLayers.forEach((layer) => {
+      if (layer.subId) {
+        this.dynamicLayers[layer.id] = layer.esriLayer._defaultVisibleLayers.slice();
+      }
+    });
   }
 
   removeAll () {
     this.activeLayers = [];
+    //- Reset the webmap layers
+    Object.keys(this.dynamicLayers).forEach((layerId) => {
+      this.dynamicLayers[layerId] = [];
+    });
   }
 
   mapUpdated () {}
 
   infoWindowUpdated (selectedFeature) {
     if (selectedFeature) {
-      this.activeTab = tabKeys.INFO_WINDOW;
+      // If this is a custom feature, active tab should be the analysis tab
+      if (selectedFeature.attributes.__source === attributes.SOURCE_DRAW) {
+        this.activeTab = tabKeys.ANALYSIS;
+      } else {
+        this.activeTab = tabKeys.INFO_WINDOW;
+      }
     }
   }
 
@@ -125,7 +141,7 @@ class MapStore {
     layers.forEach(layer => {
       if (layer.type === 'dynamic' || layer.subId) {
         if (layer.esriLayer && !this.dynamicLayers.hasOwnProperty(layer.id)) {
-          this.dynamicLayers[layer.id] = layer.esriLayer.visibleLayers;
+          this.dynamicLayers[layer.id] = layer.esriLayer.visibleLayers.slice();
         }
         if (layer.subId && layer.esriLayer.visibleLayers.indexOf(layer.subIndex) > -1) {
           if (LayersHelper.isLayerVisible(layer)) {
@@ -186,7 +202,7 @@ class MapStore {
   }
 
   changeOpacity (parameters) {
-    let layer = this.allLayers.filter(l => l.id === parameters.layerId);
+    const layer = this.allLayers.filter(l => l.id === parameters.layerId);
     console.log('MapStore >>> found a layer?', layer, parameters.layerId);
     if ( layer[0] ) {
       layer[0].opacity = parseFloat(parameters.value);
