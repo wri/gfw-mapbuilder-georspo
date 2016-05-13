@@ -71,7 +71,7 @@ export default class ControlPanel extends Component {
   };
 
   render () {
-    let {tableOfContentsVisible} = this.props;
+    const {tableOfContentsVisible} = this.props;
 
     return (
       <div className='control-panel map-component shadow'>

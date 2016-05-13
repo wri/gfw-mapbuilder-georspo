@@ -20,7 +20,7 @@ const narrativeSvg = '<use xlink:href="#shape-info" />';
 const analysisSvg = '<use xlink:href="#icon-analysis" />';
 const menuSvg = '<use xlink:href="#icon-menu" />';
 
-let currentFeature, timeout, initialTabSet = false;
+let currentFeature, initialTabSet = false;
 
 export default class TabButtons extends Component {
 
@@ -33,16 +33,9 @@ export default class TabButtons extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      isAnimating: false
+      notifiers: []
     };
   }
-
-  // componentDidMount() {
-  //   const {settings, language} = this.context;
-  //   const narrative = settings.labels && settings.labels[language] && settings.labels[language].narrative || '';
-  //   const activeTab = window && window.innerWidth > 950 ? (narrative ? NARRATIVE : LAYERS) : '';
-  //   mapActions.changeActiveTab(activeTab);
-  // }
 
   componentWillReceiveProps() {
     const {map, settings, language} = this.context;
@@ -58,20 +51,14 @@ export default class TabButtons extends Component {
     }
     /**
     * If a feature is selected, and it is not the same feature that is already selected
-    * add some animation here, otherwise, set the currentId to undefined so it can animate
+    * add some animation here, otherwise, set the currentFeature to undefined so it can animate
     * when the next feature is selected
     */
     if (feature) {
       if (currentFeature === feature) { return; }
       currentFeature = feature;
       //- Update the state so we can add some animations to bring awareness to the buttons
-      this.setState({ isAnimating: true });
-      if (timeout) { clearTimeout(timeout); }
-
-      timeout = setTimeout(() => {
-        this.setState({ isAnimating: false });
-        timeout = undefined;
-      }, 3000);
+      this.setState({ notifiers: [ANALYSIS, DOCUMENTS] });
     } else {
       currentFeature = undefined;
     }
@@ -84,6 +71,14 @@ export default class TabButtons extends Component {
     //- If they clicked the already active tab, set activeTab to '' which will hide the contents
     if (id === activeTab) { id = ''; }
     mapActions.changeActiveTab(id);
+    //- If this tab is a notifier, remove it
+    const {notifiers} = this.state;
+    if (notifiers.indexOf(id) > -1) {
+      // Remove this element from the array by keeping everything that is not this
+      this.setState({
+        notifiers: notifiers.filter(notif => notif !== id)
+      });
+    }
   };
 
   getClassName = (id) => {
@@ -92,8 +87,9 @@ export default class TabButtons extends Component {
   };
 
   getAnimateClassName = (id) => {
-    const {isAnimating} = this.state;
+    const {notifiers} = this.state;
     const {activeTab} = this.props;
+    const isAnimating = notifiers.indexOf(id) > -1;
     return `${isAnimating && activeTab !== id ? ' animate-pulse' : ''}`;
   };
 
