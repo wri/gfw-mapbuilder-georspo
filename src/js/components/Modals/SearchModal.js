@@ -54,7 +54,7 @@ export default class SearchModal extends Component {
             const data = [];
             results.forEach((result) => {
               data.push({
-                id: result.feature.attributes.OBJECTID,
+                id: result.feature.attributes.OBJECTID || result.feature.attributes.objectid,
                 name: result.value,
                 layerId: result.layerId,
                 layerName: result.layerName
@@ -83,7 +83,7 @@ export default class SearchModal extends Component {
               //- its because no info template was configured in AGOL
               if (layer && layer.infoTemplate && layer.infoTemplate.info) {
                 const {info} = layer.infoTemplate;
-                title = info.title.replace(INFO_WINDOW_REG_EX, ($1, $2) => feature.attributes[$2]);
+                title = info.title.replace(INFO_WINDOW_REG_EX, ($1, $2) => feature.attributes[$2] ? feature.attributes[$2] : '');
                 content = this.generateEsriPopupContent(info, feature);
               } else {
                 content = `<div class='infoWindow__no-configure'>

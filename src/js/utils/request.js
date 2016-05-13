@@ -79,8 +79,8 @@ const request = {
     const params = new FindParameters();
     params.returnGeometry = false;
     params.searchText = searchValue;
-    if (options.visibleLayers) {
-      params.layerIds = options.visibleLayers;
+    if (options.visibleLayers || (options.layerObject && options.layerObject.visibleLayers)) {
+      params.layerIds = options.visibleLayers || options.layerObject.visibleLayers;
     }
     return task.execute(params);
   },
