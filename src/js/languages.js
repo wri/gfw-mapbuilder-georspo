@@ -121,7 +121,6 @@ strings.en.SEARCH_WIDGET_TITLE = 'Search for feature:';
 strings.en.PRINT_BUTTON_LABEL = 'Choose a print template';
 strings.en.PRINT_REPORT = 'Print Report';
 strings.en.SUBSCRIBE = 'Subscribe';
-strings.en.SEARCH = 'Search';
 strings.en.LAYERS = 'Layers';
 strings.en.DATA = 'Data';
 strings.en.ANALYZE = 'Analyze';
@@ -130,6 +129,19 @@ strings.en.NARRATIVE = 'Narrative';
 strings.en.MORE = 'More';
 strings.en.DELETE = 'Delete';
 strings.en.DOCUMENTS = 'Documents';
+
+strings.en.SELECT_ALL = 'select all';
+strings.en.CLEAR_ALL = 'clear all';
+strings.en.LEGEND = 'Legend';
+strings.en.SEARCH = 'Search'; // Also Used for tools, but was used else where first
+strings.en.TOOL_ZOOM_IN = 'Zoom In';
+strings.en.TOOL_ZOOM_OUT = 'Zoom Out';
+strings.en.TOOL_SHARE = 'Share';
+strings.en.TOOL_PRINT = 'Print';
+strings.en.TOOL_ANALYSIS = 'Analysis';
+strings.en.TOOL_TOGGLE = 'Toggle Panel';
+strings.en.TOOL_RESET = 'Reset';
+
 
 
 //- NOTE: French
@@ -237,7 +249,6 @@ strings.fr.SEARCH_WIDGET_TITLE = 'Recherch de polygones:';
 strings.fr.PRINT_BUTTON_LABEL = 'Choisissez un gabarit d\'impression';
 strings.fr.PRINT_REPORT = 'Imprimer le Rapport';
 strings.fr.SUBSCRIBE = 'S\'abonner';
-strings.fr.SEARCH = 'Chercher';
 strings.fr.LAYERS = 'Couches';
 strings.fr.DATA = 'Données';
 strings.fr.ANALYZE = 'Analyser';
@@ -246,6 +257,18 @@ strings.fr.NARRATIVE = 'Texte';
 strings.fr.MORE = 'Plus';
 strings.fr.DELETE = 'Supprimer';
 strings.fr.DOCUMENTS = 'Documents';
+
+strings.fr.SELECT_ALL = 'select all';
+strings.fr.CLEAR_ALL = 'clear all';
+strings.fr.LEGEND = 'Legend';
+strings.fr.SEARCH = 'Chercher'; // Also Used for tools, but was used else where first
+strings.fr.TOOL_ZOOM_IN = 'Zoom In';
+strings.fr.TOOL_ZOOM_OUT = 'Zoom Out';
+strings.fr.TOOL_SHARE = 'Share';
+strings.fr.TOOL_PRINT = 'Print';
+strings.fr.TOOL_ANALYSIS = 'Analysis';
+strings.fr.TOOL_TOGGLE = 'Toggle Panel';
+strings.fr.TOOL_RESET = 'Reset';
 
 //- NOTE: Spanish
 //- Header
@@ -352,7 +375,6 @@ strings.es.SEARCH_WIDGET_TITLE = 'Search for feature:';
 strings.es.PRINT_BUTTON_LABEL = 'Choose a print template';
 strings.es.PRINT_REPORT = 'Print Report';
 strings.es.SUBSCRIBE = 'Subscribe';
-strings.es.SEARCH = 'Search';
 strings.es.LAYERS = 'Layers';
 strings.es.DATA = 'Data';
 strings.es.ANALYZE = 'Analyze';
@@ -361,6 +383,18 @@ strings.es.NARRATIVE = 'Narrative';
 strings.es.MORE = 'More';
 strings.es.DELETE = 'Delete';
 strings.es.DOCUMENTS = 'Documents';
+
+strings.es.SELECT_ALL = 'select all';
+strings.es.CLEAR_ALL = 'clear all';
+strings.es.LEGEND = 'Legend';
+strings.es.SEARCH = 'Search'; // Also Used for tools, but was used else where first
+strings.es.TOOL_ZOOM_IN = 'Zoom In';
+strings.es.TOOL_ZOOM_OUT = 'Zoom Out';
+strings.es.TOOL_SHARE = 'Share';
+strings.es.TOOL_PRINT = 'Print';
+strings.es.TOOL_ANALYSIS = 'Analysis';
+strings.es.TOOL_TOGGLE = 'Toggle Panel';
+strings.es.TOOL_RESET = 'Reset';
 
 //- NOTE: Portugese
 //- Header
@@ -467,7 +501,6 @@ strings.pt.SEARCH_WIDGET_TITLE = 'Search for feature:';
 strings.pt.PRINT_BUTTON_LABEL = 'Choose a print template';
 strings.pt.PRINT_REPORT = 'Print Report';
 strings.pt.SUBSCRIBE = 'Subscribe';
-strings.pt.SEARCH = 'Search';
 strings.pt.LAYERS = 'Layers';
 strings.pt.DATA = 'Data';
 strings.pt.ANALYZE = 'Analyze';
@@ -476,5 +509,17 @@ strings.pt.NARRATIVE = 'Narrative';
 strings.pt.MORE = 'More';
 strings.pt.DELETE = 'Delete';
 strings.pt.DOCUMENTS = 'Documents';
+
+strings.pt.SELECT_ALL = 'select all';
+strings.pt.CLEAR_ALL = 'clear all';
+strings.pt.LEGEND = 'Legend';
+strings.pt.SEARCH = 'Search'; // Also Used for tools, but was used else where first
+strings.pt.TOOL_ZOOM_IN = 'Zoom In';
+strings.pt.TOOL_ZOOM_OUT = 'Zoom Out';
+strings.pt.TOOL_SHARE = 'Share';
+strings.pt.TOOL_PRINT = 'Print';
+strings.pt.TOOL_ANALYSIS = 'Analysis';
+strings.pt.TOOL_TOGGLE = 'Toggle Panel';
+strings.pt.TOOL_RESET = 'Reset';
 
 export { strings as default };

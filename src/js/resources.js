@@ -13,7 +13,7 @@ export default {
   logoLinkUrl: 'http://www.gfw-mapbuilder.org/',
   aboutLinkUrl: 'http://www.gfw-mapbuilder.org/',
   downloadLinkUrl: 'http://data.globalforestwatch.org/',
-  printServiceUrl: 'http://gis-forest-atlas.wri.org/arcgis/rest/services/CMR/CMRExportWebMap/GPServer/Export%20Web%20Map',
+  printServiceUrl: 'http://gis.forest-atlas.org/arcgis/rest/services/print/ExportWebMap/GPServer/Export%20Web%20Map',
   maskServiceUrl: '', // e.g. http://gis-forest-atlas.wri.org/arcgis/rest/services/CMR/CMR_00_Africa/MapServer
   mapThemeIds: '', // e.g. 1c38ba1095fe49e3ba234bf9105c1077;c76d788b7487476bae4d09a4e933be19
   mapThemes: '', // e.g. Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea

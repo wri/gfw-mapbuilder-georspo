@@ -8,9 +8,16 @@ import React, { Component, PropTypes } from 'react';
 
 let print;
 
-const createPrintWidget = function createPrintWidget (settings, map, node) {
+const createPrintWidget = function createPrintWidget (settings, map, language, node) {
   //- Get this information from ArcGIS Online Configurations
-  const options = { scalebarUnit: 'Kilometers' };
+  const options = {
+    scalebarUnit: 'Kilometers',
+    customTextElements: [{
+      'title': settings.labels[language].title,
+      'subtitle': settings.labels[language].subtitle
+    }]
+  };
+
   const layouts = [{
     name: 'MAP_ONLY',
     label: 'Map Image (jpg)',
@@ -24,9 +31,9 @@ const createPrintWidget = function createPrintWidget (settings, map, node) {
   }];
 
   //- Add in any layouts passed in from arcgis online
-  if (settings.country) {
+  if (settings.iso) {
     layouts.push({
-      name: `${settings.country || 'CMR'}_Landscape`,
+      name: `${settings.iso || 'CMR'}_Landscape`,
       label: 'Landscape (pdf)',
       format: 'pdf',
       options: options
@@ -63,10 +70,10 @@ export default class PrintModal extends Component {
   };
 
   componentWillReceiveProps() {
-    const { settings, map } = this.context;
+    const { settings, map, language } = this.context;
     const node = this.refs.print;
     if (map.loaded && !print) {
-      createPrintWidget(settings, map, node);
+      createPrintWidget(settings, map, language, node);
     }
   }
 

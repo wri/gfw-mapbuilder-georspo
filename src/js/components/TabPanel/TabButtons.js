@@ -1,3 +1,4 @@
+import {attributes} from 'constants/AppConstants';
 import tabKeys from 'constants/TabViewConstants';
 import mapActions from 'actions/MapActions';
 import text from 'js/languages';
@@ -57,8 +58,19 @@ export default class TabButtons extends Component {
     if (feature) {
       if (currentFeature === feature) { return; }
       currentFeature = feature;
-      //- Update the state so we can add some animations to bring awareness to the buttons
-      this.setState({ notifiers: [ANALYSIS, DOCUMENTS] });
+      /**
+      * Update the state so we can add some animations to bring awareness to the buttons
+      * Custom features however do not need this set on the analysis tab because they default to
+      * the analyis tab
+      */
+      const notifiers = [DOCUMENTS];
+
+      // Only add ANALYSIS if this is not a drawn feature
+      if (feature.attributes && feature.attributes.__source !== attributes.SOURCE_DRAW) {
+        notifiers.push(ANALYSIS);
+      }
+
+      this.setState({ notifiers: notifiers });
     } else {
       currentFeature = undefined;
     }

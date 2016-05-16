@@ -127,7 +127,7 @@ class MapStore {
   infoWindowUpdated (selectedFeature) {
     if (selectedFeature) {
       // If this is a custom feature, active tab should be the analysis tab
-      if (selectedFeature.attributes.__source === attributes.SOURCE_DRAW) {
+      if (selectedFeature.attributes && selectedFeature.attributes.__source === attributes.SOURCE_DRAW) {
         this.activeTab = tabKeys.ANALYSIS;
       } else {
         this.activeTab = tabKeys.INFO_WINDOW;
