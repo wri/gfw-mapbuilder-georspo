@@ -119,42 +119,6 @@ export default class LayerPanel extends Component {
     );
   };
 
-  render() {
-    const {settings, language} = this.context;
-    const layers = settings.layers && settings.layers[language] || [];
-    const extraBasemaps = settings.basemaps && settings.basemaps[language] || [];
-    const groups = [];
-    //- Get a unique list of groups, first remove layers that dont belong to a group
-    layers.filter(layer => layer.group).forEach((layer) => {
-      if (!utils.containsObject(groups, 'key', layer.groupKey)) {
-      // if (groups.indexOf(layer.group) === -1) {
-        groups.push({
-          label: layer.group,
-          key: layer.groupKey
-        });
-      }
-    });
-    //- Swap the last two entries, the name can change so we can't use that for the swap
-    //- but we need Land Use (or whatever it gets namedin between the two Land Cover groups)
-    if (groups.length > 2) {
-      const swap = groups[groups.length - 1];
-      groups[groups.length - 1] = groups[groups.length - 2];
-      groups[groups.length - 2] = swap;
-    }
-    //- Create the layerGroup components
-    const layerGroups = groups.map((group, index) => {
-      return this.renderLayerGroup(group, layers, index);
-    });
-
-    layerGroups.push(this.renderBasemapGroup(extraBasemaps));
-
-    return (
-      <div className={`layer-panel custom-scroll`}>
-        {layerGroups}
-      </div>
-    );
-  }
-
   checkboxMap (groupKey) {
     return layer => {
       const {activeLayers, dynamicLayers, ...props} = this.props;
@@ -195,6 +159,42 @@ export default class LayerPanel extends Component {
       }
       return checkbox;
     };
+  }
+
+  render() {
+    const {settings, language} = this.context;
+    const layers = settings.layers && settings.layers[language] || [];
+    const extraBasemaps = settings.basemaps && settings.basemaps[language] || [];
+    const groups = [];
+    //- Get a unique list of groups, first remove layers that dont belong to a group
+    layers.filter(layer => layer.group).forEach((layer) => {
+      if (!utils.containsObject(groups, 'key', layer.groupKey)) {
+      // if (groups.indexOf(layer.group) === -1) {
+        groups.push({
+          label: layer.group,
+          key: layer.groupKey
+        });
+      }
+    });
+    //- Swap the last two entries, the name can change so we can't use that for the swap
+    //- but we need Land Use (or whatever it gets namedin between the two Land Cover groups)
+    if (groups.length > 2) {
+      const swap = groups[groups.length - 1];
+      groups[groups.length - 1] = groups[groups.length - 2];
+      groups[groups.length - 2] = swap;
+    }
+    //- Create the layerGroup components
+    const layerGroups = groups.map((group, index) => {
+      return this.renderLayerGroup(group, layers, index);
+    });
+
+    layerGroups.push(this.renderBasemapGroup(extraBasemaps));
+
+    return (
+      <div className={`layer-panel custom-scroll`}>
+        {layerGroups}
+      </div>
+    );
   }
 
 }

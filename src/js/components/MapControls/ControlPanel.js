@@ -2,6 +2,7 @@ import {prepareStateForShare} from 'utils/shareUtils';
 import modalActions from 'actions/ModalActions';
 import mapActions from 'actions/MapActions';
 import {toQuery} from 'utils/params';
+import text from 'js/languages';
 import React, {
   Component,
   PropTypes
@@ -71,36 +72,37 @@ export default class ControlPanel extends Component {
   };
 
   render () {
-    let {tableOfContentsVisible} = this.props;
+    const {tableOfContentsVisible} = this.props;
+    const {language} = this.context;
 
     return (
       <div className='control-panel map-component shadow'>
         <ul className='control-panel__list'>
-          <li className='control-panel__zoom-out pointer' title='Zoom Out' onClick={this.zoomOut}>
+          <li className='control-panel__zoom-out pointer' title={text[language].TOOL_ZOOM_OUT} onClick={this.zoomOut}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: zoomOutSvg }}/>
           </li>
-          <li className='control-panel__zoom-in pointer' title='Zoom In' onClick={this.zoomIn}>
+          <li className='control-panel__zoom-in pointer' title={text[language].TOOL_ZOOM_IN} onClick={this.zoomIn}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: zoomInSvg }}/>
           </li>
-          <li className='control-panel__share-map pointer' title='Share' onClick={this.share}>
+          <li className='control-panel__share-map pointer' title={text[language].TOOL_SHARE} onClick={this.share}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: shareSvg }}/>
           </li>
-          <li className='control-panel__print pointer mobile-hide' title='Print' onClick={this.showPrintTools}>
+          <li className='control-panel__print pointer mobile-hide' title={text[language].TOOL_PRINT} onClick={this.showPrintTools}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: printSvg }}/>
           </li>
-          <li className='control-panel__draw-upload pointer' title='Analysis' onClick={this.showAnalysisTools}>
+          <li className='control-panel__draw-upload pointer' title={text[language].TOOL_ANALYSIS} onClick={this.showAnalysisTools}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: drawSvg }}/>
           </li>
-          <li className='control-panel__locate-me pointer' title='Search' onClick={this.search}>
+          <li className='control-panel__locate-me pointer' title={text[language].SEARCH} onClick={this.search}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: searchSvg }}/>
           </li>
-          <li className='control-panel__toggle-panels pointer mobile-hide' title='Toggle Panel' onClick={this.togglePanels}>
+          <li className='control-panel__toggle-panels pointer mobile-hide' title={text[language].TOOL_TOGGLE} onClick={this.togglePanels}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: tableOfContentsVisible ? toggleSvgOn : toggleSvgOff }}/>
           </li>
-          <li className='control-panel__reset pointer mobile-hide' title='Reset' onClick={this.resetPage}>
+          <li className='control-panel__reset pointer mobile-hide' title={text[language].TOOL_RESET} onClick={this.resetPage}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: resetIconSvg }}/>
           </li>
-          <li className='control-panel__legend pointer mobile-show' title='Legend' onClick={this.showLegend}>
+          <li className='control-panel__legend pointer mobile-show' title={text[language].LEGEND} onClick={this.showLegend}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: legendSvg }}/>
           </li>
         </ul>

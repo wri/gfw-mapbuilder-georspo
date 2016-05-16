@@ -34,6 +34,7 @@ export default class DrawTools extends Component {
         this.setState({ drawButtonActive: false });
         const graphic = geometryUtils.generateDrawnPolygon(evt.geometry);
         map.graphics.add(graphic);
+        map.infoWindow.setFeatures([graphic]);
       });
     }
   }

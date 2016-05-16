@@ -2,7 +2,7 @@ import layerKeys from 'constants/LayerConstants';
 import React, {PropTypes, Component} from 'react';
 import mapActions from 'actions/MapActions';
 import Legend from 'esri/dijit/Legend';
-import utils from 'utils/AppUtils';
+import text from 'js/languages';
 
 const closeSymbolCode = 9660,
     openSymbolCode = 9650,
@@ -104,10 +104,8 @@ export default class LegendPanel extends Component {
   }
 
   render () {
-    const {
-      tableOfContentsVisible,
-      legendOpen
-    } = this.props;
+    const {tableOfContentsVisible, legendOpen} = this.props;
+    const {language} = this.context;
 
     let rootClasses = legendOpen ? 'legend-panel map-component shadow' : 'legend-panel map-component shadow legend-collapsed';
 
@@ -121,7 +119,7 @@ export default class LegendPanel extends Component {
 
         <div className='legend-title mobile-hide' onClick={mapActions.toggleLegendVisible}>
           <span>
-            Legend
+            {text[language].LEGEND}
           </span>
           <span className='layer-category-caret' onClick={mapActions.toggleLegendVisible}>
             {String.fromCharCode(legendOpen ? closeSymbolCode : openSymbolCode)}
