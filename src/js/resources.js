@@ -1,3 +1,19 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+ @Djoan
+ Unwatch 12
+  Star 0
+ Fork 0 wri/gfw-mapbuilder
+ Code  Issues 0  Pull requests 0  Wiki  Pulse  Graphs  Settings
+Branch: dev-wri Find file Copy pathgfw-mapbuilder/src/js/resources.js
+6c3ed00  3 days ago
+@thomas-maschler thomas-maschler Merge remote-tracking branch 'refs/remotes/origin/develop' into dev-wri
+1 contributor
+RawBlameHistory     661 lines (654 sloc)  25.6 KB
 import layerKeys from 'constants/LayerConstants';
 
 export default {
@@ -110,9 +126,9 @@ export default {
       'themes': []
     },
     'fr': {
-      'title': 'Atlas Forestier du Cameroon',
-      'subtitle': 'Make maps that matter',
-      'webmapMenuName': 'Land Use',
+      'title': 'GFW Mapbuilder',
+      'subtitle': 'Des cartes qui comptent',
+      'webmapMenuName': 'Occupation des sols',
       'narrative': '',
       'themes': []
     }
@@ -244,9 +260,9 @@ export default {
       order: 5,
       type: 'image',
       visible: false,
-      group: 'Land Cover Dynamics',
+      group: 'Evolution de l\'occupation des sols'',
       groupKey: layerKeys.GROUP_LCD,
-      label: 'Tree cover loss',
+      label: 'Perte en couvert arboré',
       sublabel: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
       url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
       colormap: [[1, 219, 101, 152]],
@@ -258,9 +274,9 @@ export default {
       order: 6,
       type: 'tiled',
       visible: false,
-      group: 'Land Cover Dynamics',
+      group: 'Evolution de l\'occupation des sols'',
       groupKey: layerKeys.GROUP_LCD,
-      label: 'Tree cover gain',
+      label: 'Gain en couvert arboré',
       sublabel: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
       url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
       legendLayer: 1
@@ -268,9 +284,9 @@ export default {
       id: 'ACTIVE_FIRES',
       order: 7,
       type: 'dynamic',
-      group: 'Land Cover Dynamics',
+      group: 'Evolution de l\'occupation des sols'',
       groupKey: layerKeys.GROUP_LCD,
-      label: 'Active fires',
+      label: 'Feux actifs',
       sublabel: '(daily, 1km, global, NASA)',
       url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
       layerIds: [0, 1, 2, 3]
@@ -278,9 +294,9 @@ export default {
       id: 'TREE_COVER',
       order: 1,
       type: 'image',
-      group: 'Land Cover',
+      group: 'Occupation des sols',
       groupKey: layerKeys.GROUP_LC,
-      label: 'Tree cover density',
+      label: 'densité du couvert arboré',
       sublabel: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
       url: 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
       colormap: [[1, 0, 179, 0]],
@@ -293,9 +309,9 @@ export default {
       id: 'LAND_COVER',
       order: 2,
       type: 'dynamic',
-      group: 'Land Cover',
+      group: 'Occupation des sols',
       groupKey: layerKeys.GROUP_LC,
-      label: 'Land cover',
+      label: 'Occupation des sols',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
       layerIds: [10],
       rasterId: '$523',
@@ -306,18 +322,18 @@ export default {
       id: 'IFL',
       order: 3,
       type: 'dynamic',
-      group: 'Land Cover',
+      group: 'Occupation des sols',
       groupKey: layerKeys.GROUP_LC,
-      label: 'Intact Forest Landscape',
+      label: 'Paysage forestier intact',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
       layerIds: [0]
     }, {
       id: 'AG_BIOMASS',
       order: 4,
       type: 'dynamic',
-      group: 'Land Cover',
+      group: 'Occupation des sols',
       groupKey: layerKeys.GROUP_LC,
-      label: 'Above ground biomass',
+      label: 'Biomasse aérienne',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
       layerIds: [1]
     }, {
@@ -658,3 +674,5 @@ export default {
     }
   }
 };
+Status API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Contact Help
