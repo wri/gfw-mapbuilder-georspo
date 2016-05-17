@@ -414,7 +414,7 @@ export default {
       type: 'dynamic',
       group: 'Cobertura vegetal',
       groupKey: layerKeys.GROUP_LC,
-      label: 'Above ground biomass',
+      label: 'Biomasa arriba del suelo',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
       layerIds: [1]
     }, {
