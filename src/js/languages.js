@@ -3,7 +3,7 @@ import analysisKeys from 'constants/AnalysisConstants';
 //- Embedded Icons
 const drawIcon = '<svg class="svg-icon"><use xlink:href="#icon-draw-upload" /></svg>';
 
-const strings = { en: {}, fr: {}, es: {}, pt: {} };
+const strings = { en: {}, fr: {}, es: {}, pt: {}, id:{} };
 //- NOTE: English
 //- Layers
 // strings.en.LAND_COVER_LABEL = 'Land cover';
@@ -18,8 +18,8 @@ const strings = { en: {}, fr: {}, es: {}, pt: {} };
 // strings.en.IFL_LABEL = 'Intact forest loss';
 // strings.en.CARBON_LABEL = 'Above ground biomass';
 //- Header
-strings.en.NAV_ABOUT = 'Acerca de';
-strings.en.NAV_DOWNLOAD = 'Descargar de Datos';
+strings.en.NAV_ABOUT = 'About';
+strings.en.NAV_DOWNLOAD = 'Download Data';
 strings.en.NAV_MAP_THEMES = 'Map Themes';
 strings.en.NAV_MY_GFW = 'Log in to my GFW';
 strings.en.NAV_LANGUAGE = 'Select Language';
@@ -521,5 +521,131 @@ strings.pt.TOOL_PRINT = 'Print';
 strings.pt.TOOL_ANALYSIS = 'Analysis';
 strings.pt.TOOL_TOGGLE = 'Toggle Panel';
 strings.pt.TOOL_RESET = 'Reset';
+
+//- NOTE: Bahasa Indonesia
+//- Header
+strings.id.NAV_ABOUT = 'About';
+strings.id.NAV_DOWNLOAD = 'Download Data';
+strings.id.NAV_MAP_THEMES = 'Map Themes';
+strings.id.NAV_MY_GFW = 'Log in to my GFW';
+strings.id.NAV_LANGUAGE = 'Select Language';
+//- Documents
+strings.id.DOCS_INSTRUCTIONS = 'Select an area of interest to see if there are any related documents';
+strings.id.DOCS_NOT_AVAILABLE = 'There are no documents available for this area';
+strings.id.DOCS_TYPE = 'Type';
+strings.id.DOCS_AUTHOR = 'Author';
+strings.id.DOCS_YEAR = 'Year';
+strings.id.DOCS_PDF = 'PDF';
+//- Info Window
+strings.id.INFO_WINDOW_INSTRUCTION_HEADER = 'Select a shape on the map';
+strings.id.INFO_WINDOW_INSTRUCTION_LIST = [
+  'Use the layers tab to turn on a data layer',
+  'Select a shape on the map'
+];
+//- Analysis
+strings.id.ANALYSIS_INSTRUCTION_HEADER = 'Analyze a shape on the map';
+strings.id.ANALYSIS_INSTRUCTION_LIST = [
+  'Use the layers tab to turn on a data layer',
+  'Select a shape on the map',
+  'Click on the analyze tab'
+];
+strings.id.ANALYSIS_OR = 'Or';
+strings.id.ANALYSIS_DRAW_HEADER = 'Analyze your own shape';
+//- ${drawIcon} references a variable above, do not translate
+strings.id.ANALYSIS_DRAW_INSTRUCTIONS = [
+  `Choose the draw tool ${drawIcon} in the toolbox`,
+  'Draw a shape anywhere on the map',
+  'Select the shape to run the analysis'
+];
+strings.id.ANALYSIS_DRAW_BUTTON = 'Start drawing';
+strings.id.ANALYSIS_INSTRUCTION_ADDITIONAL = `Add additional shapes in the future by visiting the draw tool ${drawIcon}`;
+strings.id.ANALYSIS_SHAPEFILE_UPLOAD = 'or drop a custom shapefile here';
+strings.id.ANALYSIS_SELECT_TYPE_LABEL = 'Select Analysis:';
+//- Chart Labels in the Analysis
+strings.id.ANALYSIS_TC_CHART_NAME = 'Tree cover loss in Hectares';
+strings.id.ANALYSIS_LCC_CHART_NAME = 'Land Cover Composition';
+strings.id.ANALYSIS_IFL_LABELS = ['Intact Forest'];
+strings.id.ANALYSIS_FIRES_PRE = 'There are';
+strings.id.ANALYSIS_FIRES_ACTIVE = 'active fires';
+strings.id.ANALYSIS_FIRES_POST = 'in the last 7 days';
+strings.id.ANALYSIS_TOTAL_LOSS_LABEL = 'Total tree cover loss';
+strings.id.ANALYSIS_TOTAL_LOSS_RANGE = '(2001 - 2014):';
+strings.id.ANALYSIS_TOTAL_GAIN_LABEL = 'Total tree cover gained';
+strings.id.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
+strings.id.ANALYSIS_SLOPE_OPTION = 'Option #';
+strings.id.SLOPE_SELECT_LABEL = 'Choose slope percent:';
+strings.id.ANALYSIS_RESTORATION_LC_LABELS = [
+  'No Data', 'Forestland', 'Grassland', 'Cropland', 'Wetland and Waterbodies', 'Settlement', 'Bare soil'
+];
+strings.id.ANALYSIS_RESTORATION_ERROR = 'Area not meeting criteria for potential/No data';
+strings.id.ANALYSIS_GROUP_RESTORATION = 'Restoration potential for';
+strings.id.ANALYSIS_GROUP_SLOPE = 'Potential according to';
+strings.id.ANALYSIS_GROUP_OTHER = 'Other analysis';
+//- Group and value should not be modified
+strings.id.ANALYSIS_SELECT_TYPE_OPTIONS = [
+  { label: 'Slope',
+    value: analysisKeys.SLOPE,
+    group: analysisKeys.ANALYSIS_GROUP_SLOPE
+  },
+  { label: 'Tree cover loss',
+    value: analysisKeys.TC_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Total tree cover loss/gain',
+    value: analysisKeys.TC_LOSS_GAIN,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Land cover loss',
+    value: analysisKeys.LC_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Biomass loss',
+    value: analysisKeys.BIO_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Intact forest loss',
+    value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Active fires',
+    value: analysisKeys.FIRES,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Land cover composition',
+    value: analysisKeys.LCC,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  }
+];
+
+//- Modals
+strings.id.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover and tree cover loss';
+strings.id.DENSITY_FIRST = 'Displaying';
+strings.id.DENSITY_SECOND = 'canopy density.';
+strings.id.SEARCH_WIDGET_TITLE = 'Search for feature:';
+
+//- Miscellaneous
+strings.id.PRINT_BUTTON_LABEL = 'Choose a print template';
+strings.id.PRINT_REPORT = 'Print Report';
+strings.id.SUBSCRIBE = 'Subscribe';
+strings.id.LAYERS = 'Layers';
+strings.id.DATA = 'Data';
+strings.id.ANALYZE = 'Analyze';
+strings.id.DOCS = 'Docs';
+strings.id.NARRATIVE = 'Narrative';
+strings.id.MORE = 'More';
+strings.id.DELETE = 'Delete';
+strings.id.DOCUMENTS = 'Documents';
+
+strings.id.SELECT_ALL = 'select all';
+strings.id.CLEAR_ALL = 'clear all';
+strings.id.LEGEND = 'Legend';
+strings.id.SEARCH = 'Search'; // Also Used for tools, but was used else where first
+strings.id.TOOL_ZOOM_IN = 'Zoom In';
+strings.id.TOOL_ZOOM_OUT = 'Zoom Out';
+strings.id.TOOL_SHARE = 'Share';
+strings.id.TOOL_PRINT = 'Print';
+strings.id.TOOL_ANALYSIS = 'Analysis';
+strings.id.TOOL_TOGGLE = 'Toggle Panel';
+strings.id.TOOL_RESET = 'Reset';
 
 export { strings as default };
