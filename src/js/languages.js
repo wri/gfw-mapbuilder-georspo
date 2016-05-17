@@ -18,8 +18,8 @@ const strings = { en: {}, fr: {}, es: {}, pt: {} };
 // strings.en.IFL_LABEL = 'Intact forest loss';
 // strings.en.CARBON_LABEL = 'Above ground biomass';
 //- Header
-strings.en.NAV_ABOUT = 'About';
-strings.en.NAV_DOWNLOAD = 'Download Data';
+strings.en.NAV_ABOUT = 'Acerca de';
+strings.en.NAV_DOWNLOAD = 'Descargar de Datos';
 strings.en.NAV_MAP_THEMES = 'Map Themes';
 strings.en.NAV_MY_GFW = 'Log in to my GFW';
 strings.en.NAV_LANGUAGE = 'Select Language';
@@ -130,7 +130,7 @@ strings.en.MORE = 'More';
 strings.en.DELETE = 'Delete';
 strings.en.DOCUMENTS = 'Documents';
 
-strings.en.SELECT_ALL = 'select all';
+strings.en.SELECT_ALL = 'Seleccionar Todo';
 strings.en.CLEAR_ALL = 'clear all';
 strings.en.LEGEND = 'Legend';
 strings.en.SEARCH = 'Search'; // Also Used for tools, but was used else where first
@@ -272,14 +272,14 @@ strings.fr.TOOL_RESET = 'Réinitialiser';
 
 //- NOTE: Spanish
 //- Header
-strings.es.NAV_ABOUT = 'About';
-strings.es.NAV_DOWNLOAD = 'Download Data';
-strings.es.NAV_MAP_THEMES = 'Map Themes';
+strings.es.NAV_ABOUT = 'Acerca de';
+strings.es.NAV_DOWNLOAD = 'Descargar de Datos';
+strings.es.NAV_MAP_THEMES = 'Temas';
 strings.es.NAV_MY_GFW = 'Log in to my GFW';
 strings.es.NAV_LANGUAGE = 'Select Language';
 //- Documents
 strings.es.DOCS_INSTRUCTIONS = 'Select an area of interest to see if there are any related documents';
-strings.es.DOCS_NOT_AVAILABLE = 'There are no documents available for this area';
+strings.es.DOCS_NOT_AVAILABLE = 'No hay documentos disponibles para esta área';
 strings.es.DOCS_TYPE = 'Type';
 strings.es.DOCS_AUTHOR = 'Author';
 strings.es.DOCS_YEAR = 'Year';
@@ -310,15 +310,15 @@ strings.es.ANALYSIS_INSTRUCTION_ADDITIONAL = `Add additional shapes in the futur
 strings.es.ANALYSIS_SHAPEFILE_UPLOAD = 'or drop a custom shapefile here';
 strings.es.ANALYSIS_SELECT_TYPE_LABEL = 'Select Analysis:';
 //- Chart Labels in the Analysis
-strings.es.ANALYSIS_TC_CHART_NAME = 'Tree cover loss in Hectares';
-strings.es.ANALYSIS_LCC_CHART_NAME = 'Land Cover Composition';
-strings.es.ANALYSIS_IFL_LABELS = ['Intact Forest'];
-strings.es.ANALYSIS_FIRES_PRE = 'There are';
-strings.es.ANALYSIS_FIRES_ACTIVE = 'active fires';
-strings.es.ANALYSIS_FIRES_POST = 'in the last 7 days';
-strings.es.ANALYSIS_TOTAL_LOSS_LABEL = 'Total tree cover loss';
+strings.es.ANALYSIS_TC_CHART_NAME = 'Pérdida de la cobertura arbórea (ha)';
+strings.es.ANALYSIS_LCC_CHART_NAME = 'Composición de la cobertura vegetal';
+strings.es.ANALYSIS_IFL_LABELS = ['Bosque Intacto'];
+strings.es.ANALYSIS_FIRES_PRE = 'Hay';
+strings.es.ANALYSIS_FIRES_ACTIVE = 'incendios activos';
+strings.es.ANALYSIS_FIRES_POST = 'en los últimos 7 días';
+strings.es.ANALYSIS_TOTAL_LOSS_LABEL = 'Pérdida total de la cobertura arbórea';
 strings.es.ANALYSIS_TOTAL_LOSS_RANGE = '(2001 - 2014):';
-strings.es.ANALYSIS_TOTAL_GAIN_LABEL = 'Total tree cover gained';
+strings.es.ANALYSIS_TOTAL_GAIN_LABEL = 'Ganancia total de la cobertura arbórea';
 strings.es.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.es.ANALYSIS_SLOPE_OPTION = 'Option #';
 strings.es.SLOPE_SELECT_LABEL = 'Choose slope percent:';
@@ -335,7 +335,7 @@ strings.es.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.SLOPE,
     group: analysisKeys.ANALYSIS_GROUP_SLOPE
   },
-  { label: 'Tree cover loss',
+  { label: 'Pérdida de la cobertura arbórea',
     value: analysisKeys.TC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
@@ -351,42 +351,42 @@ strings.es.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.BIO_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Intact forest loss',
+  { label: 'Paisajes Forestales Intactos',
     value: analysisKeys.INTACT_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Active fires',
+  { label: 'Incendios activos',
     value: analysisKeys.FIRES,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Land cover composition',
+  { label: 'Composición de la cobertura vegetal',
     value: analysisKeys.LCC,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   }
 ];
 
 //- Modals
-strings.es.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover and tree cover loss';
+strings.es.CANOPY_MODAL_TEXT = 'Ajustar el mínimo densidad del follaje para la cobertura arbórea y la pérdida de la cobertura arbórea';
 strings.es.DENSITY_FIRST = 'Displaying';
-strings.es.DENSITY_SECOND = 'canopy density.';
+strings.es.DENSITY_SECOND = 'densidad de dosel arbóreo.';
 strings.es.SEARCH_WIDGET_TITLE = 'Search for feature:';
 
 //- Miscellaneous
-strings.es.PRINT_BUTTON_LABEL = 'Choose a print template';
+strings.es.PRINT_BUTTON_LABEL = 'Elegir diseño de página';
 strings.es.PRINT_REPORT = 'Print Report';
 strings.es.SUBSCRIBE = 'Subscribe';
-strings.es.LAYERS = 'Layers';
-strings.es.DATA = 'Data';
-strings.es.ANALYZE = 'Analyze';
+strings.es.LAYERS = 'Capas';
+strings.es.DATA = 'Datos';
+strings.es.ANALYZE = 'Análisis';
 strings.es.DOCS = 'Docs';
 strings.es.NARRATIVE = 'Narrative';
 strings.es.MORE = 'More';
 strings.es.DELETE = 'Delete';
 strings.es.DOCUMENTS = 'Documents';
 
-strings.es.SELECT_ALL = 'select all';
-strings.es.CLEAR_ALL = 'clear all';
-strings.es.LEGEND = 'Legend';
+strings.es.SELECT_ALL = 'Seleccionar Todo';
+strings.es.CLEAR_ALL = 'Borrar Todo';
+strings.es.LEGEND = 'Leyenda';
 strings.es.SEARCH = 'Search'; // Also Used for tools, but was used else where first
 strings.es.TOOL_ZOOM_IN = 'Zoom In';
 strings.es.TOOL_ZOOM_OUT = 'Zoom Out';

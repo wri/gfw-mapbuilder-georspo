@@ -1,19 +1,3 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Gist
- @Djoan
- Unwatch 12
-  Star 0
- Fork 0 wri/gfw-mapbuilder
- Code  Issues 0  Pull requests 0  Wiki  Pulse  Graphs  Settings
-Branch: dev-wri Find file Copy pathgfw-mapbuilder/src/js/resources.js
-6c3ed00  3 days ago
-@thomas-maschler thomas-maschler Merge remote-tracking branch 'refs/remotes/origin/develop' into dev-wri
-1 contributor
-RawBlameHistory     661 lines (654 sloc)  25.6 KB
 import layerKeys from 'constants/LayerConstants';
 
 export default {
@@ -357,9 +341,9 @@ export default {
       order: 5,
       type: 'image',
       visible: false,
-      group: 'Land Cover Dynamics',
+      group: 'Dinámica de la Cobertura de la Tierra',
       groupKey: layerKeys.GROUP_LCD,
-      label: 'Tree cover loss',
+      label: 'Pérdida de la cobertura arbórea',
       sublabel: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
       url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
       colormap: [[1, 219, 101, 152]],
@@ -371,9 +355,9 @@ export default {
       order: 6,
       type: 'tiled',
       visible: false,
-      group: 'Land Cover Dynamics',
+      group: 'Dinámica de la Cobertura de la Tierra',
       groupKey: layerKeys.GROUP_LCD,
-      label: 'Tree cover gain',
+      label: 'Aumento de la cobertura arbórea',
       sublabel: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
       url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
       legendLayer: 1
@@ -381,9 +365,9 @@ export default {
       id: 'ACTIVE_FIRES',
       order: 7,
       type: 'dynamic',
-      group: 'Land Cover Dynamics',
+      group: 'Dinámica de la Cobertura de la Tierra',
       groupKey: layerKeys.GROUP_LCD,
-      label: 'Active fires',
+      label: 'Incendios activos',
       sublabel: '(daily, 1km, global, NASA)',
       url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
       layerIds: [0, 1, 2, 3]
@@ -391,7 +375,7 @@ export default {
       id: 'TREE_COVER',
       order: 1,
       type: 'image',
-      group: 'Land Cover',
+      group: 'Cobertura vegetal',
       groupKey: layerKeys.GROUP_LC,
       label: 'Tree cover density',
       sublabel: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
@@ -406,29 +390,29 @@ export default {
       id: 'LAND_COVER',
       order: 2,
       type: 'dynamic',
-      group: 'Land Cover',
+      group: 'Cobertura vegetal',
       groupKey: layerKeys.GROUP_LC,
-      label: 'Land cover',
+      label: 'Cobertura vegetal',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
       layerIds: [10],
       rasterId: '$523',
       bounds: [1, 20],
-      classes: ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'],
+      classes: ['Bosque húmedo', 'Bosque premontano', 'Bosque montano', 'Bosque edáfico', 'Bosque de mangle', 'Mosaico sabana-bosque', 'Copmlejo rural y bosque secondário joven', 'Closed to open deciduous woodland', 'Sabana arbolada', 'Matorral', 'Pradera', 'Pradera aquática', 'Pradera inundable', 'Vegetación ralo', 'Mosaico áreas cultivadas/ vegetación (herbáceo o matorral)', 'Agricultura', 'Agricultura irregada', 'Áreas desnudas', 'Superficies artificiales y áreas asociadas', 'Cuerpos de agua'],
       colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92']
     }, {
       id: 'IFL',
       order: 3,
       type: 'dynamic',
-      group: 'Land Cover',
+      group: 'Cobertura vegetal',
       groupKey: layerKeys.GROUP_LC,
-      label: 'Intact Forest Landscape',
+      label: 'Paisajes Forestales Intactos',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
       layerIds: [0]
     }, {
       id: 'AG_BIOMASS',
       order: 4,
       type: 'dynamic',
-      group: 'Land Cover',
+      group: 'Cobertura vegetal',
       groupKey: layerKeys.GROUP_LC,
       label: 'Above ground biomass',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
@@ -674,5 +658,3 @@ export default {
     }
   }
 };
-Status API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Contact Help
