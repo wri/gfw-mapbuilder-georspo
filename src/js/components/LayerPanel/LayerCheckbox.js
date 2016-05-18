@@ -98,7 +98,34 @@ export default class LayerCheckbox extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.checked !== this.props.checked || !!this.props.children;
+    return nextProps.checked !== this.props.checked ||
+           nextProps.layer !== this.props.layer ||
+           !!this.props.children;
+  }
+
+  showInfo () {
+    const layer = this.props.layer;
+    if (layer.disabled) { return; }
+    modalActions.showLayerInfo(this.props.layer.id);
+  }
+
+  toggleLayer () {
+    const {layer} = this.props;
+    if (layer.disabled) { return; }
+    if (layer.subId) {
+      // TODO:  Update visible layers.
+      if (this.props.checked) {
+        layerActions.removeSubLayer(layer);
+      } else {
+        layerActions.addSubLayer(layer);
+      }
+    } else {
+      if (this.props.checked) {
+        layerActions.removeActiveLayer(layer.id);
+      } else {
+        layerActions.addActiveLayer(layer.id);
+      }
+    }
   }
 
   render() {
@@ -125,31 +152,6 @@ export default class LayerCheckbox extends Component {
         <LayerTransparency layer={layer} visible={this.props.checked}></LayerTransparency>
       </div>
     );
-  }
-
-  showInfo () {
-    const layer = this.props.layer;
-    if (layer.disabled) { return; }
-    modalActions.showLayerInfo(this.props.layer.id);
-  }
-
-  toggleLayer () {
-    const {layer} = this.props;
-    if (layer.disabled) { return; }
-    if (layer.subId) {
-      // TODO:  Update visible layers.
-      if (this.props.checked) {
-        layerActions.removeSubLayer(layer);
-      } else {
-        layerActions.addSubLayer(layer);
-      }
-    } else {
-      if (this.props.checked) {
-        layerActions.removeActiveLayer(layer.id);
-      } else {
-        layerActions.addActiveLayer(layer.id);
-      }
-    }
   }
 
 }
