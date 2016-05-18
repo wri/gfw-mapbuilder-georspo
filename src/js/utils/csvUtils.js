@@ -179,6 +179,6 @@ export default function generateCSV () {
     output = csvData.join(lineEndings);
   }
 
-  downloadCSV(filename, output);
+  downloadCSV(`${filename}.csv`, output);
 
 }
