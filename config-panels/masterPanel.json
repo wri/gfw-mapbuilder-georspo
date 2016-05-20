@@ -2,7 +2,8 @@
   "configurationSettings": [{
     "category": "General Settings",
     "fields": [{
-      "type": "webmap"
+      "type": "webmap",
+      "fieldName": "webmap"
     }, {
       "type": "string",
       "fieldName": "title",
@@ -105,6 +106,9 @@
       "tooltip": "This will allow the application to toggle to an alternative language",
       "label": "Would you like include an additional language"
     }, {
+      "type": "webmap",
+      "fieldName": "alternativeWebmap"
+    },{
       "type": "options",
       "fieldName": "alternativeLanguage",
       "tooltip": "The alternative language to use in your application",

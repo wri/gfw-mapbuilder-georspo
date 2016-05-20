@@ -22,10 +22,13 @@ import React, {
   PropTypes
 } from 'react';
 
+let scalebar;
+
 export default class Map extends Component {
 
   static contextTypes = {
-    language: PropTypes.string.isRequired
+    language: PropTypes.string.isRequired,
+    settings: PropTypes.object.isRequired
   };
 
   static childContextTypes = {
@@ -35,8 +38,8 @@ export default class Map extends Component {
 
   getChildContext = () => {
     return {
-      webmapInfo: this.webmapInfo,
-      map: this.map
+      webmapInfo: this.state.webmapInfo,
+      map: this.state.map
     };
   };
 
@@ -44,17 +47,38 @@ export default class Map extends Component {
     super(props);
     this.map = {};
     this.webmapInfo = {};
-    this.state = MapStore.getState();
+    this.state = {
+      map: {},
+      webmapInfo: {},
+      ...MapStore.getState()
+    };
   }
 
   componentDidMount() {
     MapStore.listen(this.storeDidUpdate);
   }
 
-  componentDidUpdate (prevProps) {
-    const settings = this.props.settings;
-    if (prevProps.settings.webmap === undefined && settings.webmap) {
-      this.createMap(settings);
+  componentDidUpdate (prevProps, prevState) {
+    const {settings, language} = this.context;
+    const {activeWebmap} = this.props;
+    const {basemap, map} = this.state;
+    // If the webmap is retrieved from AGOL or the resources file, or it changes
+    if (
+      prevProps.activeWebmap === undefined && activeWebmap ||
+      prevProps.activeWebmap !== undefined && prevProps.activeWebmap !== activeWebmap
+    ) {
+      if (map.destroy) {
+        map.destroy();
+        scalebar.destroy();
+      }
+      this.createMap(activeWebmap);
+    }
+
+    if (
+      prevState.basemap !== basemap ||
+      prevState.map !== map
+    ) {
+      basemapUtils.updateBasemap(map, basemap, settings.basemaps[language]);
     }
   }
 
@@ -62,46 +86,38 @@ export default class Map extends Component {
     this.setState(MapStore.getState());
   };
 
-  createMap = (settings) => {
-    const {language} = this.context;
-    arcgisUtils.createMap(settings.webmap, this.refs.map, { mapOptions: mapConfig.options }).then(response => {
-      this.webmapInfo = response.itemInfo.itemData;
+  createMap = (webmap) => {
+    const {language, settings} = this.context;
+    arcgisUtils.createMap(webmap, this.refs.map, { mapOptions: mapConfig.options }).then(response => {
+      // this.webmapInfo = response.itemInfo.itemData;
       // Add operational layers from the webmap to the array of layers from the config file.
       const {itemData} = response.itemInfo;
       this.addLayersToLayerPanel(settings, itemData.operationalLayers);
       // Store a map reference and clear out any default graphics
-      this.map = response.map;
-      this.map.graphics.clear();
+      // response.map = response.map;
+      response.map.graphics.clear();
       //- Attach events I need for the info window
-      this.map.infoWindow.on('show, hide, set-features, selection-change', mapActions.infoWindowUpdated);
-      this.map.on('zoom-end', mapActions.mapUpdated);
+      response.map.infoWindow.on('show, hide, set-features, selection-change', mapActions.infoWindowUpdated);
+      response.map.on('zoom-end', mapActions.mapUpdated);
       //- When custom features are clicked, apply them to the info window, this will trigger above event
-      this.map.graphics.on('click', (evt) => {
+      response.map.graphics.on('click', (evt) => {
         evt.stopPropagation();
-        this.map.infoWindow.setFeatures([evt.graphic]);
+        response.map.infoWindow.setFeatures([evt.graphic]);
       });
       //- Add a scalebar
-      const scalebar = new Scalebar({
-        map: this.map
+      scalebar = new Scalebar({
+        map: response.map
       });
 
-      const updateEnd = this.map.on('update-end', () => {
-        // if (settings.webmap !== '9b6aa8982b7f41f9a6699b855765d5a9') {
-        //   setTimeout(() => {
-        //     alert('Hey Hey');
-        //     settings.webmap = '9b6aa8982b7f41f9a6699b855765d5a9';
-        //     this.map.destroy();
-        //     this.createMap(settings);
-        //   }, 10000);
-        // }
+      const updateEnd = response.map.on('update-end', () => {
         updateEnd.remove();
-        mapActions.createLayers(this.map, settings.layers[language]);
+        mapActions.createLayers(response.map, settings.layers[language]);
         //- Set the default basemap in the store
         const basemap = itemData && itemData.baseMap;
-        basemapUtils.prepareDefaultBasemap(this.map, basemap.baseMapLayers);
+        basemapUtils.prepareDefaultBasemap(response.map, basemap.baseMapLayers);
         //- Apply the mask layer defintion if present
         if (settings.iso && settings.iso !== '') {
-          const maskLayer = this.map.getLayer(layerKeys.MASK);
+          const maskLayer = response.map.getLayer(layerKeys.MASK);
           if (maskLayer) {
             const layerDefs = [];
             maskLayer.visibleLayers.forEach((layerNum) => {
@@ -113,10 +129,14 @@ export default class Map extends Component {
         }
       });
       //- Load any shared state if available
-      applyStateFromUrl(this.map, getUrlParams(location.search));
+      applyStateFromUrl(response.map, getUrlParams(location.search));
       //- Make the map a global in debug mode for easier debugging
-      if (brApp.debug) { brApp.map = this.map; }
-
+      if (brApp.debug) { brApp.map = response.map; }
+      //- Update local state since the map is ready now
+      this.setState({
+        webmapInfo: response.itemInfo.itemData,
+        map: response.map
+      });
     });
   };
 

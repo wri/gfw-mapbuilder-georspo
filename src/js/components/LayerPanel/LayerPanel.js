@@ -36,25 +36,6 @@ export default class LayerPanel extends Component {
     );
   };
 
-  componentDidUpdate(prevProps) {
-    const {basemap} = this.props;
-    const {map, language, settings} = this.context;
-    if (map.loaded) {
-      //- Make sure to include the default basemap from the webmap in our basemap gallery
-      // const defaultBasemap = map.getBasemap();
-      // if (basemapUtils.arcgisBasemaps.indexOf(defaultBasemap) === -1) {
-      //   basemapUtils.arcgisBasemaps.push(defaultBasemap);
-      // }
-
-      //- Basemap changed, update that here since it's behavior is more like a radio button
-      if (prevProps.basemap !== basemap) {
-        //- pass in the custom basemap configuration so I can access its properties
-        //- may not need these most of the time but will to create layers
-        basemapUtils.updateBasemap(map, basemap, settings.basemaps[language]);
-      }
-    }
-  }
-
   renderBasemapGroup = (extraBasemaps) => {
     const {basemap} = this.props;
     let basemapLayers = [];
