@@ -130,7 +130,7 @@ strings.en.MORE = 'More';
 strings.en.DELETE = 'Delete';
 strings.en.DOCUMENTS = 'Documents';
 
-strings.en.SELECT_ALL = 'Seleccionar Todo';
+strings.en.SELECT_ALL = 'select all';
 strings.en.CLEAR_ALL = 'clear all';
 strings.en.LEGEND = 'Legend';
 strings.en.SEARCH = 'Search'; // Also Used for tools, but was used else where first

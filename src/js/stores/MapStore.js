@@ -59,6 +59,7 @@ class MapStore {
       toggleLegendVisible: mapActions.toggleLegendVisible,
       addSubLayer: layerActions.addSubLayer,
       removeSubLayer: layerActions.removeSubLayer,
+      changeFiresTimeline: layerActions.changeFiresTimeline,
       addAll: layerActions.addAll,
       removeAll: layerActions.removeAll,
       setLossOptions: layerActions.setLossOptions,
@@ -190,6 +191,10 @@ class MapStore {
 
   setLossOptions (lossOptionsData) {
     this.lossOptions = lossOptionsData;
+  }
+
+  changeFiresTimeline (firesSelectIndex) {
+    this.firesSelectIndex = firesSelectIndex;
   }
 
   updateActiveSlopeClass (newSlopeClass) {

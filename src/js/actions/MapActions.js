@@ -53,7 +53,7 @@ class MapActions {
     return groupKey;
   }
 
-  createLayers (map, layers) {
+  createLayers (map, layers, activeLayers) {
     //- make sure there's only one entry for each dynamic layer
     const uniqueLayers = [];
     const existingIds = [];
@@ -62,6 +62,11 @@ class MapActions {
         uniqueLayers.push(layer);
         existingIds.push(layer.id);
       }
+    });
+    //- If we are changing webmaps, and any layer is active, we want to make sure it shows up as active in the new map
+    //- Make those updates here to the config as this will trickle down
+    uniqueLayers.forEach(layer => {
+      layer.visible = activeLayers.indexOf(layer.id) > -1;
     });
     //- remove layers from config that have no url unless they are of type graphic(which have no url)
     //- sort by order from the layer config

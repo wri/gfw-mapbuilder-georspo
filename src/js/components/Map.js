@@ -111,7 +111,7 @@ export default class Map extends Component {
 
       const updateEnd = response.map.on('update-end', () => {
         updateEnd.remove();
-        mapActions.createLayers(response.map, settings.layers[language]);
+        mapActions.createLayers(response.map, settings.layers[language], this.state.activeLayers);
         //- Set the default basemap in the store
         const basemap = itemData && itemData.baseMap;
         basemapUtils.prepareDefaultBasemap(response.map, basemap.baseMapLayers);
@@ -142,8 +142,9 @@ export default class Map extends Component {
 
   addLayersToLayerPanel = (settings, operationalLayers) => {
     const {language} = this.context;
-    // TODO - Need to prevent this from firing more than once per language so the
-    // layer list does not grow or just remove the group webmap layers each time
+    // Remove any already existing webmap layers
+    settings.layers[language] = settings.layers[language].filter((layer) => layer.groupKey !== layerKeys.GROUP_WEBMAP);
+    // Add the layers to the webmap group
     operationalLayers.forEach((layer) => {
       if (layer.layerType === 'ArcGISMapServiceLayer') {
         layer.resourceInfo.layers.forEach((sublayer) => {

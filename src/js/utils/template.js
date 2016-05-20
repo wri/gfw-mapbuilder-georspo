@@ -70,16 +70,34 @@ const formatResources = () => {
   if (resources.restorationModule) {
     //- Parse the restoration module options if they are in AGOL
     if (resources.restorationOptions) {
-      const optionLabels = parseIntoArray(resources.restorationOptions);
+      let optionLabels = parseIntoArray(resources.restorationOptions);
       const rasterIds = parseIntoArray(resources.restorationOptionsRasterIds);
       //- Make it in a format easier to consume in our components
-      resources.restorationModuleOptions = [];
+      resources.labels[resources.language].restorationOptions = [];
       optionLabels.forEach((label, index) => {
-        resources.restorationModuleOptions.push({
+        resources.labels[resources.language].restorationOptions.push({
           id: `$${rasterIds[index]}`,
           label: label
         });
       });
+
+      //- Parse the options, colors, and any other content that will be used in the analysis
+      resources.slopeAnalysisPotentialColors = parseIntoArray(resources.slopePotentialColors);
+      resources.labels[resources.language].slopeAnalysisPotentialOptions = parseIntoArray(resources.slopePotentialOptions);
+      //- Add the slope options in another language if configured
+      if (resources.useAlternativeLanguage) {
+        // Slope Options
+        resources.labels[resources.alternativeLanguage].slopeAnalysisPotentialOptions = parseIntoArray(resources.alternativeSlopePotentialOptions);
+        // Restoration Options
+        optionLabels = parseIntoArray(resources.alternativeRestorationOptions);
+        resources.labels[resources.alternativeLanguage].restorationOptions = [];
+        optionLabels.forEach((label, index) => {
+          resources.labels[resources.alternativeLanguage].restorationOptions.push({
+            id: `$${rasterIds[index]}`,
+            label: label
+          });
+        });
+      }
     }
     //- Parse slope class names if present
     if (resources.slopeClassNames) {

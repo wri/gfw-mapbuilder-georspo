@@ -31,21 +31,33 @@ export default class LossControls extends Component {
     });
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate (prevProps, prevState, prevContext) {
     //- If the options are ready and something has changed
     const {lossFromSelectIndex, lossToSelectIndex, canopyDensity} = this.props;
+    const {map} = this.context;
+
     if (this.props.lossOptions.length &&
         (prevProps.lossFromSelectIndex !== lossFromSelectIndex ||
         prevProps.lossToSelectIndex !== lossToSelectIndex ||
         prevProps.canopyDensity !== canopyDensity)
     ) {
-      const layer = this.context.map.getLayer(layerKeys.TREE_COVER_LOSS);
-      const fromYear = lossOptions[lossFromSelectIndex].label;
-      const toYear = lossOptions[lossToSelectIndex].label;
-      const renderingRule = rasterFuncs.buildCanopyFunction(fromYear, toYear, canopyDensity);
-      if (layer) {
-        layer.setRenderingRule(renderingRule);
-      }
+      this.updateLayer(map.getLayer(layerKeys.TREE_COVER_LOSS), lossFromSelectIndex, lossToSelectIndex, canopyDensity);
+    }
+
+    if (prevContext.map !== map) {
+      const signal = map.on('update-end', () => {
+        signal.remove();
+        this.updateLayer(map.getLayer(layerKeys.TREE_COVER_LOSS), lossFromSelectIndex, lossToSelectIndex, canopyDensity);
+      });
+    }
+  }
+
+  updateLayer (layer, fromIndex, toIndex, density) {
+    const fromYear = lossOptions[fromIndex].label;
+    const toYear = lossOptions[toIndex].label;
+    const renderingRule = rasterFuncs.buildCanopyFunction(fromYear, toYear, density);
+    if (layer) {
+      layer.setRenderingRule(renderingRule);
     }
   }
 

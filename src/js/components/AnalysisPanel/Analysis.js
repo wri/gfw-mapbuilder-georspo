@@ -148,7 +148,7 @@ export default class Analysis extends Component {
         const {counts} = results;
         labels = counts.map((v, index) => text[language].ANALYSIS_SLOPE_OPTION + (index + 1));
         colors = settings.slopeAnalysisPotentialColors;
-        const tooltips = settings.slopeAnalysisPotentialOptions;
+        const tooltips = settings.labels[language].slopeAnalysisPotentialOptions;
         //- Need a new chart to handle these values correctly
         return <SlopeBarChart counts={counts} colors={colors} labels={labels} tooltips={tooltips} />;
       default:

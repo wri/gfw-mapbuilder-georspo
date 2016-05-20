@@ -45,79 +45,15 @@ export default {
   restorationModule: false,
   restorationImageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/country_data/ETH_Restoration/ImageServer',
   slopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
+  alternativeSlopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
   slopePotentialColors: 'rgb(234,199,253);rgb(253,178,46);rgb(88,126,15);rgb(210,147,116);rgb(245,208,139);rgb(177,177,36);rgb(26,176,144);rgb(175,15,143);rgb(217,254,199);rgb(255,254,137);',
   restorationOptions: 'establishing natural forest outside of cropland;restocking of degraded natural forest;agri-silviculture and agro-silvo-pastoralism;silvo-pastoralism;woodlot;commercial plantation on bare soil and shrubland;commercial plantation as buffer zone to national forest priority areas and protected areas;tree-based buffer zone along rivers, lakes and reservoirs;',
+  alternativeRestorationOptions: 'establishing natural forest outside of cropland;restocking of degraded natural forest;agri-silviculture and agro-silvo-pastoralism;silvo-pastoralism;woodlot;commercial plantation on bare soil and shrubland;commercial plantation as buffer zone to national forest priority areas and protected areas;tree-based buffer zone along rivers, lakes and reservoirs;',
   restorationOptionsRasterIds: '9;10;6;11;13;8;7;12;',
   slopeClassNames: 'No Data;<= 30%;30 - 60%;> 60%;',
   slopeClassColors: 'rgb(0, 0, 0);rgb(255, 235, 175);rgb(115, 115, 0);rgb(168, 0, 0);',
   treeCoverClassNames: 'No Data;<= 10%;10 - 30%;> 30%;',
   treeCoverClassColors: 'rgb(0, 0, 0);rgb(180, 215, 158);rgb(245, 245, 122);rgb(205, 170, 102);',
-
-  //- The following values are built from the above values, this makes them easier to use in the Application
-  //- Based on slopePotentialOptions
-  slopeAnalysisPotentialOptions: [
-    'Potential for commercial plantation on bare soil and shrubland only',
-    'Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot',
-    'Potential for establishing natural forest only',
-    'Potential for restocking degraded natural forest only',
-    'Potential for woodlot only',
-    'Potential for silvo-pastoralism only',
-    'Potential for tree-buffer zone along rivers, lakes and reservoirs only',
-    'Potential for commercial plantation as buffer zone around (NF)PAs',
-    'Two restoration options identified as having potential',
-    'Three or more restoration options identified as having potential'
-  ],
-  //- Based on slopePotentialColors
-  slopeAnalysisPotentialColors: ['rgb(234,199,253)', 'rgb(253,178,46)', 'rgb(88,126,15)', 'rgb(210,147,116)', 'rgb(245,208,139)', 'rgb(177,177,36)', 'rgb(26,176,144)', 'rgb(175,15,143)', 'rgb(217,254,199)', 'rgb(255,254,137)'],
-  //- Based on all the variations of restorationOptions
-  restorationModuleOptions: [{
-    id: '$9',
-    label: 'establishing natural forest outside of cropland'
-  }, {
-    id: '$10',
-    label: 'restocking of degraded natural forest'
-  }, {
-    id: '$6',
-    label: 'agri-silviculture and agro-silvo-pastoralism'
-  }, {
-    id: '$11',
-    label: 'silvo-pastoralism'
-  }, {
-    id: '$13',
-    label: 'woodlot'
-  }, {
-    id: '$8',
-    label: 'commercial plantation on bare soil and shrubland'
-  }, {
-    id: '$7',
-    label: 'commercial plantation as buffer zone to national forest priority areas and protected areas'
-  }, {
-    id: '$12',
-    label: 'tree-based buffer zone along rivers, lakes and reservoirs'
-  }],
-  //- Based on slopeClassNames and slopeClassColors
-  slopeClasses: ['No Data', '<= 30%', '30 - 60%', '> 60%'],
-  slopeColors: ['rgb(0, 0, 0)', 'rgb(255, 235, 175)', 'rgb(115, 115, 0)', 'rgb(168, 0, 0)'],
-  //- Bsaed on treeCoverClassNames and treeCoverClassColors
-  treeCoverClasses: ['No Data', '<= 10%', '10 - 30%', '> 30%'],
-  treeCoverColors: ['rgb(0, 0, 0)', 'rgb(180, 215, 158)', 'rgb(245, 245, 122)', 'rgb(205, 170, 102)'],
-  //- Built based on title, subtitle, language settings, and map themes
-  labels: {
-    'en': {
-      'title': 'GFW Mapbuilder',
-      'subtitle': 'Make maps that matter',
-      'webmapMenuName': 'Land Use',
-      'narrative': '',
-      'themes': []
-    },
-    'fr': {
-      'title': 'GFW Mapbuilder',
-      'subtitle': 'Des cartes qui comptent',
-      'webmapMenuName': 'Occupation des sols',
-      'narrative': '',
-      'themes': []
-    }
-  },
 
   /**
   * NOTE: Below are config related items, they are not configured in AGOL or generated by the template
