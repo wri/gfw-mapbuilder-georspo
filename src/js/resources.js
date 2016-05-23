@@ -247,7 +247,7 @@ export default {
       group: 'Evolution de l\'occupation des sols',
       groupKey: layerKeys.GROUP_LCD,
       label: 'Perte en couvert arboré',
-      sublabel: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+      sublabel: '(annuel, 30m, global, Hansen/UMD/Google/USGS/NASA)',
       url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
       colormap: [[1, 219, 101, 152]],
       inputRange: [1, 15],
@@ -261,7 +261,7 @@ export default {
       group: 'Evolution de l\'occupation des sols',
       groupKey: layerKeys.GROUP_LCD,
       label: 'Gain en couvert arboré',
-      sublabel: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+      sublabel: '(12 ans, 30m, global, Hansen/UMD/Google/USGS/NASA)',
       url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
       legendLayer: 1
     }, {
@@ -271,7 +271,7 @@ export default {
       group: 'Evolution de l\'occupation des sols',
       groupKey: layerKeys.GROUP_LCD,
       label: 'Feux actifs',
-      sublabel: '(daily, 1km, global, NASA)',
+      sublabel: '(journalier, 1km, global, NASA)',
       url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
       layerIds: [0, 1, 2, 3]
     }, {
@@ -281,7 +281,7 @@ export default {
       group: 'Occupation des sols',
       groupKey: layerKeys.GROUP_LC,
       label: 'densité du couvert arboré',
-      sublabel: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
+      sublabel: '(année 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
       url: 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
       colormap: [[1, 0, 179, 0]],
       inputRange: [30, 101],
