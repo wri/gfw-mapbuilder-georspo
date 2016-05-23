@@ -243,7 +243,7 @@ strings.fr.ANALYSIS_SELECT_TYPE_OPTIONS = [
 strings.fr.CANOPY_MODAL_TEXT = 'Ajuster la densité minimum de la canopée pour le couvert arboré et la perte en couvert arboré';
 strings.fr.DENSITY_FIRST = 'Affichage';
 strings.fr.DENSITY_SECOND = 'Densité de la canopée.';
-strings.fr.SEARCH_WIDGET_TITLE = 'Recherch de polygones:';
+strings.fr.SEARCH_WIDGET_TITLE = 'Recherche de polygones:';
 
 //- Miscellaneous
 strings.fr.PRINT_BUTTON_LABEL = 'Choisissez un gabarit d\'impression';
