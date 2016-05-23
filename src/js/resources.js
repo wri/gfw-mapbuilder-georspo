@@ -300,7 +300,7 @@ export default {
       layerIds: [10],
       rasterId: '$523',
       bounds: [1, 20],
-      classes: ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'],
+      classes: ['Forêt dense humide', 'Forêt sub-montagnarde', 'Forêt d\'altitude', 'Forêt marécageuse', 'Mangrove', 'Mosaïque forêt-savane', 'Complexe rural et jeunes forêts secondaires', 'Forêt claire à savane boisée décidue', 'Savane boisée-Savane arborée', 'Savane arbustive', 'Savane herbeuse', 'Aquatic grassland', 'Savane herbeuse inondée', 'Végétation éparse', 'Mosaique cultures/végétation ( herbeuse ou arbustive )', 'Agriculture', 'Agriculture irriguée', 'Sols nus', 'Eléments anthropiques', 'Eaux de surface'],
       colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92']
     }, {
       id: 'IFL',
