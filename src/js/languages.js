@@ -273,45 +273,45 @@ strings.fr.TOOL_RESET = 'Réinitialiser';
 //- NOTE: Spanish
 //- Header
 strings.es.NAV_ABOUT = 'Acerca de';
-strings.es.NAV_DOWNLOAD = 'Descargar de Datos';
+strings.es.NAV_DOWNLOAD = 'Descargar Datos';
 strings.es.NAV_MAP_THEMES = 'Temas';
-strings.es.NAV_MY_GFW = 'Log in to my GFW';
-strings.es.NAV_LANGUAGE = 'Select Language';
+strings.es.NAV_MY_GFW = 'Entrar a mi GFW';
+strings.es.NAV_LANGUAGE = 'Seleccionar idioma';
 //- Documents
-strings.es.DOCS_INSTRUCTIONS = 'Select an area of interest to see if there are any related documents';
+strings.es.DOCS_INSTRUCTIONS = 'Seleccionar una área de interés para ver si haya algún documento relacionado';
 strings.es.DOCS_NOT_AVAILABLE = 'No hay documentos disponibles para esta área';
-strings.es.DOCS_TYPE = 'Type';
-strings.es.DOCS_AUTHOR = 'Author';
-strings.es.DOCS_YEAR = 'Year';
+strings.es.DOCS_TYPE = 'Tipo';
+strings.es.DOCS_AUTHOR = 'Autor';
+strings.es.DOCS_YEAR = 'Año';
 strings.es.DOCS_PDF = 'PDF';
 //- Info Window
-strings.es.INFO_WINDOW_INSTRUCTION_HEADER = 'Select a shape on the map';
+strings.es.INFO_WINDOW_INSTRUCTION_HEADER = 'Seleccionar un polígono en el mapa';
 strings.es.INFO_WINDOW_INSTRUCTION_LIST = [
-  'Use the layers tab to turn on a data layer',
-  'Select a shape on the map'
+  'Usar la pestaña de capas para encender una capa',
+  'Seleccionar un polígono en el mapa'
 ];
 //- Analysis
-strings.es.ANALYSIS_INSTRUCTION_HEADER = 'Analyze a shape on the map';
+strings.es.ANALYSIS_INSTRUCTION_HEADER = 'Analizar un polígono  en el mapa';
 strings.es.ANALYSIS_INSTRUCTION_LIST = [
-  'Use the layers tab to turn on a data layer',
-  'Select a shape on the map',
-  'Click on the analyze tab'
+  'Usar la pestaña de capas para encender una capa',
+  'Seleccionar un polígono en el mapa',
+  'Hacer clic en la pestaña de analizar'
 ];
-strings.es.ANALYSIS_OR = 'Or';
-strings.es.ANALYSIS_DRAW_HEADER = 'Analyze your own shape';
+strings.es.ANALYSIS_OR = 'O';
+strings.es.ANALYSIS_DRAW_HEADER = 'Analizar su propio polígono';
 //- ${drawIcon} references a variable above, do not translate
 strings.es.ANALYSIS_DRAW_INSTRUCTIONS = [
-  `Choose the draw tool ${drawIcon} in the toolbox`,
-  'Draw a shape anywhere on the map',
-  'Select the shape to run the analysis'
+  `Escoger la herramienta de dibujo ${drawIcon} en la caja de herramientas`,
+  'Dibujar un polígono en cualquier lugar del mapa',
+  'Seleccionar el polígono para hacer el análisis'
 ];
-strings.es.ANALYSIS_DRAW_BUTTON = 'Start drawing';
-strings.es.ANALYSIS_INSTRUCTION_ADDITIONAL = `Add additional shapes in the future by visiting the draw tool ${drawIcon}`;
-strings.es.ANALYSIS_SHAPEFILE_UPLOAD = 'or drop a custom shapefile here';
-strings.es.ANALYSIS_SELECT_TYPE_LABEL = 'Select Analysis:';
+strings.es.ANALYSIS_DRAW_BUTTON = 'Empezar a dibujar';
+strings.es.ANALYSIS_INSTRUCTION_ADDITIONAL = `Añadir polígonos adicionales en el futuro usando la herramienta de dibujo ${drawIcon}`;
+strings.es.ANALYSIS_SHAPEFILE_UPLOAD = 'o dejar un shapefile aquí';
+strings.es.ANALYSIS_SELECT_TYPE_LABEL = 'Seleccionar Análisis:';
 //- Chart Labels in the Analysis
 strings.es.ANALYSIS_TC_CHART_NAME = 'Pérdida de la cobertura arbórea (ha)';
-strings.es.ANALYSIS_LCC_CHART_NAME = 'Composición de la cobertura vegetal';
+strings.es.ANALYSIS_LCC_CHART_NAME = 'Composición de la cobertura del suelo';
 strings.es.ANALYSIS_IFL_LABELS = ['Bosque Intacto'];
 strings.es.ANALYSIS_FIRES_PRE = 'Hay';
 strings.es.ANALYSIS_FIRES_ACTIVE = 'incendios activos';
@@ -320,18 +320,18 @@ strings.es.ANALYSIS_TOTAL_LOSS_LABEL = 'Pérdida total de la cobertura arbórea'
 strings.es.ANALYSIS_TOTAL_LOSS_RANGE = '(2001 - 2014):';
 strings.es.ANALYSIS_TOTAL_GAIN_LABEL = 'Ganancia total de la cobertura arbórea';
 strings.es.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
-strings.es.ANALYSIS_SLOPE_OPTION = 'Option #';
-strings.es.SLOPE_SELECT_LABEL = 'Choose slope percent:';
+strings.es.ANALYSIS_SLOPE_OPTION = 'Opción #';
+strings.es.SLOPE_SELECT_LABEL = 'Escoger porcentaje del pendiente:';
 strings.es.ANALYSIS_RESTORATION_LC_LABELS = [
-  'No Data', 'Forestland', 'Grassland', 'Cropland', 'Wetland and Waterbodies', 'Settlement', 'Bare soil'
+  'Sin Datos', 'Bosque', 'Pradera', 'Cultivos', 'Humedales y Cuerpos de Agua', 'Asentamientos Humanos', 'Suelo Desnudo'
 ];
-strings.es.ANALYSIS_RESTORATION_ERROR = 'Area not meeting criteria for potential/No data';
-strings.es.ANALYSIS_GROUP_RESTORATION = 'Restoration potential for';
-strings.es.ANALYSIS_GROUP_SLOPE = 'Potential according to';
-strings.es.ANALYSIS_GROUP_OTHER = 'Other analysis';
+strings.es.ANALYSIS_RESTORATION_ERROR = 'Área no coincide con los criterios/ Sin Datos';
+strings.es.ANALYSIS_GROUP_RESTORATION = 'Potencial de restauración para';
+strings.es.ANALYSIS_GROUP_SLOPE = 'Potencial según';
+strings.es.ANALYSIS_GROUP_OTHER = 'Otro análisis';
 //- Group and value should not be modified
 strings.es.ANALYSIS_SELECT_TYPE_OPTIONS = [
-  { label: 'Slope',
+  { label: 'Pendiente',
     value: analysisKeys.SLOPE,
     group: analysisKeys.ANALYSIS_GROUP_SLOPE
   },
@@ -339,15 +339,15 @@ strings.es.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.TC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Total tree cover loss/gain',
+  { label: 'Pérdida/ ganancia total de la cobertura arbórea',
     value: analysisKeys.TC_LOSS_GAIN,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Land cover loss',
+  { label: 'Pérdida de la cobertura del suelo',
     value: analysisKeys.LC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Biomass loss',
+  { label: 'Pérdida de biomasa',
     value: analysisKeys.BIO_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
@@ -359,7 +359,7 @@ strings.es.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.FIRES,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Composición de la cobertura vegetal',
+  { label: 'Composición de la cobertura del suelo',
     value: analysisKeys.LCC,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   }
@@ -367,34 +367,34 @@ strings.es.ANALYSIS_SELECT_TYPE_OPTIONS = [
 
 //- Modals
 strings.es.CANOPY_MODAL_TEXT = 'Ajustar el mínimo densidad del follaje para la cobertura arbórea y la pérdida de la cobertura arbórea';
-strings.es.DENSITY_FIRST = 'Displaying';
-strings.es.DENSITY_SECOND = 'densidad de dosel arbóreo.';
-strings.es.SEARCH_WIDGET_TITLE = 'Search for feature:';
+strings.es.DENSITY_FIRST = 'Mostrando';
+strings.es.DENSITY_SECOND = 'densidad de follaje.';
+strings.es.SEARCH_WIDGET_TITLE = 'Buscar polígono:';
 
 //- Miscellaneous
 strings.es.PRINT_BUTTON_LABEL = 'Elegir diseño de página';
-strings.es.PRINT_REPORT = 'Print Report';
-strings.es.SUBSCRIBE = 'Subscribe';
+strings.es.PRINT_REPORT = 'Imprimir Informe'';
+strings.es.SUBSCRIBE = 'Subscribirse';
 strings.es.LAYERS = 'Capas';
 strings.es.DATA = 'Datos';
 strings.es.ANALYZE = 'Análisis';
-strings.es.DOCS = 'Docs';
-strings.es.NARRATIVE = 'Narrative';
-strings.es.MORE = 'More';
-strings.es.DELETE = 'Delete';
-strings.es.DOCUMENTS = 'Documents';
+strings.es.DOCS = 'Documentos';
+strings.es.NARRATIVE = 'Narrativa';
+strings.es.MORE = 'Más';
+strings.es.DELETE = 'Eliminar';
+strings.es.DOCUMENTS = 'Documentos';
 
 strings.es.SELECT_ALL = 'Seleccionar Todo';
 strings.es.CLEAR_ALL = 'Borrar Todo';
 strings.es.LEGEND = 'Leyenda';
-strings.es.SEARCH = 'Search'; // Also Used for tools, but was used else where first
-strings.es.TOOL_ZOOM_IN = 'Zoom In';
-strings.es.TOOL_ZOOM_OUT = 'Zoom Out';
-strings.es.TOOL_SHARE = 'Share';
-strings.es.TOOL_PRINT = 'Print';
-strings.es.TOOL_ANALYSIS = 'Analysis';
-strings.es.TOOL_TOGGLE = 'Toggle Panel';
-strings.es.TOOL_RESET = 'Reset';
+strings.es.SEARCH = 'Buscar'; // Also Used for tools, but was used else where first
+strings.es.TOOL_ZOOM_IN = 'Acercar';
+strings.es.TOOL_ZOOM_OUT = 'Alejar';
+strings.es.TOOL_SHARE = 'Compartir';
+strings.es.TOOL_PRINT = 'Imprimir';
+strings.es.TOOL_ANALYSIS = 'Análisis';
+strings.es.TOOL_TOGGLE = 'Alternar Pane';
+strings.es.TOOL_RESET = 'Reajustar';
 
 //- NOTE: Portugese
 //- Header
