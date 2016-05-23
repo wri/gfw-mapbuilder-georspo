@@ -130,8 +130,8 @@ strings.en.MORE = 'More';
 strings.en.DELETE = 'Delete';
 strings.en.DOCUMENTS = 'Documents';
 
-strings.en.SELECT_ALL = 'Seleccionar Todo';
-strings.en.CLEAR_ALL = 'clear all';
+strings.en.SELECT_ALL = 'Select all';
+strings.en.CLEAR_ALL = 'Clear all';
 strings.en.LEGEND = 'Legend';
 strings.en.SEARCH = 'Search'; // Also Used for tools, but was used else where first
 strings.en.TOOL_ZOOM_IN = 'Zoom In';
