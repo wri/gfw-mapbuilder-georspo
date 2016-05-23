@@ -373,7 +373,7 @@ strings.es.SEARCH_WIDGET_TITLE = 'Buscar polígono:';
 
 //- Miscellaneous
 strings.es.PRINT_BUTTON_LABEL = 'Elegir diseño de página';
-strings.es.PRINT_REPORT = 'Imprimir Informe'';
+strings.es.PRINT_REPORT = 'Imprimir Informe';
 strings.es.SUBSCRIBE = 'Subscribirse';
 strings.es.LAYERS = 'Capas';
 strings.es.DATA = 'Datos';
