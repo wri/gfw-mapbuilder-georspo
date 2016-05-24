@@ -3,7 +3,7 @@ import analysisKeys from 'constants/AnalysisConstants';
 //- Embedded Icons
 const drawIcon = '<svg class="svg-icon"><use xlink:href="#icon-draw-upload" /></svg>';
 
-const strings = { en: {}, fr: {}, es: {}, pt: {}, id:{} };
+const strings = { en: {}, fr: {}, es: {}, pt: {}, id:{}, zh:{} };
 //- NOTE: English
 //- Layers
 // strings.en.LAND_COVER_LABEL = 'Land cover';
@@ -647,5 +647,132 @@ strings.id.TOOL_PRINT = 'Print';
 strings.id.TOOL_ANALYSIS = 'Analysis';
 strings.id.TOOL_TOGGLE = 'Toggle Panel';
 strings.id.TOOL_RESET = 'Reset';
+
+//- NOTE: Mandarin
+//- Header
+strings.zh.NAV_ABOUT = '关于';
+strings.zh.NAV_DOWNLOAD = '下载数据';
+strings.zh.NAV_MAP_THEMES = '地图图集';
+strings.zh.NAV_MY_GFW = '登录我的GFW';
+strings.zh.NAV_LANGUAGE = '选择语言';
+//- Documents
+strings.zh.DOCS_INSTRUCTIONS = '选择感兴趣区域来查看相关文件';
+strings.zh.DOCS_NOT_AVAILABLE = '此区域没有相关文件';
+strings.zh.DOCS_TYPE = '类别';
+strings.zh.DOCS_AUTHOR = '作者';
+strings.zh.DOCS_YEAR = '年份';
+strings.zh.DOCS_PDF = 'PDF';
+//- Info Window
+strings.zh.INFO_WINDOW_INSTRUCTION_HEADER = '在地图上选择图形';
+strings.zh.INFO_WINDOW_INSTRUCTION_LIST = [
+  '使用图层键来打开图层',
+  '在地图上选择图形'
+];
+//- Analysis
+strings.zh.ANALYSIS_INSTRUCTION_HEADER = '分析地图上的图形';
+strings.zh.ANALYSIS_INSTRUCTION_LIST = [
+  '使用图层键来打开图层',
+  '在地图上选择一个图形',
+  '点击分析键'
+];
+strings.zh.ANALYSIS_OR = '或者';
+strings.zh.ANALYSIS_DRAW_HEADER = '分析自定义图形';
+//- ${drawIcon} references a variable above, do not translate
+strings.zh.ANALYSIS_DRAW_INSTRUCTIONS = [
+  `在工具箱里选择一个绘画工具 ${drawIcon}`,
+  '在地图上任意地方画一个图形',
+  '选择进行分析的图形'
+];
+strings.zh.ANALYSIS_DRAW_BUTTON = '开始绘画';
+strings.zh.ANALYSIS_INSTRUCTION_ADDITIONAL = `使用绘画工具来添加更多图形 ${drawIcon}`;
+strings.zh.ANALYSIS_SHAPEFILE_UPLOAD = '或者在这里添加自定义地理信息系统文件（shapefile）';
+strings.zh.ANALYSIS_SELECT_TYPE_LABEL = '选择分析方式：';
+//- Chart Labels in the Analysis
+strings.zh.ANALYSIS_TC_CHART_NAME = '森林覆盖损失（单位：公顷）';
+strings.zh.ANALYSIS_LCC_CHART_NAME = '土地覆盖组成'; 
+strings.zh.ANALYSIS_IFL_LABELS = ['原生森林'];  
+strings.zh.ANALYSIS_FIRES_PRE = '共计';
+strings.zh.ANALYSIS_FIRES_ACTIVE = '活跃火点';
+strings.zh.ANALYSIS_FIRES_POST = '在过去7天里';
+strings.zh.ANALYSIS_TOTAL_LOSS_LABEL = '总森林覆盖损失';
+strings.zh.ANALYSIS_TOTAL_LOSS_RANGE = '(2001 - 2014):';
+strings.zh.ANALYSIS_TOTAL_GAIN_LABEL = '总森林覆盖增加';
+strings.zh.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
+strings.zh.ANALYSIS_SLOPE_OPTION = '选项 #';
+strings.zh.SLOPE_SELECT_LABEL = '选择倾斜度：';
+strings.zh.ANALYSIS_RESTORATION_LC_LABELS = [
+  '无数据', '林地', '草地', '农田', '湿地和水体', '建筑', '裸地'
+];
+strings.zh.ANALYSIS_RESTORATION_ERROR = '无数据 或者 区域不满足条件';
+strings.zh.ANALYSIS_GROUP_RESTORATION = '在生态修复可能性的层面';
+strings.zh.ANALYSIS_GROUP_SLOPE = '可能性原因';
+strings.zh.ANALYSIS_GROUP_OTHER = '其他分析';
+//- Group and value should not be modified
+strings.zh.ANALYSIS_SELECT_TYPE_OPTIONS = [
+  { label: '倾斜度',
+    value: analysisKeys.SLOPE,
+    group: analysisKeys.ANALYSIS_GROUP_SLOPE
+  },
+  { label: '森林覆盖损失',
+    value: analysisKeys.TC_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: '总森林覆盖损失或增加',
+    value: analysisKeys.TC_LOSS_GAIN,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: '土地覆盖损失',
+    value: analysisKeys.LC_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: '生物量损失',
+    value: analysisKeys.BIO_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: '原生林损失',
+    value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: '活跃火点',
+    value: analysisKeys.FIRES,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: '土地覆盖组成',
+    value: analysisKeys.LCC,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  }
+];
+
+//- Modals
+strings.zh.CANOPY_MODAL_TEXT = '对森林覆盖和森林覆盖损失图层调试最低林冠覆盖密度';
+strings.zh.DENSITY_FIRST = '显示中';
+strings.zh.DENSITY_SECOND = '林冠覆盖密度';
+strings.zh.SEARCH_WIDGET_TITLE = '搜寻特征：';
+
+//- Miscellaneous
+strings.zh.PRINT_BUTTON_LABEL = '选择打印模板';
+strings.zh.PRINT_REPORT = '打印报告';
+strings.zh.SUBSCRIBE = '订阅';
+strings.zh.SEARCH = '搜寻';
+strings.zh.LAYERS = '图层';
+strings.zh.DATA = '数据';
+strings.zh.ANALYZE = '分析';
+strings.zh.DOCS = '文本文件';
+strings.zh.NARRATIVE = '说明';
+strings.zh.MORE = '更多';
+strings.zh.DELETE = '删除';
+strings.zh.DOCUMENTS = '文件';
+
+strings.zh.SELECT_ALL = '全选';
+strings.zh.CLEAR_ALL = '全部清除';
+strings.zh.LEGEND = '图例';
+strings.zh.SEARCH = '搜索'; // Also Used for tools, but was used else where first
+strings.zh.TOOL_ZOOM_IN = '放大';
+strings.zh.TOOL_ZOOM_OUT = '缩小';
+strings.zh.TOOL_SHARE = '分享';
+strings.zh.TOOL_PRINT = '打印';
+strings.zh.TOOL_ANALYSIS = '分析';
+strings.zh.TOOL_TOGGLE = '控制面板';
+strings.zh.TOOL_RESET = '重置';
 
 export { strings as default };
