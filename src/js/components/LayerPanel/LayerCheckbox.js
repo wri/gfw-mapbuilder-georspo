@@ -104,9 +104,9 @@ export default class LayerCheckbox extends Component {
   }
 
   showInfo () {
-    const layer = this.props.layer;
+    const {layer} = this.props;
     if (layer.disabled) { return; }
-    modalActions.showLayerInfo(this.props.layer.id);
+    modalActions.showLayerInfo(layer);
   }
 
   toggleLayer () {

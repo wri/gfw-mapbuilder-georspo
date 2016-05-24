@@ -1,5 +1,7 @@
+import layerInfoCache from 'utils/layerInfoCache';
 import modalActions from 'actions/ModalActions';
 import dispatcher from 'js/dispatcher';
+import domClass from 'dojo/dom-class';
 
 class ModalStore {
 
@@ -16,8 +18,14 @@ class ModalStore {
     });
   }
 
-  showLayerInfo (layerInfo) {
-    this.modalLayerInfo = layerInfo;
+  showLayerInfo (layer) {
+    const info = layerInfoCache.get(layer.id);
+    if (info) {
+      domClass.remove('layer-modal', 'hidden');
+      this.modalLayerInfo = info;
+    } else {
+      console.log(layer);
+    }
   }
 
   updateBitlyUrl (bitlyUrl) {
