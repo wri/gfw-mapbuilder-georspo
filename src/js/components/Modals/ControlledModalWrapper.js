@@ -22,5 +22,6 @@ export default function ControlledModalWrapper (props) {
 }
 
 ControlledModalWrapper.propTypes = {
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  theme: PropTypes.string
 };

@@ -33,7 +33,9 @@ class MapActions {
   togglePrintModal = (data) => data;
   toggleSearchModal = (data) => data;
   toggleCanopyModal = (data) => data;
+  toggleLayerModal = (data) => data;
   toggleTOCVisible = (data) => data;
+  showLayerInfo = (layer) => layer;
 
   changeBasemap (basemap) {
     return basemap;

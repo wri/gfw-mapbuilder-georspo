@@ -95,11 +95,7 @@ const config = {
       {label: '2012', value: 12},
       {label: '2013', value: 13},
       {label: '2014', value: 14}
-    ],
-    treeCover: {
-      densityFirst: 'Displaying',
-      densitySecond: 'canopy density.'
-    }
+    ]
   },
   errors: {
     missingLayerConfig: 'You provided a layer config containing a url but not a type, please specify the layer type in the layer config.',

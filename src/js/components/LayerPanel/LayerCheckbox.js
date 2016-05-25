@@ -1,6 +1,6 @@
 import layerKeys from 'constants/LayerConstants';
 import layerActions from 'actions/LayerActions';
-import modalActions from 'actions/ModalActions';
+import mapActions from 'actions/MapActions';
 import LayersHelper from 'helpers/LayersHelper';
 import LayerTransparency from './LayerTransparency';
 import utils from 'utils/AppUtils';
@@ -106,7 +106,7 @@ export default class LayerCheckbox extends Component {
   showInfo () {
     const {layer} = this.props;
     if (layer.disabled) { return; }
-    modalActions.showLayerInfo(layer);
+    mapActions.showLayerInfo(layer);
   }
 
   toggleLayer () {

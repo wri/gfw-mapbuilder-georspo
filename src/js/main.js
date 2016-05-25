@@ -1,6 +1,5 @@
 /* eslint no-unused-vars: 0 */
 import App from 'components/App';
-import LayerModal from 'components/Modals/LayerModal';
 import ShareModal from 'components/Modals/ShareModal';
 import IdentityManager from 'esri/IdentityManager';
 import {corsServers, assetUrls} from 'js/config';
@@ -62,7 +61,6 @@ const lazyloadAssets = () => {
 
 const initializeApp = () => {
   ReactDOM.render(<App />, document.getElementById('root'));
-  ReactDOM.render(<LayerModal />, document.getElementById('layer-modal'));
   ReactDOM.render(<ShareModal />, document.getElementById('share-modal'));
 };
 

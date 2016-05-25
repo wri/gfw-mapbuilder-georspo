@@ -3,6 +3,7 @@
 import AnalysisModal from 'components/Modals/AnalysisModal';
 import Controls from 'components/MapControls/ControlPanel';
 import CanopyModal from 'components/Modals/CanopyModal';
+import LayerModal from 'components/Modals/LayerModal';
 import Legend from 'components/LegendPanel/LegendPanel';
 import TabButtons from 'components/TabPanel/TabButtons';
 import SearchModal from 'components/Modals/SearchModal';
@@ -184,7 +185,9 @@ export default class Map extends Component {
       printModalVisible,
       analysisModalVisible,
       searchModalVisible,
-      canopyModalVisible
+      canopyModalVisible,
+      layerModalVisible,
+      modalLayerInfo
     } = this.state;
 
     return (
@@ -206,6 +209,9 @@ export default class Map extends Component {
         </div>
         <div className={`canopy-modal-container modal-wrapper ${canopyModalVisible ? '' : 'hidden'}`}>
           <CanopyModal />
+        </div>
+        <div className={`layer-modal-container modal-wrapper ${layerModalVisible ? '' : 'hidden'}`}>
+          <LayerModal info={modalLayerInfo} />
         </div>
       </div>
     );

@@ -1,4 +1,5 @@
 import analysisKeys from 'constants/AnalysisConstants';
+import layerInfoCache from 'utils/layerInfoCache';
 import {attributes} from 'constants/AppConstants';
 import layerKeys from 'constants/LayerConstants';
 import tabKeys from 'constants/TabViewConstants';
@@ -35,8 +36,10 @@ class MapStore {
     this.printModalVisible = false;
     this.searchModalVisible = false;
     this.canopyModalVisible = false;
+    this.layerModalVisible = false;
     this.canopyDensity = 30;
     this.activeSlopeClass = null;
+    this.modalLayerInfo = '';
 
     this.bindListeners({
       setDefaults: appActions.applySettings,
@@ -49,6 +52,8 @@ class MapStore {
       toggleSearchModal: mapActions.toggleSearchModal,
       toggleCanopyModal: mapActions.toggleCanopyModal,
       toggleAnalysisModal: mapActions.toggleAnalysisModal,
+      toggleLayerModal: mapActions.toggleLayerModal,
+      showLayerInfo: mapActions.showLayerInfo,
       toggleTOCVisible: mapActions.toggleTOCVisible,
       openTOCAccordion: mapActions.openTOCAccordion,
       updateCanopyDensity: mapActions.updateCanopyDensity,
@@ -173,6 +178,10 @@ class MapStore {
     this.canopyModalVisible = payload.visible;
   }
 
+  toggleLayerModal (payload) {
+    this.layerModalVisible = payload.visible;
+  }
+
   updateCanopyDensity (payload) {
     this.canopyDensity = payload.density;
   }
@@ -204,6 +213,22 @@ class MapStore {
   updateLossTimeline (payload) {
     this.lossFromSelectIndex = payload.from;
     this.lossToSelectIndex = payload.to;
+  }
+
+  showLayerInfo (layer) {
+    // Grab the id of the sublayer if it exists, else, grab the normal id
+    const id = layer.subId ? layer.subId : layer.id;
+    const info = layerInfoCache.get(id);
+    if (info) {
+      this.modalLayerInfo = info;
+      this.layerModalVisible = true;
+    } else {
+      layerInfoCache.fetch(layer).then(layerInfo => {
+        this.modalLayerInfo = layerInfo;
+        this.layerModalVisible = true;
+        this.emitChange();
+      });
+    }
   }
 
   changeOpacity (parameters) {

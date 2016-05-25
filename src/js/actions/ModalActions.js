@@ -3,10 +3,6 @@ import dispatcher from 'js/dispatcher';
 
 class ModalActions {
 
-  showLayerInfo (layer) {
-    return layer;
-  }
-
   showShareModal (params) {
     //TODO: Generate a url from bitly that includes Map Store state, this way we can share params
     const url = document.location.href.split('?')[0];
