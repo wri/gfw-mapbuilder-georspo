@@ -150,7 +150,6 @@ export default {
     }
 
     arcgisUtils.getItem(appid).then(res => {
-
       const agolValues = res.itemData && res.itemData.values;
 
       //- If we dont have agol settings, save the defaults, else merge them in

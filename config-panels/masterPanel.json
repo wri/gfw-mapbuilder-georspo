@@ -98,7 +98,9 @@
       "options": [
         { "value": "en", "label": "English" },
         { "value": "fr", "label": "French" },
-        { "value": "es", "label": "Spanish" }
+        { "value": "es", "label": "Spanish" },
+        { "value": "id", "label": "Indonesian" },
+        { "value": "zh", "label": "Chinese" }
       ]
     }, {
       "type": "boolean",
@@ -117,7 +119,9 @@
       "options": [
         { "value": "fr", "label": "French" },
         { "value": "en", "label": "English" },
-        { "value": "es", "label": "Spanish" }
+        { "value": "es", "label": "Spanish" },
+        { "value": "id", "label": "Indonesian" },
+        { "value": "zh", "label": "Chinese" }
       ]
     }, {
       "type": "string",

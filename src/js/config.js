@@ -33,7 +33,8 @@ const config = {
 
   urls: {
     liveSite: 'http://wri.github.io/gfw-mapbuilder/',
-    metadataApi: 'http://api.globalforestwatch.org/metadata'
+    metadataApi: 'http://api.globalforestwatch.org/metadata',
+    metadataXmlEndpoint: (itemId) => `http://www.arcgis.com/sharing/rest/content/items/${itemId}/info/metadata/metadata.xml`
   },
 
   upload: {

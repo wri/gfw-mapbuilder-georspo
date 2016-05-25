@@ -18,6 +18,14 @@ function getMetadataTask (url) {
   return promise;
 }
 
+function getXMLTask (url) {
+  return esriRequest({
+    url,
+    handleAs: 'xml',
+    callbackParamName: 'callback'
+  });
+}
+
 function getServiceInfoTask (url, content) {
   return esriRequest({
     url,
@@ -44,9 +52,16 @@ export default {
         _cache[layer.id] = results;
         promise.resolve(results);
       });
+    } else if (layer.itemId) {
+      url = urls.metadataXmlEndpoint(layer.itemId);
+      getXMLTask(url).then(xmlDocument => {
+        // console.log(xmlDocument.getElementsByTagName('linkage'));
+        promise.resolve();
+      });
     } else if (layer.esriLayer) {
       const {esriLayer, subIndex, subId} = layer;
-      url = `${esriLayer.url}/${subIndex}`;
+      url = `${esriLayer.url}/${subIndex !== undefined ? subIndex : ''}`;
+      // get from esriLayer json, no need to request it
       getServiceInfoTask(url, {f: 'json'}).then(results => {
         _cache[subId] = results;
         promise.resolve(results);

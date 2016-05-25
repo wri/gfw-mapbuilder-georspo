@@ -90,12 +90,10 @@ export default class Map extends Component {
   createMap = (webmap) => {
     const {language, settings} = this.context;
     arcgisUtils.createMap(webmap, this.refs.map, { mapOptions: mapConfig.options }).then(response => {
-      // this.webmapInfo = response.itemInfo.itemData;
       // Add operational layers from the webmap to the array of layers from the config file.
       const {itemData} = response.itemInfo;
       this.addLayersToLayerPanel(settings, itemData.operationalLayers);
       // Store a map reference and clear out any default graphics
-      // response.map = response.map;
       response.map.graphics.clear();
       //- Attach events I need for the info window
       response.map.infoWindow.on('show, hide, set-features, selection-change', mapActions.infoWindowUpdated);
@@ -174,7 +172,8 @@ export default class Map extends Component {
           label: layer.title,
           opacity: layer.opacity,
           visible: layer.visibility,
-          esriLayer: layer.layerObject
+          esriLayer: layer.layerObject,
+          itemId: layer.itemId
         });
       }
     });
