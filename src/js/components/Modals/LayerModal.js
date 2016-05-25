@@ -24,8 +24,8 @@ export default class Modal extends React.Component {
     return (
       <div className='layer-modal-content'>
         <div className='source-header'>
-          <strong className='source-title'>{info.title}</strong>
-          <em className='source-description'>{info.subtitle}</em>
+          <h2 className='source-title'>{info.title}</h2>
+          <h3 className='source-subtitle'>{info.subtitle}</h3>
         </div>
         <div className='source-body'>
           <div className='source-table'>
@@ -51,63 +51,35 @@ export default class Modal extends React.Component {
             </div>
           }
           {!info.learn_more ? null :
-            <a href={info.learn_more} className='source-learn-more-link'>
-              <div className='fa-button white'>Learn More</div>
-            </a>
-          }
-          {!info.download_data ? null :
-            <a href={info.download_data} className='source-learn-more-link'>
-              <div className='fa-button gold'>Download Data</div>
-            </a>
+            <div className='flex'>
+              <a href={info.learn_more} className='source-learn-more-link fa-button white' target='_blank'>
+                Learn More
+              </a>
+            </div>
           }
         </div>
+        {!info.download_data ? null :
+          <div className='source-footer'>
+            <a href={info.download_data} className='source-download fa-button gold' target='_blank'>
+              Download Data
+            </a>
+          </div>
+        }
       </div>
     );
   }
 
-  renderFromMapService () {
-
-  }
-
-  render () {
-    const {layerInfo} = this.state;
-    const content = !layerInfo.title ?
-      <div className='no-info-available'>{modalText.noInfo}</div> :
-      this.renderFromMetadataAPI(layerInfo);
-
-
+  renderFromMapService (info) {
     return (
-      <ModalWrapper>
-        {content}
-        {/*{!layerInfo.title ? <div className='no-info-available'>{modalText.noInfo}</div> :
-          this.renderFromMetadataAPI(layerInfo)
-          // <div className='layer-modal-content'>
-          //   <div className='source-header'>
-          //     <strong className='source-title'>{layerInfo.title}</strong>
-          //     <em className='source-description'>{layerInfo.subtitle}</em>
-          //   </div>
-          //   <div className='source-body'>
-          //     <div className='source-table'>
-          //       {layerInfo.table.map(this.tableMap)}
-          //     </div>
-          //     <div className='source-summary'>
-          //       {layerInfo.overview.map(this.summaryMap)}
-          //     </div>
-          //     {!layerInfo.customContent ? null :
-          //       layerInfo.customContent.map(this.htmlContentMap)
-          //     }
-          //     {!layerInfo.citation ? null :
-          //       <div className='source-credits'>
-          //         {layerInfo.citation.map(this.paragraphMap)}
-          //       </div>
-          //     }
-          //     {!layerInfo.moreContent ? null :
-          //       layerInfo.moreContent.map(this.htmlContentMap)
-          //     }
-          //   </div>
-          // </div>
-        }*/}
-      </ModalWrapper>
+      <div className='layer-modal-content'>
+        <div className='source-header'>
+          <h2 className='source-title'>{info.name}</h2>
+          <h3 className='source-subtitle'>{info.type}</h3>
+        </div>
+        <div className='source-table'>
+          {this.tableMap('Description', info.description || modalText.noInfo)}
+        </div>
+      </div>
     );
   }
 
@@ -117,6 +89,22 @@ export default class Modal extends React.Component {
         <dt>{label}</dt>
         <dd dangerouslySetInnerHTML={{ __html: content }}></dd>
       </dl>
+    );
+  }
+
+  render () {
+    const {layerInfo} = this.state;
+    const theme = layerInfo && layerInfo.download_data ? '' : 'no-download';
+    const content = !layerInfo ? <div className='no-info-available'>{modalText.noInfo}</div> :
+      (layerInfo.currentVersion ?
+        this.renderFromMapService(layerInfo) :
+        this.renderFromMetadataAPI(layerInfo)
+      );
+
+    return (
+      <ModalWrapper theme={theme}>
+        {content}
+      </ModalWrapper>
     );
   }
 

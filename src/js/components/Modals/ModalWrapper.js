@@ -2,7 +2,7 @@ import modalActions from 'actions/ModalActions';
 import modalStore from 'stores/ModalStore';
 import React from 'react';
 
-let closeSvg = '<use xlink:href="#shape-close" />';
+const closeSvg = '<use xlink:href="#shape-close" />';
 
 export default class ModalWrapper extends React.Component {
 
@@ -10,14 +10,14 @@ export default class ModalWrapper extends React.Component {
     super(props);
 
     modalStore.listen(this.storeUpdated.bind(this));
-    let defaultState = modalStore.getState();
+    const defaultState = modalStore.getState();
     this.state = {
       layerInfo: defaultState.modalLayerInfo
     };
   }
 
   storeUpdated () {
-    let currentState = modalStore.getState();
+    const currentState = modalStore.getState();
     this.setState({ layerInfo: currentState.modalLayerInfo });
   }
 
@@ -26,6 +26,9 @@ export default class ModalWrapper extends React.Component {
   }
 
   render() {
+    const {theme, children} = this.props;
+    const contentClass = `modal-content custom-scroll ${theme ? theme : ''}`;
+
     return (
       <div className='modal-container'>
         <div className='modal-background' onClick={::this.close} />
@@ -33,8 +36,8 @@ export default class ModalWrapper extends React.Component {
           <div title='close' className='close-icon pointer' onClick={::this.close} >
             <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
           </div>
-            <div className='modal-content custom-scroll'>
-              {this.props.children}
+            <div className={contentClass}>
+              {children}
             </div>
         </article>
       </div>

@@ -44,13 +44,15 @@ export default {
         _cache[layer.id] = results;
         promise.resolve(results);
       });
-    } else {
+    } else if (layer.esriLayer) {
       const {esriLayer, subIndex, subId} = layer;
       url = `${esriLayer.url}/${subIndex}`;
       getServiceInfoTask(url, {f: 'json'}).then(results => {
         _cache[subId] = results;
         promise.resolve(results);
       });
+    } else {
+      promise.resolve();
     }
     return promise;
   }

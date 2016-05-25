@@ -41,8 +41,8 @@ const configureApp = () => {
 const lazyloadAssets = () => {
   loadCSS('http://fonts.googleapis.com/css?family=Fira+Sans:400,500,300');
   loadCSS(`css/app.css?${window._versions.cache}`);
-  loadCSS(`https://js.arcgis.com/${window._versions.esri}/esri/themes/calcite/dijit/calcite.css`);
-  loadCSS(`https://js.arcgis.com/${window._versions.esri}/esri/themes/calcite/esri/esri.css`);
+  loadCSS(`https://js.arcgis.com/${window._versions.esri}/dijit/themes/tundra/tundra.css`);
+  loadCSS(`https://js.arcgis.com/${window._versions.esri}/esri/css/esri.css`);
   loadJS(assetUrls.highcharts).then(() => {
     //- Set default Options for Highcharts
     Highcharts.setOptions({

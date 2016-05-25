@@ -146,7 +146,7 @@ export default class Map extends Component {
     settings.layers[language] = settings.layers[language].filter((layer) => layer.groupKey !== layerKeys.GROUP_WEBMAP);
     // Add the layers to the webmap group
     operationalLayers.forEach((layer) => {
-      if (layer.layerType === 'ArcGISMapServiceLayer') {
+      if (layer.layerType === 'ArcGISMapServiceLayer' && layer.resourceInfo.layers) {
         layer.resourceInfo.layers.forEach((sublayer) => {
           const visible = layer.layerObject.visibleLayers.indexOf(sublayer.id) > -1;
           const scaleDependency = (sublayer.minScale > 0 || sublayer.maxScale > 0);

@@ -5,7 +5,7 @@ export default {
   //- NOTE: New Forest Atlas 2.0 Options, These are the raw values coming from ArcGIS Online from
 
   //- General Settings
-  webmap: '4cb677b6056d4662aabc8611bc3c47cd', // 'de85e3fcc07948238aa6c1afd2a4ceb0',
+  webmap: 'de85e3fcc07948238aa6c1afd2a4ceb0', // 'de85e3fcc07948238aa6c1afd2a4ceb0',
   title: 'GFW Mapbuilder',
   subtitle: 'Make maps that matter',
   logoUrl: './css/images/gfw-logo.png',
