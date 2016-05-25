@@ -32,7 +32,8 @@ const config = {
   },
 
   urls: {
-    liveSite: 'http://wri.github.io/gfw-mapbuilder/'
+    liveSite: 'http://wri.github.io/gfw-mapbuilder/',
+    metadataApi: 'http://api.globalforestwatch.org/metadata'
   },
 
   upload: {

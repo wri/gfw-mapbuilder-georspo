@@ -19,12 +19,18 @@ class ModalStore {
   }
 
   showLayerInfo (layer) {
-    const info = layerInfoCache.get(layer.id);
+    // Grab the id of the sublayer if it exists, else, grab the normal id
+    const id = layer.subId ? layer.subId : layer.id;
+    const info = layerInfoCache.get(id);
     if (info) {
       domClass.remove('layer-modal', 'hidden');
       this.modalLayerInfo = info;
     } else {
-      console.log(layer);
+      layerInfoCache.fetch(layer).then(layerInfo => {
+        domClass.remove('layer-modal', 'hidden');
+        this.modalLayerInfo = layerInfo;
+        this.emitChange();
+      });
     }
   }
 
