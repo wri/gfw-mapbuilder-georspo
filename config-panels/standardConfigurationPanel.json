@@ -60,12 +60,12 @@
 			"placeholder": "Land Use"
 		},
 		{
-			"type": "string",
-			"fieldName": "logoUrl",
-			"label": "Enter the url to your application logo",
-			"tooltip": "Make sure this is a publicly available url",
-			"placeholder": "e.g. https://www.organization.org/logo.png"
-		},
+      "type": "string",
+      "fieldName": "logoUrl",
+      "label": "Enter the url to your application logo (image should have equal height and width between 60px and 240px)",
+      "tooltip": "Make sure this is a publicly available url",
+      "placeholder": "e.g. https://www.company.com/logo.png"
+    },
 		{
 			"type": "string",
 			"fieldName": "logoLinkUrl",
@@ -124,9 +124,11 @@
 			}]
 		},
 		{
-			"type": "webmap",
-			"fieldName": "alternativeWebmap"
-		},
+      "type": "string",
+      "fieldName": "alternativeWebmap",
+      "tooltip": "This should mirror the other webmap configured, but with services in the alternative language",
+      "label": "Enter an alternate Web Map Id, this will be activated when the language is changed in the app"
+    },
 		{
 			"type": "string",
 			"fieldName": "alternativeLanguageTitle",
