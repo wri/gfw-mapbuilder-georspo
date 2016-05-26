@@ -2,25 +2,35 @@
   "configurationSettings": [],
   "values": {
     "webmap": "de85e3fcc07948238aa6c1afd2a4ceb0",
+    "language": "en",
     "title": "GFW Mapbuilder",
     "subtitle": "Make maps that matter",
+    "narrative": "",
+    "webmapMenuName": "Land Use",
     "logoUrl": "http://my.gfw-mapbuilder.org.s3.amazonaws.com/v1.0beta/css/images/gfw-logo.png",
     "logoLinkUrl": "http://www.gfw-mapbuilder.org",
+    "aboutLinkUrl": "",
+    "downloadLinkUrl": "",
 
-    "mapThemeIds": "",
-    "mapThemes": "",
-
-    "language": "en",
     "useAlternativeLanguage": true,
     "alternativeLanguage": "fr",
+    "alternativeWebmap": "de85e3fcc07948238aa6c1afd2a4ceb0",
     "alternativeLanguageTitle": "GFW Mapbuilder",
     "alternativeLanguageSubtitle": "Application subtitle",
+    "alternativeNarrative": "",
     "alternativeMapThemes": "",
+    "alternativeWebmapMenuName": "",
 
-    "iso": "",
     "activeFires": true,
     "intactForests": true,
     "aboveGroundBiomass": true,
-    "landCover": true
+    "landCover": true,
+
+    "iso": "",
+    "mapThemeIds": "",
+    "mapThemes": "",
+    "analyticsCode": "",
+    "includeSubscribeButton": false,
+    "includeMyGFWLogin": false
   }
 }
