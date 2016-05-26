@@ -25,11 +25,11 @@ export default class SearchModal extends Component {
     map: PropTypes.object.isRequired
   };
 
-  // state = {
-  //   suggestions: []
-  // };
-
   componentDidMount() {
+    this.createSearchWidget();
+  }
+
+  createSearchWidget = () => {
     let {language} = this.context;
     let searchLayer;
     searchStore = new Memory({ data: [] });
@@ -43,6 +43,7 @@ export default class SearchModal extends Component {
         searchLayer = webmapInfo.operationalLayers.filter((layer) => {
           return layer.id.search(`_${language}`) > -1;
         })[0];
+
         const {target, keyCode} = evt;
         if (searchLayer && searchLayer.url && target.value !== '' && keyCode !== 13) {
           if (currentPromise && !currentPromise.isResolved()) {
@@ -107,7 +108,7 @@ export default class SearchModal extends Component {
       }
     }, 'search-widget');
     searchDijit.startup();
-  }
+  };
 
   generateEsriPopupContent = (info, feature) => {
     //- Esri Wrapper class - Content class - Table class - Label class - Field class

@@ -19,7 +19,7 @@
     }, {
       "type": "string",
       "fieldName": "logoUrl",
-      "label": "Enter the url to your application logo",
+      "label": "Enter the url to your application logo (image should have equal height and width between 60px and 240px)",
       "tooltip": "Make sure this is a publicly available url",
       "placeholder": "e.g. https://www.company.com/logo.png"
     }, {
@@ -108,8 +108,10 @@
       "tooltip": "This will allow the application to toggle to an alternative language",
       "label": "Would you like include an additional language"
     }, {
-      "type": "webmap",
-      "fieldName": "alternativeWebmap"
+      "type": "string",
+      "fieldName": "alternativeWebmap",
+      "tooltip": "This should mirror the other webmap configured, but with services in the alternative language",
+      "label": "Enter an alternate Web Map Id, this will be activated when the language is changed in the app"
     },{
       "type": "options",
       "fieldName": "alternativeLanguage",

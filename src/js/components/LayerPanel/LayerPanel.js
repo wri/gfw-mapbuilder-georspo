@@ -11,6 +11,7 @@ import LayerKeys from 'constants/LayerConstants';
 import basemapUtils from 'utils/basemapUtils';
 import basemaps from 'esri/basemaps';
 import utils from 'utils/AppUtils';
+import text from 'js/languages';
 import React, {
   Component,
   PropTypes
@@ -37,6 +38,7 @@ export default class LayerPanel extends Component {
   };
 
   renderBasemapGroup = (extraBasemaps) => {
+    const {language} = this.context;
     const {basemap} = this.props;
     let basemapLayers = [];
     if (basemaps) {
@@ -94,7 +96,7 @@ export default class LayerPanel extends Component {
     }
 
     return (
-      <BasemapGroup label='Basemap' activeTOCGroup={this.props.activeTOCGroup}>
+      <BasemapGroup label={text[language].BASEMAP} activeTOCGroup={this.props.activeTOCGroup}>
         {basemapLayers}
       </BasemapGroup>
     );

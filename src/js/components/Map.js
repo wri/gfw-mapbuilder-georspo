@@ -33,12 +33,14 @@ export default class Map extends Component {
   };
 
   static childContextTypes = {
+    activeWebmap: PropTypes.string,
     webmapInfo: PropTypes.object,
     map: PropTypes.object
   };
 
   getChildContext = () => {
     return {
+      activeWebmap: this.props.activeWebmap,
       webmapInfo: this.state.webmapInfo,
       map: this.state.map
     };

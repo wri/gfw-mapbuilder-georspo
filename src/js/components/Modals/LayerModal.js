@@ -41,7 +41,7 @@ export default class Modal extends Component {
             </div>
           }
           {!info.learn_more ? null :
-            <div className='flex'>
+            <div className='source-learn-more flex'>
               <a href={info.learn_more} className='source-learn-more-link fa-button white' target='_blank'>
                 {text[language].LEARN_MORE}
               </a>
@@ -69,6 +69,7 @@ export default class Modal extends Component {
         </div>
         <div className='source-table'>
           {this.tableMap(text[language].DESCRIPTION, info.description || text[language].NO_INFO)}
+          {this.tableMap(text[language].CITATION, info.copyrightText || text[language].NO_INFO)}
         </div>
       </div>
     );
@@ -92,7 +93,7 @@ export default class Modal extends Component {
     const {info} = this.props;
     const theme = info && info.download_data ? '' : 'no-download';
     const content = !info ? <div className='no-info-available'>{text[language].NO_INFO}</div> :
-      (info.currentVersion ?
+      (info.title ?
         this.renderFromMapService(info) :
         this.renderFromMetadataAPI(info)
       );

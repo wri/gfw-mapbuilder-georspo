@@ -9,11 +9,10 @@ import React, {
 
 const drawSvg = '<use xlink:href="#icon-analysis-draw" />';
 
-let toolbar;
-
 export default class DrawTools extends Component {
 
   static contextTypes = {
+    activeWebmap: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     map: PropTypes.object.isRequired
   };
@@ -27,20 +26,32 @@ export default class DrawTools extends Component {
 
   componentWillReceiveProps() {
     const {map} = this.context;
-    if (!toolbar && map.loaded) {
-      toolbar = new Draw(map);
-      toolbar.on('draw-end', (evt) => {
-        toolbar.deactivate();
-        this.setState({ drawButtonActive: false });
-        const graphic = geometryUtils.generateDrawnPolygon(evt.geometry);
-        map.graphics.add(graphic);
-        map.infoWindow.setFeatures([graphic]);
-      });
+    if (!this.toolbar && map.loaded) {
+      this.createToolbar(map);
     }
   }
 
+  componentDidUpdate(prevProps, prevState, prevContext) {
+    const {map} = this.context;
+    if (prevContext.map !== map && map.loaded) {
+      // delete here and let willReceiveProps recreate it
+      delete this.toolbar;
+    }
+  }
+
+  createToolbar = (map) => {
+    this.toolbar = new Draw(map);
+    this.toolbar.on('draw-end', (evt) => {
+      this.toolbar.deactivate();
+      this.setState({ drawButtonActive: false });
+      const graphic = geometryUtils.generateDrawnPolygon(evt.geometry);
+      map.graphics.add(graphic);
+      map.infoWindow.setFeatures([graphic]);
+    });
+  };
+
   draw = () => {
-    toolbar.activate(Draw.FREEHAND_POLYGON);
+    this.toolbar.activate(Draw.FREEHAND_POLYGON);
     this.setState({ drawButtonActive: true });
     //- If the analysis modal is visible, hide it
     mapActions.toggleAnalysisModal({ visible: false });

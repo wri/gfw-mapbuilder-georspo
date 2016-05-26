@@ -5,15 +5,15 @@ import React, {
   PropTypes
 } from 'react';
 
-let closeSymbolCode = 9660,
+const closeSymbolCode = 9660,
     openSymbolCode = 9650;
 
 export default class BasemapGroup extends Component {
 
   render() {
-    let {activeTOCGroup, label} = this.props;
-    let active = activeTOCGroup === layerKeys.GROUP_BASEMAP;
-    let styles = { display: active ? 'block' : 'none' };
+    const {activeTOCGroup, label} = this.props;
+    const active = activeTOCGroup === layerKeys.GROUP_BASEMAP;
+    const styles = { display: active ? 'block' : 'none' };
 
     return (
       <div className='layer-category'>

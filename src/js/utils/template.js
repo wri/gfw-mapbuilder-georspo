@@ -164,6 +164,16 @@ export default {
         //- Put the appid in settings so its easy to get to elsewhere in the app without rereading the url
         resources.appid = appid;
 
+        //- We do not want to show the about or download link if they are not configured in AGOL, but we do
+        //- if there are no agolValues or there is no appid, so remove those here if applicable
+        if (!agolValues.aboutLinkUrl) {
+          resources.aboutLinkUrl = '';
+        }
+
+        if (!agolValues.downloadLinkUrl) {
+          resources.downloadLinkUrl = '';
+        }
+
         //- Format the resources before resolving
         formatResources();
         promise.resolve(resources);
