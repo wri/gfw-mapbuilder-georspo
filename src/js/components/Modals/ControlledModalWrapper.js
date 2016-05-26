@@ -6,6 +6,7 @@ const closeSvg = '<use xlink:href="#shape-close" />';
 * Should be wrapped in a component with relative or absolute position
 */
 export default function ControlledModalWrapper (props) {
+  const contentClass = `modal-content custom-scroll ${props.theme ? props.theme : ''}`;
   return (
     <div className='modal-container'>
       <div className='modal-background' onClick={props.onClose} />
@@ -13,7 +14,7 @@ export default function ControlledModalWrapper (props) {
         <div title='close' className='close-icon pointer' onClick={props.onClose} >
           <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
         </div>
-          <div className='modal-content custom-scroll'>
+          <div className={contentClass}>
             {props.children}
           </div>
       </article>
@@ -22,5 +23,6 @@ export default function ControlledModalWrapper (props) {
 }
 
 ControlledModalWrapper.propTypes = {
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  theme: PropTypes.string
 };

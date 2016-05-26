@@ -7,6 +7,7 @@ class AppStore {
 
     this.language = 'en';
     this.settings = {};
+    this.activeWebmap = undefined;
 
     this.bindListeners({
       setLanguage: appActions.setLanguage,
@@ -17,11 +18,14 @@ class AppStore {
 
   setLanguage (language) {
     this.language = language;
+    // If were using the default language, use the default webmap, else use the alternativeWebmap
+    this.activeWebmap = language === this.settings.language ? this.settings.webmap : this.settings.alternativeWebmap;
   }
 
   applySettings (settings) {
     this.settings = settings;
     this.language = settings.language;
+    this.activeWebmap = settings.webmap;
   }
 
 }

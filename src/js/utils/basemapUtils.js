@@ -26,7 +26,6 @@ export default {
   * arcgis layers, just call setBasemap, this will unhide the layer if necessary
   */
   updateBasemap (map, basemap, customBasemaps) {
-
     //- Remove custom basemap layer if it exists
     if (customBasemapLayer) {
       map.removeLayer(customBasemapLayer);
@@ -124,16 +123,17 @@ export default {
         }
       });
 
-      //- Certain basemaps can cause issues with layer ordering and other things,
-      //- remove them here, if the default layer is a WRI Basemap, make that update
+      //- Basemaps can cause issues with layer ordering and other things,
+      //- remove them here and readd them above in updateBasemap
       basemapLayers.forEach(bm => map.removeLayer(bm.layerObject));
     }
 
     //- Set the default basemap, this will trigger an update from the LayerPanel
     //- It listens for changes to the basemap in the store, and then triggers updateBasemap above
-
     if (arcgisBasemap) {
-      this.arcgisBasemaps.push(arcgisBasemap);
+      if (this.arcgisBasemaps.indexOf(arcgisBasemap) === -1) {
+        this.arcgisBasemaps.push(arcgisBasemap);
+      }
       mapActions.changeBasemap(arcgisBasemap);
     } else if (wriName) {
       mapActions.changeBasemap(wriName);

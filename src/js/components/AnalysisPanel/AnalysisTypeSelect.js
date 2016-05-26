@@ -39,7 +39,8 @@ export default class AnalysisTypeSelect extends Component {
     });
     //- Merge in the restoration options if the module is enabled
     if (settings.restorationModule) {
-      settings.restorationModuleOptions.forEach((restorationOption) => {
+      const options = settings.labels[language].restorationOptions;
+      options.forEach((restorationOption) => {
         this.options.unshift({
           value: restorationOption.id,
           label: restorationOption.label,

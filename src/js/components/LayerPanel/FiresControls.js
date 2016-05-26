@@ -1,33 +1,31 @@
-import {layerActions} from 'actions/LayerActions';
+import layerActions from 'actions/LayerActions';
 import LayersHelper from 'helpers/LayersHelper';
 import {layerPanelText} from 'js/config';
-import React from 'react';
+import React, {PropTypes} from 'react';
 
-let firesOptions = layerPanelText.firesOptions;
+const firesOptions = layerPanelText.firesOptions;
 
 export default class FiresControls extends React.Component {
 
-  componentDidUpdate(prevProps) {
+  static contextTypes = {
+    map: PropTypes.object.isRequired
+  };
+
+  componentDidUpdate(prevProps, prevState, prevContext) {
+    const value = firesOptions[this.props.firesSelectIndex].value;
+
     if (prevProps.firesSelectIndex !== this.props.firesSelectIndex) {
-      LayersHelper.updateFiresLayerDefinitions(this.props.firesSelectIndex);
+      LayersHelper.updateFiresLayerDefinitions(value);
     }
-  }
 
-  componentWillReceiveProps(nextProps) {
-    // Set the default layer definition when the map has been loaded
-    if (!this.props.loaded && nextProps.loaded) {
-      LayersHelper.updateFiresLayerDefinitions(nextProps.firesSelectIndex);
+    // Anytime the map changes to a new map, update that here
+    const {map} = this.context;
+    if (prevContext.map !== map) {
+      const signal = map.on('update-end', () => {
+        signal.remove();
+        LayersHelper.updateFiresLayerDefinitions(value);
+      });
     }
-  }
-
-  render () {
-    let activeItem = firesOptions[this.props.firesSelectIndex];
-    return <div className='timeline-container relative fires'>
-      <select className='pointer' value={activeItem.value} onChange={this.changeFiresTimeline}>
-        {firesOptions.map(this.optionsMap, this)}
-      </select>
-      <div className='active-fires-control fa-button sml white'>{activeItem.label}</div>
-    </div>;
   }
 
   optionsMap (item, index) {
@@ -36,6 +34,19 @@ export default class FiresControls extends React.Component {
 
   changeFiresTimeline (evt) {
     layerActions.changeFiresTimeline(evt.target.selectedIndex);
+  }
+
+  render () {
+    const activeItem = firesOptions[this.props.firesSelectIndex];
+
+    return (
+      <div className='timeline-container relative fires'>
+        <select className='pointer' value={activeItem.value} onChange={this.changeFiresTimeline}>
+          {firesOptions.map(this.optionsMap, this)}
+        </select>
+        <div className='active-fires-control fa-button sml white'>{activeItem.label}</div>
+      </div>
+    );
   }
 
 }

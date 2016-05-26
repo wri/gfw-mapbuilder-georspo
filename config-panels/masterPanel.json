@@ -2,7 +2,8 @@
   "configurationSettings": [{
     "category": "General Settings",
     "fields": [{
-      "type": "webmap"
+      "type": "webmap",
+      "fieldName": "webmap"
     }, {
       "type": "string",
       "fieldName": "title",
@@ -97,7 +98,9 @@
       "options": [
         { "value": "en", "label": "English" },
         { "value": "fr", "label": "French" },
-        { "value": "es", "label": "Spanish" }
+        { "value": "es", "label": "Spanish" },
+        { "value": "id", "label": "Indonesian" },
+        { "value": "zh", "label": "Chinese" }
       ]
     }, {
       "type": "boolean",
@@ -105,6 +108,9 @@
       "tooltip": "This will allow the application to toggle to an alternative language",
       "label": "Would you like include an additional language"
     }, {
+      "type": "webmap",
+      "fieldName": "alternativeWebmap"
+    },{
       "type": "options",
       "fieldName": "alternativeLanguage",
       "tooltip": "The alternative language to use in your application",
@@ -113,7 +119,9 @@
       "options": [
         { "value": "fr", "label": "French" },
         { "value": "en", "label": "English" },
-        { "value": "es", "label": "Spanish" }
+        { "value": "es", "label": "Spanish" },
+        { "value": "id", "label": "Indonesian" },
+        { "value": "zh", "label": "Chinese" }
       ]
     }, {
       "type": "string",
@@ -226,6 +234,12 @@
       "placeholder": "e.g. Potential for ...;Two Restoration options ...;Three or more ..."
     }, {
       "type": "string",
+      "fieldName": "alternativeSlopePotentialOptions",
+      "tooltip": "This should be configured as Raster #5 in the above Image Server",
+      "label": "Same slope restoration options (Raster $5) as directly above but for an additional language if configured",
+      "placeholder": "e.g. Potential for ...;Two Restoration options ...;Three or more ..."
+    }, {
+      "type": "string",
       "fieldName": "slopePotentialColors",
       "tooltip": "This should have the same number of entries as above",
       "label": "Enter a semi-colon separated list of the colors (RGB Format) you want to represent your above Slope Restoration Options",
@@ -235,6 +249,12 @@
       "fieldName": "restorationOptions",
       "tooltip": "These show up under Restoration potential for ...",
       "label": "Enter a semi-colon separated list of restoration analysis options.",
+      "placeholder": "establishing natural forest;restocking degraded natural forest;agri-silviculture..."
+    }, {
+      "type": "string",
+      "fieldName": "alternativeRestorationOptions",
+      "tooltip": "These show up under Restoration potential for ...",
+      "label": "Same restoration analysis options as directly above but for an additional language if configured.",
       "placeholder": "establishing natural forest;restocking degraded natural forest;agri-silviculture..."
     }, {
       "type": "string",
@@ -272,7 +292,7 @@
   "values": {
     "webmap": "de85e3fcc07948238aa6c1afd2a4ceb0",
     "title": "GFW Mapbuilder",
-    "subtitle": "Application subtitle",
+    "subtitle": "Make maps that matter",
     "logoUrl": "http://my.gfw-mapbuilder.org.s3.amazonaws.com/v1.0beta/css/images/gfw-logo.png",
     "logoLinkUrl": "http://www.gfw-mapbuilder.org",
     "aboutLinkUrl": "http://www.gfw-mapbuilder.org",

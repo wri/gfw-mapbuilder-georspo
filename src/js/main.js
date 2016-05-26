@@ -1,6 +1,5 @@
 /* eslint no-unused-vars: 0 */
 import App from 'components/App';
-import LayerModal from 'components/Modals/LayerModal';
 import ShareModal from 'components/Modals/ShareModal';
 import IdentityManager from 'esri/IdentityManager';
 import {corsServers, assetUrls} from 'js/config';
@@ -41,8 +40,8 @@ const configureApp = () => {
 const lazyloadAssets = () => {
   loadCSS('http://fonts.googleapis.com/css?family=Fira+Sans:400,500,300');
   loadCSS(`css/app.css?${window._versions.cache}`);
-  loadCSS(`https://js.arcgis.com/${window._versions.esri}/esri/themes/calcite/dijit/calcite.css`);
-  loadCSS(`https://js.arcgis.com/${window._versions.esri}/esri/themes/calcite/esri/esri.css`);
+  loadCSS(`https://js.arcgis.com/${window._versions.esri}/dijit/themes/tundra/tundra.css`);
+  loadCSS(`https://js.arcgis.com/${window._versions.esri}/esri/css/esri.css`);
   loadJS(assetUrls.highcharts).then(() => {
     //- Set default Options for Highcharts
     Highcharts.setOptions({
@@ -62,7 +61,6 @@ const lazyloadAssets = () => {
 
 const initializeApp = () => {
   ReactDOM.render(<App />, document.getElementById('root'));
-  ReactDOM.render(<LayerModal />, document.getElementById('layer-modal'));
   ReactDOM.render(<ShareModal />, document.getElementById('share-modal'));
 };
 

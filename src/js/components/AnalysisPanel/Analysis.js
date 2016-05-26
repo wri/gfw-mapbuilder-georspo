@@ -148,7 +148,7 @@ export default class Analysis extends Component {
         const {counts} = results;
         labels = counts.map((v, index) => text[language].ANALYSIS_SLOPE_OPTION + (index + 1));
         colors = settings.slopeAnalysisPotentialColors;
-        const tooltips = settings.slopeAnalysisPotentialOptions;
+        const tooltips = settings.labels[language].slopeAnalysisPotentialOptions;
         //- Need a new chart to handle these values correctly
         return <SlopeBarChart counts={counts} colors={colors} labels={labels} tooltips={tooltips} />;
       default:
@@ -160,11 +160,21 @@ export default class Analysis extends Component {
   render () {
     const {selectedFeature, activeAnalysisType, canopyDensity, activeSlopeClass} = this.props;
     const {results, isLoading} = this.state;
-    const {language} = this.context;
-    let chart, title;
+    const {language, settings} = this.context;
+    let chart, title, slopeSelect;
 
+    // If we have results, show a chart
     if (results) {
       chart = this.renderResults(activeAnalysisType, results, language);
+    }
+
+    // If we have the restoration module, add in the slope select
+    if (settings.restorationModule) {
+      slopeSelect = (
+        <div className={`analysis-results__density-display ${activeAnalysisType === analysisKeys.SLOPE ? '' : 'hidden'}`}>
+          <SlopeSelect activeSlopeClass={activeSlopeClass}/>
+        </div>
+      );
     }
 
     const showDensityDisplay = (
@@ -201,9 +211,7 @@ export default class Analysis extends Component {
           <div className={`analysis-results__density-display ${showDensityDisplay ? '' : 'hidden'}`}>
             <DensityDisplay canopyDensity={canopyDensity} />
           </div>
-          <div className={`analysis-results__density-display ${activeAnalysisType === analysisKeys.SLOPE ? '' : 'hidden'}`}>
-            <SlopeSelect activeSlopeClass={activeSlopeClass}/>
-          </div>
+          {slopeSelect}
           {chart}
         </div>
         <div className='analysis-results__footer'>

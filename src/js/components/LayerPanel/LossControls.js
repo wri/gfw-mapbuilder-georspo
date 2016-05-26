@@ -4,7 +4,7 @@ import layerKeys from 'constants/LayerConstants';
 import rasterFuncs from 'utils/rasterFunctions';
 import React, { Component, PropTypes } from 'react';
 
-let lossOptions = [];
+const lossOptions = [];
 
 export default class LossControls extends Component {
   static contextTypes = {
@@ -14,16 +14,16 @@ export default class LossControls extends Component {
   };
 
   componentDidMount () {
-    let url = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear/ImageServer';
+    const url = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear/ImageServer';
     layerUtils.getLayerMetadata(url).then((results) => {
-      let min = results.minValues[0];
-      let max = results.maxValues[0];
+      const min = results.minValues[0];
+      const max = results.maxValues[0];
       for ( let i = min; i <= max; i++ ) {
         lossOptions.push({ label: 2000 + i + '', value: i });
       }
       //- Update the defaults to be the last year
       layerActions.updateLossTimeline({
-        fromSelectedIndex: lossOptions.length - 2,
+        fromSelectedIndex: 0,
         toSelectedIndex: lossOptions.length - 1
       });
       //- Set the options in the store so others can use it
@@ -31,21 +31,33 @@ export default class LossControls extends Component {
     });
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate (prevProps, prevState, prevContext) {
     //- If the options are ready and something has changed
-    let {lossFromSelectIndex, lossToSelectIndex, canopyDensity} = this.props;
+    const {lossFromSelectIndex, lossToSelectIndex, canopyDensity} = this.props;
+    const {map} = this.context;
+
     if (this.props.lossOptions.length &&
         (prevProps.lossFromSelectIndex !== lossFromSelectIndex ||
         prevProps.lossToSelectIndex !== lossToSelectIndex ||
         prevProps.canopyDensity !== canopyDensity)
     ) {
-      let layer = this.context.map.getLayer(layerKeys.TREE_COVER_LOSS);
-      let fromYear = lossOptions[lossFromSelectIndex].label;
-      let toYear = lossOptions[lossToSelectIndex].label;
-      let renderingRule = rasterFuncs.buildCanopyFunction(fromYear, toYear, canopyDensity);
-      if (layer) {
-        layer.setRenderingRule(renderingRule);
-      }
+      this.updateLayer(map.getLayer(layerKeys.TREE_COVER_LOSS), lossFromSelectIndex, lossToSelectIndex, canopyDensity);
+    }
+
+    if (prevContext.map !== map) {
+      const signal = map.on('update-end', () => {
+        signal.remove();
+        this.updateLayer(map.getLayer(layerKeys.TREE_COVER_LOSS), lossFromSelectIndex, lossToSelectIndex, canopyDensity);
+      });
+    }
+  }
+
+  updateLayer (layer, fromIndex, toIndex, density) {
+    const fromYear = lossOptions[fromIndex].label;
+    const toYear = lossOptions[toIndex].label;
+    const renderingRule = rasterFuncs.buildCanopyFunction(fromYear, toYear, density);
+    if (layer) {
+      layer.setRenderingRule(renderingRule);
     }
   }
 
@@ -54,8 +66,8 @@ export default class LossControls extends Component {
       return <div className='timeline-container loss flex'>loading...</div>;
     }
 
-    let fromItem = lossOptions[this.props.lossFromSelectIndex];
-    let toItem = lossOptions[this.props.lossToSelectIndex];
+    const fromItem = lossOptions[this.props.lossFromSelectIndex];
+    const toItem = lossOptions[this.props.lossToSelectIndex];
 
     return (
       <div className='timeline-container loss flex'>
@@ -79,10 +91,10 @@ export default class LossControls extends Component {
   optionsMap (selectType) {
     // Disable options in the 'from' select that are greater than the selected value in the 'to' select
     // and vice versa, disable 'to' options less than the selected value in the 'from' select
-    let fromMax = lossOptions[this.props.lossToSelectIndex].value;
-    let toMin = lossOptions[this.props.lossFromSelectIndex].value;
+    const fromMax = lossOptions[this.props.lossToSelectIndex].value;
+    const toMin = lossOptions[this.props.lossFromSelectIndex].value;
     return (item, index) => {
-      let disabled = selectType === 'from' ? item.value >= fromMax : item.value <= toMin;
+      const disabled = selectType === 'from' ? item.value >= fromMax : item.value <= toMin;
       return <option key={index} value={item.value} disabled={disabled}>{item.label}</option>;
     };
   }

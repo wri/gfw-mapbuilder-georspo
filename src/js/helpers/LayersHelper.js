@@ -1,3 +1,5 @@
+import layerKeys from 'constants/LayerConstants';
+
 const LayersHelper = {
 
   /**
@@ -27,17 +29,15 @@ const LayersHelper = {
   * @param {number} optionIndex - Index of the selected option in the UI, see js/config
   * @param {boolean} dontRefresh - Whether or not to not fetch a new image
   */
-  updateFiresLayerDefinitions (optionIndex, dontRefresh) {
-    return;
-    // let value = layerPanelText.firesOptions[optionIndex].value || 1; // 1 is the default value, means last 24 hours
-    // let queryString = this.generateFiresQuery(value);
-    // let firesLayer = brApp.map.getLayer(layerKeys.ACTIVE_FIRES);
-    // let defs = [];
-    //
-    // if (firesLayer) {
-    //   firesLayer.visibleLayers.forEach(val => { defs[val] = queryString; });
-    //   firesLayer.setLayerDefinitions(defs, dontRefresh);
-    // }
+  updateFiresLayerDefinitions (value, dontRefresh) {
+    const queryString = this.generateFiresQuery(value);
+    const firesLayer = brApp.map.getLayer(layerKeys.ACTIVE_FIRES);
+    const defs = [];
+
+    if (firesLayer) {
+      firesLayer.visibleLayers.forEach(val => { defs[val] = queryString; });
+      firesLayer.setLayerDefinitions(defs, dontRefresh);
+    }
   },
 
   /**

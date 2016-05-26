@@ -55,12 +55,12 @@ export default class SearchModal extends Component {
             results.forEach((result) => {
               data.push({
                 id: result.feature.attributes.OBJECTID || result.feature.attributes.objectid,
-                name: result.value,
+                name: `${result.value} [${result.layerName}]`,
                 layerId: result.layerId,
                 layerName: result.layerName
               });
-              searchDijit.store.setData(data);
             });
+            searchDijit.store.setData(data);
           });
         }
       },

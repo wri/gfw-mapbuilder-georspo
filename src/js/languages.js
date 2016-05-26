@@ -3,20 +3,8 @@ import analysisKeys from 'constants/AnalysisConstants';
 //- Embedded Icons
 const drawIcon = '<svg class="svg-icon"><use xlink:href="#icon-draw-upload" /></svg>';
 
-const strings = { en: {}, fr: {}, es: {}, pt: {}, id:{}, zh:{} };
+const strings = { en: {}, fr: {}, es: {}, pt: {}, id: {}, zh: {} };
 //- NOTE: English
-//- Layers
-// strings.en.LAND_COVER_LABEL = 'Land cover';
-// strings.en.ACTIVE_FIRES_LABEL = 'Active fires';
-// strings.en.ACTIVE_FIRES_SUB_LABEL = '(daily, 1km, global, NASA)';
-// strings.en.TREE_COVER_LABEL = 'Tree cover';
-// strings.en.TREE_COVER_SUB_LABEL = '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)';
-// strings.en.GAIN_LABEL = 'Tree cover gain';
-// strings.en.GAIN_SUB_LABEL = '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)';
-// strings.en.LOSS_LABEL = 'Tree cover loss';
-// strings.en.LOSS_SUB_LABEL = '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)';
-// strings.en.IFL_LABEL = 'Intact forest loss';
-// strings.en.CARBON_LABEL = 'Above ground biomass';
 //- Header
 strings.en.NAV_ABOUT = 'About';
 strings.en.NAV_DOWNLOAD = 'Download Data';
@@ -116,6 +104,22 @@ strings.en.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover
 strings.en.DENSITY_FIRST = 'Displaying';
 strings.en.DENSITY_SECOND = 'canopy density.';
 strings.en.SEARCH_WIDGET_TITLE = 'Search for feature:';
+//- Layer Info Modal
+strings.en.NO_INFO = 'No Information Available';
+strings.en.OVERVIEW = 'Overview';
+strings.en.CITATION = 'Citation';
+//- Case does not matter, css makes them all uppercase
+strings.en.FUNCTION = 'function';
+strings.en.RESOLUTION = 'resolution';
+strings.en.GEO_COVERAGE = 'geographic coverage';
+strings.en.SOURCE = 'source';
+strings.en.FREQUENCY = 'frequency';
+strings.en.CONTENT_DATE = 'date of content';
+strings.en.CAUTIONS = 'cautions';
+strings.en.LICENSE = 'license';
+strings.en.LEARN_MORE = 'learn More';
+strings.en.DOWNLOAD_DATA = 'download data';
+strings.en.DESCRIPTION = 'description';
 
 //- Miscellaneous
 strings.en.PRINT_BUTTON_LABEL = 'Choose a print template';
@@ -244,6 +248,22 @@ strings.fr.CANOPY_MODAL_TEXT = 'Ajuster la densité minimum de la canopée pour 
 strings.fr.DENSITY_FIRST = 'Affichage';
 strings.fr.DENSITY_SECOND = 'Densité de la canopée.';
 strings.fr.SEARCH_WIDGET_TITLE = 'Recherche de polygones:';
+//- Layer Info Modal
+strings.fr.NO_INFO = 'No Information Available';
+strings.fr.OVERVIEW = 'Overview';
+strings.fr.CITATION = 'Citation';
+//- Case does not matter, css makes them all uppercase
+strings.fr.FUNCTION = 'function';
+strings.fr.RESOLUTION = 'resolution';
+strings.fr.GEO_COVERAGE = 'geographic coverage';
+strings.fr.SOURCE = 'source';
+strings.fr.FREQUENCY = 'frequency';
+strings.fr.CONTENT_DATE = 'date of content';
+strings.fr.CAUTIONS = 'cautions';
+strings.fr.LICENSE = 'license';
+strings.fr.LEARN_MORE = 'learn More';
+strings.fr.DOWNLOAD_DATA = 'download data';
+strings.fr.DESCRIPTION = 'description';
 
 //- Miscellaneous
 strings.fr.PRINT_BUTTON_LABEL = 'Choisissez un gabarit d\'impression';
@@ -370,6 +390,22 @@ strings.es.CANOPY_MODAL_TEXT = 'Ajustar el mínimo densidad del follaje para la 
 strings.es.DENSITY_FIRST = 'Mostrando';
 strings.es.DENSITY_SECOND = 'densidad de follaje.';
 strings.es.SEARCH_WIDGET_TITLE = 'Buscar polígono:';
+//- Layer Info Modal
+strings.es.NO_INFO = 'No Information Available';
+strings.es.OVERVIEW = 'Overview';
+strings.es.CITATION = 'Citation';
+//- Case does not matter, css makes them all uppercase
+strings.es.FUNCTION = 'function';
+strings.es.RESOLUTION = 'resolution';
+strings.es.GEO_COVERAGE = 'geographic coverage';
+strings.es.SOURCE = 'source';
+strings.es.FREQUENCY = 'frequency';
+strings.es.CONTENT_DATE = 'date of content';
+strings.es.CAUTIONS = 'cautions';
+strings.es.LICENSE = 'license';
+strings.es.LEARN_MORE = 'learn More';
+strings.es.DOWNLOAD_DATA = 'download data';
+strings.es.DESCRIPTION = 'description';
 
 //- Miscellaneous
 strings.es.PRINT_BUTTON_LABEL = 'Elegir diseño de página';
@@ -496,6 +532,22 @@ strings.pt.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover
 strings.pt.DENSITY_FIRST = 'Displaying';
 strings.pt.DENSITY_SECOND = 'canopy density.';
 strings.pt.SEARCH_WIDGET_TITLE = 'Search for feature:';
+//- Layer Info Modal
+strings.pt.NO_INFO = 'No Information Available';
+strings.pt.OVERVIEW = 'Overview';
+strings.pt.CITATION = 'Citation';
+//- Case does not matter, css makes them all uppercase
+strings.pt.FUNCTION = 'function';
+strings.pt.RESOLUTION = 'resolution';
+strings.pt.GEO_COVERAGE = 'geographic coverage';
+strings.pt.SOURCE = 'source';
+strings.pt.FREQUENCY = 'frequency';
+strings.pt.CONTENT_DATE = 'date of content';
+strings.pt.CAUTIONS = 'cautions';
+strings.pt.LICENSE = 'license';
+strings.pt.LEARN_MORE = 'learn More';
+strings.pt.DOWNLOAD_DATA = 'download data';
+strings.pt.DESCRIPTION = 'description';
 
 //- Miscellaneous
 strings.pt.PRINT_BUTTON_LABEL = 'Choose a print template';
@@ -622,6 +674,22 @@ strings.id.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover
 strings.id.DENSITY_FIRST = 'Displaying';
 strings.id.DENSITY_SECOND = 'canopy density.';
 strings.id.SEARCH_WIDGET_TITLE = 'Search for feature:';
+//- Layer Info Modal
+strings.id.NO_INFO = 'No Information Available';
+strings.id.OVERVIEW = 'Overview';
+strings.id.CITATION = 'Citation';
+//- Case does not matter, css makes them all uppercase
+strings.id.FUNCTION = 'function';
+strings.id.RESOLUTION = 'resolution';
+strings.id.GEO_COVERAGE = 'geographic coverage';
+strings.id.SOURCE = 'source';
+strings.id.FREQUENCY = 'frequency';
+strings.id.CONTENT_DATE = 'date of content';
+strings.id.CAUTIONS = 'cautions';
+strings.id.LICENSE = 'license';
+strings.id.LEARN_MORE = 'learn More';
+strings.id.DOWNLOAD_DATA = 'download data';
+strings.id.DESCRIPTION = 'description';
 
 //- Miscellaneous
 strings.id.PRINT_BUTTON_LABEL = 'Choose a print template';
@@ -689,8 +757,8 @@ strings.zh.ANALYSIS_SHAPEFILE_UPLOAD = '或者在这里添加自定义地理信�
 strings.zh.ANALYSIS_SELECT_TYPE_LABEL = '选择分析方式：';
 //- Chart Labels in the Analysis
 strings.zh.ANALYSIS_TC_CHART_NAME = '森林覆盖损失（单位：公顷）';
-strings.zh.ANALYSIS_LCC_CHART_NAME = '土地覆盖组成'; 
-strings.zh.ANALYSIS_IFL_LABELS = ['原生森林'];  
+strings.zh.ANALYSIS_LCC_CHART_NAME = '土地覆盖组成';
+strings.zh.ANALYSIS_IFL_LABELS = ['原生森林'];
 strings.zh.ANALYSIS_FIRES_PRE = '共计';
 strings.zh.ANALYSIS_FIRES_ACTIVE = '活跃火点';
 strings.zh.ANALYSIS_FIRES_POST = '在过去7天里';
@@ -748,6 +816,22 @@ strings.zh.CANOPY_MODAL_TEXT = '对森林覆盖和森林覆盖损失图层调试
 strings.zh.DENSITY_FIRST = '显示中';
 strings.zh.DENSITY_SECOND = '林冠覆盖密度';
 strings.zh.SEARCH_WIDGET_TITLE = '搜寻特征：';
+//- Layer Info Modal
+strings.zh.NO_INFO = 'No Information Available';
+strings.zh.OVERVIEW = 'Overview';
+strings.zh.CITATION = 'Citation';
+//- Case does not matter, css makes them all uppercase
+strings.zh.FUNCTION = 'function';
+strings.zh.RESOLUTION = 'resolution';
+strings.zh.GEO_COVERAGE = 'geographic coverage';
+strings.zh.SOURCE = 'source';
+strings.zh.FREQUENCY = 'frequency';
+strings.zh.CONTENT_DATE = 'date of content';
+strings.zh.CAUTIONS = 'cautions';
+strings.zh.LICENSE = 'license';
+strings.zh.LEARN_MORE = 'learn More';
+strings.zh.DOWNLOAD_DATA = 'download data';
+strings.zh.DESCRIPTION = 'description';
 
 //- Miscellaneous
 strings.zh.PRINT_BUTTON_LABEL = '选择打印模板';
