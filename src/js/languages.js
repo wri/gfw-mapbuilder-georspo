@@ -5,6 +5,13 @@ const drawIcon = '<svg class="svg-icon"><use xlink:href="#icon-draw-upload" /></
 
 const strings = { en: {}, fr: {}, es: {}, pt: {}, id: {}, zh: {} };
 //- NOTE: English
+//- Supported Languages
+strings.en.LANG_EN = 'English';
+strings.en.LANG_FR = 'French';
+strings.en.LANG_ES = 'Spanish';
+strings.en.LANG_PT = 'Portugese';
+strings.en.LANG_ID = 'Indonesian';
+strings.en.LANG_ZH = 'Mandarin';
 //- Header
 strings.en.NAV_ABOUT = 'About';
 strings.en.NAV_DOWNLOAD = 'Download Data';
@@ -134,6 +141,7 @@ strings.en.MORE = 'More';
 strings.en.DELETE = 'Delete';
 strings.en.DOCUMENTS = 'Documents';
 
+strings.en.BASEMAP = 'Basemap';
 strings.en.SELECT_ALL = 'Select all';
 strings.en.CLEAR_ALL = 'Clear all';
 strings.en.LEGEND = 'Legend';
@@ -149,6 +157,13 @@ strings.en.TOOL_RESET = 'Reset';
 
 
 //- NOTE: French
+//- Supported Languages
+strings.fr.LANG_EN = 'English';
+strings.fr.LANG_FR = 'French';
+strings.fr.LANG_ES = 'Spanish';
+strings.fr.LANG_PT = 'Portugese';
+strings.fr.LANG_ID = 'Indonesian';
+strings.fr.LANG_ZH = 'Mandarin';
 //- Header
 strings.fr.NAV_ABOUT = 'A Propos';
 strings.fr.NAV_DOWNLOAD = 'Téléchargez les Données';
@@ -278,6 +293,7 @@ strings.fr.MORE = 'Plus';
 strings.fr.DELETE = 'Supprimer';
 strings.fr.DOCUMENTS = 'Documents';
 
+strings.fr.BASEMAP = 'Basemap';
 strings.fr.SELECT_ALL = 'Tout sélectionner';
 strings.fr.CLEAR_ALL = 'Tout effacer';
 strings.fr.LEGEND = 'Légende';
@@ -291,6 +307,13 @@ strings.fr.TOOL_TOGGLE = 'Basculer panneau';
 strings.fr.TOOL_RESET = 'Réinitialiser';
 
 //- NOTE: Spanish
+//- Supported Languages
+strings.es.LANG_EN = 'English';
+strings.es.LANG_FR = 'French';
+strings.es.LANG_ES = 'Spanish';
+strings.es.LANG_PT = 'Portugese';
+strings.es.LANG_ID = 'Indonesian';
+strings.es.LANG_ZH = 'Mandarin';
 //- Header
 strings.es.NAV_ABOUT = 'Acerca de';
 strings.es.NAV_DOWNLOAD = 'Descargar Datos';
@@ -420,6 +443,7 @@ strings.es.MORE = 'Más';
 strings.es.DELETE = 'Eliminar';
 strings.es.DOCUMENTS = 'Documentos';
 
+strings.es.BASEMAP = 'Basemap';
 strings.es.SELECT_ALL = 'Seleccionar Todo';
 strings.es.CLEAR_ALL = 'Borrar Todo';
 strings.es.LEGEND = 'Leyenda';
@@ -433,6 +457,13 @@ strings.es.TOOL_TOGGLE = 'Alternar Pane';
 strings.es.TOOL_RESET = 'Reajustar';
 
 //- NOTE: Portugese
+//- Supported Languages
+strings.pt.LANG_EN = 'English';
+strings.pt.LANG_FR = 'French';
+strings.pt.LANG_ES = 'Spanish';
+strings.pt.LANG_PT = 'Portugese';
+strings.pt.LANG_ID = 'Indonesian';
+strings.pt.LANG_ZH = 'Mandarin';
 //- Header
 strings.pt.NAV_ABOUT = 'About';
 strings.pt.NAV_DOWNLOAD = 'Download Data';
@@ -562,6 +593,7 @@ strings.pt.MORE = 'More';
 strings.pt.DELETE = 'Delete';
 strings.pt.DOCUMENTS = 'Documents';
 
+strings.pt.BASEMAP = 'Basemap';
 strings.pt.SELECT_ALL = 'select all';
 strings.pt.CLEAR_ALL = 'clear all';
 strings.pt.LEGEND = 'Legend';
@@ -575,6 +607,13 @@ strings.pt.TOOL_TOGGLE = 'Toggle Panel';
 strings.pt.TOOL_RESET = 'Reset';
 
 //- NOTE: Bahasa Indonesia
+//- Supported Languages
+strings.id.LANG_EN = 'English';
+strings.id.LANG_FR = 'French';
+strings.id.LANG_ES = 'Spanish';
+strings.id.LANG_PT = 'Portugese';
+strings.id.LANG_ID = 'Indonesian';
+strings.id.LANG_ZH = 'Mandarin';
 //- Header
 strings.id.NAV_ABOUT = 'About';
 strings.id.NAV_DOWNLOAD = 'Download Data';
@@ -704,6 +743,7 @@ strings.id.MORE = 'More';
 strings.id.DELETE = 'Delete';
 strings.id.DOCUMENTS = 'Documents';
 
+strings.id.BASEMAP = 'Basemap';
 strings.id.SELECT_ALL = 'select all';
 strings.id.CLEAR_ALL = 'clear all';
 strings.id.LEGEND = 'Legend';
@@ -717,6 +757,13 @@ strings.id.TOOL_TOGGLE = 'Toggle Panel';
 strings.id.TOOL_RESET = 'Reset';
 
 //- NOTE: Mandarin
+//- Supported Languages
+strings.zh.LANG_EN = 'English';
+strings.zh.LANG_FR = 'French';
+strings.zh.LANG_ES = 'Spanish';
+strings.zh.LANG_PT = 'Portugese';
+strings.zh.LANG_ID = 'Indonesian';
+strings.zh.LANG_ZH = 'Mandarin';
 //- Header
 strings.zh.NAV_ABOUT = '关于';
 strings.zh.NAV_DOWNLOAD = '下载数据';
@@ -847,6 +894,7 @@ strings.zh.MORE = '更多';
 strings.zh.DELETE = '删除';
 strings.zh.DOCUMENTS = '文件';
 
+strings.zh.BASEMAP = 'Basemap';
 strings.zh.SELECT_ALL = '全选';
 strings.zh.CLEAR_ALL = '全部清除';
 strings.zh.LEGEND = '图例';

@@ -38,18 +38,22 @@ export default class Navigation extends Component {
       <nav className='app-header__nav'>
         <ul className='app-header__nav-list'>
           {ThemeComponent}
-          <li className='app-header__nav-link pointer'>
-            <a target='_blank' href={settings.downloadLinkUrl}>
-              <svg className='svg-icon__nav' dangerouslySetInnerHTML={{ __html: downloadSvg }}/>
-              {text[language].NAV_DOWNLOAD}
-            </a>
-          </li>
-          <li className='app-header__nav-link pointer'>
-            <a target='_blank' href={settings.aboutLinkUrl}>
-              <svg className='svg-icon__nav' dangerouslySetInnerHTML={{ __html: aboutSvg }}/>
-              {text[language].NAV_ABOUT}
-            </a>
-          </li>
+          {!settings.downloadLinkUrl ? null :
+            <li className='app-header__nav-link pointer'>
+              <a target='_blank' href={settings.downloadLinkUrl}>
+                <svg className='svg-icon__nav' dangerouslySetInnerHTML={{ __html: downloadSvg }}/>
+                {text[language].NAV_DOWNLOAD}
+              </a>
+            </li>
+          }
+          {!settings.aboutLinkUrl ? null :
+            <li className='app-header__nav-link pointer'>
+              <a target='_blank' href={settings.aboutLinkUrl}>
+                <svg className='svg-icon__nav' dangerouslySetInnerHTML={{ __html: aboutSvg }}/>
+                {text[language].NAV_ABOUT}
+              </a>
+            </li>
+          }
           {!settings.includeMyGFWLogin ? null :
             <li className='app-header__nav-link pointer'>
               <a target='_blank'>

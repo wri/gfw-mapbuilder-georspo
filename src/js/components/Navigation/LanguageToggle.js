@@ -7,19 +7,6 @@ import React, {
 
 const languageSvg = '<use xlink:href="#icon-h-language" />';
 
-const getLanguageLabel = (isocode) => {
-  switch (isocode) {
-    case 'en':
-      return 'English';
-    case 'fr':
-      return 'Français';
-    case 'es':
-      return 'Spanish';
-    case 'pr':
-      return 'Portugese';
-  }
-};
-
 export default class LanguageToggle extends Component {
 
   static contextTypes = {
@@ -27,6 +14,7 @@ export default class LanguageToggle extends Component {
     settings: PropTypes.object.isRequired
   };
 
+  // label for the language is in the format text.en.LANG_EN or text.en.LANG_ZH
   createListButton = (currentLanguage, language) => {
     return (
       <li
@@ -34,7 +22,7 @@ export default class LanguageToggle extends Component {
         className={`app-header__language pointer ${currentLanguage === language ? 'active' : ''}`}
         onClick={this.toggleLanguage}
         data-lang={language}>
-        {getLanguageLabel(language)}
+        {text[language][`LANG_${language.toUpperCase()}`]}
       </li>
     );
   };
@@ -53,8 +41,8 @@ export default class LanguageToggle extends Component {
       settings
     } = this.context;
 
-    let languageButtons = [];
-    for (let lang in settings.labels) {
+    const languageButtons = [];
+    for (const lang in settings.labels) {
       languageButtons.push(this.createListButton(language, lang));
     }
 

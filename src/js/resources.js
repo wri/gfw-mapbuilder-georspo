@@ -10,7 +10,6 @@ export default {
   title: 'GFW Mapbuilder',
   subtitle: 'Make maps that matter',
   logoUrl: './css/images/gfw-logo.png',
-  // logoUrl: 'http://cmr.forest-atlas.org/map/app/images/CMR_flag_new.png',
   logoLinkUrl: 'http://www.gfw-mapbuilder.org/',
   aboutLinkUrl: 'http://www.gfw-mapbuilder.org/',
   downloadLinkUrl: 'http://data.globalforestwatch.org/',
@@ -25,7 +24,7 @@ export default {
   language: 'en',
   useAlternativeLanguage: false,
   alternativeWebmap: '',
-  alternativeLanguage: 'fr',
+  alternativeLanguage: '',
   alternativeLanguageTitle: 'GFW Mapbuilder',
   alternativeLanguageSubtitle: 'Make maps that matter',
   alternativeMapThemes: '', // e.g. Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea

@@ -75,7 +75,7 @@ export default class Upload extends Component {
     const content = uploadConfig.shapefileContent(JSON.stringify(params), type);
 
     // the upload input needs to have the file associated to it
-    let input = this.refs.fileInput;
+    const input = this.refs.fileInput;
     input.files = evt.dataTransfer.files;
 
     request.upload(uploadConfig.portal, content, this.refs.upload).then((response) => {
