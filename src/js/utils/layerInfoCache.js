@@ -84,10 +84,10 @@ function reduceXML (xmlDoc) {
         download_data = xmlDoc.getElementsByTagName('linkage'),
         tags = xmlDoc.getElementsByTagName('searchKeys'),
         learn_more = xmlDoc.getElementsByTagName('linkage'),
-        frequency_of_updates = xmlDoc.getElementsByTagName('MaintFreqCd'),
-        geographic_coverage = xmlDoc.getElementsByTagName('rfDenom'),
+        frequency_of_updates = xmlDoc.getElementsByTagName('duration'),
+        geographic_coverage = xmlDoc.getElementsByTagName('exDesc'),
         license = xmlDoc.getElementsByTagName('othConsts'),
-        date_of_content = xmlDoc.getElementsByTagName('tempDesc'),
+        date_of_content = xmlDoc.getElementsByTagName('exDesc'),
         resolution = xmlDoc.getElementsByTagName('rfDenom');
 
   if (cautions.length) {
@@ -145,7 +145,7 @@ function reduceXML (xmlDoc) {
   }
 
   if (learn_more.length) {
-    const parentName = 'itemLocation';
+    const parentName = 'citOnlineRes';
     const learn_more_elements = [];
     for (let i = 0; i < learn_more.length; i++) {
       if (learn_more[i].parentElement.nodeName === parentName) {
