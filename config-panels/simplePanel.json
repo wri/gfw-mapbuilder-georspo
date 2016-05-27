@@ -14,7 +14,7 @@
 
     "useAlternativeLanguage": false,
     "alternativeLanguage": "fr",
-    "alternativeWebmap": "de85e3fcc07948238aa6c1afd2a4ceb0",
+    "alternativeWebmap": "",
     "alternativeLanguageTitle": "GFW Mapbuilder",
     "alternativeLanguageSubtitle": "Application subtitle",
     "alternativeNarrative": "",
@@ -29,8 +29,6 @@
     "iso": "",
     "mapThemeIds": "",
     "mapThemes": "",
-    "analyticsCode": "",
-    "includeSubscribeButton": false,
-    "includeMyGFWLogin": false
+    "analyticsCode": ""
   }
 }
