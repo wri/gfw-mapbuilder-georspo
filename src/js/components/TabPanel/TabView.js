@@ -6,6 +6,7 @@ import InfoWindow from 'components/TabPanel/InfoWindow';
 import Documents from 'components/TabPanel/Documents';
 import mapActions from 'actions/MapActions';
 import tabKeys from 'constants/TabViewConstants';
+import showdown from 'showdown';
 import text from 'js/languages';
 import React, {
   Component,
@@ -21,6 +22,7 @@ const {
   MORE
 } = tabKeys;
 
+const converter = new showdown.Converter();
 const closeSvg = '<use xlink:href="#shape-close" />';
 
 export default class TabView extends Component {
@@ -64,7 +66,7 @@ export default class TabView extends Component {
               <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
             </div>
             <h3 className='tab-view__mobile-header mobile-show'>NARRATIVE</h3>
-            <p className='tab-view__narrative'>{narrative}</p>
+            <div className='tab-view__narrative' dangerouslySetInnerHTML={{ __html: converter.makeHtml(narrative) }} />
           </div>
         }
         <div className={this.getClassName(LAYERS)}>

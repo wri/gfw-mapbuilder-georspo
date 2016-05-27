@@ -45,7 +45,7 @@ const formatResources = () => {
     });
   }
   //- Add content for second language if configured
-  if (resources.useAlternativeLanguage) {
+  if (resources.useAlternativeLanguage && resources.alternativeLanguage) {
     resources.labels[resources.alternativeLanguage] = {
       title: resources.alternativeLanguageTitle,
       subtitle: resources.alternativeLanguageSubtitle,
@@ -181,6 +181,7 @@ export default {
 
     }, err => {
       if (brApp.debug) { console.warn(`template.getAppInfo >> ${err.message}`); }
+      formatResources();
       promise.resolve(resources);
     });
 

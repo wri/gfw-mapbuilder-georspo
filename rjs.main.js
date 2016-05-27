@@ -11,6 +11,7 @@
     'alt': 'vendor/alt/dist/alt.min',
     'react': 'vendor/react/react.min',
     'react-dom': 'vendor/react/react-dom.min',
+		'showdown': 'vendor/showdown/dist/showdown.min',
     'babel-polyfill': 'vendor/babel-polyfill/browser-polyfill',
 		// My configured packages
     'js': 'js',

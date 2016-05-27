@@ -10,6 +10,7 @@ export default class Modal extends Component {
   };
 
   renderFromMetadataAPI (info) {
+    console.log(info);
     const {language} = this.context;
     return (
       <div className='layer-modal-content'>
@@ -94,8 +95,8 @@ export default class Modal extends Component {
     const theme = info && info.download_data ? '' : 'no-download';
     const content = !info ? <div className='no-info-available'>{text[language].NO_INFO}</div> :
       (info.title ?
-        this.renderFromMapService(info) :
-        this.renderFromMetadataAPI(info)
+        this.renderFromMetadataAPI(info) :
+        this.renderFromMapService(info)
       );
 
     return (

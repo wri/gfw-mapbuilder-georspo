@@ -12,7 +12,6 @@ const drawSvg = '<use xlink:href="#icon-analysis-draw" />';
 export default class DrawTools extends Component {
 
   static contextTypes = {
-    activeWebmap: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     map: PropTypes.object.isRequired
   };

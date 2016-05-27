@@ -145,13 +145,20 @@ export default class Map extends Component {
     const {language} = this.context;
     // Remove any already existing webmap layers
     settings.layers[language] = settings.layers[language].filter((layer) => layer.groupKey !== layerKeys.GROUP_WEBMAP);
+    // If an additional language is configured but no additional webmap is, we need to push the layer config into both
+    // languages so the original webmap works in both views
+    const saveLayersInOtherLang = (
+      !settings.alternativeWebmap &&
+      settings.alternativeLanguage &&
+      settings.useAlternativeLanguage
+    );
     // Add the layers to the webmap group
     operationalLayers.forEach((layer) => {
       if (layer.layerType === 'ArcGISMapServiceLayer' && layer.resourceInfo.layers) {
         layer.resourceInfo.layers.forEach((sublayer) => {
           const visible = layer.layerObject.visibleLayers.indexOf(sublayer.id) > -1;
           const scaleDependency = (sublayer.minScale > 0 || sublayer.maxScale > 0);
-          settings.layers[language].push({
+          const layerInfo = {
             id: layer.id,
             subId: `${layer.id}_${sublayer.id}`,
             subIndex: sublayer.id,
@@ -164,10 +171,14 @@ export default class Map extends Component {
             opacity: 1,
             visible: visible,
             esriLayer: layer.layerObject
-          });
+          };
+          settings.layers[language].push(layerInfo);
+          if (saveLayersInOtherLang) {
+            settings.layers[settings.alternativeLanguage].push(layerInfo);
+          }
         });
       } else {
-        settings.layers[language].push({
+        const layerInfo = {
           id: layer.id,
           group: settings.labels[language].webmapMenuName,
           groupKey: layerKeys.GROUP_WEBMAP,
@@ -176,7 +187,11 @@ export default class Map extends Component {
           visible: layer.visibility,
           esriLayer: layer.layerObject,
           itemId: layer.itemId
-        });
+        };
+        settings.layers[language].push(layerInfo);
+        if (saveLayersInOtherLang) {
+          settings.layers[settings.alternativeLanguage].push(layerInfo);
+        }
       }
     });
   };

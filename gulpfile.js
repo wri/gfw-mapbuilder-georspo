@@ -4,6 +4,7 @@ var prerender = require('react-prerender');
 var gulpPlumber = require('gulp-plumber');
 var browserSync = require('browser-sync');
 var imagemin = require('gulp-imagemin');
+var requirejs = require('requirejs');
 var locals = require('./src/locals');
 var stylus = require('gulp-stylus');
 var jade = require('gulp-jade');
@@ -113,7 +114,7 @@ gulp.task('prerender', function () {
   var htmlFile = path.join(__dirname, 'dist/index.html'),
       component = 'js/components/App',
       dom = '#root',
-      requirejs = {
+      requirejsProfile = {
         buildProfile: path.join(__dirname, 'rjs.main.js'),
         map: {
           ignorePatterns: [/esri\//, /dojo\//, /dijit\//],
@@ -126,7 +127,7 @@ gulp.task('prerender', function () {
     component: component,
     target: htmlFile,
     mount: dom,
-    requirejs: requirejs
+    requirejs: requirejsProfile
   });
 });
 
