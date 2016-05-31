@@ -5,7 +5,7 @@
   "main": "gulpfile.js",
   "scripts": {
     "start": "npm run babel -- -w & gulp start & gulp serve",
-    "dist": "BABEL_ENV=production; npm run babel; gulp production; gulp prerender; npm run bundle;",
+    "dist": "rm -rf dist; BABEL_ENV=production npm run babel; gulp production; gulp prerender; gulp bundle;",
     "babel": "babel src --out-dir build",
     "bundle": "r.js -o rjs.main.js; r.js -o rjs.report.js;",
     "test": "echo \"No tests  yet\" && exit 0",

@@ -10,10 +10,16 @@ var stylus = require('gulp-stylus');
 var jade = require('gulp-jade');
 var gulp = require('gulp');
 var path = require('path');
+var fs = require('fs');
 
 //- Read the version from the package json
 var version = require('./package.json').version;
+// Update it in locals so it can be passed to index.html
 locals.version = version;
+// Update the main filename, requirejs will spit out a bundle in the following format:
+// main.{version}.js, e.g. main.0.1.24.js
+locals.main = 'js/main.' + version;
+locals.reportMain = 'js/reportMain.' + version;
 
 //- Set up error handling using plumber
 var plumber = function () {
@@ -128,6 +134,21 @@ gulp.task('prerender', function () {
     target: htmlFile,
     mount: dom,
     requirejs: requirejsProfile
+  });
+});
+
+gulp.task('bundle', function (cb) {
+  // Load in the profiles
+  var mainProfile = eval(fs.readFileSync(path.join(__dirname, 'rjs.main.js'), 'utf-8'));
+  var reportProfile = eval(fs.readFileSync(path.join(__dirname, 'rjs.main.js'), 'utf-8'));
+  // Update the name in the build profile
+  mainProfile.out = 'dist/js/main.' + version + '.js';
+  reportProfile.out = 'dist/js/reportMain.' + version + '.js';
+  // Generate the bundles
+  requirejs.optimize(mainProfile, function () {
+    requirejs.optimize(reportProfile, function () {
+      cb();
+    });
   });
 });
 

@@ -46,7 +46,6 @@ block append esri-script
     var dojoConfig = {
       parseOnLoad: false,
       async: true,
-      cacheBust: '#{version}',
       packages: [
         { name: 'js', location: base + '/js' },
         { name: 'vendor', location: base + '/vendor' },
@@ -65,7 +64,7 @@ block append esri-script
         ['babel-polyfill', 'vendor/babel-polyfill/browser-polyfill']
       ],
       deps: ['dojo/domReady!'],
-      callback: function () {require(['js/reportMain']);}
+      callback: function () {require(['#{reportMain}']);}
     };
   //- PROD: if new modules are added, regenerate the JSAPI build
   script(src='//js.arcgis.com/o/RobertW/GFW-MapBuilder-0.1.0/dojo/dojo.js', async)

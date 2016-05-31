@@ -29,6 +29,11 @@ Once you upload the module list and publish a build to CDN, swap the URL in inde
 npm run dist
 ```
 
+#### How the build works
+> If you need to configure the build or update the process for how it works, read this section
+
+**Coming Soon**
+
 ### Configuring
 This application has a general `src/js/config.js` file that contains things controlled by the developers.  There is also a `resources.js` file which contains more configurations.  However the Resources file contains configurations that are controlled via ArcGIS Online or whomever may be deploying the application.  You can control things like the layers in the accordion, their source urls, service urls (print, geometry, map, etc.), which layers to include in the analysis, and even the configurations for slope analysis and other aspects of the analysis.  Anything that needs to be controlled from ArcGIS Online or the person deploying it, should be placed in `resources.js`.
 
