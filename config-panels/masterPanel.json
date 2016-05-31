@@ -8,13 +8,13 @@
       "type": "string",
       "fieldName": "title",
       "label": "Title for your application",
-      "tooltip": "Please enter the title in your primary language",
+      "tooltip": "Please enter the title in your default language",
       "placeholder": "e.g. Forest Atlas of ..."
     }, {
       "type": "string",
       "fieldName": "subtitle",
       "label": "Subtitle for your application",
-      "tooltip": "Please enter the subtitle in your primary language",
+      "tooltip": "Please enter the subtitle in your default language",
       "placeholder": "e.g. Ministry of ..."
     }, {
       "type": "string",
@@ -80,12 +80,12 @@
       "type": "boolean",
       "fieldName": "includeSubscribeButton",
       "tooltip": "This will include the subscribe button in the info window and anlysis panel",
-      "label": "Would you like include an subscribe button"
+      "label": "Would you like to include an subscribe button"
     }, {
       "type": "boolean",
       "fieldName": "includeMyGFWLogin",
       "tooltip": "This will include the My GFW Login in the header",
-      "label": "Would you like include an My GFW Login"
+      "label": "Would you like to include an My GFW Login"
     }]
   }, {
     "category": "Language Settings",
@@ -106,7 +106,7 @@
       "type": "boolean",
       "fieldName": "useAlternativeLanguage",
       "tooltip": "This will allow the application to toggle to an alternative language",
-      "label": "Would you like include an additional language"
+      "label": "Would you like to include an additional language"
     }, {
       "type": "string",
       "fieldName": "alternativeWebmap",
