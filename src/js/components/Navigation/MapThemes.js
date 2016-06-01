@@ -13,9 +13,10 @@ export default class MapThemes extends Component {
   };
 
   renderThemeList = (theme, index) => {
+    const {target} = this.props;
     return (
       <li key={index} className='app-header__theme'>
-        <a target='_self' href={theme.url}>{theme.label}</a>
+        <a target={target} href={theme.url}>{theme.label}</a>
       </li>
     );
   };
@@ -38,5 +39,6 @@ export default class MapThemes extends Component {
 }
 
 MapThemes.propTypes = {
-  themes: PropTypes.array.isRequired
+  themes: PropTypes.array.isRequired,
+  target: PropTypes.string.isRequired
 };

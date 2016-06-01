@@ -129,7 +129,7 @@ strings.en.DOWNLOAD_DATA = 'download data';
 strings.en.DESCRIPTION = 'description';
 
 //- Miscellaneous
-strings.en.PRINT_BUTTON_LABEL = 'Choose a print template';
+strings.en.PRINT_BUTTON_LABEL = 'Choose a print output';
 strings.en.PRINT_REPORT = 'Print Report';
 strings.en.SUBSCRIBE = 'Subscribe';
 strings.en.LAYERS = 'Layers';
@@ -581,7 +581,7 @@ strings.pt.DOWNLOAD_DATA = 'download data';
 strings.pt.DESCRIPTION = 'description';
 
 //- Miscellaneous
-strings.pt.PRINT_BUTTON_LABEL = 'Choose a print template';
+strings.pt.PRINT_BUTTON_LABEL = 'Choose a print output';
 strings.pt.PRINT_REPORT = 'Print Report';
 strings.pt.SUBSCRIBE = 'Subscribe';
 strings.pt.LAYERS = 'Layers';
@@ -731,7 +731,7 @@ strings.id.DOWNLOAD_DATA = 'download data';
 strings.id.DESCRIPTION = 'description';
 
 //- Miscellaneous
-strings.id.PRINT_BUTTON_LABEL = 'Choose a print template';
+strings.id.PRINT_BUTTON_LABEL = 'Choose a print output';
 strings.id.PRINT_REPORT = 'Print Report';
 strings.id.SUBSCRIBE = 'Subscribe';
 strings.id.LAYERS = 'Layers';

@@ -5,19 +5,6 @@ import React, {
   PropTypes
 } from 'react';
 
-const getLanguageLabel = (isocode) => {
-  switch (isocode) {
-    case 'en':
-      return 'English';
-    case 'fr':
-      return 'Français';
-    case 'es':
-      return 'Spanish';
-    case 'pr':
-      return 'Portugese';
-  }
-};
-
 export default class Navigation extends Component {
 
   static contextTypes = {
@@ -34,7 +21,7 @@ export default class Navigation extends Component {
       return settings.labels[language].themes.map((theme) => {
         return (
           <li className='mobile-menu__nav-link pointer'>
-            <a target='_blank' href={theme.url}>{theme.label}</a>
+            <a target={settings.navLinksInNewTab ? '_blank' : '_self'} href={theme.url}>{theme.label}</a>
           </li>
         );
       });
@@ -52,7 +39,7 @@ export default class Navigation extends Component {
             className={`mobile-menu__nav-link pointer ${currentLanguage === language ? 'active' : ''}`}
             data-lang={language}
             onClick={this.toggleLanguage}>
-            {getLanguageLabel(language)}
+            {text[currentLanguage][`LANG_${language.toUpperCase()}`]}
           </li>
         );
       });
@@ -76,23 +63,24 @@ export default class Navigation extends Component {
 
     const LanguageComponent = this.renderLanguageButtons(language, settings);
     const ThemeComponent = this.renderMapThemes(language, settings);
+    const target = settings.navLinksInNewTab ? '_blank' : '_self';
 
     return (
       <nav className='mobile-menu__nav'>
         <ul className='mobile-menu__nav-list'>
           <li className='mobile-menu__nav-link pointer'>
-            <a target='_blank' href={settings.aboutLinkUrl}>
+            <a target={target} href={settings.aboutLinkUrl}>
               {text[language].NAV_ABOUT}
             </a>
           </li>
           <li className='mobile-menu__nav-link pointer'>
-            <a target='_blank' href={settings.downloadLinkUrl}>
+            <a target={target} href={settings.downloadLinkUrl}>
               {text[language].NAV_DOWNLOAD}
             </a>
           </li>
           {!settings.includeMyGFWLogin ? null :
             <li className='mobile-menu__nav-link pointer'>
-              <a target='_blank'>
+              <a target={target}>
                 {text[language].NAV_MY_GFW}
               </a>
             </li>

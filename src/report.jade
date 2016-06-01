@@ -42,12 +42,14 @@ block append content
 
 block append esri-script
   script.
-    var _versions = {
+    var _app = {
       cache: '#{version}',
       esri: '#{esriVersion}',
       base: '#{base}'
     };
-    var base = location.href.replace(/\/[^/]+$/, '') + _versions.base;
+    var base = location.href.replace(/\/[^/]+$/, '') + (_app.base ? _app.base : '');
+    var position = base.length - 1;
+    if (base.indexOf('/', position) !== position) { base = base + '/'; }
     var dojoConfig = {
       parseOnLoad: false,
       async: true,

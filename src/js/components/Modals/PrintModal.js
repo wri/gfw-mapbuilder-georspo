@@ -83,15 +83,13 @@ export default class PrintModal extends Component {
   };
 
   render () {
-    const { language, settings } = this.context;
+    const { language } = this.context;
 
     return (
       <ControlledModalWrapper onClose={this.close}>
-        {!settings.country ? undefined :
-          <div className='print-dijit-label'>
-            {text[language].PRINT_BUTTON_LABEL}
-          </div>
-        }
+        <div className='print-dijit-label'>
+          {text[language].PRINT_BUTTON_LABEL}
+        </div>
         <div ref='print' className='print-dijit' />
       </ControlledModalWrapper>
     );

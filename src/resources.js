@@ -20,6 +20,7 @@ export default {
   narrative: '',
   includeSubscribeButton: false,
   includeMyGFWLogin: false,
+  navLinksInNewTab: false,
   //- Language Settings
   language: 'en',
   useAlternativeLanguage: false,

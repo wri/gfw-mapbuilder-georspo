@@ -1,5 +1,7 @@
 import analysisKeys from 'constants/AnalysisConstants';
+import layerKeys from 'constants/LayerConstants';
 import mapActions from 'actions/MapActions';
+import appUtils from 'utils/AppUtils';
 import text from 'js/languages';
 import React, {
   Component,
@@ -18,7 +20,9 @@ export default class AnalysisTypeSelect extends Component {
 
     const {language, settings} = context;
     this.options = text[language].ANALYSIS_SELECT_TYPE_OPTIONS;
+    const layers = settings.layers[language];
     //- Remove options not included based on settings
+    //- Also, remove Tree Cover Options if those layers are not in the settings.layers.config
     this.options = this.options.filter((option) => {
       switch (option.value) {
         case analysisKeys.SLOPE:
@@ -33,10 +37,15 @@ export default class AnalysisTypeSelect extends Component {
           return settings.landCover;
         case analysisKeys.FIRES:
           return settings.activeFires;
+        case analysisKeys.TC_LOSS:
+          return appUtils.containsObject(layers, 'id', layerKeys.TREE_COVER_LOSS);
+        case analysisKeys.TC_LOSS_GAIN:
+          return appUtils.containsObject(layers, 'id', layerKeys.TREE_COVER_GAIN);
         default:
           return true;
       }
     });
+
     //- Merge in the restoration options if the module is enabled
     if (settings.restorationModule) {
       const options = settings.labels[language].restorationOptions;
@@ -48,6 +57,7 @@ export default class AnalysisTypeSelect extends Component {
         });
       });
     }
+
   }
 
   renderOption = (group) => {
@@ -68,6 +78,7 @@ export default class AnalysisTypeSelect extends Component {
   };
 
   render () {
+    // TODO: SET THIS VALUE ON LOAD SOMEWHERE SO THE TC_LOSS ANALYSIS IS NOT RUN IF THEY ARE OMITTED
     const {activeAnalysisType} = this.props;
     let groupKeys = [];
     const groups = {};
@@ -94,7 +105,7 @@ export default class AnalysisTypeSelect extends Component {
           {options}
         </select>
         <div className='analysis-results__select-style'>
-          {activeOption.label || ''}
+          {activeOption && activeOption.label || ''}
         </div>
       </div>
     );

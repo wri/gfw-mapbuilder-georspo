@@ -17,7 +17,9 @@ html
         esri: '#{esriVersion}',
         base: '#{base}'
       };
-      var base = location.href.replace(/\/[^/]+$/, '') + (_app.base ? _app.base + '/' : '');
+      var base = location.href.replace(/\/[^/]+$/, '') + (_app.base ? _app.base : '');
+      var position = base.length - 1;
+      if (base.indexOf('/', position) !== position) { base = base + '/'; }
       var dojoConfig = {
         parseOnLoad: false,
         async: true,
@@ -37,7 +39,6 @@ html
           ['alt', 'vendor/alt/dist/alt.min'],
           ['react', 'vendor/react/react.min'],
           ['react-dom', 'vendor/react/react-dom.min'],
-          ['showdown', 'vendor/showdown/dist/showdown.min'],
           ['babel-polyfill', 'vendor/babel-polyfill/browser-polyfill']
         ],
         deps: ['dojo/domReady!'],

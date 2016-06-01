@@ -67,6 +67,7 @@
     }, {
       "type": "string",
       "fieldName": "narrative",
+      "stringFieldOption": "richtext",
       "label": "Enter a narrative about your map to give your users some insight about it.",
       "tooltip": "This will be visible in the table of contents.",
       "placeholder": "Explore the Forest Atlas of Cameroon to discover ..."
@@ -86,6 +87,12 @@
       "fieldName": "includeMyGFWLogin",
       "tooltip": "This will include the My GFW Login in the header",
       "label": "Would you like include an My GFW Login"
+    }]
+    }, {
+      "type": "boolean",
+      "fieldName": "navLinksInNewTab",
+      "tooltip": "Would you like the navigation links to open in a new tab?",
+      "label": "By default they will open in the same tab."
     }]
   }, {
     "category": "Language Settings",
@@ -151,6 +158,7 @@
       "placeholder": "Land Use"
     }, {
       "type": "string",
+      "stringFieldOption": "richtext",
       "fieldName": "alternativeNarrative",
       "label": "Enter a narrative about your map to give your users some insight about it.",
       "tooltip": "This will be visible in the table of contents.",
@@ -307,6 +315,7 @@
     "analyticsCode": "",
     "includeSubscribeButton": false,
     "includeMyGFWLogin": false,
+    "navLinksInNewTab": false,
 
     "language": "en",
     "useAlternativeLanguage": true,
