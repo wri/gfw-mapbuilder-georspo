@@ -14,12 +14,6 @@ var fs = require('fs');
 
 //- Read the version from the package json
 var version = require('./package.json').version;
-// Update it in locals so it can be passed to index.html
-locals.version = version;
-// Update the main filename, requirejs will spit out a bundle in the following format:
-// main.{version}.js, e.g. main.0.1.24.js
-locals.main = 'js/main.' + version;
-locals.reportMain = 'js/reportMain.' + version;
 
 //- Set up error handling using plumber
 var plumber = function () {
@@ -32,7 +26,7 @@ var config = {
   imagemin: {
     src: 'src/**/*.{png,jpg,gif,svg,ico}',
     build: 'build',
-    dist: 'dist'
+    dist: 'dist/' + version
   },
   jade: {
     watch: ['src/**/*.jade', 'build/css/critical.css'],
@@ -44,7 +38,7 @@ var config = {
     watch: 'src/css/**/*.styl',
     src: ['src/css/critical.styl', 'src/css/app.styl', 'src/css/report.styl'],
     build: 'build/css',
-    dist: 'dist/css'
+    dist: 'dist/' + version + '/css'
   },
   server: {
     files: ['build/**/*.html', 'build/**/*.js', 'build/**/*.css'],
@@ -52,9 +46,9 @@ var config = {
     baseDir: 'build'
   },
   copy: {
-    filesaver: { src: 'build/vendor/file-saver.js/FileSaver.js', dest: 'dist/vendor/file-saver.js/'},
-    jquery: { src: 'build/vendor/jquery/dist/jquery.min.js', dest: 'dist/vendor/jquery/dist/'},
-    ion: { src: 'build/vendor/ion.rangeslider/**/*', dest: 'dist/vendor/ion.rangeslider/'}
+    filesaver: { src: 'build/vendor/file-saver.js/FileSaver.js', dest: 'dist/' + version + '/vendor/file-saver.js/'},
+    jquery: { src: 'build/vendor/jquery/dist/jquery.min.js', dest: 'dist/' + version + '/vendor/jquery/dist/'},
+    ion: { src: 'build/vendor/ion.rangeslider/**/*', dest: 'dist/' + version + '/vendor/ion.rangeslider/'}
   }
 };
 
@@ -85,6 +79,10 @@ gulp.task('jade-build', function () {
 });
 
 gulp.task('jade-dist', function () {
+  // Update it in locals so it can be passed to index.html
+  locals.version = version;
+  locals.base = version;
+
   return gulp.src(config.jade.src)
     .pipe(jade({ locals: locals }))
     .pipe(minifyInline())
@@ -142,8 +140,8 @@ gulp.task('bundle', function (cb) {
   var mainProfile = eval(fs.readFileSync(path.join(__dirname, 'rjs.main.js'), 'utf-8'));
   var reportProfile = eval(fs.readFileSync(path.join(__dirname, 'rjs.main.js'), 'utf-8'));
   // Update the name in the build profile
-  mainProfile.out = 'dist/js/main.' + version + '.js';
-  reportProfile.out = 'dist/js/reportMain.' + version + '.js';
+  mainProfile.out = 'dist/' + version + '/js/main.js';
+  reportProfile.out = 'dist/' + version + '/js/reportMain.js';
   // Generate the bundles
   requirejs.optimize(mainProfile, function () {
     requirejs.optimize(reportProfile, function () {

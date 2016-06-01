@@ -88,6 +88,13 @@ strings.pt.DATA = 'Data'; // Portuguese
 
 The other location is the `src/js/resources.js` file.  There are `layers` and `basemaps` each with subsections for each of the four languages.  In each subsection is an array or objects containing the layer configuration.  Be careful what you change in here, the only three things related to labels are `label`, `sublabel`, and `group`. The `group` refers to the name on the accordion, it needs to be the same as the other layers in the same group (they are linked by a `groupKey`).
 
+#### NOTE:
+The build can generate content into a versioned build folder.  If you are contributing and adding content that uses relative paths, you need to check for the existence of this `_app.base` variable and incorporate it into your relative path, make sure you test that all relative paths work before deploying to production or `gh-pages` branch. Example:
+
+```javascript
+
+```
+
 ### Contributing
 Please fork off of the `develop` branch and submit your pull requests to `develop`.
 

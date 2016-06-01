@@ -111,7 +111,7 @@ const formatResources = () => {
     }
   }
 
-  //- TODO: Remove Layers from resources.layers if configured
+  //- Remove Layers from resources.layers if configured
   Object.keys(resources.layers).forEach((language) => {
     resources.layers[language] = resources.layers[language].filter((layer) => {
       switch (layer.id) {
@@ -125,6 +125,21 @@ const formatResources = () => {
           return resources.intactForests;
         default:
           return true;
+      }
+    });
+  });
+
+  //- Update path if it is relative to point to local
+  const base = window._app.base ? window._app.base + '/' : '';
+  if (resources.logoUrl && resources.logoUrl.indexOf('.') === 0) {
+    resources.logoUrl = base + resources.logoUrl;
+  }
+
+  Object.keys(resources.basemaps).forEach((language) => {
+    Object.keys(resources.basemaps[language]).forEach((bm) => {
+      const basemap = resources.basemaps[language][bm];
+      if (basemap.thumbnailUrl && basemap.thumbnailUrl.indexOf('.') === 0) {
+        basemap.thumbnailUrl = base + basemap.thumbnailUrl;
       }
     });
   });

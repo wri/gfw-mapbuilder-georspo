@@ -21,8 +21,9 @@ export default class CanopyModal extends Component {
   };
 
   componentDidMount() {
-    loadJS(assetUrls.jQuery);
-    loadJS(assetUrls.rangeSlider).then(() => {
+    const base = window._app.base ? window._app.base + '/' : '';
+    loadJS(base + assetUrls.jQuery);
+    loadJS(base + assetUrls.rangeSlider).then(() => {
       $('#tree-cover-slider').ionRangeSlider({
         type: 'double',
         values: modalText.canopy.slider,
@@ -37,8 +38,8 @@ export default class CanopyModal extends Component {
         prettify: value => (value + '%')
       });
     }, console.error);
-    loadCSS(assetUrls.ionCSS);
-    loadCSS(assetUrls.ionSkinCSS);
+    loadCSS(base + assetUrls.ionCSS);
+    loadCSS(base + assetUrls.ionSkinCSS);
   }
 
   componentDidUpdate(prevProps, prevState, prevContext) {

@@ -12,15 +12,17 @@ html
     div#layer-modal.modal-wrapper.hidden
     div#share-modal.modal-wrapper.hidden
     script.
-      var _versions = {
+      var _app = {
         cache: '#{version}',
-        esri: '#{esriVersion}'
+        esri: '#{esriVersion}',
+        base: '#{base}'
       };
-      var base = location.href.replace(/\/[^/]+$/, '');
+      var base = location.href.replace(/\/[^/]+$/, '') + (_app.base ? _app.base + '/' : '');
       var dojoConfig = {
         parseOnLoad: false,
         async: true,
         packages: [
+          { name: 'root', location: base },
           { name: 'js', location: base + 'js' },
           { name: 'vendor', location: base + 'vendor' },
           { name: 'utils', location: base + 'js/utils' },
@@ -31,8 +33,7 @@ html
           { name: 'helpers', location: base + 'js/helpers' }
         ],
         aliases: [
-          ['js/main', '#{main}'],
-          ['resources', 'js/resources'],
+          ['resources', 'root/resources'],
           ['alt', 'vendor/alt/dist/alt.min'],
           ['react', 'vendor/react/react.min'],
           ['react-dom', 'vendor/react/react-dom.min'],

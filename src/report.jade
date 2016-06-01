@@ -42,7 +42,12 @@ block append content
 
 block append esri-script
   script.
-    var base = location.href.replace(/\/[^/]+$/, '');
+    var _versions = {
+      cache: '#{version}',
+      esri: '#{esriVersion}',
+      base: '#{base}'
+    };
+    var base = location.href.replace(/\/[^/]+$/, '') + _versions.base;
     var dojoConfig = {
       parseOnLoad: false,
       async: true,
@@ -64,7 +69,7 @@ block append esri-script
         ['babel-polyfill', 'vendor/babel-polyfill/browser-polyfill']
       ],
       deps: ['dojo/domReady!'],
-      callback: function () {require(['#{reportMain}']);}
+      callback: function () {require(['js/reportMain']);}
     };
   //- PROD: if new modules are added, regenerate the JSAPI build
   script(src='//js.arcgis.com/o/RobertW/GFW-MapBuilder-0.1.0/dojo/dojo.js', async)
