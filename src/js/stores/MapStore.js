@@ -25,7 +25,7 @@ class MapStore {
     this.legendOpen = false;
     this.landsatVisible = false;
     this.dynamicLayers = {};
-    this.activeAnalysisType = analysisKeys.TC_LOSS;
+    this.activeAnalysisType = '';
     this.lossFromSelectIndex = 0; // Will get initialized when the data is fetched
     this.lossToSelectIndex = 0;
     this.lossOptions = [];
@@ -142,7 +142,6 @@ class MapStore {
   }
 
   createLayers (layers) {
-    console.log(layers);
     this.activeLayers = layers.filter((layer) => layer.visible && !layer.subId).map((layer) => layer.id);
     this.allLayers = layers;
     layers.forEach(layer => {

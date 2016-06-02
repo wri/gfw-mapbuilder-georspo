@@ -94,11 +94,12 @@ const request = {
     const promise = new Deferred();
     const layer = feature._layer;
     const url = layer && layer._url && layer._url.path;
+    const id = feature.attributes[layer.objectIdField];
 
     if (needsDynamicQuery(url) && layer.source) {
       const content = {
         layer: JSON.stringify({ source: { type: 'mapLayer', mapLayerId: layer.source.mapLayerId }}),
-        objectIds: feature.attributes.OBJECTID,
+        objectIds: id,
         returnGeometry: true,
         outFields: '*',
         f: 'json'
@@ -117,7 +118,7 @@ const request = {
         }
       }, () => { promise.resolve(feature.geometry); });
     } else if (url) {
-      this.queryTaskById(url, feature.attributes.OBJECTID).then((results) => {
+      this.queryTaskById(url, id).then((results) => {
         if (results.features.length) {
           promise.resolve(results.features[0].geometry);
         } else {

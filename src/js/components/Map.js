@@ -177,6 +177,23 @@ export default class Map extends Component {
             settings.layers[settings.alternativeLanguage].push(layerInfo);
           }
         });
+      } else if (layer.layerType === 'ArcGISFeatureLayer' && layer.featureCollection && layer.featureCollection.layers) {
+        layer.featureCollection.layers.forEach((sublayer) => {
+          const layerInfo = {
+            id: sublayer.id,
+            group: settings.labels[language].webmapMenuName,
+            groupKey: layerKeys.GROUP_WEBMAP,
+            label: sublayer.title,
+            opacity: sublayer.opacity,
+            visible: layer.visibility,
+            esriLayer: sublayer.layerObject,
+            itemId: layer.itemId
+          };
+          settings.layers[language].push(layerInfo);
+          if (saveLayersInOtherLang) {
+            settings.layers[settings.alternativeLanguage].push(layerInfo);
+          }
+        });
       } else {
         const layerInfo = {
           id: layer.id,

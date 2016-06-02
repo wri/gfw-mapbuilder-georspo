@@ -135,7 +135,7 @@ const utils = {
       window.open(`report.html?${path}`);
 
     } else { //- custom
-      console.log(selectedFeature);
+      console.log(`Custom feature: ${selectedFeature}`);
     }
 
   }

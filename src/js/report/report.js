@@ -172,7 +172,7 @@ const addTitleAndAttributes = function addTitleAndAttributes (params, featureInf
   } else {
     const operationalLayer = operationalLayers.filter((layer) => layerName.search(layer.id) > -1)[0];
     //- layerid is a string but layer.id is a number, convert layerid to int
-    const activeLayer = operationalLayer.layers.filter((layer) => layer.id === +layerid)[0];
+    const activeLayer = !operationalLayer.layers ? operationalLayer : operationalLayer.layers.filter((layer) => layer.id === +layerid)[0];
     if (activeLayer) {
       const title = activeLayer.popupInfo.title.replace(/{.*}/, featureInfo.title || 'N/A');
       //- generate rows for each field that is visible in popup for the configured layer
@@ -399,7 +399,6 @@ export default {
 
       //- Add Popup Info Now
       addTitleAndAttributes(params, feature, info.webmap);
-
       //- Need the map to be loaded to add graphics
       if (map.loaded) {
         setupMap(params, feature);

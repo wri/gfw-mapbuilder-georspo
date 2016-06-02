@@ -141,7 +141,7 @@ gulp.task('prerender', function () {
 gulp.task('bundle', function (cb) {
   // Load in the profiles
   var mainProfile = eval(fs.readFileSync(path.join(__dirname, 'rjs.main.js'), 'utf-8'));
-  var reportProfile = eval(fs.readFileSync(path.join(__dirname, 'rjs.main.js'), 'utf-8'));
+  var reportProfile = eval(fs.readFileSync(path.join(__dirname, 'rjs.report.js'), 'utf-8'));
   // Update the name in the build profile
   mainProfile.out = 'dist/' + version + '/js/main.js';
   reportProfile.out = 'dist/' + version + '/js/reportMain.js';

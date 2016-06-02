@@ -58,6 +58,10 @@ export default class AnalysisTypeSelect extends Component {
       });
     }
 
+    // Set the default analysis type
+    mapActions.setAnalysisType.defer({
+      target: { value: this.options[0].value }
+    });
   }
 
   renderOption = (group) => {
@@ -78,7 +82,6 @@ export default class AnalysisTypeSelect extends Component {
   };
 
   render () {
-    // TODO: SET THIS VALUE ON LOAD SOMEWHERE SO THE TC_LOSS ANALYSIS IS NOT RUN IF THEY ARE OMITTED
     const {activeAnalysisType} = this.props;
     let groupKeys = [];
     const groups = {};

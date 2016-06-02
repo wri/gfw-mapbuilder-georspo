@@ -52,7 +52,7 @@ export default class Analysis extends Component {
       activeSlopeClass
     } = this.props;
 
-    if (selectedFeature && activeTab === tabKeys.ANALYSIS) {
+    if (selectedFeature && activeAnalysisType && activeTab === tabKeys.ANALYSIS) {
       request.getRawGeometry(selectedFeature).then((geometry) => {
         performAnalysis({
           type: activeAnalysisType,
@@ -87,7 +87,8 @@ export default class Analysis extends Component {
       canopyDensity !== this.props.canopyDensity ||
       activeSlopeClass !== this.props.activeSlopeClass
       ) &&
-      activeTab === tabKeys.ANALYSIS
+      activeTab === tabKeys.ANALYSIS &&
+      activeAnalysisType !== ''
     ) {
       this.setState(getDefaultState());
       const {settings, language} = this.context;
