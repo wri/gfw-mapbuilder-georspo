@@ -56,8 +56,13 @@ block append esri-script
           base + path
         )
     }
+    function getResourcePath (path) {
+      var position = path.length - 1;
+      return path.indexOf('/', position) === position ? path.slice(0, -1) : path;
+    }
     // Change this to '' if _app.base is a remote url
     var base = location.href.replace(/\/[^/]+$/, '');
+    // var base = 'http://s3.amazonaws.com/summertop/gfw-mapbuilder/0.1.26';
     // Add trailing slash if it is not present
     base = makePath(base);
     // Add _app.base if it is present
@@ -66,7 +71,7 @@ block append esri-script
       parseOnLoad: false,
       async: true,
       packages: [
-        { name: 'root', location: base },
+        { name: 'root', location: getResourcePath(location.href.replace(/\/[^/]+$/, '')) },
         { name: 'js', location: makePath(base, 'js')},
         { name: 'vendor', location: makePath(base, 'vendor')},
         { name: 'utils', location: makePath(base, 'js/utils')},
