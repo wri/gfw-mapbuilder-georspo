@@ -49,7 +49,7 @@ var config = {
     filesaver: { src: 'build/vendor/file-saver.js/FileSaver.js', dest: 'dist/' + version + '/vendor/file-saver.js/'},
     jquery: { src: 'build/vendor/jquery/dist/jquery.min.js', dest: 'dist/' + version + '/vendor/jquery/dist/'},
     ion: { src: 'build/vendor/ion.rangeslider/**/*', dest: 'dist/' + version + '/vendor/ion.rangeslider/'},
-    resource: { src: 'build/resources.js', dest: 'dist/' + version + '/'}
+    resource: { src: 'build/resources.js', dest: 'dist/'}
   }
 };
 
