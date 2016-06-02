@@ -48,7 +48,8 @@ var config = {
   copy: {
     filesaver: { src: 'build/vendor/file-saver.js/FileSaver.js', dest: 'dist/' + version + '/vendor/file-saver.js/'},
     jquery: { src: 'build/vendor/jquery/dist/jquery.min.js', dest: 'dist/' + version + '/vendor/jquery/dist/'},
-    ion: { src: 'build/vendor/ion.rangeslider/**/*', dest: 'dist/' + version + '/vendor/ion.rangeslider/'}
+    ion: { src: 'build/vendor/ion.rangeslider/**/*', dest: 'dist/' + version + '/vendor/ion.rangeslider/'},
+    resource: { src: 'build/resources.js', dest: 'dist/' + version + '/'}
   }
 };
 
@@ -112,6 +113,8 @@ gulp.task('copy', function () {
     .pipe(gulp.dest(config.copy.ion.dest));
   gulp.src(config.copy.filesaver.src)
     .pipe(gulp.dest(config.copy.filesaver.dest));
+  gulp.src(config.copy.resource.src)
+    .pipe(gulp.dest(config.copy.resource.dest));
 });
 
 gulp.task('prerender', function () {

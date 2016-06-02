@@ -99,6 +99,14 @@ const downloadCSV = function downloadCSV (filename, csvString) {
 	}
 };
 
+const getTitleFromNode = function getTitleFromNode (node) {
+	// If its a custom feature, the value comes from an input, else, it comes from the node
+	var customFeatureInput = document.querySelector('.custom-feature__input');
+	return customFeatureInput && customFeatureInput.value ?
+		customFeatureInput.value :
+		(node ? node.innerHTML : '');
+};
+
 /**
 * The context for this in this function is bound to that of Highcharts,
 * so you can access chart data and options through this
@@ -110,7 +118,7 @@ export default function generateCSV () {
   const lineEndings = '\r\n';
   const csvData = [];
 
-  let title = titleNode ? titleNode.innerHTML : '',
+  let title = getTitleFromNode(titleNode),
 			filename = series[0].name,
 			values = [],
 			output, headers;

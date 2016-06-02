@@ -142,6 +142,7 @@ class MapStore {
   }
 
   createLayers (layers) {
+    console.log(layers);
     this.activeLayers = layers.filter((layer) => layer.visible && !layer.subId).map((layer) => layer.id);
     this.allLayers = layers;
     layers.forEach(layer => {

@@ -68,7 +68,7 @@ class MapActions {
     //- If we are changing webmaps, and any layer is active, we want to make sure it shows up as active in the new map
     //- Make those updates here to the config as this will trickle down
     uniqueLayers.forEach(layer => {
-      layer.visible = activeLayers.indexOf(layer.id) > -1;
+      layer.visible = activeLayers.indexOf(layer.id) > -1 || layer.visible;
     });
     //- remove layers from config that have no url unless they are of type graphic(which have no url)
     //- sort by order from the layer config
