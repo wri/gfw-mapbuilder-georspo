@@ -43,7 +43,7 @@ const configureApp = () => {
 */
 const lazyloadAssets = () => {
   loadCSS('http://fonts.googleapis.com/css?family=Fira+Sans:400,500,300');
-  loadCSS(`${window._app.base ? window._app.base + '/' : ''}css/app.css?${window._app.cache}`);
+  loadCSS(`${window._app.base ? window._app.base + '/' : ''}css/app.css`);
   loadCSS(`https://js.arcgis.com/${window._app.esri}/dijit/themes/tundra/tundra.css`);
   loadCSS(`https://js.arcgis.com/${window._app.esri}/esri/css/esri.css`);
   loadJS(assetUrls.highcharts).then(() => {

@@ -12,11 +12,11 @@ window.brApp = {
   debug: location.search.slice(1).search('debug=true') > -1
 };
 
-let configureApp = () => {
+const configureApp = () => {
   corsServers.forEach((server) => { esriConfig.defaults.io.corsEnabledServers.push(server); });
 };
 
-let lazyloadAssets = () => {
+const lazyloadAssets = () => {
   window.highchartsPromise = loadJS(assetUrls.highcharts);
   window.highchartsPromise.then(() => {
     Highcharts.setOptions({
@@ -27,10 +27,6 @@ let lazyloadAssets = () => {
   loadJS(assetUrls.highchartsMore);
 };
 
-let start = () => {
-  report.run();
-};
-
 configureApp();
 lazyloadAssets();
-start();
+report.run();
