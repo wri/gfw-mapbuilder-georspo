@@ -32,7 +32,23 @@ npm run dist
 #### How the build works
 > If you need to configure the build or update the process for how it works, read this section
 
-**Coming Soon**
+The build can work and run right out of the `dist` folder which is generated when you run `npm run dist`.  However, there are some additional methods for deploying to allow greater flexibility and customization.  The current output looks something like this:
+```javascript
+|- index.html
+|- report.html
+|- resources.js
+|- '1.0.0' // Or whatever the version number is
+|  |- 'css'
+|  |  |- app.css
+|  |- 'js'
+|  |  |- main.js
+|  |  |- reportMain.js
+|  |- 'vendor'
+|  |  |- 'vendor libs here...'
+```
+The `index.html` and `report.html` have an option to change where to load the base versioned folder from.  As previously said, it will by default load from whatever version the latest build is on from the folder in dist.  If you want to deploy those resources to a different server, you can do so and change the references in the html files with these two steps.
+1. In `index.html` and `report.html`, search for _app and you should see something like this: `var _app={cache:"0.1.26",esri:"3.16",base:"0.1.26"},`. Change base here to your remote path, something like this for example: 'http://s3.amazonaws.com/gfw-mapbuilder/0.1.26'. This would make that line look like this: ``var _app={cache:"0.1.26",esri:"3.16",base:"http://s3.amazonaws.com/gfw-mapbuilder/0.1.26"},``
+2. Next you need to set the base variable, different from _app.base, and set it to "", this appears immediately after the above line. Example of original setting: `var _app={cache:"0.1.26",esri:"3.16",base:"0.1.26"},base=location.href.replace(/\/[^\/]+$/,"");`, example of new setting: `var _app={cache:"0.1.26",esri:"3.16",base:"http://s3.amazonaws.com/gfw-mapbuilder/0.1.26"},base='';`
 
 ### Configuring
 This application has a general `src/js/config.js` file that contains things controlled by the developers.  There is also a `resources.js` file which contains more configurations.  However the Resources file contains configurations that are controlled via ArcGIS Online or whomever may be deploying the application.  You can control things like the layers in the accordion, their source urls, service urls (print, geometry, map, etc.), which layers to include in the analysis, and even the configurations for slope analysis and other aspects of the analysis.  Anything that needs to be controlled from ArcGIS Online or the person deploying it, should be placed in `resources.js`.
