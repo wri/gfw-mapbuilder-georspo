@@ -107,7 +107,8 @@ export default class Map extends Component {
       });
       //- Add a scalebar
       scalebar = new Scalebar({
-        map: response.map
+        map: response.map,
+        scalebarUnit: 'metric'
       });
 
       const updateEnd = response.map.on('update-end', () => {

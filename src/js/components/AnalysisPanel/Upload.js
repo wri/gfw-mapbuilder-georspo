@@ -70,6 +70,7 @@ export default class Upload extends Component {
     mapActions.toggleAnalysisModal({ visible: false });
 
     const extent = scaleUtils.getExtentForScale(map, 40000);
+    // TODO: Try hardcoding type = shapefile for windows
     const type = file.type === TYPE.ZIP ? TYPE.SHAPEFILE : TYPE.GEOJSON;
     const params = uploadConfig.shapefileParams(file.name, map.spatialReference, extent.getWidth(), map.width);
     const content = uploadConfig.shapefileContent(JSON.stringify(params), type);
