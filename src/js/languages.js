@@ -76,12 +76,12 @@ strings.en.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.SLOPE,
     group: analysisKeys.ANALYSIS_GROUP_SLOPE
   },
-  { label: 'Tree cover loss',
-    value: analysisKeys.TC_LOSS,
-    group: analysisKeys.ANALYSIS_GROUP_OTHER
-  },
   { label: 'Total tree cover loss/gain',
     value: analysisKeys.TC_LOSS_GAIN,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Tree cover loss',
+    value: analysisKeys.TC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Land cover loss',

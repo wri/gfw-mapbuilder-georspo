@@ -23,8 +23,9 @@ export default class DrawTools extends Component {
     };
   }
 
-  componentWillReceiveProps() {
+  componentDidMount () {
     const {map} = this.context;
+    // If this component unmounts and destroys itself, recreate it
     if (!this.toolbar && map.loaded) {
       this.createToolbar(map);
     }
@@ -32,17 +33,19 @@ export default class DrawTools extends Component {
 
   componentDidUpdate(prevProps, prevState, prevContext) {
     const {map} = this.context;
-    if (prevContext.map !== map && map.loaded) {
-      // delete here and let willReceiveProps recreate it
-      delete this.toolbar;
+    // Wait for the map to load and create it
+    if (!this.toolbar && map.loaded) {
+      this.createToolbar(map);
+    } else if (prevContext.map !== map && map.loaded) { // If the map changes, recreate it
+      this.createToolbar(map);
     }
   }
 
   createToolbar = (map) => {
     this.toolbar = new Draw(map);
     this.toolbar.on('draw-end', (evt) => {
-      this.toolbar.deactivate();
-      this.setState({ drawButtonActive: false });
+      this.deactivate();
+      // Add graphic to map and set as active feature
       const graphic = geometryUtils.generateDrawnPolygon(evt.geometry);
       map.graphics.add(graphic);
       map.infoWindow.setFeatures([graphic]);
@@ -50,10 +53,30 @@ export default class DrawTools extends Component {
   };
 
   draw = () => {
-    this.toolbar.activate(Draw.FREEHAND_POLYGON);
+    // if active, toggle it off
+    if (this.state.drawButtonActive) {
+      this.deactivate();
+    } else {
+      this.activate();
+      //- If the analysis modal is visible, hide it
+      mapActions.toggleAnalysisModal({ visible: false });
+    }
+  };
+
+  activate = () => {
+    const {map} = this.context;
+    this.toolbar.activate(Draw.POLYGON);
     this.setState({ drawButtonActive: true });
-    //- If the analysis modal is visible, hide it
-    mapActions.toggleAnalysisModal({ visible: false });
+    // Disable popups while this is active
+    map.__clickEventHandle.remove();
+  };
+
+  deactivate = () => {
+    const {map} = this.context;
+    this.toolbar.deactivate();
+    this.setState({ drawButtonActive: false });
+    // Reconnect the popups and reset the clickEventHandle
+    map.__clickEventHandle = map.on('click', map.__clickEventListener);
   };
 
   renderInstructionList = (instruction, index) => {

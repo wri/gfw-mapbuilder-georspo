@@ -1,3 +1,4 @@
+import {createTracker} from 'utils/googleAnalytics';
 import appActions from 'actions/AppActions';
 import Header from 'components/Header';
 import AppStore from 'stores/AppStore';
@@ -32,7 +33,9 @@ export default class App extends Component {
     template.getAppInfo().then(settings => {
       appActions.applySettings(settings);
       this.updateTitle(settings);
-      this.createAnalyticsTracker(settings);
+      if (settings.analyticsCode) {
+        createTracker(settings.analyticsCode);
+      }
     });
   }
 
@@ -51,13 +54,6 @@ export default class App extends Component {
     const labels = settings.labels[language];
     if (labels && labels.title) {
       document.title = labels.title;
-    }
-  };
-
-  createAnalyticsTracker = (settings) => {
-    if (settings.analyticsCode) {
-      ga('create', settings.analyticsCode, 'auto');
-      ga('send', 'pageview');
     }
   };
 

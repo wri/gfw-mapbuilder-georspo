@@ -102,9 +102,17 @@ export default class Map extends Component {
       response.map.on('zoom-end', mapActions.mapUpdated);
       //- When custom features are clicked, apply them to the info window, this will trigger above event
       response.map.graphics.on('click', (evt) => {
-        evt.stopPropagation();
-        response.map.infoWindow.setFeatures([evt.graphic]);
+        // If no graphic or if there are no attributes, then this is the draw tool triggering itself
+        if (evt.graphic && evt.graphic.attributes) {
+          evt.stopPropagation();
+          response.map.infoWindow.setFeatures([evt.graphic]);
+        }
       });
+
+      // Store click event functions so they can be turned on or off with connect.disconnect and connect.connect
+      response.map.__clickEventHandle = response.clickEventHandle;
+      response.map.__clickEventListener = response.clickEventListener;
+
       //- Add a scalebar
       scalebar = new Scalebar({
         map: response.map,

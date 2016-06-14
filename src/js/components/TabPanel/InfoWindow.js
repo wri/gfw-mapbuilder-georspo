@@ -40,7 +40,7 @@ export default class InfoWindow extends Component {
     const {infoWindow} = this.props.map;
     const {language} = this.context;
     let count = 0, selectedIndex = 0;
-    let selectedFeature, content, title;
+    let selectedFeature, content, title, footer;
 
     if ( infoWindow && infoWindow.getSelectedFeature ) {
       count = infoWindow.count;
@@ -65,6 +65,12 @@ export default class InfoWindow extends Component {
           </div>
         );
       }
+      // Add the footer
+      footer = (
+        <div className='infoWindow__footer'>
+          <ReportSubscribeButtons />
+        </div>
+      );
     }
 
     return (
@@ -94,9 +100,7 @@ export default class InfoWindow extends Component {
             <svg className='analysis-instructions__draw-icon' dangerouslySetInnerHTML={{ __html: polygonSvg }} />
           </div>
         </div>
-        <div className='infoWindow__footer'>
-          <ReportSubscribeButtons />
-        </div>
+        {footer}
       </div>
     );
   }

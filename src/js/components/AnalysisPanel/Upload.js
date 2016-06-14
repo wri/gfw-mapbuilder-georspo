@@ -12,10 +12,13 @@ import React, {
 } from 'react';
 
 const TYPE = {
-  ZIP: 'application/zip',
-  JSON: 'application/json',
+  ZIP: '.zip',
   SHAPEFILE: 'shapefile',
   GEOJSON: 'geojson'
+};
+
+const isZip = function isZip (filename) {
+  return filename.indexOf(TYPE.ZIP) === filename.length - TYPE.ZIP.length;
 };
 
 export default class Upload extends Component {
@@ -71,7 +74,7 @@ export default class Upload extends Component {
 
     const extent = scaleUtils.getExtentForScale(map, 40000);
     // TODO: Try hardcoding type = shapefile for windows
-    const type = file.type === TYPE.ZIP ? TYPE.SHAPEFILE : TYPE.GEOJSON;
+    const type = isZip(file.name) ? TYPE.SHAPEFILE : TYPE.GEOJSON;
     const params = uploadConfig.shapefileParams(file.name, map.spatialReference, extent.getWidth(), map.width);
     const content = uploadConfig.shapefileContent(JSON.stringify(params), type);
 
