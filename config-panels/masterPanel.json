@@ -87,7 +87,6 @@
       "fieldName": "includeMyGFWLogin",
       "tooltip": "This will include the My GFW Login in the header",
       "label": "Would you like include an My GFW Login"
-    }]
     }, {
       "type": "boolean",
       "fieldName": "navLinksInNewTab",
@@ -264,7 +263,7 @@
       "type": "string",
       "fieldName": "alternativeRestorationOptions",
       "tooltip": "These show up under Restoration potential for ...",
-      "label": "Same restoration analysis options as directly above but for an additional language if configured.",
+      "label": "Enter the same restoration analysis options as directly above but for an additional language if configured.",
       "placeholder": "establishing natural forest;restocking degraded natural forest;agri-silviculture..."
     }, {
       "type": "string",
@@ -296,6 +295,30 @@
       "tooltip": "Enter a semi-colon separated list of colors for your tree cover classes",
       "label": "Enter a semi-colon separated list of colors for your tree cover classes",
       "placeholder": "rgb(0, 0, 0);rgb(180, 215, 158);rgb(245, 245, 122);rgb(205, 170, 102);"
+    }, {
+      "type": "string",
+      "fieldName": "landCoverClassNames",
+      "tooltip": "Enter a semi-colon separated list of class names for your land cover classes",
+      "label": "Enter a semi-colon separated list of class names for your land cover classes",
+      "placeholder": "No Data;Forestland;Grassland;Cropland;Wetland and Waterbodies;Settlement;Bare soil;"
+    }, {
+      "type": "string",
+      "fieldName": "landCoverClassColors",
+      "tooltip": "Enter a semi-colon separated list of colors for your land cover classes",
+      "label": "Enter a semi-colon separated list of colors for your land cover classes",
+      "placeholder": "rgb(0, 0, 0);rgb(0, 174, 0);rgb(255, 255, 0);rgb(255, 155, 190);rgb(0, 238, 238);rgb(255, 0, 0);rgb(255, 255, 188);"
+    }, {
+      "type": "string",
+      "fieldName": "populationClassNames",
+      "tooltip": "Enter a semi-colon separated list of class names for your population classes",
+      "label": "Enter a semi-colon separated list of class names for your population classes",
+      "placeholder": "No Data;<= 20;20 - 50;50 - 150;150 - 500;> 500;"
+    }, {
+      "type": "string",
+      "fieldName": "populationClassColors",
+      "tooltip": "Enter a semi-colon separated list of colors for your population classes",
+      "label": "Enter a semi-colon separated list of colors for your population classes",
+      "placeholder": "rgb(0, 0, 0);rgb(255, 255, 128);rgb(250, 209, 85);rgb(242, 167, 46);rgb(173, 83, 19);rgb(107, 0, 0);"
     }]
   }],
 
@@ -346,7 +369,11 @@
     "slopeClassNames": "No Data;<= 30%;30 - 60%;> 60%;",
     "slopeClassColors": "rgb(0, 0, 0);rgb(255, 235, 175);rgb(115, 115, 0);rgb(168, 0, 0);",
     "treeCoverClassNames": "No Data;<= 10%;10 - 30%;> 30%;",
-    "treeCoverClassColors": "rgb(0, 0, 0);rgb(180, 215, 158);rgb(245, 245, 122);rgb(205, 170, 102);"
+    "treeCoverClassColors": "rgb(0, 0, 0);rgb(180, 215, 158);rgb(245, 245, 122);rgb(205, 170, 102);",
+    "landCoverClassNames": "No Data;Forestland;Grassland;Cropland;Wetland and Waterbodies;Settlement;Bare soil;",
+    "landCoverClassColors": "rgb(0, 0, 0);rgb(0, 174, 0);rgb(255, 255, 0);rgb(255, 155, 190);rgb(0, 238, 238);rgb(255, 0, 0);rgb(255, 255, 188);",
+    "populationClassNames": "No Data;<= 20;20 - 50;50 - 150;150 - 500;> 500;",
+    "populationClassColors": "rgb(0, 0, 0);rgb(255, 255, 128);rgb(250, 209, 85);rgb(242, 167, 46);rgb(173, 83, 19);rgb(107, 0, 0);"
 
   }
 }

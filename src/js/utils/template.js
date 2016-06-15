@@ -109,6 +109,16 @@ const formatResources = () => {
       resources.treeCoverClasses = parseIntoArray(resources.treeCoverClassNames);
       resources.treeCoverColors = parseIntoArray(resources.treeCoverClassColors);
     }
+    //- Parse land cover class names if present
+    if (resources.landCoverClassNames) {
+      resources.landCoverClasses = parseIntoArray(resources.landCoverClassNames);
+      resources.landCoverColors = parseIntoArray(resources.landCoverClassColors);
+    }
+    //- Parse population density class names if present
+    if (resources.populationClassNames) {
+      resources.populationClasses = parseIntoArray(resources.populationClassNames);
+      resources.populationColors = parseIntoArray(resources.populationClassColors);
+    }
   }
 
   //- Remove Layers from resources.layers if configured

@@ -2,13 +2,18 @@ import ControlledModalWrapper from 'components/Modals/ControlledModalWrapper';
 import PrintTemplate from 'esri/tasks/PrintTemplate';
 import mapActions from 'actions/MapActions';
 import PrintDijit from 'esri/dijit/Print';
+import esriRequest from 'esri/request';
 import esriConfig from 'esri/config';
 import text from 'js/languages';
 import React, { Component, PropTypes } from 'react';
 
-let print;
+const LAYOUT_PARAM = 'Layout_Template';
+
+let created = false, print;
 
 const createPrintWidget = function createPrintWidget (settings, map, language, node) {
+  //- Prevent additional widgets from getting created, if creation fails, we can flip this back to false
+  created = true;
   //- Get this information from ArcGIS Online Configurations
   const options = {
     scalebarUnit: 'Kilometers',
@@ -19,47 +24,57 @@ const createPrintWidget = function createPrintWidget (settings, map, language, n
     }]
   };
 
-  const layouts = [{
-    name: 'MAP_ONLY',
-    label: 'Map Image (jpg)',
-    format: 'jpg',
-    options: options
-  }, {
-    name: 'GFW_Mapbuilder_Landscape',
-    label: 'GFW Mapbuilder Landscape',
-    format: 'jpg',
-    options: options
-  }];
-
-  //- Add in any layouts passed in from arcgis online
-  if (settings.iso) {
-    layouts.push({
-      name: `${settings.iso || 'CMR'}_Landscape`,
-      label: 'Landscape (pdf)',
-      format: 'pdf',
-      options: options
-    });
-  }
-
-  const templates = layouts.map((layout) => {
-    const template = new PrintTemplate();
-    template.layout = layout.name;
-    template.label = layout.label;
-    template.format = layout.format;
-    template.layoutOptions = layout.options;
-    return template;
-  });
-
-  print = new PrintDijit({
+  // Fetch templates from the configured print service and use those
+  esriRequest({
     url: settings.printServiceUrl,
-    templates: templates,
-    map: map
-  }, node);
+    handleAs: 'json',
+    content: {f: 'json'},
+    callbackParamName: 'callback'
+  }).then((response) => {
+    const {parameters} = response;
+    let layoutParams, layouts = [];
+    // Try to locate the Layout Params
+    if (parameters && parameters.length) {
+      parameters.some((param) => {
+        if (param.name === LAYOUT_PARAM) {
+          layoutParams = param;
+          return true;
+        }
+      });
+    }
 
-  //- Add the service to Cors Enabled Servers
-  esriConfig.defaults.io.corsEnabledServers.push(settings.printServiceUrl);
+    if (layoutParams) {
+      layouts = layoutParams.choiceList && layoutParams.choiceList.map((item) => {
+        return {
+          name: item,
+          label: item,
+          format: 'pdf',
+          options
+        };
+      });
+    }
 
-  print.startup();
+    const templates = layouts.map((layout) => {
+      const template = new PrintTemplate();
+      template.layout = layout.name;
+      template.label = layout.label;
+      template.format = layout.format;
+      template.layoutOptions = layout.options;
+      return template;
+    });
+
+    print = new PrintDijit({
+      url: settings.printServiceUrl,
+      templates: templates,
+      map: map
+    }, node);
+
+    //- Add the service to Cors Enabled Servers
+    esriConfig.defaults.io.corsEnabledServers.push(settings.printServiceUrl);
+
+    print.startup();
+
+  }, console.error);
 };
 
 export default class PrintModal extends Component {
@@ -73,7 +88,7 @@ export default class PrintModal extends Component {
   componentWillReceiveProps() {
     const { settings, map, language } = this.context;
     const node = this.refs.print;
-    if (map.loaded && !print) {
+    if (map.loaded && !created) {
       createPrintWidget(settings, map, language, node);
     }
   }

@@ -28,12 +28,12 @@ export default class RestorationCharts extends Component {
 
   componentDidMount() {
     const {slopeChart, landCoverChart, populationChart, treeCoverChart} = this.refs;
-    const {results, config} = this.props;
-    const {language, settings} = this.context;
+    const {results} = this.props;
+    const {settings} = this.context;
     //- Format the data into series highcharts can easily consume
     const slopeData = formatData(results.slope, settings.slopeClasses, settings.slopeColors);
-    const lcData = formatData(results.landCover, text[language].ANALYSIS_RESTORATION_LC_LABELS, config.landCoverColors);
-    const popData = formatData(results.population, config.populationClasses, config.populationColors);
+    const lcData = formatData(results.landCover, settings.landCoverClasses, settings.landCoverColors);
+    const popData = formatData(results.population, settings.populationClasses, settings.populationColors);
     const tcData = formatData(results.treeCover, settings.treeCoverClasses, settings.treeCoverColors);
     //- Generate Charts if there is data
     if (slopeData.length && lcData.length && popData.length && tcData.length) {
@@ -59,14 +59,6 @@ export default class RestorationCharts extends Component {
           <div ref='treeCoverChart' className='analysis__chart-container' />
         </div>
       );
-    // return (
-    //   <div className='restoration-charts'>
-    //     <div ref='slopeChart' className='analysis__chart-container' />
-    //     <div ref='landCoverChart' className='analysis__chart-container' />
-    //     <div ref='populationChart' className='analysis__chart-container' />
-    //     <div ref='treeCoverChart' className='analysis__chart-container' />
-    //   </div>
-    // );
   }
 }
 

@@ -147,18 +147,10 @@ const config = {
       inputRanges: (density) => [0, +density, +density, 101]
     },
     restoration: {
-      treeCoverId: '$4',
-      // treeCoverClasses: ['No Data', '<= 10%', '10 - 30%', '> 30%'],
-      // treeCoverColors: ['rgb(0, 0, 0)', 'rgb(180, 215, 158)', 'rgb(245, 245, 122)', 'rgb(205, 170, 102)'],
-      populationId: '$2',
-      populationClasses: ['No Data', '<= 20', '20 - 50', '50 - 150', '150 - 500', '> 500'],
-      populationColors: ['rgb(0, 0, 0)', 'rgb(255, 255, 128)', 'rgb(250, 209, 85)', 'rgb(242, 167, 46)', 'rgb(173, 83, 19)', 'rgb(107, 0, 0)'],
-      slopeId: '$3',
-      // slopeClasses: ['No Data', '<= 30%', '30 - 60%', '> 60%'],
-      // slopeColors: ['rgb(0, 0, 0)', 'rgb(255, 235, 175)', 'rgb(115, 115, 0)', 'rgb(168, 0, 0)'],
       landCoverId: '$1',
-      // landCoverClasses: [], // In the js/languages file
-      landCoverColors: ['rgb(0, 0, 0)', 'rgb(0, 174, 0)', 'rgb(255, 255, 0)', 'rgb(255, 155, 190)', 'rgb(0, 238, 238)', 'rgb(255, 0, 0)', 'rgb(255, 255, 188)']
+      populationId: '$2',
+      slopeId: '$3',
+      treeCoverId: '$4'
     }
   }
 };
@@ -186,12 +178,6 @@ config.analysis[analysisKeys.BIO_LOSS] = {
   }
 };
 
-// config.analysis[analysisKeys.LC_LOSS] = {
-//   id: '$523',
-//   bounds: [1, 20],
-//   colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92']
-// };
-
 config.analysis[analysisKeys.SLOPE] = {
   id: '$3',
   restoration: '$5',
@@ -214,11 +200,6 @@ config.analysis[analysisKeys.TC_LOSS] = {
   bounds: [1, 14],
   labels: [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014]
 };
-
-// config.analysis[analysisKeys.LCC] = {
-//   lockRaster: 523,
-//   colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92']
-// };
 
 config.analysis[analysisKeys.FIRES] = {
   url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer/4'

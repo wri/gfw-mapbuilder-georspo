@@ -50,6 +50,8 @@ export default class InfoWindow extends Component {
     }
 
     if (selectedFeature) {
+      console.log(infoWindow);
+      console.log(selectedFeature);
       if (selectedFeature.attributes.__source === attributes.SOURCE_SEARCH) {
         title = (
           <div className='infoWindow__title'>

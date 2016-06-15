@@ -24,7 +24,6 @@ export default class SlopeClassSelect extends Component {
     const {language, settings} = this.context;
     const {activeSlopeClass} = this.props;
     //- Remove the first No Data value
-    console.log(settings);
     const classes = settings.slopeClasses.slice(1);
 
     return (

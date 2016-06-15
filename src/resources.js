@@ -5,7 +5,7 @@ export default {
   //- General Settings
   // webmap to use for testing metadata.xml fetching/parsing - 4d426ef4be0f483e9dab047fbb4c6718
   // webmap to use for testing document attachments - b514d31339954ba9a0c5822135bc2001
-  webmap: 'de85e3fcc07948238aa6c1afd2a4ceb0',
+  webmap: 'b514d31339954ba9a0c5822135bc2001', // 'de85e3fcc07948238aa6c1afd2a4ceb0',
   title: 'GFW Mapbuilder',
   subtitle: 'Make maps that matter',
   logoUrl: './css/images/gfw-logo.png',
@@ -54,10 +54,13 @@ export default {
   slopeClassColors: 'rgb(0, 0, 0);rgb(255, 235, 175);rgb(115, 115, 0);rgb(168, 0, 0);',
   treeCoverClassNames: 'No Data;<= 10%;10 - 30%;> 30%;',
   treeCoverClassColors: 'rgb(0, 0, 0);rgb(180, 215, 158);rgb(245, 245, 122);rgb(205, 170, 102);',
+  landCoverClassNames: 'No Data;Forestland;Grassland;Cropland;Wetland and Waterbodies;Settlement;Bare soil;',
+  landCoverClassColors: 'rgb(0, 0, 0);rgb(0, 174, 0);rgb(255, 255, 0);rgb(255, 155, 190);rgb(0, 238, 238);rgb(255, 0, 0);rgb(255, 255, 188);',
+  populationClassNames: 'No Data;<= 20;20 - 50;50 - 150;150 - 500;> 500;',
+  populationClassColors: 'rgb(0, 0, 0);rgb(255, 255, 128);rgb(250, 209, 85);rgb(242, 167, 46);rgb(173, 83, 19);rgb(107, 0, 0);',
 
   // Options not configurable from AGOL but can be from here
   analyticsCode: 'UA-62288390-15',
-
   /**
   * Layer Config Options, [brackets] = optional
   * if type is anything other than graphic and the layer is not disabled, it must have a url

@@ -91,7 +91,7 @@ export default class Map extends Component {
 
   createMap = (webmap) => {
     const {language, settings} = this.context;
-    arcgisUtils.createMap(webmap, this.refs.map, { mapOptions: mapConfig.options }).then(response => {
+    arcgisUtils.createMap(webmap, this.refs.map, { mapOptions: mapConfig.options, usePopupManager: true }).then(response => {
       // Add operational layers from the webmap to the array of layers from the config file.
       const {itemData} = response.itemInfo;
       this.addLayersToLayerPanel(settings, itemData.operationalLayers);

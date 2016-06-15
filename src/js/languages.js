@@ -63,9 +63,6 @@ strings.en.ANALYSIS_TOTAL_GAIN_LABEL = 'Total tree cover gained';
 strings.en.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.en.ANALYSIS_SLOPE_OPTION = 'Option #';
 strings.en.SLOPE_SELECT_LABEL = 'Choose slope percent:';
-strings.en.ANALYSIS_RESTORATION_LC_LABELS = [
-  'No Data', 'Forestland', 'Grassland', 'Cropland', 'Wetland and Waterbodies', 'Settlement', 'Bare soil'
-];
 strings.en.ANALYSIS_RESTORATION_ERROR = 'Area not meeting criteria for potential/No data';
 strings.en.ANALYSIS_GROUP_RESTORATION = 'Restoration potential for';
 strings.en.ANALYSIS_GROUP_SLOPE = 'Potential according to';
@@ -215,9 +212,6 @@ strings.fr.ANALYSIS_TOTAL_GAIN_LABEL = 'Total Gain en couvert arboré';
 strings.fr.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.fr.ANALYSIS_SLOPE_OPTION = 'Option #';
 strings.fr.SLOPE_SELECT_LABEL = 'Choisissez la pente (%):';
-strings.fr.ANALYSIS_RESTORATION_LC_LABELS = [
-  'Pas de données', 'Forêts', 'Prairies', 'Cultures', 'Milieux humides et eaux de surface', 'Lieux habités', 'Sols nus'
-];
 strings.fr.ANALYSIS_RESTORATION_ERROR = 'Région ne correspondant pas aux critères/Pas de données';
 strings.fr.ANALYSIS_GROUP_RESTORATION = 'Potentiel de restauration pour';
 strings.fr.ANALYSIS_GROUP_SLOPE = 'Potentiel selon';
@@ -365,9 +359,6 @@ strings.es.ANALYSIS_TOTAL_GAIN_LABEL = 'Ganancia total de la cobertura arbórea'
 strings.es.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.es.ANALYSIS_SLOPE_OPTION = 'Opción #';
 strings.es.SLOPE_SELECT_LABEL = 'Escoger porcentaje del pendiente:';
-strings.es.ANALYSIS_RESTORATION_LC_LABELS = [
-  'Sin Datos', 'Bosque', 'Pradera', 'Cultivos', 'Humedales y Cuerpos de Agua', 'Asentamientos Humanos', 'Suelo Desnudo'
-];
 strings.es.ANALYSIS_RESTORATION_ERROR = 'Área no coincide con los criterios/ Sin Datos';
 strings.es.ANALYSIS_GROUP_RESTORATION = 'Potencial de restauración para';
 strings.es.ANALYSIS_GROUP_SLOPE = 'Potencial según';
@@ -515,9 +506,6 @@ strings.pt.ANALYSIS_TOTAL_GAIN_LABEL = 'Total tree cover gained';
 strings.pt.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.pt.ANALYSIS_SLOPE_OPTION = 'Option #';
 strings.pt.SLOPE_SELECT_LABEL = 'Choose slope percent:';
-strings.pt.ANALYSIS_RESTORATION_LC_LABELS = [
-  'No Data', 'Forestland', 'Grassland', 'Cropland', 'Wetland and Waterbodies', 'Settlement', 'Bare soil'
-];
 strings.pt.ANALYSIS_RESTORATION_ERROR = 'Area not meeting criteria for potential/No data';
 strings.pt.ANALYSIS_GROUP_RESTORATION = 'Restoration potential for';
 strings.pt.ANALYSIS_GROUP_SLOPE = 'Potential according to';
@@ -665,9 +653,6 @@ strings.id.ANALYSIS_TOTAL_GAIN_LABEL = 'Total tree cover gained';
 strings.id.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.id.ANALYSIS_SLOPE_OPTION = 'Option #';
 strings.id.SLOPE_SELECT_LABEL = 'Choose slope percent:';
-strings.id.ANALYSIS_RESTORATION_LC_LABELS = [
-  'No Data', 'Forestland', 'Grassland', 'Cropland', 'Wetland and Waterbodies', 'Settlement', 'Bare soil'
-];
 strings.id.ANALYSIS_RESTORATION_ERROR = 'Area not meeting criteria for potential/No data';
 strings.id.ANALYSIS_GROUP_RESTORATION = 'Restoration potential for';
 strings.id.ANALYSIS_GROUP_SLOPE = 'Potential according to';
@@ -815,9 +800,6 @@ strings.zh.ANALYSIS_TOTAL_GAIN_LABEL = '总森林覆盖增加';
 strings.zh.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.zh.ANALYSIS_SLOPE_OPTION = '选项 #';
 strings.zh.SLOPE_SELECT_LABEL = '选择倾斜度：';
-strings.zh.ANALYSIS_RESTORATION_LC_LABELS = [
-  '无数据', '林地', '草地', '农田', '湿地和水体', '建筑', '裸地'
-];
 strings.zh.ANALYSIS_RESTORATION_ERROR = '无数据 或者 区域不满足条件';
 strings.zh.ANALYSIS_GROUP_RESTORATION = '在生态修复可能性的层面';
 strings.zh.ANALYSIS_GROUP_SLOPE = '可能性原因';
