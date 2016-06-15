@@ -4,6 +4,7 @@ export default {
 
   //- General Settings
   // webmap to use for testing metadata.xml fetching/parsing - 4d426ef4be0f483e9dab047fbb4c6718
+  // webmap to use for testing document attachments - b514d31339954ba9a0c5822135bc2001
   webmap: 'de85e3fcc07948238aa6c1afd2a4ceb0',
   title: 'GFW Mapbuilder',
   subtitle: 'Make maps that matter',
