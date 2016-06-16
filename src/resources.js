@@ -306,7 +306,16 @@ export default {
       visible: false,
       opacity: 0,
       layerIds: []
-    }],
+    }, {
+      id: 'USER_FEATURES',
+      order: 102,
+      type: 'feature',
+      definitionExpression: '1 = 2', // show no features from the service ever
+      mode: 0, // equals MODE_SNAPSHOT
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
+      token: 'TjEeQfPMtR-0kjqzTqIZ7cl-o01RHvmC7tVmcyLHrT3-TfMZbwysm9txFEib56OM',
+      visible: true
+  }],
     es: [{
       id: 'TREE_COVER_LOSS',
       order: 5,
@@ -410,7 +419,16 @@ export default {
       visible: false,
       opacity: 0,
       layerIds: []
-    }],
+    }, {
+      id: 'USER_FEATURES',
+      order: 102,
+      type: 'feature',
+      definitionExpression: '1 = 2', // show no features from the service ever
+      mode: 0, // equals MODE_SNAPSHOT
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
+      token: 'TjEeQfPMtR-0kjqzTqIZ7cl-o01RHvmC7tVmcyLHrT3-TfMZbwysm9txFEib56OM',
+      visible: true
+  }],
     pt: [{
       id: 'TREE_COVER_LOSS',
       order: 5,
@@ -514,7 +532,16 @@ export default {
       visible: false,
       opacity: 0,
       layerIds: []
-    }],
+    }, {
+      id: 'USER_FEATURES',
+      order: 102,
+      type: 'feature',
+      definitionExpression: '1 = 2', // show no features from the service ever
+      mode: 0, // equals MODE_SNAPSHOT
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
+      token: 'TjEeQfPMtR-0kjqzTqIZ7cl-o01RHvmC7tVmcyLHrT3-TfMZbwysm9txFEib56OM',
+      visible: true
+  }],
     id: [{
       id: 'TREE_COVER_LOSS',
       order: 5,
@@ -618,7 +645,16 @@ export default {
       visible: false,
       opacity: 0,
       layerIds: []
-    }],
+    }, {
+      id: 'USER_FEATURES',
+      order: 102,
+      type: 'feature',
+      definitionExpression: '1 = 2', // show no features from the service ever
+      mode: 0, // equals MODE_SNAPSHOT
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
+      token: 'TjEeQfPMtR-0kjqzTqIZ7cl-o01RHvmC7tVmcyLHrT3-TfMZbwysm9txFEib56OM',
+      visible: true
+  }],
     zh: [{
       id: 'TREE_COVER_LOSS',
       order: 5,
@@ -722,7 +758,16 @@ export default {
       visible: false,
       opacity: 0,
       layerIds: []
-    }]
+    }, {
+      id: 'USER_FEATURES',
+      order: 102,
+      type: 'feature',
+      definitionExpression: '1 = 2', // show no features from the service ever
+      mode: 0, // equals MODE_SNAPSHOT
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
+      token: 'TjEeQfPMtR-0kjqzTqIZ7cl-o01RHvmC7tVmcyLHrT3-TfMZbwysm9txFEib56OM',
+      visible: true
+  }]
   },
   basemaps: {
     en: {

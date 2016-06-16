@@ -114,14 +114,6 @@ export default class Map extends Component {
       //- Attach events I need for the info window
       response.map.infoWindow.on('show, hide, set-features, selection-change', mapActions.infoWindowUpdated);
       response.map.on('zoom-end', mapActions.mapUpdated);
-      //- When custom features are clicked, apply them to the info window, this will trigger above event
-      // response.map.graphics.on('click', (evt) => {
-      //   // If no graphic or if there are no attributes, then this is the draw tool triggering itself
-      //   if (evt.graphic && evt.graphic.attributes) {
-          // evt.stopPropagation();
-          // response.map.infoWindow.setFeatures([evt.graphic]);
-      //   }
-      // });
 
       //- Add a scalebar
       scalebar = new Scalebar({
