@@ -186,7 +186,9 @@ export default class Analysis extends Component {
       activeAnalysisType === analysisKeys.INTACT_LOSS
     );
 
-    if (selectedFeature.attributes.__source === attributes.SOURCE_DRAW) {
+    if (selectedFeature.attributes.source === attributes.SOURCE_DRAW ||
+      selectedFeature.attributes.source === attributes.SOURCE_UPLOAD
+    ) {
       title = (
         <div className='analysis-results__title'>
           <CustomFeatureControl feature={selectedFeature} />

@@ -133,7 +133,9 @@ class MapStore {
   infoWindowUpdated (selectedFeature) {
     if (selectedFeature) {
       // If this is a custom feature, active tab should be the analysis tab
-      if (selectedFeature.attributes && selectedFeature.attributes.__source === attributes.SOURCE_DRAW) {
+      if (selectedFeature.attributes &&
+        (selectedFeature.attributes.source === attributes.SOURCE_DRAW || selectedFeature.attributes.source === attributes.SOURCE_UPLOAD)
+      ) {
         this.activeTab = tabKeys.ANALYSIS;
       } else {
         this.activeTab = tabKeys.INFO_WINDOW;
@@ -141,7 +143,8 @@ class MapStore {
     }
   }
 
-  createLayers (layers) {
+  createLayers (payload) {
+    const {map, layers} = payload;
     this.activeLayers = layers.filter((layer) => layer.visible && !layer.subId).map((layer) => layer.id);
     this.allLayers = layers;
     layers.forEach(layer => {
@@ -150,7 +153,7 @@ class MapStore {
           this.dynamicLayers[layer.id] = layer.esriLayer.visibleLayers.slice();
         }
         if (layer.subId && layer.esriLayer.visibleLayers.indexOf(layer.subIndex) > -1) {
-          if (LayersHelper.isLayerVisible(layer)) {
+          if (LayersHelper.isLayerVisible(map, layer)) {
             this.activeLayers.push(layer.subId);
           }
         }

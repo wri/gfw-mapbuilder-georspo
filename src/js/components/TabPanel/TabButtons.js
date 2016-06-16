@@ -66,7 +66,9 @@ export default class TabButtons extends Component {
       const notifiers = [DOCUMENTS];
 
       // Only add ANALYSIS if this is not a drawn feature
-      if (feature.attributes && feature.attributes.__source !== attributes.SOURCE_DRAW) {
+      if (feature.attributes &&
+        (feature.attributes.source !== attributes.SOURCE_DRAW || feature.attributes.source !== attributes.SOURCE_UPLOAD)
+      ) {
         notifiers.push(ANALYSIS);
       }
 

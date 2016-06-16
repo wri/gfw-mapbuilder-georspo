@@ -88,7 +88,10 @@ class MapActions {
       });
     });
     //- Return the layers through the dispatcher so the mapstore can update visible layers
-    return layers;
+    return {
+      layers,
+      map
+    };
   }
 
 }

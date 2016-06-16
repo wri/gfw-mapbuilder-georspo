@@ -159,6 +159,7 @@ export default class LayerPanel extends Component {
         });
       }
     });
+
     //- Swap the last two entries, the name can change so we can't use that for the swap
     //- but we need Land Use (or whatever it gets namedin between the two Land Cover groups)
     if (groups.length > 2) {

@@ -17,7 +17,10 @@ import Scalebar from 'esri/dijit/Scalebar';
 import {getUrlParams} from 'utils/params';
 import basemapUtils from 'utils/basemapUtils';
 import MapStore from 'stores/MapStore';
+import esriRequest from 'esri/request';
 import {mapConfig} from 'js/config';
+import utils from 'utils/AppUtils';
+import resources from 'resources';
 import React, {
   Component,
   PropTypes
@@ -55,6 +58,17 @@ export default class Map extends Component {
       webmapInfo: {},
       ...MapStore.getState()
     };
+
+    // I only need the token and url for config items, so language does not matter
+    const USER_FEATURES_CONFIG = utils.getObject(resources.layers.en, 'id', layerKeys.USER_FEATURES);
+    // Make sure all requests that use tokens have them
+    esriRequest.setRequestPreCallback((ioArgs) => {
+      if (ioArgs.url.search(USER_FEATURES_CONFIG.url) > -1) {
+        ioArgs.content.token = USER_FEATURES_CONFIG.token;
+      }
+      return ioArgs;
+    });
+
   }
 
   componentDidMount() {
@@ -101,17 +115,13 @@ export default class Map extends Component {
       response.map.infoWindow.on('show, hide, set-features, selection-change', mapActions.infoWindowUpdated);
       response.map.on('zoom-end', mapActions.mapUpdated);
       //- When custom features are clicked, apply them to the info window, this will trigger above event
-      response.map.graphics.on('click', (evt) => {
-        // If no graphic or if there are no attributes, then this is the draw tool triggering itself
-        if (evt.graphic && evt.graphic.attributes) {
-          evt.stopPropagation();
-          response.map.infoWindow.setFeatures([evt.graphic]);
-        }
-      });
-
-      // Store click event functions so they can be turned on or off with connect.disconnect and connect.connect
-      response.map.__clickEventHandle = response.clickEventHandle;
-      response.map.__clickEventListener = response.clickEventListener;
+      // response.map.graphics.on('click', (evt) => {
+      //   // If no graphic or if there are no attributes, then this is the draw tool triggering itself
+      //   if (evt.graphic && evt.graphic.attributes) {
+          // evt.stopPropagation();
+          // response.map.infoWindow.setFeatures([evt.graphic]);
+      //   }
+      // });
 
       //- Add a scalebar
       scalebar = new Scalebar({
@@ -137,6 +147,14 @@ export default class Map extends Component {
             maskLayer.show();
           }
         }
+        //- Add click event for user-features layer
+        const userFeaturesLayer = response.map.getLayer(layerKeys.USER_FEATURES);
+        userFeaturesLayer.on('click', (evt) => {
+          if (evt.graphic && evt.graphic.attributes) {
+            evt.stopPropagation();
+            response.map.infoWindow.setFeatures([evt.graphic]);
+          }
+        });
       });
       //- Load any shared state if available
       applyStateFromUrl(response.map, getUrlParams(location.search));

@@ -5,7 +5,8 @@ export default {
   //- General Settings
   // webmap to use for testing metadata.xml fetching/parsing - 4d426ef4be0f483e9dab047fbb4c6718
   // webmap to use for testing document attachments - b514d31339954ba9a0c5822135bc2001
-  webmap: 'b514d31339954ba9a0c5822135bc2001', // 'de85e3fcc07948238aa6c1afd2a4ceb0',
+  // webmap to use for deployment, this should be the default - de85e3fcc07948238aa6c1afd2a4ceb0
+  webmap: 'de85e3fcc07948238aa6c1afd2a4ceb0',
   title: 'GFW Mapbuilder',
   subtitle: 'Make maps that matter',
   logoUrl: './css/images/gfw-logo.png',
@@ -189,20 +190,19 @@ export default {
       visible: false,
       opacity: 0,
       layerIds: []
-    }
-    // , {
-    //   id: 'CUSTOM_FEATURES',
-    //   order: 102,
-    //   type: 'feature',
-    //   definitionExpression: '1 = 2', // show no features from the service ever
-    //   mode: 0, // equals MODE_SNAPSHOT
-    //   // Prod Url
-    //   // url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1?token=TjEeQfPMtR-0kjqzTqIZ7cl-o01RHvmC7tVmcyLHrT3-TfMZbwysm9txFEib56OM',
-    //   // Local Url
-    //   url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1?token=TjEeQfPMtR-0kjqzTqIZ7R-NAzGK1Z2sEQo6Dzt17O42DeIlaAxdqeg7GPMANVcC',
-    //   visible: true
-    // }
-  ],
+    }, {
+      id: 'USER_FEATURES',
+      order: 102,
+      type: 'feature',
+      definitionExpression: '1 = 2', // show no features from the service ever
+      mode: 0, // equals MODE_SNAPSHOT
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
+      // Dev Token
+      token: 'TjEeQfPMtR-0kjqzTqIZ7R-NAzGK1Z2sEQo6Dzt17O42DeIlaAxdqeg7GPMANVcC',
+      // Prod Token
+      // token: 'TjEeQfPMtR-0kjqzTqIZ7cl-o01RHvmC7tVmcyLHrT3-TfMZbwysm9txFEib56OM',
+      visible: true
+  }],
     fr: [{
       id: 'TREE_COVER_LOSS',
       order: 5,

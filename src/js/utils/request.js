@@ -1,4 +1,5 @@
 import FindParameters from 'esri/tasks/FindParameters';
+import layerKeys from 'constants/LayerConstants';
 import QueryTask from 'esri/tasks/QueryTask';
 import FindTask from 'esri/tasks/FindTask';
 import esriRequest from 'esri/request';
@@ -96,7 +97,10 @@ const request = {
     const url = layer && layer._url && layer._url.path;
     const id = feature.attributes[layer.objectIdField];
 
-    if (needsDynamicQuery(url) && layer.source) {
+    // Dont bother querying for custom geometry on the user features layer, we already have it
+    if (layer.id === layerKeys.USER_FEATURES) {
+      promise.resolve(feature.geometry);
+    } else if (needsDynamicQuery(url) && layer.source) { // If layer ends in /dynamicLayer, it takes different query params
       const content = {
         layer: JSON.stringify({ source: { type: 'mapLayer', mapLayerId: layer.source.mapLayerId }}),
         objectIds: id,
@@ -117,7 +121,7 @@ const request = {
           promise.resolve(feature.geometry);
         }
       }, () => { promise.resolve(feature.geometry); });
-    } else if (url) {
+    } else if (url) { // If we have a url , query it
       this.queryTaskById(url, id).then((results) => {
         if (results.features.length) {
           promise.resolve(results.features[0].geometry);
@@ -125,7 +129,7 @@ const request = {
           promise.resolve(feature.geometry);
         }
       }, () => { promise.resolve(feature.geometry); });
-    } else {
+    } else { // If we can't query it, and it's not a custom feature, just return it, this should not be happening though
       promise.resolve(feature.geometry);
     }
 

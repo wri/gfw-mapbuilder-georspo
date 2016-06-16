@@ -7,6 +7,7 @@ import resources from 'resources';
 import {urls} from 'js/config';
 
 const SEPARATOR = ';';
+const appUrl = location.href.replace(location.search, '');
 
 /**
 * Takes a string and parse it into an array based on separator, e.g hey;you; => ['hey', 'you', '']
@@ -40,7 +41,7 @@ const formatResources = () => {
     names.forEach((name, i) => {
       resources.labels[resources.language].themes.push({
         label: name.trim(),
-        url: `${urls.liveSite}?appid=${appids[i].trim()}`
+        url: `${appUrl}?appid=${appids[i].trim()}`
       });
     });
   }
@@ -59,7 +60,7 @@ const formatResources = () => {
       secondNames.forEach((name, i) => {
         resources.labels[resources.alternativeLanguage].themes.push({
           label: name.trim(),
-          url: `${urls.liveSite}?appid=${appids[i].trim()}`
+          url: `${appUrl}?appid=${appids[i].trim()}`
         });
       });
     }

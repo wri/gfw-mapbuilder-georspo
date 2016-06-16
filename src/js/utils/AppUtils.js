@@ -1,4 +1,6 @@
+import layerKeys from 'constants/LayerConstants';
 import {toQuery} from 'utils/params';
+import resources from 'resources';
 
 const utils = {
   /**
@@ -83,20 +85,12 @@ const utils = {
   */
   generateReport: (options) => {
     /** webmap or appid
-    * Other Params needed
-    DONE** title
-    DONE** subtitle
-    DONE** layerid - layer number in dynamic service
-    DONE** service - map service of selected feature
-    DONE** idvalue - objectid of the selected feature
-    DONE** layerName - id of the layer from AGOL, I need this to add attributes
+    * Other Params possibly needed
     ** basemap - basemap to use, default is topo
     ** visibleLayers - visible layers of dynamic layer selected feature belongs too, default is all
-    DONE** tcd - tree cover density
-    DONE** lang - current app language
     */
     const { selectedFeature, settings, lang, canopyDensity } = options;
-
+    const USER_FEATURES_CONFIG = utils.getObject(resources.layers.en, 'id', layerKeys.USER_FEATURES);
     //- Is this a custom feature or a feature from the webmap
     const layer = selectedFeature._layer;
     //- NOTE: LAYER ID FOR REPORT
@@ -104,8 +98,36 @@ const utils = {
     const getLayerId = function getLayerId () {
       return layer.source ? layer.source.mapLayerId : layer.layerId;
     };
-    //- from service
-    if (layer.url) {
+
+    if (layer.id === USER_FEATURES_CONFIG.id) {
+      layer.applyEdits([selectedFeature], null, null, (res) => {
+        if (res.length) {
+          const idvalue = res[0].objectId;
+          const layerid = getLayerId(layer);
+          const layerName = layer.id;
+          const service = layer.url.slice(0, layer.url.lastIndexOf('/'));
+          const labels = settings.labels[lang];
+
+          const path = toQuery({
+            title: labels.title,
+            subtitle: labels.subtitle,
+            logoUrl: settings.logoUrl,
+            logoLinkUrl: settings.logoLinkUrl,
+            webmap: settings.webmap,
+            idvalue: idvalue,
+            service: service,
+            layerid: layerid,
+            layerName: layerName,
+            tcd: canopyDensity,
+            lang: lang
+          });
+
+          window.open(`report.html?${path}`);
+        } else {
+          console.error('Unable to save feature at this time');
+        }
+      }, (err) => { console.error(err); });
+    } else if (layer.url) { //- from service
       const objectIdField = layer.objectIdField;
       const idvalue = selectedFeature.attributes[objectIdField];
       const layerid = getLayerId(layer);
@@ -134,8 +156,6 @@ const utils = {
 
       window.open(`report.html?${path}`);
 
-    } else { //- custom
-      console.log(`Custom feature: ${selectedFeature}`);
     }
 
   }

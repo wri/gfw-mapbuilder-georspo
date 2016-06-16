@@ -79,7 +79,7 @@ export default class SearchModal extends Component {
               const layer = map.getLayer(`${searchLayer.layerObject.id}_${item.layerId}`);
               let title = '', content = '';
               //- Set this attribute so I can do custom things in InfoWindow
-              feature.attributes.__source = attributes.SOURCE_SEARCH;
+              feature.attributes.source = attributes.SOURCE_SEARCH;
               //- We need to build up the content, if the layer does not exist,
               //- its because no info template was configured in AGOL
               if (layer && layer.infoTemplate && layer.infoTemplate.info) {

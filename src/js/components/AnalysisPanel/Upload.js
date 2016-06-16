@@ -1,4 +1,5 @@
 import scaleUtils from 'esri/geometry/scaleUtils';
+import layerKeys from 'constants/LayerConstants';
 import geometryUtils from 'utils/geometryUtils';
 import graphicsUtils from 'esri/graphicsUtils';
 import mapActions from 'actions/MapActions';
@@ -87,10 +88,13 @@ export default class Upload extends Component {
       if (response.featureCollection) {
         const graphics = geometryUtils.generatePolygonsFromUpload(response.featureCollection);
         const graphicsExtent = graphicsUtils.graphicsExtent(graphics);
-        map.setExtent(graphicsExtent, true);
-        graphics.forEach((graphic) => {
-          map.graphics.add(graphic);
-        });
+        const layer = map.getLayer(layerKeys.USER_FEATURES);
+        if (layer) {
+          map.setExtent(graphicsExtent, true);
+          graphics.forEach((graphic) => {
+            layer.add(graphic);
+          });
+        }
       } else {
         console.error('No feature collection present in the file');
       }

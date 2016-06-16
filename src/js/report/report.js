@@ -55,37 +55,35 @@ const getApplicationInfo = function getApplicationInfo (params) {
   return promise;
 };
 
-const getLocalFeature = function getLocalFeature () {
-  return localStorage ? JSON.parse(localStorage.getItem('custom-feature')) : undefined;
-};
-
 const getFeature = function getFeature (params) {
   const { idvalue, service, layerid } = params;
-  const localFeature = getLocalFeature();
   const promise = new Deferred();
   if (idvalue && service && layerid) {
     //- This assumes id field is object id, if thats not the case, will need a different request method
-    request.queryTaskById(`${service}//${layerid}`, idvalue).then((results) => {
+    request.queryTaskById(`${service}/${layerid}`, idvalue).then((results) => {
       const feature = results.features[0];
       if (feature) {
         promise.resolve({
           attributes: feature.attributes,
           geometry: feature.geometry,
-          title: feature.attributes[results.displayFieldName]
+          title: params.custom ? feature.attributes.name : feature.attributes[results.displayFieldName],
+          isCustom: params.custom
         });
       } else {
         promise.reject({ error: new Error('Unable to query for feature. Check the configuration.') });
       }
       if (brApp.debug) { console.log('getFeature: ', results); }
     });
-  } else if (localFeature) {
-    promise.resolve({
-      attributes: localFeature.attributes,
-      geometry: localFeature.geometry,
-      title: localFeature.title,
-      isCustom: true
-    });
-  } else {
+  }
+  // else if (localFeature) {
+  //   promise.resolve({
+  //     attributes: localFeature.attributes,
+  //     geometry: localFeature.geometry,
+  //     title: localFeature.title,
+  //     isCustom: true
+  //   });
+  // }
+  else {
     promise.reject({ error: new Error('Unable to retrieve feature.') });
   }
 
@@ -383,6 +381,18 @@ export default {
     if (brApp.debug) { console.log(params); }
     //- Add Title, Subtitle, and logo right away
     addHeaderContent(params);
+    // Get the config for the user features layer incase we need it
+    const USER_FEATURES_CONFIG = appUtils.getObject(resources.layers.en, 'id', layerKeys.USER_FEATURES);
+    //- Augment params and add a custom attribute if this is from the user_features layer
+    params.custom = USER_FEATURES_CONFIG.url.search(params.service) > -1;
+    //- Setup the Request Pre Callback to handle tokens for tokenized services
+    esriRequest.setRequestPreCallback((ioArgs) => {
+      // Add token for user features service
+      if (ioArgs.url.search(params.service) > -1 && params.custom) {
+        ioArgs.content.token = USER_FEATURES_CONFIG.token;
+      }
+      return ioArgs;
+    });
     //- Create the map as soon as possible
     createMap(params);
     //- Get all the necessary info
@@ -396,7 +406,7 @@ export default {
       }
 
       const { feature, info } = response;
-
+      console.log(feature);
       //- Add Popup Info Now
       addTitleAndAttributes(params, feature, info.webmap);
       //- Need the map to be loaded to add graphics

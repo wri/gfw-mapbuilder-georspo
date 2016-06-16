@@ -66,17 +66,17 @@ const LayersHelper = {
     }
   },
 
-  isLayerVisible (layerInfo) {
+  isLayerVisible (map, layerInfo) {
     // Non-webmap layers, always assume visible.
     let visible = true;
     // Layers have a visibleAtMapScale property which make this easy.
     if (layerInfo.esriLayer && layerInfo.esriLayer.loaded && !layerInfo.esriLayer.visibleAtMapScale) {
       visible = false;
     }
-    if (brApp.map && layerInfo.esriLayer) {
+    if (map && layerInfo.esriLayer) {
       // Explicitly check scale depencency for sub-layers in a dynamic map service.
-      const scale = brApp.map.getScale();
-      if (layerInfo.hasScaleDependency && (scale > layerInfo.minScale || scale < layerInfo.maxScale)) {
+      const scale = map.getScale();
+      if (layerInfo.hasScaleDependency && ((scale > layerInfo.minScale && layerInfo.minScale !== 0) || scale < layerInfo.maxScale)) {
         visible = false;
       }
     }

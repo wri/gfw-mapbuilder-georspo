@@ -57,7 +57,7 @@ export default (layer) => {
     case 'feature':
       options.id = layer.id;
       options.visible = layer.visible || false;
-      if (layer.mode) { options.mode = layer.mode; }
+      if (layer.mode !== undefined) { options.mode = layer.mode; } // mode could be 0, must check against undefined
       if (layer.definitionExpression) { options.definitionExpression = layer.definitionExpression; }
       esriLayer = new FeatureLayer(layer.url, options);
     break;

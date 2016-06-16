@@ -50,9 +50,7 @@ export default class InfoWindow extends Component {
     }
 
     if (selectedFeature) {
-      console.log(infoWindow);
-      console.log(selectedFeature);
-      if (selectedFeature.attributes.__source === attributes.SOURCE_SEARCH) {
+      if (selectedFeature.attributes.source === attributes.SOURCE_SEARCH) {
         title = (
           <div className='infoWindow__title'>
             {selectedFeature.infoTemplate.title}
@@ -60,7 +58,9 @@ export default class InfoWindow extends Component {
         );
       }
       //- For Drawn Features, Give them a Control which can rename or delete the feature
-      if (selectedFeature.attributes.__source === attributes.SOURCE_DRAW) {
+      if (selectedFeature.attributes.source === attributes.SOURCE_DRAW ||
+        selectedFeature.attributes.source === attributes.SOURCE_UPLOAD
+      ) {
         title = (
           <div className='infoWindow__title'>
             <CustomFeatureControl feature={selectedFeature} />

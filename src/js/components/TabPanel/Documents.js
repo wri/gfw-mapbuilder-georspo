@@ -6,7 +6,7 @@ import React, {
   PropTypes
 } from 'react';
 
-//- TODO: If this is ever needed elsewhere, move to another AppUtils
+//- TODO: If this is ever needed elsewhere, move to utils
 const getLayerId = (language) => {
   switch (language) {
     case 'en': return 0;
@@ -38,40 +38,53 @@ class DocumentResults extends Component {
   state = this.getDefaultState();
 
   componentDidMount () {
-    const {selectedFeature, dir, service, language} = this.props;
-    const layerId = getLayerId(language);
+    const {selectedFeature, language} = this.props;
+    const layer = selectedFeature._layer;
+    const idfield = layer.objectIdField;
+
+    if (layer.hasAttachments && layer.queryAttachmentInfos) {
+      layer.queryAttachmentInfos(selectedFeature.attributes[idfield], (res) => {
+        // console.log(res);
+        this.setState({ loading: false, documents: [] });
+      }, () => {
+        this.setState({ loading: false, documents: [] });
+      });
+    } else {
+      this.setState({ loading: false, documents: [] });
+    }
+
     //- Use this URL in Equatorial Guinea for Testing
     // const url = 'http://gis.forest-atlas.org/arcgis/rest/services/GAB/documents_administratifs/MapServer';
-    request.queryTaskByGeometry(`${service}/${layerId}`, selectedFeature.geometry).then((results) => {
-      let {features} = results;
-      let docs = [], attributes;
-      if (features) {
-        features.forEach((feature) => {
-          attributes = feature.attributes;
-          if (attributes.url) {
-            docs.push({
-              name: attributes.doc_titre || attributes.url,
-              type: attributes.desc_type || 'N/A',
-              author: attributes.auteur || 'N/A',
-              year: attributes.date_doc ? new Date(attributes.date_doc).getFullYear() : 'N/A',
-              url: dir + encodeURIComponent(attributes.url)
-            });
-          }
-        });
-        //- Sort the documents by year
-        docs.sort((a, b) => {
-          if (a.year === 'N/A') { return 1; }
-          if (a.year < b.year) { return 1; }
-          if (a.year > b.year) { return -1; }
-          return 0;
-        });
-      }
-      //- Update the view
-      this.setState({ loading: false, documents: docs });
-    }, () => {
-      //- Set to no documents
-      this.setState({ loading: false, documents: [] });
-    });
+    // request.queryTaskByGeometry(`${service}/${layerId}`, selectedFeature.geometry).then((results) => {
+    //   let {features} = results;
+    //   let docs = [], attributes;
+    //   if (features) {
+    //     features.forEach((feature) => {
+    //       attributes = feature.attributes;
+    //       if (attributes.url) {
+    //         docs.push({
+    //           name: attributes.doc_titre || attributes.url,
+    //           type: attributes.desc_type || 'N/A',
+    //           author: attributes.auteur || 'N/A',
+    //           year: attributes.date_doc ? new Date(attributes.date_doc).getFullYear() : 'N/A',
+    //           url: dir + encodeURIComponent(attributes.url)
+    //         });
+    //       }
+    //     });
+    //     //- Sort the documents by year
+    //     docs.sort((a, b) => {
+    //       if (a.year === 'N/A') { return 1; }
+    //       if (a.year < b.year) { return 1; }
+    //       if (a.year > b.year) { return -1; }
+    //       return 0;
+    //     });
+    //   }
+    //   //- Update the view
+    //   this.setState({ loading: false, documents: docs });
+    // }, () => {
+    //   //- Set to no documents
+    //   this.setState({ loading: false, documents: [] });
+    // });
   }
 
   getDefaultState () {
@@ -136,13 +149,12 @@ class DocumentResults extends Component {
 export default class Documents extends Component {
 
   static contextTypes = {
-    settings: PropTypes.object.isRequired,
     language: PropTypes.string.isRequired,
     map: PropTypes.object.isRequired
   };
 
   render () {
-    const {settings, language, map} = this.context;
+    const {language, map} = this.context;
     const {active} = this.props;
     let content, selectedFeature;
 
@@ -153,9 +165,7 @@ export default class Documents extends Component {
     if (selectedFeature && active) {
       content = <DocumentResults
         language={language}
-        selectedFeature={selectedFeature}
-        dir={settings.documentDirectory}
-        service={settings.documentMapServer} />;
+        selectedFeature={selectedFeature} />;
     } else {
       content = <DocumentInstructions language={language} />;
     }
