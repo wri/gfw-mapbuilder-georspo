@@ -166,16 +166,16 @@ export default {
       layerIds: [0],
       technicalName: 'intact_forest_landscapes_change'
     },
-    {
-      id: 'OTHER',
-      order: 3,
-      type: 'webtiled',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Global Land Cover (Tiled)',
-      url: 'http://wri-tiles.s3.amazonaws.com/global-landcover/${level}/${col}/${row}.png',
-      technicalName: 'intact_forest_landscapes_change'
-    },
+    // {
+    //   id: 'OTHER', Testing GlobCover
+    //   order: 3,
+    //   type: 'webtiled',
+    //   group: 'Land Cover',
+    //   groupKey: 'GROUP_LC',
+    //   label: 'Global Land Cover (Tiled)',
+    //   url: 'http://wri-tiles.s3.amazonaws.com/global-landcover/${level}/${col}/${row}.png',
+    //   technicalName: 'intact_forest_landscapes_change'
+    // },
 
      {
       id: 'AG_BIOMASS',
@@ -210,9 +210,9 @@ export default {
       mode: 0, // equals MODE_SNAPSHOT
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
       // Dev Token
-      token: 'TjEeQfPMtR-0kjqzTqIZ7R-NAzGK1Z2sEQo6Dzt17O42DeIlaAxdqeg7GPMANVcC',
+      // token: 'TjEeQfPMtR-0kjqzTqIZ7R-NAzGK1Z2sEQo6Dzt17O42DeIlaAxdqeg7GPMANVcC',
       // Prod Token
-      // token: 'TjEeQfPMtR-0kjqzTqIZ7cl-o01RHvmC7tVmcyLHrT3-TfMZbwysm9txFEib56OM',
+      token: 'TjEeQfPMtR-0kjqzTqIZ7cl-o01RHvmC7tVmcyLHrT3-TfMZbwysm9txFEib56OM',
       visible: true
   }],
     fr: [{
