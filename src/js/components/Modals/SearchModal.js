@@ -6,6 +6,8 @@ import ComboBox from 'dijit/form/ComboBox';
 import Memory from 'dojo/store/Memory';
 import request from 'utils/request';
 import text from 'js/languages';
+import Search from 'esri/dijit/Search';
+import FeatureLayer from 'esri/layers/FeatureLayer';
 import React, {
   Component,
   PropTypes
@@ -25,12 +27,66 @@ export default class SearchModal extends Component {
     map: PropTypes.object.isRequired
   };
 
-  componentDidMount() {
+  componentDidUpdate() {
     this.createSearchWidget();
   }
+  componentDidUpdate(prevProps, prevState, prevContext) {
+    const {map} = this.context;
+    if (map.loaded && !prevContext.map.loaded) {
+      this.createSearchWidget(map);
+    }
+  }
 
-  createSearchWidget = () => {
-    let {language} = this.context;
+  createSearchWidget = (map) => {
+    // const {webmapInfo} = this.context;
+    // const layers = webmapInfo.operationalLayers;
+    // let sources = [];
+    //
+    // if (layers && layers.length) {
+    //   layers.forEach(layer => {
+    //     if (layer.layerType === 'ArcGISMapServiceLayer') {
+    //       // sources = sources.concat(layer.layerObject.layerInfos.map((info) => ({
+    //         // featureLayer: new FeatureLayer(`${layer.url}/${info.id}`),
+    //         // name: info.name,
+    //         // minResults: 1,
+    //         // maxSuggestions: 6,
+    //         // enableSuggestions: true,
+    //         // searchFields: [],
+    //         // displayField: '',
+    //         // minCharacters: 2,
+    //         // outFields: ['*'],
+    //         // exactMatch: false,
+    //         // placeholder: info.name
+    //       // })));
+    //     }
+    //   });
+    //   // map.addLayer(layer);
+    //   sources.push({
+    //     featureLayer: new FeatureLayer('http://gis-forestatlas.wri.org/arcgis/rest/services/GNQ/GNQ_online_en/MapServer/6', {
+    //       mode: 0
+    //     }),
+    //     name: 'Protected Areas',
+    //     enableSuggestions: true,
+    //     searchFields: [],
+    //     displayField: '',
+    //     minCharacters: 2,
+    //     outFields: ['*'],
+    //     exactMatch: false,
+    //     placeholder: 'Protected Areas'
+    //   });
+    // }
+    //
+    // const searchWidget = new Search({
+    //   map: map,
+    //   sources: sources
+    // }, this.refs.searchNode);
+
+    // const defaultSources = searchWidget.get('sources');
+    // sources = sources.concat(defaultSources);
+    // searchWidget.set('sources', sources);
+    // searchWidget.startup();
+
+
     let searchLayer;
     searchStore = new Memory({ data: [] });
     searchDijit = new ComboBox({
@@ -139,7 +195,7 @@ export default class SearchModal extends Component {
         <div className='search-widget-label'>
           {text[language].SEARCH_WIDGET_TITLE}
         </div>
-        <div id='search-widget'></div>
+        <div id='search-widget' ref='searchNode'></div>
       </ControlledModalWrapper>
     );
   }
