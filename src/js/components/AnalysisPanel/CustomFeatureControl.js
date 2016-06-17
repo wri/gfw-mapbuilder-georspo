@@ -2,6 +2,10 @@ import React, {Component, PropTypes} from 'react';
 import layerKeys from 'constants/LayerConstants';
 import text from 'js/languages';
 
+const getFeatureName = (feature) => {
+  return feature.attributes && feature.attributes.title || '';
+};
+
 export default class CustomFeatureControl extends Component {
 
   static contextTypes = {
@@ -9,13 +13,14 @@ export default class CustomFeatureControl extends Component {
     map: PropTypes.object.isRequired
   };
 
+  state = {
+    title: getFeatureName(this.props.feature)
+  };
+
   editName = ({target}) => {
     const {feature} = this.props;
-    feature.attributes.name = target.value;
-    // This is generally bad practice, I should update state, but the Name already exists
-    // in the feature passed in as props, doing this negates the need for state storing duplicate
-    // data which would be an anti-pattern anyway
-    this.forceUpdate();
+    this.setState({ title: target.value });
+    feature.attributes.title = target.value;
   };
 
   deleteFeature = () => {
@@ -28,11 +33,10 @@ export default class CustomFeatureControl extends Component {
 
   render () {
     const {language} = this.context;
-    const {feature} = this.props;
 
     return (
       <div className='custom-feature__header'>
-        <input className='custom-feature__input' type='text' value={feature.attributes.name} onChange={this.editName} />
+        <input className='custom-feature__input' type='text' value={this.state.title} onChange={this.editName} />
         <div className='custom-feature__delete pointer' onClick={this.deleteFeature}>{text[language].DELETE}</div>
       </div>
     );

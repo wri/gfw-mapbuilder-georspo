@@ -1,5 +1,5 @@
 import Loader from 'components/Loader';
-import request from 'utils/request';
+// import request from 'utils/request';
 import text from 'js/languages';
 import React, {
   Component,
@@ -7,15 +7,17 @@ import React, {
 } from 'react';
 
 //- TODO: If this is ever needed elsewhere, move to utils
-const getLayerId = (language) => {
-  switch (language) {
-    case 'en': return 0;
-    case 'fr': return 1;
-    case 'es': return 2;
-    case 'pt': return 3;
-    default: return 0;
-  }
-};
+// const getLayerId = (language) => {
+//   switch (language) {
+//     case 'en': return 0;
+//     case 'fr': return 1;
+//     case 'es': return 2;
+//     case 'pt': return 3;
+//     default: return 0;
+//   }
+// };
+
+const documentsSvg = '<use xlink:href="#icon-documents" />';
 
 const DocumentInstructions = ({language}) => {
   return (
@@ -38,14 +40,21 @@ class DocumentResults extends Component {
   state = this.getDefaultState();
 
   componentDidMount () {
-    const {selectedFeature, language} = this.props;
+    const {selectedFeature} = this.props;
     const layer = selectedFeature._layer;
-    const idfield = layer.objectIdField;
+    const idfield = layer && layer.objectIdField;
 
-    if (layer.hasAttachments && layer.queryAttachmentInfos) {
+    if (layer && layer.hasAttachments && layer.queryAttachmentInfos) {
       layer.queryAttachmentInfos(selectedFeature.attributes[idfield], (res) => {
-        // console.log(res);
-        this.setState({ loading: false, documents: [] });
+        const documents = res.map((item) => ({
+          name: item.name,
+          type: item.contentType,
+          author: 'N/A',
+          year: 'N/A',
+          url: item.url
+        }));
+
+        this.setState({ loading: false, documents });
       }, () => {
         this.setState({ loading: false, documents: [] });
       });
@@ -110,9 +119,9 @@ class DocumentResults extends Component {
                 <td>{doc.type}</td>
                 <td>{doc.author}</td>
                 <td>{doc.year}</td>
-                <td>
+                <td className='documents-table__link'>
                   <a href={doc.url} target='_blank'>
-                    <div className='documents-table__download' />
+                    <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: documentsSvg }}/>
                   </a>
                 </td>
               </tr>
@@ -163,9 +172,7 @@ export default class Documents extends Component {
     }
 
     if (selectedFeature && active) {
-      content = <DocumentResults
-        language={language}
-        selectedFeature={selectedFeature} />;
+      content = <DocumentResults language={language} selectedFeature={selectedFeature} />;
     } else {
       content = <DocumentInstructions language={language} />;
     }

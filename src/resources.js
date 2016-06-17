@@ -165,7 +165,19 @@ export default {
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
       layerIds: [0],
       technicalName: 'intact_forest_landscapes_change'
-    }, {
+    },
+    {
+      id: 'OTHER',
+      order: 3,
+      type: 'webtiled',
+      group: 'Land Cover',
+      groupKey: 'GROUP_LC',
+      label: 'Global Land Cover (Tiled)',
+      url: 'http://wri-tiles.s3.amazonaws.com/global-landcover/${level}/${col}/${row}.png',
+      technicalName: 'intact_forest_landscapes_change'
+    },
+
+     {
       id: 'AG_BIOMASS',
       order: 4,
       type: 'dynamic',

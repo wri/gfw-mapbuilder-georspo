@@ -23,10 +23,10 @@ export default {
       {
         cfid: id,
         source: attributes.SOURCE_DRAW,
-        name: `Custom Feature #${id}`
+        title: `Custom Feature #${id}`
       },
       new InfoTemplate({
-        title: '${name}',
+        title: '${title}',
         content: '<div class=\'custom-feature__content\'>Temp Id: ${cfid}</div>'
       })
     );

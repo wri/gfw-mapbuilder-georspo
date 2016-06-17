@@ -66,7 +66,7 @@ const getFeature = function getFeature (params) {
         promise.resolve({
           attributes: feature.attributes,
           geometry: feature.geometry,
-          title: params.custom ? feature.attributes.name : feature.attributes[results.displayFieldName],
+          title: params.custom ? feature.attributes.title : feature.attributes[results.displayFieldName],
           isCustom: params.custom
         });
       } else {
@@ -406,7 +406,6 @@ export default {
       }
 
       const { feature, info } = response;
-      console.log(feature);
       //- Add Popup Info Now
       addTitleAndAttributes(params, feature, info.webmap);
       //- Need the map to be loaded to add graphics
