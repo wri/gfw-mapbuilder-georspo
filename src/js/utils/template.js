@@ -4,10 +4,8 @@ import {getUrlParams} from 'utils/params';
 import Deferred from 'dojo/Deferred';
 import lang from 'dojo/_base/lang';
 import resources from 'resources';
-import {urls} from 'js/config';
 
 const SEPARATOR = ';';
-const appUrl = location.href.replace(location.search, '');
 
 /**
 * Takes a string and parse it into an array based on separator, e.g hey;you; => ['hey', 'you', '']
@@ -25,6 +23,7 @@ const parseIntoArray = (resourceString) => {
 * them easier to consume in my components, do all the formatting here
 */
 const formatResources = () => {
+  const appUrl = location.href.replace(location.search, '');
   //- LANGUAGE SETTINGS START
   resources.labels = {};
   resources.labels[resources.language] = {

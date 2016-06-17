@@ -59,6 +59,11 @@ export default class Map extends Component {
       ...MapStore.getState()
     };
 
+  }
+
+  componentDidMount() {
+    MapStore.listen(this.storeDidUpdate);
+
     // I only need the token and url for config items, so language does not matter
     const USER_FEATURES_CONFIG = utils.getObject(resources.layers.en, 'id', layerKeys.USER_FEATURES);
     // Make sure all requests that use tokens have them
@@ -68,11 +73,6 @@ export default class Map extends Component {
       }
       return ioArgs;
     });
-
-  }
-
-  componentDidMount() {
-    MapStore.listen(this.storeDidUpdate);
   }
 
   componentDidUpdate (prevProps, prevState) {
