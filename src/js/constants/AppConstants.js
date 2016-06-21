@@ -3,3 +3,8 @@ export const attributes = {
   SOURCE_SEARCH: 'search',
   SOURCE_UPLOAD: 'upload'
 };
+
+export const esriLayerTypes = {
+  FEATURE: 'ArcGISFeatureLayer',
+  DYNAMIC: 'ArcGISMapServiceLayer'
+};

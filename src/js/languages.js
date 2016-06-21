@@ -108,6 +108,7 @@ strings.en.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover
 strings.en.DENSITY_FIRST = 'Displaying';
 strings.en.DENSITY_SECOND = 'canopy density.';
 strings.en.SEARCH_WIDGET_TITLE = 'Search for feature:';
+strings.en.SEARCH_CLICK_FOR_MORE = 'Please click on the selected feature for more info.';
 //- Layer Info Modal
 strings.en.NO_INFO = 'No Information Available';
 strings.en.OVERVIEW = 'Overview';
@@ -257,6 +258,7 @@ strings.fr.CANOPY_MODAL_TEXT = 'Ajuster la densité minimum de la canopée pour 
 strings.fr.DENSITY_FIRST = 'Affichage';
 strings.fr.DENSITY_SECOND = 'Densité de la canopée.';
 strings.fr.SEARCH_WIDGET_TITLE = 'Recherche de polygones:';
+strings.fr.SEARCH_CLICK_FOR_MORE = 'Please click on the selected feature for more info.';
 //- Layer Info Modal
 strings.fr.NO_INFO = 'No Information Available';
 strings.fr.OVERVIEW = 'Overview';
@@ -404,6 +406,7 @@ strings.es.CANOPY_MODAL_TEXT = 'Ajustar el mínimo densidad del follaje para la 
 strings.es.DENSITY_FIRST = 'Mostrando';
 strings.es.DENSITY_SECOND = 'densidad de follaje.';
 strings.es.SEARCH_WIDGET_TITLE = 'Buscar polígono:';
+strings.es.SEARCH_CLICK_FOR_MORE = 'Please click on the selected feature for more info.';
 //- Layer Info Modal
 strings.es.NO_INFO = 'No Information Available';
 strings.es.OVERVIEW = 'Overview';
@@ -551,6 +554,7 @@ strings.pt.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover
 strings.pt.DENSITY_FIRST = 'Displaying';
 strings.pt.DENSITY_SECOND = 'canopy density.';
 strings.pt.SEARCH_WIDGET_TITLE = 'Search for feature:';
+strings.pt.SEARCH_CLICK_FOR_MORE = 'Please click on the selected feature for more info.';
 //- Layer Info Modal
 strings.pt.NO_INFO = 'No Information Available';
 strings.pt.OVERVIEW = 'Overview';
@@ -698,6 +702,7 @@ strings.id.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover
 strings.id.DENSITY_FIRST = 'Displaying';
 strings.id.DENSITY_SECOND = 'canopy density.';
 strings.id.SEARCH_WIDGET_TITLE = 'Search for feature:';
+strings.id.SEARCH_CLICK_FOR_MORE = 'Please click on the selected feature for more info.';
 //- Layer Info Modal
 strings.id.NO_INFO = 'No Information Available';
 strings.id.OVERVIEW = 'Overview';
@@ -845,6 +850,7 @@ strings.zh.CANOPY_MODAL_TEXT = '对森林覆盖和森林覆盖损失图层调试
 strings.zh.DENSITY_FIRST = '显示中';
 strings.zh.DENSITY_SECOND = '林冠覆盖密度';
 strings.zh.SEARCH_WIDGET_TITLE = '搜寻特征：';
+strings.zh.SEARCH_CLICK_FOR_MORE = 'Please click on the selected feature for more info.';
 //- Layer Info Modal
 strings.zh.NO_INFO = 'No Information Available';
 strings.zh.OVERVIEW = 'Overview';

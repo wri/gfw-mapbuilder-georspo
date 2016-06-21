@@ -75,6 +75,10 @@ export default class TabButtons extends Component {
       this.setState({ notifiers: notifiers });
     } else {
       currentFeature = undefined;
+      // Clear out notifiers
+      if (this.state.notifiers.length) {
+        this.setState({ notifiers: [] });
+      }
     }
   }
 
