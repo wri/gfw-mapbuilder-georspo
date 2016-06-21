@@ -104,23 +104,10 @@ strings.pt.DATA = 'Data'; // Portuguese
 
 The other location is the `src/js/resources.js` file.  There are `layers` and `basemaps` each with subsections for each of the four languages.  In each subsection is an array or objects containing the layer configuration.  Be careful what you change in here, the only three things related to labels are `label`, `sublabel`, and `group`. The `group` refers to the name on the accordion, it needs to be the same as the other layers in the same group (they are linked by a `groupKey`).
 
-#### NOTE:
-The build can generate content into a versioned build folder.  If you are contributing and adding content that uses relative paths, you need to check for the existence of this `_app.base` variable and incorporate it into your relative path, make sure you test that all relative paths work before deploying to production or `gh-pages` branch. Example:
-
-```javascript
-
-```
-
 ### Contributing
 Please fork off of the `develop` branch and submit your pull requests to `develop`.
 
 ### TODO
 * Add Documentation
-* Add some tests
-* Automate the inclusion of the built ArcGIS Module
 * Start looking into deploying the application in various formats
-  * Deploy a built javascript file with version number in the name (hosted on CDN)
-  * Deploy a built css file with version in the name (hosted on CDN)
-  * Deploy a build where the resources file comes from another location (also on some CDN)
-  * Deploy a build where the html file is hosted on a cdn with the resources file, with js and css files on another CDN
   * Deploy a build in Portal with all assets coming from the app
