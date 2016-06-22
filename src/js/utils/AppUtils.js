@@ -1,5 +1,5 @@
 import layerKeys from 'constants/LayerConstants';
-import {toQuery} from 'utils/params';
+import {toQuerystring} from 'utils/params';
 import resources from 'resources';
 
 const utils = {
@@ -89,7 +89,7 @@ const utils = {
     ** basemap - basemap to use, default is topo
     ** visibleLayers - visible layers of dynamic layer selected feature belongs too, default is all
     */
-    const { selectedFeature, settings, lang, canopyDensity } = options;
+    const { selectedFeature, settings, lang, canopyDensity, appid } = options;
     const USER_FEATURES_CONFIG = utils.getObject(resources.layers.en, 'id', layerKeys.USER_FEATURES);
     //- Is this a custom feature or a feature from the webmap
     const layer = selectedFeature._layer;
@@ -107,8 +107,7 @@ const utils = {
           const layerName = layer.id;
           const service = layer.url.slice(0, layer.url.lastIndexOf('/'));
           const labels = settings.labels[lang];
-
-          const path = toQuery({
+          const query = {
             title: labels.title,
             subtitle: labels.subtitle,
             logoUrl: settings.logoUrl,
@@ -120,8 +119,13 @@ const utils = {
             layerName: layerName,
             tcd: canopyDensity,
             lang: lang
-          });
+          };
 
+          if (appid) {
+            query.appid = appid;
+          }
+
+          const path = toQuerystring(query);
           window.open(`report.html?${path}`);
         } else {
           console.error('Unable to save feature at this time');
@@ -140,7 +144,7 @@ const utils = {
       const service = layer.url.slice(0, layer.url.lastIndexOf('/'));
       const labels = settings.labels[lang];
 
-      const path = toQuery({
+      const path = toQuerystring({
         title: labels.title,
         subtitle: labels.subtitle,
         logoUrl: settings.logoUrl,

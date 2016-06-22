@@ -7,6 +7,7 @@ import Polygon from 'esri/geometry/Polygon';
 import {getUrlParams} from 'utils/params';
 import {analysisConfig} from 'js/config';
 import esriRequest from 'esri/request';
+import template from 'utils/template';
 import appUtils from 'utils/AppUtils';
 import locale from 'dojo/date/locale';
 import Deferred from 'dojo/Deferred';
@@ -30,18 +31,18 @@ const getWebmapInfo = function getWebmapInfo (webmap) {
 };
 
 const getApplicationInfo = function getApplicationInfo (params) {
-  const { webmap } = params;
+  const { webmap, appid } = params;
   const promise = new Deferred();
   // //- Should probably get any needed params from map.html since it already has
   // //- appInfo, just pass everything needed, if the needed items are too much, then
   // //- fall back to this
-  // if (appid && webmap) {
-  //   all({
-  //     app: template.getAppInfo(appid),
-  //     webmap: getWebmapInfo(webmap)
-  //   }).then(promise.resolve);
-  // } else if (webmap) {
-  if (webmap) {
+  if (appid && webmap) {
+    all({
+      app: template.getAppInfo(appid),
+      webmap: getWebmapInfo(webmap)
+    }).then(promise.resolve);
+  } else if (webmap) {
+  // if (webmap) {
     getWebmapInfo(webmap).then((results) => {
       promise.resolve({ webmap: results });
       if (brApp.debug) { console.log('getApplicationInfo.webmap: ', results); }
@@ -200,148 +201,205 @@ const addTitleAndAttributes = function addTitleAndAttributes (params, featureInf
 
 const runAnalysis = function runAnalysis (params, feature) {
   const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
-  const { tcd, lang } = params;
-  //- Loss/Gain Analysis
-  performAnalysis({
-    type: analysisKeys.TC_LOSS_GAIN,
-    geometry: feature.geometry,
-    settings: resources,
-    canopyDensity: tcd,
-    language: lang
-  }).then((results) => {
-    const totalLoss = results.lossCounts.reduce((a, b) => a + b, 0);
-    const totalGain = results.gainCounts.reduce((a, b) => a + b, 0);
-    //- Generate chart for Tree Cover Loss
-    const name = text[lang].ANALYSIS_TC_CHART_NAME;
-    const colors = analysisConfig[analysisKeys.TC_LOSS].colors;
-    const tcLossNode = document.getElementById('tc-loss');
-    const series = [{ name: name, data: results.lossCounts }];
-    charts.makeSimpleBarChart(tcLossNode, lossLabels, colors, series);
-    //- Generate content for Loss and Gain Badges
-    //- Loss
-    document.querySelector('#total-loss-badge .results__loss-gain--label').innerHTML = text[lang].ANALYSIS_TOTAL_LOSS_LABEL;
-    document.querySelector('#total-loss-badge .results__loss-gain--range').innerHTML = text[lang].ANALYSIS_TOTAL_LOSS_RANGE;
-    document.querySelector('.results__loss--count').innerHTML = totalLoss;
-    document.getElementById('total-loss-badge').classList.remove('hidden');
-    //- Gain
-    document.querySelector('#total-gain-badge .results__loss-gain--label').innerHTML = text[lang].ANALYSIS_TOTAL_GAIN_LABEL;
-    document.querySelector('#total-gain-badge .results__loss-gain--range').innerHTML = text[lang].ANALYSIS_TOTAL_GAIN_RANGE;
-    document.querySelector('.results__gain--count').innerHTML = totalGain;
-    document.getElementById('total-gain-badge').classList.remove('hidden');
-  });
-  //- Land Cover with Loss Analysis
-  performAnalysis({
-    type: analysisKeys.LC_LOSS,
-    geometry: feature.geometry,
-    settings: resources,
-    canopyDensity: tcd,
-    language: lang
-  }).then((results) => {
-    const layerConf = appUtils.getObject(resources.layers[lang], 'id', layerKeys.LAND_COVER);
-    const configuredColors = layerConf.colors;
-    const labels = layerConf.classes;
-    const node = document.getElementById('lc-loss');
-    const { counts, encoder } = results;
-    const Xs = encoder.A;
-    const Ys = encoder.B;
+  const { tcd, lang, settings } = params;
+  //- Only Analyze layers in the analysis
 
-    const chartInfo = charts.formatSeriesWithEncoder({
-      colors: configuredColors,
-      encoder: encoder,
-      counts: counts,
-      labels: labels,
-      Xs: Xs,
-      Ys: Ys
+  if (appUtils.containsObject(settings.layers[lang], 'id', layerKeys.TREE_COVER_LOSS)) {
+    //- Loss/Gain Analysis
+    performAnalysis({
+      type: analysisKeys.TC_LOSS_GAIN,
+      geometry: feature.geometry,
+      settings: resources,
+      canopyDensity: tcd,
+      language: lang
+    }).then((results) => {
+      const totalLoss = results.lossCounts.reduce((a, b) => a + b, 0);
+      const totalGain = results.gainCounts.reduce((a, b) => a + b, 0);
+      //- Generate chart for Tree Cover Loss
+      const name = text[lang].ANALYSIS_TC_CHART_NAME;
+      const colors = analysisConfig[analysisKeys.TC_LOSS].colors;
+      const tcLossNode = document.getElementById('tc-loss');
+      const series = [{ name: name, data: results.lossCounts }];
+      charts.makeSimpleBarChart(tcLossNode, lossLabels, colors, series);
+      //- Generate content for Loss and Gain Badges
+      //- Loss
+      document.querySelector('#total-loss-badge .results__loss-gain--label').innerHTML = text[lang].ANALYSIS_TOTAL_LOSS_LABEL;
+      document.querySelector('#total-loss-badge .results__loss-gain--range').innerHTML = text[lang].ANALYSIS_TOTAL_LOSS_RANGE;
+      document.querySelector('.results__loss--count').innerHTML = totalLoss;
+      document.getElementById('total-loss-badge').classList.remove('hidden');
+      //- Gain
+      document.querySelector('#total-gain-badge .results__loss-gain--label').innerHTML = text[lang].ANALYSIS_TOTAL_GAIN_LABEL;
+      document.querySelector('#total-gain-badge .results__loss-gain--range').innerHTML = text[lang].ANALYSIS_TOTAL_GAIN_RANGE;
+      document.querySelector('.results__gain--count').innerHTML = totalGain;
+      document.getElementById('total-gain-badge').classList.remove('hidden');
+    });
+  } else {
+    const lossChart = document.getElementById('tc-loss');
+    const lossBadge = document.getElementById('total-loss-badge');
+    const gainBadge = document.getElementById('total-gain-badge');
+    lossChart.remove();
+    lossBadge.remove();
+    gainBadge.remove();
+  }
+
+  if (settings.landCover) {
+    //- Land Cover with Loss Analysis
+    performAnalysis({
+      type: analysisKeys.LC_LOSS,
+      geometry: feature.geometry,
+      settings: resources,
+      canopyDensity: tcd,
+      language: lang
+    }).then((results) => {
+      const layerConf = appUtils.getObject(resources.layers[lang], 'id', layerKeys.LAND_COVER);
+      const configuredColors = layerConf.colors;
+      const labels = layerConf.classes;
+      const node = document.getElementById('lc-loss');
+      const { counts, encoder } = results;
+      const Xs = encoder.A;
+      const Ys = encoder.B;
+
+      if (counts && counts.length) {
+        const chartInfo = charts.formatSeriesWithEncoder({
+          colors: configuredColors,
+          encoder: encoder,
+          counts: counts,
+          labels: labels,
+          Xs: Xs,
+          Ys: Ys
+        });
+
+        charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
+      } else {
+        node.remove();
+      }
     });
 
-    charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
-  });
-  //- Carbon Stocks with Loss Analysis
-  performAnalysis({
-    type: analysisKeys.BIO_LOSS,
-    geometry: feature.geometry,
-    settings: resources,
-    canopyDensity: tcd,
-    language: lang
-  }).then((results) => {
-    const { labels, colors } = analysisConfig[analysisKeys.BIO_LOSS];
+    //- Land Cover Composition Analysis
+    performAnalysis({
+      type: analysisKeys.LCC,
+      geometry: feature.geometry,
+      settings: resources,
+      canopyDensity: tcd,
+      language: lang
+    }).then((results) => {
+      const layerConf = appUtils.getObject(resources.layers[lang], 'id', layerKeys.LAND_COVER);
+      const node = document.getElementById('lc-composition');
+
+      if (results.counts && results.counts.length) {
+        const series = charts.formatCompositionAnalysis({
+          colors: layerConf.colors,
+          name: text[lang].ANALYSIS_LCC_CHART_NAME,
+          labels: layerConf.classes,
+          counts: results.counts
+        });
+
+        charts.makeCompositionPieChart(node, series);
+      } else {
+        node.remove();
+      }
+    });
+  } else {
+    const lossNode = document.getElementById('lc-loss');
+    const compositionNode = document.getElementById('lc-composition');
+    lossNode.remove();
+    compositionNode.remove();
+  }
+
+  if (settings.aboveGroundBiomass) {
+    //- Carbon Stocks with Loss Analysis
+    performAnalysis({
+      type: analysisKeys.BIO_LOSS,
+      geometry: feature.geometry,
+      settings: resources,
+      canopyDensity: tcd,
+      language: lang
+    }).then((results) => {
+      const { labels, colors } = analysisConfig[analysisKeys.BIO_LOSS];
+      const node = document.getElementById('bio-loss');
+      const { counts, encoder } = results;
+      const Xs = encoder.A;
+      const Ys = encoder.B;
+
+      if (counts && counts.length) {
+        const chartInfo = charts.formatSeriesWithEncoder({
+          encoder: encoder,
+          counts: counts,
+          labels: labels,
+          colors: colors,
+          Xs: Xs,
+          Ys: Ys
+        });
+
+        charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
+      } else {
+        node.remove();
+      }
+
+    });
+  } else {
     const node = document.getElementById('bio-loss');
-    const { counts, encoder } = results;
-    const Xs = encoder.A;
-    const Ys = encoder.B;
+    node.remove();
+  }
 
-    const chartInfo = charts.formatSeriesWithEncoder({
-      encoder: encoder,
-      counts: counts,
-      labels: labels,
-      colors: colors,
-      Xs: Xs,
-      Ys: Ys
+  if (settings.intactForests) {
+    //- Intact Forest with Loss Analysis
+    performAnalysis({
+      type: analysisKeys.INTACT_LOSS,
+      geometry: feature.geometry,
+      settings: resources,
+      canopyDensity: tcd,
+      language: lang
+    }).then((results) => {
+      const configuredColors = analysisConfig[analysisKeys.INTACT_LOSS].colors;
+      const labels = text[lang].ANALYSIS_IFL_LABELS;
+      const node = document.getElementById('intact-loss');
+      const { counts, encoder } = results;
+      const Xs = encoder.A;
+      const Ys = encoder.B;
+
+      if (counts && counts.length) {
+        const chartInfo = charts.formatSeriesWithEncoder({
+          colors: configuredColors,
+          encoder: encoder,
+          counts: counts,
+          labels: labels,
+          isSimple: true,
+          Xs: Xs,
+          Ys: Ys
+        });
+
+        charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
+      } else {
+        node.remove();
+      }
+
     });
-
-    charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
-
-  });
-  //- Intact Forest with Loss Analysis
-  performAnalysis({
-    type: analysisKeys.INTACT_LOSS,
-    geometry: feature.geometry,
-    settings: resources,
-    canopyDensity: tcd,
-    language: lang
-  }).then((results) => {
-    const configuredColors = analysisConfig[analysisKeys.INTACT_LOSS].colors;
-    const labels = text[lang].ANALYSIS_IFL_LABELS;
+  } else {
     const node = document.getElementById('intact-loss');
-    const { counts, encoder } = results;
-    const Xs = encoder.A;
-    const Ys = encoder.B;
+    node.remove();
+  }
 
-    const chartInfo = charts.formatSeriesWithEncoder({
-      colors: configuredColors,
-      encoder: encoder,
-      counts: counts,
-      labels: labels,
-      isSimple: true,
-      Xs: Xs,
-      Ys: Ys
+  if (settings.activeFires) {
+    //- Fires Analysis
+    performAnalysis({
+      type: analysisKeys.FIRES,
+      geometry: feature.geometry,
+      settings: resources,
+      canopyDensity: tcd,
+      language: lang
+    }).then((results) => {
+      document.querySelector('.results__fires-pre').innerHTML = text[lang].ANALYSIS_FIRES_PRE;
+      document.querySelector('.results__fires-count').innerHTML = results.fireCount;
+      document.querySelector('.results__fires-active').innerHTML = text[lang].ANALYSIS_FIRES_ACTIVE;
+      document.querySelector('.results__fires-post').innerHTML = text[lang].ANALYSIS_FIRES_POST;
+      document.getElementById('fires-badge').classList.remove('hidden');
     });
+  } else {
+    const node = document.getElementById('fires-badge');
+    node.remove();
+  }
 
-    charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
-  });
-  //- Land Cover Composition Analysis
-  performAnalysis({
-    type: analysisKeys.LCC,
-    geometry: feature.geometry,
-    settings: resources,
-    canopyDensity: tcd,
-    language: lang
-  }).then((results) => {
-    const layerConf = appUtils.getObject(resources.layers[lang], 'id', layerKeys.LAND_COVER);
-    const node = document.getElementById('lc-composition');
-    const series = charts.formatCompositionAnalysis({
-      colors: layerConf.colors,
-      name: text[lang].ANALYSIS_LCC_CHART_NAME,
-      labels: layerConf.classes,
-      counts: results.counts
-    });
-
-    charts.makeCompositionPieChart(node, series);
-  });
-  //- Fires Analysis
-  performAnalysis({
-    type: analysisKeys.FIRES,
-    geometry: feature.geometry,
-    settings: resources,
-    canopyDensity: tcd,
-    language: lang
-  }).then((results) => {
-    document.querySelector('.results__fires-pre').innerHTML = text[lang].ANALYSIS_FIRES_PRE;
-    document.querySelector('.results__fires-count').innerHTML = results.fireCount;
-    document.querySelector('.results__fires-active').innerHTML = text[lang].ANALYSIS_FIRES_ACTIVE;
-    document.querySelector('.results__fires-post').innerHTML = text[lang].ANALYSIS_FIRES_POST;
-    document.getElementById('fires-badge').classList.remove('hidden');
-  });
 };
 
 export default {
@@ -421,6 +479,9 @@ export default {
       if (feature.geometry.type !== analysisKeys.GEOMETRY_POLYGON) {
         return;
       }
+
+      //- Add the settings to the params so we can omit layers or do other things if necessary
+      params.settings = info.appid ? info.appid : resources;
 
       //- Make sure highcharts is loaded before using it
       if (window.highchartsPromise.isResolved()) {

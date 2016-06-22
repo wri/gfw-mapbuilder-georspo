@@ -93,6 +93,7 @@ export default class Analysis extends Component {
       this.setState(getDefaultState());
       const {settings, language} = this.context;
       request.getRawGeometry(selectedFeature).then((geometry) => {
+        console.log(activeAnalysisType);
         performAnalysis({
           type: activeAnalysisType,
           geometry: geometry,
@@ -154,7 +155,7 @@ export default class Analysis extends Component {
         return <SlopeBarChart counts={counts} colors={colors} labels={labels} tooltips={tooltips} />;
       default:
       //- This should only be the restoration analysis, since its value is a plain rasterId
-        return <RestorationCharts results={results} config={analysisConfig.restoration} />;
+        return <RestorationCharts results={results} />;
     }
   };
 

@@ -8,7 +8,7 @@ export function applyStateFromUrl (map, state) {
 
 export function prepareStateForShare (options) {
   const {map, settings, language} = options;
-  let shareState = {};
+  const shareState = {};
   //- Application info
   if (settings.appid) { shareState.appid = settings.appid; }
   shareState.lang = language;

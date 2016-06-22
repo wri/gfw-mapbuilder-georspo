@@ -105,9 +105,4 @@ strings.pt.DATA = 'Data'; // Portuguese
 The other location is the `src/js/resources.js` file.  There are `layers` and `basemaps` each with subsections for each of the four languages.  In each subsection is an array or objects containing the layer configuration.  Be careful what you change in here, the only three things related to labels are `label`, `sublabel`, and `group`. The `group` refers to the name on the accordion, it needs to be the same as the other layers in the same group (they are linked by a `groupKey`).
 
 ### Contributing
-Please fork off of the `develop` branch and submit your pull requests to `develop`.
-
-### TODO
-* Add Documentation
-* Start looking into deploying the application in various formats
-  * Deploy a build in Portal with all assets coming from the app
+Please fork off of the `develop` branch and submit your pull requests to `develop`.  Make sure `npm test` passes which will do a simple eslint test on your src code.

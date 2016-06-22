@@ -74,7 +74,6 @@ export default class Upload extends Component {
     mapActions.toggleAnalysisModal({ visible: false });
 
     const extent = scaleUtils.getExtentForScale(map, 40000);
-    // TODO: Try hardcoding type = shapefile for windows
     const type = isZip(file.name) ? TYPE.SHAPEFILE : TYPE.GEOJSON;
     const params = uploadConfig.shapefileParams(file.name, map.spatialReference, extent.getWidth(), map.width);
     const content = uploadConfig.shapefileContent(JSON.stringify(params), type);
@@ -114,7 +113,9 @@ export default class Upload extends Component {
   render () {
     const {embeddedInModal} = this.props;
     const {language} = this.context;
-    let header;
+    let header, label, instructions;
+
+    label = text[language].ANALYSIS_SHAPEFILE_UPLOAD;
 
     if (!embeddedInModal) {
       header = (
@@ -122,6 +123,14 @@ export default class Upload extends Component {
           <span dangerouslySetInnerHTML={{ __html: text[language].ANALYSIS_INSTRUCTION_ADDITIONAL}} />
         </h4>
       );
+
+      instructions = (
+        <div className='analysis-instructions__upload-instructions'>
+          <span>* {text[language].ANALYSIS_SHAPEFILE_INSTRUCTIONS}</span>
+        </div>
+      );
+
+      label += ' *';
     }
 
     return (
@@ -138,13 +147,14 @@ export default class Upload extends Component {
           ref='upload'>
           <Loader active={this.state.isUploading} />
           <span className='analysis-instructions__upload-label'>
-            {text[language].ANALYSIS_SHAPEFILE_UPLOAD}
+            {label}
           </span>
           <input type='file' name='file' ref='fileInput' />
           <input type='hidden' name='publishParameters' value='{}' />
 					<input type='hidden' name='filetype' value='shapefile' />
 					<input type='hidden' name='f' value='json' />
         </form>
+        {instructions}
       </div>
     );
   }

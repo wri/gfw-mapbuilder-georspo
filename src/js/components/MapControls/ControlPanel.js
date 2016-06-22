@@ -1,7 +1,7 @@
 import {prepareStateForShare} from 'utils/shareUtils';
 import modalActions from 'actions/ModalActions';
 import mapActions from 'actions/MapActions';
-import {toQuery} from 'utils/params';
+import {toQuerystring} from 'utils/params';
 import text from 'js/languages';
 import React, {
   Component,
@@ -44,7 +44,7 @@ export default class ControlPanel extends Component {
 
   share = () => {
     const {map, language, settings} = this.context;
-    modalActions.showShareModal(toQuery(prepareStateForShare({
+    modalActions.showShareModal(toQuerystring(prepareStateForShare({
       map: map,
       language: language,
       settings: settings

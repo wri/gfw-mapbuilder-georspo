@@ -1,4 +1,3 @@
-import analysisKeys from 'constants/AnalysisConstants';
 import layerInfoCache from 'utils/layerInfoCache';
 import {attributes} from 'constants/AppConstants';
 import layerKeys from 'constants/LayerConstants';
