@@ -84,11 +84,16 @@ export default class Map extends Component {
       prevProps.activeWebmap === undefined && activeWebmap ||
       prevProps.activeWebmap !== undefined && prevProps.activeWebmap !== activeWebmap
     ) {
+      const options = mapConfig.options;
+
       if (map.destroy) {
+        // Don't let the extent change to the new map
+        options.extent = map.extent;
         map.destroy();
         scalebar.destroy();
       }
-      this.createMap(activeWebmap);
+
+      this.createMap(activeWebmap, options);
     }
 
     if (
@@ -103,9 +108,10 @@ export default class Map extends Component {
     this.setState(MapStore.getState());
   };
 
-  createMap = (webmap) => {
+  createMap = (webmap, options) => {
     const {language, settings} = this.context;
-    arcgisUtils.createMap(webmap, this.refs.map, { mapOptions: mapConfig.options, usePopupManager: true }).then(response => {
+
+    arcgisUtils.createMap(webmap, this.refs.map, { mapOptions: options, usePopupManager: true }).then(response => {
       // Add operational layers from the webmap to the array of layers from the config file.
       const {itemData} = response.itemInfo;
       this.addLayersToLayerPanel(settings, itemData.operationalLayers);

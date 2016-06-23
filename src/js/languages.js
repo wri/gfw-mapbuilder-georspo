@@ -224,12 +224,12 @@ strings.fr.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.SLOPE,
     group: analysisKeys.ANALYSIS_GROUP_SLOPE
   },
-  { label: 'Perte de couvert arboré',
-    value: analysisKeys.TC_LOSS,
-    group: analysisKeys.ANALYSIS_GROUP_OTHER
-  },
   { label: 'Total perte/gain de couvert arboré',
     value: analysisKeys.TC_LOSS_GAIN,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Perte de couvert arboré',
+    value: analysisKeys.TC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Perte en occupation du sol',
@@ -372,12 +372,12 @@ strings.es.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.SLOPE,
     group: analysisKeys.ANALYSIS_GROUP_SLOPE
   },
-  { label: 'Pérdida de la cobertura arbórea',
-    value: analysisKeys.TC_LOSS,
-    group: analysisKeys.ANALYSIS_GROUP_OTHER
-  },
   { label: 'Pérdida/ ganancia total de la cobertura arbórea',
     value: analysisKeys.TC_LOSS_GAIN,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Pérdida de la cobertura arbórea',
+    value: analysisKeys.TC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Pérdida de la cobertura del suelo',
@@ -520,12 +520,12 @@ strings.pt.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.SLOPE,
     group: analysisKeys.ANALYSIS_GROUP_SLOPE
   },
-  { label: 'Tree cover loss',
-    value: analysisKeys.TC_LOSS,
-    group: analysisKeys.ANALYSIS_GROUP_OTHER
-  },
   { label: 'Total tree cover loss/gain',
     value: analysisKeys.TC_LOSS_GAIN,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Tree cover loss',
+    value: analysisKeys.TC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Land cover loss',
@@ -668,12 +668,12 @@ strings.id.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.SLOPE,
     group: analysisKeys.ANALYSIS_GROUP_SLOPE
   },
-  { label: 'Tree cover loss',
-    value: analysisKeys.TC_LOSS,
-    group: analysisKeys.ANALYSIS_GROUP_OTHER
-  },
   { label: 'Total tree cover loss/gain',
     value: analysisKeys.TC_LOSS_GAIN,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Tree cover loss',
+    value: analysisKeys.TC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Land cover loss',
@@ -816,12 +816,12 @@ strings.zh.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.SLOPE,
     group: analysisKeys.ANALYSIS_GROUP_SLOPE
   },
-  { label: '森林覆盖损失',
-    value: analysisKeys.TC_LOSS,
-    group: analysisKeys.ANALYSIS_GROUP_OTHER
-  },
   { label: '总森林覆盖损失或增加',
     value: analysisKeys.TC_LOSS_GAIN,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: '森林覆盖损失',
+    value: analysisKeys.TC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: '土地覆盖损失',

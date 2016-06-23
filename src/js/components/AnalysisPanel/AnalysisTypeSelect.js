@@ -16,14 +16,30 @@ export default class AnalysisTypeSelect extends Component {
   };
 
   constructor (props, context) {
-    super(props);
+    super(props, context);
+    // Get options for the select
+    const options = this.prepareOptions(context.language);
+    this.state = { options };
+    // Set the default analysis type
+    mapActions.setAnalysisType.defer({
+      target: { value: options[0].value }
+    });
+  }
 
-    const {language, settings} = context;
-    this.options = text[language].ANALYSIS_SELECT_TYPE_OPTIONS;
+  componentWillReceiveProps (nextProps, nextContext) {
+    const {language} = this.context;
+    if (language !== nextContext.language) {
+      this.setState({ options: this.prepareOptions(nextContext.language) });
+    }
+  }
+
+  prepareOptions = (language) => {
+    const {settings} = this.context;
     const layers = settings.layers[language];
+    let options = text[language].ANALYSIS_SELECT_TYPE_OPTIONS;
     //- Remove options not included based on settings
     //- Also, remove Tree Cover Options if those layers are not in the settings.layers.config
-    this.options = this.options.filter((option) => {
+    options = options.filter((option) => {
       switch (option.value) {
         case analysisKeys.SLOPE:
           return settings.restorationModule;
@@ -45,12 +61,11 @@ export default class AnalysisTypeSelect extends Component {
           return true;
       }
     });
-
     //- Merge in the restoration options if the module is enabled
     if (settings.restorationModule) {
-      const options = settings.labels[language].restorationOptions;
-      options.forEach((restorationOption) => {
-        this.options.unshift({
+      const {restorationOptions} = settings.labels[language];
+      restorationOptions.forEach((restorationOption) => {
+        options.unshift({
           value: restorationOption.id,
           label: restorationOption.label,
           group: analysisKeys.ANALYSIS_GROUP_RESTORATION
@@ -58,10 +73,7 @@ export default class AnalysisTypeSelect extends Component {
       });
     }
 
-    // Set the default analysis type
-    mapActions.setAnalysisType.defer({
-      target: { value: this.options[0].value }
-    });
+    return options;
   }
 
   renderOption = (group) => {
@@ -74,29 +86,31 @@ export default class AnalysisTypeSelect extends Component {
 
   renderGroup = (groupKey) => {
     const {language} = this.context;
+    const {options} = this.state;
     return (
       <optgroup key={groupKey} label={text[language][groupKey]}>
-        {this.options.map(this.renderOption(groupKey))}
+        {options.map(this.renderOption(groupKey))}
       </optgroup>
     );
   };
 
   render () {
     const {activeAnalysisType} = this.props;
+    const {options} = this.state;
     let groupKeys = [];
     const groups = {};
     let activeOption;
-    let options;
+    let optionElements;
     //- Get a unique list of groups so I can render groups if necessary
-    this.options.forEach((option) => { groups[option.group] = true; });
+    options.forEach((option) => { groups[option.group] = true; });
     groupKeys = Object.keys(groups);
     //- Get the selected option
-    activeOption = this.options.filter((option) => option.value === activeAnalysisType)[0];
+    activeOption = options.filter((option) => option.value === activeAnalysisType)[0];
 
     if (groupKeys.length === 1) {
-      options = this.options.map(this.renderOption(groupKeys[0]));
+      optionElements = options.map(this.renderOption(groupKeys[0]));
     } else {
-      options = groupKeys.map(this.renderGroup);
+      optionElements = groupKeys.map(this.renderGroup);
     }
 
     return (
@@ -105,7 +119,7 @@ export default class AnalysisTypeSelect extends Component {
           value={activeAnalysisType}
           className='analysis-results__select pointer'
           onChange={mapActions.setAnalysisType}>
-          {options}
+          {optionElements}
         </select>
         <div className='analysis-results__select-style'>
           {activeOption && activeOption.label || ''}

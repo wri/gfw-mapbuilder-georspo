@@ -93,7 +93,6 @@ export default class Analysis extends Component {
       this.setState(getDefaultState());
       const {settings, language} = this.context;
       request.getRawGeometry(selectedFeature).then((geometry) => {
-        console.log(activeAnalysisType);
         performAnalysis({
           type: activeAnalysisType,
           geometry: geometry,

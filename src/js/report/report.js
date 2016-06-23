@@ -36,15 +36,12 @@ const getApplicationInfo = function getApplicationInfo (params) {
   // //- Should probably get any needed params from map.html since it already has
   // //- appInfo, just pass everything needed, if the needed items are too much, then
   // //- fall back to this
-  if (appid && webmap) {
+  if (webmap) {
     all({
-      app: template.getAppInfo(appid),
+      appid: template.getAppInfo(appid),
       webmap: getWebmapInfo(webmap)
-    }).then(promise.resolve);
-  } else if (webmap) {
-  // if (webmap) {
-    getWebmapInfo(webmap).then((results) => {
-      promise.resolve({ webmap: results });
+    }).then((results) => {
+      promise.resolve(results);
       if (brApp.debug) { console.log('getApplicationInfo.webmap: ', results); }
     });
   } else {
@@ -75,16 +72,7 @@ const getFeature = function getFeature (params) {
       }
       if (brApp.debug) { console.log('getFeature: ', results); }
     });
-  }
-  // else if (localFeature) {
-  //   promise.resolve({
-  //     attributes: localFeature.attributes,
-  //     geometry: localFeature.geometry,
-  //     title: localFeature.title,
-  //     isCustom: true
-  //   });
-  // }
-  else {
+  } else {
     promise.reject({ error: new Error('Unable to retrieve feature.') });
   }
 
@@ -199,6 +187,66 @@ const addTitleAndAttributes = function addTitleAndAttributes (params, featureInf
   }
 };
 
+/**
+* Takes the counts from the restoration requests and formats them for highcharts
+*/
+const formatRestorationData = (counts, labels, colors) => {
+  return labels.map((label, index) => {
+    return {
+      name: label,
+      data: [counts[index]],
+      color: colors[index]
+    };
+  }).filter((item) => {
+    return item.data[0] && item.name !== 'No Data';
+  });
+};
+
+/**
+* Each result set needs to create four dom nodes in a container and render charts into each node
+*/
+const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (results, settings, lang, label) {
+  const rootNode = document.getElementById('restoration');
+  const prefixKey = analysisKeys.ANALYSIS_GROUP_RESTORATION;
+  const prefix = text[lang][prefixKey];
+  // Format results for individual charts
+  const slopeData = formatRestorationData(results.slope, settings.slopeClasses, settings.slopeColors);
+  const lcData = formatRestorationData(results.landCover, settings.landCoverClasses, settings.landCoverColors);
+  const popData = formatRestorationData(results.population, settings.populationClasses, settings.populationColors);
+  const tcData = formatRestorationData(results.treeCover, settings.treeCoverClasses, settings.treeCoverColors);
+  // If any if the results have no data (no length), don't render any content
+  if (!slopeData.length || !lcData.length || !popData.length || !tcData.length) { return; }
+  // Create all the necessary dom nodes
+  const container = document.createElement('div');
+  const labelNode = document.createElement('h4');
+  const slopeNode = document.createElement('div');
+  const lcNode = document.createElement('div');
+  const popNode = document.createElement('div');
+  const tcNode = document.createElement('div');
+  // Append all the nodes to the root node and add classes etc.
+  container.setAttribute('class', 'restoration__module');
+  // container.setAttribute('class', 'restoration__module');
+  labelNode.setAttribute('class', 'restoration__label');
+  slopeNode.setAttribute('class', 'restoration__chart');
+  lcNode.setAttribute('class', 'restoration__chart');
+  popNode.setAttribute('class', 'restoration__chart');
+  tcNode.setAttribute('class', 'restoration__chart');
+  container.appendChild(labelNode);
+  container.appendChild(slopeNode);
+  container.appendChild(lcNode);
+  container.appendChild(popNode);
+  container.appendChild(tcNode);
+  // Push the container to the DOM
+  rootNode.appendChild(container);
+  // Set the label
+  labelNode.innerHTML = `${prefix} ${label}`;
+  // Render the charts
+  charts.makeRestorationBarChart(slopeNode, 'Slope', slopeData);
+  charts.makeRestorationBarChart(lcNode, 'Land Cover', lcData);
+  charts.makeRestorationBarChart(popNode, 'Population Density', popData);
+  charts.makeRestorationBarChart(tcNode, '% Tree cover', tcData);
+};
+
 const runAnalysis = function runAnalysis (params, feature) {
   const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
   const { tcd, lang, settings } = params;
@@ -209,7 +257,7 @@ const runAnalysis = function runAnalysis (params, feature) {
     performAnalysis({
       type: analysisKeys.TC_LOSS_GAIN,
       geometry: feature.geometry,
-      settings: resources,
+      settings: settings,
       canopyDensity: tcd,
       language: lang
     }).then((results) => {
@@ -247,7 +295,7 @@ const runAnalysis = function runAnalysis (params, feature) {
     performAnalysis({
       type: analysisKeys.LC_LOSS,
       geometry: feature.geometry,
-      settings: resources,
+      settings: settings,
       canopyDensity: tcd,
       language: lang
     }).then((results) => {
@@ -279,7 +327,7 @@ const runAnalysis = function runAnalysis (params, feature) {
     performAnalysis({
       type: analysisKeys.LCC,
       geometry: feature.geometry,
-      settings: resources,
+      settings: settings,
       canopyDensity: tcd,
       language: lang
     }).then((results) => {
@@ -311,7 +359,7 @@ const runAnalysis = function runAnalysis (params, feature) {
     performAnalysis({
       type: analysisKeys.BIO_LOSS,
       geometry: feature.geometry,
-      settings: resources,
+      settings: settings,
       canopyDensity: tcd,
       language: lang
     }).then((results) => {
@@ -320,17 +368,16 @@ const runAnalysis = function runAnalysis (params, feature) {
       const { counts, encoder } = results;
       const Xs = encoder.A;
       const Ys = encoder.B;
+      const chartInfo = charts.formatSeriesWithEncoder({
+        encoder: encoder,
+        counts: counts,
+        labels: labels,
+        colors: colors,
+        Xs: Xs,
+        Ys: Ys
+      });
 
-      if (counts && counts.length) {
-        const chartInfo = charts.formatSeriesWithEncoder({
-          encoder: encoder,
-          counts: counts,
-          labels: labels,
-          colors: colors,
-          Xs: Xs,
-          Ys: Ys
-        });
-
+      if (chartInfo.series && chartInfo.series.length) {
         charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
       } else {
         node.remove();
@@ -347,7 +394,7 @@ const runAnalysis = function runAnalysis (params, feature) {
     performAnalysis({
       type: analysisKeys.INTACT_LOSS,
       geometry: feature.geometry,
-      settings: resources,
+      settings: settings,
       canopyDensity: tcd,
       language: lang
     }).then((results) => {
@@ -385,7 +432,7 @@ const runAnalysis = function runAnalysis (params, feature) {
     performAnalysis({
       type: analysisKeys.FIRES,
       geometry: feature.geometry,
-      settings: resources,
+      settings: settings,
       canopyDensity: tcd,
       language: lang
     }).then((results) => {
@@ -397,6 +444,32 @@ const runAnalysis = function runAnalysis (params, feature) {
     });
   } else {
     const node = document.getElementById('fires-badge');
+    node.remove();
+  }
+
+  if (settings.restorationModule) {
+    const infos = settings && settings.labels && settings.labels[lang] && settings.labels[lang].restorationOptions || [];
+    // Analyze each configured restoration option
+    const requests = infos.map((info) => {
+      return performAnalysis({
+        type: info.id,
+        geometry: feature.geometry,
+        settings: settings,
+        canopyDensity: tcd,
+        language: lang
+      });
+    });
+
+
+    all(requests).then((results) => {
+      results.forEach((result, index) => {
+        makeRestorationAnalysisCharts(result, settings, lang, infos[index].label);
+      });
+      //- Show the results
+      document.getElementById('restoration').classList.remove('hidden');
+    });
+  } else {
+    const node = document.getElementById('restoration');
     node.remove();
   }
 
@@ -481,7 +554,8 @@ export default {
       }
 
       //- Add the settings to the params so we can omit layers or do other things if necessary
-      params.settings = info.appid ? info.appid : resources;
+      //- If no appid is provided, the value here is essentially resources.js
+      params.settings = info.appid;
 
       //- Make sure highcharts is loaded before using it
       if (window.highchartsPromise.isResolved()) {
