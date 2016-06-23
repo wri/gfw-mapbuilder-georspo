@@ -17,10 +17,11 @@ export default class ReportSubscribeButtons extends Component {
     const selectedFeature = map.infoWindow && map.infoWindow.getSelectedFeature();
 
     if (selectedFeature) {
-      const {canopyDensity} = mapStore.getState();
+      const {canopyDensity, activeSlopeClass} = mapStore.getState();
       const params = getUrlParams(location.href);
       const payload = {
         lang: language,
+        activeSlopeClass,
         selectedFeature,
         canopyDensity,
         settings

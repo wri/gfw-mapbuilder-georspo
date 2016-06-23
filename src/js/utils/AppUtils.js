@@ -82,6 +82,7 @@ const utils = {
   * @property {string} options.appid - app id
   * @property {string} options.lang - two digit iso code representing current language, en || es || fr || pt
   * @property {number} options.canopyDensity - Current tree cover density settings
+  * @property {number} options.activeSlopeClass - Current Slope setting, only relevant for slope analysis
   */
   generateReport: (options) => {
     /** webmap or appid
@@ -89,7 +90,7 @@ const utils = {
     ** basemap - basemap to use, default is topo
     ** visibleLayers - visible layers of dynamic layer selected feature belongs too, default is all
     */
-    const { selectedFeature, settings, lang, canopyDensity, appid } = options;
+    const { selectedFeature, settings, lang, canopyDensity, appid, activeSlopeClass } = options;
     const USER_FEATURES_CONFIG = utils.getObject(resources.layers.en, 'id', layerKeys.USER_FEATURES);
     //- Is this a custom feature or a feature from the webmap
     const layer = selectedFeature._layer;
@@ -112,6 +113,7 @@ const utils = {
             subtitle: labels.subtitle,
             logoUrl: settings.logoUrl,
             logoLinkUrl: settings.logoLinkUrl,
+            activeSlopeClass: activeSlopeClass,
             webmap: settings.webmap,
             idvalue: idvalue,
             service: service,
@@ -149,6 +151,7 @@ const utils = {
         subtitle: labels.subtitle,
         logoUrl: settings.logoUrl,
         logoLinkUrl: settings.logoLinkUrl,
+        activeSlopeClass: activeSlopeClass,
         webmap: settings.webmap,
         idvalue: idvalue,
         service: service,

@@ -249,7 +249,7 @@ const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (re
 
 const runAnalysis = function runAnalysis (params, feature) {
   const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
-  const { tcd, lang, settings } = params;
+  const { tcd, lang, settings, activeSlopeClass } = params;
   //- Only Analyze layers in the analysis
 
   if (appUtils.containsObject(settings.layers[lang], 'id', layerKeys.TREE_COVER_LOSS)) {
@@ -268,7 +268,12 @@ const runAnalysis = function runAnalysis (params, feature) {
       const colors = analysisConfig[analysisKeys.TC_LOSS].colors;
       const tcLossNode = document.getElementById('tc-loss');
       const series = [{ name: name, data: results.lossCounts }];
-      charts.makeSimpleBarChart(tcLossNode, lossLabels, colors, series);
+
+      if (results.lossCounts && results.lossCounts.length) {
+        charts.makeSimpleBarChart(tcLossNode, lossLabels, colors, series);
+      } else {
+        tcLossNode.remove();
+      }
       //- Generate content for Loss and Gain Badges
       //- Loss
       document.querySelector('#total-loss-badge .results__loss-gain--label').innerHTML = text[lang].ANALYSIS_TOTAL_LOSS_LABEL;
@@ -306,17 +311,16 @@ const runAnalysis = function runAnalysis (params, feature) {
       const { counts, encoder } = results;
       const Xs = encoder.A;
       const Ys = encoder.B;
+      const chartInfo = charts.formatSeriesWithEncoder({
+        colors: configuredColors,
+        encoder: encoder,
+        counts: counts,
+        labels: labels,
+        Xs: Xs,
+        Ys: Ys
+      });
 
-      if (counts && counts.length) {
-        const chartInfo = charts.formatSeriesWithEncoder({
-          colors: configuredColors,
-          encoder: encoder,
-          counts: counts,
-          labels: labels,
-          Xs: Xs,
-          Ys: Ys
-        });
-
+      if (chartInfo.series && chartInfo.series.length) {
         charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
       } else {
         node.remove();
@@ -404,18 +408,17 @@ const runAnalysis = function runAnalysis (params, feature) {
       const { counts, encoder } = results;
       const Xs = encoder.A;
       const Ys = encoder.B;
+      const chartInfo = charts.formatSeriesWithEncoder({
+        colors: configuredColors,
+        encoder: encoder,
+        counts: counts,
+        labels: labels,
+        isSimple: true,
+        Xs: Xs,
+        Ys: Ys
+      });
 
-      if (counts && counts.length) {
-        const chartInfo = charts.formatSeriesWithEncoder({
-          colors: configuredColors,
-          encoder: encoder,
-          counts: counts,
-          labels: labels,
-          isSimple: true,
-          Xs: Xs,
-          Ys: Ys
-        });
-
+      if (chartInfo.series && chartInfo.series.length && chartInfo.series[0].data.length) {
         charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
       } else {
         node.remove();
@@ -460,13 +463,34 @@ const runAnalysis = function runAnalysis (params, feature) {
       });
     });
 
-
     all(requests).then((results) => {
       results.forEach((result, index) => {
         makeRestorationAnalysisCharts(result, settings, lang, infos[index].label);
       });
       //- Show the results
       document.getElementById('restoration').classList.remove('hidden');
+    });
+
+    // Also perform the slope analysis
+    performAnalysis({
+      type: analysisKeys.SLOPE,
+      geometry: feature.geometry,
+      settings: settings,
+      canopyDensity: tcd,
+      activeSlopeClass: activeSlopeClass,
+      language: lang
+    }).then((results) => {
+      console.log(results);
+      const element = document.getElementById('slope');
+      const {counts} = results;
+      const labels = counts.map((v, index) => text[lang].ANALYSIS_SLOPE_OPTION + (index + 1));
+      const colors = settings.slopeAnalysisPotentialColors;
+      const tooltips = settings.labels[lang].slopeAnalysisPotentialOptions;
+      const series = [{ data: counts }];
+      // Render the chart
+      console.log(series);
+      charts.makeSlopeBarChart(element, labels, colors, tooltips, series);
+      element.classList.remove('hidden');
     });
   } else {
     const node = document.getElementById('restoration');
@@ -491,6 +515,7 @@ export default {
   ** basemap - basemap to use, default is topo
   ** visibleLayers - visible layers of dynamic layer selected feature belongs too, default is all
   ** tcd - tree cover density
+  ** activeSlopeClass - Slope setting
   ** lang - current app language
   * Params in local storage
   ** custom-feature - { geometry: esriGeometry, attributes: object, title: string }
