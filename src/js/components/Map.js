@@ -167,7 +167,7 @@ export default class Map extends Component {
   };
 
   addLayersToLayerPanel = (settings, operationalLayers) => {
-    const {language} = this.context;
+    const {language} = this.context, layers = [];
     // Remove any already existing webmap layers
     settings.layers[language] = settings.layers[language].filter((layer) => layer.groupKey !== layerKeys.GROUP_WEBMAP);
     // If an additional language is configured but no additional webmap is, we need to push the layer config into both
@@ -197,10 +197,11 @@ export default class Map extends Component {
             visible: visible,
             esriLayer: layer.layerObject
           };
-          settings.layers[language].push(layerInfo);
-          if (saveLayersInOtherLang) {
-            settings.layers[settings.alternativeLanguage].push(layerInfo);
-          }
+          layers.unshift(layerInfo);
+          // settings.layers[language].push(layerInfo);
+          // if (saveLayersInOtherLang) {
+          //   settings.layers[settings.alternativeLanguage].push(layerInfo);
+          // }
         });
       } else if (layer.layerType === 'ArcGISFeatureLayer' && layer.featureCollection && layer.featureCollection.layers) {
         layer.featureCollection.layers.forEach((sublayer) => {
@@ -214,10 +215,11 @@ export default class Map extends Component {
             esriLayer: sublayer.layerObject,
             itemId: layer.itemId
           };
-          settings.layers[language].push(layerInfo);
-          if (saveLayersInOtherLang) {
-            settings.layers[settings.alternativeLanguage].push(layerInfo);
-          }
+          layers.unshift(layerInfo);
+          // settings.layers[language].push(layerInfo);
+          // if (saveLayersInOtherLang) {
+          //   settings.layers[settings.alternativeLanguage].push(layerInfo);
+          // }
         });
       } else {
         const layerInfo = {
@@ -230,12 +232,17 @@ export default class Map extends Component {
           esriLayer: layer.layerObject,
           itemId: layer.itemId
         };
-        settings.layers[language].push(layerInfo);
-        if (saveLayersInOtherLang) {
-          settings.layers[settings.alternativeLanguage].push(layerInfo);
-        }
+        layers.unshift(layerInfo);
+        // settings.layers[language].push(layerInfo);
+        // if (saveLayersInOtherLang) {
+        //   settings.layers[settings.alternativeLanguage].push(layerInfo);
+        // }
       }
     });
+    settings.layers[language] = settings.layers[language].concat(layers);
+    if (saveLayersInOtherLang) {
+      settings.layers[settings.alternativeLanguage] = settings.layers[settings.alternativeLanguage].concat(layers);
+    }
   };
 
   render () {

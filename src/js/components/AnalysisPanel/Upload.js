@@ -113,7 +113,7 @@ export default class Upload extends Component {
   render () {
     const {embeddedInModal} = this.props;
     const {language} = this.context;
-    let header, label, instructions;
+    let header, label;
 
     label = text[language].ANALYSIS_SHAPEFILE_UPLOAD;
 
@@ -122,12 +122,6 @@ export default class Upload extends Component {
         <h4 className='analysis-instructions__header--additional'>
           <span dangerouslySetInnerHTML={{ __html: text[language].ANALYSIS_INSTRUCTION_ADDITIONAL}} />
         </h4>
-      );
-
-      instructions = (
-        <div className='analysis-instructions__upload-instructions'>
-          <span>* {text[language].ANALYSIS_SHAPEFILE_INSTRUCTIONS}</span>
-        </div>
       );
 
       label += ' *';
@@ -154,7 +148,9 @@ export default class Upload extends Component {
 					<input type='hidden' name='filetype' value='shapefile' />
 					<input type='hidden' name='f' value='json' />
         </form>
-        {instructions}
+        <div className='analysis-instructions__upload-instructions'>
+          <span>* {text[language].ANALYSIS_SHAPEFILE_INSTRUCTIONS}</span>
+        </div>
       </div>
     );
   }
