@@ -5,8 +5,9 @@ export default {
   //- General Settings
   // webmap to use for testing metadata.xml fetching/parsing - 4d426ef4be0f483e9dab047fbb4c6718
   // webmap to use for testing document attachments - b514d31339954ba9a0c5822135bc2001
+  // webmap to use for testing time enabled layers - 9416e5b5beea4d329dbbfdc3312d2c35
   // webmap to use for deployment, this should be the default - de85e3fcc07948238aa6c1afd2a4ceb0
-  webmap: 'de85e3fcc07948238aa6c1afd2a4ceb0',
+  webmap: '9416e5b5beea4d329dbbfdc3312d2c35',
   title: 'GFW Mapbuilder',
   subtitle: 'Make maps that matter',
   logoUrl: './css/images/gfw-logo.png',

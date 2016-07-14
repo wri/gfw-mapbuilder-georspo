@@ -1,0 +1,85 @@
+.time-widget
+  transform translate(-50%)
+  background white
+  padding 10px
+  width 500px
+  bottom 60px
+  left 50%
+
+// Mobile Time Widget
+.mobile-time-widget
+  background white
+  bottom 50px
+  height 60px
+  width 100%
+  & .timeline-container
+    justify-content center
+    height 100%
+    margin 0
+  & select
+    -webkit-appearance none
+    position absolute
+    height 100%
+    width 100%
+    opacity 0
+    left 0
+    top 0
+  & .close-icon
+    height 60px
+    width 60px
+
+.time-widget__select-label
+  font-size 13px
+  margin 0 5px
+
+// Esri Overrides
+.tundra .time-widget .dijitSliderImageHandleH
+  border 1px solid $lightGrayBorder
+  border-radius 5px
+  background white
+  &:after
+    background $goldTheme
+    position relative
+    display block
+    content ''
+    height 4px
+    width 4px
+    left 5px
+    top 5px
+
+.tundra .time-widget .dijitSliderFocused .dijitSliderImageHandleH
+  background-image none
+  outline none
+
+.tundra .time-widget .dijitSliderProgressBarH
+.tundra .time-widget .dijitSliderFocused .dijitSliderProgressBarH
+  background $goldTheme
+
+.tundra .time-widget .dijitSliderRemainingBarH
+  display none
+
+.time-widget .dijitSliderRightBumper
+.time-widget .dijitSliderLeftBumper
+  visibility hidden
+
+.time-widget .dijitRuleMark
+  height 1px
+
+//  & .irs-line-left
+//  & .irs-line-right
+//  & .irs-line-mid
+//    background white
+//  & .irs-grid-pol[style="left: 100%"]
+//  & .irs-grid-pol.small
+//    display none
+//  & .irs-bar
+//    background $goldTheme
+//    border-radius 5px
+//    height 7px
+//  & .irs-grid-pol
+//    border-radius 50%
+//    height 2px
+//    width 2px
+//    top -12px
+//  & .irs-slider
+//    cursor col-resize

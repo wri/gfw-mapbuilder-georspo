@@ -19,6 +19,7 @@ const legendSvg = '<use xlink:href="#icon-legend" />';
 const toggleSvgOff = '<use xlink:href="#icon-controls-toggle__off" />';
 const toggleSvgOn = '<use xlink:href="#icon-controls-toggle__on" />';
 const resetIconSvg = '<use xlink:href="#icon-reset" />';
+const timelineSvg = '<use xlink:href="#icon-timeline" />';
 
 export default class ControlPanel extends Component {
 
@@ -63,6 +64,10 @@ export default class ControlPanel extends Component {
     mapActions.toggleLegendVisible();
   };
 
+  showTimeline = () => {
+    mapActions.toggleMobileTimeWidgetVisible();
+  };
+
   togglePanels = () => {
     mapActions.toggleTOCVisible({ visible: !this.props.tableOfContentsVisible });
   };
@@ -72,7 +77,7 @@ export default class ControlPanel extends Component {
   };
 
   render () {
-    const {tableOfContentsVisible} = this.props;
+    const {tableOfContentsVisible, timeEnabled} = this.props;
     const {language} = this.context;
 
     return (
@@ -104,6 +109,9 @@ export default class ControlPanel extends Component {
           </li>
           <li className='control-panel__legend pointer mobile-show' title={text[language].LEGEND} onClick={this.showLegend}>
             <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: legendSvg }}/>
+          </li>
+          <li className={`control-panel__legend pointer mobile-show ${timeEnabled ? '' : 'hidden'}`} title={text[language].TIMELINE} onClick={this.showTimeline}>
+            <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: timelineSvg }}/>
           </li>
         </ul>
       </div>

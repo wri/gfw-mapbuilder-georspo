@@ -39,6 +39,8 @@ class MapStore {
     this.canopyDensity = 30;
     this.activeSlopeClass = null;
     this.modalLayerInfo = '';
+    this.currentTimeExtent = {};
+    this.mobileTimeWidgetVisible = false;
 
     this.bindListeners({
       setDefaults: appActions.applySettings,
@@ -68,7 +70,9 @@ class MapStore {
       removeAll: layerActions.removeAll,
       setLossOptions: layerActions.setLossOptions,
       updateLossTimeline: layerActions.updateLossTimeline,
-      changeOpacity: layerActions.changeOpacity
+      changeOpacity: layerActions.changeOpacity,
+      updateTimeExtent: mapActions.updateTimeExtent,
+      toggleMobileTimeWidgetVisible: mapActions.toggleMobileTimeWidgetVisible
     });
   }
 
@@ -251,6 +255,14 @@ class MapStore {
 
   toggleLegendVisible () {
     this.legendOpen = !this.legendOpen;
+  }
+
+  toggleMobileTimeWidgetVisible () {
+    this.mobileTimeWidgetVisible = !this.mobileTimeWidgetVisible;
+  }
+
+  updateTimeExtent (timeExtent) {
+    this.currentTimeExtent = timeExtent;
   }
 
 }

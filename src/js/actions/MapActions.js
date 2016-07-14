@@ -36,12 +36,13 @@ class MapActions {
   toggleLayerModal = (data) => data;
   toggleTOCVisible = (data) => data;
   showLayerInfo = (layer) => layer;
+  updateTimeExtent = (timeExtent) => timeExtent;
+  toggleLegendVisible = () => { return {}; };
+  toggleMobileTimeWidgetVisible = () => { return {}; };
 
   changeBasemap (basemap) {
     return basemap;
   }
-
-  toggleLegendVisible = () => { return {}; };
 
   updateCanopyDensity (density) {
     return { density };
