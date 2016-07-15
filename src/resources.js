@@ -233,13 +233,13 @@ export default {
     }, {
       id: 'TREE_COVER_GAIN',
       order: 6,
-      type: 'tiled',
+      type: 'image',
       visible: false,
       group: 'Evolution de l\'occupation des sols',
       groupKey: 'GROUP_LCD',
       label: 'Gain en couvert arboré',
       sublabel: '(12 ans, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
+      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
       legendLayer: 1,
       technicalName: 'tree_cover_gain'
     }, {
@@ -345,13 +345,13 @@ export default {
     }, {
       id: 'TREE_COVER_GAIN',
       order: 6,
-      type: 'tiled',
+      type: 'image',
       visible: false,
       group: 'Dinámica de la Cobertura del Suelo',
       groupKey: 'GROUP_LCD',
       label: 'Aumento de la cobertura arbórea',
       sublabel: '(12 años, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
+      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
       legendLayer: 1,
       technicalName: 'tree_cover_gain'
     }, {
@@ -457,13 +457,13 @@ export default {
     }, {
       id: 'TREE_COVER_GAIN',
       order: 6,
-      type: 'tiled',
+      type: 'image',
       visible: false,
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
       label: 'Tree cover gain',
       sublabel: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
+      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
       legendLayer: 1,
       technicalName: 'tree_cover_gain'
     }, {
@@ -569,13 +569,13 @@ export default {
     }, {
       id: 'TREE_COVER_GAIN',
       order: 6,
-      type: 'tiled',
+      type: 'image',
       visible: false,
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
       label: 'Tree cover gain',
       sublabel: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
+      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
       legendLayer: 1,
       technicalName: 'tree_cover_gain'
     }, {
@@ -681,13 +681,13 @@ export default {
     }, {
       id: 'TREE_COVER_GAIN',
       order: 6,
-      type: 'tiled',
+      type: 'image',
       visible: false,
       group: '土地覆盖动态数据',
       groupKey: 'GROUP_LCD',
       label: '森林覆盖增加',
       sublabel: '(12 年, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
+      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
       legendLayer: 1,
       technicalName: 'tree_cover_gain'
     }, {
