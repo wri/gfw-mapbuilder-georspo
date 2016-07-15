@@ -110,13 +110,13 @@ export default {
     }, {
       id: 'TREE_COVER_GAIN',
       order: 6,
-      type: 'tiled',
+      type: 'image',
       visible: false,
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
       label: 'Tree cover gain',
       sublabel: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
+      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
       legendLayer: 1,
       technicalName: 'tree_cover_gain'
     }, {
