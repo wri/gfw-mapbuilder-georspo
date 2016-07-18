@@ -42,6 +42,9 @@ export default class TimeWidget extends Component {
     const labels = this.slider.timeStops.map(time => time.getFullYear());
     this.slider.setLabels(labels);
     this.slider.setThumbIndexes([labels.indexOf(getYear(timeExtent.startTime)), labels.indexOf(getYear(timeExtent.endTime))]);
+    //- Remove Next and Previous Buttons
+    this.slider.nextBtn.domNode.style.display = 'none';
+    this.slider.previousBtn.domNode.style.display = 'none';
     this.slider.startup();
     //- Wire up any events necessary
     this.slider.on('time-extent-change', (extent) => {
