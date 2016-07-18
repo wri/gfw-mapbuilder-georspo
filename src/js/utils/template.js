@@ -176,6 +176,9 @@ export default {
     const promise = new Deferred();
     const appid = id ? id : getUrlParams(location.href).appid;
 
+    // Set the sharinghost to the correct location so the app can find the webmap content
+    arcgisUtils.arcgisUrl = `${resources.sharinghost}/sharing/rest/content/items`;
+
     if (!appid) {
       //- Format the resources before resolving
       formatResources();
