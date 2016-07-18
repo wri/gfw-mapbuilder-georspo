@@ -118,7 +118,7 @@ class MapStore {
     this.activeLayers = this.allLayers.map(l => l.id);
     this.allLayers.forEach((layer) => {
       if (layer.subId) {
-        this.dynamicLayers[layer.id] = layer.esriLayer._defaultVisibleLayers.slice();
+        this.dynamicLayers[layer.id] = layer.esriLayer.layerInfos.map(lyr => lyr.id);
       }
     });
   }
