@@ -7,6 +7,15 @@ import resources from 'resources';
 
 const SEPARATOR = ';';
 
+const pruneValues = (dict) => {
+  Object.keys(dict).forEach((key) => {
+    if (dict[key] === '' || dict[key] === undefined || dict[key] === null) {
+      delete dict[key];
+    }
+  });
+  return dict;
+};
+
 /**
 * Takes a string and parse it into an array based on separator, e.g hey;you; => ['hey', 'you', '']
 * This will remove any blanks from the array as well, e.g. ['hey', 'you', ''] => ['hey', 'you']
@@ -175,7 +184,7 @@ export default {
     }
 
     arcgisUtils.getItem(appid).then(res => {
-      const agolValues = res.itemData && res.itemData.values;
+      let agolValues = res.itemData && res.itemData.values;
 
       //- If we dont have agol settings, save the defaults, else merge them in
       if (!agolValues) {
@@ -183,6 +192,8 @@ export default {
         formatResources();
         promise.resolve(resources);
       } else {
+        //- Prune agolValues by removing null keys
+        agolValues = pruneValues(agolValues);
         //- This will merge all the settings in, but some things need a little massaging
         lang.mixin(resources, agolValues);
 

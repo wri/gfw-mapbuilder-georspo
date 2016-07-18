@@ -1,7 +1,9 @@
 /* eslint no-unused-vars: 0 */
 /* Creating some esri dijits needs the above rule disabled, choosing this over no-new */
+import MobileTimeWidget from 'components/MapControls/MobileTimeWidget';
 import AnalysisModal from 'components/Modals/AnalysisModal';
 import Controls from 'components/MapControls/ControlPanel';
+import TimeWidget from 'components/MapControls/TimeWidget';
 import CanopyModal from 'components/Modals/CanopyModal';
 import LayerModal from 'components/Modals/LayerModal';
 import Legend from 'components/LegendPanel/LegendPanel';
@@ -27,6 +29,23 @@ import React, {
 } from 'react';
 
 let scalebar;
+
+const getTimeInfo = (operationalLayer) => {
+  return operationalLayer.resourceInfo && operationalLayer.resourceInfo.timeInfo;
+};
+
+const getTimeEnabledLayer = (webmapInfo) => {
+  let timeLayer;
+  if (webmapInfo && webmapInfo.operationalLayers) {
+    webmapInfo.operationalLayers.some((layer) => {
+      if (layer && layer.resourceInfo && layer.resourceInfo.timeInfo) {
+        timeLayer = layer;
+        return true;
+      }
+    });
+  }
+  return timeLayer;
+};
 
 export default class Map extends Component {
 
@@ -167,7 +186,7 @@ export default class Map extends Component {
   };
 
   addLayersToLayerPanel = (settings, operationalLayers) => {
-    const {language} = this.context;
+    const {language} = this.context, layers = [];
     // Remove any already existing webmap layers
     settings.layers[language] = settings.layers[language].filter((layer) => layer.groupKey !== layerKeys.GROUP_WEBMAP);
     // If an additional language is configured but no additional webmap is, we need to push the layer config into both
@@ -197,10 +216,11 @@ export default class Map extends Component {
             visible: visible,
             esriLayer: layer.layerObject
           };
-          settings.layers[language].push(layerInfo);
-          if (saveLayersInOtherLang) {
-            settings.layers[settings.alternativeLanguage].push(layerInfo);
-          }
+          layers.unshift(layerInfo);
+          // settings.layers[language].push(layerInfo);
+          // if (saveLayersInOtherLang) {
+          //   settings.layers[settings.alternativeLanguage].push(layerInfo);
+          // }
         });
       } else if (layer.layerType === 'ArcGISFeatureLayer' && layer.featureCollection && layer.featureCollection.layers) {
         layer.featureCollection.layers.forEach((sublayer) => {
@@ -214,10 +234,11 @@ export default class Map extends Component {
             esriLayer: sublayer.layerObject,
             itemId: layer.itemId
           };
-          settings.layers[language].push(layerInfo);
-          if (saveLayersInOtherLang) {
-            settings.layers[settings.alternativeLanguage].push(layerInfo);
-          }
+          layers.unshift(layerInfo);
+          // settings.layers[language].push(layerInfo);
+          // if (saveLayersInOtherLang) {
+          //   settings.layers[settings.alternativeLanguage].push(layerInfo);
+          // }
         });
       } else {
         const layerInfo = {
@@ -230,31 +251,58 @@ export default class Map extends Component {
           esriLayer: layer.layerObject,
           itemId: layer.itemId
         };
-        settings.layers[language].push(layerInfo);
-        if (saveLayersInOtherLang) {
-          settings.layers[settings.alternativeLanguage].push(layerInfo);
-        }
+        layers.unshift(layerInfo);
+        // settings.layers[language].push(layerInfo);
+        // if (saveLayersInOtherLang) {
+        //   settings.layers[settings.alternativeLanguage].push(layerInfo);
+        // }
       }
     });
+    settings.layers[language] = settings.layers[language].concat(layers);
+    if (saveLayersInOtherLang) {
+      settings.layers[settings.alternativeLanguage] = settings.layers[settings.alternativeLanguage].concat(layers);
+    }
   };
 
   render () {
     const {
+      mobileTimeWidgetVisible,
+      currentTimeExtent,
       printModalVisible,
       analysisModalVisible,
       searchModalVisible,
       canopyModalVisible,
       layerModalVisible,
-      modalLayerInfo
+      modalLayerInfo,
+      webmapInfo,
+      map
     } = this.state;
+
+    const timeSlider = webmapInfo && webmapInfo.widgets && webmapInfo.widgets.timeSlider;
+    const timeWidgets = [];
+
+    if (timeSlider) {
+      const layer = getTimeEnabledLayer(webmapInfo);
+      timeWidgets.push(<TimeWidget
+                        map={map}
+                        currentTimeExtent={currentTimeExtent}
+                        timeInfo={getTimeInfo(layer)}
+                        sliderProps={timeSlider.properties} />);
+      timeWidgets.push(<MobileTimeWidget
+                        map={map}
+                        visible={mobileTimeWidgetVisible}
+                        currentTimeExtent={currentTimeExtent}
+                        timeInfo={getTimeInfo(layer)} />);
+    }
 
     return (
       <div className='map-container'>
         <div ref='map' className='map'>
-          <Controls {...this.state} />
+          <Controls {...this.state} timeEnabled={!!timeSlider} />
           <TabButtons {...this.state} />
           <TabView {...this.state} />
           <Legend {...this.state} />
+          {timeWidgets}
         </div>
         <div className={`analysis-modal-container modal-wrapper ${analysisModalVisible ? '' : 'hidden'}`}>
           <AnalysisModal />
