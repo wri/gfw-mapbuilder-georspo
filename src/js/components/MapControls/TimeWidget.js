@@ -55,6 +55,11 @@ export default class TimeWidget extends Component {
         end: extent.endTime.getFullYear()
       });
     });
+    //- Change the align attribute of the playbutton
+    var tableNode = document.querySelector('.esriTimeSlider td:first-child');
+    if (tableNode && tableNode.setAttribute) {
+      tableNode.setAttribute('align', 'middle');
+    }
     // const node = $(this.refs.timeSlider);
     // const startYear = getYear(timeInfo.timeExtent[0]);
     // const endYear = getYear(timeInfo.timeExtent[1]);

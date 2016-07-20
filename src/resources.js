@@ -7,7 +7,7 @@ export default {
   // webmap to use for testing document attachments - b514d31339954ba9a0c5822135bc2001
   // webmap to use for testing time enabled layers - 9416e5b5beea4d329dbbfdc3312d2c35
   // webmap to use for deployment, this should be the default - de85e3fcc07948238aa6c1afd2a4ceb0
-  webmap: 'de85e3fcc07948238aa6c1afd2a4ceb0',
+  webmap: '9416e5b5beea4d329dbbfdc3312d2c35',
   title: 'GFW Mapbuilder',
   subtitle: 'Make maps that matter',
   logoUrl: './css/images/gfw-logo.png',
@@ -66,9 +66,9 @@ export default {
   sharinghost: 'http://www.arcgis.com',
   analyticsCode: 'UA-62288390-15',
   //- Localhost Token for BR
-  // userFeatureToken: 'TjEeQfPMtR-0kjqzTqIZ7R-NAzGK1Z2sEQo6Dzt17O42DeIlaAxdqeg7GPMANVcC',
+  userFeatureToken: 'TjEeQfPMtR-0kjqzTqIZ7R-NAzGK1Z2sEQo6Dzt17O42DeIlaAxdqeg7GPMANVcC',
   //- Production Token
-  userFeatureToken: 'TjEeQfPMtR-0kjqzTqIZ7cl-o01RHvmC7tVmcyLHrT3-TfMZbwysm9txFEib56OM',
+  // userFeatureToken: 'TjEeQfPMtR-0kjqzTqIZ7cl-o01RHvmC7tVmcyLHrT3-TfMZbwysm9txFEib56OM',
   /**
   * Layer Config Options, [brackets] = optional
   * if type is anything other than graphic and the layer is not disabled, it must have a url
