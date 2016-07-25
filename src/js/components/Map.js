@@ -194,7 +194,9 @@ export default class Map extends Component {
     }
 
     // Set Language
-    appActions.setLanguage.defer(l);
+    if (l) {
+      appActions.setLanguage.defer(l);
+    }
   };
 
   addLayersToLayerPanel = (settings, operationalLayers) => {
