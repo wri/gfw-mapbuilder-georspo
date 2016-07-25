@@ -30,12 +30,13 @@ export default class TimeWidget extends Component {
   componentDidMount () {
     const {timeInfo, sliderProps} = this.props;
     // Create a default time extent based on the layers time info
+    console.log(timeInfo);
     const timeExtent = createTimeExtent(timeInfo.timeExtent[0], timeInfo.timeExtent[1]);
     mapActions.updateTimeExtent({
       start: timeExtent.startTime.getFullYear(),
-      end: timeExtent.endTime.getFullYear()
+      end: timeExtent.startTime.getFullYear()
     });
-    // Create the slider
+    // Create the slidertemp1
     this.slider = new TimeSlider({ style: 'width: 100%;'}, this.refs.timeSlider);
     this.slider.setThumbCount(sliderProps.thumbCount);
     this.slider.createTimeStopsByTimeInterval(timeExtent, sliderProps.timeStopInterval.interval, sliderProps.timeStopInterval.units);
