@@ -177,6 +177,7 @@ export default {
     const appid = id ? id : getUrlParams(location.href).appid;
 
     // Set the sharinghost to the correct location so the app can find the webmap content
+    if (!resources.sharinghost) { resources.sharinghost = 'http://www.arcgis.com'; }
     arcgisUtils.arcgisUrl = `${resources.sharinghost}/sharing/rest/content/items`;
 
     if (!appid) {
