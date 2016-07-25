@@ -10,11 +10,11 @@ import Legend from 'components/LegendPanel/LegendPanel';
 import TabButtons from 'components/TabPanel/TabButtons';
 import SearchModal from 'components/Modals/SearchModal';
 import PrintModal from 'components/Modals/PrintModal';
-import {applyStateFromUrl} from 'utils/shareUtils';
 import TabView from 'components/TabPanel/TabView';
 import layerKeys from 'constants/LayerConstants';
 import arcgisUtils from 'esri/arcgis/utils';
 import mapActions from 'actions/MapActions';
+import appActions from 'actions/AppActions';
 import Scalebar from 'esri/dijit/Scalebar';
 import {getUrlParams} from 'utils/params';
 import basemapUtils from 'utils/basemapUtils';
@@ -174,7 +174,7 @@ export default class Map extends Component {
         });
       });
       //- Load any shared state if available
-      applyStateFromUrl(response.map, getUrlParams(location.search));
+      this.applyStateFromUrl(response.map, getUrlParams(location.search));
       //- Make the map a global in debug mode for easier debugging
       if (brApp.debug) { brApp.map = response.map; }
       //- Update local state since the map is ready now
@@ -183,6 +183,18 @@ export default class Map extends Component {
         map: response.map
       });
     });
+  };
+
+  applyStateFromUrl = (map, params) => {
+    const {x, y, z, l} = params;
+
+    // Set zoom
+    if (x && y && z) {
+      map.centerAndZoom([x, y], z);
+    }
+
+    // Set Language
+    appActions.setLanguage.defer(l);
   };
 
   addLayersToLayerPanel = (settings, operationalLayers) => {
@@ -197,8 +209,16 @@ export default class Map extends Component {
       settings.useAlternativeLanguage
     );
     // Add the layers to the webmap group
+    /**
+    * NOTE: We use unshift becasue pushing the layers into an array results in a list that is
+    * reversed from the webmap in ArcGIS Online, however, dynamic layers show up as separate layers in
+    * our UI, but not in AGOL, so we need to not reverse those individual layers but make sure as a group
+    * they show up in the correct location, which is why they have different logic for adding them to
+    * the list than any other layers, push them in an array, then unshift in reverse order
+    */
     operationalLayers.forEach((layer) => {
       if (layer.layerType === 'ArcGISMapServiceLayer' && layer.resourceInfo.layers) {
+        const dynamicLayers = [];
         layer.resourceInfo.layers.forEach((sublayer) => {
           const visible = layer.layerObject.visibleLayers.indexOf(sublayer.id) > -1;
           const scaleDependency = (sublayer.minScale > 0 || sublayer.maxScale > 0);
@@ -216,12 +236,12 @@ export default class Map extends Component {
             visible: visible,
             esriLayer: layer.layerObject
           };
-          layers.unshift(layerInfo);
-          // settings.layers[language].push(layerInfo);
-          // if (saveLayersInOtherLang) {
-          //   settings.layers[settings.alternativeLanguage].push(layerInfo);
-          // }
+          dynamicLayers.push(layerInfo);
         });
+        // Push the dynamic layers into the array in their current order
+        for (let i = dynamicLayers.length - 1; i >= 0; i--) {
+          layers.unshift(dynamicLayers[i]);
+        }
       } else if (layer.layerType === 'ArcGISFeatureLayer' && layer.featureCollection && layer.featureCollection.layers) {
         layer.featureCollection.layers.forEach((sublayer) => {
           const layerInfo = {
@@ -235,10 +255,6 @@ export default class Map extends Component {
             itemId: layer.itemId
           };
           layers.unshift(layerInfo);
-          // settings.layers[language].push(layerInfo);
-          // if (saveLayersInOtherLang) {
-          //   settings.layers[settings.alternativeLanguage].push(layerInfo);
-          // }
         });
       } else {
         const layerInfo = {
@@ -252,10 +268,6 @@ export default class Map extends Component {
           itemId: layer.itemId
         };
         layers.unshift(layerInfo);
-        // settings.layers[language].push(layerInfo);
-        // if (saveLayersInOtherLang) {
-        //   settings.layers[settings.alternativeLanguage].push(layerInfo);
-        // }
       }
     });
     settings.layers[language] = settings.layers[language].concat(layers);

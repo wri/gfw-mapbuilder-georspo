@@ -1,11 +1,3 @@
-export function applyStateFromUrl (map, state) {
-  const {x, y, z} = state;
-
-  if (map.loaded && (x && y && z)) {
-    map.centerAndZoom([x, y], z);
-  }
-}
-
 export function prepareStateForShare (options) {
   const {map, settings, language} = options;
   const shareState = {};
@@ -17,5 +9,6 @@ export function prepareStateForShare (options) {
   shareState.x = center.getLongitude().toFixed(2);
   shareState.y = center.getLatitude().toFixed(2);
   shareState.z = map.getLevel();
+  shareState.l = language;
   return shareState;
 }

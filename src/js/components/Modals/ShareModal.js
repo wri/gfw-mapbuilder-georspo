@@ -57,7 +57,9 @@ export default class ShareModal extends React.Component {
 
   handleFocus (e) {
     setTimeout(() => {
-      e.target.select();
+      if (e && e.target) {
+        e.target.select();
+      }
     }, 0);
   }
 
