@@ -33,7 +33,7 @@ export default {
   alternativeNarrative: '',
   alternativeWebmapMenuName: 'Land Use',
   //- Documents Settings
-  includeDocumentsTab: false,
+  includeDocumentsTab: true,
   documentsDirectory: 'https://cmr.forest-atlas.org/resources/docs/',
   documentsMapserver: 'http://gis.forest-atlas.org/arcgis/rest/services/CMR/documents_administratifs/MapServer',
   //- Layers/Analysis Settings
