@@ -197,6 +197,45 @@ export default {
   },
 
   /**
+  * Make bar chart with a trend line (aka spline chart in highcharts lingo)
+  * @param {HTML Element} el
+  * @param {object} options
+  */
+  makeBiomassLossChart: (el, options) => {
+    console.dir(options);
+    const chart = new Highcharts.Chart({
+      chart: { renderTo: el },
+      tooltip: { shared: true },
+      xAxis: [{
+        categories: [], //years
+        labels: { enabled: false }
+      }],
+      yAxis: [{
+        labels: { enabled: false },
+        title: { text: null }
+      }, {
+        labels: { enabled: false },
+        title: { text: null },
+        opposite: true
+      }],
+      series: []
+      /**
+      * Example Series
+      * {
+      *    type: 'column',
+      *    name: 'Carbon Emissions',
+      *    data: [0.2, 0.3, 0.3, 0.9, 0.01]
+      * }, {
+      *    type: 'spline',
+      *    name: 'Average',
+      *    yAxis: 1,
+      *    data: [320, 267, 300, 126, 333]
+      * }
+      */
+    });
+  },
+
+  /**
   * Takes Xs, Ys, Encoder, Labels, Counts and Colors, and returns series and colors for the chart
   * @param {object} options
   * @property {array[number]} options.Xs

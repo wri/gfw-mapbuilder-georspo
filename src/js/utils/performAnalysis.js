@@ -57,10 +57,10 @@ export default function performAnalysis (options) {
       }).then(promise.resolve);
     break;
     case analysisKeys.BIO_LOSS:
-      analysisUtils.getBiomassLoss(geometry, canopyDensity);
-      analysisUtils.getCrossedWithLoss(config, analysisConfig[analysisKeys.TC_LOSS], geometry, {
-        canopyDensity: canopyDensity
-      }).then(promise.resolve);
+      analysisUtils.getBiomassLoss(geometry, canopyDensity).then(promise.resolve);
+      // analysisUtils.getCrossedWithLoss(config, analysisConfig[analysisKeys.TC_LOSS], geometry, {
+      //   canopyDensity: canopyDensity
+      // }).then(promise.resolve);
     break;
     case analysisKeys.INTACT_LOSS:
       analysisUtils.getCrossedWithLoss(config, analysisConfig[analysisKeys.TC_LOSS], geometry, {

@@ -266,7 +266,6 @@ export default {
 
   getBiomassLoss: (geometry, canopyDensity) => {
     const geographic = webmercatorUtils.webMercatorToGeographic(geometry);
-    console.log(geographic);
     const geojson = geojsonUtil.arcgisToGeoJSON(geographic);
     const content = {
       type: 'geojson',
@@ -276,16 +275,12 @@ export default {
       thresh: canopyDensity
     };
 
-    esriRequest({
+    return esriRequest({
       url: 'http://api.globalforestwatch.org/forest-change/biomass-loss',
       callbackParamName: 'callback',
       content: content,
       handleAs: 'json'
-    }, { usePost: true}).then((results) => {
-      console.log(results);
-    }, (err) => {
-      console.log(err);
-    });
+    }, { usePost: true});
   },
 
   getCrossedWithLoss: (config, lossConfig, geometry, options) => {

@@ -8,6 +8,7 @@ import SlopeSelect from 'components/AnalysisPanel/SlopeClassSelect';
 import LossGainBadge from 'components/AnalysisPanel/LossGainBadge';
 import SlopeBarChart from 'components/AnalysisPanel/SlopeBarChart';
 import DensityDisplay from 'components/LayerPanel/DensityDisplay';
+import BiomassChart from 'components/AnalysisPanel/BiomassChart';
 import FiresBadge from 'components/AnalysisPanel/FiresBadge';
 import BarChart from 'components/AnalysisPanel/BarChart';
 import analysisKeys from 'constants/AnalysisConstants';
@@ -129,8 +130,9 @@ export default class Analysis extends Component {
           counts={results.counts}
           colors={analysisConfig[type].colors}
           labels={lossLabels} />;
-      case analysisKeys.LC_LOSS:
       case analysisKeys.BIO_LOSS:
+        return <BiomassChart data={results} />;
+      case analysisKeys.LC_LOSS:
       case analysisKeys.INTACT_LOSS:
         layerConf = utils.getObject(settings.layers[language], 'id', layerKeys.LAND_COVER);
         labels = (type === analysisKeys.LC_LOSS ? layerConf.classes :
