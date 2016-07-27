@@ -86,7 +86,7 @@ strings.en.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.LC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Biomass loss',
+  { label: 'Aboveground Live Woody Biomass loss',
     value: analysisKeys.BIO_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
@@ -239,7 +239,7 @@ strings.fr.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.LC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Perte en biomasse',
+  { label: 'Aboveground Live Woody Biomass loss', //'Perte en biomasse',
     value: analysisKeys.BIO_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
@@ -390,7 +390,7 @@ strings.es.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.LC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Pérdida de biomasa',
+  { label: 'Aboveground Live Woody Biomass loss', //'Pérdida de biomasa',
     value: analysisKeys.BIO_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
@@ -541,7 +541,7 @@ strings.pt.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.LC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Biomass loss',
+  { label: 'Aboveground Live Woody Biomass loss',
     value: analysisKeys.BIO_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
@@ -692,7 +692,7 @@ strings.id.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.LC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Biomass loss',
+  { label: 'Aboveground Live Woody Biomass loss',
     value: analysisKeys.BIO_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
@@ -843,7 +843,7 @@ strings.zh.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.LC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: '生物量损失',
+  { label: 'Aboveground Live Woody Biomass loss', //'生物量损失',
     value: analysisKeys.BIO_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },

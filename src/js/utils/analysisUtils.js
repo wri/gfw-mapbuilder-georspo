@@ -1,3 +1,5 @@
+import webmercatorUtils from 'esri/geometry/webMercatorUtils';
+import geojsonUtil from 'utils/arcgis-to-geojson';
 import QueryTask from 'esri/tasks/QueryTask';
 import {analysisConfig} from 'js/config';
 import esriRequest from 'esri/request';
@@ -260,6 +262,30 @@ export default {
 
     computeHistogram(imageService, content, success, failure);
     return promise;
+  },
+
+  getBiomassLoss: (geometry, canopyDensity) => {
+    const geographic = webmercatorUtils.webMercatorToGeographic(geometry);
+    console.log(geographic);
+    const geojson = geojsonUtil.arcgisToGeoJSON(geographic);
+    const content = {
+      type: 'geojson',
+      geojson: JSON.stringify(geojson),
+      dataset: 'biomass-loss',
+      period: '2001-11-10,2015-01-01',
+      thresh: canopyDensity
+    };
+
+    esriRequest({
+      url: 'http://api.globalforestwatch.org/forest-change/biomass-loss',
+      callbackParamName: 'callback',
+      content: content,
+      handleAs: 'json'
+    }, { usePost: true}).then((results) => {
+      console.log(results);
+    }, (err) => {
+      console.log(err);
+    });
   },
 
   getCrossedWithLoss: (config, lossConfig, geometry, options) => {
