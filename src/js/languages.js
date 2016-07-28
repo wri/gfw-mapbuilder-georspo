@@ -156,6 +156,9 @@ strings.en.TOOL_ANALYSIS = 'Analysis';
 strings.en.TOOL_TOGGLE = 'Toggle Panel';
 strings.en.TOOL_RESET = 'Reset';
 
+strings.en.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
+strings.en.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+
 
 
 //- NOTE: French

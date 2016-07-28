@@ -163,18 +163,24 @@ config.analysis[analysisKeys.INTACT_LOSS] = {
 };
 
 config.analysis[analysisKeys.BIO_LOSS] = {
-  id: '$524',
-  bounds: [0, 2],
-  labels: ['1 - 19', '20 - 79', '>= 80'],
-  colors: ['#fdffcc', '#f1bc8b', '#d56f4a'],
-  remap: {
-    'rasterFunction': 'Remap',
-    'rasterFunctionArguments': {
-      'InputRanges': [0, 20, 20, 80, 80, 1000],
-      'OutputValues': [0, 1, 2],
-      'Raster': '$524',
-      'AllowUnmatched': false
-    }
+  // id: '$524',
+  // bounds: [0, 2],
+  // labels: ['1 - 19', '20 - 79', '>= 80'],
+  // colors: ['#fdffcc', '#f1bc8b', '#d56f4a'],
+  // remap: {
+  //   'rasterFunction': 'Remap',
+  //   'rasterFunctionArguments': {
+  //     'InputRanges': [0, 20, 20, 80, 80, 1000],
+  //     'OutputValues': [0, 1, 2],
+  //     'Raster': '$524',
+  //     'AllowUnmatched': false
+  //   }
+  // },
+  labels: [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014],
+  url: '',
+  colors: {
+    loss: '#FF6699',
+    carbon: '#BEBCC2'
   }
 };
 

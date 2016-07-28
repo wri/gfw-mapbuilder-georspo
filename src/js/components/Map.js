@@ -310,7 +310,7 @@ export default class Map extends Component {
     }
 
     return (
-      <div className='map-container'>
+      <div className={`map-container ${!timeSlider ? 'noSlider' : ''}`}>
         <div ref='map' className='map'>
           <Controls {...this.state} timeEnabled={!!timeSlider} />
           <TabButtons {...this.state} />

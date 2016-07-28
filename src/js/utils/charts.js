@@ -200,14 +200,18 @@ export default {
   * Make bar chart with a trend line (aka spline chart in highcharts lingo)
   * @param {HTML Element} el
   * @param {object} options
+  * @param {function} callback
+  * @return {object} chart
   */
-  makeBiomassLossChart: (el, options) => {
-    console.dir(options);
+  makeBiomassLossChart: (el, options, callback) => {
+    const {categories, series} = options;
+    if (!callback) { callback = function(){}; }
     const chart = new Highcharts.Chart({
       chart: { renderTo: el },
-      tooltip: { shared: true },
+      title: { text: null },
+      credits: { enabled: false },
       xAxis: [{
-        categories: [], //years
+        categories: categories, //years
         labels: { enabled: false }
       }],
       yAxis: [{
@@ -218,21 +222,76 @@ export default {
         title: { text: null },
         opposite: true
       }],
-      series: []
-      /**
-      * Example Series
-      * {
-      *    type: 'column',
-      *    name: 'Carbon Emissions',
-      *    data: [0.2, 0.3, 0.3, 0.9, 0.01]
-      * }, {
-      *    type: 'spline',
-      *    name: 'Average',
-      *    yAxis: 1,
-      *    data: [320, 267, 300, 126, 333]
-      * }
-      */
+      tooltip: {
+        shared: true,
+        useHTML: true,
+        backgroundColor: '#FFF',
+        formatter: function () {
+          return `<div style='font-size:20px;width: 80px;'>${this.x}</div>` +
+            `<div style='font-size:12px;color:${this.points[0].color};'>${Math.round(this.points[0].y)} MtCO2</div>` +
+            `<div style='font-size:12px;color:${this.points[1].color};'>${Math.round(this.points[1].y)} Ha</div>`;
+        }
+      },
+      series: series
+    }, callback);
+  },
+
+  /**
+  * @typedef BiomassSeries
+  * @type Object
+  * @property {Object[]} series - Array of chart series objects
+  * @property {number} grossLoss - Total loss
+  * @property {number} grossEmissions - Total emissions
+  */
+
+  /**
+  * Takes an API response from the GFW API and formats it into an array of series for the dual axis chart above
+  * @param {object} options
+  * @property {object} options.data - response data
+  * @property {string} options.lossColor - color for the loss series
+  * @property {string} options.carbonColor - color for the carbon series
+  * @property {string} options.lossName - name for the loss series
+  * @property {string} options.carbonName - name for the carbon series
+  * @return {BiomassSeries} result
+  */
+  formatSeriesForBiomassLoss: (options) => {
+    const { data, lossColor, carbonColor, lossName, carbonName } = options;
+    const { co2_loss_by_year, tree_loss_by_year, biomass_loss_by_year } = data;
+    const series = [];
+
+    // Gross Carbon Emissions
+    const grossEmissions = Object.keys(co2_loss_by_year).map(key => co2_loss_by_year[key]).reduce((a, b) => a + b, 0);
+    // MtCO2 per year
+    const carbonEmissions = Object.keys(biomass_loss_by_year).map(key => biomass_loss_by_year[key]);
+    // Tree cover loss in hectares per year
+    const treeCoverLoss = Object.keys(tree_loss_by_year).map(key => tree_loss_by_year[key]);
+    // Total tree cover loss in carbon
+    const grossLoss = treeCoverLoss.reduce((a, b) => a + b, 0);
+
+    series.push({
+      type: 'column',
+      name: 'MtCO2',
+      data: carbonEmissions,
+      color: carbonColor
     });
+
+    series.push({
+      yAxis: 1,
+      type: 'spline',
+      name: lossName,
+      data: treeCoverLoss,
+      marker: {
+        lineColor: lossColor,
+        fillColor: lossColor
+      },
+      color: lossColor
+    });
+
+    return {
+      series,
+      grossLoss,
+      grossEmissions
+    };
   },
 
   /**

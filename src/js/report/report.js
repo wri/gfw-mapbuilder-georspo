@@ -369,23 +369,50 @@ const runAnalysis = function runAnalysis (params, feature) {
     }).then((results) => {
       const { labels, colors } = analysisConfig[analysisKeys.BIO_LOSS];
       const node = document.getElementById('bio-loss');
-      const { counts, encoder } = results;
-      const Xs = encoder.A;
-      const Ys = encoder.B;
-      const chartInfo = charts.formatSeriesWithEncoder({
-        encoder: encoder,
-        counts: counts,
-        labels: labels,
-        colors: colors,
-        Xs: Xs,
-        Ys: Ys
+      const {series, grossLoss, grossEmissions} = charts.formatSeriesForBiomassLoss({
+        data: results,
+        lossColor: colors.loss,
+        carbonColor: colors.carbon,
+        lossName: text[lang].ANALYSIS_CARBON_LOSS,
+        carbonName: 'MtCO2'
       });
 
-      if (chartInfo.series && chartInfo.series.length) {
-        charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
-      } else {
-        node.remove();
-      }
+      charts.makeBiomassLossChart(node, {
+        series,
+        categories: labels
+      }, (chart) => {
+        console.dir(chart.renderer);
+        const content = chart.renderer.html(
+          `<div class='results__legend-container'>` +
+            `<span>${text[lang].ANALYSIS_CARBON_LOSS}</span>` +
+            `<span>${Math.round(grossLoss)} Ha</span>` +
+          `</div>` +
+          `<div class='results__legend-container'>` +
+            `<span>${text[lang].ANALYSIS_CARBON_EMISSION}</span>` +
+            `<span>${Math.round(grossEmissions)}m MtCO2</span>` +
+          `</div>`
+        );
+        content.element.className = 'result__biomass-totals';
+        content.add();
+
+      });
+      // const { counts, encoder } = results;
+      // const Xs = encoder.A;
+      // const Ys = encoder.B;
+      // const chartInfo = charts.formatSeriesWithEncoder({
+      //   encoder: encoder,
+      //   counts: counts,
+      //   labels: labels,
+      //   colors: colors,
+      //   Xs: Xs,
+      //   Ys: Ys
+      // });
+      //
+      // if (chartInfo.series && chartInfo.series.length) {
+      //   charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
+      // } else {
+      //   node.remove();
+      // }
 
     });
   } else {

@@ -29,6 +29,7 @@ import React, {
 
 const getDefaultState = function () {
   return {
+    error: false,
     isLoading: true,
     results: undefined
   };
@@ -64,6 +65,8 @@ export default class Analysis extends Component {
           language: language
         }).then((results) => {
           this.setState({ results: results, isLoading: false });
+        }, () => {
+          this.setState({ isLoading: false, error: true });
         });
       });
     }
@@ -103,6 +106,8 @@ export default class Analysis extends Component {
           language: language
         }).then((results) => {
           this.setState({ results: results, isLoading: false });
+        }, () => {
+          this.setState({ isLoading: false });
         });
       });
     }
@@ -131,7 +136,11 @@ export default class Analysis extends Component {
           colors={analysisConfig[type].colors}
           labels={lossLabels} />;
       case analysisKeys.BIO_LOSS:
-        return <BiomassChart data={results} />;
+        return <BiomassChart
+          data={results}
+          labels={analysisConfig[type].labels}
+          colors={analysisConfig[type].colors}
+          />;
       case analysisKeys.LC_LOSS:
       case analysisKeys.INTACT_LOSS:
         layerConf = utils.getObject(settings.layers[language], 'id', layerKeys.LAND_COVER);
@@ -162,7 +171,7 @@ export default class Analysis extends Component {
 
   render () {
     const {selectedFeature, activeAnalysisType, canopyDensity, activeSlopeClass} = this.props;
-    const {results, isLoading} = this.state;
+    const {results, isLoading, error} = this.state;
     const {language, settings} = this.context;
     let chart, title, slopeSelect;
 
@@ -213,11 +222,16 @@ export default class Analysis extends Component {
             {text[language].ANALYSIS_SELECT_TYPE_LABEL}
           </div>
           <AnalysisTypeSelect {...this.props} />
-          <div className={`analysis-results__density-display ${showDensityDisplay ? '' : 'hidden'}`}>
-            <DensityDisplay canopyDensity={canopyDensity} />
-          </div>
-          {slopeSelect}
-          {chart}
+          {error ?
+            <div className=''>Error Here</div> :
+            <div>
+              <div className={`analysis-results__density-display ${showDensityDisplay ? '' : 'hidden'}`}>
+                <DensityDisplay canopyDensity={canopyDensity} />
+              </div>
+              {slopeSelect}
+              {chart}
+            </div>
+          }
         </div>
         <div className='analysis-results__footer'>
           <ReportSubscribeButtons />

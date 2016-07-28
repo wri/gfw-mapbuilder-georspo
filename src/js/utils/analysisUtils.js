@@ -279,7 +279,8 @@ export default {
       url: 'http://api.globalforestwatch.org/forest-change/biomass-loss',
       callbackParamName: 'callback',
       content: content,
-      handleAs: 'json'
+      handleAs: 'json',
+      timeout: 30000
     }, { usePost: true});
   },
 
