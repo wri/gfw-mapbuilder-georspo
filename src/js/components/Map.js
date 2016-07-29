@@ -88,7 +88,7 @@ export default class Map extends Component {
     // Make sure all requests that use tokens have them
     esriRequest.setRequestPreCallback((ioArgs) => {
       if (ioArgs.url.search(USER_FEATURES_CONFIG.url) > -1) {
-        ioArgs.content.token = resources.userFeatureToken;
+        ioArgs.content.token = resources.userFeatureToken[location.hostname];
       }
       return ioArgs;
     });

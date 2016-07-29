@@ -572,7 +572,7 @@ export default {
     esriRequest.setRequestPreCallback((ioArgs) => {
       // Add token for user features service
       if (ioArgs.url.search(params.service) > -1 && params.custom) {
-        ioArgs.content.token = resources.userFeatureToken;
+        ioArgs.content.token = resources.userFeatureToken[location.hostname];
       }
       return ioArgs;
     });
