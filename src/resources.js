@@ -98,7 +98,7 @@ export default {
   layers: {
     en: [{
       id: 'TREE_COVER_LOSS',
-      order: 5,
+      order: 11,
       type: 'image',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -113,7 +113,7 @@ export default {
       technicalName: 'tree_cover_loss'
     }, {
       id: 'TREE_COVER_GAIN',
-      order: 6,
+      order: 12,
       type: 'image',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -125,7 +125,7 @@ export default {
       technicalName: 'tree_cover_gain'
     }, {
       id: 'ACTIVE_FIRES',
-      order: 7,
+      order: 13,
       type: 'dynamic',
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
@@ -175,16 +175,6 @@ export default {
       layerIds: [0],
       technicalName: 'intact_forest_landscapes_change'
     },
-    // {
-    //   id: 'OTHER', // Testing GlobCover
-    //   order: 3,
-    //   type: 'webtiled',
-    //   group: 'Land Cover',
-    //   groupKey: 'GROUP_LC',
-    //   label: 'Global Land Cover (Tiled)',
-    //   url: 'http://wri-tiles.s3.amazonaws.com/global-landcover/${level}/${col}/${row}.png',
-    //   technicalName: 'intact_forest_landscapes_change'
-    // },
      {
       id: 'AG_BIOMASS',
       order: 4,
@@ -195,6 +185,16 @@ export default {
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
       legendLayer: 8,
       technicalName: 'aboveground_biomass'
+    }, {
+      id: 'GLOB_MANGROVE',
+      order: 5,
+      type: 'webtiled',
+      group: 'Land Cover',
+      groupKey: 'GROUP_LC',
+      label: 'Global Mangrove',
+      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+      subDomains: [0, 1, 2, 3],
+      technicalName: 'global_mangroves'
     }, {
       id: 'MASK',
       order: 100,

@@ -33,6 +33,7 @@ export default (layer) => {
     case 'webtiled':
       options.id = layer.id;
       options.visible = layer.visible || false;
+      if (layer.subDomains) { options.subDomains = layer.subDomains; }
       esriLayer = new WebTiledLayer(layer.url, options);
     break;
     case 'image':
