@@ -162,6 +162,17 @@ config.analysis[analysisKeys.INTACT_LOSS] = {
   colors: ['#186513']
 };
 
+config.analysis[analysisKeys.MANGROVE_LOSS] = {
+  id: '$561',
+  bounds: [0, 1],
+  colors: ['#06FFAA']
+};
+
+config.analysis[analysisKeys.SAD_ALERTS] = {
+  url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer/2',
+  outFields: ['date', 'data_type', 'st_area(shape)']
+};
+
 config.analysis[analysisKeys.BIO_LOSS] = {
   // id: '$524',
   // bounds: [0, 2],

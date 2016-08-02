@@ -45,6 +45,45 @@ const formatters = {
       fireCount: response.features ? response.features.length : 0
     };
   },
+  sadAlerts: (response) => {
+    let date, month, year, type, area;
+    const {features} = response;
+    const bin = {};
+    /**
+    * Bin Structure
+    * {
+    *   year: {
+    *     month: {
+    *       type: total
+    *     }
+    *   }
+    * }
+    */
+    features.forEach((feature) => {
+      date = new Date(feature.attributes.date);
+      year = date.getFullYear();
+      month = date.getMonth();
+      type = feature.attributes.data_type;
+      area = feature.attributes['st_area(shape)'];
+
+      if (bin[year] && bin[year][month] && bin[year][month][type]) {
+        bin[year][month][type] += area;
+      } else if (bin[year] && bin[year][month]) {
+        bin[year][month][type] = area;
+      } else if (bin[year]) {
+        bin[year][month] = {};
+        bin[year][month][type] = area;
+      } else {
+        bin[year] = {};
+        bin[year][month] = {};
+        bin[year][month][type] = area;
+      }
+    });
+
+    return {
+      alerts: bin
+    };
+  },
   //TODO: Cleanup and remove noSlice, make it an explicit option so using this function does not pass in an anonymous boolean
   getCounts: (response, pixelSize, noSlice) => {
     const {histograms} = response;
@@ -205,6 +244,25 @@ export default {
       promise.resolve(formatters.fires(response));
     }, (error) => {
       promise.resolve(formatters.fires(error));
+    });
+    return promise;
+  },
+
+  /**
+  * Get SAD Alerts and format results
+  */
+  getSADAlerts: (config, geometry) => {
+    const queryTask = new QueryTask(config.url);
+    const promise = new Deferred();
+    const query = new Query();
+    query.geometry = geometry;
+    query.returnGeometry = false;
+    query.outFields = config.outFields;
+    query.where = '1 = 1';
+    queryTask.execute(query).then(function (response) {
+      promise.resolve(formatters.sadAlerts(response));
+    }, (error) => {
+      promise.resolve(formatters.sadAlerts(error));
     });
     return promise;
   },

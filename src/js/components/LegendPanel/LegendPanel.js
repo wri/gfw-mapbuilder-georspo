@@ -59,7 +59,14 @@ export default class LegendPanel extends Component {
     // Add any layers we want to exclude from the legend to ignores, including basemapLayerIds
     // If a layer has a legendLayerId configured in the resources.js, you will probably want to add it here to prevent
     // two legends from the same service from showing up
-    let ignores = [layerKeys.MASK, layerKeys.TREE_COVER, layerKeys.TREE_COVER_GAIN, layerKeys.TREE_COVER_LOSS];
+    let ignores = [
+      layerKeys.MASK,
+      layerKeys.TREE_COVER,
+      layerKeys.AG_BIOMASS,
+      layerKeys.TREE_COVER_GAIN,
+      layerKeys.TREE_COVER_LOSS
+    ];
+
     if (layerIds) {
       if (basemapLayerIds) { ignores = ignores.concat(basemapLayerIds); }
       ids = layerIds.filter(id => ignores.indexOf(id) === -1);

@@ -68,6 +68,15 @@ export default function performAnalysis (options) {
         simple: true
       }).then(promise.resolve);
     break;
+    case analysisKeys.MANGROVE_LOSS:
+      analysisUtils.getCrossedWithLoss(config, analysisConfig[analysisKeys.TC_LOSS], geometry, {
+        canopyDensity: canopyDensity,
+        simple: true
+      }).then(promise.resolve);
+    break;
+    case analysisKeys.SAD_ALERTS:
+      analysisUtils.getSADAlerts(config, geometry).then(promise.resolve);
+    break;
     default:
       //- This should only be the restoration analysis, since analysisType is a rasterId
       analysisUtils.getRestoration(restorationUrl, type, geometry).then(promise.resolve);

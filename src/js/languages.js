@@ -55,6 +55,7 @@ strings.en.ANALYSIS_SELECT_TYPE_LABEL = 'Select Analysis:';
 strings.en.ANALYSIS_TC_CHART_NAME = 'Tree cover loss in Hectares';
 strings.en.ANALYSIS_LCC_CHART_NAME = 'Land Cover Composition';
 strings.en.ANALYSIS_IFL_LABELS = ['Intact Forest'];
+strings.en.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.en.ANALYSIS_FIRES_PRE = 'There are';
 strings.en.ANALYSIS_FIRES_ACTIVE = 'active fires';
 strings.en.ANALYSIS_FIRES_POST = 'in the last 7 days';
@@ -92,6 +93,14 @@ strings.en.ANALYSIS_SELECT_TYPE_OPTIONS = [
   },
   { label: 'Intact forest loss',
     value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Global mangrove loss',
+    value: analysisKeys.MANGROVE_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'SAD alerts',
+    value: analysisKeys.SAD_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Active fires',
@@ -211,6 +220,7 @@ strings.fr.ANALYSIS_SELECT_TYPE_LABEL = 'Choisissez le type d\'analyse:';
 strings.fr.ANALYSIS_TC_CHART_NAME = 'Perte de couvert arboré en Hectares';
 strings.fr.ANALYSIS_LCC_CHART_NAME = 'Occupation du sol';
 strings.fr.ANALYSIS_IFL_LABELS = ['Forêts intactes'];
+strings.fr.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.fr.ANALYSIS_FIRES_PRE = 'Il y a';
 strings.fr.ANALYSIS_FIRES_ACTIVE = 'feux actifs';
 strings.fr.ANALYSIS_FIRES_POST = 'ces 7 derniers jours';
@@ -248,6 +258,10 @@ strings.fr.ANALYSIS_SELECT_TYPE_OPTIONS = [
   },
   { label: 'Perte en forêts intactes',
     value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Global mangrove loss',
+    value: analysisKeys.MANGROVE_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Feux actifs',
@@ -362,6 +376,7 @@ strings.es.ANALYSIS_SELECT_TYPE_LABEL = 'Seleccionar Análisis:';
 strings.es.ANALYSIS_TC_CHART_NAME = 'Pérdida de la cobertura arbórea (ha)';
 strings.es.ANALYSIS_LCC_CHART_NAME = 'Composición de la cobertura del suelo';
 strings.es.ANALYSIS_IFL_LABELS = ['Bosque Intacto'];
+strings.es.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.es.ANALYSIS_FIRES_PRE = 'Hay';
 strings.es.ANALYSIS_FIRES_ACTIVE = 'incendios activos';
 strings.es.ANALYSIS_FIRES_POST = 'en los últimos 7 días';
@@ -399,6 +414,10 @@ strings.es.ANALYSIS_SELECT_TYPE_OPTIONS = [
   },
   { label: 'Paisajes Forestales Intactos',
     value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Global mangrove loss',
+    value: analysisKeys.MANGROVE_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Incendios activos',
@@ -513,6 +532,7 @@ strings.pt.ANALYSIS_SELECT_TYPE_LABEL = 'Select Analysis:';
 strings.pt.ANALYSIS_TC_CHART_NAME = 'Tree cover loss in Hectares';
 strings.pt.ANALYSIS_LCC_CHART_NAME = 'Land Cover Composition';
 strings.pt.ANALYSIS_IFL_LABELS = ['Intact Forest'];
+strings.pt.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.pt.ANALYSIS_FIRES_PRE = 'There are';
 strings.pt.ANALYSIS_FIRES_ACTIVE = 'active fires';
 strings.pt.ANALYSIS_FIRES_POST = 'in the last 7 days';
@@ -550,6 +570,10 @@ strings.pt.ANALYSIS_SELECT_TYPE_OPTIONS = [
   },
   { label: 'Intact forest loss',
     value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Global mangrove loss',
+    value: analysisKeys.MANGROVE_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Active fires',
@@ -664,6 +688,7 @@ strings.id.ANALYSIS_SELECT_TYPE_LABEL = 'Select Analysis:';
 strings.id.ANALYSIS_TC_CHART_NAME = 'Tree cover loss in Hectares';
 strings.id.ANALYSIS_LCC_CHART_NAME = 'Land Cover Composition';
 strings.id.ANALYSIS_IFL_LABELS = ['Intact Forest'];
+strings.id.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.id.ANALYSIS_FIRES_PRE = 'There are';
 strings.id.ANALYSIS_FIRES_ACTIVE = 'active fires';
 strings.id.ANALYSIS_FIRES_POST = 'in the last 7 days';
@@ -701,6 +726,10 @@ strings.id.ANALYSIS_SELECT_TYPE_OPTIONS = [
   },
   { label: 'Intact forest loss',
     value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Global mangrove loss',
+    value: analysisKeys.MANGROVE_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Active fires',
@@ -815,6 +844,7 @@ strings.zh.ANALYSIS_SELECT_TYPE_LABEL = '选择分析方式：';
 strings.zh.ANALYSIS_TC_CHART_NAME = '森林覆盖损失（单位：公顷）';
 strings.zh.ANALYSIS_LCC_CHART_NAME = '土地覆盖组成';
 strings.zh.ANALYSIS_IFL_LABELS = ['原生森林'];
+strings.zh.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.zh.ANALYSIS_FIRES_PRE = '共计';
 strings.zh.ANALYSIS_FIRES_ACTIVE = '活跃火点';
 strings.zh.ANALYSIS_FIRES_POST = '在过去7天里';
@@ -852,6 +882,10 @@ strings.zh.ANALYSIS_SELECT_TYPE_OPTIONS = [
   },
   { label: '原生林损失',
     value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Global mangrove loss',
+    value: analysisKeys.MANGROVE_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: '活跃火点',

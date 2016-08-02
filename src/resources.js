@@ -124,8 +124,18 @@ export default {
       legendLayer: 1,
       technicalName: 'tree_cover_gain'
     }, {
-      id: 'ACTIVE_FIRES',
+      id: 'IMAZON_SAD',
       order: 13,
+      type: 'dynamic',
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'SAD alerts',
+      sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+      layerIds: [2]
+    }, {
+      id: 'ACTIVE_FIRES',
+      order: 14,
       type: 'dynamic',
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
@@ -221,7 +231,7 @@ export default {
   }],
     fr: [{
       id: 'TREE_COVER_LOSS',
-      order: 5,
+      order: 11,
       type: 'image',
       visible: false,
       group: 'Evolution de l\'occupation des sols',
@@ -236,7 +246,7 @@ export default {
       technicalName: 'tree_cover_loss'
     }, {
       id: 'TREE_COVER_GAIN',
-      order: 6,
+      order: 12,
       type: 'image',
       visible: false,
       group: 'Evolution de l\'occupation des sols',
@@ -247,8 +257,18 @@ export default {
       legendLayer: 1,
       technicalName: 'tree_cover_gain'
     }, {
+      id: 'IMAZON_SAD',
+      order: 13,
+      type: 'dynamic',
+      group: 'Evolution de l\'occupation des sols',
+      groupKey: 'GROUP_LCD',
+      label: 'SAD alerts',
+      sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+      layerIds: [2]
+    }, {
       id: 'ACTIVE_FIRES',
-      order: 7,
+      order: 14,
       type: 'dynamic',
       group: 'Evolution de l\'occupation des sols',
       groupKey: 'GROUP_LCD',
@@ -301,12 +321,22 @@ export default {
       id: 'AG_BIOMASS',
       order: 4,
       type: 'image',
-      group: 'Land Cover',
+      group: 'Occupation des sols',
       groupKey: 'GROUP_LC',
       label: 'Aboveground Live Woody Biomass Density',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
       legendLayer: 8,
       technicalName: 'aboveground_biomass'
+    }, {
+      id: 'GLOB_MANGROVE',
+      order: 5,
+      type: 'webtiled',
+      group: 'Occupation des sols',
+      groupKey: 'GROUP_LC',
+      label: 'Global Mangrove',
+      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+      subDomains: [0, 1, 2, 3],
+      technicalName: 'global_mangroves'
     }, {
       id: 'MASK',
       order: 100,
@@ -333,7 +363,7 @@ export default {
   }],
     es: [{
       id: 'TREE_COVER_LOSS',
-      order: 5,
+      order: 11,
       type: 'image',
       visible: false,
       group: 'Dinámica de la Cobertura del Suelo',
@@ -348,7 +378,7 @@ export default {
       technicalName: 'tree_cover_loss'
     }, {
       id: 'TREE_COVER_GAIN',
-      order: 6,
+      order: 12,
       type: 'image',
       visible: false,
       group: 'Dinámica de la Cobertura del Suelo',
@@ -359,8 +389,18 @@ export default {
       legendLayer: 1,
       technicalName: 'tree_cover_gain'
     }, {
+      id: 'IMAZON_SAD',
+      order: 13,
+      type: 'dynamic',
+      group: 'Dinámica de la Cobertura del Suelo',
+      groupKey: 'GROUP_LCD',
+      label: 'SAD alerts',
+      sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+      layerIds: [2]
+    }, {
       id: 'ACTIVE_FIRES',
-      order: 7,
+      order: 14,
       type: 'dynamic',
       group: 'Dinámica de la Cobertura del Suelo',
       groupKey: 'GROUP_LCD',
@@ -413,12 +453,22 @@ export default {
       id: 'AG_BIOMASS',
       order: 4,
       type: 'image',
-      group: 'Land Cover',
+      group: 'Cobertura vegetal',
       groupKey: 'GROUP_LC',
       label: 'Aboveground Live Woody Biomass Density',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
       legendLayer: 8,
       technicalName: 'aboveground_biomass'
+    }, {
+      id: 'GLOB_MANGROVE',
+      order: 5,
+      type: 'webtiled',
+      group: 'Cobertura vegetal',
+      groupKey: 'GROUP_LC',
+      label: 'Global Mangrove',
+      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+      subDomains: [0, 1, 2, 3],
+      technicalName: 'global_mangroves'
     }, {
       id: 'MASK',
       order: 100,
@@ -445,7 +495,7 @@ export default {
   }],
     pt: [{
       id: 'TREE_COVER_LOSS',
-      order: 5,
+      order: 11,
       type: 'image',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -460,7 +510,7 @@ export default {
       technicalName: 'tree_cover_loss'
     }, {
       id: 'TREE_COVER_GAIN',
-      order: 6,
+      order: 12,
       type: 'image',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -471,8 +521,18 @@ export default {
       legendLayer: 1,
       technicalName: 'tree_cover_gain'
     }, {
+      id: 'IMAZON_SAD',
+      order: 13,
+      type: 'dynamic',
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'SAD alerts',
+      sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+      layerIds: [2]
+    }, {
       id: 'ACTIVE_FIRES',
-      order: 7,
+      order: 14,
       type: 'dynamic',
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
@@ -531,6 +591,16 @@ export default {
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
       legendLayer: 8,
       technicalName: 'aboveground_biomass'
+    }, {
+      id: 'GLOB_MANGROVE',
+      order: 5,
+      type: 'webtiled',
+      group: 'Land Cover',
+      groupKey: 'GROUP_LC',
+      label: 'Global Mangrove',
+      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+      subDomains: [0, 1, 2, 3],
+      technicalName: 'global_mangroves'
     }, {
       id: 'MASK',
       order: 100,
@@ -557,7 +627,7 @@ export default {
   }],
     id: [{
       id: 'TREE_COVER_LOSS',
-      order: 5,
+      order: 11,
       type: 'image',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -572,7 +642,7 @@ export default {
       technicalName: 'tree_cover_loss'
     }, {
       id: 'TREE_COVER_GAIN',
-      order: 6,
+      order: 12,
       type: 'image',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -583,8 +653,18 @@ export default {
       legendLayer: 1,
       technicalName: 'tree_cover_gain'
     }, {
+      id: 'IMAZON_SAD',
+      order: 13,
+      type: 'dynamic',
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'SAD alerts',
+      sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+      layerIds: [2]
+    }, {
       id: 'ACTIVE_FIRES',
-      order: 7,
+      order: 14,
       type: 'dynamic',
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
@@ -644,6 +724,16 @@ export default {
       legendLayer: 8,
       technicalName: 'aboveground_biomass'
     }, {
+      id: 'GLOB_MANGROVE',
+      order: 5,
+      type: 'webtiled',
+      group: 'Land Cover',
+      groupKey: 'GROUP_LC',
+      label: 'Global Mangrove',
+      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+      subDomains: [0, 1, 2, 3],
+      technicalName: 'global_mangroves'
+    }, {
       id: 'MASK',
       order: 100,
       type: 'dynamic',
@@ -669,7 +759,7 @@ export default {
   }],
     zh: [{
       id: 'TREE_COVER_LOSS',
-      order: 5,
+      order: 11,
       type: 'image',
       visible: false,
       group: '土地覆盖动态数据',
@@ -684,7 +774,7 @@ export default {
       technicalName: 'tree_cover_loss'
     }, {
       id: 'TREE_COVER_GAIN',
-      order: 6,
+      order: 12,
       type: 'image',
       visible: false,
       group: '土地覆盖动态数据',
@@ -695,8 +785,18 @@ export default {
       legendLayer: 1,
       technicalName: 'tree_cover_gain'
     }, {
+      id: 'IMAZON_SAD',
+      order: 13,
+      type: 'dynamic',
+      group: '土地覆盖动态数据',
+      groupKey: 'GROUP_LCD',
+      label: 'SAD alerts',
+      sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+      layerIds: [2]
+    }, {
       id: 'ACTIVE_FIRES',
-      order: 7,
+      order: 14,
       type: 'dynamic',
       group: '土地覆盖动态数据',
       groupKey: 'GROUP_LCD',
@@ -749,12 +849,22 @@ export default {
       id: 'AG_BIOMASS',
       order: 4,
       type: 'image',
-      group: 'Land Cover',
+      group: '土地覆盖',
       groupKey: 'GROUP_LC',
       label: 'Aboveground Live Woody Biomass Density',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
       legendLayer: 8,
       technicalName: 'aboveground_biomass'
+    }, {
+      id: 'GLOB_MANGROVE',
+      order: 5,
+      type: 'webtiled',
+      group: '土地覆盖',
+      groupKey: 'GROUP_LC',
+      label: 'Global Mangrove',
+      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+      subDomains: [0, 1, 2, 3],
+      technicalName: 'global_mangroves'
     }, {
       id: 'MASK',
       order: 100,

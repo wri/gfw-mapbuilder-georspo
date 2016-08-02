@@ -3,6 +3,7 @@ import CompositionPieChart from 'components/AnalysisPanel/CompositionPieChart';
 import AnalysisTypeSelect from 'components/AnalysisPanel/AnalysisTypeSelect';
 import RestorationCharts from 'components/AnalysisPanel/RestorationCharts';
 import TotalLossChart from 'components/AnalysisPanel/TotalLossChart';
+import SadAlertsChart from 'components/AnalysisPanel/SadAlertsChart';
 import ReportSubscribeButtons from 'components/Shared/ReportSubscribe';
 import SlopeSelect from 'components/AnalysisPanel/SlopeClassSelect';
 import LossGainBadge from 'components/AnalysisPanel/LossGainBadge';
@@ -143,11 +144,20 @@ export default class Analysis extends Component {
           />;
       case analysisKeys.LC_LOSS:
       case analysisKeys.INTACT_LOSS:
+      case analysisKeys.MANGROVE_LOSS:
         layerConf = utils.getObject(settings.layers[language], 'id', layerKeys.LAND_COVER);
-        labels = (type === analysisKeys.LC_LOSS ? layerConf.classes :
-          (type === analysisKeys.INTACT_LOSS ? text[language].ANALYSIS_IFL_LABELS :
-            analysisConfig[type].labels)
-        );
+        labels = (function () {
+          switch (type) {
+            case analysisKeys.LC_LOSS:
+              return layerConf.classes;
+            case analysisKeys.INTACT_LOSS:
+              return text[language].ANALYSIS_IFL_LABELS;
+            case analysisKeys.MANGROVE_LOSS:
+              return text[language].ANALYSIS_MANGROVE_LABELS;
+            default:
+              return analysisConfig[type].labels;
+          }
+        })();
         colors = type === analysisKeys.LC_LOSS ? layerConf.colors : analysisConfig[type].colors;
         return <TotalLossChart
           counts={results.counts}
@@ -163,6 +173,9 @@ export default class Analysis extends Component {
         const tooltips = settings.labels[language].slopeAnalysisPotentialOptions;
         //- Need a new chart to handle these values correctly
         return <SlopeBarChart counts={counts} colors={colors} labels={labels} tooltips={tooltips} />;
+      case analysisKeys.SAD_ALERTS:
+        const {alerts} = results;
+        return <SadAlertsChart alerts={alerts} />;
       default:
       //- This should only be the restoration analysis, since its value is a plain rasterId
         return <RestorationCharts results={results} />;
