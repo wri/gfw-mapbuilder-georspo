@@ -2,6 +2,7 @@ import DensityDisplay from 'components/LayerPanel/DensityDisplay';
 import LayerCheckbox from 'components/LayerPanel/LayerCheckbox';
 import FiresControls from 'components/LayerPanel/FiresControls';
 import LossControls from 'components/LayerPanel/LossControls';
+import SadControls from 'components/LayerPanel/SadControls';
 import LayerGroup from 'components/LayerPanel/LayerGroup';
 import BasemapGroup from 'components/LayerPanel/BasemapGroup';
 import WRIBasemapLayer from 'components/LayerPanel/WRIBasemapLayer';
@@ -124,6 +125,9 @@ export default class LayerPanel extends Component {
           break;
         case LayerKeys.TREE_COVER:
           childComponent = <DensityDisplay {...props} />;
+          break;
+        case LayerKeys.IMAZON_SAD:
+          childComponent = <SadControls />;
           break;
         default:
           childComponent = null;

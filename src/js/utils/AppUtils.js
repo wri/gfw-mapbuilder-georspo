@@ -165,6 +165,31 @@ const utils = {
 
     }
 
+  },
+
+  /**
+  * Universal pad function, takes pad(12, '*', 5) and return '***12'
+  */
+  pad: (content, padding, length) => {
+    let item = content.toString(), i = 0;
+    while (i < length) {
+      item = padding + item;
+      i++;
+    }
+    return item.slice(item.length - length);
+  },
+
+  /**
+  * Inclusive Array generator
+  */
+  range: (start, end) => {
+    const result = [];
+    let min = start;
+    while (min <= end) {
+      result.push(min);
+      ++min;
+    }
+    return result;
   }
 
 };
