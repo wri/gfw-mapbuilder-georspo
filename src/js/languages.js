@@ -69,6 +69,10 @@ strings.en.ANALYSIS_RESTORATION_ERROR = 'Area not meeting criteria for potential
 strings.en.ANALYSIS_GROUP_RESTORATION = 'Restoration potential for';
 strings.en.ANALYSIS_GROUP_SLOPE = 'Potential according to';
 strings.en.ANALYSIS_GROUP_OTHER = 'Other analysis';
+strings.en.ANALYSIS_SAD_ALERT_NAMES = {
+  degrad: 'Degradation',
+  defor: 'Deforestation'
+};
 //- Group and value should not be modified
 strings.en.ANALYSIS_SELECT_TYPE_OPTIONS = [
   { label: 'Slope',
@@ -234,6 +238,10 @@ strings.fr.ANALYSIS_RESTORATION_ERROR = 'Région ne correspondant pas aux critè
 strings.fr.ANALYSIS_GROUP_RESTORATION = 'Potentiel de restauration pour';
 strings.fr.ANALYSIS_GROUP_SLOPE = 'Potentiel selon';
 strings.fr.ANALYSIS_GROUP_OTHER = 'Autre analyse';
+strings.fr.ANALYSIS_SAD_ALERT_NAMES = {
+  degrad: 'Degradation',
+  defor: 'Deforestation'
+};
 //- Group and value should not be modified
 strings.fr.ANALYSIS_SELECT_TYPE_OPTIONS = [
   { label: 'Pente',
@@ -390,6 +398,10 @@ strings.es.ANALYSIS_RESTORATION_ERROR = 'Área no coincide con los criterios/ Si
 strings.es.ANALYSIS_GROUP_RESTORATION = 'Potencial de restauración para';
 strings.es.ANALYSIS_GROUP_SLOPE = 'Potencial según';
 strings.es.ANALYSIS_GROUP_OTHER = 'Otro análisis';
+strings.es.ANALYSIS_SAD_ALERT_NAMES = {
+  degrad: 'Degradation',
+  defor: 'Deforestation'
+};
 //- Group and value should not be modified
 strings.es.ANALYSIS_SELECT_TYPE_OPTIONS = [
   { label: 'Pendiente',
@@ -546,6 +558,10 @@ strings.pt.ANALYSIS_RESTORATION_ERROR = 'Area not meeting criteria for potential
 strings.pt.ANALYSIS_GROUP_RESTORATION = 'Restoration potential for';
 strings.pt.ANALYSIS_GROUP_SLOPE = 'Potential according to';
 strings.pt.ANALYSIS_GROUP_OTHER = 'Other analysis';
+strings.pt.ANALYSIS_SAD_ALERT_NAMES = {
+  degrad: 'Degradation',
+  defor: 'Deforestation'
+};
 //- Group and value should not be modified
 strings.pt.ANALYSIS_SELECT_TYPE_OPTIONS = [
   { label: 'Slope',
@@ -702,6 +718,10 @@ strings.id.ANALYSIS_RESTORATION_ERROR = 'Area not meeting criteria for potential
 strings.id.ANALYSIS_GROUP_RESTORATION = 'Restoration potential for';
 strings.id.ANALYSIS_GROUP_SLOPE = 'Potential according to';
 strings.id.ANALYSIS_GROUP_OTHER = 'Other analysis';
+strings.id.ANALYSIS_SAD_ALERT_NAMES = {
+  degrad: 'Degradation',
+  defor: 'Deforestation'
+};
 //- Group and value should not be modified
 strings.id.ANALYSIS_SELECT_TYPE_OPTIONS = [
   { label: 'Slope',
@@ -858,6 +878,10 @@ strings.zh.ANALYSIS_RESTORATION_ERROR = '无数据 或者 区域不满足条件'
 strings.zh.ANALYSIS_GROUP_RESTORATION = '在生态修复可能性的层面';
 strings.zh.ANALYSIS_GROUP_SLOPE = '可能性原因';
 strings.zh.ANALYSIS_GROUP_OTHER = '其他分析';
+strings.zh.ANALYSIS_SAD_ALERT_NAMES = {
+  degrad: 'Degradation',
+  defor: 'Deforestation'
+};
 //- Group and value should not be modified
 strings.zh.ANALYSIS_SELECT_TYPE_OPTIONS = [
   { label: '倾斜度',

@@ -175,7 +175,10 @@ export default class Analysis extends Component {
         return <SlopeBarChart counts={counts} colors={colors} labels={labels} tooltips={tooltips} />;
       case analysisKeys.SAD_ALERTS:
         const {alerts} = results;
-        return <SadAlertsChart alerts={alerts} />;
+        return <SadAlertsChart
+          alerts={alerts}
+          colors={analysisConfig[type].colors}
+          names={text[language].ANALYSIS_SAD_ALERT_NAMES} />;
       default:
       //- This should only be the restoration analysis, since its value is a plain rasterId
         return <RestorationCharts results={results} />;

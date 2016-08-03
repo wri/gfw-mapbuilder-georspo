@@ -23,8 +23,8 @@ export default class CompositionPieChart extends Component {
 }
 
 CompositionPieChart.propTypes = {
-  counts: PropTypes.array.isRequried,
-  labels: PropTypes.array.isRequried,
-  colors: PropTypes.array.isRequried,
-  name: PropTypes.string.isRequried
+  counts: PropTypes.array.isRequired,
+  labels: PropTypes.array.isRequired,
+  colors: PropTypes.array.isRequired,
+  name: PropTypes.string.isRequired
 };

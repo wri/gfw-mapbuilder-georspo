@@ -63,5 +63,5 @@ export default class RestorationCharts extends Component {
 }
 
 RestorationCharts.propTypes = {
-  results: PropTypes.object.isRequried
+  results: PropTypes.object.isRequired
 };

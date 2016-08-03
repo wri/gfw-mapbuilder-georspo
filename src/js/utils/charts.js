@@ -83,6 +83,26 @@ export default {
   },
 
   /**
+  * Generate a stacked bar chart for the SAD Alerts
+  * @param {HTML Element} el
+  * @param {string[]} categories
+  * @param {array[ {name: string, color: string(Hex or RGB), data: [number] }]} series - data for the chart
+  */
+  makeStackedBarChart: (el, categories, series) => {
+    // Height is data length * 20px per row plus 120px for margins
+    const height = categories.length * 20 + 120;
+    const chart = new Highcharts.Chart({
+      chart: { renderTo: el, type: 'bar', height: height },
+      title: { text: null },
+      xAxis: { title: { text: false}, categories: categories},
+      yAxis: { reversedStacks: false, title: { text: 'Hectares (k = 1000)' }},
+      plotOptions: { series: { stacking: 'normal'}},
+      tooltip: { valueSuffix: ' (Ha)', useHTML: true, shared: true },
+      series: series,
+      credits: { enabled: false }
+    });
+  },
+  /**
   * Generate a stacked bar chart
   * @param {HTML Element} el - MUST HAVE AN ID
   * @param {array[string]} labels
@@ -369,6 +389,58 @@ export default {
       name: name,
       data: data
     }];
+  },
+
+  /**
+  * @typedef SadData
+  * @type Object
+  * @property {string[]} categories - Array of labels for the chart
+  * @property {object[]} series - Series with name, color, and data for highcharts
+  */
+
+  /**
+  * Formats data specifically for SAD Alerts, takes a bin object (see below), and outputs labels and series
+  * @param {object} options
+  * @param {object} options.alerts
+  * @param {string} options.alerts[year] - Year value containing data related to the specified year
+  * @param {string} options.alerts[year][month] - Numeric representation of the month, 0 indexed, so increment it by 1
+  * @param {string} options.alerts[year][month]['degrad'|'defor'] - Type of alert
+  * @param {object} options.names['degrad'|'defor'] - Names of the series, value of prop is string
+  * @param {object} options.colors['degrad'|'defor'] - Colors for the series, value of prop is string
+  * @return {SadData} - Formatted data for highcharts consumption
+  */
+  formatSadAlerts: (options) => {
+    const {alerts, names, colors} = options;
+    const categories = [], series = [], degraded = [], deforest = [];
+    let year, month, degrad, defor;
+
+    // Convert results from meters^2 to hectares
+    for (year in alerts) {
+      for (month in alerts[year]) {
+        categories.push(`${+month + 1}/${year}`);
+        degrad = alerts[year][month].degrad / 10000;
+        defor = alerts[year][month].defor / 10000;
+        degraded.push(degrad ? +degrad.toFixed(2) : 0);
+        deforest.push(defor ? +defor.toFixed(2) : 0);
+      }
+    }
+
+    series.push({
+      name: names.degrad,
+      color: colors.degrad,
+      data: degraded
+    });
+
+    series.push({
+      name: names.defor,
+      color: colors.defor,
+      data: deforest
+    });
+
+    return {
+      categories,
+      series
+    };
   }
 
 };
