@@ -53,6 +53,8 @@ export default class LossControls extends Component {
   }
 
   updateLayer (layer, fromIndex, toIndex, density) {
+    console.log(fromIndex);
+    console.log(lossOptions);
     const fromYear = lossOptions[fromIndex].label;
     const toYear = lossOptions[toIndex].label;
     const renderingRule = rasterFuncs.buildCanopyFunction(fromYear, toYear, density);

@@ -1,5 +1,5 @@
 import layerInfoCache from 'utils/layerInfoCache';
-import {attributes} from 'constants/AppConstants';
+import {attributes, actionTypes } from 'constants/AppConstants';
 import layerKeys from 'constants/LayerConstants';
 import tabKeys from 'constants/TabViewConstants';
 import appActions from 'actions/AppActions';
@@ -41,6 +41,10 @@ class MapStore {
     this.modalLayerInfo = '';
     this.currentTimeExtent = {};
     this.mobileTimeWidgetVisible = false;
+    this.imazonStartMonth = 0;
+    this.imazonEndMonth = 0;
+    this.imazonStartYear = 0;
+    this.imazonEndYear = 0;
 
     this.bindListeners({
       setDefaults: appActions.applySettings,
@@ -72,6 +76,7 @@ class MapStore {
       updateLossTimeline: layerActions.updateLossTimeline,
       changeOpacity: layerActions.changeOpacity,
       updateTimeExtent: mapActions.updateTimeExtent,
+      updateImazonAlertSettings: mapActions.updateImazonAlertSettings,
       toggleMobileTimeWidgetVisible: mapActions.toggleMobileTimeWidgetVisible
     });
   }
@@ -263,6 +268,23 @@ class MapStore {
 
   updateTimeExtent (timeExtent) {
     this.currentTimeExtent = timeExtent;
+  }
+
+  updateImazonAlertSettings ({type, value}) {
+    switch (type) {
+      case actionTypes.UPDATE_IMAZON_START_MONTH:
+        this.imazonStartMonth = value;
+      break;
+      case actionTypes.UPDATE_IMAZON_END_MONTH:
+        this.imazonEndMonth = value;
+      break;
+      case actionTypes.UPDATE_IMAZON_START_YEAR:
+        this.imazonStartYear = value;
+      break;
+      case actionTypes.UPDATE_IMAZON_END_YEAR:
+        this.imazonEndYear = value;
+      break;
+    }
   }
 
 }

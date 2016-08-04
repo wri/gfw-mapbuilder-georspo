@@ -115,11 +115,11 @@ export default class LayerPanel extends Component {
       let childComponent;
       switch (layer.id) {
         case 'ACTIVE_FIRES':
-          childComponent = <FiresControls loaded={this.props.loaded} {...props} />;
+          childComponent = <FiresControls loaded={props.loaded} {...props} />;
           break;
         case 'TREE_COVER_LOSS':
           childComponent = [
-            <LossControls key='tcl_loss_control' layerId={layer.id} loaded={this.props.loaded} {...props} />,
+            <LossControls key='tcl_loss_control' layerId={layer.id} loaded={props.loaded} {...props} />,
             <DensityDisplay key='tcl_density-display' {...props} />
           ];
           break;
@@ -127,7 +127,13 @@ export default class LayerPanel extends Component {
           childComponent = <DensityDisplay {...props} />;
           break;
         case LayerKeys.IMAZON_SAD:
-          childComponent = <SadControls />;
+          childComponent = <SadControls
+              layer={layer}
+              startMonth={props.imazonStartMonth}
+              endMonth={props.imazonEndMonth}
+              startYear={props.imazonStartYear}
+              endYear={props.imazonEndYear}
+            />;
           break;
         default:
           childComponent = null;

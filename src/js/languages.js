@@ -171,6 +171,20 @@ strings.en.TOOL_RESET = 'Reset';
 
 strings.en.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
 strings.en.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.en.MONTHS_LIST = [
+  { name: 'January', abbr: 'Jan'},
+  { name: 'February', abbr: 'Feb'},
+  { name: 'March', abbr: 'Mar'},
+  { name: 'April', abbr: 'Apr'},
+  { name: 'May', abbr: 'May'},
+  { name: 'June', abbr: 'Jun'},
+  { name: 'July', abbr: 'Jul'},
+  { name: 'August', abbr: 'Aug'},
+  { name: 'September', abbr: 'Sep'},
+  { name: 'October', abbr: 'Oct'},
+  { name: 'November', abbr: 'Nov'},
+  { name: 'December', abbr: 'Dec'}
+];
 
 
 
@@ -334,6 +348,23 @@ strings.fr.TOOL_ANALYSIS = 'Analyse';
 strings.fr.TOOL_TOGGLE = 'Basculer panneau';
 strings.fr.TOOL_RESET = 'Réinitialiser';
 
+strings.fr.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
+strings.fr.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.fr.MONTHS_LIST = [
+  { name: 'January', abbr: 'Jan'},
+  { name: 'February', abbr: 'Feb'},
+  { name: 'March', abbr: 'Mar'},
+  { name: 'April', abbr: 'Apr'},
+  { name: 'May', abbr: 'May'},
+  { name: 'June', abbr: 'Jun'},
+  { name: 'July', abbr: 'Jul'},
+  { name: 'August', abbr: 'Aug'},
+  { name: 'September', abbr: 'Sep'},
+  { name: 'October', abbr: 'Oct'},
+  { name: 'November', abbr: 'Nov'},
+  { name: 'December', abbr: 'Dec'}
+];
+
 //- NOTE: Spanish
 //- Supported Languages
 strings.es.LANG_EN = 'English';
@@ -493,6 +524,23 @@ strings.es.TOOL_PRINT = 'Imprimir';
 strings.es.TOOL_ANALYSIS = 'Análisis';
 strings.es.TOOL_TOGGLE = 'Alternar Pane';
 strings.es.TOOL_RESET = 'Reajustar';
+
+strings.es.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
+strings.es.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.es.MONTHS_LIST = [
+  { name: 'January', abbr: 'Jan'},
+  { name: 'February', abbr: 'Feb'},
+  { name: 'March', abbr: 'Mar'},
+  { name: 'April', abbr: 'Apr'},
+  { name: 'May', abbr: 'May'},
+  { name: 'June', abbr: 'Jun'},
+  { name: 'July', abbr: 'Jul'},
+  { name: 'August', abbr: 'Aug'},
+  { name: 'September', abbr: 'Sep'},
+  { name: 'October', abbr: 'Oct'},
+  { name: 'November', abbr: 'Nov'},
+  { name: 'December', abbr: 'Dec'}
+];
 
 //- NOTE: Portugese
 //- Supported Languages
@@ -654,6 +702,23 @@ strings.pt.TOOL_ANALYSIS = 'Analysis';
 strings.pt.TOOL_TOGGLE = 'Toggle Panel';
 strings.pt.TOOL_RESET = 'Reset';
 
+strings.pt.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
+strings.pt.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.pt.MONTHS_LIST = [
+  { name: 'January', abbr: 'Jan'},
+  { name: 'February', abbr: 'Feb'},
+  { name: 'March', abbr: 'Mar'},
+  { name: 'April', abbr: 'Apr'},
+  { name: 'May', abbr: 'May'},
+  { name: 'June', abbr: 'Jun'},
+  { name: 'July', abbr: 'Jul'},
+  { name: 'August', abbr: 'Aug'},
+  { name: 'September', abbr: 'Sep'},
+  { name: 'October', abbr: 'Oct'},
+  { name: 'November', abbr: 'Nov'},
+  { name: 'December', abbr: 'Dec'}
+];
+
 //- NOTE: Bahasa Indonesia
 //- Supported Languages
 strings.id.LANG_EN = 'English';
@@ -813,6 +878,23 @@ strings.id.TOOL_PRINT = 'Print';
 strings.id.TOOL_ANALYSIS = 'Analysis';
 strings.id.TOOL_TOGGLE = 'Toggle Panel';
 strings.id.TOOL_RESET = 'Reset';
+
+strings.id.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
+strings.id.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.id.MONTHS_LIST = [
+  { name: 'January', abbr: 'Jan'},
+  { name: 'February', abbr: 'Feb'},
+  { name: 'March', abbr: 'Mar'},
+  { name: 'April', abbr: 'Apr'},
+  { name: 'May', abbr: 'May'},
+  { name: 'June', abbr: 'Jun'},
+  { name: 'July', abbr: 'Jul'},
+  { name: 'August', abbr: 'Aug'},
+  { name: 'September', abbr: 'Sep'},
+  { name: 'October', abbr: 'Oct'},
+  { name: 'November', abbr: 'Nov'},
+  { name: 'December', abbr: 'Dec'}
+];
 
 //- NOTE: Mandarin
 //- Supported Languages
@@ -974,5 +1056,22 @@ strings.zh.TOOL_PRINT = '打印';
 strings.zh.TOOL_ANALYSIS = '分析';
 strings.zh.TOOL_TOGGLE = '控制面板';
 strings.zh.TOOL_RESET = '重置';
+
+strings.zh.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
+strings.zh.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.zh.MONTHS_LIST = [
+  { name: 'January', abbr: 'Jan'},
+  { name: 'February', abbr: 'Feb'},
+  { name: 'March', abbr: 'Mar'},
+  { name: 'April', abbr: 'Apr'},
+  { name: 'May', abbr: 'May'},
+  { name: 'June', abbr: 'Jun'},
+  { name: 'July', abbr: 'Jul'},
+  { name: 'August', abbr: 'Aug'},
+  { name: 'September', abbr: 'Sep'},
+  { name: 'October', abbr: 'Oct'},
+  { name: 'November', abbr: 'Nov'},
+  { name: 'December', abbr: 'Dec'}
+];
 
 export { strings as default };

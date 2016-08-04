@@ -40,6 +40,10 @@ class MapActions {
   toggleLegendVisible = () => { return {}; };
   toggleMobileTimeWidgetVisible = () => { return {}; };
 
+  updateImazonAlertSettings (type, value) {
+    return { type, value };
+  }
+
   changeBasemap (basemap) {
     return basemap;
   }
