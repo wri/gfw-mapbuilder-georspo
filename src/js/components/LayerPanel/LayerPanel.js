@@ -2,6 +2,7 @@ import DensityDisplay from 'components/LayerPanel/DensityDisplay';
 import LayerCheckbox from 'components/LayerPanel/LayerCheckbox';
 import FiresControls from 'components/LayerPanel/FiresControls';
 import LossControls from 'components/LayerPanel/LossControls';
+import GladControls from 'components/LayerPanel/GladControls';
 import SadControls from 'components/LayerPanel/SadControls';
 import LayerGroup from 'components/LayerPanel/LayerGroup';
 import BasemapGroup from 'components/LayerPanel/BasemapGroup';
@@ -135,6 +136,9 @@ export default class LayerPanel extends Component {
               endYear={props.imazonEndYear}
             />;
           break;
+        case LayerKeys.GLAD_ALERTS:
+          childComponent = <GladControls layer={layer} />;
+        break;
         default:
           childComponent = null;
       }

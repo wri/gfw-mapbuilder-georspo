@@ -134,8 +134,22 @@ export default {
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
       layerIds: [2]
     }, {
-      id: 'ACTIVE_FIRES',
+      id: 'GLAD_ALERTS',
       order: 14,
+      type: 'glad',
+      url: 'http://wri-tiles.s3.amazonaws.com/glad_test/test2/{z}/{x}/{y}.png',
+      minDateValue: 15000,
+      maxDateValue: 16365,
+      confidence: [0, 1],
+      visible: false,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Glad Alerts',
+      sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
+      technicalName: 'umd_landsat_alerts'
+    }, {
+      id: 'ACTIVE_FIRES',
+      order: 15,
       type: 'dynamic',
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
@@ -267,8 +281,22 @@ export default {
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
       layerIds: [2]
     }, {
-      id: 'ACTIVE_FIRES',
+      id: 'GLAD_ALERTS',
       order: 14,
+      type: 'glad',
+      url: 'http://wri-tiles.s3.amazonaws.com/glad_test/test2/{z}/{x}/{y}.png',
+      minDateValue: 15000,
+      maxDateValue: 16365,
+      confidence: [0, 1],
+      visible: false,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Glad Alerts',
+      sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
+      technicalName: 'umd_landsat_alerts'
+    }, {
+      id: 'ACTIVE_FIRES',
+      order: 15,
       type: 'dynamic',
       group: 'Evolution de l\'occupation des sols',
       groupKey: 'GROUP_LCD',
@@ -399,8 +427,22 @@ export default {
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
       layerIds: [2]
     }, {
-      id: 'ACTIVE_FIRES',
+      id: 'GLAD_ALERTS',
       order: 14,
+      type: 'glad',
+      url: 'http://wri-tiles.s3.amazonaws.com/glad_test/test2/{z}/{x}/{y}.png',
+      minDateValue: 15000,
+      maxDateValue: 16365,
+      confidence: [0, 1],
+      visible: false,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Glad Alerts',
+      sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
+      technicalName: 'umd_landsat_alerts'
+    }, {
+      id: 'ACTIVE_FIRES',
+      order: 15,
       type: 'dynamic',
       group: 'Dinámica de la Cobertura del Suelo',
       groupKey: 'GROUP_LCD',
@@ -531,8 +573,22 @@ export default {
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
       layerIds: [2]
     }, {
-      id: 'ACTIVE_FIRES',
+      id: 'GLAD_ALERTS',
       order: 14,
+      type: 'glad',
+      url: 'http://wri-tiles.s3.amazonaws.com/glad_test/test2/{z}/{x}/{y}.png',
+      minDateValue: 15000,
+      maxDateValue: 16365,
+      confidence: [0, 1],
+      visible: false,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Glad Alerts',
+      sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
+      technicalName: 'umd_landsat_alerts'
+    }, {
+      id: 'ACTIVE_FIRES',
+      order: 15,
       type: 'dynamic',
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
@@ -663,8 +719,22 @@ export default {
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
       layerIds: [2]
     }, {
-      id: 'ACTIVE_FIRES',
+      id: 'GLAD_ALERTS',
       order: 14,
+      type: 'glad',
+      url: 'http://wri-tiles.s3.amazonaws.com/glad_test/test2/{z}/{x}/{y}.png',
+      minDateValue: 15000,
+      maxDateValue: 16365,
+      confidence: [0, 1],
+      visible: false,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Glad Alerts',
+      sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
+      technicalName: 'umd_landsat_alerts'
+    }, {
+      id: 'ACTIVE_FIRES',
+      order: 15,
       type: 'dynamic',
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
@@ -795,8 +865,22 @@ export default {
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
       layerIds: [2]
     }, {
-      id: 'ACTIVE_FIRES',
+      id: 'GLAD_ALERTS',
       order: 14,
+      type: 'glad',
+      url: 'http://wri-tiles.s3.amazonaws.com/glad_test/test2/{z}/{x}/{y}.png',
+      minDateValue: 15000,
+      maxDateValue: 16365,
+      confidence: [0, 1],
+      visible: false,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Glad Alerts',
+      sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
+      technicalName: 'umd_landsat_alerts'
+    }, {
+      id: 'ACTIVE_FIRES',
+      order: 15,
       type: 'dynamic',
       group: '土地覆盖动态数据',
       groupKey: 'GROUP_LCD',
