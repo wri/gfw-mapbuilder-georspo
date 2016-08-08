@@ -29,7 +29,9 @@ const config = {
     highchartsExports: '//code.highcharts.com/modules/exporting.js',
     ionCSS: 'vendor/ion.rangeslider/css/ion.rangeSlider.css',
     ionSkinCSS: 'vendor/ion.rangeslider/css/ion.rangeSlider.skinNice.css',
-    rangeSlider: 'vendor/ion.rangeslider/js/ion.rangeSlider.min.js'
+    rangeSlider: 'vendor/ion.rangeslider/js/ion.rangeSlider.min.js',
+    pickadateCSS: 'vendor/pickadate/lib/compressed/themes/classic.css',
+    pickadateDateCSS: 'vendor/pickadate/lib/compressed/themes/classic.date.css'
   },
 
   urls: {
@@ -174,6 +176,14 @@ config.analysis[analysisKeys.SAD_ALERTS] = {
   colors: {
     degrad: '#FA98B9',
     defor: '#F13689'
+  }
+};
+
+config.analysis[analysisKeys.GLAD_ALERTS] = {
+  url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts_analysis/ImageServer',
+  lockrasters: {
+    '2015': 6,
+    '2016': 4
   }
 };
 

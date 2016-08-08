@@ -22,7 +22,7 @@ export default class CanopyModal extends Component {
 
   componentDidMount() {
     const base = window._app.base ? window._app.base + '/' : '';
-    loadJS(base + assetUrls.jQuery);
+    // loadJS(base + assetUrls.jQuery);
     loadJS(base + assetUrls.rangeSlider).then(() => {
       $('#tree-cover-slider').ionRangeSlider({
         type: 'double',

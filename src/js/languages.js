@@ -107,6 +107,10 @@ strings.en.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.SAD_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
+  { label: 'GLAD alerts',
+    value: analysisKeys.GLAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
   { label: 'Active fires',
     value: analysisKeys.FIRES,
     group: analysisKeys.ANALYSIS_GROUP_OTHER

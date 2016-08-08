@@ -168,6 +168,14 @@ export default declare('EsriTileCanvasBase', [Layer], {
           level = this._map.getLevel(),
           extent = this._map.extent;
 
+    //- Delete tiles from other zoom levels
+    for (let i = 0; i < this.tiles.length; i++) {
+      if (this.tiles[i].z !== level) {
+        this.tiles[i].canvas.remove();
+        delete this.tiles[i];
+      }
+    }
+
     //- Get the min and max tile row and column
     const rowMin = getRow(extent.ymax, resolution); // This and the next are flipped, not sure why
     const rowMax = getRow(extent.ymin, resolution);
@@ -185,11 +193,11 @@ export default declare('EsriTileCanvasBase', [Layer], {
   _onZoomStart: function _onZoomStart () {
     //- Delete tiles from other zoom levels in cache and their canvas element
     Object.keys(this.tiles).forEach(key => {
-      this.tiles[key].canvas.remove();
       delete this.tiles[key];
     });
-    //- Reset the position
+    //- Reset the position and clear the container contents
     this.position = { x: 0, y: 0 };
+    this._container.innerHTML = '';
     this._container.style.transform = getTranslate(this.position);
   },
 

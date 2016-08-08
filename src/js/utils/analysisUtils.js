@@ -84,6 +84,13 @@ const formatters = {
       alerts: bin
     };
   },
+  gladAlerts: function (year, counts) {
+    var results = [];
+    for (let i = 0; i < counts.length; i++) {
+      results.push([new Date(year, 0, i), counts[i] || 0]);
+    }
+    return results;
+  },
   //TODO: Cleanup and remove noSlice, make it an explicit option so using this function does not pass in an anonymous boolean
   getCounts: (response, pixelSize, noSlice) => {
     const {histograms} = response;
@@ -267,6 +274,21 @@ export default {
     return promise;
   },
 
+  getGLADAlerts: function (config, geometry) {
+    const promise = new Deferred();
+    all([
+      this.getMosaic(config.lockrasters['2015'], geometry, config.url),
+      this.getMosaic(config.lockrasters['2016'], geometry, config.url)
+    ]).then(results => {
+      let alerts = [];
+      alerts = alerts.concat(formatters.gladAlerts('2015', results[0].counts));
+      alerts = alerts.concat(formatters.gladAlerts('2016', results[1].counts));
+      console.log(alerts);
+      promise.resolve(alerts);
+    });
+    return promise;
+  },
+
   getCountsWithDensity: (rasterId, geometry, canopyDensity) => {
     const promise = new Deferred();
     const tcd = analysisConfig.tcd;
@@ -296,7 +318,7 @@ export default {
     return promise;
   },
 
-  getMosaic: (lockRaster, geometry) => {
+  getMosaic: (lockRaster, geometry, url) => {
     const promise = new Deferred();
     const {imageService, pixelSize} = analysisConfig;
     const content = {
@@ -312,13 +334,13 @@ export default {
     const failure = (error) => {
       if (errorIsInvalidImageSize(error) && content.pixelSize !== 500) {
         content.pixelSize = 500;
-        computeHistogram(imageService, content, success, failure);
+        computeHistogram(url || imageService, content, success, failure);
       } else {
         promise.resolve(error);
       }
     };
 
-    computeHistogram(imageService, content, success, failure);
+    computeHistogram(url || imageService, content, success, failure);
     return promise;
   },
 
