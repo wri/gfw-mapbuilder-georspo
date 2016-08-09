@@ -256,6 +256,44 @@ export default {
     }, callback);
   },
 
+  makeTimeSeriesCharts: (el, options) => {
+    const {data} = options;
+    const chart = new Highcharts.Chart({
+      chart: {
+        renderTo: el,
+        zoomType: 'x',
+        resetZoomButton: {
+          position: {
+            align: 'left',
+            y: 0
+          }
+        }
+      },
+      title: { text: null },
+      xAxis: { type: 'datetime' },
+      yAxis: { title: { text: null }, min: 0},
+      plotOptions: {
+        area: {
+          threshold: null,
+          lineWidth: 1,
+          states: { hover: { lineWidth: 1 }},
+          fillColor: {
+            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+            stops: [
+              [0, 'rgba(220,102,153, 1)'],
+              [1, 'rgba(220,102,153, 0)']
+            ]
+          }
+        }
+      },
+      series: [{
+        type: 'area',
+        name: 'Glad Alerts',
+        data: data
+      }]
+    });
+  },
+
   /**
   * @typedef BiomassSeries
   * @type Object

@@ -405,6 +405,8 @@ export default declare('EsriTileCanvasBase', [Layer], {
   show: function show () {
     this.visible = true;
     this._container.style.display = 'block';
+    //- get the tiles incase they have not been loaded yet
+    this._extentChanged();
   },
 
   /**

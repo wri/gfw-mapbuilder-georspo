@@ -2,6 +2,7 @@ import CustomFeatureControl from 'components/AnalysisPanel/CustomFeatureControl'
 import CompositionPieChart from 'components/AnalysisPanel/CompositionPieChart';
 import AnalysisTypeSelect from 'components/AnalysisPanel/AnalysisTypeSelect';
 import RestorationCharts from 'components/AnalysisPanel/RestorationCharts';
+import GladAlertsChart from 'components/AnalysisPanel/GladAlertsChart';
 import TotalLossChart from 'components/AnalysisPanel/TotalLossChart';
 import SadAlertsChart from 'components/AnalysisPanel/SadAlertsChart';
 import ReportSubscribeButtons from 'components/Shared/ReportSubscribe';
@@ -179,6 +180,8 @@ export default class Analysis extends Component {
           alerts={alerts}
           colors={analysisConfig[type].colors}
           names={text[language].ANALYSIS_SAD_ALERT_NAMES} />;
+      case analysisKeys.GLAD_ALERTS:
+        return <GladAlertsChart data={results} />;
       default:
       //- This should only be the restoration analysis, since its value is a plain rasterId
         return <RestorationCharts results={results} />;

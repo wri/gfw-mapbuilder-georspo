@@ -87,7 +87,7 @@ const formatters = {
   gladAlerts: function (year, counts) {
     var results = [];
     for (let i = 0; i < counts.length; i++) {
-      results.push([new Date(year, 0, i), counts[i] || 0]);
+      results.push([new Date(year, 0, i).getTime(), counts[i] || 0]);
     }
     return results;
   },
@@ -283,7 +283,6 @@ export default {
       let alerts = [];
       alerts = alerts.concat(formatters.gladAlerts('2015', results[0].counts));
       alerts = alerts.concat(formatters.gladAlerts('2016', results[1].counts));
-      console.log(alerts);
       promise.resolve(alerts);
     });
     return promise;
