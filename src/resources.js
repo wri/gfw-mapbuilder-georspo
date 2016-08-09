@@ -42,6 +42,8 @@ export default {
   intactForests: true,
   aboveGroundBiomass: true,
   landCover: true,
+  sadAlerts: true,
+  gladAlerts: true,
   webmapMenuName: 'Land Use',
   //- Restoration Module settings
   restorationModule: false,

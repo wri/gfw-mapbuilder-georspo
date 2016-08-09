@@ -381,7 +381,6 @@ const runAnalysis = function runAnalysis (params, feature) {
         series,
         categories: labels
       }, (chart) => {
-        console.dir(chart.renderer);
         const content = chart.renderer.html(
           `<div class='results__legend-container'>` +
             `<span>${text[lang].ANALYSIS_CARBON_LOSS}</span>` +
@@ -474,6 +473,47 @@ const runAnalysis = function runAnalysis (params, feature) {
     });
   } else {
     const node = document.getElementById('fires-badge');
+    node.remove();
+  }
+
+  //- SAD Alerts
+  if (settings.sadAlerts) {
+    performAnalysis({
+      type: analysisKeys.SAD_ALERTS,
+      geometry: feature.geometry,
+      settings: settings,
+      canopyDensity: tcd,
+      language: lang
+    }).then((results) => {
+      const node = document.getElementById('sad-alerts');
+      const colors = analysisConfig[analysisKeys.SAD_ALERTS].colors;
+      const names = text[lang].ANALYSIS_SAD_ALERT_NAMES;
+      const {alerts} = results;
+      const {categories, series} = charts.formatSadAlerts({ alerts, colors, names });
+      charts.makeStackedBarChart(node, categories, series);
+    });
+
+  } else {
+    const node = document.getElementById('sad-alerts');
+    node.remove();
+  }
+
+  //- GLAD Alerts
+  if (settings.gladAlerts) {
+    performAnalysis({
+      type: analysisKeys.GLAD_ALERTS,
+      geometry: feature.geometry,
+      settings: settings,
+      canopyDensity: tcd,
+      language: lang
+    }).then((results) => {
+      const node = document.getElementById('glad-alerts');
+      charts.makeTimeSeriesCharts(node, {
+        data: results
+      });
+    });
+  } else {
+    const node = document.getElementById('glad-alerts');
     node.remove();
   }
 

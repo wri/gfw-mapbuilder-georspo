@@ -53,6 +53,10 @@ export default class AnalysisTypeSelect extends Component {
           return settings.landCover;
         case analysisKeys.FIRES:
           return settings.activeFires;
+        case analysisKeys.SAD_ALERTS:
+          return settings.sadAlerts;
+        case analysisKeys.GLAD_ALERTS:
+          return settings.gladAlerts;
         case analysisKeys.TC_LOSS:
           return appUtils.containsObject(layers, 'id', layerKeys.TREE_COVER_LOSS);
         case analysisKeys.TC_LOSS_GAIN:
