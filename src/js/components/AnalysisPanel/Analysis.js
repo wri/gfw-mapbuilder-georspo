@@ -181,7 +181,7 @@ export default class Analysis extends Component {
           colors={analysisConfig[type].colors}
           names={text[language].ANALYSIS_SAD_ALERT_NAMES} />;
       case analysisKeys.GLAD_ALERTS:
-        return <GladAlertsChart data={results} />;
+        return <GladAlertsChart data={results} name={text[language].ANALYSIS_GLAD_ALERT_NAME} />;
       default:
       //- This should only be the restoration analysis, since its value is a plain rasterId
         return <RestorationCharts results={results} />;

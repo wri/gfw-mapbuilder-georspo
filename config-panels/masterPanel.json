@@ -217,6 +217,12 @@
       "value": true
     },  {
       "type": "boolean",
+      "fieldName": "mangroves",
+      "tooltip": "This will include/exclude this layer from the report, analysis, and layer list",
+      "label": "Include Global Mangrove in your application",
+      "value": true
+    },  {
+      "type": "boolean",
       "fieldName": "sadAlerts",
       "tooltip": "This will include/exclude this layer from the report, analysis, and layer list",
       "label": "Include Imazon Sad Alerts in your application",

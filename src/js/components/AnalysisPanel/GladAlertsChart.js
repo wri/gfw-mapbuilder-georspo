@@ -5,10 +5,7 @@ export default class GladAlertsChart extends Component {
 
   componentDidMount () {
     const {chart} = this.refs;
-    const {data} = this.props;
-    charts.makeTimeSeriesCharts(chart, {
-      data
-    });
+    charts.makeTimeSeriesCharts(chart, this.props);
   }
 
   render () {

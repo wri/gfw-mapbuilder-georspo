@@ -28,7 +28,7 @@ import React, {
   PropTypes
 } from 'react';
 
-let scalebar;
+let scalebar, paramsApplied = false;
 
 const getTimeInfo = (operationalLayer) => {
   return operationalLayer.resourceInfo && operationalLayer.resourceInfo.timeInfo;
@@ -173,8 +173,11 @@ export default class Map extends Component {
           }
         });
       });
-      //- Load any shared state if available
-      this.applyStateFromUrl(response.map, getUrlParams(location.search));
+      //- Load any shared state if available but only on first load
+      if (!paramsApplied) {
+        this.applyStateFromUrl(response.map, getUrlParams(location.search));
+        paramsApplied = true;
+      }
       //- Make the map a global in debug mode for easier debugging
       if (brApp.debug) { brApp.map = response.map; }
       //- Update local state since the map is ready now
@@ -186,6 +189,7 @@ export default class Map extends Component {
   };
 
   applyStateFromUrl = (map, params) => {
+    const {settings} = this.context;
     const {x, y, z, l} = params;
 
     // Set zoom
@@ -193,8 +197,9 @@ export default class Map extends Component {
       map.centerAndZoom([x, y], z);
     }
 
-    // Set Language
-    if (l) {
+    // Set Language if available
+    const langKeys = Object.keys(settings.labels);
+    if (l && langKeys.indexOf(l) > -1) {
       appActions.setLanguage.defer(l);
     }
   };

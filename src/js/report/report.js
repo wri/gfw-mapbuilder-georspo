@@ -476,6 +476,43 @@ const runAnalysis = function runAnalysis (params, feature) {
     node.remove();
   }
 
+  //- Mangroves Loss
+  if (settings.mangroves) {
+    performAnalysis({
+      type: analysisKeys.MANGROVE_LOSS,
+      geometry: feature.geometry,
+      settings: settings,
+      canopyDensity: tcd,
+      language: lang
+    }).then((results) => {
+      const node = document.getElementById('mangroves');
+      const colors = analysisConfig[analysisKeys.MANGROVE_LOSS].colors;
+      const labels = text[lang].ANALYSIS_MANGROVE_LABELS;
+      const { counts, encoder } = results;
+      const Xs = encoder.A;
+      const Ys = encoder.B;
+      const chartInfo = charts.formatSeriesWithEncoder({
+        colors: colors,
+        encoder: encoder,
+        counts: counts,
+        labels: labels,
+        isSimple: true,
+        Xs: Xs,
+        Ys: Ys
+      });
+
+      if (chartInfo.series && chartInfo.series.length && chartInfo.series[0].data.length) {
+        charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
+      } else {
+        node.remove();
+      }
+    });
+
+  } else {
+    const node = document.getElementById('mangroves');
+    node.remove();
+  }
+
   //- SAD Alerts
   if (settings.sadAlerts) {
     performAnalysis({
@@ -508,8 +545,10 @@ const runAnalysis = function runAnalysis (params, feature) {
       language: lang
     }).then((results) => {
       const node = document.getElementById('glad-alerts');
+      const name = text[lang].ANALYSIS_GLAD_ALERT_NAME;
       charts.makeTimeSeriesCharts(node, {
-        data: results
+        data: results,
+        name: name
       });
     });
   } else {

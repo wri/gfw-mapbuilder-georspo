@@ -53,6 +53,8 @@ export default class AnalysisTypeSelect extends Component {
           return settings.landCover;
         case analysisKeys.FIRES:
           return settings.activeFires;
+        case analysisKeys.MANGROVE_LOSS:
+          return settings.mangroves;
         case analysisKeys.SAD_ALERTS:
           return settings.sadAlerts;
         case analysisKeys.GLAD_ALERTS:

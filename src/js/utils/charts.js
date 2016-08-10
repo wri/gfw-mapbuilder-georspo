@@ -257,7 +257,7 @@ export default {
   },
 
   makeTimeSeriesCharts: (el, options) => {
-    const {data} = options;
+    const {data, name} = options;
     const chart = new Highcharts.Chart({
       chart: {
         renderTo: el,
@@ -271,6 +271,7 @@ export default {
       },
       title: { text: null },
       xAxis: { type: 'datetime' },
+      credits: { enabled: false },
       yAxis: { title: { text: null }, min: 0},
       plotOptions: {
         area: {
@@ -288,7 +289,7 @@ export default {
       },
       series: [{
         type: 'area',
-        name: 'Glad Alerts',
+        name: name,
         data: data
       }]
     });

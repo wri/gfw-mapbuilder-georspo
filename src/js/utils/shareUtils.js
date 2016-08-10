@@ -3,7 +3,6 @@ export function prepareStateForShare (options) {
   const shareState = {};
   //- Application info
   if (settings.appid) { shareState.appid = settings.appid; }
-  shareState.lang = language;
   //- Map Related Info
   const center = map.extent.getCenter();
   shareState.x = center.getLongitude().toFixed(2);

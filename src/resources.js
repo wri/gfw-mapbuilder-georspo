@@ -42,6 +42,7 @@ export default {
   intactForests: true,
   aboveGroundBiomass: true,
   landCover: true,
+  mangroves: true,
   sadAlerts: true,
   gladAlerts: true,
   webmapMenuName: 'Land Use',
