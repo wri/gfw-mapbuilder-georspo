@@ -165,7 +165,7 @@ config.analysis[analysisKeys.INTACT_LOSS] = {
 };
 
 config.analysis[analysisKeys.MANGROVE_LOSS] = {
-  id: '$561',
+  id: '$564',
   bounds: [0, 1],
   colors: ['#06FFAA']
 };
