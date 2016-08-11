@@ -151,8 +151,19 @@ export default {
       sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
       technicalName: 'umd_landsat_alerts'
     }, {
-      id: 'ACTIVE_FIRES',
+      id: 'TERRA_I_ALERTS',
       order: 15,
+      type: 'terra',
+      url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+      visible: true,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Terra-I Alerts',
+      sublabel: '(monthly, 250m, Latin America, CIAT)',
+      technicalName: 'terra_i_alerts'
+    }, {
+      id: 'ACTIVE_FIRES',
+      order: 16,
       type: 'dynamic',
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',

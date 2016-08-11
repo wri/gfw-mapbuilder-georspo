@@ -5,6 +5,7 @@ import ImageParameters from 'esri/layers/ImageParameters';
 import WebTiledLayer from 'esri/layers/WebTiledLayer';
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import FeatureLayer from 'esri/layers/FeatureLayer';
+import TerraILayer from 'js/layers/TerraILayer';
 import GladLayer from 'js/layers/GladLayer';
 import {errors} from 'js/config';
 
@@ -76,6 +77,12 @@ export default (layer) => {
       options.confidence = layer.confidence;
       options.visible = layer.visible;
       esriLayer = new GladLayer(options);
+    break;
+    case 'terra':
+      options.id = layer.id;
+      options.url = layer.url;
+      options.visible = layer.visible;
+      esriLayer = new TerraILayer(options);
     break;
     default:
       throw new Error(errors.incorrectLayerConfig(layer.type));

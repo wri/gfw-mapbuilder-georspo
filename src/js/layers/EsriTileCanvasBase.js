@@ -280,6 +280,8 @@ export default declare('EsriTileCanvasBase', [Layer], {
           {canvas} = data;
 
     //- Add the element if it is not in the DOM already
+    console.log('Column: ', data.x, 'Coord: ', coords.x);
+    console.log('Row: ', data.y, 'Coord: ', coords.y);
     if (!canvas.parentElement) {
       const ctx = canvas.getContext('2d');
       //- Get the current position of the container to offset the tile position
