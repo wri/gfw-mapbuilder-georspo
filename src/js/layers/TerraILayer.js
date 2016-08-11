@@ -13,7 +13,7 @@ export default declare('TerraILayer', [TileCanvasLayer], {
       // Decode the rgba/pixel so I can filter on confidence and date ranges
       var slice = [data[i], data[i + 1], data[i + 2]];
       var values = this.decodeDate(slice);
-      //- Check against min date, and max date
+      //- Check against min and max date
       if (values.year >= 2004) {
         // Set the alpha to the intensity
         data[i + 3] = values.intensity;
