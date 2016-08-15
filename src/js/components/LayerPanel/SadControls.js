@@ -73,10 +73,11 @@ export default class SadControls extends Component {
       prevProps.startMonth !== startMonth ||
       prevProps.endMonth !== endMonth
     ) {
-      const definitionExpression = this.formatQuery(startYear, endYear, startMonth, endMonth);
-      defs[2] = definitionExpression;
-      // TODO: date as a field name will break definition expressions, once the field name is changed update it in this class
-      // map.getLayer(layer.id).setLayerDefinitions(defs);
+      if (map.getLayer && map.getLayer(layer.id)) {
+        const definitionExpression = this.formatQuery(startYear, endYear, startMonth, endMonth);
+        defs[2] = definitionExpression;
+        map.getLayer(layer.id).setLayerDefinitions(defs);
+      }
     }
 
     // Anytime the map changes to a new map, update that here
@@ -86,7 +87,7 @@ export default class SadControls extends Component {
         const definitionExpression = this.formatQuery(startYear, endYear, startMonth, endMonth);
         defs[2] = definitionExpression;
         // TODO: date as a field name will break definition expressions, once the field name is changed update it in this class
-        // map.getLayer(layer.id).setLayerDefinitions(defs);
+        map.getLayer(layer.id).setLayerDefinitions(defs);
       });
     }
   }
@@ -94,7 +95,7 @@ export default class SadControls extends Component {
   formatQuery (startYear, endYear, startMonth, endMonth) {
     const startDateString = `${startYear}-${startMonth + 1}-31 00:00:00`;
     const endDateString = `${endYear}-${endMonth + 1}-31 00:00:00`;
-    return `date BETWEEN timestamp '${startDateString}' AND timestamp '${endDateString}'`;
+    return `date_alias BETWEEN timestamp '${startDateString}' AND timestamp '${endDateString}'`;
   }
 
   updateSadAlerts = (type, {target}) => {

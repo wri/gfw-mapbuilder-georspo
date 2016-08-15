@@ -288,6 +288,31 @@ export default {
     return promise;
   },
 
+  getTerraIAlerts: function (config, geometry) {
+    const promise = new Deferred();
+    const content = {
+      geometry: geometry
+    };
+
+    const success = (response) => {
+      console.log(response);
+      // promise.resolve(formatters.getCounts(response, content.pixelSize));
+    };
+
+    const failure = (error) => {
+      console.log(error);
+      // if (errorIsInvalidImageSize(error) && content.pixelSize !== 500) {
+      //   content.pixelSize = 500;
+      //   computeHistogram(imageService, content, success, failure);
+      // } else {
+      //   promise.resolve(error);
+      // }
+    };
+
+    computeHistogram(config.url, content, success, failure);
+    return promise;
+  },
+
   getCountsWithDensity: (rasterId, geometry, canopyDensity) => {
     const promise = new Deferred();
     const tcd = analysisConfig.tcd;

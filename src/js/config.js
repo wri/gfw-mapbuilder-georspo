@@ -187,6 +187,10 @@ config.analysis[analysisKeys.GLAD_ALERTS] = {
   }
 };
 
+config.analysis[analysisKeys.TERRA_I_ALERTS] = {
+  url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer'
+};
+
 config.analysis[analysisKeys.BIO_LOSS] = {
   // id: '$524',
   // bounds: [0, 2],

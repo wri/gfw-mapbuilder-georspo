@@ -148,6 +148,8 @@ const formatResources = () => {
           return resources.sadAlerts;
         case layerKeys.GLAD_ALERTS:
           return resources.gladAlerts;
+        case layerKeys.TERRA_I_ALERTS:
+          return resources.terraIAlerts;
         default:
           return true;
       }

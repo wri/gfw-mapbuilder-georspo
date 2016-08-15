@@ -234,6 +234,12 @@
       "label": "Include GLAD Aletrs in your application",
       "value": true
     }, {
+      "type": "boolean",
+      "fieldName": "terraIAlerts",
+      "tooltip": "This will include/exclude this layer from the report, analysis, and layer list",
+      "label": "Include Terra-I Aletrs in your application",
+      "value": true
+    }, {
       "type": "string",
       "fieldName": "webmapMenuName",
       "label": "Title for the menu of your webmap",

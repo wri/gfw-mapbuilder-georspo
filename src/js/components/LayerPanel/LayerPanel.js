@@ -1,4 +1,5 @@
 import DensityDisplay from 'components/LayerPanel/DensityDisplay';
+import TerraIControls from 'components/LayerPanel/TerraIControls';
 import LayerCheckbox from 'components/LayerPanel/LayerCheckbox';
 import FiresControls from 'components/LayerPanel/FiresControls';
 import LossControls from 'components/LayerPanel/LossControls';
@@ -138,6 +139,9 @@ export default class LayerPanel extends Component {
           break;
         case LayerKeys.GLAD_ALERTS:
           childComponent = <GladControls layer={layer} />;
+        break;
+        case LayerKeys.TERRA_I_ALERTS:
+          childComponent = <TerraIControls layer={layer} />;
         break;
         default:
           childComponent = null;

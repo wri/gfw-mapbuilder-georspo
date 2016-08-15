@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import charts from 'utils/charts';
 
-export default class GladAlertsChart extends Component {
+export default class TimeSeriesChart extends Component {
 
   componentDidMount () {
     const {chart} = this.refs;
@@ -16,6 +16,6 @@ export default class GladAlertsChart extends Component {
 
 }
 
-GladAlertsChart.propTypes = {
+TimeSeriesChart.propTypes = {
   data: PropTypes.array.isRequired
 };

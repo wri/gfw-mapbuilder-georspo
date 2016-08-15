@@ -45,6 +45,7 @@ export default {
   mangroves: true,
   sadAlerts: true,
   gladAlerts: true,
+  terraIAlerts: true,
   webmapMenuName: 'Land Use',
   //- Restoration Module settings
   restorationModule: false,
@@ -155,7 +156,13 @@ export default {
       order: 15,
       type: 'terra',
       url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
-      visible: true,
+      imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
+      visible: false,
+      maxZoom: 10,
+      minDateValue: 4000, //We know data starts in 2004
+      // We are setting this way over max, the max date will get set set when TerraIControls mounts
+      // We set this over max so all data is visible by default, and it will update the dates when available
+      maxDateValue: 20000,
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
       label: 'Terra-I Alerts',
@@ -309,8 +316,19 @@ export default {
       sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
       technicalName: 'umd_landsat_alerts'
     }, {
-      id: 'ACTIVE_FIRES',
+      id: 'TERRA_I_ALERTS',
       order: 15,
+      type: 'terra',
+      url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+      visible: false,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Terra-I Alerts',
+      sublabel: '(monthly, 250m, Latin America, CIAT)',
+      technicalName: 'terra_i_alerts'
+    }, {
+      id: 'ACTIVE_FIRES',
+      order: 16,
       type: 'dynamic',
       group: 'Evolution de l\'occupation des sols',
       groupKey: 'GROUP_LCD',
@@ -455,8 +473,19 @@ export default {
       sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
       technicalName: 'umd_landsat_alerts'
     }, {
-      id: 'ACTIVE_FIRES',
+      id: 'TERRA_I_ALERTS',
       order: 15,
+      type: 'terra',
+      url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+      visible: false,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Terra-I Alerts',
+      sublabel: '(monthly, 250m, Latin America, CIAT)',
+      technicalName: 'terra_i_alerts'
+    }, {
+      id: 'ACTIVE_FIRES',
+      order: 16,
       type: 'dynamic',
       group: 'Dinámica de la Cobertura del Suelo',
       groupKey: 'GROUP_LCD',
@@ -601,8 +630,19 @@ export default {
       sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
       technicalName: 'umd_landsat_alerts'
     }, {
-      id: 'ACTIVE_FIRES',
+      id: 'TERRA_I_ALERTS',
       order: 15,
+      type: 'terra',
+      url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+      visible: false,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Terra-I Alerts',
+      sublabel: '(monthly, 250m, Latin America, CIAT)',
+      technicalName: 'terra_i_alerts'
+    }, {
+      id: 'ACTIVE_FIRES',
+      order: 16,
       type: 'dynamic',
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
@@ -747,8 +787,19 @@ export default {
       sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
       technicalName: 'umd_landsat_alerts'
     }, {
-      id: 'ACTIVE_FIRES',
+      id: 'TERRA_I_ALERTS',
       order: 15,
+      type: 'terra',
+      url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+      visible: false,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Terra-I Alerts',
+      sublabel: '(monthly, 250m, Latin America, CIAT)',
+      technicalName: 'terra_i_alerts'
+    }, {
+      id: 'ACTIVE_FIRES',
+      order: 16,
       type: 'dynamic',
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
@@ -893,8 +944,19 @@ export default {
       sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
       technicalName: 'umd_landsat_alerts'
     }, {
-      id: 'ACTIVE_FIRES',
+      id: 'TERRA_I_ALERTS',
       order: 15,
+      type: 'terra',
+      url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+      visible: false,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Terra-I Alerts',
+      sublabel: '(monthly, 250m, Latin America, CIAT)',
+      technicalName: 'terra_i_alerts'
+    }, {
+      id: 'ACTIVE_FIRES',
+      order: 16,
       type: 'dynamic',
       group: '土地覆盖动态数据',
       groupKey: 'GROUP_LCD',

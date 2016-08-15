@@ -79,10 +79,7 @@ export default (layer) => {
       esriLayer = new GladLayer(options);
     break;
     case 'terra':
-      options.id = layer.id;
-      options.url = layer.url;
-      options.visible = layer.visible;
-      esriLayer = new TerraILayer(options);
+      esriLayer = new TerraILayer(layer);
     break;
     default:
       throw new Error(errors.incorrectLayerConfig(layer.type));

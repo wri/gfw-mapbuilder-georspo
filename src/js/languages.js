@@ -112,6 +112,10 @@ strings.en.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.GLAD_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
+  { label: 'Terra-I alerts',
+    value: analysisKeys.TERRA_I_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
   { label: 'Active fires',
     value: analysisKeys.FIRES,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
@@ -292,6 +296,18 @@ strings.fr.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.MANGROVE_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
+  { label: 'SAD alerts',
+    value: analysisKeys.SAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'GLAD alerts',
+    value: analysisKeys.GLAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Terra-I alerts',
+    value: analysisKeys.TERRA_I_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
   { label: 'Feux actifs',
     value: analysisKeys.FIRES,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
@@ -468,6 +484,18 @@ strings.es.ANALYSIS_SELECT_TYPE_OPTIONS = [
   },
   { label: 'Global mangrove loss',
     value: analysisKeys.MANGROVE_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'SAD alerts',
+    value: analysisKeys.SAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'GLAD alerts',
+    value: analysisKeys.GLAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Terra-I alerts',
+    value: analysisKeys.TERRA_I_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Incendios activos',
@@ -648,6 +676,18 @@ strings.pt.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.MANGROVE_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
+  { label: 'SAD alerts',
+    value: analysisKeys.SAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'GLAD alerts',
+    value: analysisKeys.GLAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Terra-I alerts',
+    value: analysisKeys.TERRA_I_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
   { label: 'Active fires',
     value: analysisKeys.FIRES,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
@@ -826,6 +866,18 @@ strings.id.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.MANGROVE_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
+  { label: 'SAD alerts',
+    value: analysisKeys.SAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'GLAD alerts',
+    value: analysisKeys.GLAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Terra-I alerts',
+    value: analysisKeys.TERRA_I_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
   { label: 'Active fires',
     value: analysisKeys.FIRES,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
@@ -1002,6 +1054,18 @@ strings.zh.ANALYSIS_SELECT_TYPE_OPTIONS = [
   },
   { label: 'Global mangrove loss',
     value: analysisKeys.MANGROVE_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'SAD alerts',
+    value: analysisKeys.SAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'GLAD alerts',
+    value: analysisKeys.GLAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Terra-I alerts',
+    value: analysisKeys.TERRA_I_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: '活跃火点',
