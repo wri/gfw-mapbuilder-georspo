@@ -428,6 +428,7 @@ const runAnalysis = function runAnalysis (params, feature) {
       canopyDensity: tcd,
       language: lang
     }).then((results) => {
+      console.log(results);
       const configuredColors = analysisConfig[analysisKeys.INTACT_LOSS].colors;
       const labels = text[lang].ANALYSIS_IFL_LABELS;
       const node = document.getElementById('intact-loss');
@@ -527,7 +528,9 @@ const runAnalysis = function runAnalysis (params, feature) {
       const names = text[lang].ANALYSIS_SAD_ALERT_NAMES;
       const {alerts} = results;
       const {categories, series} = charts.formatSadAlerts({ alerts, colors, names });
-      charts.makeStackedBarChart(node, categories, series);
+      //- Tell the second series to use the second axis
+      series[0].yAxis = 1;
+      charts.makeDualAxisTimeSeriesChart(node, { series, categories });
     });
 
   } else {
@@ -553,6 +556,27 @@ const runAnalysis = function runAnalysis (params, feature) {
     });
   } else {
     const node = document.getElementById('glad-alerts');
+    node.remove();
+  }
+
+  //- Terra-I Alerts
+  if (settings.terraIAlerts) {
+    performAnalysis({
+      type: analysisKeys.TERRA_I_ALERTS,
+      geometry: feature.geometry,
+      settings: settings,
+      canopyDensity: tcd,
+      language: lang
+    }).then((results) => {
+      const node = document.getElementById('terrai-alerts');
+      const name = text[lang].ANALYSIS_TERRA_I_ALERT_NAME;
+      charts.makeTimeSeriesCharts(node, {
+        data: results,
+        name: name
+      });
+    });
+  } else {
+    const node = document.getElementById('terrai-alerts');
     node.remove();
   }
 
