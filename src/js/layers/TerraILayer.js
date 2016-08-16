@@ -1,10 +1,6 @@
 import TileCanvasLayer from './EsriTileCanvasBase';
 import declare from 'dojo/_base/declare';
-//
-// function pad (num) {
-//   var str = '00' + num;
-//   return str.slice(str.length - 3);
-// }
+import utils from 'utils/AppUtils';
 
 /**
 * NOTE: options.maxDateValue will get set the first time setDateRange is called, this happens
@@ -56,8 +52,7 @@ export default declare('TerraILayer', [TileCanvasLayer], {
 
   //- Math provided by WRI ,we want julian year like so, 4220, Equals 220th day in 2004 (4000 + 220 days)
   getJulianDateFromGridCode: function (gridCode) {
-    const year = Math.floor((gridCode - 1) / 23) + 2004;
-    const day = (((gridCode - 1) % 23) * 16) + 1;
+    const {year, day} = utils.getDateFromGridCode(gridCode);
     return ((year % baseJulianYear) * 1000) + day;
   },
 

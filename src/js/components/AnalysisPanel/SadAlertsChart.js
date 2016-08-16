@@ -5,8 +5,11 @@ export default class SadAlertsChart extends Component {
 
   componentDidMount () {
     const {categories, series} = charts.formatSadAlerts(this.props);
+    //- Tell the second series to use the second axis
+    series[0].yAixs = 1;
     const {chart} = this.refs;
-    charts.makeStackedBarChart(chart, categories, series);
+    // charts.makeStackedBarChart(chart, categories, series); // Old version
+    charts.makeDualAxisTimeSeriesChart(chart, { series, categories });
   }
 
   render () {

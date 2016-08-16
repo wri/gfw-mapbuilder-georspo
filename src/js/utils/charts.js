@@ -1,5 +1,6 @@
 /* eslint no-unused-vars: 0 */
 import analysisKeys from 'constants/AnalysisConstants';
+import number from 'dojo/number';
 /**
 * Module to help in generating charts and also in formatting data for the charts
 * Formatting functions should start with formatXXXX and return series and optionally colors
@@ -248,8 +249,8 @@ export default {
         backgroundColor: '#FFF',
         formatter: function () {
           return `<div style='font-size:20px;width: 80px;'>${this.x}</div>` +
-            `<div style='font-size:12px;color:${this.points[0].color};'>${Math.round(this.points[0].y)} MtCO2</div>` +
-            `<div style='font-size:12px;color:${this.points[1].color};'>${Math.round(this.points[1].y)} Ha</div>`;
+            `<div style='font-size:12px;color:${this.points[0].color};'>${number.format(this.points[0].y, { places: 0 })} t CO<sub>2</sub></div>` +
+            `<div style='font-size:12px;color:${this.points[1].color};'>${number.format(this.points[1].y, { places: 0 })} Ha</div>`;
         }
       },
       series: series
@@ -287,11 +288,49 @@ export default {
           }
         }
       },
+      tooltip: {
+        dateTimeLabelFormats: { hour: '%A, %b %e' }
+      },
       series: [{
         type: 'area',
         name: name,
         data: data
       }]
+    });
+  },
+
+  makeDualAxisTimeSeriesChart: (el, options) => {
+    const {categories, series} = options;
+    const chart = new Highcharts.Chart({
+      chart: {
+        renderTo: el,
+        zoomType: 'x',
+        resetZoomButton: {
+          position: {
+            align: 'left',
+            y: 0
+          }
+        }
+      },
+      title: { text: null },
+      credits: { enabled: false },
+      xAxis: [{
+        categories: categories, //month/year, e.g. 9/2015
+        labels: { enabled: false }
+      }],
+      yAxis: [{
+        title: { text: null }
+      }, {
+        title: { text: null },
+        opposite: true
+      }],
+      tooltip: {
+        shared: true,
+        useHTML: true,
+        backgroundColor: '#FFF',
+        dateTimeLabelFormats: { hour: '%A, %b %e' }
+      },
+      series: series
     });
   },
 
@@ -329,7 +368,7 @@ export default {
 
     series.push({
       type: 'column',
-      name: 'MtCO2',
+      name: carbonName,
       data: carbonEmissions,
       color: carbonColor
     });

@@ -70,6 +70,7 @@ strings.en.ANALYSIS_GROUP_RESTORATION = 'Restoration potential for';
 strings.en.ANALYSIS_GROUP_SLOPE = 'Potential according to';
 strings.en.ANALYSIS_GROUP_OTHER = 'Other analysis';
 strings.en.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
+strings.en.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
 strings.en.ANALYSIS_SAD_ALERT_NAMES = {
   degrad: 'Degradation',
   defor: 'Deforestation'
@@ -262,6 +263,7 @@ strings.fr.ANALYSIS_GROUP_RESTORATION = 'Potentiel de restauration pour';
 strings.fr.ANALYSIS_GROUP_SLOPE = 'Potentiel selon';
 strings.fr.ANALYSIS_GROUP_OTHER = 'Autre analyse';
 strings.fr.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
+strings.fr.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
 strings.fr.ANALYSIS_SAD_ALERT_NAMES = {
   degrad: 'Degradation',
   defor: 'Deforestation'
@@ -452,6 +454,7 @@ strings.es.ANALYSIS_GROUP_RESTORATION = 'Potencial de restauración para';
 strings.es.ANALYSIS_GROUP_SLOPE = 'Potencial según';
 strings.es.ANALYSIS_GROUP_OTHER = 'Otro análisis';
 strings.es.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
+strings.es.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
 strings.es.ANALYSIS_SAD_ALERT_NAMES = {
   degrad: 'Degradation',
   defor: 'Deforestation'
@@ -642,6 +645,7 @@ strings.pt.ANALYSIS_GROUP_RESTORATION = 'Restoration potential for';
 strings.pt.ANALYSIS_GROUP_SLOPE = 'Potential according to';
 strings.pt.ANALYSIS_GROUP_OTHER = 'Other analysis';
 strings.pt.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
+strings.pt.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
 strings.pt.ANALYSIS_SAD_ALERT_NAMES = {
   degrad: 'Degradation',
   defor: 'Deforestation'
@@ -832,6 +836,7 @@ strings.id.ANALYSIS_GROUP_RESTORATION = 'Restoration potential for';
 strings.id.ANALYSIS_GROUP_SLOPE = 'Potential according to';
 strings.id.ANALYSIS_GROUP_OTHER = 'Other analysis';
 strings.id.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
+strings.id.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
 strings.id.ANALYSIS_SAD_ALERT_NAMES = {
   degrad: 'Degradation',
   defor: 'Deforestation'
@@ -1022,6 +1027,7 @@ strings.zh.ANALYSIS_GROUP_RESTORATION = '在生态修复可能性的层面';
 strings.zh.ANALYSIS_GROUP_SLOPE = '可能性原因';
 strings.zh.ANALYSIS_GROUP_OTHER = '其他分析';
 strings.zh.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
+strings.zh.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
 strings.zh.ANALYSIS_SAD_ALERT_NAMES = {
   degrad: 'Degradation',
   defor: 'Deforestation'

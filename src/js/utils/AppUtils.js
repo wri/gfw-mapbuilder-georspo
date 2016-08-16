@@ -190,6 +190,15 @@ const utils = {
   },
 
   /**
+  * Used for calculating the date of a grid code in the Terra-I Layer
+  */
+  getDateFromGridCode: (gridCode) => {
+    const year = Math.floor((gridCode - 1) / 23) + 2004;
+    const day = (((gridCode - 1) % 23) * 16) + 1;
+    return { year, day };
+  },
+
+  /**
   * Inclusive Array generator
   */
   range: (start, end) => {

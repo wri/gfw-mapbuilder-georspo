@@ -86,15 +86,14 @@ export default class SadControls extends Component {
         signal.remove();
         const definitionExpression = this.formatQuery(startYear, endYear, startMonth, endMonth);
         defs[2] = definitionExpression;
-        // TODO: date as a field name will break definition expressions, once the field name is changed update it in this class
         map.getLayer(layer.id).setLayerDefinitions(defs);
       });
     }
   }
 
   formatQuery (startYear, endYear, startMonth, endMonth) {
-    const startDateString = `${startYear}-${startMonth + 1}-31 00:00:00`;
-    const endDateString = `${endYear}-${endMonth + 1}-31 00:00:00`;
+    const startDateString = `${startMonth + 1}-1-${startYear} 00:00:00`;
+    const endDateString = `${endMonth + 1}-1-${endYear} 00:00:00`;
     return `date_alias BETWEEN timestamp '${startDateString}' AND timestamp '${endDateString}'`;
   }
 

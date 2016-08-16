@@ -320,7 +320,13 @@ export default {
       order: 15,
       type: 'terra',
       url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+      imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
       visible: false,
+      maxZoom: 10,
+      minDateValue: 4000, //We know data starts in 2004
+      // We are setting this way over max, the max date will get set set when TerraIControls mounts
+      // We set this over max so all data is visible by default, and it will update the dates when available
+      maxDateValue: 20000,
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
       label: 'Terra-I Alerts',
@@ -477,7 +483,13 @@ export default {
       order: 15,
       type: 'terra',
       url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+      imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
       visible: false,
+      maxZoom: 10,
+      minDateValue: 4000, //We know data starts in 2004
+      // We are setting this way over max, the max date will get set set when TerraIControls mounts
+      // We set this over max so all data is visible by default, and it will update the dates when available
+      maxDateValue: 20000,
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
       label: 'Terra-I Alerts',
@@ -634,7 +646,13 @@ export default {
       order: 15,
       type: 'terra',
       url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+      imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
       visible: false,
+      maxZoom: 10,
+      minDateValue: 4000, //We know data starts in 2004
+      // We are setting this way over max, the max date will get set set when TerraIControls mounts
+      // We set this over max so all data is visible by default, and it will update the dates when available
+      maxDateValue: 20000,
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
       label: 'Terra-I Alerts',
@@ -791,7 +809,13 @@ export default {
       order: 15,
       type: 'terra',
       url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+      imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
       visible: false,
+      maxZoom: 10,
+      minDateValue: 4000, //We know data starts in 2004
+      // We are setting this way over max, the max date will get set set when TerraIControls mounts
+      // We set this over max so all data is visible by default, and it will update the dates when available
+      maxDateValue: 20000,
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
       label: 'Terra-I Alerts',
@@ -948,7 +972,13 @@ export default {
       order: 15,
       type: 'terra',
       url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+      imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
       visible: false,
+      maxZoom: 10,
+      minDateValue: 4000, //We know data starts in 2004
+      // We are setting this way over max, the max date will get set set when TerraIControls mounts
+      // We set this over max so all data is visible by default, and it will update the dates when available
+      maxDateValue: 20000,
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
       label: 'Terra-I Alerts',

@@ -5,6 +5,7 @@ import {analysisConfig} from 'js/config';
 import esriRequest from 'esri/request';
 import Query from 'esri/tasks/query';
 import Deferred from 'dojo/Deferred';
+import utils from 'utils/AppUtils';
 import lang from 'dojo/_base/lang';
 import all from 'dojo/promise/all';
 
@@ -88,6 +89,16 @@ const formatters = {
     var results = [];
     for (let i = 0; i < counts.length; i++) {
       results.push([new Date(year, 0, i).getTime(), counts[i] || 0]);
+    }
+    return results;
+  },
+  terraIAlerts: function (counts) {
+    var results = [];
+    for (let i = 1; i < counts.length; i++) {
+      if (counts[i]) {
+        const {year, day} = utils.getDateFromGridCode(i);
+        results.push([new Date(year, 0, day).getTime(), counts[i]]);
+      }
     }
     return results;
   },
@@ -294,19 +305,18 @@ export default {
       geometry: geometry
     };
 
-    const success = (response) => {
-      console.log(response);
-      // promise.resolve(formatters.getCounts(response, content.pixelSize));
+    const success = ({histograms}) => {
+      const counts = histograms && histograms.length && histograms[0].counts || [];
+      promise.resolve(formatters.terraIAlerts(counts));
     };
 
     const failure = (error) => {
-      console.log(error);
-      // if (errorIsInvalidImageSize(error) && content.pixelSize !== 500) {
-      //   content.pixelSize = 500;
-      //   computeHistogram(imageService, content, success, failure);
-      // } else {
-      //   promise.resolve(error);
-      // }
+      if (errorIsInvalidImageSize(error) && content.pixelSize !== 500) {
+        content.pixelSize = 500;
+        computeHistogram(config.url, content, success, failure);
+      } else {
+        promise.resolve(error);
+      }
     };
 
     computeHistogram(config.url, content, success, failure);

@@ -181,8 +181,9 @@ export default class Analysis extends Component {
           colors={analysisConfig[type].colors}
           names={text[language].ANALYSIS_SAD_ALERT_NAMES} />;
       case analysisKeys.GLAD_ALERTS:
-      case analysisKeys.TERRA_I_ALERTS:
         return <TimeSeriesChart data={results} name={text[language].ANALYSIS_GLAD_ALERT_NAME} />;
+      case analysisKeys.TERRA_I_ALERTS:
+        return <TimeSeriesChart data={results} name={text[language].ANALYSIS_TERRA_I_ALERT_NAME} />;
       default:
       //- This should only be the restoration analysis, since its value is a plain rasterId
         return <RestorationCharts results={results} />;

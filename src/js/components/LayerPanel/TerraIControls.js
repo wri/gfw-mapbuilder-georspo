@@ -9,8 +9,7 @@ import 'pickadate';
 * Same function that is in the layer, but the layer is not always loaded when the data is back from the server
 */
 const getJulianDateFromGridCode = function getJulianDateFromGridCode (gridCode) {
-  const year = Math.floor((gridCode - 1) / 23) + 2004;
-  const day = (((gridCode - 1) % 23) * 16) + 1;
+  const {year, day} = utils.getDateFromGridCode(gridCode);
   return ((year % 2000) * 1000) + day;
 };
 
