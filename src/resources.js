@@ -42,6 +42,10 @@ export default {
   intactForests: true,
   aboveGroundBiomass: true,
   landCover: true,
+  mangroves: true,
+  sadAlerts: true,
+  gladAlerts: true,
+  terraIAlerts: true,
   webmapMenuName: 'Land Use',
   //- Restoration Module settings
   restorationModule: false,
@@ -98,7 +102,7 @@ export default {
   layers: {
     en: [{
       id: 'TREE_COVER_LOSS',
-      order: 5,
+      order: 11,
       type: 'image',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -113,7 +117,7 @@ export default {
       technicalName: 'tree_cover_loss'
     }, {
       id: 'TREE_COVER_GAIN',
-      order: 6,
+      order: 12,
       type: 'image',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -124,8 +128,49 @@ export default {
       legendLayer: 1,
       technicalName: 'tree_cover_gain'
     }, {
+      id: 'IMAZON_SAD',
+      order: 13,
+      type: 'dynamic',
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'SAD alerts',
+      sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+      layerIds: [2]
+    }, {
+      id: 'GLAD_ALERTS',
+      order: 14,
+      type: 'glad',
+      url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
+      minDateValue: 15000,
+      maxDateValue: 16365,
+      confidence: [0, 1],
+      visible: false,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Glad Alerts',
+      sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
+      technicalName: 'umd_landsat_alerts'
+    }, {
+      id: 'TERRA_I_ALERTS',
+      order: 15,
+      type: 'terra',
+      url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+      imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
+      visible: false,
+      maxZoom: 10,
+      minDateValue: 4000, //We know data starts in 2004
+      // We are setting this way over max, the max date will get set set when TerraIControls mounts
+      // We set this over max so all data is visible by default, and it will update the dates when available
+      maxDateValue: 20000,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Terra-I Alerts',
+      sublabel: '(monthly, 250m, Latin America, CIAT)',
+      technicalName: 'terra_i_alerts'
+    }, {
       id: 'ACTIVE_FIRES',
-      order: 7,
+      order: 16,
       type: 'dynamic',
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
@@ -175,16 +220,6 @@ export default {
       layerIds: [0],
       technicalName: 'intact_forest_landscapes_change'
     },
-    // {
-    //   id: 'OTHER', // Testing GlobCover
-    //   order: 3,
-    //   type: 'webtiled',
-    //   group: 'Land Cover',
-    //   groupKey: 'GROUP_LC',
-    //   label: 'Global Land Cover (Tiled)',
-    //   url: 'http://wri-tiles.s3.amazonaws.com/global-landcover/${level}/${col}/${row}.png',
-    //   technicalName: 'intact_forest_landscapes_change'
-    // },
      {
       id: 'AG_BIOMASS',
       order: 4,
@@ -195,6 +230,16 @@ export default {
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
       legendLayer: 8,
       technicalName: 'aboveground_biomass'
+    }, {
+      id: 'GLOB_MANGROVE',
+      order: 5,
+      type: 'webtiled',
+      group: 'Land Cover',
+      groupKey: 'GROUP_LC',
+      label: 'Global Mangrove',
+      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+      subDomains: [0, 1, 2, 3],
+      technicalName: 'global_mangroves'
     }, {
       id: 'MASK',
       order: 100,
@@ -221,7 +266,7 @@ export default {
   }],
     fr: [{
       id: 'TREE_COVER_LOSS',
-      order: 5,
+      order: 11,
       type: 'image',
       visible: false,
       group: 'Evolution de l\'occupation des sols',
@@ -236,7 +281,7 @@ export default {
       technicalName: 'tree_cover_loss'
     }, {
       id: 'TREE_COVER_GAIN',
-      order: 6,
+      order: 12,
       type: 'image',
       visible: false,
       group: 'Evolution de l\'occupation des sols',
@@ -247,8 +292,49 @@ export default {
       legendLayer: 1,
       technicalName: 'tree_cover_gain'
     }, {
+      id: 'IMAZON_SAD',
+      order: 13,
+      type: 'dynamic',
+      group: 'Evolution de l\'occupation des sols',
+      groupKey: 'GROUP_LCD',
+      label: 'SAD alerts',
+      sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+      layerIds: [2]
+    }, {
+      id: 'GLAD_ALERTS',
+      order: 14,
+      type: 'glad',
+      url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
+      minDateValue: 15000,
+      maxDateValue: 16365,
+      confidence: [0, 1],
+      visible: false,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Glad Alerts',
+      sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
+      technicalName: 'umd_landsat_alerts'
+    }, {
+      id: 'TERRA_I_ALERTS',
+      order: 15,
+      type: 'terra',
+      url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+      imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
+      visible: false,
+      maxZoom: 10,
+      minDateValue: 4000, //We know data starts in 2004
+      // We are setting this way over max, the max date will get set set when TerraIControls mounts
+      // We set this over max so all data is visible by default, and it will update the dates when available
+      maxDateValue: 20000,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Terra-I Alerts',
+      sublabel: '(monthly, 250m, Latin America, CIAT)',
+      technicalName: 'terra_i_alerts'
+    }, {
       id: 'ACTIVE_FIRES',
-      order: 7,
+      order: 16,
       type: 'dynamic',
       group: 'Evolution de l\'occupation des sols',
       groupKey: 'GROUP_LCD',
@@ -301,12 +387,22 @@ export default {
       id: 'AG_BIOMASS',
       order: 4,
       type: 'image',
-      group: 'Land Cover',
+      group: 'Occupation des sols',
       groupKey: 'GROUP_LC',
       label: 'Aboveground Live Woody Biomass Density',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
       legendLayer: 8,
       technicalName: 'aboveground_biomass'
+    }, {
+      id: 'GLOB_MANGROVE',
+      order: 5,
+      type: 'webtiled',
+      group: 'Occupation des sols',
+      groupKey: 'GROUP_LC',
+      label: 'Global Mangrove',
+      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+      subDomains: [0, 1, 2, 3],
+      technicalName: 'global_mangroves'
     }, {
       id: 'MASK',
       order: 100,
@@ -333,7 +429,7 @@ export default {
   }],
     es: [{
       id: 'TREE_COVER_LOSS',
-      order: 5,
+      order: 11,
       type: 'image',
       visible: false,
       group: 'Dinámica de la Cobertura del Suelo',
@@ -348,7 +444,7 @@ export default {
       technicalName: 'tree_cover_loss'
     }, {
       id: 'TREE_COVER_GAIN',
-      order: 6,
+      order: 12,
       type: 'image',
       visible: false,
       group: 'Dinámica de la Cobertura del Suelo',
@@ -359,8 +455,49 @@ export default {
       legendLayer: 1,
       technicalName: 'tree_cover_gain'
     }, {
+      id: 'IMAZON_SAD',
+      order: 13,
+      type: 'dynamic',
+      group: 'Dinámica de la Cobertura del Suelo',
+      groupKey: 'GROUP_LCD',
+      label: 'SAD alerts',
+      sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+      layerIds: [2]
+    }, {
+      id: 'GLAD_ALERTS',
+      order: 14,
+      type: 'glad',
+      url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
+      minDateValue: 15000,
+      maxDateValue: 16365,
+      confidence: [0, 1],
+      visible: false,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Glad Alerts',
+      sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
+      technicalName: 'umd_landsat_alerts'
+    }, {
+      id: 'TERRA_I_ALERTS',
+      order: 15,
+      type: 'terra',
+      url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+      imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
+      visible: false,
+      maxZoom: 10,
+      minDateValue: 4000, //We know data starts in 2004
+      // We are setting this way over max, the max date will get set set when TerraIControls mounts
+      // We set this over max so all data is visible by default, and it will update the dates when available
+      maxDateValue: 20000,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Terra-I Alerts',
+      sublabel: '(monthly, 250m, Latin America, CIAT)',
+      technicalName: 'terra_i_alerts'
+    }, {
       id: 'ACTIVE_FIRES',
-      order: 7,
+      order: 16,
       type: 'dynamic',
       group: 'Dinámica de la Cobertura del Suelo',
       groupKey: 'GROUP_LCD',
@@ -413,12 +550,22 @@ export default {
       id: 'AG_BIOMASS',
       order: 4,
       type: 'image',
-      group: 'Land Cover',
+      group: 'Cobertura vegetal',
       groupKey: 'GROUP_LC',
       label: 'Aboveground Live Woody Biomass Density',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
       legendLayer: 8,
       technicalName: 'aboveground_biomass'
+    }, {
+      id: 'GLOB_MANGROVE',
+      order: 5,
+      type: 'webtiled',
+      group: 'Cobertura vegetal',
+      groupKey: 'GROUP_LC',
+      label: 'Global Mangrove',
+      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+      subDomains: [0, 1, 2, 3],
+      technicalName: 'global_mangroves'
     }, {
       id: 'MASK',
       order: 100,
@@ -445,7 +592,7 @@ export default {
   }],
     pt: [{
       id: 'TREE_COVER_LOSS',
-      order: 5,
+      order: 11,
       type: 'image',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -460,7 +607,7 @@ export default {
       technicalName: 'tree_cover_loss'
     }, {
       id: 'TREE_COVER_GAIN',
-      order: 6,
+      order: 12,
       type: 'image',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -471,8 +618,49 @@ export default {
       legendLayer: 1,
       technicalName: 'tree_cover_gain'
     }, {
+      id: 'IMAZON_SAD',
+      order: 13,
+      type: 'dynamic',
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'SAD alerts',
+      sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+      layerIds: [2]
+    }, {
+      id: 'GLAD_ALERTS',
+      order: 14,
+      type: 'glad',
+      url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
+      minDateValue: 15000,
+      maxDateValue: 16365,
+      confidence: [0, 1],
+      visible: false,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Glad Alerts',
+      sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
+      technicalName: 'umd_landsat_alerts'
+    }, {
+      id: 'TERRA_I_ALERTS',
+      order: 15,
+      type: 'terra',
+      url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+      imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
+      visible: false,
+      maxZoom: 10,
+      minDateValue: 4000, //We know data starts in 2004
+      // We are setting this way over max, the max date will get set set when TerraIControls mounts
+      // We set this over max so all data is visible by default, and it will update the dates when available
+      maxDateValue: 20000,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Terra-I Alerts',
+      sublabel: '(monthly, 250m, Latin America, CIAT)',
+      technicalName: 'terra_i_alerts'
+    }, {
       id: 'ACTIVE_FIRES',
-      order: 7,
+      order: 16,
       type: 'dynamic',
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
@@ -531,6 +719,16 @@ export default {
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
       legendLayer: 8,
       technicalName: 'aboveground_biomass'
+    }, {
+      id: 'GLOB_MANGROVE',
+      order: 5,
+      type: 'webtiled',
+      group: 'Land Cover',
+      groupKey: 'GROUP_LC',
+      label: 'Global Mangrove',
+      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+      subDomains: [0, 1, 2, 3],
+      technicalName: 'global_mangroves'
     }, {
       id: 'MASK',
       order: 100,
@@ -557,7 +755,7 @@ export default {
   }],
     id: [{
       id: 'TREE_COVER_LOSS',
-      order: 5,
+      order: 11,
       type: 'image',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -572,7 +770,7 @@ export default {
       technicalName: 'tree_cover_loss'
     }, {
       id: 'TREE_COVER_GAIN',
-      order: 6,
+      order: 12,
       type: 'image',
       visible: false,
       group: 'Land Cover Dynamics',
@@ -583,8 +781,49 @@ export default {
       legendLayer: 1,
       technicalName: 'tree_cover_gain'
     }, {
+      id: 'IMAZON_SAD',
+      order: 13,
+      type: 'dynamic',
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'SAD alerts',
+      sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+      layerIds: [2]
+    }, {
+      id: 'GLAD_ALERTS',
+      order: 14,
+      type: 'glad',
+      url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
+      minDateValue: 15000,
+      maxDateValue: 16365,
+      confidence: [0, 1],
+      visible: false,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Glad Alerts',
+      sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
+      technicalName: 'umd_landsat_alerts'
+    }, {
+      id: 'TERRA_I_ALERTS',
+      order: 15,
+      type: 'terra',
+      url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+      imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
+      visible: false,
+      maxZoom: 10,
+      minDateValue: 4000, //We know data starts in 2004
+      // We are setting this way over max, the max date will get set set when TerraIControls mounts
+      // We set this over max so all data is visible by default, and it will update the dates when available
+      maxDateValue: 20000,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Terra-I Alerts',
+      sublabel: '(monthly, 250m, Latin America, CIAT)',
+      technicalName: 'terra_i_alerts'
+    }, {
       id: 'ACTIVE_FIRES',
-      order: 7,
+      order: 16,
       type: 'dynamic',
       group: 'Land Cover Dynamics',
       groupKey: 'GROUP_LCD',
@@ -644,6 +883,16 @@ export default {
       legendLayer: 8,
       technicalName: 'aboveground_biomass'
     }, {
+      id: 'GLOB_MANGROVE',
+      order: 5,
+      type: 'webtiled',
+      group: 'Land Cover',
+      groupKey: 'GROUP_LC',
+      label: 'Global Mangrove',
+      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+      subDomains: [0, 1, 2, 3],
+      technicalName: 'global_mangroves'
+    }, {
       id: 'MASK',
       order: 100,
       type: 'dynamic',
@@ -669,7 +918,7 @@ export default {
   }],
     zh: [{
       id: 'TREE_COVER_LOSS',
-      order: 5,
+      order: 11,
       type: 'image',
       visible: false,
       group: '土地覆盖动态数据',
@@ -684,7 +933,7 @@ export default {
       technicalName: 'tree_cover_loss'
     }, {
       id: 'TREE_COVER_GAIN',
-      order: 6,
+      order: 12,
       type: 'image',
       visible: false,
       group: '土地覆盖动态数据',
@@ -695,8 +944,49 @@ export default {
       legendLayer: 1,
       technicalName: 'tree_cover_gain'
     }, {
+      id: 'IMAZON_SAD',
+      order: 13,
+      type: 'dynamic',
+      group: '土地覆盖动态数据',
+      groupKey: 'GROUP_LCD',
+      label: 'SAD alerts',
+      sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+      layerIds: [2]
+    }, {
+      id: 'GLAD_ALERTS',
+      order: 14,
+      type: 'glad',
+      url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
+      minDateValue: 15000,
+      maxDateValue: 16365,
+      confidence: [0, 1],
+      visible: false,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Glad Alerts',
+      sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
+      technicalName: 'umd_landsat_alerts'
+    }, {
+      id: 'TERRA_I_ALERTS',
+      order: 15,
+      type: 'terra',
+      url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+      imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
+      visible: false,
+      maxZoom: 10,
+      minDateValue: 4000, //We know data starts in 2004
+      // We are setting this way over max, the max date will get set set when TerraIControls mounts
+      // We set this over max so all data is visible by default, and it will update the dates when available
+      maxDateValue: 20000,
+      group: 'Land Cover Dynamics',
+      groupKey: 'GROUP_LCD',
+      label: 'Terra-I Alerts',
+      sublabel: '(monthly, 250m, Latin America, CIAT)',
+      technicalName: 'terra_i_alerts'
+    }, {
       id: 'ACTIVE_FIRES',
-      order: 7,
+      order: 16,
       type: 'dynamic',
       group: '土地覆盖动态数据',
       groupKey: 'GROUP_LCD',
@@ -749,12 +1039,22 @@ export default {
       id: 'AG_BIOMASS',
       order: 4,
       type: 'image',
-      group: 'Land Cover',
+      group: '土地覆盖',
       groupKey: 'GROUP_LC',
       label: 'Aboveground Live Woody Biomass Density',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
       legendLayer: 8,
       technicalName: 'aboveground_biomass'
+    }, {
+      id: 'GLOB_MANGROVE',
+      order: 5,
+      type: 'webtiled',
+      group: '土地覆盖',
+      groupKey: 'GROUP_LC',
+      label: 'Global Mangrove',
+      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+      subDomains: [0, 1, 2, 3],
+      technicalName: 'global_mangroves'
     }, {
       id: 'MASK',
       order: 100,

@@ -55,6 +55,7 @@ strings.en.ANALYSIS_SELECT_TYPE_LABEL = 'Select Analysis:';
 strings.en.ANALYSIS_TC_CHART_NAME = 'Tree cover loss in Hectares';
 strings.en.ANALYSIS_LCC_CHART_NAME = 'Land Cover Composition';
 strings.en.ANALYSIS_IFL_LABELS = ['Intact Forest'];
+strings.en.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.en.ANALYSIS_FIRES_PRE = 'There are';
 strings.en.ANALYSIS_FIRES_ACTIVE = 'active fires';
 strings.en.ANALYSIS_FIRES_POST = 'in the last 7 days';
@@ -68,6 +69,12 @@ strings.en.ANALYSIS_RESTORATION_ERROR = 'Area not meeting criteria for potential
 strings.en.ANALYSIS_GROUP_RESTORATION = 'Restoration potential for';
 strings.en.ANALYSIS_GROUP_SLOPE = 'Potential according to';
 strings.en.ANALYSIS_GROUP_OTHER = 'Other analysis';
+strings.en.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
+strings.en.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
+strings.en.ANALYSIS_SAD_ALERT_NAMES = {
+  degrad: 'Degradation',
+  defor: 'Deforestation'
+};
 //- Group and value should not be modified
 strings.en.ANALYSIS_SELECT_TYPE_OPTIONS = [
   { label: 'Slope',
@@ -92,6 +99,22 @@ strings.en.ANALYSIS_SELECT_TYPE_OPTIONS = [
   },
   { label: 'Intact forest loss',
     value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Global mangrove loss',
+    value: analysisKeys.MANGROVE_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'SAD alerts',
+    value: analysisKeys.SAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'GLAD alerts',
+    value: analysisKeys.GLAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Terra-I alerts',
+    value: analysisKeys.TERRA_I_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Active fires',
@@ -158,6 +181,20 @@ strings.en.TOOL_RESET = 'Reset';
 
 strings.en.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
 strings.en.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.en.MONTHS_LIST = [
+  { name: 'January', abbr: 'Jan'},
+  { name: 'February', abbr: 'Feb'},
+  { name: 'March', abbr: 'Mar'},
+  { name: 'April', abbr: 'Apr'},
+  { name: 'May', abbr: 'May'},
+  { name: 'June', abbr: 'Jun'},
+  { name: 'July', abbr: 'Jul'},
+  { name: 'August', abbr: 'Aug'},
+  { name: 'September', abbr: 'Sep'},
+  { name: 'October', abbr: 'Oct'},
+  { name: 'November', abbr: 'Nov'},
+  { name: 'December', abbr: 'Dec'}
+];
 
 
 
@@ -211,6 +248,7 @@ strings.fr.ANALYSIS_SELECT_TYPE_LABEL = 'Choisissez le type d\'analyse:';
 strings.fr.ANALYSIS_TC_CHART_NAME = 'Perte de couvert arboré en Hectares';
 strings.fr.ANALYSIS_LCC_CHART_NAME = 'Occupation du sol';
 strings.fr.ANALYSIS_IFL_LABELS = ['Forêts intactes'];
+strings.fr.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.fr.ANALYSIS_FIRES_PRE = 'Il y a';
 strings.fr.ANALYSIS_FIRES_ACTIVE = 'feux actifs';
 strings.fr.ANALYSIS_FIRES_POST = 'ces 7 derniers jours';
@@ -224,6 +262,12 @@ strings.fr.ANALYSIS_RESTORATION_ERROR = 'Région ne correspondant pas aux critè
 strings.fr.ANALYSIS_GROUP_RESTORATION = 'Potentiel de restauration pour';
 strings.fr.ANALYSIS_GROUP_SLOPE = 'Potentiel selon';
 strings.fr.ANALYSIS_GROUP_OTHER = 'Autre analyse';
+strings.fr.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
+strings.fr.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
+strings.fr.ANALYSIS_SAD_ALERT_NAMES = {
+  degrad: 'Degradation',
+  defor: 'Deforestation'
+};
 //- Group and value should not be modified
 strings.fr.ANALYSIS_SELECT_TYPE_OPTIONS = [
   { label: 'Pente',
@@ -248,6 +292,22 @@ strings.fr.ANALYSIS_SELECT_TYPE_OPTIONS = [
   },
   { label: 'Perte en forêts intactes',
     value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Global mangrove loss',
+    value: analysisKeys.MANGROVE_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'SAD alerts',
+    value: analysisKeys.SAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'GLAD alerts',
+    value: analysisKeys.GLAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Terra-I alerts',
+    value: analysisKeys.TERRA_I_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Feux actifs',
@@ -312,6 +372,23 @@ strings.fr.TOOL_ANALYSIS = 'Analyse';
 strings.fr.TOOL_TOGGLE = 'Basculer panneau';
 strings.fr.TOOL_RESET = 'Réinitialiser';
 
+strings.fr.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
+strings.fr.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.fr.MONTHS_LIST = [
+  { name: 'January', abbr: 'Jan'},
+  { name: 'February', abbr: 'Feb'},
+  { name: 'March', abbr: 'Mar'},
+  { name: 'April', abbr: 'Apr'},
+  { name: 'May', abbr: 'May'},
+  { name: 'June', abbr: 'Jun'},
+  { name: 'July', abbr: 'Jul'},
+  { name: 'August', abbr: 'Aug'},
+  { name: 'September', abbr: 'Sep'},
+  { name: 'October', abbr: 'Oct'},
+  { name: 'November', abbr: 'Nov'},
+  { name: 'December', abbr: 'Dec'}
+];
+
 //- NOTE: Spanish
 //- Supported Languages
 strings.es.LANG_EN = 'English';
@@ -362,6 +439,7 @@ strings.es.ANALYSIS_SELECT_TYPE_LABEL = 'Seleccionar Análisis:';
 strings.es.ANALYSIS_TC_CHART_NAME = 'Pérdida de la cobertura arbórea (ha)';
 strings.es.ANALYSIS_LCC_CHART_NAME = 'Composición de la cobertura del suelo';
 strings.es.ANALYSIS_IFL_LABELS = ['Bosque Intacto'];
+strings.es.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.es.ANALYSIS_FIRES_PRE = 'Hay';
 strings.es.ANALYSIS_FIRES_ACTIVE = 'incendios activos';
 strings.es.ANALYSIS_FIRES_POST = 'en los últimos 7 días';
@@ -375,6 +453,12 @@ strings.es.ANALYSIS_RESTORATION_ERROR = 'Área no coincide con los criterios/ Si
 strings.es.ANALYSIS_GROUP_RESTORATION = 'Potencial de restauración para';
 strings.es.ANALYSIS_GROUP_SLOPE = 'Potencial según';
 strings.es.ANALYSIS_GROUP_OTHER = 'Otro análisis';
+strings.es.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
+strings.es.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
+strings.es.ANALYSIS_SAD_ALERT_NAMES = {
+  degrad: 'Degradation',
+  defor: 'Deforestation'
+};
 //- Group and value should not be modified
 strings.es.ANALYSIS_SELECT_TYPE_OPTIONS = [
   { label: 'Pendiente',
@@ -399,6 +483,22 @@ strings.es.ANALYSIS_SELECT_TYPE_OPTIONS = [
   },
   { label: 'Paisajes Forestales Intactos',
     value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Global mangrove loss',
+    value: analysisKeys.MANGROVE_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'SAD alerts',
+    value: analysisKeys.SAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'GLAD alerts',
+    value: analysisKeys.GLAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Terra-I alerts',
+    value: analysisKeys.TERRA_I_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Incendios activos',
@@ -463,6 +563,23 @@ strings.es.TOOL_ANALYSIS = 'Análisis';
 strings.es.TOOL_TOGGLE = 'Alternar Pane';
 strings.es.TOOL_RESET = 'Reajustar';
 
+strings.es.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
+strings.es.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.es.MONTHS_LIST = [
+  { name: 'January', abbr: 'Jan'},
+  { name: 'February', abbr: 'Feb'},
+  { name: 'March', abbr: 'Mar'},
+  { name: 'April', abbr: 'Apr'},
+  { name: 'May', abbr: 'May'},
+  { name: 'June', abbr: 'Jun'},
+  { name: 'July', abbr: 'Jul'},
+  { name: 'August', abbr: 'Aug'},
+  { name: 'September', abbr: 'Sep'},
+  { name: 'October', abbr: 'Oct'},
+  { name: 'November', abbr: 'Nov'},
+  { name: 'December', abbr: 'Dec'}
+];
+
 //- NOTE: Portugese
 //- Supported Languages
 strings.pt.LANG_EN = 'English';
@@ -513,6 +630,7 @@ strings.pt.ANALYSIS_SELECT_TYPE_LABEL = 'Select Analysis:';
 strings.pt.ANALYSIS_TC_CHART_NAME = 'Tree cover loss in Hectares';
 strings.pt.ANALYSIS_LCC_CHART_NAME = 'Land Cover Composition';
 strings.pt.ANALYSIS_IFL_LABELS = ['Intact Forest'];
+strings.pt.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.pt.ANALYSIS_FIRES_PRE = 'There are';
 strings.pt.ANALYSIS_FIRES_ACTIVE = 'active fires';
 strings.pt.ANALYSIS_FIRES_POST = 'in the last 7 days';
@@ -526,6 +644,12 @@ strings.pt.ANALYSIS_RESTORATION_ERROR = 'Area not meeting criteria for potential
 strings.pt.ANALYSIS_GROUP_RESTORATION = 'Restoration potential for';
 strings.pt.ANALYSIS_GROUP_SLOPE = 'Potential according to';
 strings.pt.ANALYSIS_GROUP_OTHER = 'Other analysis';
+strings.pt.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
+strings.pt.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
+strings.pt.ANALYSIS_SAD_ALERT_NAMES = {
+  degrad: 'Degradation',
+  defor: 'Deforestation'
+};
 //- Group and value should not be modified
 strings.pt.ANALYSIS_SELECT_TYPE_OPTIONS = [
   { label: 'Slope',
@@ -550,6 +674,22 @@ strings.pt.ANALYSIS_SELECT_TYPE_OPTIONS = [
   },
   { label: 'Intact forest loss',
     value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Global mangrove loss',
+    value: analysisKeys.MANGROVE_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'SAD alerts',
+    value: analysisKeys.SAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'GLAD alerts',
+    value: analysisKeys.GLAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Terra-I alerts',
+    value: analysisKeys.TERRA_I_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Active fires',
@@ -614,6 +754,23 @@ strings.pt.TOOL_ANALYSIS = 'Analysis';
 strings.pt.TOOL_TOGGLE = 'Toggle Panel';
 strings.pt.TOOL_RESET = 'Reset';
 
+strings.pt.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
+strings.pt.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.pt.MONTHS_LIST = [
+  { name: 'January', abbr: 'Jan'},
+  { name: 'February', abbr: 'Feb'},
+  { name: 'March', abbr: 'Mar'},
+  { name: 'April', abbr: 'Apr'},
+  { name: 'May', abbr: 'May'},
+  { name: 'June', abbr: 'Jun'},
+  { name: 'July', abbr: 'Jul'},
+  { name: 'August', abbr: 'Aug'},
+  { name: 'September', abbr: 'Sep'},
+  { name: 'October', abbr: 'Oct'},
+  { name: 'November', abbr: 'Nov'},
+  { name: 'December', abbr: 'Dec'}
+];
+
 //- NOTE: Bahasa Indonesia
 //- Supported Languages
 strings.id.LANG_EN = 'English';
@@ -664,6 +821,7 @@ strings.id.ANALYSIS_SELECT_TYPE_LABEL = 'Select Analysis:';
 strings.id.ANALYSIS_TC_CHART_NAME = 'Tree cover loss in Hectares';
 strings.id.ANALYSIS_LCC_CHART_NAME = 'Land Cover Composition';
 strings.id.ANALYSIS_IFL_LABELS = ['Intact Forest'];
+strings.id.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.id.ANALYSIS_FIRES_PRE = 'There are';
 strings.id.ANALYSIS_FIRES_ACTIVE = 'active fires';
 strings.id.ANALYSIS_FIRES_POST = 'in the last 7 days';
@@ -677,6 +835,12 @@ strings.id.ANALYSIS_RESTORATION_ERROR = 'Area not meeting criteria for potential
 strings.id.ANALYSIS_GROUP_RESTORATION = 'Restoration potential for';
 strings.id.ANALYSIS_GROUP_SLOPE = 'Potential according to';
 strings.id.ANALYSIS_GROUP_OTHER = 'Other analysis';
+strings.id.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
+strings.id.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
+strings.id.ANALYSIS_SAD_ALERT_NAMES = {
+  degrad: 'Degradation',
+  defor: 'Deforestation'
+};
 //- Group and value should not be modified
 strings.id.ANALYSIS_SELECT_TYPE_OPTIONS = [
   { label: 'Slope',
@@ -701,6 +865,22 @@ strings.id.ANALYSIS_SELECT_TYPE_OPTIONS = [
   },
   { label: 'Intact forest loss',
     value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Global mangrove loss',
+    value: analysisKeys.MANGROVE_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'SAD alerts',
+    value: analysisKeys.SAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'GLAD alerts',
+    value: analysisKeys.GLAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Terra-I alerts',
+    value: analysisKeys.TERRA_I_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Active fires',
@@ -765,6 +945,23 @@ strings.id.TOOL_ANALYSIS = 'Analysis';
 strings.id.TOOL_TOGGLE = 'Toggle Panel';
 strings.id.TOOL_RESET = 'Reset';
 
+strings.id.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
+strings.id.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.id.MONTHS_LIST = [
+  { name: 'January', abbr: 'Jan'},
+  { name: 'February', abbr: 'Feb'},
+  { name: 'March', abbr: 'Mar'},
+  { name: 'April', abbr: 'Apr'},
+  { name: 'May', abbr: 'May'},
+  { name: 'June', abbr: 'Jun'},
+  { name: 'July', abbr: 'Jul'},
+  { name: 'August', abbr: 'Aug'},
+  { name: 'September', abbr: 'Sep'},
+  { name: 'October', abbr: 'Oct'},
+  { name: 'November', abbr: 'Nov'},
+  { name: 'December', abbr: 'Dec'}
+];
+
 //- NOTE: Mandarin
 //- Supported Languages
 strings.zh.LANG_EN = 'English';
@@ -815,6 +1012,7 @@ strings.zh.ANALYSIS_SELECT_TYPE_LABEL = '选择分析方式：';
 strings.zh.ANALYSIS_TC_CHART_NAME = '森林覆盖损失（单位：公顷）';
 strings.zh.ANALYSIS_LCC_CHART_NAME = '土地覆盖组成';
 strings.zh.ANALYSIS_IFL_LABELS = ['原生森林'];
+strings.zh.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.zh.ANALYSIS_FIRES_PRE = '共计';
 strings.zh.ANALYSIS_FIRES_ACTIVE = '活跃火点';
 strings.zh.ANALYSIS_FIRES_POST = '在过去7天里';
@@ -828,6 +1026,12 @@ strings.zh.ANALYSIS_RESTORATION_ERROR = '无数据 或者 区域不满足条件'
 strings.zh.ANALYSIS_GROUP_RESTORATION = '在生态修复可能性的层面';
 strings.zh.ANALYSIS_GROUP_SLOPE = '可能性原因';
 strings.zh.ANALYSIS_GROUP_OTHER = '其他分析';
+strings.zh.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
+strings.zh.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
+strings.zh.ANALYSIS_SAD_ALERT_NAMES = {
+  degrad: 'Degradation',
+  defor: 'Deforestation'
+};
 //- Group and value should not be modified
 strings.zh.ANALYSIS_SELECT_TYPE_OPTIONS = [
   { label: '倾斜度',
@@ -852,6 +1056,22 @@ strings.zh.ANALYSIS_SELECT_TYPE_OPTIONS = [
   },
   { label: '原生林损失',
     value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Global mangrove loss',
+    value: analysisKeys.MANGROVE_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'SAD alerts',
+    value: analysisKeys.SAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'GLAD alerts',
+    value: analysisKeys.GLAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Terra-I alerts',
+    value: analysisKeys.TERRA_I_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: '活跃火点',
@@ -916,5 +1136,22 @@ strings.zh.TOOL_PRINT = '打印';
 strings.zh.TOOL_ANALYSIS = '分析';
 strings.zh.TOOL_TOGGLE = '控制面板';
 strings.zh.TOOL_RESET = '重置';
+
+strings.zh.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
+strings.zh.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.zh.MONTHS_LIST = [
+  { name: 'January', abbr: 'Jan'},
+  { name: 'February', abbr: 'Feb'},
+  { name: 'March', abbr: 'Mar'},
+  { name: 'April', abbr: 'Apr'},
+  { name: 'May', abbr: 'May'},
+  { name: 'June', abbr: 'Jun'},
+  { name: 'July', abbr: 'Jul'},
+  { name: 'August', abbr: 'Aug'},
+  { name: 'September', abbr: 'Sep'},
+  { name: 'October', abbr: 'Oct'},
+  { name: 'November', abbr: 'Nov'},
+  { name: 'December', abbr: 'Dec'}
+];
 
 export { strings as default };

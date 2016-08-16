@@ -2,6 +2,7 @@
 import React, {PropTypes, Component} from 'react';
 import charts from 'utils/charts';
 import text from 'js/languages';
+import number from 'dojo/number';
 
 export default class BiomassChart extends Component {
 
@@ -21,17 +22,25 @@ export default class BiomassChart extends Component {
   componentDidMount() {
     const {data, colors, labels} = this.props;
     const {language} = this.context;
+    //- Data is in million tons for emission, multiply by a million so we can show tons
+    //- If they change this on the API Side, remove this code
+    Object.keys(data.biomass_loss_by_year).forEach((key) => {
+      data.biomass_loss_by_year[key] *= 1000000;
+    });
+
     const {series, grossLoss, grossEmissions} = charts.formatSeriesForBiomassLoss({
-      data: data,
+      data,
       lossColor: colors.loss,
       carbonColor: colors.carbon,
       lossName: text[language].ANALYSIS_CARBON_LOSS,
-      carbonName: 'MtCO2'
+      carbonName: 't CO2'
     });
 
+    //- Data is in million tons for emission, multiply by a million so we can show tons
+    // If they update the api, remove the * 1000000
     this.setState({
       loading: false,
-      grossEmissions,
+      grossEmissions: grossEmissions * 1000000,
       grossLoss
     });
 
@@ -52,11 +61,11 @@ export default class BiomassChart extends Component {
         <div className={loading ? 'hidden' : ''}>
           <div className='analysis__legend-container'>
             <span>{text[language].ANALYSIS_CARBON_LOSS}</span>
-            <span>{Math.round(grossLoss)} ha</span>
+            <span>{number.format(grossLoss, { places: 0 })} ha</span>
           </div>
           <div className='analysis__legend-container'>
             <span>{text[language].ANALYSIS_CARBON_EMISSION}</span>
-            <span>{Math.round(grossEmissions)}m MtCO2</span>
+            <span>{number.format(grossEmissions, { places: 0 })} t CO<sub>2</sub></span>
           </div>
         </div>
       </div>

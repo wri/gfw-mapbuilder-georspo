@@ -142,6 +142,14 @@ const formatResources = () => {
           return resources.aboveGroundBiomass;
         case layerKeys.IFL:
           return resources.intactForests;
+        case layerKeys.GLOB_MANGROVE:
+          return resources.mangroves;
+        case layerKeys.IMAZON_SAD:
+          return resources.sadAlerts;
+        case layerKeys.GLAD_ALERTS:
+          return resources.gladAlerts;
+        case layerKeys.TERRA_I_ALERTS:
+          return resources.terraIAlerts;
         default:
           return true;
       }

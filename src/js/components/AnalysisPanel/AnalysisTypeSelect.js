@@ -53,6 +53,14 @@ export default class AnalysisTypeSelect extends Component {
           return settings.landCover;
         case analysisKeys.FIRES:
           return settings.activeFires;
+        case analysisKeys.MANGROVE_LOSS:
+          return settings.mangroves;
+        case analysisKeys.SAD_ALERTS:
+          return settings.sadAlerts;
+        case analysisKeys.GLAD_ALERTS:
+          return settings.gladAlerts;
+        case analysisKeys.TERRA_I_ALERTS:
+          return settings.terraIAlerts;
         case analysisKeys.TC_LOSS:
           return appUtils.containsObject(layers, 'id', layerKeys.TREE_COVER_LOSS);
         case analysisKeys.TC_LOSS_GAIN:
@@ -65,7 +73,7 @@ export default class AnalysisTypeSelect extends Component {
     if (settings.restorationModule) {
       const {restorationOptions} = settings.labels[language];
       restorationOptions.forEach((restorationOption) => {
-        options.unshift({
+        options.push({
           value: restorationOption.id,
           label: restorationOption.label,
           group: analysisKeys.ANALYSIS_GROUP_RESTORATION

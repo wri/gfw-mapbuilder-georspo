@@ -18,8 +18,8 @@ export default class SlopeBarChart extends Component {
 }
 
 SlopeBarChart.propTypes = {
-  counts: PropTypes.array.isRequried,
-  labels: PropTypes.array.isRequried,
-  colors: PropTypes.array.isRequried,
-  tooltips: PropTypes.array.isRequried
+  counts: PropTypes.array.isRequired,
+  labels: PropTypes.array.isRequired,
+  colors: PropTypes.array.isRequired,
+  tooltips: PropTypes.array.isRequired
 };

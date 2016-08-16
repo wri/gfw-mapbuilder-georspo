@@ -1,5 +1,6 @@
 import FindParameters from 'esri/tasks/FindParameters';
 import layerKeys from 'constants/LayerConstants';
+import StatisticDefinition from 'esri/tasks/StatisticDefinition';
 import QueryTask from 'esri/tasks/QueryTask';
 import FindTask from 'esri/tasks/FindTask';
 import esriRequest from 'esri/request';
@@ -134,7 +135,22 @@ const request = {
     }
 
     return promise;
+  },
+
+  getLayerStatistics: (options) => {
+    const {url, outFields, type, field} = options;
+    const task = new QueryTask(url);
+    const query = new Query();
+    const stat = new StatisticDefinition();
+    stat.statisticType = type;
+    stat.onStatisticField = stat.outStatisticFieldName = field;
+
+    query.returnGeometry = false;
+    query.outFields = outFields;
+    query.outStatistics = [stat];
+    return task.execute(query);
   }
+
 
 };
 

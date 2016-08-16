@@ -1,7 +1,10 @@
 import DensityDisplay from 'components/LayerPanel/DensityDisplay';
+import TerraIControls from 'components/LayerPanel/TerraIControls';
 import LayerCheckbox from 'components/LayerPanel/LayerCheckbox';
 import FiresControls from 'components/LayerPanel/FiresControls';
 import LossControls from 'components/LayerPanel/LossControls';
+import GladControls from 'components/LayerPanel/GladControls';
+import SadControls from 'components/LayerPanel/SadControls';
 import LayerGroup from 'components/LayerPanel/LayerGroup';
 import BasemapGroup from 'components/LayerPanel/BasemapGroup';
 import WRIBasemapLayer from 'components/LayerPanel/WRIBasemapLayer';
@@ -114,17 +117,32 @@ export default class LayerPanel extends Component {
       let childComponent;
       switch (layer.id) {
         case 'ACTIVE_FIRES':
-          childComponent = <FiresControls loaded={this.props.loaded} {...props} />;
+          childComponent = <FiresControls loaded={props.loaded} {...props} />;
           break;
         case 'TREE_COVER_LOSS':
           childComponent = [
-            <LossControls key='tcl_loss_control' layerId={layer.id} loaded={this.props.loaded} {...props} />,
+            <LossControls key='tcl_loss_control' layerId={layer.id} loaded={props.loaded} {...props} />,
             <DensityDisplay key='tcl_density-display' {...props} />
           ];
           break;
         case LayerKeys.TREE_COVER:
           childComponent = <DensityDisplay {...props} />;
           break;
+        case LayerKeys.IMAZON_SAD:
+          childComponent = <SadControls
+              layer={layer}
+              startMonth={props.imazonStartMonth}
+              endMonth={props.imazonEndMonth}
+              startYear={props.imazonStartYear}
+              endYear={props.imazonEndYear}
+            />;
+          break;
+        case LayerKeys.GLAD_ALERTS:
+          childComponent = <GladControls layer={layer} />;
+        break;
+        case LayerKeys.TERRA_I_ALERTS:
+          childComponent = <TerraIControls layer={layer} />;
+        break;
         default:
           childComponent = null;
       }

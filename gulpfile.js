@@ -49,7 +49,8 @@ var config = {
     filesaver: { src: 'build/vendor/file-saver.js/FileSaver.js', dest: 'dist/' + version + '/vendor/file-saver.js/'},
     jquery: { src: 'build/vendor/jquery/dist/jquery.min.js', dest: 'dist/' + version + '/vendor/jquery/dist/'},
     ion: { src: 'build/vendor/ion.rangeslider/**/*', dest: 'dist/' + version + '/vendor/ion.rangeslider/'},
-    resource: { src: 'build/resources.js', dest: 'dist/'}
+    resource: { src: 'build/resources.js', dest: 'dist/'},
+    pickadate: { src: 'build/vendor/pickadate/**/*', dest: 'dist/' + version + '/vendor/pickadate/'}
   }
 };
 
@@ -115,6 +116,8 @@ gulp.task('copy', function () {
     .pipe(gulp.dest(config.copy.filesaver.dest));
   gulp.src(config.copy.resource.src)
     .pipe(gulp.dest(config.copy.resource.dest));
+  gulp.src(config.copy.pickadate.src)
+    .pipe(gulp.dest(config.copy.pickadate.dest));
 });
 
 gulp.task('prerender', function () {

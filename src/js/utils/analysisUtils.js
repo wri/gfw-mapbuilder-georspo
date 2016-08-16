@@ -5,6 +5,7 @@ import {analysisConfig} from 'js/config';
 import esriRequest from 'esri/request';
 import Query from 'esri/tasks/query';
 import Deferred from 'dojo/Deferred';
+import utils from 'utils/AppUtils';
 import lang from 'dojo/_base/lang';
 import all from 'dojo/promise/all';
 
@@ -44,6 +45,62 @@ const formatters = {
     return {
       fireCount: response.features ? response.features.length : 0
     };
+  },
+  sadAlerts: (response) => {
+    let date, month, year, type, area;
+    const {features} = response;
+    const bin = {};
+    /**
+    * Bin Structure
+    * {
+    *   year: {
+    *     month: {
+    *       type: total
+    *     }
+    *   }
+    * }
+    */
+    features.forEach((feature) => {
+      date = new Date(feature.attributes.date);
+      year = date.getFullYear();
+      month = date.getMonth();
+      type = feature.attributes.data_type;
+      area = feature.attributes['st_area(shape)'];
+
+      if (bin[year] && bin[year][month] && bin[year][month][type]) {
+        bin[year][month][type] += area;
+      } else if (bin[year] && bin[year][month]) {
+        bin[year][month][type] = area;
+      } else if (bin[year]) {
+        bin[year][month] = {};
+        bin[year][month][type] = area;
+      } else {
+        bin[year] = {};
+        bin[year][month] = {};
+        bin[year][month][type] = area;
+      }
+    });
+
+    return {
+      alerts: bin
+    };
+  },
+  gladAlerts: function (year, counts) {
+    var results = [];
+    for (let i = 0; i < counts.length; i++) {
+      results.push([new Date(year, 0, i).getTime(), counts[i] || 0]);
+    }
+    return results;
+  },
+  terraIAlerts: function (counts) {
+    var results = [];
+    for (let i = 1; i < counts.length; i++) {
+      if (counts[i]) {
+        const {year, day} = utils.getDateFromGridCode(i);
+        results.push([new Date(year, 0, day).getTime(), counts[i]]);
+      }
+    }
+    return results;
   },
   //TODO: Cleanup and remove noSlice, make it an explicit option so using this function does not pass in an anonymous boolean
   getCounts: (response, pixelSize, noSlice) => {
@@ -209,6 +266,63 @@ export default {
     return promise;
   },
 
+  /**
+  * Get SAD Alerts and format results
+  */
+  getSADAlerts: (config, geometry) => {
+    const queryTask = new QueryTask(config.url);
+    const promise = new Deferred();
+    const query = new Query();
+    query.geometry = geometry;
+    query.returnGeometry = false;
+    query.outFields = config.outFields;
+    query.where = '1 = 1';
+    queryTask.execute(query).then(function (response) {
+      promise.resolve(formatters.sadAlerts(response));
+    }, (error) => {
+      promise.resolve(formatters.sadAlerts(error));
+    });
+    return promise;
+  },
+
+  getGLADAlerts: function (config, geometry) {
+    const promise = new Deferred();
+    all([
+      this.getMosaic(config.lockrasters['2015'], geometry, config.url),
+      this.getMosaic(config.lockrasters['2016'], geometry, config.url)
+    ]).then(results => {
+      let alerts = [];
+      alerts = alerts.concat(formatters.gladAlerts('2015', results[0].counts));
+      alerts = alerts.concat(formatters.gladAlerts('2016', results[1].counts));
+      promise.resolve(alerts);
+    });
+    return promise;
+  },
+
+  getTerraIAlerts: function (config, geometry) {
+    const promise = new Deferred();
+    const content = {
+      geometry: geometry
+    };
+
+    const success = ({histograms}) => {
+      const counts = histograms && histograms.length && histograms[0].counts || [];
+      promise.resolve(formatters.terraIAlerts(counts));
+    };
+
+    const failure = (error) => {
+      if (errorIsInvalidImageSize(error) && content.pixelSize !== 500) {
+        content.pixelSize = 500;
+        computeHistogram(config.url, content, success, failure);
+      } else {
+        promise.resolve(error);
+      }
+    };
+
+    computeHistogram(config.url, content, success, failure);
+    return promise;
+  },
+
   getCountsWithDensity: (rasterId, geometry, canopyDensity) => {
     const promise = new Deferred();
     const tcd = analysisConfig.tcd;
@@ -238,7 +352,7 @@ export default {
     return promise;
   },
 
-  getMosaic: (lockRaster, geometry) => {
+  getMosaic: (lockRaster, geometry, url) => {
     const promise = new Deferred();
     const {imageService, pixelSize} = analysisConfig;
     const content = {
@@ -254,13 +368,13 @@ export default {
     const failure = (error) => {
       if (errorIsInvalidImageSize(error) && content.pixelSize !== 500) {
         content.pixelSize = 500;
-        computeHistogram(imageService, content, success, failure);
+        computeHistogram(url || imageService, content, success, failure);
       } else {
         promise.resolve(error);
       }
     };
 
-    computeHistogram(imageService, content, success, failure);
+    computeHistogram(url || imageService, content, success, failure);
     return promise;
   },
 

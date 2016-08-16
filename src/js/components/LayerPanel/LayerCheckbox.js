@@ -32,13 +32,17 @@ const hideSubLayer = function hideSubLayer (layerItem) {
 };
 
 const showLayer = function showLayer (map, layerId) {
-  const layer = map.getLayer(layerId);
-  if (layer) { layer.show(); }
+  if (map && map.getLayer) {
+    const layer = map.getLayer(layerId);
+    if (layer) { layer.show(); }
+  }
 };
 
 const hideLayer = function hideLayer (map, layerId) {
-  const layer = map.getLayer(layerId);
-  if (layer) { layer.hide(); }
+  if (map && map.getLayer) {
+    const layer = map.getLayer(layerId);
+    if (layer) { layer.hide(); }
+  }
 };
 
 export default class LayerCheckbox extends Component {

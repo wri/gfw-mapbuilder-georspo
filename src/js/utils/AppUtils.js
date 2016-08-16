@@ -165,6 +165,50 @@ const utils = {
 
     }
 
+  },
+
+  /**
+  * Universal pad function, takes pad(12, '*', 5) and return '***12'
+  */
+  pad: (content, padding, length) => {
+    let item = content.toString(), i = 0;
+    while (i < length) {
+      item = padding + item;
+      i++;
+    }
+    return item.slice(item.length - length);
+  },
+
+  getJulianDate: (timestamp) => {
+    const day = 1000 * 60 * 60 * 24;
+    const newDate = new Date(timestamp);
+    const year = new Date(newDate.getFullYear(), 0, 0);
+    const currentDay = Math.ceil((newDate - year) / day);
+    //- Year should be 15000 or 16000
+    const julianYear = (newDate.getFullYear() - 2000) * 1000;
+    return julianYear + currentDay;
+  },
+
+  /**
+  * Used for calculating the date of a grid code in the Terra-I Layer
+  */
+  getDateFromGridCode: (gridCode) => {
+    const year = Math.floor((gridCode - 1) / 23) + 2004;
+    const day = (((gridCode - 1) % 23) * 16) + 1;
+    return { year, day };
+  },
+
+  /**
+  * Inclusive Array generator
+  */
+  range: (start, end) => {
+    const result = [];
+    let min = start;
+    while (min <= end) {
+      result.push(min);
+      ++min;
+    }
+    return result;
   }
 
 };

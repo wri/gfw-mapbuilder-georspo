@@ -10,7 +10,6 @@ export default class Modal extends Component {
   };
 
   renderFromMetadataAPI (info) {
-    console.log(info);
     const {language} = this.context;
     return (
       <div className='layer-modal-content'>
