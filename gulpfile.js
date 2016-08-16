@@ -127,7 +127,7 @@ gulp.task('prerender', function () {
       requirejsProfile = {
         buildProfile: path.join(__dirname, 'rjs.main.js'),
         map: {
-          ignorePatterns: [/esri\//, /dojo\//, /dijit\//],
+          ignorePatterns: [/esri\//, /dojo\//, /dijit\//, /pickadate/],
           moduleRoot: path.join(__dirname, 'build/js'),
           remapModule: 'js/config'
         }

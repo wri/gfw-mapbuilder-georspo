@@ -7,7 +7,6 @@
     "jquery": "~2.2.2",
     "ion.rangeslider": "~2.1.2",
     "file-saver.js": "file-saver-saveas-js#~1.20150507.2",
-    "kalendae": "~0.4.1",
     "pickadate": "~3.5.6"
   }
 }

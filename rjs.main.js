@@ -12,6 +12,9 @@
     'react': 'vendor/react/react.min',
     'react-dom': 'vendor/react/react-dom.min',
     'babel-polyfill': 'vendor/babel-polyfill/browser-polyfill',
+    'jquery': 'vendor/jquery/dist/jquery.min',
+    'picker': 'vendor/pickadate/lib/compressed/picker',
+    'pickadate': 'vendor/pickadate/lib/compressed/picker.date',
 		// My configured packages
     'js': 'js',
     'vendor': 'vendor',
