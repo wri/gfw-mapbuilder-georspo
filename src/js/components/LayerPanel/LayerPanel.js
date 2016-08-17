@@ -126,6 +126,7 @@ export default class LayerPanel extends Component {
           ];
           break;
         case LayerKeys.TREE_COVER:
+        case LayerKeys.AG_BIOMASS:
           childComponent = <DensityDisplay {...props} />;
           break;
         case LayerKeys.IMAZON_SAD:

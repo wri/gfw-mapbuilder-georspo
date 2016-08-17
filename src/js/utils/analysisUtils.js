@@ -102,7 +102,6 @@ const formatters = {
     }
     return results;
   },
-  //TODO: Cleanup and remove noSlice, make it an explicit option so using this function does not pass in an anonymous boolean
   getCounts: (response, pixelSize, noSlice) => {
     const {histograms} = response;
     let counts = histograms && histograms.length === 1 ? histograms[0].counts : [];
@@ -111,6 +110,13 @@ const formatters = {
     return {
       counts: noSlice ? counts : counts.slice(1)
     };
+  },
+  getRestorationValues: (response) => {
+    const {histograms} = response;
+    let counts = histograms && histograms.length === 1 ? histograms[0].counts : [];
+    //- Convert the pixel values to Hectares, Math provided by Thomas Maschler
+    counts = counts.map((value) => value * 0.09);
+    return { counts };
   }
 };
 
@@ -156,7 +162,6 @@ const computeHistogram = (url, content, success, fail) => {
   if (content.mosaicRule) { content.mosaicRule = JSON.stringify(content.mosaicRule); }
   //- Set some defaults if they are not set
   content.geometryType = content.goemetryType || 'esriGeometryPolygon';
-  content.pixelSize = content.pixelSize || 100;
   content.f = content.f || 'json';
 
   if (success && fail) {
@@ -474,8 +479,8 @@ export default {
 
   getRestoration: (url, rasterId, geometry) => {
     const promise = new Deferred();
-    const {pixelSize, restoration} = analysisConfig;
-    const content = { pixelSize: pixelSize, geometry: geometry };
+    const {restoration} = analysisConfig;
+    const content = { geometry: geometry };
     //- Generate rendering rules for all the options
     const lcContent = lang.delegate(content, {renderingRule: rules.arithmetic(restoration.landCoverId, rasterId, OP_MULTIPLY)});
     const tcContent = lang.delegate(content, {renderingRule: rules.arithmetic(restoration.treeCoverId, rasterId, OP_MULTIPLY)});
@@ -491,10 +496,10 @@ export default {
       //- the first value is No Data, don't slice as the charts formatting function will remove this
       if (!results.error) {
         promise.resolve({
-          landCover: results[0] ? formatters.getCounts(results[0], content.pixelSize, true).counts : [0],
-          treeCover: results[1] ? formatters.getCounts(results[1], content.pixelSize, true).counts : [0],
-          population: results[2] ? formatters.getCounts(results[2], content.pixelSize, true).counts : [0],
-          slope: results[3] ? formatters.getCounts(results[3], content.pixelSize, true).counts : [0]
+          landCover: results[0] ? formatters.getRestorationValues(results[0]).counts : [0],
+          treeCover: results[1] ? formatters.getRestorationValues(results[1]).counts : [0],
+          population: results[2] ? formatters.getRestorationValues(results[2]).counts : [0],
+          slope: results[3] ? formatters.getRestorationValues(results[3]).counts : [0]
         });
       } else {
         promise.resolve(results);

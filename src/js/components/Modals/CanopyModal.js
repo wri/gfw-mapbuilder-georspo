@@ -44,9 +44,15 @@ export default class CanopyModal extends Component {
 
   componentDidUpdate(prevProps, prevState, prevContext) {
     //- Set the default canopy density when the map loads
-    if (!prevContext.map.loaded && this.context.map.loaded) {
+    const {map} = this.context;
+    if (!prevContext.map.loaded && map.loaded) {
       const {canopyDensity} = mapStore.getState();
-      this.updateTreeCoverDefinitions(canopyDensity);
+      //- Wait for layers to load
+      const signal = map.on('update-end', () => {
+        signal.remove(); //- Remove the event so it does not continue ot fire
+        this.updateTreeCoverDefinitions(canopyDensity);
+        this.updateAGBiomassLayer(canopyDensity);
+      });
     }
   }
 
@@ -54,9 +60,9 @@ export default class CanopyModal extends Component {
     const {map, settings} = this.context;
     if (map.loaded) {
       //- Get the layer config, I am hardcoding en becuase I do not need anything language specific, just its config
-      let layerConfig = utils.getObject(settings.layers.en, 'id', layerKeys.TREE_COVER);
-      let renderingRule = rasterFuncs.getColormapRemap(layerConfig.colormap, [density, layerConfig.inputRange[1]], layerConfig.outputRange);
-      let layer = map.getLayer(layerKeys.TREE_COVER);
+      const layerConfig = utils.getObject(settings.layers.en, 'id', layerKeys.TREE_COVER);
+      const renderingRule = rasterFuncs.getColormapRemap(layerConfig.colormap, [density, layerConfig.inputRange[1]], layerConfig.outputRange);
+      const layer = map.getLayer(layerKeys.TREE_COVER);
 
       if (layer) {
         layer.setRenderingRule(renderingRule);
@@ -64,9 +70,22 @@ export default class CanopyModal extends Component {
     }
   };
 
+  updateAGBiomassLayer = (density) => {
+    const {map} = this.context;
+    if (map.loaded) {
+      const layer = map.getLayer(layerKeys.AG_BIOMASS);
+      const mosaicRule = rasterFuncs.getBiomassMosaicRule(density);
+
+      if (layer) {
+        layer.setMosaicRule(mosaicRule);
+      }
+    }
+  };
+
   sliderChanged = (data) => {
     this.updateTreeCoverDefinitions(data.from_value);
-    //- Update the store, this will allow any other layers interested in this information to react
+    this.updateAGBiomassLayer(data.from_value);
+    //- Update the store, this will allow any other components interested in this information to react
     mapActions.updateCanopyDensity(data.from_value);
   };
 
