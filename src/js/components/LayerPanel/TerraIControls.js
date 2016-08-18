@@ -54,9 +54,9 @@ export default class TerraIControls extends Component {
         const min = new Date(((layer.minDateValue / 1000) + 2000).toString(), 0, 1);
         const max = new Date(((maxDateValue / 1000) + 2000).toString(), 0, maxDateValue % 1000);
         //- Create the date pickers
-        const {fromCalendar, toCalendar} = this.refs;
+        const {fromTerraCalendar, toTerraCalendar} = this.refs;
         //- Starting date
-        $(fromCalendar).pickadate({
+        $(fromTerraCalendar).pickadate({
           today: 'Jump to today',
           min: min,
           max: max,
@@ -68,7 +68,7 @@ export default class TerraIControls extends Component {
           onStart: function () { this.set('select', min); }
         });
         //- Ending date
-        $(toCalendar).pickadate({
+        $(toTerraCalendar).pickadate({
           today: 'Jump to today',
           min: min,
           max: max,
@@ -118,11 +118,11 @@ export default class TerraIControls extends Component {
         <div className='terra-i-controls__calendars'>
           <div className='terra-i-controls__calendars--row'>
             <label>{text[language].TIMELINE_START}</label>
-            <input className='fa-button sml white pointer' type='text' ref='fromCalendar' />
+            <input className='fa-button sml white pointer' type='text' ref='fromTerraCalendar' />
           </div>
           <div className='terra-i-controls__calendars--row'>
             <label>{text[language].TIMELINE_END}</label>
-            <input className='fa-button sml white pointer' type='text' ref='toCalendar' />
+            <input className='fa-button sml white pointer' type='text' ref='toTerraCalendar' />
           </div>
         </div>
       </div>

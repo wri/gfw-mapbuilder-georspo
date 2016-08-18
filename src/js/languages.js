@@ -25,6 +25,8 @@ strings.en.DOCS_TYPE = 'Type';
 strings.en.DOCS_AUTHOR = 'Author';
 strings.en.DOCS_YEAR = 'Year';
 strings.en.DOCS_PDF = 'PDF';
+strings.en.DOCS_NAME = 'Name';
+strings.en.DOCS_SIZE = 'Size';
 //- Info Window
 strings.en.INFO_WINDOW_INSTRUCTION_HEADER = 'Select a shape on the map';
 strings.en.INFO_WINDOW_INSTRUCTION_LIST = [
@@ -219,6 +221,8 @@ strings.fr.DOCS_TYPE = 'Type';
 strings.fr.DOCS_AUTHOR = 'Auteur';
 strings.fr.DOCS_YEAR = 'Année';
 strings.fr.DOCS_PDF = 'PDF';
+strings.fr.DOCS_NAME = 'Name';
+strings.fr.DOCS_SIZE = 'Size';
 //- Info Window
 strings.fr.INFO_WINDOW_INSTRUCTION_HEADER = 'Sélectionnez un polygone sur la carte';
 strings.fr.INFO_WINDOW_INSTRUCTION_LIST = [
@@ -410,6 +414,8 @@ strings.es.DOCS_TYPE = 'Tipo';
 strings.es.DOCS_AUTHOR = 'Autor';
 strings.es.DOCS_YEAR = 'Año';
 strings.es.DOCS_PDF = 'PDF';
+strings.es.DOCS_NAME = 'Name';
+strings.es.DOCS_SIZE = 'Size';
 //- Info Window
 strings.es.INFO_WINDOW_INSTRUCTION_HEADER = 'Seleccionar un polígono en el mapa';
 strings.es.INFO_WINDOW_INSTRUCTION_LIST = [
@@ -601,6 +607,8 @@ strings.pt.DOCS_TYPE = 'Type';
 strings.pt.DOCS_AUTHOR = 'Author';
 strings.pt.DOCS_YEAR = 'Year';
 strings.pt.DOCS_PDF = 'PDF';
+strings.pt.DOCS_NAME = 'Name';
+strings.pt.DOCS_SIZE = 'Size';
 //- Info Window
 strings.pt.INFO_WINDOW_INSTRUCTION_HEADER = 'Select a shape on the map';
 strings.pt.INFO_WINDOW_INSTRUCTION_LIST = [
@@ -792,6 +800,8 @@ strings.id.DOCS_TYPE = 'Type';
 strings.id.DOCS_AUTHOR = 'Author';
 strings.id.DOCS_YEAR = 'Year';
 strings.id.DOCS_PDF = 'PDF';
+strings.id.DOCS_NAME = 'Name';
+strings.id.DOCS_SIZE = 'Size';
 //- Info Window
 strings.id.INFO_WINDOW_INSTRUCTION_HEADER = 'Select a shape on the map';
 strings.id.INFO_WINDOW_INSTRUCTION_LIST = [
@@ -983,6 +993,8 @@ strings.zh.DOCS_TYPE = '类别';
 strings.zh.DOCS_AUTHOR = '作者';
 strings.zh.DOCS_YEAR = '年份';
 strings.zh.DOCS_PDF = 'PDF';
+strings.zh.DOCS_NAME = 'Name';
+strings.zh.DOCS_SIZE = 'Size';
 //- Info Window
 strings.zh.INFO_WINDOW_INSTRUCTION_HEADER = '在地图上选择图形';
 strings.zh.INFO_WINDOW_INSTRUCTION_LIST = [

@@ -1,4 +1,16 @@
 import RasterFunction from 'esri/layers/RasterFunction';
+import MosaicRule from 'esri/layers/MosaicRule';
+
+//- These tells me the raster id needed to filter the biomass layer based on canopyDensity
+const BIOMASS_DENSITY_ID_LOOKUP = {
+  '10': '1',
+  '15': '2',
+  '20': '3',
+  '25': '4',
+  '30': '5',
+  '50': '6',
+  '75': '7'
+};
 
 export default {
 
@@ -35,6 +47,16 @@ export default {
         'min_density': miniumCanopyDensity,
         'max_density': 100
       }
+    });
+  },
+
+  getBiomassMosaicRule: (miniumCanopyDensity) => {
+    return new MosaicRule({
+      'where': `OBJECTID = ${BIOMASS_DENSITY_ID_LOOKUP[miniumCanopyDensity]}`,
+      'mosaicMethod': 'esriMosaicNorthwest',
+      'mosaicOperation': 'MT_FIRST',
+      'ascending': true,
+      'sortField': ''
     });
   }
 

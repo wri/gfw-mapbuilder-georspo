@@ -164,6 +164,7 @@ export default class Map extends Component {
             maskLayer.show();
           }
         }
+
         //- Add click event for user-features layer
         const userFeaturesLayer = response.map.getLayer(layerKeys.USER_FEATURES);
         userFeaturesLayer.on('click', (evt) => {
@@ -180,7 +181,9 @@ export default class Map extends Component {
       }
       //- Make the map a global in debug mode for easier debugging
       if (brApp.debug) { brApp.map = response.map; }
-      //- Update local state since the map is ready now
+
+      //- Update local state since the map is ready now, keep above userFeaturesLayer
+      //- If that layer has an invalid token, it may cause issues
       this.setState({
         webmapInfo: response.itemInfo.itemData,
         map: response.map

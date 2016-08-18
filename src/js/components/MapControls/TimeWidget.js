@@ -30,19 +30,20 @@ export default class TimeWidget extends Component {
   componentDidMount () {
     const {timeInfo, sliderProps} = this.props;
     // Create a default time extent based on the layers time info
-    console.log(timeInfo);
     const timeExtent = createTimeExtent(timeInfo.timeExtent[0], timeInfo.timeExtent[1]);
     mapActions.updateTimeExtent({
       start: timeExtent.startTime.getFullYear(),
       end: timeExtent.startTime.getFullYear()
     });
-    // Create the slidertemp1
+    // Create the slider and set some defaults
     this.slider = new TimeSlider({ style: 'width: 100%;'}, this.refs.timeSlider);
     this.slider.setThumbCount(sliderProps.thumbCount);
     this.slider.createTimeStopsByTimeInterval(timeExtent, sliderProps.timeStopInterval.interval, sliderProps.timeStopInterval.units);
     const labels = this.slider.timeStops.map(time => time.getFullYear());
     this.slider.setLabels(labels);
     this.slider.setThumbIndexes([labels.indexOf(getYear(timeExtent.startTime)), labels.indexOf(getYear(timeExtent.endTime))]);
+    this.slider.setLoop(true);
+    this.slider.setThumbMovingRate(2000);
     //- Remove Next and Previous Buttons
     this.slider.nextBtn.domNode.style.display = 'none';
     this.slider.previousBtn.domNode.style.display = 'none';
