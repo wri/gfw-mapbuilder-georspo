@@ -54,9 +54,9 @@ export default class TerraIControls extends Component {
         const min = new Date(((layer.minDateValue / 1000) + 2000).toString(), 0, 1);
         const max = new Date(((maxDateValue / 1000) + 2000).toString(), 0, maxDateValue % 1000);
         //- Create the date pickers
-        const {fromCalendar, toCalendar} = this.refs;
+        const {fromTerraCalendar, toTerraCalendar} = this.refs;
         //- Starting date
-        $(fromCalendar).pickadate({
+        this.fromPicker = $(fromTerraCalendar).pickadate({
           today: 'Jump to today',
           min: min,
           max: max,
@@ -66,9 +66,9 @@ export default class TerraIControls extends Component {
           klass: { picker: 'picker__top' },
           onSet: this.didSetStartDate,
           onStart: function () { this.set('select', min); }
-        });
+        }).pickadate('picker');
         //- Ending date
-        $(toCalendar).pickadate({
+        this.toPicker = $(toTerraCalendar).pickadate({
           today: 'Jump to today',
           min: min,
           max: max,
@@ -78,7 +78,7 @@ export default class TerraIControls extends Component {
           klass: { picker: 'picker__top' },
           onSet: this.didSetEndDate,
           onStart: function () { this.set('select', max); }
-        });
+        }).pickadate('picker');
       });
       xhr.open('GET', `${layer.imageServer}?f=json`, true);
       xhr.send();
@@ -89,6 +89,9 @@ export default class TerraIControls extends Component {
     if (select) {
       this.setState({ startDate: new Date(select) });
       this.updateDateRange();
+      if (this.fromPicker && this.toPicker) {
+        this.toPicker.set('min', this.fromPicker.get('select'));
+      }
     }
   };
 
@@ -96,6 +99,9 @@ export default class TerraIControls extends Component {
     if (select) {
       this.setState({ endDate: new Date(select) });
       this.updateDateRange();
+      if (this.fromPicker && this.toPicker) {
+        this.fromPicker.set('max', this.toPicker.get('select'));
+      }
     }
   };
 
@@ -118,11 +124,11 @@ export default class TerraIControls extends Component {
         <div className='terra-i-controls__calendars'>
           <div className='terra-i-controls__calendars--row'>
             <label>{text[language].TIMELINE_START}</label>
-            <input className='fa-button sml white pointer' type='text' ref='fromCalendar' />
+            <input className='fa-button sml white pointer' type='text' ref='fromTerraCalendar' />
           </div>
           <div className='terra-i-controls__calendars--row'>
             <label>{text[language].TIMELINE_END}</label>
-            <input className='fa-button sml white pointer' type='text' ref='toCalendar' />
+            <input className='fa-button sml white pointer' type='text' ref='toTerraCalendar' />
           </div>
         </div>
       </div>

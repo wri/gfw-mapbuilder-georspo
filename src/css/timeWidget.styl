@@ -83,11 +83,21 @@
   background none
 
 .esriTimeSlider td:first-child .tsPauseButton
-  background $darkGray
-  margin-right 5px
-  height 12px
-  width 12px
-
+  background transparent
+  position relative
+  height 16px
+  width 16px
+  &:before
+  &:after
+    background $darkGray
+    position absolute
+    height 14px
+    content ""
+    width 4px
+    left -2px
+    top 1px
+  &:after
+    left 6px
 
 //  & .irs-line-left
 //  & .irs-line-right

@@ -48,12 +48,10 @@ class DocumentResults extends Component {
       layer.queryAttachmentInfos(selectedFeature.attributes[idfield], (res) => {
         const documents = res.map((item) => ({
           name: item.name,
-          type: item.contentType,
-          author: 'N/A',
-          year: 'N/A',
+          size: `${Math.round(item.size / 1000)}KB`,
           url: item.url
         }));
-
+        console.log(res);
         this.setState({ loading: false, documents });
       }, () => {
         this.setState({ loading: false, documents: [] });
@@ -107,18 +105,16 @@ class DocumentResults extends Component {
     return (
       <table className='documents-table'>
         <thead>
-          <th>{text[language].DOCS_TYPE}</th>
-          <th>{text[language].DOCS_AUTHOR}</th>
-          <th>{text[language].DOCS_YEAR}</th>
+          <th>{text[language].DOCS_NAME}</th>
+          <th>{text[language].DOCS_SIZE}</th>
           <th>{text[language].DOCS_PDF}</th>
         </thead>
         <tbody>
           {documents.map((doc) => {
             return (
               <tr title={doc.name}>
-                <td>{doc.type}</td>
-                <td>{doc.author}</td>
-                <td>{doc.year}</td>
+                <td title={doc.name}>{doc.name}</td>
+                <td>{doc.size}</td>
                 <td className='documents-table__link'>
                   <a href={doc.url} target='_blank'>
                     <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: documentsSvg }}/>

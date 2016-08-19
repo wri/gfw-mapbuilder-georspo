@@ -49,7 +49,7 @@ export default {
   webmapMenuName: 'Land Use',
   //- Restoration Module settings
   restorationModule: false,
-  restorationImageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration/ImageServer',
+  restorationImageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module/ImageServer',
   slopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
   alternativeSlopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
   slopePotentialColors: 'rgb(234,199,253);rgb(253,178,46);rgb(88,126,15);rgb(210,147,116);rgb(245,208,139);rgb(177,177,36);rgb(26,176,144);rgb(175,15,143);rgb(217,254,199);rgb(255,254,137);',
@@ -70,10 +70,13 @@ export default {
   sharinghost: 'http://www.arcgis.com',
   analyticsCode: 'UA-62288390-15',
   userFeatureToken: {
-    //- Localhost Token for BR
+    //- Localhost token for BR office
     'localhost': 'TjEeQfPMtR-0kjqzTqIZ7R-NAzGK1Z2sEQo6Dzt17O42DeIlaAxdqeg7GPMANVcC',
-    //- Production Token
-    'wri.github.io': 'TjEeQfPMtR-0kjqzTqIZ7cl-o01RHvmC7tVmcyLHrT3-TfMZbwysm9txFEib56OM'
+    //- Github token
+    'wri.github.io': 'TjEeQfPMtR-0kjqzTqIZ7cl-o01RHvmC7tVmcyLHrT3-TfMZbwysm9txFEib56OM',
+    //- Other production tokens
+    'my.gfw-mapbuilder.org': 'HChmm-nytaxWk0D4nKljrtwXUelpvdU3R5vZ3jA1H7aqX5jcgUWd-H2dHXpm6ENNEFuRfPl_WgQMQYbgffjedA..',
+    'wri-sites.s3-website-us-east-1.amazonaws.com': 'xtpo8j176BbwJJDdlfLlDyvkZbSYFLxiub2ND-fWDVpOpPhSfwcm0wiMHJktvhG3oBwivVuykjMgz90rherwt_b9tR4vRfggoMgqIIQzN8ufDziAtmpI2xl7niY82c0P'
   },
   /**
   * Layer Config Options, [brackets] = optional
@@ -136,7 +139,8 @@ export default {
       label: 'SAD alerts',
       sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
-      layerIds: [2]
+      layerIds: [2],
+      technicalName: 'imazon_sad'
     }, {
       id: 'GLAD_ALERTS',
       order: 14,
@@ -150,7 +154,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Glad Alerts',
       sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
-      technicalName: 'umd_landsat_alerts'
+      technicalName: 'umd_landsat_alerts',
+      legendLayer: 7
     }, {
       id: 'TERRA_I_ALERTS',
       order: 15,
@@ -167,7 +172,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Terra-I Alerts',
       sublabel: '(monthly, 250m, Latin America, CIAT)',
-      technicalName: 'terra_i_alerts'
+      technicalName: 'terra_i_alerts',
+      legendLayer: 13
     }, {
       id: 'ACTIVE_FIRES',
       order: 16,
@@ -180,57 +186,6 @@ export default {
       layerIds: [0, 1, 2, 3],
       technicalName: 'noaa18_fires'
     }, {
-      id: 'TREE_COVER',
-      order: 1,
-      type: 'image',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Tree cover density',
-      sublabel: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
-      colormap: [[1, 0, 179, 0]], // colormap: [[1, 174, 203, 107]],
-      inputRange: [30, 101],
-      outputRange: [1],
-      visible: false,
-      opacity: 0.8,
-      legendLayer: 2,
-      technicalName: 'tree_cover'
-    }, {
-      id: 'LAND_COVER',
-      order: 2,
-      type: 'dynamic',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Land cover',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [10],
-      rasterId: '$523',
-      bounds: [1, 20],
-      classes: ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'],
-      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
-      technicalName: 'global_landcover'
-    }, {
-      id: 'IFL',
-      order: 3,
-      type: 'dynamic',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Intact Forest Landscape',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [0],
-      technicalName: 'intact_forest_landscapes_change'
-    },
-     {
-      id: 'AG_BIOMASS',
-      order: 4,
-      type: 'image',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Aboveground Live Woody Biomass Density',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
-      legendLayer: 8,
-      technicalName: 'aboveground_biomass'
-    }, {
       id: 'GLOB_MANGROVE',
       order: 5,
       type: 'webtiled',
@@ -239,8 +194,59 @@ export default {
       label: 'Global Mangrove',
       url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
       subDomains: [0, 1, 2, 3],
-      technicalName: 'global_mangroves'
+      technicalName: 'global_mangroves',
+      legendLayer: 11
     }, {
+      id: 'IFL',
+      order: 4,
+      type: 'dynamic',
+      group: 'Land Cover',
+      groupKey: 'GROUP_LC',
+      label: 'Intact Forest Landscape',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [0],
+      technicalName: 'intact_forest_landscapes_change'
+    }, {
+     id: 'AG_BIOMASS',
+     order: 3,
+     type: 'image',
+     group: 'Land Cover',
+     groupKey: 'GROUP_LC',
+     label: 'Aboveground Live Woody Biomass Density',
+     url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
+     legendLayer: 8,
+     technicalName: 'aboveground_biomass'
+   }, {
+     id: 'LAND_COVER',
+     order: 2,
+     type: 'dynamic',
+     group: 'Land Cover',
+     groupKey: 'GROUP_LC',
+     label: 'Land cover',
+     url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+     layerIds: [10],
+     rasterId: '$523',
+     bounds: [1, 20],
+     classes: ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'],
+     colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
+     technicalName: 'global_landcover'
+   }, {
+     id: 'TREE_COVER',
+     order: 1,
+     type: 'image',
+     group: 'Land Cover',
+     groupKey: 'GROUP_LC',
+     label: 'Tree cover density',
+     sublabel: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
+     url: 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
+     colormap: [[1, 0, 179, 0]], // colormap: [[1, 174, 203, 107]],
+     inputRange: [30, 101],
+     outputRange: [1],
+     visible: false,
+     opacity: 0.8,
+     legendLayer: 2,
+     technicalName: 'tree_cover'
+   }, {
       id: 'MASK',
       order: 100,
       type: 'dynamic',
@@ -300,7 +306,8 @@ export default {
       label: 'SAD alerts',
       sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
-      layerIds: [2]
+      layerIds: [2],
+      technicalName: 'imazon_sad'
     }, {
       id: 'GLAD_ALERTS',
       order: 14,
@@ -314,7 +321,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Glad Alerts',
       sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
-      technicalName: 'umd_landsat_alerts'
+      technicalName: 'umd_landsat_alerts',
+      legendLayer: 7
     }, {
       id: 'TERRA_I_ALERTS',
       order: 15,
@@ -331,7 +339,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Terra-I Alerts',
       sublabel: '(monthly, 250m, Latin America, CIAT)',
-      technicalName: 'terra_i_alerts'
+      technicalName: 'terra_i_alerts',
+      legendLayer: 13
     }, {
       id: 'ACTIVE_FIRES',
       order: 16,
@@ -343,6 +352,51 @@ export default {
       url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
       layerIds: [0, 1, 2, 3],
       technicalName: 'noaa18_fires'
+    }, {
+      id: 'GLOB_MANGROVE',
+      order: 5,
+      type: 'webtiled',
+      group: 'Occupation des sols',
+      groupKey: 'GROUP_LC',
+      label: 'Global Mangrove',
+      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+      subDomains: [0, 1, 2, 3],
+      technicalName: 'global_mangroves',
+      legendLayer: 11
+    }, {
+      id: 'IFL',
+      order: 4,
+      type: 'dynamic',
+      group: 'Occupation des sols',
+      groupKey: 'GROUP_LC',
+      label: 'Paysage forestier intact',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [0],
+      technicalName: 'intact_forest_landscapes_change'
+    }, {
+      id: 'AG_BIOMASS',
+      order: 3,
+      type: 'image',
+      group: 'Occupation des sols',
+      groupKey: 'GROUP_LC',
+      label: 'Aboveground Live Woody Biomass Density',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
+      legendLayer: 8,
+      technicalName: 'aboveground_biomass'
+    }, {
+      id: 'LAND_COVER',
+      order: 2,
+      type: 'dynamic',
+      group: 'Occupation des sols',
+      groupKey: 'GROUP_LC',
+      label: 'Occupation des sols',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [10],
+      rasterId: '$523',
+      bounds: [1, 20],
+      classes: ['Forêt dense humide', 'Forêt sub-montagnarde', 'Forêt d\'altitude', 'Forêt marécageuse', 'Mangrove', 'Mosaïque forêt-savane', 'Complexe rural et jeunes forêts secondaires', 'Forêt claire à savane boisée décidue', 'Savane boisée-Savane arborée', 'Savane arbustive', 'Savane herbeuse', 'Aquatic grassland', 'Savane herbeuse inondée', 'Végétation éparse', 'Mosaique cultures/végétation ( herbeuse ou arbustive )', 'Agriculture', 'Agriculture irriguée', 'Sols nus', 'Eléments anthropiques', 'Eaux de surface'],
+      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
+      technicalName: 'global_landcover'
     }, {
       id: 'TREE_COVER',
       order: 1,
@@ -359,50 +413,6 @@ export default {
       opacity: 0.8,
       legendLayer: 2,
       technicalName: 'tree_cover'
-    }, {
-      id: 'LAND_COVER',
-      order: 2,
-      type: 'dynamic',
-      group: 'Occupation des sols',
-      groupKey: 'GROUP_LC',
-      label: 'Occupation des sols',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [10],
-      rasterId: '$523',
-      bounds: [1, 20],
-      classes: ['Forêt dense humide', 'Forêt sub-montagnarde', 'Forêt d\'altitude', 'Forêt marécageuse', 'Mangrove', 'Mosaïque forêt-savane', 'Complexe rural et jeunes forêts secondaires', 'Forêt claire à savane boisée décidue', 'Savane boisée-Savane arborée', 'Savane arbustive', 'Savane herbeuse', 'Aquatic grassland', 'Savane herbeuse inondée', 'Végétation éparse', 'Mosaique cultures/végétation ( herbeuse ou arbustive )', 'Agriculture', 'Agriculture irriguée', 'Sols nus', 'Eléments anthropiques', 'Eaux de surface'],
-      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
-      technicalName: 'global_landcover'
-    }, {
-      id: 'IFL',
-      order: 3,
-      type: 'dynamic',
-      group: 'Occupation des sols',
-      groupKey: 'GROUP_LC',
-      label: 'Paysage forestier intact',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [0],
-      technicalName: 'intact_forest_landscapes_change'
-    }, {
-      id: 'AG_BIOMASS',
-      order: 4,
-      type: 'image',
-      group: 'Occupation des sols',
-      groupKey: 'GROUP_LC',
-      label: 'Aboveground Live Woody Biomass Density',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
-      legendLayer: 8,
-      technicalName: 'aboveground_biomass'
-    }, {
-      id: 'GLOB_MANGROVE',
-      order: 5,
-      type: 'webtiled',
-      group: 'Occupation des sols',
-      groupKey: 'GROUP_LC',
-      label: 'Global Mangrove',
-      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
-      subDomains: [0, 1, 2, 3],
-      technicalName: 'global_mangroves'
     }, {
       id: 'MASK',
       order: 100,
@@ -463,7 +473,8 @@ export default {
       label: 'SAD alerts',
       sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
-      layerIds: [2]
+      layerIds: [2],
+      technicalName: 'imazon_sad'
     }, {
       id: 'GLAD_ALERTS',
       order: 14,
@@ -477,7 +488,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Glad Alerts',
       sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
-      technicalName: 'umd_landsat_alerts'
+      technicalName: 'umd_landsat_alerts',
+      legendLayer: 7
     }, {
       id: 'TERRA_I_ALERTS',
       order: 15,
@@ -494,7 +506,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Terra-I Alerts',
       sublabel: '(monthly, 250m, Latin America, CIAT)',
-      technicalName: 'terra_i_alerts'
+      technicalName: 'terra_i_alerts',
+      legendLayer: 13
     }, {
       id: 'ACTIVE_FIRES',
       order: 16,
@@ -506,6 +519,51 @@ export default {
       url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
       layerIds: [0, 1, 2, 3],
       technicalName: 'noaa18_fires'
+    }, {
+      id: 'GLOB_MANGROVE',
+      order: 5,
+      type: 'webtiled',
+      group: 'Cobertura vegetal',
+      groupKey: 'GROUP_LC',
+      label: 'Global Mangrove',
+      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+      subDomains: [0, 1, 2, 3],
+      technicalName: 'global_mangroves',
+      legendLayer: 11
+    }, {
+      id: 'IFL',
+      order: 4,
+      type: 'dynamic',
+      group: 'Cobertura vegetal',
+      groupKey: 'GROUP_LC',
+      label: 'Paisajes Forestales Intactos',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [0],
+      technicalName: 'intact_forest_landscapes_change'
+    }, {
+      id: 'AG_BIOMASS',
+      order: 3,
+      type: 'image',
+      group: 'Cobertura vegetal',
+      groupKey: 'GROUP_LC',
+      label: 'Aboveground Live Woody Biomass Density',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
+      legendLayer: 8,
+      technicalName: 'aboveground_biomass'
+    }, {
+      id: 'LAND_COVER',
+      order: 2,
+      type: 'dynamic',
+      group: 'Cobertura vegetal',
+      groupKey: 'GROUP_LC',
+      label: 'Cobertura vegetal',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [10],
+      rasterId: '$523',
+      bounds: [1, 20],
+      classes: ['Bosque húmedo', 'Bosque premontano', 'Bosque montano', 'Bosque edáfico', 'Bosque de mangle', 'Mosaico sabana-bosque', 'Copmlejo rural y bosque secondário joven', 'Closed to open deciduous woodland', 'Sabana arbolada', 'Matorral', 'Pradera', 'Pradera aquática', 'Pradera inundable', 'Vegetación ralo', 'Mosaico áreas cultivadas/ vegetación (herbáceo o matorral)', 'Agricultura', 'Agricultura irregada', 'Áreas desnudas', 'Superficies artificiales y áreas asociadas', 'Cuerpos de agua'],
+      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
+      technicalName: 'global_landcover'
     }, {
       id: 'TREE_COVER',
       order: 1,
@@ -522,50 +580,6 @@ export default {
       opacity: 0.8,
       legendLayer: 2,
       technicalName: 'tree_cover'
-    }, {
-      id: 'LAND_COVER',
-      order: 2,
-      type: 'dynamic',
-      group: 'Cobertura vegetal',
-      groupKey: 'GROUP_LC',
-      label: 'Cobertura vegetal',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [10],
-      rasterId: '$523',
-      bounds: [1, 20],
-      classes: ['Bosque húmedo', 'Bosque premontano', 'Bosque montano', 'Bosque edáfico', 'Bosque de mangle', 'Mosaico sabana-bosque', 'Copmlejo rural y bosque secondário joven', 'Closed to open deciduous woodland', 'Sabana arbolada', 'Matorral', 'Pradera', 'Pradera aquática', 'Pradera inundable', 'Vegetación ralo', 'Mosaico áreas cultivadas/ vegetación (herbáceo o matorral)', 'Agricultura', 'Agricultura irregada', 'Áreas desnudas', 'Superficies artificiales y áreas asociadas', 'Cuerpos de agua'],
-      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
-      technicalName: 'global_landcover'
-    }, {
-      id: 'IFL',
-      order: 3,
-      type: 'dynamic',
-      group: 'Cobertura vegetal',
-      groupKey: 'GROUP_LC',
-      label: 'Paisajes Forestales Intactos',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [0],
-      technicalName: 'intact_forest_landscapes_change'
-    }, {
-      id: 'AG_BIOMASS',
-      order: 4,
-      type: 'image',
-      group: 'Cobertura vegetal',
-      groupKey: 'GROUP_LC',
-      label: 'Aboveground Live Woody Biomass Density',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
-      legendLayer: 8,
-      technicalName: 'aboveground_biomass'
-    }, {
-      id: 'GLOB_MANGROVE',
-      order: 5,
-      type: 'webtiled',
-      group: 'Cobertura vegetal',
-      groupKey: 'GROUP_LC',
-      label: 'Global Mangrove',
-      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
-      subDomains: [0, 1, 2, 3],
-      technicalName: 'global_mangroves'
     }, {
       id: 'MASK',
       order: 100,
@@ -626,7 +640,8 @@ export default {
       label: 'SAD alerts',
       sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
-      layerIds: [2]
+      layerIds: [2],
+      technicalName: 'imazon_sad'
     }, {
       id: 'GLAD_ALERTS',
       order: 14,
@@ -640,7 +655,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Glad Alerts',
       sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
-      technicalName: 'umd_landsat_alerts'
+      technicalName: 'umd_landsat_alerts',
+      legendLayer: 7
     }, {
       id: 'TERRA_I_ALERTS',
       order: 15,
@@ -657,7 +673,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Terra-I Alerts',
       sublabel: '(monthly, 250m, Latin America, CIAT)',
-      technicalName: 'terra_i_alerts'
+      technicalName: 'terra_i_alerts',
+      legendLayer: 13
     }, {
       id: 'ACTIVE_FIRES',
       order: 16,
@@ -669,6 +686,51 @@ export default {
       url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
       layerIds: [0, 1, 2, 3],
       technicalName: 'noaa18_fires'
+    }, {
+      id: 'GLOB_MANGROVE',
+      order: 5,
+      type: 'webtiled',
+      group: 'Land Cover',
+      groupKey: 'GROUP_LC',
+      label: 'Global Mangrove',
+      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+      subDomains: [0, 1, 2, 3],
+      technicalName: 'global_mangroves',
+      legendLayer: 11
+    }, {
+      id: 'IFL',
+      order: 4,
+      type: 'dynamic',
+      group: 'Land Cover',
+      groupKey: 'GROUP_LC',
+      label: 'Intact Forest Landscape',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [0],
+      technicalName: 'intact_forest_landscapes_change'
+    }, {
+      id: 'AG_BIOMASS',
+      order: 3,
+      type: 'image',
+      group: 'Land Cover',
+      groupKey: 'GROUP_LC',
+      label: 'Aboveground Live Woody Biomass Density',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
+      legendLayer: 8,
+      technicalName: 'aboveground_biomass'
+    }, {
+      id: 'LAND_COVER',
+      order: 2,
+      type: 'dynamic',
+      group: 'Land Cover',
+      groupKey: 'GROUP_LC',
+      label: 'Land cover',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [10],
+      rasterId: '$523',
+      bounds: [1, 20],
+      classes: ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'],
+      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
+      technicalName: 'global_landcover'
     }, {
       id: 'TREE_COVER',
       order: 1,
@@ -685,50 +747,6 @@ export default {
       opacity: 0.8,
       legendLayer: 2,
       technicalName: 'tree_cover'
-    }, {
-      id: 'LAND_COVER',
-      order: 2,
-      type: 'dynamic',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Land cover',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [10],
-      rasterId: '$523',
-      bounds: [1, 20],
-      classes: ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'],
-      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
-      technicalName: 'global_landcover'
-    }, {
-      id: 'IFL',
-      order: 3,
-      type: 'dynamic',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Intact Forest Landscape',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [0],
-      technicalName: 'intact_forest_landscapes_change'
-    }, {
-      id: 'AG_BIOMASS',
-      order: 4,
-      type: 'image',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Aboveground Live Woody Biomass Density',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
-      legendLayer: 8,
-      technicalName: 'aboveground_biomass'
-    }, {
-      id: 'GLOB_MANGROVE',
-      order: 5,
-      type: 'webtiled',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Global Mangrove',
-      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
-      subDomains: [0, 1, 2, 3],
-      technicalName: 'global_mangroves'
     }, {
       id: 'MASK',
       order: 100,
@@ -789,7 +807,8 @@ export default {
       label: 'SAD alerts',
       sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
-      layerIds: [2]
+      layerIds: [2],
+      technicalName: 'imazon_sad'
     }, {
       id: 'GLAD_ALERTS',
       order: 14,
@@ -803,7 +822,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Glad Alerts',
       sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
-      technicalName: 'umd_landsat_alerts'
+      technicalName: 'umd_landsat_alerts',
+      legendLayer: 7
     }, {
       id: 'TERRA_I_ALERTS',
       order: 15,
@@ -820,7 +840,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Terra-I Alerts',
       sublabel: '(monthly, 250m, Latin America, CIAT)',
-      technicalName: 'terra_i_alerts'
+      technicalName: 'terra_i_alerts',
+      legendLayer: 13
     }, {
       id: 'ACTIVE_FIRES',
       order: 16,
@@ -832,6 +853,51 @@ export default {
       url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
       layerIds: [0, 1, 2, 3],
       technicalName: 'noaa18_fires'
+    }, {
+      id: 'GLOB_MANGROVE',
+      order: 5,
+      type: 'webtiled',
+      group: 'Land Cover',
+      groupKey: 'GROUP_LC',
+      label: 'Global Mangrove',
+      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+      subDomains: [0, 1, 2, 3],
+      technicalName: 'global_mangroves',
+      legendLayer: 11
+    }, {
+      id: 'IFL',
+      order: 4,
+      type: 'dynamic',
+      group: 'Land Cover',
+      groupKey: 'GROUP_LC',
+      label: 'Intact Forest Landscape',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [0],
+      technicalName: 'intact_forest_landscapes_change'
+    }, {
+      id: 'AG_BIOMASS',
+      order: 3,
+      type: 'image',
+      group: 'Land Cover',
+      groupKey: 'GROUP_LC',
+      label: 'Aboveground Live Woody Biomass Density',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
+      legendLayer: 8,
+      technicalName: 'aboveground_biomass'
+    }, {
+      id: 'LAND_COVER',
+      order: 2,
+      type: 'dynamic',
+      group: 'Land Cover',
+      groupKey: 'GROUP_LC',
+      label: 'Land cover',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [10],
+      rasterId: '$523',
+      bounds: [1, 20],
+      classes: ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'],
+      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
+      technicalName: 'global_landcover'
     }, {
       id: 'TREE_COVER',
       order: 1,
@@ -848,50 +914,6 @@ export default {
       opacity: 0.8,
       legendLayer: 2,
       technicalName: 'tree_cover'
-    }, {
-      id: 'LAND_COVER',
-      order: 2,
-      type: 'dynamic',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Land cover',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [10],
-      rasterId: '$523',
-      bounds: [1, 20],
-      classes: ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'],
-      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
-      technicalName: 'global_landcover'
-    }, {
-      id: 'IFL',
-      order: 3,
-      type: 'dynamic',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Intact Forest Landscape',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [0],
-      technicalName: 'intact_forest_landscapes_change'
-    }, {
-      id: 'AG_BIOMASS',
-      order: 4,
-      type: 'image',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Aboveground Live Woody Biomass Density',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
-      legendLayer: 8,
-      technicalName: 'aboveground_biomass'
-    }, {
-      id: 'GLOB_MANGROVE',
-      order: 5,
-      type: 'webtiled',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Global Mangrove',
-      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
-      subDomains: [0, 1, 2, 3],
-      technicalName: 'global_mangroves'
     }, {
       id: 'MASK',
       order: 100,
@@ -952,7 +974,8 @@ export default {
       label: 'SAD alerts',
       sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
-      layerIds: [2]
+      layerIds: [2],
+      technicalName: 'imazon_sad'
     }, {
       id: 'GLAD_ALERTS',
       order: 14,
@@ -966,7 +989,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Glad Alerts',
       sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
-      technicalName: 'umd_landsat_alerts'
+      technicalName: 'umd_landsat_alerts',
+      legendLayer: 7
     }, {
       id: 'TERRA_I_ALERTS',
       order: 15,
@@ -983,7 +1007,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Terra-I Alerts',
       sublabel: '(monthly, 250m, Latin America, CIAT)',
-      technicalName: 'terra_i_alerts'
+      technicalName: 'terra_i_alerts',
+      legendLayer: 13
     }, {
       id: 'ACTIVE_FIRES',
       order: 16,
@@ -995,6 +1020,51 @@ export default {
       url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
       layerIds: [0, 1, 2, 3],
       technicalName: 'noaa18_fires'
+    }, {
+      id: 'GLOB_MANGROVE',
+      order: 5,
+      type: 'webtiled',
+      group: '土地覆盖',
+      groupKey: 'GROUP_LC',
+      label: 'Global Mangrove',
+      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+      subDomains: [0, 1, 2, 3],
+      technicalName: 'global_mangroves',
+      legendLayer: 11
+    }, {
+      id: 'IFL',
+      order: 4,
+      type: 'dynamic',
+      group: '土地覆盖',
+      groupKey: 'GROUP_LC',
+      label: '原生森林景观',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [0],
+      technicalName: 'intact_forest_landscapes_change'
+    }, {
+      id: 'AG_BIOMASS',
+      order: 3,
+      type: 'image',
+      group: '土地覆盖',
+      groupKey: 'GROUP_LC',
+      label: 'Aboveground Live Woody Biomass Density',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
+      legendLayer: 8,
+      technicalName: 'aboveground_biomass'
+    }, {
+      id: 'LAND_COVER',
+      order: 2,
+      type: 'dynamic',
+      group: '土地覆盖',
+      groupKey: 'GROUP_LC',
+      label: '土地覆盖',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+      layerIds: [10],
+      rasterId: '$523',
+      bounds: [1, 20],
+      classes: ['密集型潮湿森林', '亚山地森林', '山地森林', '土壤森林', '红树林', '森林-草地镶嵌区', '城郊混杂区的新兴次生林', '闭合、开放式落叶林地 ', '稀树草原', '灌木林', '草地', '水生草地', '沼泽草地', '稀疏植被区', '耕地和灌木植被镶嵌区)', '农业用地Agriculture', '灌溉农业用地 ', '裸地 ', '人工地及其相关区域 ', '水体'],
+      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
+      technicalName: 'global_landcover'
     }, {
       id: 'TREE_COVER',
       order: 1,
@@ -1011,50 +1081,6 @@ export default {
       opacity: 0.8,
       legendLayer: 2,
       technicalName: 'tree_cover'
-    }, {
-      id: 'LAND_COVER',
-      order: 2,
-      type: 'dynamic',
-      group: '土地覆盖',
-      groupKey: 'GROUP_LC',
-      label: '土地覆盖',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [10],
-      rasterId: '$523',
-      bounds: [1, 20],
-      classes: ['密集型潮湿森林', '亚山地森林', '山地森林', '土壤森林', '红树林', '森林-草地镶嵌区', '城郊混杂区的新兴次生林', '闭合、开放式落叶林地 ', '稀树草原', '灌木林', '草地', '水生草地', '沼泽草地', '稀疏植被区', '耕地和灌木植被镶嵌区)', '农业用地Agriculture', '灌溉农业用地 ', '裸地 ', '人工地及其相关区域 ', '水体'],
-      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
-      technicalName: 'global_landcover'
-    }, {
-      id: 'IFL',
-      order: 3,
-      type: 'dynamic',
-      group: '土地覆盖',
-      groupKey: 'GROUP_LC',
-      label: '原生森林景观',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [0],
-      technicalName: 'intact_forest_landscapes_change'
-    }, {
-      id: 'AG_BIOMASS',
-      order: 4,
-      type: 'image',
-      group: '土地覆盖',
-      groupKey: 'GROUP_LC',
-      label: 'Aboveground Live Woody Biomass Density',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
-      legendLayer: 8,
-      technicalName: 'aboveground_biomass'
-    }, {
-      id: 'GLOB_MANGROVE',
-      order: 5,
-      type: 'webtiled',
-      group: '土地覆盖',
-      groupKey: 'GROUP_LC',
-      label: 'Global Mangrove',
-      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
-      subDomains: [0, 1, 2, 3],
-      technicalName: 'global_mangroves'
     }, {
       id: 'MASK',
       order: 100,

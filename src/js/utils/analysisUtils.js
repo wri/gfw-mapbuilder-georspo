@@ -102,7 +102,6 @@ const formatters = {
     }
     return results;
   },
-  //TODO: Cleanup and remove noSlice, make it an explicit option so using this function does not pass in an anonymous boolean
   getCounts: (response, pixelSize, noSlice) => {
     const {histograms} = response;
     let counts = histograms && histograms.length === 1 ? histograms[0].counts : [];
@@ -111,6 +110,13 @@ const formatters = {
     return {
       counts: noSlice ? counts : counts.slice(1)
     };
+  },
+  getRestorationValues: (response) => {
+    const {histograms} = response;
+    let counts = histograms && histograms.length === 1 ? histograms[0].counts : [];
+    //- Convert the pixel values to Hectares, Math provided by Thomas Maschler
+    counts = counts.map((value) => value * 0.09);
+    return { counts };
   }
 };
 
@@ -156,7 +162,6 @@ const computeHistogram = (url, content, success, fail) => {
   if (content.mosaicRule) { content.mosaicRule = JSON.stringify(content.mosaicRule); }
   //- Set some defaults if they are not set
   content.geometryType = content.goemetryType || 'esriGeometryPolygon';
-  content.pixelSize = content.pixelSize || 100;
   content.f = content.f || 'json';
 
   if (success && fail) {
@@ -385,17 +390,19 @@ export default {
       type: 'geojson',
       geojson: JSON.stringify(geojson),
       dataset: 'biomass-loss',
-      period: '2001-11-10,2015-01-01',
+      period: '2001-01-01,2014-12-31',
+      begin: '2001-01-01',
+      end: '2014-12-31',
       thresh: canopyDensity
     };
 
     return esriRequest({
-      url: 'http://api.globalforestwatch.org/forest-change/biomass-loss',
+      url: 'https://production-api.globalforestwatch.org/biomass-loss/wdpa/354010',
       callbackParamName: 'callback',
       content: content,
       handleAs: 'json',
       timeout: 30000
-    }, { usePost: true});
+    }, { usePost: false});
   },
 
   getCrossedWithLoss: (config, lossConfig, geometry, options) => {
@@ -475,7 +482,7 @@ export default {
   getRestoration: (url, rasterId, geometry) => {
     const promise = new Deferred();
     const {pixelSize, restoration} = analysisConfig;
-    const content = { pixelSize: pixelSize, geometry: geometry };
+    const content = { pixelSize, geometry };
     //- Generate rendering rules for all the options
     const lcContent = lang.delegate(content, {renderingRule: rules.arithmetic(restoration.landCoverId, rasterId, OP_MULTIPLY)});
     const tcContent = lang.delegate(content, {renderingRule: rules.arithmetic(restoration.treeCoverId, rasterId, OP_MULTIPLY)});
