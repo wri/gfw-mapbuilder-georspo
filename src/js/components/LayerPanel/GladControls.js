@@ -44,7 +44,7 @@ export default class GladControls extends Component {
     const {fromCalendar, toCalendar} = this.refs;
     const {startDate, endDate} = this.state;
     //- Starting date
-    $(fromCalendar).pickadate({
+    this.fromPicker = $(fromCalendar).pickadate({
       today: 'Jump to today',
       min: this.min,
       max: this.max,
@@ -54,9 +54,9 @@ export default class GladControls extends Component {
       klass: { picker: 'picker__top' },
       onSet: this.didSetStartDate,
       onStart: function () { this.set('select', startDate); }
-    });
+    }).pickadate('picker');
     //- Ending date
-    $(toCalendar).pickadate({
+    this.toPicker = $(toCalendar).pickadate({
       today: 'Jump to today',
       min: this.min,
       max: this.max,
@@ -66,13 +66,16 @@ export default class GladControls extends Component {
       klass: { picker: 'picker__top' },
       onSet: this.didSetEndDate,
       onStart: function () { this.set('select', endDate); }
-    });
+    }).pickadate('picker');
   }
 
   didSetStartDate = ({select}) => {
     if (select) {
       this.setState({ startDate: new Date(select) });
       this.updateDateRange();
+      if (this.fromPicker && this.toPicker) {
+        this.toPicker.set('min', this.fromPicker.get('select'));
+      }
     }
   };
 
@@ -80,6 +83,9 @@ export default class GladControls extends Component {
     if (select) {
       this.setState({ endDate: new Date(select) });
       this.updateDateRange();
+      if (this.fromPicker && this.toPicker) {
+        this.fromPicker.set('max', this.toPicker.get('select'));
+      }
     }
   };
 

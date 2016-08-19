@@ -139,7 +139,7 @@ export default class Analysis extends Component {
           labels={lossLabels} />;
       case analysisKeys.BIO_LOSS:
         return <BiomassChart
-          data={results}
+          payload={results}
           labels={analysisConfig[type].labels}
           colors={analysisConfig[type].colors}
           />;

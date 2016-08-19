@@ -70,10 +70,13 @@ export default {
   sharinghost: 'http://www.arcgis.com',
   analyticsCode: 'UA-62288390-15',
   userFeatureToken: {
-    //- Localhost Token for BR
+    //- Localhost token for BR office
     'localhost': 'TjEeQfPMtR-0kjqzTqIZ7R-NAzGK1Z2sEQo6Dzt17O42DeIlaAxdqeg7GPMANVcC',
-    //- Production Token
-    'wri.github.io': 'TjEeQfPMtR-0kjqzTqIZ7cl-o01RHvmC7tVmcyLHrT3-TfMZbwysm9txFEib56OM'
+    //- Github token
+    'wri.github.io': 'TjEeQfPMtR-0kjqzTqIZ7cl-o01RHvmC7tVmcyLHrT3-TfMZbwysm9txFEib56OM',
+    //- Other production tokens
+    'my.gfw-mapbuilder.org': 'HChmm-nytaxWk0D4nKljrtwXUelpvdU3R5vZ3jA1H7aqX5jcgUWd-H2dHXpm6ENNEFuRfPl_WgQMQYbgffjedA..',
+    'wri-sites.s3-website-us-east-1.amazonaws.com': 'xtpo8j176BbwJJDdlfLlDyvkZbSYFLxiub2ND-fWDVpOpPhSfwcm0wiMHJktvhG3oBwivVuykjMgz90rherwt_b9tR4vRfggoMgqIIQzN8ufDziAtmpI2xl7niY82c0P'
   },
   /**
   * Layer Config Options, [brackets] = optional
@@ -136,7 +139,8 @@ export default {
       label: 'SAD alerts',
       sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
-      layerIds: [2]
+      layerIds: [2],
+      technicalName: 'imazon_sad'
     }, {
       id: 'GLAD_ALERTS',
       order: 14,
@@ -150,7 +154,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Glad Alerts',
       sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
-      technicalName: 'umd_landsat_alerts'
+      technicalName: 'umd_landsat_alerts',
+      legendLayer: 7
     }, {
       id: 'TERRA_I_ALERTS',
       order: 15,
@@ -167,7 +172,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Terra-I Alerts',
       sublabel: '(monthly, 250m, Latin America, CIAT)',
-      technicalName: 'terra_i_alerts'
+      technicalName: 'terra_i_alerts',
+      legendLayer: 13
     }, {
       id: 'ACTIVE_FIRES',
       order: 16,
@@ -181,17 +187,18 @@ export default {
       technicalName: 'noaa18_fires'
     }, {
       id: 'GLOB_MANGROVE',
-      order: 1,
+      order: 5,
       type: 'webtiled',
       group: 'Land Cover',
       groupKey: 'GROUP_LC',
       label: 'Global Mangrove',
       url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
       subDomains: [0, 1, 2, 3],
-      technicalName: 'global_mangroves'
+      technicalName: 'global_mangroves',
+      legendLayer: 11
     }, {
       id: 'IFL',
-      order: 2,
+      order: 4,
       type: 'dynamic',
       group: 'Land Cover',
       groupKey: 'GROUP_LC',
@@ -211,7 +218,7 @@ export default {
      technicalName: 'aboveground_biomass'
    }, {
      id: 'LAND_COVER',
-     order: 4,
+     order: 2,
      type: 'dynamic',
      group: 'Land Cover',
      groupKey: 'GROUP_LC',
@@ -225,7 +232,7 @@ export default {
      technicalName: 'global_landcover'
    }, {
      id: 'TREE_COVER',
-     order: 5,
+     order: 1,
      type: 'image',
      group: 'Land Cover',
      groupKey: 'GROUP_LC',
@@ -299,7 +306,8 @@ export default {
       label: 'SAD alerts',
       sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
-      layerIds: [2]
+      layerIds: [2],
+      technicalName: 'imazon_sad'
     }, {
       id: 'GLAD_ALERTS',
       order: 14,
@@ -313,7 +321,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Glad Alerts',
       sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
-      technicalName: 'umd_landsat_alerts'
+      technicalName: 'umd_landsat_alerts',
+      legendLayer: 7
     }, {
       id: 'TERRA_I_ALERTS',
       order: 15,
@@ -330,7 +339,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Terra-I Alerts',
       sublabel: '(monthly, 250m, Latin America, CIAT)',
-      technicalName: 'terra_i_alerts'
+      technicalName: 'terra_i_alerts',
+      legendLayer: 13
     }, {
       id: 'ACTIVE_FIRES',
       order: 16,
@@ -344,17 +354,18 @@ export default {
       technicalName: 'noaa18_fires'
     }, {
       id: 'GLOB_MANGROVE',
-      order: 1,
+      order: 5,
       type: 'webtiled',
       group: 'Occupation des sols',
       groupKey: 'GROUP_LC',
       label: 'Global Mangrove',
       url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
       subDomains: [0, 1, 2, 3],
-      technicalName: 'global_mangroves'
+      technicalName: 'global_mangroves',
+      legendLayer: 11
     }, {
       id: 'IFL',
-      order: 2,
+      order: 4,
       type: 'dynamic',
       group: 'Occupation des sols',
       groupKey: 'GROUP_LC',
@@ -374,7 +385,7 @@ export default {
       technicalName: 'aboveground_biomass'
     }, {
       id: 'LAND_COVER',
-      order: 4,
+      order: 2,
       type: 'dynamic',
       group: 'Occupation des sols',
       groupKey: 'GROUP_LC',
@@ -388,7 +399,7 @@ export default {
       technicalName: 'global_landcover'
     }, {
       id: 'TREE_COVER',
-      order: 5,
+      order: 1,
       type: 'image',
       group: 'Occupation des sols',
       groupKey: 'GROUP_LC',
@@ -462,7 +473,8 @@ export default {
       label: 'SAD alerts',
       sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
-      layerIds: [2]
+      layerIds: [2],
+      technicalName: 'imazon_sad'
     }, {
       id: 'GLAD_ALERTS',
       order: 14,
@@ -476,7 +488,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Glad Alerts',
       sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
-      technicalName: 'umd_landsat_alerts'
+      technicalName: 'umd_landsat_alerts',
+      legendLayer: 7
     }, {
       id: 'TERRA_I_ALERTS',
       order: 15,
@@ -493,7 +506,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Terra-I Alerts',
       sublabel: '(monthly, 250m, Latin America, CIAT)',
-      technicalName: 'terra_i_alerts'
+      technicalName: 'terra_i_alerts',
+      legendLayer: 13
     }, {
       id: 'ACTIVE_FIRES',
       order: 16,
@@ -507,17 +521,18 @@ export default {
       technicalName: 'noaa18_fires'
     }, {
       id: 'GLOB_MANGROVE',
-      order: 1,
+      order: 5,
       type: 'webtiled',
       group: 'Cobertura vegetal',
       groupKey: 'GROUP_LC',
       label: 'Global Mangrove',
       url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
       subDomains: [0, 1, 2, 3],
-      technicalName: 'global_mangroves'
+      technicalName: 'global_mangroves',
+      legendLayer: 11
     }, {
       id: 'IFL',
-      order: 2,
+      order: 4,
       type: 'dynamic',
       group: 'Cobertura vegetal',
       groupKey: 'GROUP_LC',
@@ -537,7 +552,7 @@ export default {
       technicalName: 'aboveground_biomass'
     }, {
       id: 'LAND_COVER',
-      order: 4,
+      order: 2,
       type: 'dynamic',
       group: 'Cobertura vegetal',
       groupKey: 'GROUP_LC',
@@ -551,7 +566,7 @@ export default {
       technicalName: 'global_landcover'
     }, {
       id: 'TREE_COVER',
-      order: 5,
+      order: 1,
       type: 'image',
       group: 'Cobertura vegetal',
       groupKey: 'GROUP_LC',
@@ -625,7 +640,8 @@ export default {
       label: 'SAD alerts',
       sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
-      layerIds: [2]
+      layerIds: [2],
+      technicalName: 'imazon_sad'
     }, {
       id: 'GLAD_ALERTS',
       order: 14,
@@ -639,7 +655,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Glad Alerts',
       sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
-      technicalName: 'umd_landsat_alerts'
+      technicalName: 'umd_landsat_alerts',
+      legendLayer: 7
     }, {
       id: 'TERRA_I_ALERTS',
       order: 15,
@@ -656,7 +673,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Terra-I Alerts',
       sublabel: '(monthly, 250m, Latin America, CIAT)',
-      technicalName: 'terra_i_alerts'
+      technicalName: 'terra_i_alerts',
+      legendLayer: 13
     }, {
       id: 'ACTIVE_FIRES',
       order: 16,
@@ -670,17 +688,18 @@ export default {
       technicalName: 'noaa18_fires'
     }, {
       id: 'GLOB_MANGROVE',
-      order: 1,
+      order: 5,
       type: 'webtiled',
       group: 'Land Cover',
       groupKey: 'GROUP_LC',
       label: 'Global Mangrove',
       url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
       subDomains: [0, 1, 2, 3],
-      technicalName: 'global_mangroves'
+      technicalName: 'global_mangroves',
+      legendLayer: 11
     }, {
       id: 'IFL',
-      order: 2,
+      order: 4,
       type: 'dynamic',
       group: 'Land Cover',
       groupKey: 'GROUP_LC',
@@ -700,7 +719,7 @@ export default {
       technicalName: 'aboveground_biomass'
     }, {
       id: 'LAND_COVER',
-      order: 4,
+      order: 2,
       type: 'dynamic',
       group: 'Land Cover',
       groupKey: 'GROUP_LC',
@@ -714,7 +733,7 @@ export default {
       technicalName: 'global_landcover'
     }, {
       id: 'TREE_COVER',
-      order: 5,
+      order: 1,
       type: 'image',
       group: 'Land Cover',
       groupKey: 'GROUP_LC',
@@ -788,7 +807,8 @@ export default {
       label: 'SAD alerts',
       sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
-      layerIds: [2]
+      layerIds: [2],
+      technicalName: 'imazon_sad'
     }, {
       id: 'GLAD_ALERTS',
       order: 14,
@@ -802,7 +822,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Glad Alerts',
       sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
-      technicalName: 'umd_landsat_alerts'
+      technicalName: 'umd_landsat_alerts',
+      legendLayer: 7
     }, {
       id: 'TERRA_I_ALERTS',
       order: 15,
@@ -819,7 +840,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Terra-I Alerts',
       sublabel: '(monthly, 250m, Latin America, CIAT)',
-      technicalName: 'terra_i_alerts'
+      technicalName: 'terra_i_alerts',
+      legendLayer: 13
     }, {
       id: 'ACTIVE_FIRES',
       order: 16,
@@ -833,17 +855,18 @@ export default {
       technicalName: 'noaa18_fires'
     }, {
       id: 'GLOB_MANGROVE',
-      order: 1,
+      order: 5,
       type: 'webtiled',
       group: 'Land Cover',
       groupKey: 'GROUP_LC',
       label: 'Global Mangrove',
       url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
       subDomains: [0, 1, 2, 3],
-      technicalName: 'global_mangroves'
+      technicalName: 'global_mangroves',
+      legendLayer: 11
     }, {
       id: 'IFL',
-      order: 2,
+      order: 4,
       type: 'dynamic',
       group: 'Land Cover',
       groupKey: 'GROUP_LC',
@@ -863,7 +886,7 @@ export default {
       technicalName: 'aboveground_biomass'
     }, {
       id: 'LAND_COVER',
-      order: 4,
+      order: 2,
       type: 'dynamic',
       group: 'Land Cover',
       groupKey: 'GROUP_LC',
@@ -877,7 +900,7 @@ export default {
       technicalName: 'global_landcover'
     }, {
       id: 'TREE_COVER',
-      order: 5,
+      order: 1,
       type: 'image',
       group: 'Land Cover',
       groupKey: 'GROUP_LC',
@@ -951,7 +974,8 @@ export default {
       label: 'SAD alerts',
       sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
       url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
-      layerIds: [2]
+      layerIds: [2],
+      technicalName: 'imazon_sad'
     }, {
       id: 'GLAD_ALERTS',
       order: 14,
@@ -965,7 +989,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Glad Alerts',
       sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
-      technicalName: 'umd_landsat_alerts'
+      technicalName: 'umd_landsat_alerts',
+      legendLayer: 7
     }, {
       id: 'TERRA_I_ALERTS',
       order: 15,
@@ -982,7 +1007,8 @@ export default {
       groupKey: 'GROUP_LCD',
       label: 'Terra-I Alerts',
       sublabel: '(monthly, 250m, Latin America, CIAT)',
-      technicalName: 'terra_i_alerts'
+      technicalName: 'terra_i_alerts',
+      legendLayer: 13
     }, {
       id: 'ACTIVE_FIRES',
       order: 16,
@@ -996,17 +1022,18 @@ export default {
       technicalName: 'noaa18_fires'
     }, {
       id: 'GLOB_MANGROVE',
-      order: 1,
+      order: 5,
       type: 'webtiled',
       group: '土地覆盖',
       groupKey: 'GROUP_LC',
       label: 'Global Mangrove',
       url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
       subDomains: [0, 1, 2, 3],
-      technicalName: 'global_mangroves'
+      technicalName: 'global_mangroves',
+      legendLayer: 11
     }, {
       id: 'IFL',
-      order: 2,
+      order: 4,
       type: 'dynamic',
       group: '土地覆盖',
       groupKey: 'GROUP_LC',
@@ -1026,7 +1053,7 @@ export default {
       technicalName: 'aboveground_biomass'
     }, {
       id: 'LAND_COVER',
-      order: 4,
+      order: 2,
       type: 'dynamic',
       group: '土地覆盖',
       groupKey: 'GROUP_LC',
@@ -1040,7 +1067,7 @@ export default {
       technicalName: 'global_landcover'
     }, {
       id: 'TREE_COVER',
-      order: 5,
+      order: 1,
       type: 'image',
       group: '土地覆盖',
       groupKey: 'GROUP_LC',

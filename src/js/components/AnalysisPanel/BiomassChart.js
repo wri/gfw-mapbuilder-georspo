@@ -20,16 +20,12 @@ export default class BiomassChart extends Component {
   }
 
   componentDidMount() {
-    const {data, colors, labels} = this.props;
+    const {payload, colors, labels} = this.props;
     const {language} = this.context;
-    //- Data is in million tons for emission, multiply by a million so we can show tons
-    //- If they change this on the API Side, remove this code
-    Object.keys(data.biomass_loss_by_year).forEach((key) => {
-      data.biomass_loss_by_year[key] *= 1000000;
-    });
+    const {data} = payload;
 
     const {series, grossLoss, grossEmissions} = charts.formatSeriesForBiomassLoss({
-      data,
+      data: data.attributes,
       lossColor: colors.loss,
       carbonColor: colors.carbon,
       lossName: text[language].ANALYSIS_CARBON_LOSS,
@@ -40,7 +36,7 @@ export default class BiomassChart extends Component {
     // If they update the api, remove the * 1000000
     this.setState({
       loading: false,
-      grossEmissions: grossEmissions * 1000000,
+      grossEmissions: grossEmissions,
       grossLoss
     });
 

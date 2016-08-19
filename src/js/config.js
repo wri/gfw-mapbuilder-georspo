@@ -18,7 +18,8 @@ const config = {
   corsServers: [
     'gis-gfw.wri.org',
     'gis-potico.wri.org',
-    'api.globalforestwatch.org'
+    'api.globalforestwatch.org',
+    'production-api.globalforestwatch.org'
   ],
 
   // Note these will need to be copied in with the bulid script since they are not part of the main bundle

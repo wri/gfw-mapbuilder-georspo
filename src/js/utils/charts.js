@@ -354,15 +354,15 @@ export default {
   */
   formatSeriesForBiomassLoss: (options) => {
     const { data, lossColor, carbonColor, lossName, carbonName } = options;
-    const { co2_loss_by_year, tree_loss_by_year, biomass_loss_by_year } = data;
+    const { co2LossByYear, treeLossByYear, biomassLossByYear } = data;
     const series = [];
 
     // Gross Carbon Emissions
-    const grossEmissions = Object.keys(co2_loss_by_year).map(key => co2_loss_by_year[key]).reduce((a, b) => a + b, 0);
+    const grossEmissions = Object.keys(co2LossByYear).map(key => co2LossByYear[key]).reduce((a, b) => a + b, 0);
     // MtCO2 per year
-    const carbonEmissions = Object.keys(biomass_loss_by_year).map(key => biomass_loss_by_year[key]);
+    const carbonEmissions = Object.keys(biomassLossByYear).map(key => biomassLossByYear[key]);
     // Tree cover loss in hectares per year
-    const treeCoverLoss = Object.keys(tree_loss_by_year).map(key => tree_loss_by_year[key]);
+    const treeCoverLoss = Object.keys(treeLossByYear).map(key => treeLossByYear[key]);
     // Total tree cover loss in carbon
     const grossLoss = treeCoverLoss.reduce((a, b) => a + b, 0);
 

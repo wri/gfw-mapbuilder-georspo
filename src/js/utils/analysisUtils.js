@@ -390,17 +390,19 @@ export default {
       type: 'geojson',
       geojson: JSON.stringify(geojson),
       dataset: 'biomass-loss',
-      period: '2001-11-10,2015-01-01',
+      period: '2001-01-01,2014-12-31',
+      begin: '2001-01-01',
+      end: '2014-12-31',
       thresh: canopyDensity
     };
 
     return esriRequest({
-      url: 'http://api.globalforestwatch.org/forest-change/biomass-loss',
+      url: 'https://production-api.globalforestwatch.org/biomass-loss/wdpa/354010',
       callbackParamName: 'callback',
       content: content,
       handleAs: 'json',
       timeout: 30000
-    }, { usePost: true});
+    }, { usePost: false});
   },
 
   getCrossedWithLoss: (config, lossConfig, geometry, options) => {
@@ -479,8 +481,8 @@ export default {
 
   getRestoration: (url, rasterId, geometry) => {
     const promise = new Deferred();
-    const {restoration} = analysisConfig;
-    const content = { geometry: geometry };
+    const {pixelSize, restoration} = analysisConfig;
+    const content = { pixelSize, geometry };
     //- Generate rendering rules for all the options
     const lcContent = lang.delegate(content, {renderingRule: rules.arithmetic(restoration.landCoverId, rasterId, OP_MULTIPLY)});
     const tcContent = lang.delegate(content, {renderingRule: rules.arithmetic(restoration.treeCoverId, rasterId, OP_MULTIPLY)});
@@ -496,10 +498,10 @@ export default {
       //- the first value is No Data, don't slice as the charts formatting function will remove this
       if (!results.error) {
         promise.resolve({
-          landCover: results[0] ? formatters.getRestorationValues(results[0]).counts : [0],
-          treeCover: results[1] ? formatters.getRestorationValues(results[1]).counts : [0],
-          population: results[2] ? formatters.getRestorationValues(results[2]).counts : [0],
-          slope: results[3] ? formatters.getRestorationValues(results[3]).counts : [0]
+          landCover: results[0] ? formatters.getCounts(results[0], content.pixelSize, true).counts : [0],
+          treeCover: results[1] ? formatters.getCounts(results[1], content.pixelSize, true).counts : [0],
+          population: results[2] ? formatters.getCounts(results[2], content.pixelSize, true).counts : [0],
+          slope: results[3] ? formatters.getCounts(results[3], content.pixelSize, true).counts : [0]
         });
       } else {
         promise.resolve(results);
