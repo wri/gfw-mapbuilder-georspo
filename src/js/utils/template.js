@@ -131,8 +131,36 @@ const formatResources = () => {
   }
 
   //- Remove Layers from resources.layers if configured
-  Object.keys(resources.layers).forEach((language) => {
-    resources.layers[language] = resources.layers[language].filter((layer) => {
+  // Object.keys(resources.layers).forEach((language) => {
+  //   resources.layers[language] = resources.layers[language].filter((layer) => {
+      // switch (layer.id) {
+      //   case layerKeys.ACTIVE_FIRES:
+      //     return resources.activeFires;
+      //   case layerKeys.LAND_COVER:
+      //     return resources.landCover;
+      //   case layerKeys.AG_BIOMASS:
+      //     return resources.aboveGroundBiomass;
+      //   case layerKeys.IFL:
+      //     return resources.intactForests;
+      //   case layerKeys.GLOB_MANGROVE:
+      //     return resources.mangroves;
+      //   case layerKeys.IMAZON_SAD:
+      //     return resources.sadAlerts;
+      //   case layerKeys.GLAD_ALERTS:
+      //     return resources.gladAlerts;
+      //   case layerKeys.TERRA_I_ALERTS:
+      //     return resources.terraIAlerts;
+      //   default:
+      //     return true;
+      // }
+  //   });
+  // });
+
+  //- Remove Layers from resources.layers if configured
+  Object.keys(resources.layerPanel).forEach((group) => {
+    const groupSettings = resources.layerPanel[group];
+    if (!groupSettings.layers) { return; }
+    resources.layerPanel[group].layers = resources.layerPanel[group].layers.filter((layer) => {
       switch (layer.id) {
         case layerKeys.ACTIVE_FIRES:
           return resources.activeFires;
@@ -162,13 +190,19 @@ const formatResources = () => {
     resources.logoUrl = base + resources.logoUrl;
   }
 
-  Object.keys(resources.basemaps).forEach((language) => {
-    Object.keys(resources.basemaps[language]).forEach((bm) => {
-      const basemap = resources.basemaps[language][bm];
-      if (basemap.thumbnailUrl && basemap.thumbnailUrl.indexOf('.') === 0) {
-        basemap.thumbnailUrl = base + basemap.thumbnailUrl;
-      }
-    });
+  // Object.keys(resources.basemaps).forEach((language) => {
+  //   Object.keys(resources.basemaps[language]).forEach((bm) => {
+  //     const basemap = resources.basemaps[language][bm];
+  //     if (basemap.thumbnailUrl && basemap.thumbnailUrl.indexOf('.') === 0) {
+  //       basemap.thumbnailUrl = base + basemap.thumbnailUrl;
+  //     }
+  //   });
+  // });
+
+  resources.layerPanel.GROUP_BASEMAP.layers.forEach((basemap) => {
+    if (basemap.thumbnailUrl && basemap.thumbnailUrl.indexOf('.') === 0) {
+      basemap.thumbnailUrl = base + basemap.thumbnailUrl;
+    }
   });
 
 };

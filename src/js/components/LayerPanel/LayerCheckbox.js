@@ -81,8 +81,10 @@ export default class LayerCheckbox extends Component {
   * legend, this is great for image services or other layers that don't have a legend but need one
   */
   updateLegendLayer (layerId, options) {
-    const {settings, map, language} = this.context;
-    const layersConfig = settings.layers[language];
+    const {settings, map} = this.context;
+    //- The layer could be in any of these two groups
+    const layersConfig = settings.layerPanel.GROUP_LC.layers
+      .concat(settings.layerPanel.GROUP_LCD.layers);
 
     const conf = utils.getObject(layersConfig, 'id', layerId);
     if (conf && conf.legendLayer !== undefined) {
@@ -133,10 +135,9 @@ export default class LayerCheckbox extends Component {
   }
 
   render() {
-    const {map} = this.context;
+    const {map, language} = this.context;
     const {layer} = this.props;
     const {label, sublabel} = layer;
-    // let {language} = this.context;
     const checked = this.props.checked ? 'active' : '';
     const disabled = layer.disabled ? 'disabled' : '';
     const hidden = LayersHelper.isLayerVisible(map, layer) ? '' : 'hidden';
@@ -144,11 +145,13 @@ export default class LayerCheckbox extends Component {
     return (
       <div className={`layer-checkbox relative ${checked} ${disabled} ${hidden}`} >
         <span onClick={this.toggleLayer.bind(this)} className='toggle-switch pointer'><span /></span>
-        <span onClick={this.toggleLayer.bind(this)} className='layer-checkbox-label pointer'>{label}</span>
+        <span onClick={this.toggleLayer.bind(this)} className='layer-checkbox-label pointer'>
+          {label[language]}
+        </span>
         <span className='info-icon pointer' onClick={this.showInfo.bind(this)}>
           <svg dangerouslySetInnerHTML={{ __html: useSvg }}/>
         </span>
-        {!sublabel ? null : <div className='layer-checkbox-sublabel'>{sublabel}</div>}
+        {!sublabel ? null : <div className='layer-checkbox-sublabel'>{sublabel[language]}</div>}
         {!this.props.children ? null :
           <div className={`layer-content-container flex ${this.props.checked ? '' : 'hidden'}`}>
             {this.props.children}

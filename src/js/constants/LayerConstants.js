@@ -16,5 +16,8 @@ export default {
   GROUP_LCD: 'GROUP_LCD',
   GROUP_LC: 'GROUP_LC',
   GROUP_WEBMAP: 'GROUP_WEBMAP',
-  GROUP_BASEMAP: 'GROUP_BASEMAP'
+  GROUP_BASEMAP: 'GROUP_BASEMAP',
+  WRI_CONTEXTUAL: 'wri_contextual',
+  WRI_MONO: 'wri_mono',
+  LANDSAT: 'landsat'
 };

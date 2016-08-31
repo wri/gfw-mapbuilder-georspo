@@ -35,10 +35,11 @@ export default class AnalysisTypeSelect extends Component {
 
   prepareOptions = (language) => {
     const {settings} = this.context;
-    const layers = settings.layers[language];
+    //- Get references to all the layers
+    const lcdGroupLayers = settings.layerPanel.GROUP_LCD;
     let options = text[language].ANALYSIS_SELECT_TYPE_OPTIONS;
     //- Remove options not included based on settings
-    //- Also, remove Tree Cover Options if those layers are not in the settings.layers.config
+    //- Also, remove Tree Cover Options if those layers are not in the settings.layerPanel.GROUP_LCD config
     options = options.filter((option) => {
       switch (option.value) {
         case analysisKeys.SLOPE:
@@ -62,9 +63,9 @@ export default class AnalysisTypeSelect extends Component {
         case analysisKeys.TERRA_I_ALERTS:
           return settings.terraIAlerts;
         case analysisKeys.TC_LOSS:
-          return appUtils.containsObject(layers, 'id', layerKeys.TREE_COVER_LOSS);
+          return appUtils.containsObject(lcdGroupLayers.layers, 'id', layerKeys.TREE_COVER_LOSS);
         case analysisKeys.TC_LOSS_GAIN:
-          return appUtils.containsObject(layers, 'id', layerKeys.TREE_COVER_GAIN);
+          return appUtils.containsObject(lcdGroupLayers.layers, 'id', layerKeys.TREE_COVER_GAIN);
         default:
           return true;
       }

@@ -75,10 +75,11 @@ export default (layer) => {
       options.minDateValue = layer.minDateValue;
       options.maxDateValue = layer.maxDateValue;
       options.confidence = layer.confidence;
-      options.visible = layer.visible;
+      options.visible = layer.visible || false;
       esriLayer = new GladLayer(options);
     break;
     case 'terra':
+      layer.visible = layer.visible || false;
       esriLayer = new TerraILayer(layer);
     break;
     default:

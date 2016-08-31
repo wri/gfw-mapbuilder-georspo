@@ -1,4 +1,5 @@
 import WebTiledLayer from 'esri/layers/WebTiledLayer';
+import appUtils from 'utils/AppUtils';
 import mapActions from 'actions/MapActions';
 import basemaps from 'esri/basemaps';
 
@@ -62,7 +63,8 @@ export default {
 
     //- if it is a landsat basemap, add/update that here
     if (basemap === 'landsat') {
-      this.addLandsatBasemap(map, customBasemaps.landsat);
+      const landsatConfig = appUtils.getObject(customBasemaps, 'id', 'landsat');
+      this.addLandsatBasemap(map, landsatConfig);
     }
 
   },

@@ -29,5 +29,5 @@ WRIBasemapLayer.propTypes = {
   icon: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   layerId: PropTypes.string.isRequired,
-  activeBasemap: PropTypes.string.isRequired
+  active: PropTypes.bool.isRequired
 };

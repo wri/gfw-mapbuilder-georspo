@@ -78,6 +78,374 @@ export default {
     'my.gfw-mapbuilder.org': 'HChmm-nytaxWk0D4nKljrtwXUelpvdU3R5vZ3jA1H7aqX5jcgUWd-H2dHXpm6ENNEFuRfPl_WgQMQYbgffjedA..',
     'wri-sites.s3-website-us-east-1.amazonaws.com': 'xtpo8j176BbwJJDdlfLlDyvkZbSYFLxiub2ND-fWDVpOpPhSfwcm0wiMHJktvhG3oBwivVuykjMgz90rherwt_b9tR4vRfggoMgqIIQzN8ufDziAtmpI2xl7niY82c0P'
   },
+
+  /**
+  * Layer panel configuration, anything with an = is optional, {object=}
+  * Order at the group level controls the order of the accordions, the top most accordion's layers
+  * will also be the top most layers on the map. The order in the layer level controls how those layers
+  * are organized within their own group
+  ** @name layerPanel
+  ** Both labels and sublabels are objects whose properties are ISO codes for supported languages
+  ** and values are string labels
+  * @property {object=} label - Label for the group in the layer panel
+  * @property {number} order - Order the accordions, and their layers, appear in the UI and the map
+  * @property {object[]=} layers - Layers placed in the various accordions
+  * @property {object[]=} extraLayers - Layers not placed in the Layer panel but are on the map
+  * @property {number} layers[].order - Order of this layer in this section only
+  * @property {string} layers[].id - Must be a unique id for the layer
+  * @property {string} layers[].type - The type of the layer, valid values are currently one of the following:
+  ** tiled | webtiled | image | dynamic | feature | graphic | glad | terra
+  * @property {boolean=} layers[].visible - Default visibility of the layer, default is false
+  * @property {string} layers[].technicalName - Technical name for the GFW Metadata API
+  * @property {number=} layers[].legendLayer - Optional layer id for an extra legend
+  * @property {string} layers[].url - URL for the service
+  * @property {object=} layers[].label - Label for the layer in the UI
+  * @property {object=} layers[].sublabel - Sublabel for the layer in the UI
+  * @property {boolean=} layers[].{ANY} - Any additional layer params that need to be passed through
+  * @property {object=} popupInfo - Popup configuration for the layer if it is available
+  */
+  layerPanel: {
+    GROUP_WEBMAP: {
+      order: 2,
+      label: {}, // Configurable via alternativeWebmapMenuName and webmapMenuName above
+      layers: []
+    },
+    GROUP_LCD: {
+      order: 1,
+      label: {
+        en: 'Land Cover Dynamics',
+        fr: 'Evolution de l\'occupation des sols',
+        es: 'Dinámica de la Cobertura del Suelo',
+        pt: 'Land Cover Dynamics',
+        id: 'Land Cover Dynamics',
+        zh: '土地覆盖动态数据'
+      },
+      layers: [{
+        order: 1,
+        id: 'TREE_COVER_LOSS',
+        type: 'image',
+        url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
+        technicalName: 'tree_cover_loss',
+        legendLayer: 0,
+        colormap: [[1, 219, 101, 152]],
+        inputRange: [1, 15],
+        outputRange: [1],
+        label: {
+          en: 'Tree cover loss',
+          fr: 'Perte en couvert arboré',
+          es: 'Pérdida de la cobertura arbórea',
+          pt: 'Tree cover loss',
+          id: 'Tree cover loss',
+          zh: '森林覆盖损失'
+        },
+        sublabel: {
+          en: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+          fr: '(annuel, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+          es: '(anual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+          pt: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+          id: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+          zh: '(每年更新, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))'
+        }
+      }, {
+        order: 2,
+        id: 'TREE_COVER_GAIN',
+        type: 'image',
+        url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
+        technicalName: 'tree_cover_gain',
+        legendLayer: 1,
+        label: {
+          en: 'Tree cover gain',
+          fr: 'Gain en couvert arboré',
+          es: 'Aumento de la cobertura arbórea',
+          pt: 'Tree cover gain',
+          id: 'Tree cover gain',
+          zh: '森林覆盖增加'
+        },
+        sublabel: {
+          en: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+          fr: '(12 ans, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+          es: '(12 años, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+          pt: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+          id: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+          zh: '(12 年, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))'
+        }
+      }, {
+        order: 3,
+        id: 'IMAZON_SAD',
+        type: 'dynamic',
+        url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+        technicalName: 'imazon_sad',
+        layerIds: [2],
+        label: {
+          en: 'SAD alerts',
+          fr: 'SAD alerts',
+          es: 'SAD alerts',
+          pt: 'SAD alerts',
+          id: 'SAD alerts',
+          zh: 'SAD alerts'
+        },
+        sublabel: {
+          en: '(monthly, 250m, Brazilian Amazon, Imazon)',
+          fr: '(monthly, 250m, Brazilian Amazon, Imazon)',
+          es: '(monthly, 250m, Brazilian Amazon, Imazon)',
+          pt: '(monthly, 250m, Brazilian Amazon, Imazon)',
+          id: '(monthly, 250m, Brazilian Amazon, Imazon)',
+          zh: '(monthly, 250m, Brazilian Amazon, Imazon)'
+        }
+      }, {
+        order: 4,
+        id: 'GLAD_ALERTS',
+        type: 'glad',
+        url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
+        technicalName: 'umd_landsat_alerts',
+        legendLayer: 7,
+        minDateValue: 15000,
+        maxDateValue: 16365,
+        confidence: [0, 1],
+        label: {
+          en: 'Glad Alerts',
+          fr: 'Glad Alerts',
+          es: 'Glad Alerts',
+          pt: 'Glad Alerts',
+          id: 'Glad Alerts',
+          zh: 'Glad Alerts'
+        },
+        sublabel: {
+          en: '(weekly, 30m, select countries, UMD/ GLAD)',
+          fr: '(weekly, 30m, select countries, UMD/ GLAD)',
+          es: '(weekly, 30m, select countries, UMD/ GLAD)',
+          pt: '(weekly, 30m, select countries, UMD/ GLAD)',
+          id: '(weekly, 30m, select countries, UMD/ GLAD)',
+          zh: '(weekly, 30m, select countries, UMD/ GLAD)'
+        }
+      }, {
+        order: 5,
+        id: 'TERRA_I_ALERTS',
+        type: 'terra',
+        url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+        technicalName: 'terra_i_alerts',
+        legendLayer: 13,
+        maxZoom: 10,
+        minDateValue: 4000, //We know data starts in 2004
+        // We are setting this way over max, the max date will get set set when TerraIControls mounts
+        // We set this over max so all data is visible by default, and it will update the dates when available
+        maxDateValue: 20000,
+        imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
+        label: {
+          en: 'Terra-I Alerts',
+          fr: 'Terra-I Alerts',
+          es: 'Terra-I Alerts',
+          pt: 'Terra-I Alerts',
+          id: 'Terra-I Alerts',
+          zh: 'Terra-I Alerts'
+        },
+        sublabel: {
+          en: '(monthly, 250m, Latin America, CIAT)',
+          fr: '(monthly, 250m, Latin America, CIAT)',
+          es: '(monthly, 250m, Latin America, CIAT)',
+          pt: '(monthly, 250m, Latin America, CIAT)',
+          id: '(monthly, 250m, Latin America, CIAT)',
+          zh: '(monthly, 250m, Latin America, CIAT)'
+        }
+      }, {
+        order: 6,
+        id: 'ACTIVE_FIRES',
+        type: 'dynamic',
+        url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
+        technicalName: 'noaa18_fires',
+        layerIds: [0, 1, 2, 3],
+        label: {
+          en: 'Active fires',
+          fr: 'Feux actifs',
+          es: 'Incendios activos',
+          pt: 'Active fires',
+          id: 'Active fires',
+          zh: '活跃火点'
+        },
+        sublabel: {
+          en: '(daily, 1km, global, NASA)',
+          fr: '(journalier, 1km, global, NASA)',
+          es: '活跃火点',
+          pt: '(daily, 1km, global, NASA)',
+          id: '(daily, 1km, global, NASA)',
+          zh: '(每天更新, 1千米, 全球覆盖, 美国宇航局（NASA))'
+        }
+      }]
+    },
+    GROUP_LC: {
+      order: 3,
+      label: {
+        en: 'Land Cover',
+        fr: 'Occupation des sols',
+        es: 'Cobertura vegetal',
+        pt: 'Land Cover',
+        id: 'Land Cover',
+        zh: '土地覆盖'
+      },
+      layers: [{
+        order: 1,
+        id: 'GLOB_MANGROVE',
+        type: 'webtiled',
+        url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+        subDomains: [0, 1, 2, 3],
+        technicalName: 'global_mangroves',
+        legendLayer: 11,
+        label: {
+          en: 'Global Mangrove',
+          fr: 'Global Mangrove',
+          es: 'Global Mangrove',
+          pt: 'Global Mangrove',
+          id: 'Global Mangrove',
+          zh: 'Global Mangrove'
+        }
+      }, {
+        order: 2,
+        id: 'IFL',
+        type: 'dynamic',
+        url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+        technicalName: 'intact_forest_landscapes_change',
+        layerIds: [0],
+        label: {
+          en: 'Intact Forest Landscape',
+          fr: 'Paysage forestier intact',
+          es: 'Paisajes Forestales Intactos',
+          pt: 'Intact Forest Landscape',
+          id: 'Intact Forest Landscape',
+          zh: '原生森林景观'
+        }
+      }, {
+        order: 3,
+        id: 'AG_BIOMASS',
+        type: 'image',
+        url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
+        technicalName: 'aboveground_biomass',
+        legendLayer: 8,
+        label: {
+          en: 'Aboveground Live Woody Biomass Density',
+          fr: 'Aboveground Live Woody Biomass Density',
+          es: 'Aboveground Live Woody Biomass Density',
+          pt: 'Aboveground Live Woody Biomass Density',
+          id: 'Aboveground Live Woody Biomass Density',
+          zh: 'Aboveground Live Woody Biomass Density'
+        }
+      }, {
+        order: 4,
+        id: 'LAND_COVER',
+        type: 'dynamic',
+        url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+        technicalName: 'global_landcover',
+        layerIds: [10],
+        rasterId: '$523',
+        bounds: [1, 20],
+        classes: ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'],
+        colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
+        label: {
+          en: 'Land cover',
+          fr: 'Occupation des sols',
+          es: 'Cobertura vegetal',
+          pt: 'Land cover',
+          id: 'Land cover',
+          zh: '土地覆盖'
+        }
+      }, {
+        order: 5,
+        id: 'TREE_COVER',
+        type: 'image',
+        url: 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
+        technicalName: 'tree_cover',
+        colormap: [[1, 0, 179, 0]],
+        inputRange: [30, 101],
+        outputRange: [1],
+        opacity: 0.8,
+        legendLayer: 2,
+        label: {
+          en: 'Tree cover density',
+          fr: 'Densité du couvert arboré',
+          es: 'Densidad de follaje',
+          pt: 'Tree cover density',
+          id: 'Tree cover density',
+          zh: '森林覆盖密度'
+        },
+        sublabel: {
+          en: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
+          fr: '(année 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
+          es: '(2000, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+          pt: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
+          id: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
+          zh: '(2000年, 30米 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))'
+        }
+      }]
+    },
+    GROUP_BASEMAP: {
+      order: 4,
+      label: {
+        en: 'Basemap',
+        fr: 'Basemap',
+        es: 'Basemap',
+        pt: 'Basemap',
+        id: 'Basemap',
+        zh: 'Basemap'
+      },
+      layers: [{
+        id: 'landsat',
+        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
+        years: ['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013'],
+        title: {
+          en: 'Landsat',
+          fr: 'Landsat',
+          es: 'Landsat',
+          pt: 'Landsat',
+          id: 'Landsat',
+          zh: 'Landsat'
+        }
+      }, {
+        id: 'wri_mono',
+        thumbnailUrl: './css/images/wri_mono.png',
+        title: {
+          en: 'WRI Mono',
+          fr: 'WRI Mono',
+          es: 'WRI Mono',
+          pt: 'WRI Mono',
+          id: 'WRI Mono',
+          zh: 'WRI Mono'
+        }
+      }, {
+        id: 'wri_contextual',
+        thumbnailUrl: './css/images/wri_contextual.png',
+        title: {
+          en: 'WRI Contextual',
+          fr: 'WRI Contextual',
+          es: 'WRI Contextual',
+          pt: 'WRI Contextual',
+          id: 'WRI Contextual',
+          zh: 'WRI Contextual'
+        }
+      }]
+    },
+    extraLayers: [{
+      id: 'MASK',
+      type: 'dynamic',
+      url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
+      opacity: 0.35,
+      layerIds: [0]
+    }, {
+      id: 'LEGEND_LAYER',
+      type: 'dynamic',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
+      visible: false,
+      opacity: 0,
+      layerIds: []
+    }, {
+      id: 'USER_FEATURES',
+      type: 'feature',
+      definitionExpression: '1 = 2', // show no features from the service ever
+      mode: 0, // equals MODE_SNAPSHOT
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
+      visible: true
+    }]
+  }
+
   /**
   * Layer Config Options, [brackets] = optional
   * if type is anything other than graphic and the layer is not disabled, it must have a url
@@ -102,1196 +470,1196 @@ export default {
   ** type
   ** technicalName
   */
-  layers: {
-    en: [{
-      id: 'TREE_COVER_LOSS',
-      order: 11,
-      type: 'image',
-      visible: false,
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Tree cover loss',
-      sublabel: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
-      colormap: [[1, 219, 101, 152]],
-      inputRange: [1, 15],
-      outputRange: [1],
-      legendLayer: 0,
-      technicalName: 'tree_cover_loss'
-    }, {
-      id: 'TREE_COVER_GAIN',
-      order: 12,
-      type: 'image',
-      visible: false,
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Tree cover gain',
-      sublabel: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
-      legendLayer: 1,
-      technicalName: 'tree_cover_gain'
-    }, {
-      id: 'IMAZON_SAD',
-      order: 13,
-      type: 'dynamic',
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'SAD alerts',
-      sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
-      layerIds: [2],
-      technicalName: 'imazon_sad'
-    }, {
-      id: 'GLAD_ALERTS',
-      order: 14,
-      type: 'glad',
-      url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
-      minDateValue: 15000,
-      maxDateValue: 16365,
-      confidence: [0, 1],
-      visible: false,
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Glad Alerts',
-      sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
-      technicalName: 'umd_landsat_alerts',
-      legendLayer: 7
-    }, {
-      id: 'TERRA_I_ALERTS',
-      order: 15,
-      type: 'terra',
-      url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
-      imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
-      visible: false,
-      maxZoom: 10,
-      minDateValue: 4000, //We know data starts in 2004
-      // We are setting this way over max, the max date will get set set when TerraIControls mounts
-      // We set this over max so all data is visible by default, and it will update the dates when available
-      maxDateValue: 20000,
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Terra-I Alerts',
-      sublabel: '(monthly, 250m, Latin America, CIAT)',
-      technicalName: 'terra_i_alerts',
-      legendLayer: 13
-    }, {
-      id: 'ACTIVE_FIRES',
-      order: 16,
-      type: 'dynamic',
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Active fires',
-      sublabel: '(daily, 1km, global, NASA)',
-      url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
-      layerIds: [0, 1, 2, 3],
-      technicalName: 'noaa18_fires'
-    }, {
-      id: 'GLOB_MANGROVE',
-      order: 5,
-      type: 'webtiled',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Global Mangrove',
-      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
-      subDomains: [0, 1, 2, 3],
-      technicalName: 'global_mangroves',
-      legendLayer: 11
-    }, {
-      id: 'IFL',
-      order: 4,
-      type: 'dynamic',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Intact Forest Landscape',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [0],
-      technicalName: 'intact_forest_landscapes_change'
-    }, {
-     id: 'AG_BIOMASS',
-     order: 3,
-     type: 'image',
-     group: 'Land Cover',
-     groupKey: 'GROUP_LC',
-     label: 'Aboveground Live Woody Biomass Density',
-     url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
-     legendLayer: 8,
-     technicalName: 'aboveground_biomass'
-   }, {
-     id: 'LAND_COVER',
-     order: 2,
-     type: 'dynamic',
-     group: 'Land Cover',
-     groupKey: 'GROUP_LC',
-     label: 'Land cover',
-     url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-     layerIds: [10],
-     rasterId: '$523',
-     bounds: [1, 20],
-     classes: ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'],
-     colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
-     technicalName: 'global_landcover'
-   }, {
-     id: 'TREE_COVER',
-     order: 1,
-     type: 'image',
-     group: 'Land Cover',
-     groupKey: 'GROUP_LC',
-     label: 'Tree cover density',
-     sublabel: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
-     url: 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
-     colormap: [[1, 0, 179, 0]], // colormap: [[1, 174, 203, 107]],
-     inputRange: [30, 101],
-     outputRange: [1],
-     visible: false,
-     opacity: 0.8,
-     legendLayer: 2,
-     technicalName: 'tree_cover'
-   }, {
-      id: 'MASK',
-      order: 100,
-      type: 'dynamic',
-      url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
-      opacity: 0.35,
-      layerIds: [0]
-    }, {
-      id: 'LEGEND_LAYER',
-      order: 101,
-      type: 'dynamic',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
-      visible: false,
-      opacity: 0,
-      layerIds: []
-    }, {
-      id: 'USER_FEATURES',
-      order: 102,
-      type: 'feature',
-      definitionExpression: '1 = 2', // show no features from the service ever
-      mode: 0, // equals MODE_SNAPSHOT
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
-      visible: true
-  }],
-    fr: [{
-      id: 'TREE_COVER_LOSS',
-      order: 11,
-      type: 'image',
-      visible: false,
-      group: 'Evolution de l\'occupation des sols',
-      groupKey: 'GROUP_LCD',
-      label: 'Perte en couvert arboré',
-      sublabel: '(annuel, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
-      colormap: [[1, 219, 101, 152]],
-      inputRange: [1, 15],
-      outputRange: [1],
-      legendLayer: 0,
-      technicalName: 'tree_cover_loss'
-    }, {
-      id: 'TREE_COVER_GAIN',
-      order: 12,
-      type: 'image',
-      visible: false,
-      group: 'Evolution de l\'occupation des sols',
-      groupKey: 'GROUP_LCD',
-      label: 'Gain en couvert arboré',
-      sublabel: '(12 ans, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
-      legendLayer: 1,
-      technicalName: 'tree_cover_gain'
-    }, {
-      id: 'IMAZON_SAD',
-      order: 13,
-      type: 'dynamic',
-      group: 'Evolution de l\'occupation des sols',
-      groupKey: 'GROUP_LCD',
-      label: 'SAD alerts',
-      sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
-      layerIds: [2],
-      technicalName: 'imazon_sad'
-    }, {
-      id: 'GLAD_ALERTS',
-      order: 14,
-      type: 'glad',
-      url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
-      minDateValue: 15000,
-      maxDateValue: 16365,
-      confidence: [0, 1],
-      visible: false,
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Glad Alerts',
-      sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
-      technicalName: 'umd_landsat_alerts',
-      legendLayer: 7
-    }, {
-      id: 'TERRA_I_ALERTS',
-      order: 15,
-      type: 'terra',
-      url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
-      imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
-      visible: false,
-      maxZoom: 10,
-      minDateValue: 4000, //We know data starts in 2004
-      // We are setting this way over max, the max date will get set set when TerraIControls mounts
-      // We set this over max so all data is visible by default, and it will update the dates when available
-      maxDateValue: 20000,
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Terra-I Alerts',
-      sublabel: '(monthly, 250m, Latin America, CIAT)',
-      technicalName: 'terra_i_alerts',
-      legendLayer: 13
-    }, {
-      id: 'ACTIVE_FIRES',
-      order: 16,
-      type: 'dynamic',
-      group: 'Evolution de l\'occupation des sols',
-      groupKey: 'GROUP_LCD',
-      label: 'Feux actifs',
-      sublabel: '(journalier, 1km, global, NASA)',
-      url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
-      layerIds: [0, 1, 2, 3],
-      technicalName: 'noaa18_fires'
-    }, {
-      id: 'GLOB_MANGROVE',
-      order: 5,
-      type: 'webtiled',
-      group: 'Occupation des sols',
-      groupKey: 'GROUP_LC',
-      label: 'Global Mangrove',
-      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
-      subDomains: [0, 1, 2, 3],
-      technicalName: 'global_mangroves',
-      legendLayer: 11
-    }, {
-      id: 'IFL',
-      order: 4,
-      type: 'dynamic',
-      group: 'Occupation des sols',
-      groupKey: 'GROUP_LC',
-      label: 'Paysage forestier intact',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [0],
-      technicalName: 'intact_forest_landscapes_change'
-    }, {
-      id: 'AG_BIOMASS',
-      order: 3,
-      type: 'image',
-      group: 'Occupation des sols',
-      groupKey: 'GROUP_LC',
-      label: 'Aboveground Live Woody Biomass Density',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
-      legendLayer: 8,
-      technicalName: 'aboveground_biomass'
-    }, {
-      id: 'LAND_COVER',
-      order: 2,
-      type: 'dynamic',
-      group: 'Occupation des sols',
-      groupKey: 'GROUP_LC',
-      label: 'Occupation des sols',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [10],
-      rasterId: '$523',
-      bounds: [1, 20],
-      classes: ['Forêt dense humide', 'Forêt sub-montagnarde', 'Forêt d\'altitude', 'Forêt marécageuse', 'Mangrove', 'Mosaïque forêt-savane', 'Complexe rural et jeunes forêts secondaires', 'Forêt claire à savane boisée décidue', 'Savane boisée-Savane arborée', 'Savane arbustive', 'Savane herbeuse', 'Aquatic grassland', 'Savane herbeuse inondée', 'Végétation éparse', 'Mosaique cultures/végétation ( herbeuse ou arbustive )', 'Agriculture', 'Agriculture irriguée', 'Sols nus', 'Eléments anthropiques', 'Eaux de surface'],
-      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
-      technicalName: 'global_landcover'
-    }, {
-      id: 'TREE_COVER',
-      order: 1,
-      type: 'image',
-      group: 'Occupation des sols',
-      groupKey: 'GROUP_LC',
-      label: 'densité du couvert arboré',
-      sublabel: '(année 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
-      colormap: [[1, 0, 179, 0]],
-      inputRange: [30, 101],
-      outputRange: [1],
-      visible: false,
-      opacity: 0.8,
-      legendLayer: 2,
-      technicalName: 'tree_cover'
-    }, {
-      id: 'MASK',
-      order: 100,
-      type: 'dynamic',
-      url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
-      opacity: 0.35,
-      layerIds: [0]
-    }, {
-      id: 'LEGEND_LAYER',
-      order: 101,
-      type: 'dynamic',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
-      visible: false,
-      opacity: 0,
-      layerIds: []
-    }, {
-      id: 'USER_FEATURES',
-      order: 102,
-      type: 'feature',
-      definitionExpression: '1 = 2', // show no features from the service ever
-      mode: 0, // equals MODE_SNAPSHOT
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
-      visible: true
-  }],
-    es: [{
-      id: 'TREE_COVER_LOSS',
-      order: 11,
-      type: 'image',
-      visible: false,
-      group: 'Dinámica de la Cobertura del Suelo',
-      groupKey: 'GROUP_LCD',
-      label: 'Pérdida de la cobertura arbórea',
-      sublabel: '(anual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
-      colormap: [[1, 219, 101, 152]],
-      inputRange: [1, 15],
-      outputRange: [1],
-      legendLayer: 0,
-      technicalName: 'tree_cover_loss'
-    }, {
-      id: 'TREE_COVER_GAIN',
-      order: 12,
-      type: 'image',
-      visible: false,
-      group: 'Dinámica de la Cobertura del Suelo',
-      groupKey: 'GROUP_LCD',
-      label: 'Aumento de la cobertura arbórea',
-      sublabel: '(12 años, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
-      legendLayer: 1,
-      technicalName: 'tree_cover_gain'
-    }, {
-      id: 'IMAZON_SAD',
-      order: 13,
-      type: 'dynamic',
-      group: 'Dinámica de la Cobertura del Suelo',
-      groupKey: 'GROUP_LCD',
-      label: 'SAD alerts',
-      sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
-      layerIds: [2],
-      technicalName: 'imazon_sad'
-    }, {
-      id: 'GLAD_ALERTS',
-      order: 14,
-      type: 'glad',
-      url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
-      minDateValue: 15000,
-      maxDateValue: 16365,
-      confidence: [0, 1],
-      visible: false,
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Glad Alerts',
-      sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
-      technicalName: 'umd_landsat_alerts',
-      legendLayer: 7
-    }, {
-      id: 'TERRA_I_ALERTS',
-      order: 15,
-      type: 'terra',
-      url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
-      imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
-      visible: false,
-      maxZoom: 10,
-      minDateValue: 4000, //We know data starts in 2004
-      // We are setting this way over max, the max date will get set set when TerraIControls mounts
-      // We set this over max so all data is visible by default, and it will update the dates when available
-      maxDateValue: 20000,
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Terra-I Alerts',
-      sublabel: '(monthly, 250m, Latin America, CIAT)',
-      technicalName: 'terra_i_alerts',
-      legendLayer: 13
-    }, {
-      id: 'ACTIVE_FIRES',
-      order: 16,
-      type: 'dynamic',
-      group: 'Dinámica de la Cobertura del Suelo',
-      groupKey: 'GROUP_LCD',
-      label: 'Incendios activos',
-      sublabel: '(diario, 1km, global, NASA)',
-      url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
-      layerIds: [0, 1, 2, 3],
-      technicalName: 'noaa18_fires'
-    }, {
-      id: 'GLOB_MANGROVE',
-      order: 5,
-      type: 'webtiled',
-      group: 'Cobertura vegetal',
-      groupKey: 'GROUP_LC',
-      label: 'Global Mangrove',
-      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
-      subDomains: [0, 1, 2, 3],
-      technicalName: 'global_mangroves',
-      legendLayer: 11
-    }, {
-      id: 'IFL',
-      order: 4,
-      type: 'dynamic',
-      group: 'Cobertura vegetal',
-      groupKey: 'GROUP_LC',
-      label: 'Paisajes Forestales Intactos',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [0],
-      technicalName: 'intact_forest_landscapes_change'
-    }, {
-      id: 'AG_BIOMASS',
-      order: 3,
-      type: 'image',
-      group: 'Cobertura vegetal',
-      groupKey: 'GROUP_LC',
-      label: 'Aboveground Live Woody Biomass Density',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
-      legendLayer: 8,
-      technicalName: 'aboveground_biomass'
-    }, {
-      id: 'LAND_COVER',
-      order: 2,
-      type: 'dynamic',
-      group: 'Cobertura vegetal',
-      groupKey: 'GROUP_LC',
-      label: 'Cobertura vegetal',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [10],
-      rasterId: '$523',
-      bounds: [1, 20],
-      classes: ['Bosque húmedo', 'Bosque premontano', 'Bosque montano', 'Bosque edáfico', 'Bosque de mangle', 'Mosaico sabana-bosque', 'Copmlejo rural y bosque secondário joven', 'Closed to open deciduous woodland', 'Sabana arbolada', 'Matorral', 'Pradera', 'Pradera aquática', 'Pradera inundable', 'Vegetación ralo', 'Mosaico áreas cultivadas/ vegetación (herbáceo o matorral)', 'Agricultura', 'Agricultura irregada', 'Áreas desnudas', 'Superficies artificiales y áreas asociadas', 'Cuerpos de agua'],
-      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
-      technicalName: 'global_landcover'
-    }, {
-      id: 'TREE_COVER',
-      order: 1,
-      type: 'image',
-      group: 'Cobertura vegetal',
-      groupKey: 'GROUP_LC',
-      label: 'Densidad de follaje',
-      sublabel: '(2000, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
-      colormap: [[1, 0, 179, 0]],
-      inputRange: [30, 101],
-      outputRange: [1],
-      visible: false,
-      opacity: 0.8,
-      legendLayer: 2,
-      technicalName: 'tree_cover'
-    }, {
-      id: 'MASK',
-      order: 100,
-      type: 'dynamic',
-      url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
-      opacity: 0.35,
-      layerIds: [0]
-    }, {
-      id: 'LEGEND_LAYER',
-      order: 101,
-      type: 'dynamic',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
-      visible: false,
-      opacity: 0,
-      layerIds: []
-    }, {
-      id: 'USER_FEATURES',
-      order: 102,
-      type: 'feature',
-      definitionExpression: '1 = 2', // show no features from the service ever
-      mode: 0, // equals MODE_SNAPSHOT
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
-      visible: true
-  }],
-    pt: [{
-      id: 'TREE_COVER_LOSS',
-      order: 11,
-      type: 'image',
-      visible: false,
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Tree cover loss',
-      sublabel: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
-      colormap: [[1, 219, 101, 152]],
-      inputRange: [1, 15],
-      outputRange: [1],
-      legendLayer: 0,
-      technicalName: 'tree_cover_loss'
-    }, {
-      id: 'TREE_COVER_GAIN',
-      order: 12,
-      type: 'image',
-      visible: false,
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Tree cover gain',
-      sublabel: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
-      legendLayer: 1,
-      technicalName: 'tree_cover_gain'
-    }, {
-      id: 'IMAZON_SAD',
-      order: 13,
-      type: 'dynamic',
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'SAD alerts',
-      sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
-      layerIds: [2],
-      technicalName: 'imazon_sad'
-    }, {
-      id: 'GLAD_ALERTS',
-      order: 14,
-      type: 'glad',
-      url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
-      minDateValue: 15000,
-      maxDateValue: 16365,
-      confidence: [0, 1],
-      visible: false,
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Glad Alerts',
-      sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
-      technicalName: 'umd_landsat_alerts',
-      legendLayer: 7
-    }, {
-      id: 'TERRA_I_ALERTS',
-      order: 15,
-      type: 'terra',
-      url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
-      imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
-      visible: false,
-      maxZoom: 10,
-      minDateValue: 4000, //We know data starts in 2004
-      // We are setting this way over max, the max date will get set set when TerraIControls mounts
-      // We set this over max so all data is visible by default, and it will update the dates when available
-      maxDateValue: 20000,
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Terra-I Alerts',
-      sublabel: '(monthly, 250m, Latin America, CIAT)',
-      technicalName: 'terra_i_alerts',
-      legendLayer: 13
-    }, {
-      id: 'ACTIVE_FIRES',
-      order: 16,
-      type: 'dynamic',
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Active fires',
-      sublabel: '(daily, 1km, global, NASA)',
-      url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
-      layerIds: [0, 1, 2, 3],
-      technicalName: 'noaa18_fires'
-    }, {
-      id: 'GLOB_MANGROVE',
-      order: 5,
-      type: 'webtiled',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Global Mangrove',
-      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
-      subDomains: [0, 1, 2, 3],
-      technicalName: 'global_mangroves',
-      legendLayer: 11
-    }, {
-      id: 'IFL',
-      order: 4,
-      type: 'dynamic',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Intact Forest Landscape',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [0],
-      technicalName: 'intact_forest_landscapes_change'
-    }, {
-      id: 'AG_BIOMASS',
-      order: 3,
-      type: 'image',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Aboveground Live Woody Biomass Density',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
-      legendLayer: 8,
-      technicalName: 'aboveground_biomass'
-    }, {
-      id: 'LAND_COVER',
-      order: 2,
-      type: 'dynamic',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Land cover',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [10],
-      rasterId: '$523',
-      bounds: [1, 20],
-      classes: ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'],
-      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
-      technicalName: 'global_landcover'
-    }, {
-      id: 'TREE_COVER',
-      order: 1,
-      type: 'image',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Tree cover density',
-      sublabel: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
-      colormap: [[1, 0, 179, 0]],
-      inputRange: [30, 101],
-      outputRange: [1],
-      visible: false,
-      opacity: 0.8,
-      legendLayer: 2,
-      technicalName: 'tree_cover'
-    }, {
-      id: 'MASK',
-      order: 100,
-      type: 'dynamic',
-      url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
-      opacity: 0.35,
-      layerIds: [0]
-    }, {
-      id: 'LEGEND_LAYER',
-      order: 101,
-      type: 'dynamic',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
-      visible: false,
-      opacity: 0,
-      layerIds: []
-    }, {
-      id: 'USER_FEATURES',
-      order: 102,
-      type: 'feature',
-      definitionExpression: '1 = 2', // show no features from the service ever
-      mode: 0, // equals MODE_SNAPSHOT
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
-      visible: true
-  }],
-    id: [{
-      id: 'TREE_COVER_LOSS',
-      order: 11,
-      type: 'image',
-      visible: false,
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Tree cover loss',
-      sublabel: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
-      colormap: [[1, 219, 101, 152]],
-      inputRange: [1, 15],
-      outputRange: [1],
-      legendLayer: 0,
-      technicalName: 'tree_cover_loss'
-    }, {
-      id: 'TREE_COVER_GAIN',
-      order: 12,
-      type: 'image',
-      visible: false,
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Tree cover gain',
-      sublabel: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
-      legendLayer: 1,
-      technicalName: 'tree_cover_gain'
-    }, {
-      id: 'IMAZON_SAD',
-      order: 13,
-      type: 'dynamic',
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'SAD alerts',
-      sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
-      layerIds: [2],
-      technicalName: 'imazon_sad'
-    }, {
-      id: 'GLAD_ALERTS',
-      order: 14,
-      type: 'glad',
-      url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
-      minDateValue: 15000,
-      maxDateValue: 16365,
-      confidence: [0, 1],
-      visible: false,
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Glad Alerts',
-      sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
-      technicalName: 'umd_landsat_alerts',
-      legendLayer: 7
-    }, {
-      id: 'TERRA_I_ALERTS',
-      order: 15,
-      type: 'terra',
-      url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
-      imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
-      visible: false,
-      maxZoom: 10,
-      minDateValue: 4000, //We know data starts in 2004
-      // We are setting this way over max, the max date will get set set when TerraIControls mounts
-      // We set this over max so all data is visible by default, and it will update the dates when available
-      maxDateValue: 20000,
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Terra-I Alerts',
-      sublabel: '(monthly, 250m, Latin America, CIAT)',
-      technicalName: 'terra_i_alerts',
-      legendLayer: 13
-    }, {
-      id: 'ACTIVE_FIRES',
-      order: 16,
-      type: 'dynamic',
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Active fires',
-      sublabel: '(daily, 1km, global, NASA)',
-      url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
-      layerIds: [0, 1, 2, 3],
-      technicalName: 'noaa18_fires'
-    }, {
-      id: 'GLOB_MANGROVE',
-      order: 5,
-      type: 'webtiled',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Global Mangrove',
-      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
-      subDomains: [0, 1, 2, 3],
-      technicalName: 'global_mangroves',
-      legendLayer: 11
-    }, {
-      id: 'IFL',
-      order: 4,
-      type: 'dynamic',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Intact Forest Landscape',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [0],
-      technicalName: 'intact_forest_landscapes_change'
-    }, {
-      id: 'AG_BIOMASS',
-      order: 3,
-      type: 'image',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Aboveground Live Woody Biomass Density',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
-      legendLayer: 8,
-      technicalName: 'aboveground_biomass'
-    }, {
-      id: 'LAND_COVER',
-      order: 2,
-      type: 'dynamic',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Land cover',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [10],
-      rasterId: '$523',
-      bounds: [1, 20],
-      classes: ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'],
-      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
-      technicalName: 'global_landcover'
-    }, {
-      id: 'TREE_COVER',
-      order: 1,
-      type: 'image',
-      group: 'Land Cover',
-      groupKey: 'GROUP_LC',
-      label: 'Tree cover density',
-      sublabel: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
-      colormap: [[1, 0, 179, 0]],
-      inputRange: [30, 101],
-      outputRange: [1],
-      visible: false,
-      opacity: 0.8,
-      legendLayer: 2,
-      technicalName: 'tree_cover'
-    }, {
-      id: 'MASK',
-      order: 100,
-      type: 'dynamic',
-      url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
-      opacity: 0.35,
-      layerIds: [0]
-    }, {
-      id: 'LEGEND_LAYER',
-      order: 101,
-      type: 'dynamic',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
-      visible: false,
-      opacity: 0,
-      layerIds: []
-    }, {
-      id: 'USER_FEATURES',
-      order: 102,
-      type: 'feature',
-      definitionExpression: '1 = 2', // show no features from the service ever
-      mode: 0, // equals MODE_SNAPSHOT
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
-      visible: true
-  }],
-    zh: [{
-      id: 'TREE_COVER_LOSS',
-      order: 11,
-      type: 'image',
-      visible: false,
-      group: '土地覆盖动态数据',
-      groupKey: 'GROUP_LCD',
-      label: '森林覆盖损失',
-      sublabel: '(每年更新, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
-      colormap: [[1, 219, 101, 152]],
-      inputRange: [1, 15],
-      outputRange: [1],
-      legendLayer: 0,
-      technicalName: 'tree_cover_loss'
-    }, {
-      id: 'TREE_COVER_GAIN',
-      order: 12,
-      type: 'image',
-      visible: false,
-      group: '土地覆盖动态数据',
-      groupKey: 'GROUP_LCD',
-      label: '森林覆盖增加',
-      sublabel: '(12 年, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
-      legendLayer: 1,
-      technicalName: 'tree_cover_gain'
-    }, {
-      id: 'IMAZON_SAD',
-      order: 13,
-      type: 'dynamic',
-      group: '土地覆盖动态数据',
-      groupKey: 'GROUP_LCD',
-      label: 'SAD alerts',
-      sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
-      layerIds: [2],
-      technicalName: 'imazon_sad'
-    }, {
-      id: 'GLAD_ALERTS',
-      order: 14,
-      type: 'glad',
-      url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
-      minDateValue: 15000,
-      maxDateValue: 16365,
-      confidence: [0, 1],
-      visible: false,
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Glad Alerts',
-      sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
-      technicalName: 'umd_landsat_alerts',
-      legendLayer: 7
-    }, {
-      id: 'TERRA_I_ALERTS',
-      order: 15,
-      type: 'terra',
-      url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
-      imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
-      visible: false,
-      maxZoom: 10,
-      minDateValue: 4000, //We know data starts in 2004
-      // We are setting this way over max, the max date will get set set when TerraIControls mounts
-      // We set this over max so all data is visible by default, and it will update the dates when available
-      maxDateValue: 20000,
-      group: 'Land Cover Dynamics',
-      groupKey: 'GROUP_LCD',
-      label: 'Terra-I Alerts',
-      sublabel: '(monthly, 250m, Latin America, CIAT)',
-      technicalName: 'terra_i_alerts',
-      legendLayer: 13
-    }, {
-      id: 'ACTIVE_FIRES',
-      order: 16,
-      type: 'dynamic',
-      group: '土地覆盖动态数据',
-      groupKey: 'GROUP_LCD',
-      label: '活跃火点',
-      sublabel: '(每天更新, 1千米, 全球覆盖, 美国宇航局（NASA）)',
-      url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
-      layerIds: [0, 1, 2, 3],
-      technicalName: 'noaa18_fires'
-    }, {
-      id: 'GLOB_MANGROVE',
-      order: 5,
-      type: 'webtiled',
-      group: '土地覆盖',
-      groupKey: 'GROUP_LC',
-      label: 'Global Mangrove',
-      url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
-      subDomains: [0, 1, 2, 3],
-      technicalName: 'global_mangroves',
-      legendLayer: 11
-    }, {
-      id: 'IFL',
-      order: 4,
-      type: 'dynamic',
-      group: '土地覆盖',
-      groupKey: 'GROUP_LC',
-      label: '原生森林景观',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [0],
-      technicalName: 'intact_forest_landscapes_change'
-    }, {
-      id: 'AG_BIOMASS',
-      order: 3,
-      type: 'image',
-      group: '土地覆盖',
-      groupKey: 'GROUP_LC',
-      label: 'Aboveground Live Woody Biomass Density',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
-      legendLayer: 8,
-      technicalName: 'aboveground_biomass'
-    }, {
-      id: 'LAND_COVER',
-      order: 2,
-      type: 'dynamic',
-      group: '土地覆盖',
-      groupKey: 'GROUP_LC',
-      label: '土地覆盖',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-      layerIds: [10],
-      rasterId: '$523',
-      bounds: [1, 20],
-      classes: ['密集型潮湿森林', '亚山地森林', '山地森林', '土壤森林', '红树林', '森林-草地镶嵌区', '城郊混杂区的新兴次生林', '闭合、开放式落叶林地 ', '稀树草原', '灌木林', '草地', '水生草地', '沼泽草地', '稀疏植被区', '耕地和灌木植被镶嵌区)', '农业用地Agriculture', '灌溉农业用地 ', '裸地 ', '人工地及其相关区域 ', '水体'],
-      colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
-      technicalName: 'global_landcover'
-    }, {
-      id: 'TREE_COVER',
-      order: 1,
-      type: 'image',
-      group: '土地覆盖',
-      groupKey: 'GROUP_LC',
-      label: '森林覆盖密度',
-      sublabel: '(2000年, 30米 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))',
-      url: 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
-      colormap: [[1, 0, 179, 0]], // colormap: [[1, 174, 203, 107]],
-      inputRange: [30, 101],
-      outputRange: [1],
-      visible: false,
-      opacity: 0.8,
-      legendLayer: 2,
-      technicalName: 'tree_cover'
-    }, {
-      id: 'MASK',
-      order: 100,
-      type: 'dynamic',
-      url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
-      opacity: 0.35,
-      layerIds: [0]
-    }, {
-      id: 'LEGEND_LAYER',
-      order: 101,
-      type: 'dynamic',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
-      visible: false,
-      opacity: 0,
-      layerIds: []
-    }, {
-      id: 'USER_FEATURES',
-      order: 102,
-      type: 'feature',
-      definitionExpression: '1 = 2', // show no features from the service ever
-      mode: 0, // equals MODE_SNAPSHOT
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
-      visible: true
-  }]
-  },
-  basemaps: {
-    en: {
-      'landsat': {
-        title: 'Landsat',
-        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
-        templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
-        years: [
-          '2000',
-          '2001',
-          '2002',
-          '2003',
-          '2004',
-          '2005',
-          '2006',
-          '2007',
-          '2008',
-          '2009',
-          '2010',
-          '2011',
-          '2012',
-          '2013'
-        ]
-      },
-      'wri_mono': {
-        title: 'WRI Mono',
-        thumbnailUrl: './css/images/wri_mono.png'
-      },
-      'wri_contextual': {
-        title: 'WRI Contextual',
-        thumbnailUrl: './css/images/wri_contextual.png'
-      }
-    },
-    fr: {
-      'landsat': {
-        title: 'Landsat',
-        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
-        templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
-        years: [
-          '2000',
-          '2001',
-          '2002',
-          '2003',
-          '2004',
-          '2005',
-          '2006',
-          '2007',
-          '2008',
-          '2009',
-          '2010',
-          '2011',
-          '2012',
-          '2013'
-        ]
-      },
-      'wri_mono': {
-        title: 'WRI Mono',
-        thumbnailUrl: './css/images/wri_mono.png'
-      },
-      'wri_contextual': {
-        title: 'WRI Contextual',
-        thumbnailUrl: './css/images/wri_contextual.png'
-      }
-    },
-    es: {
-      'landsat': {
-        title: 'Landsat',
-        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
-        templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
-        years: [
-          '2000',
-          '2001',
-          '2002',
-          '2003',
-          '2004',
-          '2005',
-          '2006',
-          '2007',
-          '2008',
-          '2009',
-          '2010',
-          '2011',
-          '2012',
-          '2013'
-        ]
-      },
-      'wri_mono': {
-        title: 'WRI Mono',
-        thumbnailUrl: './css/images/wri_mono.png'
-      },
-      'wri_contextual': {
-        title: 'WRI Contextual',
-        thumbnailUrl: './css/images/wri_contextual.png'
-      }
-    },
-    pt: {
-      'landsat': {
-        title: 'Landsat',
-        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
-        templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
-        years: [
-          '2000',
-          '2001',
-          '2002',
-          '2003',
-          '2004',
-          '2005',
-          '2006',
-          '2007',
-          '2008',
-          '2009',
-          '2010',
-          '2011',
-          '2012',
-          '2013'
-        ]
-      },
-      'wri_mono': {
-        title: 'WRI Mono',
-        thumbnailUrl: './css/images/wri_mono.png'
-      },
-      'wri_contextual': {
-        title: 'WRI Contextual',
-        thumbnailUrl: './css/images/wri_contextual.png'
-      }
-    },
-	id: {
-      'landsat': {
-        title: 'Landsat',
-        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
-        templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
-        years: [
-          '2000',
-          '2001',
-          '2002',
-          '2003',
-          '2004',
-          '2005',
-          '2006',
-          '2007',
-          '2008',
-          '2009',
-          '2010',
-          '2011',
-          '2012',
-          '2013'
-        ]
-      },
-      'wri_mono': {
-        title: 'WRI Mono',
-        thumbnailUrl: './css/images/wri_mono.png'
-      },
-      'wri_contextual': {
-        title: 'WRI Contextual',
-        thumbnailUrl: './css/images/wri_contextual.png'
-      }
-    },
-  zf: {
-      'landsat': {
-        title: 'Landsat',
-        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
-        templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
-        years: [
-          '2000',
-          '2001',
-          '2002',
-          '2003',
-          '2004',
-          '2005',
-          '2006',
-          '2007',
-          '2008',
-          '2009',
-          '2010',
-          '2011',
-          '2012',
-          '2013'
-        ]
-      },
-      'wri_mono': {
-        title: 'WRI Mono',
-        thumbnailUrl: './css/images/wri_mono.png'
-      },
-      'wri_contextual': {
-        title: 'WRI Contextual',
-        thumbnailUrl: './css/images/wri_contextual.png'
-      }
-    }
-  }
+  // layers: {
+  //   en: [{
+  //     id: 'TREE_COVER_LOSS',
+  //     order: 11,
+  //     type: 'image',
+  //     visible: false,
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Tree cover loss',
+  //     sublabel: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+  //     url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
+  //     colormap: [[1, 219, 101, 152]],
+  //     inputRange: [1, 15],
+  //     outputRange: [1],
+  //     legendLayer: 0,
+  //     technicalName: 'tree_cover_loss'
+  //   }, {
+  //     id: 'TREE_COVER_GAIN',
+  //     order: 12,
+  //     type: 'image',
+  //     visible: false,
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Tree cover gain',
+  //     sublabel: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+  //     url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
+  //     legendLayer: 1,
+  //     technicalName: 'tree_cover_gain'
+  //   }, {
+  //     id: 'IMAZON_SAD',
+  //     order: 13,
+  //     type: 'dynamic',
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'SAD alerts',
+  //     sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+  //     layerIds: [2],
+  //     technicalName: 'imazon_sad'
+  //   }, {
+  //     id: 'GLAD_ALERTS',
+  //     order: 14,
+  //     type: 'glad',
+  //     url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
+  //     minDateValue: 15000,
+  //     maxDateValue: 16365,
+  //     confidence: [0, 1],
+  //     visible: false,
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Glad Alerts',
+  //     sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
+  //     technicalName: 'umd_landsat_alerts',
+  //     legendLayer: 7
+  //   }, {
+  //     id: 'TERRA_I_ALERTS',
+  //     order: 15,
+  //     type: 'terra',
+  //     url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+  //     imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
+  //     visible: false,
+  //     maxZoom: 10,
+  //     minDateValue: 4000, //We know data starts in 2004
+  //     // We are setting this way over max, the max date will get set set when TerraIControls mounts
+  //     // We set this over max so all data is visible by default, and it will update the dates when available
+  //     maxDateValue: 20000,
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Terra-I Alerts',
+  //     sublabel: '(monthly, 250m, Latin America, CIAT)',
+  //     technicalName: 'terra_i_alerts',
+  //     legendLayer: 13
+  //   }, {
+  //     id: 'ACTIVE_FIRES',
+  //     order: 16,
+  //     type: 'dynamic',
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Active fires',
+  //     sublabel: '(daily, 1km, global, NASA)',
+  //     url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
+  //     layerIds: [0, 1, 2, 3],
+  //     technicalName: 'noaa18_fires'
+  //   }, {
+  //     id: 'GLOB_MANGROVE',
+  //     order: 5,
+  //     type: 'webtiled',
+  //     group: 'Land Cover',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Global Mangrove',
+  //     url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+  //     subDomains: [0, 1, 2, 3],
+  //     technicalName: 'global_mangroves',
+  //     legendLayer: 11
+  //   }, {
+  //     id: 'IFL',
+  //     order: 4,
+  //     type: 'dynamic',
+  //     group: 'Land Cover',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Intact Forest Landscape',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+  //     layerIds: [0],
+  //     technicalName: 'intact_forest_landscapes_change'
+  //   }, {
+  //    id: 'AG_BIOMASS',
+  //    order: 3,
+  //    type: 'image',
+  //    group: 'Land Cover',
+  //    groupKey: 'GROUP_LC',
+  //    label: 'Aboveground Live Woody Biomass Density',
+  //    url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
+  //    legendLayer: 8,
+  //    technicalName: 'aboveground_biomass'
+  //  }, {
+  //    id: 'LAND_COVER',
+  //    order: 2,
+  //    type: 'dynamic',
+  //    group: 'Land Cover',
+  //    groupKey: 'GROUP_LC',
+  //    label: 'Land cover',
+  //    url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+  //    layerIds: [10],
+  //    rasterId: '$523',
+  //    bounds: [1, 20],
+  //    classes: ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'],
+  //    colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
+  //    technicalName: 'global_landcover'
+  //  }, {
+  //    id: 'TREE_COVER',
+  //    order: 1,
+  //    type: 'image',
+  //    group: 'Land Cover',
+  //    groupKey: 'GROUP_LC',
+  //    label: 'Tree cover density',
+  //    sublabel: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
+  //    url: 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
+  //    colormap: [[1, 0, 179, 0]], // colormap: [[1, 174, 203, 107]],
+  //    inputRange: [30, 101],
+  //    outputRange: [1],
+  //    visible: false,
+  //    opacity: 0.8,
+  //    legendLayer: 2,
+  //    technicalName: 'tree_cover'
+  //  }, {
+  //     id: 'MASK',
+  //     order: 100,
+  //     type: 'dynamic',
+  //     url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
+  //     opacity: 0.35,
+  //     layerIds: [0]
+  //   }, {
+  //     id: 'LEGEND_LAYER',
+  //     order: 101,
+  //     type: 'dynamic',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
+  //     visible: false,
+  //     opacity: 0,
+  //     layerIds: []
+  //   }, {
+  //     id: 'USER_FEATURES',
+  //     order: 102,
+  //     type: 'feature',
+  //     definitionExpression: '1 = 2', // show no features from the service ever
+  //     mode: 0, // equals MODE_SNAPSHOT
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
+  //     visible: true
+  // }],
+  //   fr: [{
+  //     id: 'TREE_COVER_LOSS',
+  //     order: 11,
+  //     type: 'image',
+  //     visible: false,
+  //     group: 'Evolution de l\'occupation des sols',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Perte en couvert arboré',
+  //     sublabel: '(annuel, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+  //     url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
+  //     colormap: [[1, 219, 101, 152]],
+  //     inputRange: [1, 15],
+  //     outputRange: [1],
+  //     legendLayer: 0,
+  //     technicalName: 'tree_cover_loss'
+  //   }, {
+  //     id: 'TREE_COVER_GAIN',
+  //     order: 12,
+  //     type: 'image',
+  //     visible: false,
+  //     group: 'Evolution de l\'occupation des sols',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Gain en couvert arboré',
+  //     sublabel: '(12 ans, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+  //     url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
+  //     legendLayer: 1,
+  //     technicalName: 'tree_cover_gain'
+  //   }, {
+  //     id: 'IMAZON_SAD',
+  //     order: 13,
+  //     type: 'dynamic',
+  //     group: 'Evolution de l\'occupation des sols',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'SAD alerts',
+  //     sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+  //     layerIds: [2],
+  //     technicalName: 'imazon_sad'
+  //   }, {
+  //     id: 'GLAD_ALERTS',
+  //     order: 14,
+  //     type: 'glad',
+  //     url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
+  //     minDateValue: 15000,
+  //     maxDateValue: 16365,
+  //     confidence: [0, 1],
+  //     visible: false,
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Glad Alerts',
+  //     sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
+  //     technicalName: 'umd_landsat_alerts',
+  //     legendLayer: 7
+  //   }, {
+  //     id: 'TERRA_I_ALERTS',
+  //     order: 15,
+  //     type: 'terra',
+  //     url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+  //     imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
+  //     visible: false,
+  //     maxZoom: 10,
+  //     minDateValue: 4000, //We know data starts in 2004
+  //     // We are setting this way over max, the max date will get set set when TerraIControls mounts
+  //     // We set this over max so all data is visible by default, and it will update the dates when available
+  //     maxDateValue: 20000,
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Terra-I Alerts',
+  //     sublabel: '(monthly, 250m, Latin America, CIAT)',
+  //     technicalName: 'terra_i_alerts',
+  //     legendLayer: 13
+  //   }, {
+  //     id: 'ACTIVE_FIRES',
+  //     order: 16,
+  //     type: 'dynamic',
+  //     group: 'Evolution de l\'occupation des sols',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Feux actifs',
+  //     sublabel: '(journalier, 1km, global, NASA)',
+  //     url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
+  //     layerIds: [0, 1, 2, 3],
+  //     technicalName: 'noaa18_fires'
+  //   }, {
+  //     id: 'GLOB_MANGROVE',
+  //     order: 5,
+  //     type: 'webtiled',
+  //     group: 'Occupation des sols',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Global Mangrove',
+  //     url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+  //     subDomains: [0, 1, 2, 3],
+  //     technicalName: 'global_mangroves',
+  //     legendLayer: 11
+  //   }, {
+  //     id: 'IFL',
+  //     order: 4,
+  //     type: 'dynamic',
+  //     group: 'Occupation des sols',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Paysage forestier intact',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+  //     layerIds: [0],
+  //     technicalName: 'intact_forest_landscapes_change'
+  //   }, {
+  //     id: 'AG_BIOMASS',
+  //     order: 3,
+  //     type: 'image',
+  //     group: 'Occupation des sols',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Aboveground Live Woody Biomass Density',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
+  //     legendLayer: 8,
+  //     technicalName: 'aboveground_biomass'
+  //   }, {
+  //     id: 'LAND_COVER',
+  //     order: 2,
+  //     type: 'dynamic',
+  //     group: 'Occupation des sols',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Occupation des sols',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+  //     layerIds: [10],
+  //     rasterId: '$523',
+  //     bounds: [1, 20],
+  //     classes: ['Forêt dense humide', 'Forêt sub-montagnarde', 'Forêt d\'altitude', 'Forêt marécageuse', 'Mangrove', 'Mosaïque forêt-savane', 'Complexe rural et jeunes forêts secondaires', 'Forêt claire à savane boisée décidue', 'Savane boisée-Savane arborée', 'Savane arbustive', 'Savane herbeuse', 'Aquatic grassland', 'Savane herbeuse inondée', 'Végétation éparse', 'Mosaique cultures/végétation ( herbeuse ou arbustive )', 'Agriculture', 'Agriculture irriguée', 'Sols nus', 'Eléments anthropiques', 'Eaux de surface'],
+  //     colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
+  //     technicalName: 'global_landcover'
+  //   }, {
+  //     id: 'TREE_COVER',
+  //     order: 1,
+  //     type: 'image',
+  //     group: 'Occupation des sols',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'densité du couvert arboré',
+  //     sublabel: '(année 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
+  //     url: 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
+  //     colormap: [[1, 0, 179, 0]],
+  //     inputRange: [30, 101],
+  //     outputRange: [1],
+  //     visible: false,
+  //     opacity: 0.8,
+  //     legendLayer: 2,
+  //     technicalName: 'tree_cover'
+  //   }, {
+  //     id: 'MASK',
+  //     order: 100,
+  //     type: 'dynamic',
+  //     url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
+  //     opacity: 0.35,
+  //     layerIds: [0]
+  //   }, {
+  //     id: 'LEGEND_LAYER',
+  //     order: 101,
+  //     type: 'dynamic',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
+  //     visible: false,
+  //     opacity: 0,
+  //     layerIds: []
+  //   }, {
+  //     id: 'USER_FEATURES',
+  //     order: 102,
+  //     type: 'feature',
+  //     definitionExpression: '1 = 2', // show no features from the service ever
+  //     mode: 0, // equals MODE_SNAPSHOT
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
+  //     visible: true
+  // }],
+  //   es: [{
+  //     id: 'TREE_COVER_LOSS',
+  //     order: 11,
+  //     type: 'image',
+  //     visible: false,
+  //     group: 'Dinámica de la Cobertura del Suelo',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Pérdida de la cobertura arbórea',
+  //     sublabel: '(anual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+  //     url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
+  //     colormap: [[1, 219, 101, 152]],
+  //     inputRange: [1, 15],
+  //     outputRange: [1],
+  //     legendLayer: 0,
+  //     technicalName: 'tree_cover_loss'
+  //   }, {
+  //     id: 'TREE_COVER_GAIN',
+  //     order: 12,
+  //     type: 'image',
+  //     visible: false,
+  //     group: 'Dinámica de la Cobertura del Suelo',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Aumento de la cobertura arbórea',
+  //     sublabel: '(12 años, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+  //     url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
+  //     legendLayer: 1,
+  //     technicalName: 'tree_cover_gain'
+  //   }, {
+  //     id: 'IMAZON_SAD',
+  //     order: 13,
+  //     type: 'dynamic',
+  //     group: 'Dinámica de la Cobertura del Suelo',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'SAD alerts',
+  //     sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+  //     layerIds: [2],
+  //     technicalName: 'imazon_sad'
+  //   }, {
+  //     id: 'GLAD_ALERTS',
+  //     order: 14,
+  //     type: 'glad',
+  //     url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
+  //     minDateValue: 15000,
+  //     maxDateValue: 16365,
+  //     confidence: [0, 1],
+  //     visible: false,
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Glad Alerts',
+  //     sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
+  //     technicalName: 'umd_landsat_alerts',
+  //     legendLayer: 7
+  //   }, {
+  //     id: 'TERRA_I_ALERTS',
+  //     order: 15,
+  //     type: 'terra',
+  //     url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+  //     imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
+  //     visible: false,
+  //     maxZoom: 10,
+  //     minDateValue: 4000, //We know data starts in 2004
+  //     // We are setting this way over max, the max date will get set set when TerraIControls mounts
+  //     // We set this over max so all data is visible by default, and it will update the dates when available
+  //     maxDateValue: 20000,
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Terra-I Alerts',
+  //     sublabel: '(monthly, 250m, Latin America, CIAT)',
+  //     technicalName: 'terra_i_alerts',
+  //     legendLayer: 13
+  //   }, {
+  //     id: 'ACTIVE_FIRES',
+  //     order: 16,
+  //     type: 'dynamic',
+  //     group: 'Dinámica de la Cobertura del Suelo',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Incendios activos',
+  //     sublabel: '(diario, 1km, global, NASA)',
+  //     url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
+  //     layerIds: [0, 1, 2, 3],
+  //     technicalName: 'noaa18_fires'
+  //   }, {
+  //     id: 'GLOB_MANGROVE',
+  //     order: 5,
+  //     type: 'webtiled',
+  //     group: 'Cobertura vegetal',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Global Mangrove',
+  //     url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+  //     subDomains: [0, 1, 2, 3],
+  //     technicalName: 'global_mangroves',
+  //     legendLayer: 11
+  //   }, {
+  //     id: 'IFL',
+  //     order: 4,
+  //     type: 'dynamic',
+  //     group: 'Cobertura vegetal',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Paisajes Forestales Intactos',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+  //     layerIds: [0],
+  //     technicalName: 'intact_forest_landscapes_change'
+  //   }, {
+  //     id: 'AG_BIOMASS',
+  //     order: 3,
+  //     type: 'image',
+  //     group: 'Cobertura vegetal',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Aboveground Live Woody Biomass Density',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
+  //     legendLayer: 8,
+  //     technicalName: 'aboveground_biomass'
+  //   }, {
+  //     id: 'LAND_COVER',
+  //     order: 2,
+  //     type: 'dynamic',
+  //     group: 'Cobertura vegetal',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Cobertura vegetal',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+  //     layerIds: [10],
+  //     rasterId: '$523',
+  //     bounds: [1, 20],
+  //     classes: ['Bosque húmedo', 'Bosque premontano', 'Bosque montano', 'Bosque edáfico', 'Bosque de mangle', 'Mosaico sabana-bosque', 'Copmlejo rural y bosque secondário joven', 'Closed to open deciduous woodland', 'Sabana arbolada', 'Matorral', 'Pradera', 'Pradera aquática', 'Pradera inundable', 'Vegetación ralo', 'Mosaico áreas cultivadas/ vegetación (herbáceo o matorral)', 'Agricultura', 'Agricultura irregada', 'Áreas desnudas', 'Superficies artificiales y áreas asociadas', 'Cuerpos de agua'],
+  //     colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
+  //     technicalName: 'global_landcover'
+  //   }, {
+  //     id: 'TREE_COVER',
+  //     order: 1,
+  //     type: 'image',
+  //     group: 'Cobertura vegetal',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Densidad de follaje',
+  //     sublabel: '(2000, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+  //     url: 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
+  //     colormap: [[1, 0, 179, 0]],
+  //     inputRange: [30, 101],
+  //     outputRange: [1],
+  //     visible: false,
+  //     opacity: 0.8,
+  //     legendLayer: 2,
+  //     technicalName: 'tree_cover'
+  //   }, {
+  //     id: 'MASK',
+  //     order: 100,
+  //     type: 'dynamic',
+  //     url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
+  //     opacity: 0.35,
+  //     layerIds: [0]
+  //   }, {
+  //     id: 'LEGEND_LAYER',
+  //     order: 101,
+  //     type: 'dynamic',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
+  //     visible: false,
+  //     opacity: 0,
+  //     layerIds: []
+  //   }, {
+  //     id: 'USER_FEATURES',
+  //     order: 102,
+  //     type: 'feature',
+  //     definitionExpression: '1 = 2', // show no features from the service ever
+  //     mode: 0, // equals MODE_SNAPSHOT
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
+  //     visible: true
+  // }],
+  //   pt: [{
+  //     id: 'TREE_COVER_LOSS',
+  //     order: 11,
+  //     type: 'image',
+  //     visible: false,
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Tree cover loss',
+  //     sublabel: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+  //     url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
+  //     colormap: [[1, 219, 101, 152]],
+  //     inputRange: [1, 15],
+  //     outputRange: [1],
+  //     legendLayer: 0,
+  //     technicalName: 'tree_cover_loss'
+  //   }, {
+  //     id: 'TREE_COVER_GAIN',
+  //     order: 12,
+  //     type: 'image',
+  //     visible: false,
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Tree cover gain',
+  //     sublabel: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+  //     url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
+  //     legendLayer: 1,
+  //     technicalName: 'tree_cover_gain'
+  //   }, {
+  //     id: 'IMAZON_SAD',
+  //     order: 13,
+  //     type: 'dynamic',
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'SAD alerts',
+  //     sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+  //     layerIds: [2],
+  //     technicalName: 'imazon_sad'
+  //   }, {
+  //     id: 'GLAD_ALERTS',
+  //     order: 14,
+  //     type: 'glad',
+  //     url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
+  //     minDateValue: 15000,
+  //     maxDateValue: 16365,
+  //     confidence: [0, 1],
+  //     visible: false,
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Glad Alerts',
+  //     sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
+  //     technicalName: 'umd_landsat_alerts',
+  //     legendLayer: 7
+  //   }, {
+  //     id: 'TERRA_I_ALERTS',
+  //     order: 15,
+  //     type: 'terra',
+  //     url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+  //     imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
+  //     visible: false,
+  //     maxZoom: 10,
+  //     minDateValue: 4000, //We know data starts in 2004
+  //     // We are setting this way over max, the max date will get set set when TerraIControls mounts
+  //     // We set this over max so all data is visible by default, and it will update the dates when available
+  //     maxDateValue: 20000,
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Terra-I Alerts',
+  //     sublabel: '(monthly, 250m, Latin America, CIAT)',
+  //     technicalName: 'terra_i_alerts',
+  //     legendLayer: 13
+  //   }, {
+  //     id: 'ACTIVE_FIRES',
+  //     order: 16,
+  //     type: 'dynamic',
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Active fires',
+  //     sublabel: '(daily, 1km, global, NASA)',
+  //     url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
+  //     layerIds: [0, 1, 2, 3],
+  //     technicalName: 'noaa18_fires'
+  //   }, {
+  //     id: 'GLOB_MANGROVE',
+  //     order: 5,
+  //     type: 'webtiled',
+  //     group: 'Land Cover',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Global Mangrove',
+  //     url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+  //     subDomains: [0, 1, 2, 3],
+  //     technicalName: 'global_mangroves',
+  //     legendLayer: 11
+  //   }, {
+  //     id: 'IFL',
+  //     order: 4,
+  //     type: 'dynamic',
+  //     group: 'Land Cover',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Intact Forest Landscape',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+  //     layerIds: [0],
+  //     technicalName: 'intact_forest_landscapes_change'
+  //   }, {
+  //     id: 'AG_BIOMASS',
+  //     order: 3,
+  //     type: 'image',
+  //     group: 'Land Cover',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Aboveground Live Woody Biomass Density',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
+  //     legendLayer: 8,
+  //     technicalName: 'aboveground_biomass'
+  //   }, {
+  //     id: 'LAND_COVER',
+  //     order: 2,
+  //     type: 'dynamic',
+  //     group: 'Land Cover',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Land cover',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+  //     layerIds: [10],
+  //     rasterId: '$523',
+  //     bounds: [1, 20],
+  //     classes: ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'],
+  //     colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
+  //     technicalName: 'global_landcover'
+  //   }, {
+  //     id: 'TREE_COVER',
+  //     order: 1,
+  //     type: 'image',
+  //     group: 'Land Cover',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Tree cover density',
+  //     sublabel: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
+  //     url: 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
+  //     colormap: [[1, 0, 179, 0]],
+  //     inputRange: [30, 101],
+  //     outputRange: [1],
+  //     visible: false,
+  //     opacity: 0.8,
+  //     legendLayer: 2,
+  //     technicalName: 'tree_cover'
+  //   }, {
+  //     id: 'MASK',
+  //     order: 100,
+  //     type: 'dynamic',
+  //     url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
+  //     opacity: 0.35,
+  //     layerIds: [0]
+  //   }, {
+  //     id: 'LEGEND_LAYER',
+  //     order: 101,
+  //     type: 'dynamic',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
+  //     visible: false,
+  //     opacity: 0,
+  //     layerIds: []
+  //   }, {
+  //     id: 'USER_FEATURES',
+  //     order: 102,
+  //     type: 'feature',
+  //     definitionExpression: '1 = 2', // show no features from the service ever
+  //     mode: 0, // equals MODE_SNAPSHOT
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
+  //     visible: true
+  // }],
+  //   id: [{
+  //     id: 'TREE_COVER_LOSS',
+  //     order: 11,
+  //     type: 'image',
+  //     visible: false,
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Tree cover loss',
+  //     sublabel: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+  //     url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
+  //     colormap: [[1, 219, 101, 152]],
+  //     inputRange: [1, 15],
+  //     outputRange: [1],
+  //     legendLayer: 0,
+  //     technicalName: 'tree_cover_loss'
+  //   }, {
+  //     id: 'TREE_COVER_GAIN',
+  //     order: 12,
+  //     type: 'image',
+  //     visible: false,
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Tree cover gain',
+  //     sublabel: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+  //     url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
+  //     legendLayer: 1,
+  //     technicalName: 'tree_cover_gain'
+  //   }, {
+  //     id: 'IMAZON_SAD',
+  //     order: 13,
+  //     type: 'dynamic',
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'SAD alerts',
+  //     sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+  //     layerIds: [2],
+  //     technicalName: 'imazon_sad'
+  //   }, {
+  //     id: 'GLAD_ALERTS',
+  //     order: 14,
+  //     type: 'glad',
+  //     url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
+  //     minDateValue: 15000,
+  //     maxDateValue: 16365,
+  //     confidence: [0, 1],
+  //     visible: false,
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Glad Alerts',
+  //     sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
+  //     technicalName: 'umd_landsat_alerts',
+  //     legendLayer: 7
+  //   }, {
+  //     id: 'TERRA_I_ALERTS',
+  //     order: 15,
+  //     type: 'terra',
+  //     url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+  //     imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
+  //     visible: false,
+  //     maxZoom: 10,
+  //     minDateValue: 4000, //We know data starts in 2004
+  //     // We are setting this way over max, the max date will get set set when TerraIControls mounts
+  //     // We set this over max so all data is visible by default, and it will update the dates when available
+  //     maxDateValue: 20000,
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Terra-I Alerts',
+  //     sublabel: '(monthly, 250m, Latin America, CIAT)',
+  //     technicalName: 'terra_i_alerts',
+  //     legendLayer: 13
+  //   }, {
+  //     id: 'ACTIVE_FIRES',
+  //     order: 16,
+  //     type: 'dynamic',
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Active fires',
+  //     sublabel: '(daily, 1km, global, NASA)',
+  //     url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
+  //     layerIds: [0, 1, 2, 3],
+  //     technicalName: 'noaa18_fires'
+  //   }, {
+  //     id: 'GLOB_MANGROVE',
+  //     order: 5,
+  //     type: 'webtiled',
+  //     group: 'Land Cover',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Global Mangrove',
+  //     url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+  //     subDomains: [0, 1, 2, 3],
+  //     technicalName: 'global_mangroves',
+  //     legendLayer: 11
+  //   }, {
+  //     id: 'IFL',
+  //     order: 4,
+  //     type: 'dynamic',
+  //     group: 'Land Cover',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Intact Forest Landscape',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+  //     layerIds: [0],
+  //     technicalName: 'intact_forest_landscapes_change'
+  //   }, {
+  //     id: 'AG_BIOMASS',
+  //     order: 3,
+  //     type: 'image',
+  //     group: 'Land Cover',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Aboveground Live Woody Biomass Density',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
+  //     legendLayer: 8,
+  //     technicalName: 'aboveground_biomass'
+  //   }, {
+  //     id: 'LAND_COVER',
+  //     order: 2,
+  //     type: 'dynamic',
+  //     group: 'Land Cover',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Land cover',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+  //     layerIds: [10],
+  //     rasterId: '$523',
+  //     bounds: [1, 20],
+  //     classes: ['Dense moist forest', 'Submontane forest', 'Mountain forest', 'Edaphic forest', 'Mangrove', 'Forest-savanna mosaic', 'Rural complex and young secondary forest', 'Closed to open deciduous woodland', 'Savanna woodland-Tree savanna', 'Shrubland', 'Grassland', 'Aquatic grassland', 'Swamp grassland', 'Sparse vegetation', 'Mosaic cultivated areas/vegeatation( herbaceous or shrub)', 'Agriculture', 'Irrigated agriculture', 'Bare areas', 'Artificial surfaces and associated areas', 'Water Bodies'],
+  //     colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
+  //     technicalName: 'global_landcover'
+  //   }, {
+  //     id: 'TREE_COVER',
+  //     order: 1,
+  //     type: 'image',
+  //     group: 'Land Cover',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Tree cover density',
+  //     sublabel: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
+  //     url: 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
+  //     colormap: [[1, 0, 179, 0]],
+  //     inputRange: [30, 101],
+  //     outputRange: [1],
+  //     visible: false,
+  //     opacity: 0.8,
+  //     legendLayer: 2,
+  //     technicalName: 'tree_cover'
+  //   }, {
+  //     id: 'MASK',
+  //     order: 100,
+  //     type: 'dynamic',
+  //     url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
+  //     opacity: 0.35,
+  //     layerIds: [0]
+  //   }, {
+  //     id: 'LEGEND_LAYER',
+  //     order: 101,
+  //     type: 'dynamic',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
+  //     visible: false,
+  //     opacity: 0,
+  //     layerIds: []
+  //   }, {
+  //     id: 'USER_FEATURES',
+  //     order: 102,
+  //     type: 'feature',
+  //     definitionExpression: '1 = 2', // show no features from the service ever
+  //     mode: 0, // equals MODE_SNAPSHOT
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
+  //     visible: true
+  // }],
+  //   zh: [{
+  //     id: 'TREE_COVER_LOSS',
+  //     order: 11,
+  //     type: 'image',
+  //     visible: false,
+  //     group: '土地覆盖动态数据',
+  //     groupKey: 'GROUP_LCD',
+  //     label: '森林覆盖损失',
+  //     sublabel: '(每年更新, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))',
+  //     url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
+  //     colormap: [[1, 219, 101, 152]],
+  //     inputRange: [1, 15],
+  //     outputRange: [1],
+  //     legendLayer: 0,
+  //     technicalName: 'tree_cover_loss'
+  //   }, {
+  //     id: 'TREE_COVER_GAIN',
+  //     order: 12,
+  //     type: 'image',
+  //     visible: false,
+  //     group: '土地覆盖动态数据',
+  //     groupKey: 'GROUP_LCD',
+  //     label: '森林覆盖增加',
+  //     sublabel: '(12 年, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))',
+  //     url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
+  //     legendLayer: 1,
+  //     technicalName: 'tree_cover_gain'
+  //   }, {
+  //     id: 'IMAZON_SAD',
+  //     order: 13,
+  //     type: 'dynamic',
+  //     group: '土地覆盖动态数据',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'SAD alerts',
+  //     sublabel: '(monthly, 250m, Brazilian Amazon, Imazon)',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+  //     layerIds: [2],
+  //     technicalName: 'imazon_sad'
+  //   }, {
+  //     id: 'GLAD_ALERTS',
+  //     order: 14,
+  //     type: 'glad',
+  //     url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
+  //     minDateValue: 15000,
+  //     maxDateValue: 16365,
+  //     confidence: [0, 1],
+  //     visible: false,
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Glad Alerts',
+  //     sublabel: '(weekly, 30m, select countries, UMD/ GLAD)',
+  //     technicalName: 'umd_landsat_alerts',
+  //     legendLayer: 7
+  //   }, {
+  //     id: 'TERRA_I_ALERTS',
+  //     order: 15,
+  //     type: 'terra',
+  //     url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+  //     imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
+  //     visible: false,
+  //     maxZoom: 10,
+  //     minDateValue: 4000, //We know data starts in 2004
+  //     // We are setting this way over max, the max date will get set set when TerraIControls mounts
+  //     // We set this over max so all data is visible by default, and it will update the dates when available
+  //     maxDateValue: 20000,
+  //     group: 'Land Cover Dynamics',
+  //     groupKey: 'GROUP_LCD',
+  //     label: 'Terra-I Alerts',
+  //     sublabel: '(monthly, 250m, Latin America, CIAT)',
+  //     technicalName: 'terra_i_alerts',
+  //     legendLayer: 13
+  //   }, {
+  //     id: 'ACTIVE_FIRES',
+  //     order: 16,
+  //     type: 'dynamic',
+  //     group: '土地覆盖动态数据',
+  //     groupKey: 'GROUP_LCD',
+  //     label: '活跃火点',
+  //     sublabel: '(每天更新, 1千米, 全球覆盖, 美国宇航局（NASA）)',
+  //     url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
+  //     layerIds: [0, 1, 2, 3],
+  //     technicalName: 'noaa18_fires'
+  //   }, {
+  //     id: 'GLOB_MANGROVE',
+  //     order: 5,
+  //     type: 'webtiled',
+  //     group: '土地覆盖',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Global Mangrove',
+  //     url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+  //     subDomains: [0, 1, 2, 3],
+  //     technicalName: 'global_mangroves',
+  //     legendLayer: 11
+  //   }, {
+  //     id: 'IFL',
+  //     order: 4,
+  //     type: 'dynamic',
+  //     group: '土地覆盖',
+  //     groupKey: 'GROUP_LC',
+  //     label: '原生森林景观',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+  //     layerIds: [0],
+  //     technicalName: 'intact_forest_landscapes_change'
+  //   }, {
+  //     id: 'AG_BIOMASS',
+  //     order: 3,
+  //     type: 'image',
+  //     group: '土地覆盖',
+  //     groupKey: 'GROUP_LC',
+  //     label: 'Aboveground Live Woody Biomass Density',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
+  //     legendLayer: 8,
+  //     technicalName: 'aboveground_biomass'
+  //   }, {
+  //     id: 'LAND_COVER',
+  //     order: 2,
+  //     type: 'dynamic',
+  //     group: '土地覆盖',
+  //     groupKey: 'GROUP_LC',
+  //     label: '土地覆盖',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+  //     layerIds: [10],
+  //     rasterId: '$523',
+  //     bounds: [1, 20],
+  //     classes: ['密集型潮湿森林', '亚山地森林', '山地森林', '土壤森林', '红树林', '森林-草地镶嵌区', '城郊混杂区的新兴次生林', '闭合、开放式落叶林地 ', '稀树草原', '灌木林', '草地', '水生草地', '沼泽草地', '稀疏植被区', '耕地和灌木植被镶嵌区)', '农业用地Agriculture', '灌溉农业用地 ', '裸地 ', '人工地及其相关区域 ', '水体'],
+  //     colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
+  //     technicalName: 'global_landcover'
+  //   }, {
+  //     id: 'TREE_COVER',
+  //     order: 1,
+  //     type: 'image',
+  //     group: '土地覆盖',
+  //     groupKey: 'GROUP_LC',
+  //     label: '森林覆盖密度',
+  //     sublabel: '(2000年, 30米 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))',
+  //     url: 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
+  //     colormap: [[1, 0, 179, 0]], // colormap: [[1, 174, 203, 107]],
+  //     inputRange: [30, 101],
+  //     outputRange: [1],
+  //     visible: false,
+  //     opacity: 0.8,
+  //     legendLayer: 2,
+  //     technicalName: 'tree_cover'
+  //   }, {
+  //     id: 'MASK',
+  //     order: 100,
+  //     type: 'dynamic',
+  //     url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
+  //     opacity: 0.35,
+  //     layerIds: [0]
+  //   }, {
+  //     id: 'LEGEND_LAYER',
+  //     order: 101,
+  //     type: 'dynamic',
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
+  //     visible: false,
+  //     opacity: 0,
+  //     layerIds: []
+  //   }, {
+  //     id: 'USER_FEATURES',
+  //     order: 102,
+  //     type: 'feature',
+  //     definitionExpression: '1 = 2', // show no features from the service ever
+  //     mode: 0, // equals MODE_SNAPSHOT
+  //     url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
+  //     visible: true
+  // }]
+  // },
+  // basemaps: {
+  //   en: {
+  //     'landsat': {
+  //       title: 'Landsat',
+  //       thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+  //       templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
+  //       years: [
+  //         '2000',
+  //         '2001',
+  //         '2002',
+  //         '2003',
+  //         '2004',
+  //         '2005',
+  //         '2006',
+  //         '2007',
+  //         '2008',
+  //         '2009',
+  //         '2010',
+  //         '2011',
+  //         '2012',
+  //         '2013'
+  //       ]
+  //     },
+  //     'wri_mono': {
+  //       title: 'WRI Mono',
+  //       thumbnailUrl: './css/images/wri_mono.png'
+  //     },
+  //     'wri_contextual': {
+  //       title: 'WRI Contextual',
+  //       thumbnailUrl: './css/images/wri_contextual.png'
+  //     }
+  //   },
+  //   fr: {
+  //     'landsat': {
+  //       title: 'Landsat',
+  //       thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+  //       templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
+  //       years: [
+  //         '2000',
+  //         '2001',
+  //         '2002',
+  //         '2003',
+  //         '2004',
+  //         '2005',
+  //         '2006',
+  //         '2007',
+  //         '2008',
+  //         '2009',
+  //         '2010',
+  //         '2011',
+  //         '2012',
+  //         '2013'
+  //       ]
+  //     },
+  //     'wri_mono': {
+  //       title: 'WRI Mono',
+  //       thumbnailUrl: './css/images/wri_mono.png'
+  //     },
+  //     'wri_contextual': {
+  //       title: 'WRI Contextual',
+  //       thumbnailUrl: './css/images/wri_contextual.png'
+  //     }
+  //   },
+  //   es: {
+  //     'landsat': {
+  //       title: 'Landsat',
+  //       thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+  //       templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
+  //       years: [
+  //         '2000',
+  //         '2001',
+  //         '2002',
+  //         '2003',
+  //         '2004',
+  //         '2005',
+  //         '2006',
+  //         '2007',
+  //         '2008',
+  //         '2009',
+  //         '2010',
+  //         '2011',
+  //         '2012',
+  //         '2013'
+  //       ]
+  //     },
+  //     'wri_mono': {
+  //       title: 'WRI Mono',
+  //       thumbnailUrl: './css/images/wri_mono.png'
+  //     },
+  //     'wri_contextual': {
+  //       title: 'WRI Contextual',
+  //       thumbnailUrl: './css/images/wri_contextual.png'
+  //     }
+  //   },
+  //   pt: {
+  //     'landsat': {
+  //       title: 'Landsat',
+  //       thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+  //       templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
+  //       years: [
+  //         '2000',
+  //         '2001',
+  //         '2002',
+  //         '2003',
+  //         '2004',
+  //         '2005',
+  //         '2006',
+  //         '2007',
+  //         '2008',
+  //         '2009',
+  //         '2010',
+  //         '2011',
+  //         '2012',
+  //         '2013'
+  //       ]
+  //     },
+  //     'wri_mono': {
+  //       title: 'WRI Mono',
+  //       thumbnailUrl: './css/images/wri_mono.png'
+  //     },
+  //     'wri_contextual': {
+  //       title: 'WRI Contextual',
+  //       thumbnailUrl: './css/images/wri_contextual.png'
+  //     }
+  //   },
+	// id: {
+  //     'landsat': {
+  //       title: 'Landsat',
+  //       thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+  //       templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
+  //       years: [
+  //         '2000',
+  //         '2001',
+  //         '2002',
+  //         '2003',
+  //         '2004',
+  //         '2005',
+  //         '2006',
+  //         '2007',
+  //         '2008',
+  //         '2009',
+  //         '2010',
+  //         '2011',
+  //         '2012',
+  //         '2013'
+  //       ]
+  //     },
+  //     'wri_mono': {
+  //       title: 'WRI Mono',
+  //       thumbnailUrl: './css/images/wri_mono.png'
+  //     },
+  //     'wri_contextual': {
+  //       title: 'WRI Contextual',
+  //       thumbnailUrl: './css/images/wri_contextual.png'
+  //     }
+  //   },
+  // zh: {
+  //     'landsat': {
+  //       title: 'Landsat',
+  //       thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+  //       templateUrl: 'https://wri-tiles.s3.amazonaws.com/umd_landsat/2013/${level}/${row}/${col}.png',
+  //       years: [
+  //         '2000',
+  //         '2001',
+  //         '2002',
+  //         '2003',
+  //         '2004',
+  //         '2005',
+  //         '2006',
+  //         '2007',
+  //         '2008',
+  //         '2009',
+  //         '2010',
+  //         '2011',
+  //         '2012',
+  //         '2013'
+  //       ]
+  //     },
+  //     'wri_mono': {
+  //       title: 'WRI Mono',
+  //       thumbnailUrl: './css/images/wri_mono.png'
+  //     },
+  //     'wri_contextual': {
+  //       title: 'WRI Contextual',
+  //       thumbnailUrl: './css/images/wri_contextual.png'
+  //     }
+  //   }
+  //}
 };

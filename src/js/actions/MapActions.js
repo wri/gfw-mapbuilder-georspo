@@ -60,7 +60,13 @@ class MapActions {
     return groupKey;
   }
 
-  createLayers (map, layers, activeLayers) {
+  createLayers (map, layerPanel, activeLayers) {
+    //- Get a list of layers from the panel
+    const layers = layerPanel.GROUP_LC.layers
+      .concat(layerPanel.GROUP_LCD.layers)
+      .concat(layerPanel.GROUP_WEBMAP.layers)
+      .concat(layerPanel.extraLayers);
+
     //- make sure there's only one entry for each dynamic layer
     const uniqueLayers = [];
     const existingIds = [];
