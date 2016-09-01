@@ -61,11 +61,27 @@ class MapActions {
   }
 
   createLayers (map, layerPanel, activeLayers) {
-    //- Get a list of layers from the panel
-    const layers = layerPanel.GROUP_LC.layers
-      .concat(layerPanel.GROUP_LCD.layers)
-      .concat(layerPanel.GROUP_WEBMAP.layers)
-      .concat(layerPanel.extraLayers);
+    //- Organize and order the layers before adding them to the map
+    let layers = Object.keys(layerPanel).filter((groupName) => {
+      //- remove basemaps and extra layers, extra layers will be added later and basemaps
+      //- handled differently elsewhere
+      return groupName !== layerKeys.GROUP_BASEMAP && groupName !== layerKeys.EXTRA_LAYERS;
+    }).sort((a, b) => {
+      //- Sort the groups based on their order property
+      return layerPanel[a].order < layerPanel[b].order;
+    }).reduce((list, groupName) => {
+      //- Flatten them into a single list but before that,
+      //- Multiple the order by 100 so I can sort them more easily below, this is because there
+      //- order numbers start at 0 for each group, so group 0, layer 1 would have order of 1
+      //- while group 1 layer 1 would have order of 100, and I need to integrate with webmap layers
+      return list.concat(layerPanel[groupName].layers.map((layer, index) => {
+        layer.order = (layerPanel[groupName].order * 100) + (layer.order || index);
+        return layer;
+      }));
+    }, []);
+
+    //- Add the extra layers now that all the others have been sorted
+    layers = layers.concat(layerPanel.extraLayers);
 
     //- make sure there's only one entry for each dynamic layer
     const uniqueLayers = [];
@@ -84,7 +100,7 @@ class MapActions {
     //- remove layers from config that have no url unless they are of type graphic(which have no url)
     //- sort by order from the layer config
     //- return an arcgis layer for each config object
-    const esriLayers = uniqueLayers.filter(layer => layer && (layer.url || layer.type === 'graphic')).sort((a, b) => a.order - b.order).map(layerFactory);
+    const esriLayers = uniqueLayers.filter(layer => layer && (layer.url || layer.type === 'graphic')).map(layerFactory);
     map.addLayers(esriLayers);
     // If there is an error with a particular layer, handle that here
     map.on('layers-add-result', result => {
@@ -92,10 +108,12 @@ class MapActions {
       // Check for Errors
       var layerErrors = addedLayers.filter(layer => layer.error);
       if (layerErrors.length > 0) { console.error(layerErrors); }
-      //- Sort the layers, Some layers need to be put beneath the layers from the webmap
-      const landCoverLayers = layers.filter((layer) => layer.groupKey === layerKeys.GROUP_LC);
-      landCoverLayers.forEach((layer) => {
-        map.reorderLayer(map.getLayer(layer.id), layer.order);
+      //- Sort the layers, Webmap layers need to be ordered, unfortunately graphics/feature
+      //- layers wont be sorted, they always show on top
+      uniqueLayers.forEach((layer) => {
+        if (map.getLayer(layer.id) && layer.order) {
+          map.reorderLayer(map.getLayer(layer.id), layer.order);
+        }
       });
     });
     //- Return the layers through the dispatcher so the mapstore can update visible layers

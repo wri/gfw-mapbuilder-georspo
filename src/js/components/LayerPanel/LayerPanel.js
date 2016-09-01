@@ -56,10 +56,11 @@ export default class LayerPanel extends Component {
     });
 
     return orderedGroups.map((group) => {
-      //- Render basemaps with a different function as not all basemaps are present in configuration
+      //- Sort the layers and then render them, basemaps use a different function
+      //- as not all basemaps are present in configuration
       const layers = group.key === LayerKeys.GROUP_BASEMAP ?
         this.renderBasemaps(group.layers) :
-        group.layers.map(this.checkboxMap, this);
+        group.layers.sort((a, b) => a.order > b.order).map(this.checkboxMap, this);
 
       return (
         <LayerGroup
@@ -112,7 +113,7 @@ export default class LayerPanel extends Component {
 
     let checkbox;
     if (layer.subId) {
-      const checked = dynamicLayers[layer.id] && dynamicLayers[layer.id].indexOf(layer.subIndex) > -1;
+      const checked = (dynamicLayers[layer.id] && dynamicLayers[layer.id].indexOf(layer.subIndex) > -1) || false;
       checkbox = <LayerCheckbox key={layer.subId} layer={layer} subLayer={true} checked={checked}>
         {childComponent}
       </LayerCheckbox>;

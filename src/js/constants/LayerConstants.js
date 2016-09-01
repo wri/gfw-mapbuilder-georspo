@@ -19,5 +19,6 @@ export default {
   GROUP_BASEMAP: 'GROUP_BASEMAP',
   WRI_CONTEXTUAL: 'wri_contextual',
   WRI_MONO: 'wri_mono',
-  LANDSAT: 'landsat'
+  LANDSAT: 'landsat',
+  EXTRA_LAYERS: 'extraLayers'
 };

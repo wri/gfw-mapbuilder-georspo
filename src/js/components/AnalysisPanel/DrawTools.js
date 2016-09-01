@@ -122,5 +122,5 @@ export default class DrawTools extends Component {
 }
 
 DrawTools.propTypes = {
-  embeddedInModal: PropTypes.boolean
+  embeddedInModal: PropTypes.bool
 };

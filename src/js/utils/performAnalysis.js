@@ -17,9 +17,9 @@ import all from 'dojo/promise/all';
 * @return {promise}
 */
 export default function performAnalysis (options) {
-  const {type, geometry, canopyDensity, activeSlopeClass, settings, language} = options;
+  const {type, geometry, canopyDensity, activeSlopeClass, settings} = options;
   const restorationUrl = settings && settings.restorationImageServer;
-  const landCoverConfig = settings && settings.layers ? utils.getObject(settings.layers[language], 'id', layerKeys.LAND_COVER) : {};
+  const landCoverConfig = settings && settings.layerPanel ? utils.getObject(settings.layerPanel.GROUP_LC.layers, 'id', layerKeys.LAND_COVER) : {};
   const config = analysisConfig[type];
   const promise = new Deferred();
 

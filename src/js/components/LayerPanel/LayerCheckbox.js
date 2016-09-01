@@ -137,16 +137,17 @@ export default class LayerCheckbox extends Component {
   render() {
     const {map, language} = this.context;
     const {layer} = this.props;
-    const {label, sublabel} = layer;
     const checked = this.props.checked ? 'active' : '';
     const disabled = layer.disabled ? 'disabled' : '';
     const hidden = LayersHelper.isLayerVisible(map, layer) ? '' : 'hidden';
+    const label = typeof layer.label === 'string' ? layer.label : layer.label[language];
+    const {sublabel} = layer;
 
     return (
       <div className={`layer-checkbox relative ${checked} ${disabled} ${hidden}`} >
         <span onClick={this.toggleLayer.bind(this)} className='toggle-switch pointer'><span /></span>
         <span onClick={this.toggleLayer.bind(this)} className='layer-checkbox-label pointer'>
-          {label[language]}
+          {label}
         </span>
         <span className='info-icon pointer' onClick={this.showInfo.bind(this)}>
           <svg dangerouslySetInnerHTML={{ __html: useSvg }}/>

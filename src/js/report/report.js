@@ -248,11 +248,12 @@ const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (re
 };
 
 const runAnalysis = function runAnalysis (params, feature) {
+  const layerConf = appUtils.getObject(resources.layerPanel.GROUP_LC.layers, 'id', layerKeys.LAND_COVER);
   const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
   const { tcd, lang, settings, activeSlopeClass } = params;
   //- Only Analyze layers in the analysis
 
-  if (appUtils.containsObject(settings.layers[lang], 'id', layerKeys.TREE_COVER_LOSS)) {
+  if (appUtils.containsObject(settings.layerPanel.GROUP_LCD.layers, 'id', layerKeys.TREE_COVER_LOSS)) {
     //- Loss/Gain Analysis
     performAnalysis({
       type: analysisKeys.TC_LOSS_GAIN,
@@ -304,7 +305,6 @@ const runAnalysis = function runAnalysis (params, feature) {
       canopyDensity: tcd,
       language: lang
     }).then((results) => {
-      const layerConf = appUtils.getObject(resources.layers[lang], 'id', layerKeys.LAND_COVER);
       const configuredColors = layerConf.colors;
       const labels = layerConf.classes;
       const node = document.getElementById('lc-loss');
@@ -335,7 +335,6 @@ const runAnalysis = function runAnalysis (params, feature) {
       canopyDensity: tcd,
       language: lang
     }).then((results) => {
-      const layerConf = appUtils.getObject(resources.layers[lang], 'id', layerKeys.LAND_COVER);
       const node = document.getElementById('lc-composition');
 
       if (results.counts && results.counts.length) {
@@ -368,9 +367,10 @@ const runAnalysis = function runAnalysis (params, feature) {
       language: lang
     }).then((results) => {
       const { labels, colors } = analysisConfig[analysisKeys.BIO_LOSS];
+      const { data } = results;
       const node = document.getElementById('bio-loss');
       const {series, grossLoss, grossEmissions} = charts.formatSeriesForBiomassLoss({
-        data: results,
+        data: data.attributes,
         lossColor: colors.loss,
         carbonColor: colors.carbon,
         lossName: text[lang].ANALYSIS_CARBON_LOSS,
@@ -428,7 +428,6 @@ const runAnalysis = function runAnalysis (params, feature) {
       canopyDensity: tcd,
       language: lang
     }).then((results) => {
-      console.log(results);
       const configuredColors = analysisConfig[analysisKeys.INTACT_LOSS].colors;
       const labels = text[lang].ANALYSIS_IFL_LABELS;
       const node = document.getElementById('intact-loss');
@@ -528,9 +527,13 @@ const runAnalysis = function runAnalysis (params, feature) {
       const names = text[lang].ANALYSIS_SAD_ALERT_NAMES;
       const {alerts} = results;
       const {categories, series} = charts.formatSadAlerts({ alerts, colors, names });
-      //- Tell the second series to use the second axis
-      series[0].yAxis = 1;
-      charts.makeDualAxisTimeSeriesChart(node, { series, categories });
+      if (categories.length) {
+        //- Tell the second series to use the second axis
+        series[0].yAxis = 1;
+        charts.makeDualAxisTimeSeriesChart(node, { series, categories });
+      } else {
+        node.remove();
+      }
     });
 
   } else {
@@ -549,10 +552,11 @@ const runAnalysis = function runAnalysis (params, feature) {
     }).then((results) => {
       const node = document.getElementById('glad-alerts');
       const name = text[lang].ANALYSIS_GLAD_ALERT_NAME;
-      charts.makeTimeSeriesCharts(node, {
-        data: results,
-        name: name
-      });
+      if (results.length) {
+        charts.makeTimeSeriesCharts(node, { data: results, name });
+      } else {
+        node.remove();
+      }
     });
   } else {
     const node = document.getElementById('glad-alerts');
@@ -610,7 +614,6 @@ const runAnalysis = function runAnalysis (params, feature) {
       activeSlopeClass: activeSlopeClass,
       language: lang
     }).then((results) => {
-      console.log(results);
       const element = document.getElementById('slope');
       const {counts} = results;
       const labels = counts.map((v, index) => text[lang].ANALYSIS_SLOPE_OPTION + (index + 1));
@@ -618,7 +621,6 @@ const runAnalysis = function runAnalysis (params, feature) {
       const tooltips = settings.labels[lang].slopeAnalysisPotentialOptions;
       const series = [{ data: counts }];
       // Render the chart
-      console.log(series);
       charts.makeSlopeBarChart(element, labels, colors, tooltips, series);
       element.classList.remove('hidden');
     });
@@ -668,7 +670,7 @@ export default {
     //- Add Title, Subtitle, and logo right away
     addHeaderContent(params);
     // Get the config for the user features layer incase we need it
-    const USER_FEATURES_CONFIG = appUtils.getObject(resources.layers.en, 'id', layerKeys.USER_FEATURES);
+    const USER_FEATURES_CONFIG = appUtils.getObject(resources.layerPanel.extraLayers, 'id', layerKeys.USER_FEATURES);
     //- Augment params and add a custom attribute if this is from the user_features layer
     params.custom = USER_FEATURES_CONFIG.url.search(params.service) > -1;
     //- Setup the Request Pre Callback to handle tokens for tokenized services
