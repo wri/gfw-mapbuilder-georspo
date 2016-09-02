@@ -1,4 +1,4 @@
-import {attributes} from 'constants/AppConstants';
+import {attributes, esriType} from 'constants/AppConstants';
 import tabKeys from 'constants/TabViewConstants';
 import mapActions from 'actions/MapActions';
 import text from 'js/languages';
@@ -55,8 +55,8 @@ export default class TabButtons extends Component {
     * add some animation here, otherwise, set the currentFeature to undefined so it can animate
     * when the next feature is selected
     */
-    if (feature) {
-      if (currentFeature === feature) { return; }
+    if (feature && feature.geometry) {
+      if (currentFeature === feature || feature.geometry.type === esriType.GEOMETRY_POINT) { return; }
       currentFeature = feature;
       /**
       * Update the state so we can add some animations to bring awareness to the buttons

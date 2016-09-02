@@ -108,7 +108,7 @@ export default {
     GROUP_WEBMAP: {
       order: 2,
       label: {}, // Configurable via alternativeWebmapMenuName and webmapMenuName above
-      layers: []
+      layers: [] // Will get filled in with layers from the webmap
     },
     GROUP_LCD: {
       order: 1,
@@ -269,6 +269,20 @@ export default {
           pt: '(daily, 1km, global, NASA)',
           id: '(daily, 1km, global, NASA)',
           zh: '(每天更新, 1千米, 全球覆盖, 美国宇航局（NASA))'
+        },
+        popup: {
+          content:
+            '<div class="esriViewPopup"><div class="mainSection">' +
+              '<div class="header">Active Fires</div>' +
+              '<table class="attrTable">' +
+                '<tr><td class="attrName">Brightness</td><td class="attrValue"${BRIGHTNESS}></td></tr>' +
+                '<tr><td class="attrName">Confidence</td><td class="attrValue">${CONFIDENCE}</td></tr>' +
+                '<tr><td class="attrName">Latitude</td><td class="attrValue">${LATITUDE}</td></tr>' +
+                '<tr><td class="attrName">Longitude</td><td class="attrValue">${LONGITUDE}</td></tr>' +
+                '<tr><td class="attrName">Acquisition Date</td><td class="attrValue">${ACQ_DATE}</td></tr>' +
+                '<tr><td class="attrName">Acquisition Time</td><td class="attrValue">${ACQ_TIME}</td></tr>' +
+              '</table>' +
+            '</div></div>'
         }
       }]
     },

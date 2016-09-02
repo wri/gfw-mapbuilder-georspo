@@ -7,7 +7,12 @@ import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import FeatureLayer from 'esri/layers/FeatureLayer';
 import TerraILayer from 'js/layers/TerraILayer';
 import GladLayer from 'js/layers/GladLayer';
+import layerUtils from 'utils/layerUtils';
 import {errors} from 'js/config';
+
+/**
+* Helper function to make infoTemplates
+*/
 
 /**
 * Map Function that gets called for each entry in the provided layers config and returns an array of ArcGIS Layers
@@ -55,6 +60,12 @@ export default (layer) => {
       options.visible = layer.visible || false;
       options.opacity = layer.opacity || 1.0;
       options.imageParameters = imageParameters;
+      //- Add a popup template if configuration is present
+      if (layer.popup) {
+        options.infoTemplates = {};
+        const template = layerUtils.makeInfoTemplate(layer.popup);
+        layer.layerIds.forEach((id) => { options.infoTemplates[id] = { infoTemplate: template }; });
+      }
       esriLayer = new DynamicLayer(layer.url, options);
     break;
     case 'feature':
@@ -62,11 +73,13 @@ export default (layer) => {
       options.visible = layer.visible || false;
       if (layer.mode !== undefined) { options.mode = layer.mode; } // mode could be 0, must check against undefined
       if (layer.definitionExpression) { options.definitionExpression = layer.definitionExpression; }
+      if (layer.popup) { options.infoTemplate = layerUtils.makeInfoTemplate(layer.popup); }
       esriLayer = new FeatureLayer(layer.url, options);
     break;
     case 'graphic':
       options.id = layer.id;
       options.visible = layer.visible || false;
+      if (layer.popup) { options.infoTemplate = layerUtils.makeInfoTemplate(layer.popup); }
       esriLayer = new GraphicsLayer(options);
     break;
     case 'glad':
