@@ -275,7 +275,7 @@ export default {
             '<div class="esriViewPopup"><div class="mainSection">' +
               '<div class="header">Active Fires</div>' +
               '<table class="attrTable">' +
-                '<tr><td class="attrName">Brightness</td><td class="attrValue"${BRIGHTNESS}></td></tr>' +
+                '<tr><td class="attrName">Brightness</td><td class="attrValue">${BRIGHTNESS}</td></tr>' +
                 '<tr><td class="attrName">Confidence</td><td class="attrValue">${CONFIDENCE}</td></tr>' +
                 '<tr><td class="attrName">Latitude</td><td class="attrValue">${LATITUDE}</td></tr>' +
                 '<tr><td class="attrName">Longitude</td><td class="attrValue">${LONGITUDE}</td></tr>' +
