@@ -1019,6 +1019,7 @@ strings.zh.ANALYSIS_DRAW_INSTRUCTIONS = [
 strings.zh.ANALYSIS_DRAW_BUTTON = '开始绘画';
 strings.zh.ANALYSIS_INSTRUCTION_ADDITIONAL = `使用绘画工具来添加更多图形 ${drawIcon}`;
 strings.zh.ANALYSIS_SHAPEFILE_UPLOAD = '或者在这里添加自定义地理信息系统文件（shapefile）';
+strings.en.ANALYSIS_SHAPEFILE_INSTRUCTIONS = '本网站仅支持空间参考系统为WGS84的图形数据文件。建议文件大小应小于5MB。ESRI文件必须为压缩文件（.zip）,GeoJSON 文件必须为后缀.json的文件。';
 strings.zh.ANALYSIS_SELECT_TYPE_LABEL = '选择分析方式：';
 //- Chart Labels in the Analysis
 strings.zh.ANALYSIS_TC_CHART_NAME = '森林覆盖损失（单位：公顷）';
@@ -1062,7 +1063,7 @@ strings.zh.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.LC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Aboveground Live Woody Biomass loss', //'生物量损失',
+  { label: '地上活性木质生物量损失', 
     value: analysisKeys.BIO_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
@@ -1101,23 +1102,23 @@ strings.zh.CANOPY_MODAL_TEXT = '对森林覆盖和森林覆盖损失图层调试
 strings.zh.DENSITY_FIRST = '显示中';
 strings.zh.DENSITY_SECOND = '林冠覆盖密度';
 strings.zh.SEARCH_WIDGET_TITLE = '搜寻特征：';
-strings.zh.SEARCH_CLICK_FOR_MORE = 'Please click on the selected feature for more info.';
+strings.zh.SEARCH_CLICK_FOR_MORE = '请点击选中图形来获取更多信息';
 //- Layer Info Modal
-strings.zh.NO_INFO = 'No Information Available';
-strings.zh.OVERVIEW = 'Overview';
-strings.zh.CITATION = 'Citation';
+strings.zh.NO_INFO = '没有相关信息';
+strings.zh.OVERVIEW = '概述';
+strings.zh.CITATION = '引用';
 //- Case does not matter, css makes them all uppercase
-strings.zh.FUNCTION = 'function';
-strings.zh.RESOLUTION = 'resolution';
-strings.zh.GEO_COVERAGE = 'geographic coverage';
-strings.zh.SOURCE = 'source';
-strings.zh.FREQUENCY = 'frequency';
-strings.zh.CONTENT_DATE = 'date of content';
-strings.zh.CAUTIONS = 'cautions';
-strings.zh.LICENSE = 'license';
-strings.zh.LEARN_MORE = 'learn More';
-strings.zh.DOWNLOAD_DATA = 'download data';
-strings.zh.DESCRIPTION = 'description';
+strings.zh.FUNCTION = '功能';
+strings.zh.RESOLUTION = '清晰度';
+strings.zh.GEO_COVERAGE = '空间覆盖范围';
+strings.zh.SOURCE = '来源';
+strings.zh.FREQUENCY = '更新频率';
+strings.zh.CONTENT_DATE = '内容日期';
+strings.zh.CAUTIONS = '注意';
+strings.zh.LICENSE = '数据分享执照';
+strings.zh.LEARN_MORE = '了解更多';
+strings.zh.DOWNLOAD_DATA = '下载数据';
+strings.zh.DESCRIPTION = '说明';
 
 //- Miscellaneous
 strings.zh.PRINT_BUTTON_LABEL = '选择打印模板';
@@ -1133,13 +1134,13 @@ strings.zh.MORE = '更多';
 strings.zh.DELETE = '删除';
 strings.zh.DOCUMENTS = '文件';
 
-strings.zh.BASEMAP = 'Basemap';
+strings.zh.BASEMAP = '底图';
 strings.zh.SELECT_ALL = '全选';
 strings.zh.CLEAR_ALL = '全部清除';
 strings.zh.LEGEND = '图例';
-strings.zh.TIMELINE = 'Timeline';
-strings.zh.TIMELINE_START = 'Start: ';
-strings.zh.TIMELINE_END = 'End: ';
+strings.zh.TIMELINE = '时间范围';
+strings.zh.TIMELINE_START = '开始：';
+strings.zh.TIMELINE_END = '结束：';
 strings.zh.SEARCH = '搜索'; // Also Used for tools, but was used else where first
 strings.zh.TOOL_ZOOM_IN = '放大';
 strings.zh.TOOL_ZOOM_OUT = '缩小';
