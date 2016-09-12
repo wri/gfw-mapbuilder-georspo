@@ -7,28 +7,32 @@
     "subtitle": "Make maps that matter",
     "narrative": "",
     "webmapMenuName": "Land Use",
-    "logoUrl": "http://my.gfw-mapbuilder.org.s3.amazonaws.com/v1.0beta/css/images/gfw-logo.png",
-    "logoLinkUrl": "http://www.gfw-mapbuilder.org",
+    "logoUrl": "http://my.gfw-mapbuilder.org/v1.latest/css/images/gfw-logo.png",
+    "logoLinkUrl": "http://developers.globalforestwatch.org/map-builder/",
     "aboutLinkUrl": "",
     "downloadLinkUrl": "",
 
     "useAlternativeLanguage": false,
     "alternativeLanguage": "fr",
     "alternativeWebmap": "",
-    "alternativeLanguageTitle": "GFW Mapbuilder",
-    "alternativeLanguageSubtitle": "Application subtitle",
+    "alternativeLanguageTitle": "",
+    "alternativeLanguageSubtitle": "",
     "alternativeNarrative": "",
-    "alternativeMapThemes": "",
     "alternativeWebmapMenuName": "",
 
+    "gladAlerts": true,
+    "terraIAlerts": true,
+    "sadAlerts": true,
     "activeFires": true,
     "intactForests": true,
     "aboveGroundBiomass": true,
     "landCover": true,
+    "mangroves": true,
 
     "iso": "",
+
     "mapThemeIds": "",
     "mapThemes": "",
-    "analyticsCode": ""
+    "alternativeMapThemes": ""
   }
 }

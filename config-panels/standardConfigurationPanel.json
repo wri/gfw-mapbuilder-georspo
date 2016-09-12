@@ -42,14 +42,15 @@
 			"fieldName": "subtitle",
 			"label": "Subtitle for your application",
 			"tooltip": "Please enter the subtitle in your default language",
-			"placeholder": "e.g. Ministry of ..."
+			"placeholder": "e.g. My Organisation"
 		},
 		{
 			"type": "string",
+			"stringFieldOption": "richtext",
 			"fieldName": "narrative",
 			"label": "Enter a narrative about your map to give your users some insight about it.",
 			"tooltip": "This will be visible in the table of contents.",
-			"placeholder": "Explore the this map to discover ..."
+			"placeholder": "Explore this map to discover ..."
 		},
 		{
 			"type": "string",
@@ -167,6 +168,27 @@
 		"category": "Analysis Settings",
 		"fields": [{
 			"type": "boolean",
+			"fieldName": "sadAlerts",
+			"tooltip": "This will include/exclude this layer from the report, analysis, and layer list",
+			"label": "Include SAD alerts (Brazil only) in your application",
+			"value": true
+		},
+		{
+			"type": "boolean",
+			"fieldName": "gladAlerts",
+			"tooltip": "This will include/exclude this layer from the report, analysis, and layer list",
+			"label": "Include GLAD alerts (Brazil, Peru, Congo and Borneo only) in your application",
+			"value": true
+		},
+		{
+			"type": "boolean",
+			"fieldName": "terraIAlerts",
+			"tooltip": "This will include/exclude this layer from the report, analysis, and layer list",
+			"label": "Include Terra-I alerts (Pan tropics) in your application",
+			"value": true
+		},
+		{
+			"type": "boolean",
 			"fieldName": "activeFires",
 			"tooltip": "This will include/exclude this layer from the report, analysis, and layer list",
 			"label": "Include Active Fires in your application",
@@ -191,6 +213,13 @@
 			"fieldName": "landCover",
 			"tooltip": "This will include/exclude this layer from the report, analysis, and layer list",
 			"label": "Include Land Cover in your application",
+			"value": true
+		},
+		{
+			"type": "boolean",
+			"fieldName": "mangroves",
+			"tooltip": "This will include/exclude this layer from the report, analysis, and layer list",
+			"label": "Include Mangroves in your application",
 			"value": true
 		}]
 	},
@@ -218,32 +247,14 @@
 			"placeholder": "e.g. Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea"
 		},
 		{
-			"type": "string",
-			"fieldName": "analyticsCode",
-			"label": "Enter your Google Analytics tracking ID to enable trcking analytics of this application.",
-			"tooltip": "This will track events and pageviews",
-			"placeholder": "e.g. UA-XXXXX-Y"
+			"type": "boolean",
+			"fieldName": "includeDocumentsTab",
+			"tooltip": "Attachments of feature layers will be shown in a separate tab",
+			"label": "Show attached documents in separate tab",
+			"value": true
 		}]
 	}],
 	"values": {
-		"webmap": "de85e3fcc07948238aa6c1afd2a4ceb0",
-		"title": "GFW-Mapbuilder",
-		"subtitle": "Application subtitle",
-		"logoUrl": "http://my.gfw-mapbuilder.org.s3.amazonaws.com/v1.0beta/css/images/gfw-logo.png",
-		"logoLinkUrl": "http://www.gfw-mapbuilder.org",
-		"aboutLinkUrl": "http://www.gfw-mapbuilder.org",
-		"downloadLinkUrl": "http://data.globalforestwatch.org/",
-		"mapThemeIds": "",
-		"mapThemes": "",
-		"narrative": "",
-		"analyticsCode": "",
-		"language": "en",
-		"useAlternativeLanguage": false,
-		"iso": "",
-		"activeFires": true,
-		"intactForests": true,
-		"aboveGroundBiomass": true,
-		"landCover": true,
-		"webmapMenuName": "Land Use"
+
 	}
 }
