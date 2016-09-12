@@ -69,10 +69,12 @@
 
 //- Analysis Modal
 .analysis-modal-container .modal
-  overflow hidden
+  overflow-y auto
   width 320px
   & .analysis-instructions__separator
     display none
+  & .modal-content
+    max-height 100%
 
 @media (min-width: $mobileBreak)
   .analysis-modal-container

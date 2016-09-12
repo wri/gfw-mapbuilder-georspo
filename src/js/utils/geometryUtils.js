@@ -22,13 +22,12 @@ export default {
       symbols.getCustomSymbol(),
       {
         cfid: id,
-        OBJECTID: id,
-        __source: attributes.SOURCE_DRAW,
-        Name: `Custom Feature #${id}`
+        source: attributes.SOURCE_DRAW,
+        title: `Custom Feature #${id}`
       },
       new InfoTemplate({
-        title: '${Name}',
-        content: '<div class=\'custom-feature__content\'>Object Id: ${OBJECTID}</div>'
+        title: '${title}',
+        content: '<div class=\'custom-feature__content\'>Temp Id: ${cfid}</div>'
       })
     );
   },
@@ -60,7 +59,10 @@ export default {
         graphics.push(new Graphic(
           new Polygon(feature.geometry),
           symbols.getCustomSymbol(),
-          feature.attributes
+          {
+            ...feature.attributes,
+            source: attributes.SOURCE_UPLOAD
+          }
         ));
       });
     });

@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import {getUrlParams} from 'utils/params';
 import mapStore from 'stores/MapStore';
 import appUtils from 'utils/AppUtils';
 import text from 'js/languages';
@@ -16,13 +17,21 @@ export default class ReportSubscribeButtons extends Component {
     const selectedFeature = map.infoWindow && map.infoWindow.getSelectedFeature();
 
     if (selectedFeature) {
-      const {canopyDensity} = mapStore.getState();
-      appUtils.generateReport({
-        selectedFeature: selectedFeature,
-        canopyDensity: canopyDensity,
-        settings: settings,
-        lang: language
-      });
+      const {canopyDensity, activeSlopeClass} = mapStore.getState();
+      const params = getUrlParams(location.href);
+      const payload = {
+        lang: language,
+        activeSlopeClass,
+        selectedFeature,
+        canopyDensity,
+        settings
+      };
+
+      if (params.appid) {
+        payload.appid = params.appid;
+      }
+
+      appUtils.generateReport(payload);
     }
 
   };

@@ -1,3 +1,4 @@
+import layerKeys from 'constants/LayerConstants';
 import geometryUtils from 'utils/geometryUtils';
 import mapActions from 'actions/MapActions';
 import Draw from 'esri/toolbars/draw';
@@ -12,7 +13,6 @@ const drawSvg = '<use xlink:href="#icon-analysis-draw" />';
 export default class DrawTools extends Component {
 
   static contextTypes = {
-    activeWebmap: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     map: PropTypes.object.isRequired
   };
@@ -24,8 +24,9 @@ export default class DrawTools extends Component {
     };
   }
 
-  componentWillReceiveProps() {
+  componentDidMount () {
     const {map} = this.context;
+    // If this component unmounts and destroys itself, recreate it
     if (!this.toolbar && map.loaded) {
       this.createToolbar(map);
     }
@@ -33,28 +34,53 @@ export default class DrawTools extends Component {
 
   componentDidUpdate(prevProps, prevState, prevContext) {
     const {map} = this.context;
-    if (prevContext.map !== map && map.loaded) {
-      // delete here and let willReceiveProps recreate it
-      delete this.toolbar;
+    // Wait for the map to load and create it
+    if (!this.toolbar && map.loaded) {
+      this.createToolbar(map);
+    } else if (prevContext.map !== map && map.loaded) { // If the map changes, recreate it
+      this.createToolbar(map);
     }
   }
 
   createToolbar = (map) => {
     this.toolbar = new Draw(map);
     this.toolbar.on('draw-end', (evt) => {
-      this.toolbar.deactivate();
-      this.setState({ drawButtonActive: false });
+      this.deactivate();
+      // Add graphic to map and set as active feature
       const graphic = geometryUtils.generateDrawnPolygon(evt.geometry);
-      map.graphics.add(graphic);
-      map.infoWindow.setFeatures([graphic]);
+      const layer = map.getLayer(layerKeys.USER_FEATURES);
+      if (layer) {
+        layer.add(graphic);
+        map.infoWindow.setFeatures([graphic]);
+      }
     });
   };
 
   draw = () => {
-    this.toolbar.activate(Draw.FREEHAND_POLYGON);
+    // if active, toggle it off
+    if (this.state.drawButtonActive) {
+      this.deactivate();
+    } else {
+      this.activate();
+      //- If the analysis modal is visible, hide it
+      mapActions.toggleAnalysisModal({ visible: false });
+    }
+  };
+
+  activate = () => {
+    const {map} = this.context;
+    this.toolbar.activate(Draw.POLYGON);
     this.setState({ drawButtonActive: true });
-    //- If the analysis modal is visible, hide it
-    mapActions.toggleAnalysisModal({ visible: false });
+    // Disable popups while this is active, this function is only available to webmaps when usePopupManager is true
+    map.setInfoWindowOnClick(false);
+  };
+
+  deactivate = () => {
+    const {map} = this.context;
+    this.toolbar.deactivate();
+    this.setState({ drawButtonActive: false });
+    // Reconnect the popups, this function is only available to webmaps when usePopupManager is true
+    map.setInfoWindowOnClick(true);
   };
 
   renderInstructionList = (instruction, index) => {

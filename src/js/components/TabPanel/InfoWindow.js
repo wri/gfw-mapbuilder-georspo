@@ -40,7 +40,7 @@ export default class InfoWindow extends Component {
     const {infoWindow} = this.props.map;
     const {language} = this.context;
     let count = 0, selectedIndex = 0;
-    let selectedFeature, content, title;
+    let selectedFeature, content, title, footer;
 
     if ( infoWindow && infoWindow.getSelectedFeature ) {
       count = infoWindow.count;
@@ -50,7 +50,7 @@ export default class InfoWindow extends Component {
     }
 
     if (selectedFeature) {
-      if (selectedFeature.attributes.__source === attributes.SOURCE_SEARCH) {
+      if (selectedFeature.attributes.source === attributes.SOURCE_SEARCH) {
         title = (
           <div className='infoWindow__title'>
             {selectedFeature.infoTemplate.title}
@@ -58,13 +58,21 @@ export default class InfoWindow extends Component {
         );
       }
       //- For Drawn Features, Give them a Control which can rename or delete the feature
-      if (selectedFeature.attributes.__source === attributes.SOURCE_DRAW) {
+      if (selectedFeature.attributes.source === attributes.SOURCE_DRAW ||
+        selectedFeature.attributes.source === attributes.SOURCE_UPLOAD
+      ) {
         title = (
           <div className='infoWindow__title'>
             <CustomFeatureControl feature={selectedFeature} />
           </div>
         );
       }
+      // Add the footer
+      footer = (
+        <div className='infoWindow__footer'>
+          <ReportSubscribeButtons />
+        </div>
+      );
     }
 
     return (
@@ -94,9 +102,7 @@ export default class InfoWindow extends Component {
             <svg className='analysis-instructions__draw-icon' dangerouslySetInnerHTML={{ __html: polygonSvg }} />
           </div>
         </div>
-        <div className='infoWindow__footer'>
-          <ReportSubscribeButtons />
-        </div>
+        {footer}
       </div>
     );
   }

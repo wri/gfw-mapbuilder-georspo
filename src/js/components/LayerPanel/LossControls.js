@@ -77,7 +77,7 @@ export default class LossControls extends Component {
           </select>
           <div className='loss-from-button fa-button sml white'>{fromItem.label}</div>
         </div>
-        <div className='loss-timeline-spacer'>to</div>
+        <div className='loss-timeline-spacer'> - </div>
         <div className='loss-to relative'>
           <select onChange={this.toChanged.bind(this)} className='pointer' value={toItem.value}>
             {lossOptions.map(this.optionsMap('to'))}

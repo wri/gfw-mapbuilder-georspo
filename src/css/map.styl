@@ -15,7 +15,11 @@
   font-size 12px
 
 .map .esriScalebar
+  bottom 90px
   z-index 3
+
+.noSlider .map .esriScalebar
+  bottom 20px
 
 @media (min-width: $mobileBreak)
   .esriScalebar
@@ -24,5 +28,5 @@
       transform translate(-50%, 0)
 
 @media (max-width: $mobileBreak)
-  .esriScalebar
-    bottom 60px !important
+  .map .esriScalebar
+    bottom 60px

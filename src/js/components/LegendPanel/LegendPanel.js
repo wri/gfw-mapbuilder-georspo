@@ -41,66 +41,58 @@ export default class LegendPanel extends Component {
 
   getLayersForLegend () {
     const {map, webmapInfo} = this.context;
-    // const {settings, language} = this.context;
-    // const layersConfig = settings.layers[language];
-    let layers = [];
+    const {basemapLayerIds, graphicsLayerIds} = map;
+    let {layerIds = []} = map;
+    let legendInfos = [];
+    let ids = [];
 
-    //- Get layers from the webmap
-    layers = webmapInfo.operationalLayers.filter((item) => {
-      return item.layerObject;
-    }).map((layer) => {
-      return {
-        layer: layer.layerObject,
-        title: '' // layer.layerObject.name
-      };
-    });
+    // Loop through layer ids and if those layers exist, add them to the legend
+    // Add any layers we want to exclude from the legend to ignores, including basemapLayerIds
+    // If a layer has a legendLayerId configured in the resources.js, you will probably want to add it here to prevent
+    // two legends from the same service from showing up
+    let ignores = [
+      layerKeys.MASK,
+      layerKeys.TREE_COVER,
+      layerKeys.AG_BIOMASS,
+      layerKeys.USER_FEATURES,
+      layerKeys.TREE_COVER_GAIN,
+      layerKeys.TREE_COVER_LOSS
+    ];
 
-    //- Get layers from the Map
-    let layer = map.getLayer(layerKeys.ACTIVE_FIRES);
-    // let conf = utils.getObject(layersConfig, 'id', layerKeys.ACTIVE_FIRES);
-    if (layer) {
-      layers.push({
-        layer: layer,
-        title: '' // conf.label
+    //- Add basemap layers and graphics layers
+    if (basemapLayerIds) {
+      ignores = ignores.concat(basemapLayerIds);
+    }
+
+    if (graphicsLayerIds) {
+      layerIds = layerIds.concat(graphicsLayerIds);
+    }
+
+    //- Get layers from the webmap, we could comment out this block but may miss any layers added from
+    //- the webmap as graphics or feature layers since those won't be in layerIds
+    // legendInfos = webmapInfo.operationalLayers.filter((item) => {
+    //   //- Add them to ignores so they do not show up twice
+    //   if (item.layerObject) { ignores.push(item.id); }
+    //   return item.layerObject;
+    // }).map((layer) => {
+    //   return {
+    //     layer: layer.layerObject,
+    //     title: '' // layer.layerObject.name
+    //   };
+    // });
+
+    if (layerIds) {
+      //- Remove layers to ignore
+      ids = layerIds.filter(id => ignores.indexOf(id) === -1);
+      ids.forEach((layerId) => {
+        const layer = map.getLayer(layerId);
+        if (layer) {
+          legendInfos.push({ layer, title: '' });
+        }
       });
     }
 
-    layer = map.getLayer(layerKeys.LAND_COVER);
-    // conf = utils.getObject(layersConfig, 'id', layerKeys.LAND_COVER);
-    if (layer) {
-      layers.push({
-        layer: layer,
-        title: '' // conf.label
-      });
-    }
-
-    layer = map.getLayer(layerKeys.IFL);
-    // conf = utils.getObject(layersConfig, 'id', layerKeys.IFL);
-    if (layer) {
-      layers.push({
-        layer: layer,
-        title: '' // conf.label
-      });
-    }
-
-    layer = map.getLayer(layerKeys.AG_BIOMASS);
-    // conf = utils.getObject(layersConfig, 'id', layerKeys.AG_BIOMASS);
-    if (layer) {
-      layers.push({
-        layer: layer,
-        title: '' // conf.label
-      });
-    }
-
-    layer = map.getLayer(layerKeys.LEGEND_LAYER);
-    if (layer) {
-      layers.push({
-        layer: layer,
-        title: ''
-      });
-    }
-
-    return layers;
+    return legendInfos;
   }
 
   render () {

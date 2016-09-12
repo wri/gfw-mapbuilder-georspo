@@ -57,15 +57,31 @@ export default function performAnalysis (options) {
       }).then(promise.resolve);
     break;
     case analysisKeys.BIO_LOSS:
-      analysisUtils.getCrossedWithLoss(config, analysisConfig[analysisKeys.TC_LOSS], geometry, {
-        canopyDensity: canopyDensity
-      }).then(promise.resolve);
+      analysisUtils.getBiomassLoss(geometry, canopyDensity).then(promise.resolve, promise.reject);
+      // analysisUtils.getCrossedWithLoss(config, analysisConfig[analysisKeys.TC_LOSS], geometry, {
+      //   canopyDensity: canopyDensity
+      // }).then(promise.resolve);
     break;
     case analysisKeys.INTACT_LOSS:
       analysisUtils.getCrossedWithLoss(config, analysisConfig[analysisKeys.TC_LOSS], geometry, {
         canopyDensity: canopyDensity,
         simple: true
       }).then(promise.resolve);
+    break;
+    case analysisKeys.MANGROVE_LOSS:
+      analysisUtils.getCrossedWithLoss(config, analysisConfig[analysisKeys.TC_LOSS], geometry, {
+        canopyDensity: canopyDensity,
+        simple: true
+      }).then(promise.resolve);
+    break;
+    case analysisKeys.SAD_ALERTS:
+      analysisUtils.getSADAlerts(config, geometry).then(promise.resolve);
+    break;
+    case analysisKeys.GLAD_ALERTS:
+      analysisUtils.getGLADAlerts(config, geometry).then(promise.resolve);
+    break;
+    case analysisKeys.TERRA_I_ALERTS:
+      analysisUtils.getTerraIAlerts(config, geometry).then(promise.resolve);
     break;
     default:
       //- This should only be the restoration analysis, since analysisType is a rasterId

@@ -19,11 +19,8 @@ block append content
     h3#feature-title.feature-title
     div#map.map
     div#popup-content.popup-content
-    div.results-container#tc-loss
-    div.results-container#lc-loss
-    div.results-container#bio-loss
-    div.results-container#intact-loss
-    div.results-container#lc-composition
+    div.results-container.results__restoration.hidden#restoration
+    div.results-container.results__slope.hidden#slope
     div.results-container.results__loss-badge.hidden#total-loss-badge
       div.results__loss-gain--label
       div.results__loss-gain--range
@@ -34,31 +31,63 @@ block append content
       div.results__loss-gain--range
       span.results__gain--count
       span.results__gain--unit Ha
+    div.results-container#tc-loss
+    div.results-container#lc-loss
+    div.results-container#bio-loss
+    div.results-container#intact-loss
+    div.results-container#mangroves
+    div.results-container#sad-alerts
+    div.results-container#glad-alerts
+    div.results-container#terrai-alerts
     div.results-container.results__fires-badge.hidden#fires-badge
       div.results__fires-pre
       div.results__fires-count
       div.results__fires-active
       div.results__fires-post
-
+    div.results-container#lc-composition
 block append esri-script
   script.
+    var _app = {
+      cache: '#{version}',
+      esri: '#{esriVersion}',
+      base: '#{base}'
+    };
+    function makePath (base, path) {
+      var position = base.length - 1;
+      return !path ?
+        (base.indexOf('/', position) !== position ? base + '/' : base) :
+        (base.indexOf('/', position) !== position ?
+          base + '/' + path :
+          base + path
+        )
+    }
+    function getResourcePath (path) {
+      var position = path.length - 1;
+      return path.indexOf('/', position) === position ? path.slice(0, -1) : path;
+    }
+    // Change this to '' if _app.base is a remote url
     var base = location.href.replace(/\/[^/]+$/, '');
+    // var base = 'http://s3.amazonaws.com/summertop/gfw-mapbuilder/0.1.26';
+    // Add trailing slash if it is not present
+    base = makePath(base);
+    // Add _app.base if it is present
+    if (_app.base) { base = makePath(base, _app.base); }
     var dojoConfig = {
       parseOnLoad: false,
       async: true,
-      cacheBust: '#{version}',
       packages: [
-        { name: 'js', location: base + '/js' },
-        { name: 'vendor', location: base + '/vendor' },
-        { name: 'utils', location: base + '/js/utils' },
-        { name: 'report', location: base + '/js/report' },
+        { name: 'root', location: getResourcePath(location.href.replace(/\/[^/]+$/, '')) },
+        { name: 'js', location: makePath(base, 'js')},
+        { name: 'vendor', location: makePath(base, 'vendor')},
+        { name: 'utils', location: makePath(base, 'js/utils')},
+        { name: 'report', location: makePath(base, 'js/report')},
         //- { name: 'stores', location: base + 'js/stores' },
         //- { name: 'actions', location: base + 'js/actions' },
-        { name: 'constants', location: base + '/js/constants' }
+        { name: 'constants', location: makePath(base,'js/constants')}
         //- { name: 'components', location: base + 'js/components' }
       ],
       aliases: [
-        ['resources', 'js/resources'],
+        ['resources', 'root/resources'],
         //- ['alt', 'vendor/alt/dist/alt.min'],
         //- ['react', 'vendor/react/react.min'],
         //- ['react-dom', 'vendor/react/react-dom.min'],
@@ -68,7 +97,7 @@ block append esri-script
       callback: function () {require(['js/reportMain']);}
     };
   //- PROD: if new modules are added, regenerate the JSAPI build
-  script(src='//js.arcgis.com/o/RobertW/GFW-MapBuilder-0.1.0/dojo/dojo.js', async)
+  script(src='//my.gfw-mapbuilder.org/js/arcgis-api-mapbuilder-1.0/dojo/dojo.js', async)
   //- DEV: Use the normal JSAPI
   //- script(src='//js.arcgis.com/#{esriVersion}/init.js', async)
   script.

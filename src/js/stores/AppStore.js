@@ -19,7 +19,9 @@ class AppStore {
   setLanguage (language) {
     this.language = language;
     // If were using the default language, use the default webmap, else use the alternativeWebmap
-    this.activeWebmap = language === this.settings.language ? this.settings.webmap : this.settings.alternativeWebmap;
+    if (this.settings.alternativeWebmap) {
+      this.activeWebmap = language === this.settings.language ? this.settings.webmap : this.settings.alternativeWebmap;
+    }
   }
 
   applySettings (settings) {

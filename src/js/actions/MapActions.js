@@ -36,12 +36,17 @@ class MapActions {
   toggleLayerModal = (data) => data;
   toggleTOCVisible = (data) => data;
   showLayerInfo = (layer) => layer;
+  updateTimeExtent = (timeExtent) => timeExtent;
+  toggleLegendVisible = () => { return {}; };
+  toggleMobileTimeWidgetVisible = () => { return {}; };
+
+  updateImazonAlertSettings (type, value) {
+    return { type, value };
+  }
 
   changeBasemap (basemap) {
     return basemap;
   }
-
-  toggleLegendVisible = () => { return {}; };
 
   updateCanopyDensity (density) {
     return { density };
@@ -68,7 +73,7 @@ class MapActions {
     //- If we are changing webmaps, and any layer is active, we want to make sure it shows up as active in the new map
     //- Make those updates here to the config as this will trickle down
     uniqueLayers.forEach(layer => {
-      layer.visible = activeLayers.indexOf(layer.id) > -1;
+      layer.visible = activeLayers.indexOf(layer.id) > -1 || layer.visible;
     });
     //- remove layers from config that have no url unless they are of type graphic(which have no url)
     //- sort by order from the layer config
@@ -88,7 +93,10 @@ class MapActions {
       });
     });
     //- Return the layers through the dispatcher so the mapstore can update visible layers
-    return layers;
+    return {
+      layers,
+      map
+    };
   }
 
 }

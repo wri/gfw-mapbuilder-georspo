@@ -37,11 +37,15 @@ const configureApp = () => {
   corsServers.forEach((server) => { esriConfig.defaults.io.corsEnabledServers.push(server); });
 };
 
+/**
+* Assets need to be loaded from base (if it is present) + url, or just url if _app.base is not set
+* When deploying to specific versions, this must be used for all relative paths
+*/
 const lazyloadAssets = () => {
   loadCSS('http://fonts.googleapis.com/css?family=Fira+Sans:400,500,300');
-  loadCSS(`css/app.css?${window._versions.cache}`);
-  loadCSS(`https://js.arcgis.com/${window._versions.esri}/dijit/themes/tundra/tundra.css`);
-  loadCSS(`https://js.arcgis.com/${window._versions.esri}/esri/css/esri.css`);
+  loadCSS(`${window._app.base ? window._app.base + '/' : ''}css/app.css`);
+  loadCSS(`https://js.arcgis.com/${window._app.esri}/dijit/themes/tundra/tundra.css`);
+  loadCSS(`https://js.arcgis.com/${window._app.esri}/esri/css/esri.css`);
   loadJS(assetUrls.highcharts).then(() => {
     //- Set default Options for Highcharts
     Highcharts.setOptions({

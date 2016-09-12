@@ -1,6 +1,5 @@
-import analysisKeys from 'constants/AnalysisConstants';
 import layerInfoCache from 'utils/layerInfoCache';
-import {attributes} from 'constants/AppConstants';
+import {attributes, actionTypes } from 'constants/AppConstants';
 import layerKeys from 'constants/LayerConstants';
 import tabKeys from 'constants/TabViewConstants';
 import appActions from 'actions/AppActions';
@@ -25,7 +24,7 @@ class MapStore {
     this.legendOpen = false;
     this.landsatVisible = false;
     this.dynamicLayers = {};
-    this.activeAnalysisType = analysisKeys.TC_LOSS;
+    this.activeAnalysisType = '';
     this.lossFromSelectIndex = 0; // Will get initialized when the data is fetched
     this.lossToSelectIndex = 0;
     this.lossOptions = [];
@@ -40,6 +39,12 @@ class MapStore {
     this.canopyDensity = 30;
     this.activeSlopeClass = null;
     this.modalLayerInfo = '';
+    this.currentTimeExtent = {};
+    this.mobileTimeWidgetVisible = false;
+    this.imazonStartMonth = 0;
+    this.imazonEndMonth = 0;
+    this.imazonStartYear = 0;
+    this.imazonEndYear = 0;
 
     this.bindListeners({
       setDefaults: appActions.applySettings,
@@ -69,7 +74,10 @@ class MapStore {
       removeAll: layerActions.removeAll,
       setLossOptions: layerActions.setLossOptions,
       updateLossTimeline: layerActions.updateLossTimeline,
-      changeOpacity: layerActions.changeOpacity
+      changeOpacity: layerActions.changeOpacity,
+      updateTimeExtent: mapActions.updateTimeExtent,
+      updateImazonAlertSettings: mapActions.updateImazonAlertSettings,
+      toggleMobileTimeWidgetVisible: mapActions.toggleMobileTimeWidgetVisible
     });
   }
 
@@ -115,7 +123,7 @@ class MapStore {
     this.activeLayers = this.allLayers.map(l => l.id);
     this.allLayers.forEach((layer) => {
       if (layer.subId) {
-        this.dynamicLayers[layer.id] = layer.esriLayer._defaultVisibleLayers.slice();
+        this.dynamicLayers[layer.id] = layer.esriLayer.layerInfos.map(lyr => lyr.id);
       }
     });
   }
@@ -133,7 +141,9 @@ class MapStore {
   infoWindowUpdated (selectedFeature) {
     if (selectedFeature) {
       // If this is a custom feature, active tab should be the analysis tab
-      if (selectedFeature.attributes && selectedFeature.attributes.__source === attributes.SOURCE_DRAW) {
+      if (selectedFeature.attributes &&
+        (selectedFeature.attributes.source === attributes.SOURCE_DRAW || selectedFeature.attributes.source === attributes.SOURCE_UPLOAD)
+      ) {
         this.activeTab = tabKeys.ANALYSIS;
       } else {
         this.activeTab = tabKeys.INFO_WINDOW;
@@ -141,7 +151,8 @@ class MapStore {
     }
   }
 
-  createLayers (layers) {
+  createLayers (payload) {
+    const {map, layers} = payload;
     this.activeLayers = layers.filter((layer) => layer.visible && !layer.subId).map((layer) => layer.id);
     this.allLayers = layers;
     layers.forEach(layer => {
@@ -150,7 +161,7 @@ class MapStore {
           this.dynamicLayers[layer.id] = layer.esriLayer.visibleLayers.slice();
         }
         if (layer.subId && layer.esriLayer.visibleLayers.indexOf(layer.subIndex) > -1) {
-          if (LayersHelper.isLayerVisible(layer)) {
+          if (LayersHelper.isLayerVisible(map, layer)) {
             this.activeLayers.push(layer.subId);
           }
         }
@@ -249,6 +260,31 @@ class MapStore {
 
   toggleLegendVisible () {
     this.legendOpen = !this.legendOpen;
+  }
+
+  toggleMobileTimeWidgetVisible () {
+    this.mobileTimeWidgetVisible = !this.mobileTimeWidgetVisible;
+  }
+
+  updateTimeExtent (timeExtent) {
+    this.currentTimeExtent = timeExtent;
+  }
+
+  updateImazonAlertSettings ({type, value}) {
+    switch (type) {
+      case actionTypes.UPDATE_IMAZON_START_MONTH:
+        this.imazonStartMonth = value;
+      break;
+      case actionTypes.UPDATE_IMAZON_END_MONTH:
+        this.imazonEndMonth = value;
+      break;
+      case actionTypes.UPDATE_IMAZON_START_YEAR:
+        this.imazonStartYear = value;
+      break;
+      case actionTypes.UPDATE_IMAZON_END_YEAR:
+        this.imazonEndYear = value;
+      break;
+    }
   }
 
 }

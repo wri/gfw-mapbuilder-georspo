@@ -4,8 +4,8 @@
 */
 export function toObject(querystring) {
   if (!querystring) { return {}; }
-  let result = {};
-  let pairs = querystring.split('&').map((item) => {
+  const result = {};
+  const pairs = querystring.split('&').map((item) => {
     return item.split('=').map(str => decodeURIComponent(str));
   });
   // Should have an array of arrays now, ex: [['a','b'], ['foo','bar']]
@@ -23,10 +23,10 @@ export function toObject(querystring) {
 * Convert an object to a string, not the same as JSON.stringify, converts to POST format, ex: key=value&foo=bar
 * @param {object} json - A json object to be flattened into a string
 */
-export function toQuery(json, noEncode) {
-  let errorMsg = 'You should not be converting nested objects as they wont encode properly. Try making it a string first.';
-  let result = [];
-  for (let key in json) {
+export function toQuerystring(json, noEncode) {
+  const errorMsg = 'You should not be converting nested objects as they wont encode properly. Try making it a string first.';
+  const result = [];
+  for (const key in json) {
     if (Object.prototype.toString.call(json[key]) === '[object Object]') {
       throw new Error(errorMsg);
     }
@@ -46,7 +46,7 @@ export function toQuery(json, noEncode) {
 */
 export function getUrlParams(path) {
   if (!path) { return {}; }
-  let bits = path.split('?');
-  let querystring = bits.length > 1 ? bits[1] : '';
+  const bits = path.split('?');
+  const querystring = bits.length > 1 ? bits[1] : '';
   return toObject(querystring);
 }

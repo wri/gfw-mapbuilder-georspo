@@ -73,108 +73,89 @@ function getServiceInfoTask (url) {
 */
 function reduceXML (xmlDoc) {
   const result = {};
-  const cautions = xmlDoc.getElementsByTagName('useLimit'),
-        subtitle = xmlDoc.getElementsByTagName('resAltTitle'),
-        overview = xmlDoc.getElementsByTagName('idAbs'),
-        citation = xmlDoc.getElementsByTagName('otherCitDet'),
-        title = xmlDoc.getElementsByTagName('resTitle'),
-        source = xmlDoc.getElementsByTagName('srcDesc'),
-        other = xmlDoc.getElementsByTagName('suppInfo'),
-        functions = xmlDoc.getElementsByTagName('idPurp'),
-        download_data = xmlDoc.getElementsByTagName('linkage'),
-        tags = xmlDoc.getElementsByTagName('searchKeys'),
-        learn_more = xmlDoc.getElementsByTagName('linkage'),
-        frequency_of_updates = xmlDoc.getElementsByTagName('duration'),
-        geographic_coverage = xmlDoc.getElementsByTagName('exDesc'),
-        license = xmlDoc.getElementsByTagName('othConsts'),
-        date_of_content = xmlDoc.getElementsByTagName('exDesc'),
-        resolution = xmlDoc.getElementsByTagName('rfDenom');
+  const title = xmlDoc.querySelector('resTitle'),
+        subtitle = xmlDoc.querySelector('resAltTitle'),
+        learn_more = xmlDoc.querySelectorAll('citOnlineRes linkage'),
+        citation = xmlDoc.querySelector('otherCitDet'),
+        functions = xmlDoc.querySelector('idPurp'),
+        overview = xmlDoc.querySelector('idAbs'),
+        other = xmlDoc.querySelector('suppInfo'),
+        resolution = xmlDoc.querySelector('value'),
+        tags = xmlDoc.querySelector('searchKeys'),
+        geographic_coverage = xmlDoc.querySelector('exDesc'),
+        date_of_content = xmlDoc.querySelector('tempDesc'),
+        frequency_of_updates = xmlDoc.querySelector('duration'),
+        license = xmlDoc.querySelector('LegConsts useLimit'),
+        cautions = xmlDoc.querySelector('Consts useLimit'),
+        source = xmlDoc.querySelector('srcDesc'),
+        download_data = xmlDoc.querySelectorAll('onLineSrc linkage');
 
-  if (cautions.length) {
-    result.cautions = cautions[0].innerHTML;
+  if (title) {
+    result.title = title.innerHTML;
   }
 
-  if (subtitle.length) {
-    result.subtitle = subtitle[0].innerHTML;
+  if (subtitle) {
+    result.subtitle = subtitle.innerHTML;
   }
 
-  if (overview.length) {
-    result.overview = overview[0].innerHTML;
+  if (learn_more.length) {
+    result.learn_more = learn_more[0].innerHTML;
   }
 
-  if (citation.length) {
-    result.citation = citation[0].innerHTML;
+  if (citation) {
+    result.citation = citation.innerHTML;
   }
 
-  if (title.length) {
-    result.title = title[0].innerHTML;
+  if (functions) {
+    result.function = functions.innerHTML;
   }
 
-  if (source.length) {
-    result.source = source[0].innerHTML;
+  if (overview) {
+    result.overview = overview.innerHTML;
   }
 
-  if (other.length) {
-    result.other = other[0].innerHTML;
+  if (other) {
+    result.other = other.innerHTML;
   }
 
-  if (functions.length) {
-    result.function = functions[0].innerHTML;
+  if (resolution) {
+    result.resolution = resolution.innerHTML;
   }
 
-  if (download_data.length) {
-    const parentName = 'onLineSrc';
-    const download_data_elements = [];
-    for (let i = 0; i < download_data.length; i++) {
-      if (download_data[i].parentElement.nodeName === parentName) {
-        download_data_elements.push(download_data[i]);
-      }
-    }
-    if (download_data_elements.length) {
-      result.download_data = download_data_elements[0].innerHTML;
-    }
-  }
-
-  if (tags.length) {
+  if (tags) {
     const keywords = [];
-    const tag = tags[0];
-    for (let i = 0; i < tag.children.length; i++) {
-      keywords.push(tag.children[i].innerHTML);
+    for (let i = 0; i < tags.children.length; i++) {
+      keywords.push(tags.children[i].innerHTML);
     }
     result.tags = keywords.join(', ');
   }
 
-  if (learn_more.length) {
-    const parentName = 'citOnlineRes';
-    const learn_more_elements = [];
-    for (let i = 0; i < learn_more.length; i++) {
-      if (learn_more[i].parentElement.nodeName === parentName) {
-        learn_more_elements.push(learn_more[i]);
-      }
-    }
-    if (learn_more_elements.length) {
-      result.learn_more = learn_more_elements[0].innerHTML;
-    }
+  if (geographic_coverage) {
+    result.geographic_coverage = geographic_coverage.innerHTML;
   }
 
-  if (frequency_of_updates.length) {
-    result.subtitle = frequency_of_updates[0].innerHTML;
+  if (date_of_content) {
+    result.date_of_content = date_of_content.innerHTML;
   }
 
-  if (geographic_coverage.length) {
-    result.subtitle = geographic_coverage[0].innerHTML;
+  if (frequency_of_updates) {
+    result.frequency_of_updates = frequency_of_updates.innerHTML;
   }
 
-  if (license.length) {
-    result.subtitle = license[0].innerHTML;
+  if (license) {
+    result.license = license.innerHTML;
   }
 
-  if (date_of_content.length) {
-    result.subtitle = date_of_content[0].innerHTML;
+  if (cautions) {
+    result.cautions = cautions.innerHTML;
   }
 
-  if (resolution.length) {
-    result.subtitle = resolution[0].innerHTML;
+  if (source) {
+    result.source = source.innerHTML;
+  }
+
+  if (download_data) {
+    result.download_data = download_data[0].innerHTML;
   }
 
   return result;
@@ -198,10 +179,12 @@ export default {
         promise.resolve(results);
       });
     } else if (layer.itemId) {
+      // This commented out URL contains a good item id to use for testing
+      // url = urls.metadataXmlEndpoint('30e234e880c94a2ca54be9a132808eae');
       url = urls.metadataXmlEndpoint(layer.itemId);
       getXMLTask(url).then(xmlDocument => {
         promise.resolve(reduceXML(xmlDocument));
-      });
+      }, () => { promise.resolve(); });
     } else if (layer.esriLayer) {
       const {esriLayer, subIndex, subId} = layer;
       url = `${esriLayer.url}/${subIndex !== undefined ? subIndex : ''}`;

@@ -7,7 +7,7 @@
 		'esri': 'empty:',
 		'dijit': 'empty:',
 		'dojox': 'empty:',
-    'resources': 'js/resources',
+    'resources': 'resources',
     // 'alt': 'vendor/alt/dist/alt.min',
     // 'react': 'vendor/react/react.min',
     // 'react-dom': 'vendor/react/react-dom.min',
@@ -24,5 +24,6 @@
     'helpers': 'js/helpers'
 	},
 	name: 'js/reportMain',
-	out: 'dist/js/reportMain.js'
+	out: 'dist/js/reportMain.js',
+	exclude: ['resources']
 });

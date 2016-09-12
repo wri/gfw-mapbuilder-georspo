@@ -5,6 +5,8 @@ import ImageParameters from 'esri/layers/ImageParameters';
 import WebTiledLayer from 'esri/layers/WebTiledLayer';
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import FeatureLayer from 'esri/layers/FeatureLayer';
+import TerraILayer from 'js/layers/TerraILayer';
+import GladLayer from 'js/layers/GladLayer';
 import {errors} from 'js/config';
 
 /**
@@ -33,6 +35,7 @@ export default (layer) => {
     case 'webtiled':
       options.id = layer.id;
       options.visible = layer.visible || false;
+      if (layer.subDomains) { options.subDomains = layer.subDomains; }
       esriLayer = new WebTiledLayer(layer.url, options);
     break;
     case 'image':
@@ -43,7 +46,7 @@ export default (layer) => {
     break;
     case 'dynamic':
       // Create some image parameters
-      let imageParameters = new ImageParameters();
+      const imageParameters = new ImageParameters();
       imageParameters.layerOption = ImageParameters.LAYER_OPTION_SHOW;
       imageParameters.layerIds = layer.layerIds;
       imageParameters.format = 'png32';
@@ -57,12 +60,26 @@ export default (layer) => {
     case 'feature':
       options.id = layer.id;
       options.visible = layer.visible || false;
+      if (layer.mode !== undefined) { options.mode = layer.mode; } // mode could be 0, must check against undefined
+      if (layer.definitionExpression) { options.definitionExpression = layer.definitionExpression; }
       esriLayer = new FeatureLayer(layer.url, options);
     break;
     case 'graphic':
       options.id = layer.id;
       options.visible = layer.visible || false;
       esriLayer = new GraphicsLayer(options);
+    break;
+    case 'glad':
+      options.id = layer.id;
+      options.url = layer.url;
+      options.minDateValue = layer.minDateValue;
+      options.maxDateValue = layer.maxDateValue;
+      options.confidence = layer.confidence;
+      options.visible = layer.visible;
+      esriLayer = new GladLayer(options);
+    break;
+    case 'terra':
+      esriLayer = new TerraILayer(layer);
     break;
     default:
       throw new Error(errors.incorrectLayerConfig(layer.type));

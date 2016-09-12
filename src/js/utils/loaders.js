@@ -6,7 +6,7 @@ import Deferred from 'dojo/Deferred';
 const loaders = {
 
   loadCSS: url => {
-    let sheet = document.createElement('link');
+    const sheet = document.createElement('link');
     sheet.rel = 'stylesheet';
     sheet.type = 'text/css';
     sheet.href = url;
@@ -15,7 +15,7 @@ const loaders = {
 
   loadJS: (url, async) => {
     var promise = new Deferred();
-    let script = document.createElement('script');
+    const script = document.createElement('script');
     script.src = url;
     script.async = async || false;
     script.onload = promise.resolve;

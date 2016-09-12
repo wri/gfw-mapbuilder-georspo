@@ -25,6 +25,8 @@ strings.en.DOCS_TYPE = 'Type';
 strings.en.DOCS_AUTHOR = 'Author';
 strings.en.DOCS_YEAR = 'Year';
 strings.en.DOCS_PDF = 'PDF';
+strings.en.DOCS_NAME = 'Name';
+strings.en.DOCS_SIZE = 'Size';
 //- Info Window
 strings.en.INFO_WINDOW_INSTRUCTION_HEADER = 'Select a shape on the map';
 strings.en.INFO_WINDOW_INSTRUCTION_LIST = [
@@ -49,11 +51,13 @@ strings.en.ANALYSIS_DRAW_INSTRUCTIONS = [
 strings.en.ANALYSIS_DRAW_BUTTON = 'Start drawing';
 strings.en.ANALYSIS_INSTRUCTION_ADDITIONAL = `Add additional shapes in the future by visiting the draw tool ${drawIcon}`;
 strings.en.ANALYSIS_SHAPEFILE_UPLOAD = 'or drop a custom shapefile here';
+strings.en.ANALYSIS_SHAPEFILE_INSTRUCTIONS = 'Only polygon data is supported and should use a spatial reference of WGS84. The recommended maximum size is 5MB, anything more than that may not work as expected. Esri shapefiles must be zipped (.zip) and GeoJSON files must be in .json files.';
 strings.en.ANALYSIS_SELECT_TYPE_LABEL = 'Select Analysis:';
 //- Chart Labels in the Analysis
 strings.en.ANALYSIS_TC_CHART_NAME = 'Tree cover loss in Hectares';
 strings.en.ANALYSIS_LCC_CHART_NAME = 'Land Cover Composition';
 strings.en.ANALYSIS_IFL_LABELS = ['Intact Forest'];
+strings.en.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.en.ANALYSIS_FIRES_PRE = 'There are';
 strings.en.ANALYSIS_FIRES_ACTIVE = 'active fires';
 strings.en.ANALYSIS_FIRES_POST = 'in the last 7 days';
@@ -63,37 +67,56 @@ strings.en.ANALYSIS_TOTAL_GAIN_LABEL = 'Total tree cover gained';
 strings.en.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.en.ANALYSIS_SLOPE_OPTION = 'Option #';
 strings.en.SLOPE_SELECT_LABEL = 'Choose slope percent:';
-strings.en.ANALYSIS_RESTORATION_LC_LABELS = [
-  'No Data', 'Forestland', 'Grassland', 'Cropland', 'Wetland and Waterbodies', 'Settlement', 'Bare soil'
-];
 strings.en.ANALYSIS_RESTORATION_ERROR = 'Area not meeting criteria for potential/No data';
 strings.en.ANALYSIS_GROUP_RESTORATION = 'Restoration potential for';
 strings.en.ANALYSIS_GROUP_SLOPE = 'Potential according to';
 strings.en.ANALYSIS_GROUP_OTHER = 'Other analysis';
+strings.en.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
+strings.en.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
+strings.en.ANALYSIS_SAD_ALERT_NAMES = {
+  degrad: 'Degradation',
+  defor: 'Deforestation'
+};
 //- Group and value should not be modified
 strings.en.ANALYSIS_SELECT_TYPE_OPTIONS = [
   { label: 'Slope',
     value: analysisKeys.SLOPE,
     group: analysisKeys.ANALYSIS_GROUP_SLOPE
   },
-  { label: 'Tree cover loss',
-    value: analysisKeys.TC_LOSS,
-    group: analysisKeys.ANALYSIS_GROUP_OTHER
-  },
   { label: 'Total tree cover loss/gain',
     value: analysisKeys.TC_LOSS_GAIN,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Tree cover loss',
+    value: analysisKeys.TC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Land cover loss',
     value: analysisKeys.LC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Biomass loss',
+  { label: 'Aboveground Live Woody Biomass loss',
     value: analysisKeys.BIO_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Intact forest loss',
     value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Global mangrove loss',
+    value: analysisKeys.MANGROVE_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'SAD alerts',
+    value: analysisKeys.SAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'GLAD alerts',
+    value: analysisKeys.GLAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Terra-I alerts',
+    value: analysisKeys.TERRA_I_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Active fires',
@@ -111,6 +134,7 @@ strings.en.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover
 strings.en.DENSITY_FIRST = 'Displaying';
 strings.en.DENSITY_SECOND = 'canopy density.';
 strings.en.SEARCH_WIDGET_TITLE = 'Search for feature:';
+strings.en.SEARCH_CLICK_FOR_MORE = 'Please click on the selected feature for more info.';
 //- Layer Info Modal
 strings.en.NO_INFO = 'No Information Available';
 strings.en.OVERVIEW = 'Overview';
@@ -129,7 +153,7 @@ strings.en.DOWNLOAD_DATA = 'download data';
 strings.en.DESCRIPTION = 'description';
 
 //- Miscellaneous
-strings.en.PRINT_BUTTON_LABEL = 'Choose a print template';
+strings.en.PRINT_BUTTON_LABEL = 'Choose a print output';
 strings.en.PRINT_REPORT = 'Print Report';
 strings.en.SUBSCRIBE = 'Subscribe';
 strings.en.LAYERS = 'Layers';
@@ -145,6 +169,9 @@ strings.en.BASEMAP = 'Basemap';
 strings.en.SELECT_ALL = 'Select all';
 strings.en.CLEAR_ALL = 'Clear all';
 strings.en.LEGEND = 'Legend';
+strings.en.TIMELINE = 'Timeline';
+strings.en.TIMELINE_START = 'Start: ';
+strings.en.TIMELINE_END = 'End: ';
 strings.en.SEARCH = 'Search'; // Also Used for tools, but was used else where first
 strings.en.TOOL_ZOOM_IN = 'Zoom In';
 strings.en.TOOL_ZOOM_OUT = 'Zoom Out';
@@ -153,6 +180,23 @@ strings.en.TOOL_PRINT = 'Print';
 strings.en.TOOL_ANALYSIS = 'Analysis';
 strings.en.TOOL_TOGGLE = 'Toggle Panel';
 strings.en.TOOL_RESET = 'Reset';
+
+strings.en.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
+strings.en.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.en.MONTHS_LIST = [
+  { name: 'January', abbr: 'Jan'},
+  { name: 'February', abbr: 'Feb'},
+  { name: 'March', abbr: 'Mar'},
+  { name: 'April', abbr: 'Apr'},
+  { name: 'May', abbr: 'May'},
+  { name: 'June', abbr: 'Jun'},
+  { name: 'July', abbr: 'Jul'},
+  { name: 'August', abbr: 'Aug'},
+  { name: 'September', abbr: 'Sep'},
+  { name: 'October', abbr: 'Oct'},
+  { name: 'November', abbr: 'Nov'},
+  { name: 'December', abbr: 'Dec'}
+];
 
 
 
@@ -177,6 +221,8 @@ strings.fr.DOCS_TYPE = 'Type';
 strings.fr.DOCS_AUTHOR = 'Auteur';
 strings.fr.DOCS_YEAR = 'Année';
 strings.fr.DOCS_PDF = 'PDF';
+strings.fr.DOCS_NAME = 'Name';
+strings.fr.DOCS_SIZE = 'Size';
 //- Info Window
 strings.fr.INFO_WINDOW_INSTRUCTION_HEADER = 'Sélectionnez un polygone sur la carte';
 strings.fr.INFO_WINDOW_INSTRUCTION_LIST = [
@@ -206,6 +252,7 @@ strings.fr.ANALYSIS_SELECT_TYPE_LABEL = 'Choisissez le type d\'analyse:';
 strings.fr.ANALYSIS_TC_CHART_NAME = 'Perte de couvert arboré en Hectares';
 strings.fr.ANALYSIS_LCC_CHART_NAME = 'Occupation du sol';
 strings.fr.ANALYSIS_IFL_LABELS = ['Forêts intactes'];
+strings.fr.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.fr.ANALYSIS_FIRES_PRE = 'Il y a';
 strings.fr.ANALYSIS_FIRES_ACTIVE = 'feux actifs';
 strings.fr.ANALYSIS_FIRES_POST = 'ces 7 derniers jours';
@@ -215,37 +262,56 @@ strings.fr.ANALYSIS_TOTAL_GAIN_LABEL = 'Total Gain en couvert arboré';
 strings.fr.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.fr.ANALYSIS_SLOPE_OPTION = 'Option #';
 strings.fr.SLOPE_SELECT_LABEL = 'Choisissez la pente (%):';
-strings.fr.ANALYSIS_RESTORATION_LC_LABELS = [
-  'Pas de données', 'Forêts', 'Prairies', 'Cultures', 'Milieux humides et eaux de surface', 'Lieux habités', 'Sols nus'
-];
 strings.fr.ANALYSIS_RESTORATION_ERROR = 'Région ne correspondant pas aux critères/Pas de données';
 strings.fr.ANALYSIS_GROUP_RESTORATION = 'Potentiel de restauration pour';
 strings.fr.ANALYSIS_GROUP_SLOPE = 'Potentiel selon';
 strings.fr.ANALYSIS_GROUP_OTHER = 'Autre analyse';
+strings.fr.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
+strings.fr.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
+strings.fr.ANALYSIS_SAD_ALERT_NAMES = {
+  degrad: 'Degradation',
+  defor: 'Deforestation'
+};
 //- Group and value should not be modified
 strings.fr.ANALYSIS_SELECT_TYPE_OPTIONS = [
   { label: 'Pente',
     value: analysisKeys.SLOPE,
     group: analysisKeys.ANALYSIS_GROUP_SLOPE
   },
-  { label: 'Perte de couvert arboré',
-    value: analysisKeys.TC_LOSS,
-    group: analysisKeys.ANALYSIS_GROUP_OTHER
-  },
   { label: 'Total perte/gain de couvert arboré',
     value: analysisKeys.TC_LOSS_GAIN,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Perte de couvert arboré',
+    value: analysisKeys.TC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Perte en occupation du sol',
     value: analysisKeys.LC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Perte en biomasse',
+  { label: 'Aboveground Live Woody Biomass loss', //'Perte en biomasse',
     value: analysisKeys.BIO_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Perte en forêts intactes',
     value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Global mangrove loss',
+    value: analysisKeys.MANGROVE_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'SAD alerts',
+    value: analysisKeys.SAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'GLAD alerts',
+    value: analysisKeys.GLAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Terra-I alerts',
+    value: analysisKeys.TERRA_I_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Feux actifs',
@@ -263,6 +329,7 @@ strings.fr.CANOPY_MODAL_TEXT = 'Ajuster la densité minimum de la canopée pour 
 strings.fr.DENSITY_FIRST = 'Affichage';
 strings.fr.DENSITY_SECOND = 'Densité de la canopée.';
 strings.fr.SEARCH_WIDGET_TITLE = 'Recherche de polygones:';
+strings.fr.SEARCH_CLICK_FOR_MORE = 'Please click on the selected feature for more info.';
 //- Layer Info Modal
 strings.fr.NO_INFO = 'No Information Available';
 strings.fr.OVERVIEW = 'Overview';
@@ -297,6 +364,9 @@ strings.fr.BASEMAP = 'Basemap';
 strings.fr.SELECT_ALL = 'Tout sélectionner';
 strings.fr.CLEAR_ALL = 'Tout effacer';
 strings.fr.LEGEND = 'Légende';
+strings.fr.TIMELINE = 'Timeline';
+strings.fr.TIMELINE_START = 'Start: ';
+strings.fr.TIMELINE_END = 'End: ';
 strings.fr.SEARCH = 'Chercher'; // Also Used for tools, but was used else where first
 strings.fr.TOOL_ZOOM_IN = 'Zoom avant';
 strings.fr.TOOL_ZOOM_OUT = 'Zoom arrière';
@@ -305,6 +375,23 @@ strings.fr.TOOL_PRINT = 'Imprimer';
 strings.fr.TOOL_ANALYSIS = 'Analyse';
 strings.fr.TOOL_TOGGLE = 'Basculer panneau';
 strings.fr.TOOL_RESET = 'Réinitialiser';
+
+strings.fr.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
+strings.fr.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.fr.MONTHS_LIST = [
+  { name: 'January', abbr: 'Jan'},
+  { name: 'February', abbr: 'Feb'},
+  { name: 'March', abbr: 'Mar'},
+  { name: 'April', abbr: 'Apr'},
+  { name: 'May', abbr: 'May'},
+  { name: 'June', abbr: 'Jun'},
+  { name: 'July', abbr: 'Jul'},
+  { name: 'August', abbr: 'Aug'},
+  { name: 'September', abbr: 'Sep'},
+  { name: 'October', abbr: 'Oct'},
+  { name: 'November', abbr: 'Nov'},
+  { name: 'December', abbr: 'Dec'}
+];
 
 //- NOTE: Spanish
 //- Supported Languages
@@ -327,6 +414,8 @@ strings.es.DOCS_TYPE = 'Tipo';
 strings.es.DOCS_AUTHOR = 'Autor';
 strings.es.DOCS_YEAR = 'Año';
 strings.es.DOCS_PDF = 'PDF';
+strings.es.DOCS_NAME = 'Name';
+strings.es.DOCS_SIZE = 'Size';
 //- Info Window
 strings.es.INFO_WINDOW_INSTRUCTION_HEADER = 'Seleccionar un polígono en el mapa';
 strings.es.INFO_WINDOW_INSTRUCTION_LIST = [
@@ -356,6 +445,7 @@ strings.es.ANALYSIS_SELECT_TYPE_LABEL = 'Seleccionar Análisis:';
 strings.es.ANALYSIS_TC_CHART_NAME = 'Pérdida de la cobertura arbórea (ha)';
 strings.es.ANALYSIS_LCC_CHART_NAME = 'Composición de la cobertura del suelo';
 strings.es.ANALYSIS_IFL_LABELS = ['Bosque Intacto'];
+strings.es.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.es.ANALYSIS_FIRES_PRE = 'Hay';
 strings.es.ANALYSIS_FIRES_ACTIVE = 'incendios activos';
 strings.es.ANALYSIS_FIRES_POST = 'en los últimos 7 días';
@@ -365,37 +455,56 @@ strings.es.ANALYSIS_TOTAL_GAIN_LABEL = 'Ganancia total de la cobertura arbórea'
 strings.es.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.es.ANALYSIS_SLOPE_OPTION = 'Opción #';
 strings.es.SLOPE_SELECT_LABEL = 'Escoger porcentaje del pendiente:';
-strings.es.ANALYSIS_RESTORATION_LC_LABELS = [
-  'Sin Datos', 'Bosque', 'Pradera', 'Cultivos', 'Humedales y Cuerpos de Agua', 'Asentamientos Humanos', 'Suelo Desnudo'
-];
 strings.es.ANALYSIS_RESTORATION_ERROR = 'Área no coincide con los criterios/ Sin Datos';
 strings.es.ANALYSIS_GROUP_RESTORATION = 'Potencial de restauración para';
 strings.es.ANALYSIS_GROUP_SLOPE = 'Potencial según';
 strings.es.ANALYSIS_GROUP_OTHER = 'Otro análisis';
+strings.es.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
+strings.es.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
+strings.es.ANALYSIS_SAD_ALERT_NAMES = {
+  degrad: 'Degradation',
+  defor: 'Deforestation'
+};
 //- Group and value should not be modified
 strings.es.ANALYSIS_SELECT_TYPE_OPTIONS = [
   { label: 'Pendiente',
     value: analysisKeys.SLOPE,
     group: analysisKeys.ANALYSIS_GROUP_SLOPE
   },
-  { label: 'Pérdida de la cobertura arbórea',
-    value: analysisKeys.TC_LOSS,
-    group: analysisKeys.ANALYSIS_GROUP_OTHER
-  },
   { label: 'Pérdida/ ganancia total de la cobertura arbórea',
     value: analysisKeys.TC_LOSS_GAIN,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Pérdida de la cobertura arbórea',
+    value: analysisKeys.TC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Pérdida de la cobertura del suelo',
     value: analysisKeys.LC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Pérdida de biomasa',
+  { label: 'Aboveground Live Woody Biomass loss', //'Pérdida de biomasa',
     value: analysisKeys.BIO_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Paisajes Forestales Intactos',
     value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Global mangrove loss',
+    value: analysisKeys.MANGROVE_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'SAD alerts',
+    value: analysisKeys.SAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'GLAD alerts',
+    value: analysisKeys.GLAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Terra-I alerts',
+    value: analysisKeys.TERRA_I_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Incendios activos',
@@ -413,6 +522,7 @@ strings.es.CANOPY_MODAL_TEXT = 'Ajustar el mínimo densidad del follaje para la 
 strings.es.DENSITY_FIRST = 'Mostrando';
 strings.es.DENSITY_SECOND = 'densidad de follaje.';
 strings.es.SEARCH_WIDGET_TITLE = 'Buscar polígono:';
+strings.es.SEARCH_CLICK_FOR_MORE = 'Please click on the selected feature for more info.';
 //- Layer Info Modal
 strings.es.NO_INFO = 'No Information Available';
 strings.es.OVERVIEW = 'Overview';
@@ -447,6 +557,9 @@ strings.es.BASEMAP = 'Basemap';
 strings.es.SELECT_ALL = 'Seleccionar Todo';
 strings.es.CLEAR_ALL = 'Borrar Todo';
 strings.es.LEGEND = 'Leyenda';
+strings.es.TIMELINE = 'Timeline';
+strings.es.TIMELINE_START = 'Start: ';
+strings.es.TIMELINE_END = 'End: ';
 strings.es.SEARCH = 'Buscar'; // Also Used for tools, but was used else where first
 strings.es.TOOL_ZOOM_IN = 'Acercar';
 strings.es.TOOL_ZOOM_OUT = 'Alejar';
@@ -455,6 +568,23 @@ strings.es.TOOL_PRINT = 'Imprimir';
 strings.es.TOOL_ANALYSIS = 'Análisis';
 strings.es.TOOL_TOGGLE = 'Alternar Pane';
 strings.es.TOOL_RESET = 'Reajustar';
+
+strings.es.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
+strings.es.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.es.MONTHS_LIST = [
+  { name: 'January', abbr: 'Jan'},
+  { name: 'February', abbr: 'Feb'},
+  { name: 'March', abbr: 'Mar'},
+  { name: 'April', abbr: 'Apr'},
+  { name: 'May', abbr: 'May'},
+  { name: 'June', abbr: 'Jun'},
+  { name: 'July', abbr: 'Jul'},
+  { name: 'August', abbr: 'Aug'},
+  { name: 'September', abbr: 'Sep'},
+  { name: 'October', abbr: 'Oct'},
+  { name: 'November', abbr: 'Nov'},
+  { name: 'December', abbr: 'Dec'}
+];
 
 //- NOTE: Portugese
 //- Supported Languages
@@ -477,6 +607,8 @@ strings.pt.DOCS_TYPE = 'Type';
 strings.pt.DOCS_AUTHOR = 'Author';
 strings.pt.DOCS_YEAR = 'Year';
 strings.pt.DOCS_PDF = 'PDF';
+strings.pt.DOCS_NAME = 'Name';
+strings.pt.DOCS_SIZE = 'Size';
 //- Info Window
 strings.pt.INFO_WINDOW_INSTRUCTION_HEADER = 'Select a shape on the map';
 strings.pt.INFO_WINDOW_INSTRUCTION_LIST = [
@@ -506,6 +638,7 @@ strings.pt.ANALYSIS_SELECT_TYPE_LABEL = 'Select Analysis:';
 strings.pt.ANALYSIS_TC_CHART_NAME = 'Tree cover loss in Hectares';
 strings.pt.ANALYSIS_LCC_CHART_NAME = 'Land Cover Composition';
 strings.pt.ANALYSIS_IFL_LABELS = ['Intact Forest'];
+strings.pt.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.pt.ANALYSIS_FIRES_PRE = 'There are';
 strings.pt.ANALYSIS_FIRES_ACTIVE = 'active fires';
 strings.pt.ANALYSIS_FIRES_POST = 'in the last 7 days';
@@ -515,37 +648,56 @@ strings.pt.ANALYSIS_TOTAL_GAIN_LABEL = 'Total tree cover gained';
 strings.pt.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.pt.ANALYSIS_SLOPE_OPTION = 'Option #';
 strings.pt.SLOPE_SELECT_LABEL = 'Choose slope percent:';
-strings.pt.ANALYSIS_RESTORATION_LC_LABELS = [
-  'No Data', 'Forestland', 'Grassland', 'Cropland', 'Wetland and Waterbodies', 'Settlement', 'Bare soil'
-];
 strings.pt.ANALYSIS_RESTORATION_ERROR = 'Area not meeting criteria for potential/No data';
 strings.pt.ANALYSIS_GROUP_RESTORATION = 'Restoration potential for';
 strings.pt.ANALYSIS_GROUP_SLOPE = 'Potential according to';
 strings.pt.ANALYSIS_GROUP_OTHER = 'Other analysis';
+strings.pt.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
+strings.pt.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
+strings.pt.ANALYSIS_SAD_ALERT_NAMES = {
+  degrad: 'Degradation',
+  defor: 'Deforestation'
+};
 //- Group and value should not be modified
 strings.pt.ANALYSIS_SELECT_TYPE_OPTIONS = [
   { label: 'Slope',
     value: analysisKeys.SLOPE,
     group: analysisKeys.ANALYSIS_GROUP_SLOPE
   },
-  { label: 'Tree cover loss',
-    value: analysisKeys.TC_LOSS,
-    group: analysisKeys.ANALYSIS_GROUP_OTHER
-  },
   { label: 'Total tree cover loss/gain',
     value: analysisKeys.TC_LOSS_GAIN,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Tree cover loss',
+    value: analysisKeys.TC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Land cover loss',
     value: analysisKeys.LC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Biomass loss',
+  { label: 'Aboveground Live Woody Biomass loss',
     value: analysisKeys.BIO_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Intact forest loss',
     value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Global mangrove loss',
+    value: analysisKeys.MANGROVE_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'SAD alerts',
+    value: analysisKeys.SAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'GLAD alerts',
+    value: analysisKeys.GLAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Terra-I alerts',
+    value: analysisKeys.TERRA_I_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Active fires',
@@ -563,6 +715,7 @@ strings.pt.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover
 strings.pt.DENSITY_FIRST = 'Displaying';
 strings.pt.DENSITY_SECOND = 'canopy density.';
 strings.pt.SEARCH_WIDGET_TITLE = 'Search for feature:';
+strings.pt.SEARCH_CLICK_FOR_MORE = 'Please click on the selected feature for more info.';
 //- Layer Info Modal
 strings.pt.NO_INFO = 'No Information Available';
 strings.pt.OVERVIEW = 'Overview';
@@ -581,7 +734,7 @@ strings.pt.DOWNLOAD_DATA = 'download data';
 strings.pt.DESCRIPTION = 'description';
 
 //- Miscellaneous
-strings.pt.PRINT_BUTTON_LABEL = 'Choose a print template';
+strings.pt.PRINT_BUTTON_LABEL = 'Choose a print output';
 strings.pt.PRINT_REPORT = 'Print Report';
 strings.pt.SUBSCRIBE = 'Subscribe';
 strings.pt.LAYERS = 'Layers';
@@ -597,6 +750,9 @@ strings.pt.BASEMAP = 'Basemap';
 strings.pt.SELECT_ALL = 'select all';
 strings.pt.CLEAR_ALL = 'clear all';
 strings.pt.LEGEND = 'Legend';
+strings.pt.TIMELINE = 'Timeline';
+strings.pt.TIMELINE_START = 'Start: ';
+strings.pt.TIMELINE_END = 'End: ';
 strings.pt.SEARCH = 'Search'; // Also Used for tools, but was used else where first
 strings.pt.TOOL_ZOOM_IN = 'Zoom In';
 strings.pt.TOOL_ZOOM_OUT = 'Zoom Out';
@@ -605,6 +761,23 @@ strings.pt.TOOL_PRINT = 'Print';
 strings.pt.TOOL_ANALYSIS = 'Analysis';
 strings.pt.TOOL_TOGGLE = 'Toggle Panel';
 strings.pt.TOOL_RESET = 'Reset';
+
+strings.pt.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
+strings.pt.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.pt.MONTHS_LIST = [
+  { name: 'January', abbr: 'Jan'},
+  { name: 'February', abbr: 'Feb'},
+  { name: 'March', abbr: 'Mar'},
+  { name: 'April', abbr: 'Apr'},
+  { name: 'May', abbr: 'May'},
+  { name: 'June', abbr: 'Jun'},
+  { name: 'July', abbr: 'Jul'},
+  { name: 'August', abbr: 'Aug'},
+  { name: 'September', abbr: 'Sep'},
+  { name: 'October', abbr: 'Oct'},
+  { name: 'November', abbr: 'Nov'},
+  { name: 'December', abbr: 'Dec'}
+];
 
 //- NOTE: Bahasa Indonesia
 //- Supported Languages
@@ -627,6 +800,8 @@ strings.id.DOCS_TYPE = 'Type';
 strings.id.DOCS_AUTHOR = 'Author';
 strings.id.DOCS_YEAR = 'Year';
 strings.id.DOCS_PDF = 'PDF';
+strings.id.DOCS_NAME = 'Name';
+strings.id.DOCS_SIZE = 'Size';
 //- Info Window
 strings.id.INFO_WINDOW_INSTRUCTION_HEADER = 'Select a shape on the map';
 strings.id.INFO_WINDOW_INSTRUCTION_LIST = [
@@ -656,6 +831,7 @@ strings.id.ANALYSIS_SELECT_TYPE_LABEL = 'Select Analysis:';
 strings.id.ANALYSIS_TC_CHART_NAME = 'Tree cover loss in Hectares';
 strings.id.ANALYSIS_LCC_CHART_NAME = 'Land Cover Composition';
 strings.id.ANALYSIS_IFL_LABELS = ['Intact Forest'];
+strings.id.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.id.ANALYSIS_FIRES_PRE = 'There are';
 strings.id.ANALYSIS_FIRES_ACTIVE = 'active fires';
 strings.id.ANALYSIS_FIRES_POST = 'in the last 7 days';
@@ -665,37 +841,56 @@ strings.id.ANALYSIS_TOTAL_GAIN_LABEL = 'Total tree cover gained';
 strings.id.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.id.ANALYSIS_SLOPE_OPTION = 'Option #';
 strings.id.SLOPE_SELECT_LABEL = 'Choose slope percent:';
-strings.id.ANALYSIS_RESTORATION_LC_LABELS = [
-  'No Data', 'Forestland', 'Grassland', 'Cropland', 'Wetland and Waterbodies', 'Settlement', 'Bare soil'
-];
 strings.id.ANALYSIS_RESTORATION_ERROR = 'Area not meeting criteria for potential/No data';
 strings.id.ANALYSIS_GROUP_RESTORATION = 'Restoration potential for';
 strings.id.ANALYSIS_GROUP_SLOPE = 'Potential according to';
 strings.id.ANALYSIS_GROUP_OTHER = 'Other analysis';
+strings.id.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
+strings.id.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
+strings.id.ANALYSIS_SAD_ALERT_NAMES = {
+  degrad: 'Degradation',
+  defor: 'Deforestation'
+};
 //- Group and value should not be modified
 strings.id.ANALYSIS_SELECT_TYPE_OPTIONS = [
   { label: 'Slope',
     value: analysisKeys.SLOPE,
     group: analysisKeys.ANALYSIS_GROUP_SLOPE
   },
-  { label: 'Tree cover loss',
-    value: analysisKeys.TC_LOSS,
-    group: analysisKeys.ANALYSIS_GROUP_OTHER
-  },
   { label: 'Total tree cover loss/gain',
     value: analysisKeys.TC_LOSS_GAIN,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Tree cover loss',
+    value: analysisKeys.TC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Land cover loss',
     value: analysisKeys.LC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Biomass loss',
+  { label: 'Aboveground Live Woody Biomass loss',
     value: analysisKeys.BIO_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Intact forest loss',
     value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Global mangrove loss',
+    value: analysisKeys.MANGROVE_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'SAD alerts',
+    value: analysisKeys.SAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'GLAD alerts',
+    value: analysisKeys.GLAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Terra-I alerts',
+    value: analysisKeys.TERRA_I_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Active fires',
@@ -713,6 +908,7 @@ strings.id.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover
 strings.id.DENSITY_FIRST = 'Displaying';
 strings.id.DENSITY_SECOND = 'canopy density.';
 strings.id.SEARCH_WIDGET_TITLE = 'Search for feature:';
+strings.id.SEARCH_CLICK_FOR_MORE = 'Please click on the selected feature for more info.';
 //- Layer Info Modal
 strings.id.NO_INFO = 'No Information Available';
 strings.id.OVERVIEW = 'Overview';
@@ -731,7 +927,7 @@ strings.id.DOWNLOAD_DATA = 'download data';
 strings.id.DESCRIPTION = 'description';
 
 //- Miscellaneous
-strings.id.PRINT_BUTTON_LABEL = 'Choose a print template';
+strings.id.PRINT_BUTTON_LABEL = 'Choose a print output';
 strings.id.PRINT_REPORT = 'Print Report';
 strings.id.SUBSCRIBE = 'Subscribe';
 strings.id.LAYERS = 'Layers';
@@ -747,6 +943,9 @@ strings.id.BASEMAP = 'Basemap';
 strings.id.SELECT_ALL = 'select all';
 strings.id.CLEAR_ALL = 'clear all';
 strings.id.LEGEND = 'Legend';
+strings.id.TIMELINE = 'Timeline';
+strings.id.TIMELINE_START = 'Start: ';
+strings.id.TIMELINE_END = 'End: ';
 strings.id.SEARCH = 'Search'; // Also Used for tools, but was used else where first
 strings.id.TOOL_ZOOM_IN = 'Zoom In';
 strings.id.TOOL_ZOOM_OUT = 'Zoom Out';
@@ -755,6 +954,23 @@ strings.id.TOOL_PRINT = 'Print';
 strings.id.TOOL_ANALYSIS = 'Analysis';
 strings.id.TOOL_TOGGLE = 'Toggle Panel';
 strings.id.TOOL_RESET = 'Reset';
+
+strings.id.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
+strings.id.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.id.MONTHS_LIST = [
+  { name: 'January', abbr: 'Jan'},
+  { name: 'February', abbr: 'Feb'},
+  { name: 'March', abbr: 'Mar'},
+  { name: 'April', abbr: 'Apr'},
+  { name: 'May', abbr: 'May'},
+  { name: 'June', abbr: 'Jun'},
+  { name: 'July', abbr: 'Jul'},
+  { name: 'August', abbr: 'Aug'},
+  { name: 'September', abbr: 'Sep'},
+  { name: 'October', abbr: 'Oct'},
+  { name: 'November', abbr: 'Nov'},
+  { name: 'December', abbr: 'Dec'}
+];
 
 //- NOTE: Mandarin
 //- Supported Languages
@@ -777,6 +993,8 @@ strings.zh.DOCS_TYPE = '类别';
 strings.zh.DOCS_AUTHOR = '作者';
 strings.zh.DOCS_YEAR = '年份';
 strings.zh.DOCS_PDF = 'PDF';
+strings.zh.DOCS_NAME = 'Name';
+strings.zh.DOCS_SIZE = 'Size';
 //- Info Window
 strings.zh.INFO_WINDOW_INSTRUCTION_HEADER = '在地图上选择图形';
 strings.zh.INFO_WINDOW_INSTRUCTION_LIST = [
@@ -806,6 +1024,7 @@ strings.zh.ANALYSIS_SELECT_TYPE_LABEL = '选择分析方式：';
 strings.zh.ANALYSIS_TC_CHART_NAME = '森林覆盖损失（单位：公顷）';
 strings.zh.ANALYSIS_LCC_CHART_NAME = '土地覆盖组成';
 strings.zh.ANALYSIS_IFL_LABELS = ['原生森林'];
+strings.zh.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.zh.ANALYSIS_FIRES_PRE = '共计';
 strings.zh.ANALYSIS_FIRES_ACTIVE = '活跃火点';
 strings.zh.ANALYSIS_FIRES_POST = '在过去7天里';
@@ -815,37 +1034,56 @@ strings.zh.ANALYSIS_TOTAL_GAIN_LABEL = '总森林覆盖增加';
 strings.zh.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.zh.ANALYSIS_SLOPE_OPTION = '选项 #';
 strings.zh.SLOPE_SELECT_LABEL = '选择倾斜度：';
-strings.zh.ANALYSIS_RESTORATION_LC_LABELS = [
-  '无数据', '林地', '草地', '农田', '湿地和水体', '建筑', '裸地'
-];
 strings.zh.ANALYSIS_RESTORATION_ERROR = '无数据 或者 区域不满足条件';
 strings.zh.ANALYSIS_GROUP_RESTORATION = '在生态修复可能性的层面';
 strings.zh.ANALYSIS_GROUP_SLOPE = '可能性原因';
 strings.zh.ANALYSIS_GROUP_OTHER = '其他分析';
+strings.zh.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
+strings.zh.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
+strings.zh.ANALYSIS_SAD_ALERT_NAMES = {
+  degrad: 'Degradation',
+  defor: 'Deforestation'
+};
 //- Group and value should not be modified
 strings.zh.ANALYSIS_SELECT_TYPE_OPTIONS = [
   { label: '倾斜度',
     value: analysisKeys.SLOPE,
     group: analysisKeys.ANALYSIS_GROUP_SLOPE
   },
-  { label: '森林覆盖损失',
-    value: analysisKeys.TC_LOSS,
-    group: analysisKeys.ANALYSIS_GROUP_OTHER
-  },
   { label: '总森林覆盖损失或增加',
     value: analysisKeys.TC_LOSS_GAIN,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: '森林覆盖损失',
+    value: analysisKeys.TC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: '土地覆盖损失',
     value: analysisKeys.LC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: '生物量损失',
+  { label: 'Aboveground Live Woody Biomass loss', //'生物量损失',
     value: analysisKeys.BIO_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: '原生林损失',
     value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Global mangrove loss',
+    value: analysisKeys.MANGROVE_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'SAD alerts',
+    value: analysisKeys.SAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'GLAD alerts',
+    value: analysisKeys.GLAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Terra-I alerts',
+    value: analysisKeys.TERRA_I_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: '活跃火点',
@@ -863,6 +1101,7 @@ strings.zh.CANOPY_MODAL_TEXT = '对森林覆盖和森林覆盖损失图层调试
 strings.zh.DENSITY_FIRST = '显示中';
 strings.zh.DENSITY_SECOND = '林冠覆盖密度';
 strings.zh.SEARCH_WIDGET_TITLE = '搜寻特征：';
+strings.zh.SEARCH_CLICK_FOR_MORE = 'Please click on the selected feature for more info.';
 //- Layer Info Modal
 strings.zh.NO_INFO = 'No Information Available';
 strings.zh.OVERVIEW = 'Overview';
@@ -898,6 +1137,9 @@ strings.zh.BASEMAP = 'Basemap';
 strings.zh.SELECT_ALL = '全选';
 strings.zh.CLEAR_ALL = '全部清除';
 strings.zh.LEGEND = '图例';
+strings.zh.TIMELINE = 'Timeline';
+strings.zh.TIMELINE_START = 'Start: ';
+strings.zh.TIMELINE_END = 'End: ';
 strings.zh.SEARCH = '搜索'; // Also Used for tools, but was used else where first
 strings.zh.TOOL_ZOOM_IN = '放大';
 strings.zh.TOOL_ZOOM_OUT = '缩小';
@@ -906,5 +1148,22 @@ strings.zh.TOOL_PRINT = '打印';
 strings.zh.TOOL_ANALYSIS = '分析';
 strings.zh.TOOL_TOGGLE = '控制面板';
 strings.zh.TOOL_RESET = '重置';
+
+strings.zh.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
+strings.zh.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.zh.MONTHS_LIST = [
+  { name: 'January', abbr: 'Jan'},
+  { name: 'February', abbr: 'Feb'},
+  { name: 'March', abbr: 'Mar'},
+  { name: 'April', abbr: 'Apr'},
+  { name: 'May', abbr: 'May'},
+  { name: 'June', abbr: 'Jun'},
+  { name: 'July', abbr: 'Jul'},
+  { name: 'August', abbr: 'Aug'},
+  { name: 'September', abbr: 'Sep'},
+  { name: 'October', abbr: 'Oct'},
+  { name: 'November', abbr: 'Nov'},
+  { name: 'December', abbr: 'Dec'}
+];
 
 export { strings as default };

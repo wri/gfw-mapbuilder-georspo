@@ -12,12 +12,15 @@ export default class MapThemes extends Component {
     language: PropTypes.string.isRequired
   };
 
-  renderThemeList = (theme, index) => {
-    return (
-      <li key={index} className='app-header__theme'>
-        <a target='_blank' href={theme.url}>{theme.label}</a>
-      </li>
-    );
+  renderThemeList = (lang) => {
+    return (theme, index) => {
+      const {target} = this.props;
+      return (
+        <li key={index} className='app-header__theme'>
+          <a target={target} href={`${theme.url}&l=${lang}`}>{theme.label}</a>
+        </li>
+      );
+    };
   };
 
   render () {
@@ -29,7 +32,7 @@ export default class MapThemes extends Component {
         <svg className='svg-icon__nav' dangerouslySetInnerHTML={{ __html: themesSvg }}/>
         {text[language].NAV_MAP_THEMES}
         <ul className='app-header__theme-list shadow'>
-          {themes.map(this.renderThemeList)}
+          {themes.map(this.renderThemeList(language))}
         </ul>
       </li>
     );
@@ -38,5 +41,6 @@ export default class MapThemes extends Component {
 }
 
 MapThemes.propTypes = {
-  themes: PropTypes.array.isRequired
+  themes: PropTypes.array.isRequired,
+  target: PropTypes.string.isRequired
 };

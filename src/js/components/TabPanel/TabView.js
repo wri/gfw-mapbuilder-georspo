@@ -64,7 +64,7 @@ export default class TabView extends Component {
               <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
             </div>
             <h3 className='tab-view__mobile-header mobile-show'>NARRATIVE</h3>
-            <p className='tab-view__narrative'>{narrative}</p>
+            <div className='tab-view__narrative' dangerouslySetInnerHTML={{ __html: narrative }} />
           </div>
         }
         <div className={this.getClassName(LAYERS)}>

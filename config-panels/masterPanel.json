@@ -67,6 +67,7 @@
     }, {
       "type": "string",
       "fieldName": "narrative",
+      "stringFieldOption": "richtext",
       "label": "Enter a narrative about your map to give your users some insight about it.",
       "tooltip": "This will be visible in the table of contents.",
       "placeholder": "Explore the Forest Atlas of Cameroon to discover ..."
@@ -86,6 +87,11 @@
       "fieldName": "includeMyGFWLogin",
       "tooltip": "This will include the My GFW Login in the header",
       "label": "Would you like to include an My GFW Login"
+    }, {
+      "type": "boolean",
+      "fieldName": "navLinksInNewTab",
+      "tooltip": "Would you like the navigation links to open in a new tab?",
+      "label": "By default they will open in the same tab."
     }]
   }, {
     "category": "Language Settings",
@@ -151,6 +157,7 @@
       "placeholder": "Land Use"
     }, {
       "type": "string",
+      "stringFieldOption": "richtext",
       "fieldName": "alternativeNarrative",
       "label": "Enter a narrative about your map to give your users some insight about it.",
       "tooltip": "This will be visible in the table of contents.",
@@ -208,6 +215,30 @@
       "tooltip": "This will include/exclude this layer from the report, analysis, and layer list",
       "label": "Include Land Cover in your application",
       "value": true
+    },  {
+      "type": "boolean",
+      "fieldName": "mangroves",
+      "tooltip": "This will include/exclude this layer from the report, analysis, and layer list",
+      "label": "Include Global Mangrove in your application",
+      "value": true
+    },  {
+      "type": "boolean",
+      "fieldName": "sadAlerts",
+      "tooltip": "This will include/exclude this layer from the report, analysis, and layer list",
+      "label": "Include Imazon Sad Alerts in your application",
+      "value": true
+    },  {
+      "type": "boolean",
+      "fieldName": "gladAlerts",
+      "tooltip": "This will include/exclude this layer from the report, analysis, and layer list",
+      "label": "Include GLAD Aletrs in your application",
+      "value": true
+    }, {
+      "type": "boolean",
+      "fieldName": "terraIAlerts",
+      "tooltip": "This will include/exclude this layer from the report, analysis, and layer list",
+      "label": "Include Terra-I Aletrs in your application",
+      "value": true
     }, {
       "type": "string",
       "fieldName": "webmapMenuName",
@@ -256,7 +287,7 @@
       "type": "string",
       "fieldName": "alternativeRestorationOptions",
       "tooltip": "These show up under Restoration potential for ...",
-      "label": "Same restoration analysis options as directly above but for an additional language if configured.",
+      "label": "Enter the same restoration analysis options as directly above but for an additional language if configured.",
       "placeholder": "establishing natural forest;restocking degraded natural forest;agri-silviculture..."
     }, {
       "type": "string",
@@ -288,6 +319,30 @@
       "tooltip": "Enter a semi-colon separated list of colors for your tree cover classes",
       "label": "Enter a semi-colon separated list of colors for your tree cover classes",
       "placeholder": "rgb(0, 0, 0);rgb(180, 215, 158);rgb(245, 245, 122);rgb(205, 170, 102);"
+    }, {
+      "type": "string",
+      "fieldName": "landCoverClassNames",
+      "tooltip": "Enter a semi-colon separated list of class names for your land cover classes",
+      "label": "Enter a semi-colon separated list of class names for your land cover classes",
+      "placeholder": "No Data;Forestland;Grassland;Cropland;Wetland and Waterbodies;Settlement;Bare soil;"
+    }, {
+      "type": "string",
+      "fieldName": "landCoverClassColors",
+      "tooltip": "Enter a semi-colon separated list of colors for your land cover classes",
+      "label": "Enter a semi-colon separated list of colors for your land cover classes",
+      "placeholder": "rgb(0, 0, 0);rgb(0, 174, 0);rgb(255, 255, 0);rgb(255, 155, 190);rgb(0, 238, 238);rgb(255, 0, 0);rgb(255, 255, 188);"
+    }, {
+      "type": "string",
+      "fieldName": "populationClassNames",
+      "tooltip": "Enter a semi-colon separated list of class names for your population classes",
+      "label": "Enter a semi-colon separated list of class names for your population classes",
+      "placeholder": "No Data;<= 20;20 - 50;50 - 150;150 - 500;> 500;"
+    }, {
+      "type": "string",
+      "fieldName": "populationClassColors",
+      "tooltip": "Enter a semi-colon separated list of colors for your population classes",
+      "label": "Enter a semi-colon separated list of colors for your population classes",
+      "placeholder": "rgb(0, 0, 0);rgb(255, 255, 128);rgb(250, 209, 85);rgb(242, 167, 46);rgb(173, 83, 19);rgb(107, 0, 0);"
     }]
   }],
 
@@ -307,6 +362,7 @@
     "analyticsCode": "",
     "includeSubscribeButton": false,
     "includeMyGFWLogin": false,
+    "navLinksInNewTab": false,
 
     "language": "en",
     "useAlternativeLanguage": true,
@@ -329,7 +385,7 @@
     "webmapMenuName": "Land Use",
 
     "restorationModule": false,
-    "restorationImageServer": "http://gis-gfw.wri.org/arcgis/rest/services/country_data/ETH_Restoration/ImageServer",
+    "restorationImageServer": "http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration/ImageServer",
     "slopePotentialOptions": "Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential",
     "slopePotentialColors": "rgb(234,199,253);rgb(253,178,46);rgb(88,126,15);rgb(210,147,116);rgb(245,208,139);rgb(177,177,36);rgb(26,176,144);rgb(175,15,143);rgb(217,254,199);rgb(255,254,137);",
     "restorationOptions": "establishing natural forest outside of cropland;restocking of degraded natural forest;agri-silviculture and agro-silvo-pastoralism;silvo-pastoralism;woodlot;commercial plantation on bare soil and shrubland;commercial plantation as buffer zone to national forest priority areas and protected areas;tree-based buffer zone along rivers, lakes and reservoirs;",
@@ -337,7 +393,11 @@
     "slopeClassNames": "No Data;<= 30%;30 - 60%;> 60%;",
     "slopeClassColors": "rgb(0, 0, 0);rgb(255, 235, 175);rgb(115, 115, 0);rgb(168, 0, 0);",
     "treeCoverClassNames": "No Data;<= 10%;10 - 30%;> 30%;",
-    "treeCoverClassColors": "rgb(0, 0, 0);rgb(180, 215, 158);rgb(245, 245, 122);rgb(205, 170, 102);"
+    "treeCoverClassColors": "rgb(0, 0, 0);rgb(180, 215, 158);rgb(245, 245, 122);rgb(205, 170, 102);",
+    "landCoverClassNames": "No Data;Forestland;Grassland;Cropland;Wetland and Waterbodies;Settlement;Bare soil;",
+    "landCoverClassColors": "rgb(0, 0, 0);rgb(0, 174, 0);rgb(255, 255, 0);rgb(255, 155, 190);rgb(0, 238, 238);rgb(255, 0, 0);rgb(255, 255, 188);",
+    "populationClassNames": "No Data;<= 20;20 - 50;50 - 150;150 - 500;> 500;",
+    "populationClassColors": "rgb(0, 0, 0);rgb(255, 255, 128);rgb(250, 209, 85);rgb(242, 167, 46);rgb(173, 83, 19);rgb(107, 0, 0);"
 
   }
 }

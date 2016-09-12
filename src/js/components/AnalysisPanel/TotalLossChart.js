@@ -28,10 +28,10 @@ export default class TotalLossChart extends Component {
 }
 
 TotalLossChart.propTypes = {
-  counts: PropTypes.array.isRequried,
-  encoder: PropTypes.object.isRequried,
-  options: PropTypes.object.isRequried,
+  counts: PropTypes.array.isRequired,
+  encoder: PropTypes.object.isRequired,
+  options: PropTypes.object.isRequired,
   lossLabels: PropTypes.array.isRequired,
   labels: PropTypes.array.isRequired,
-  colors: PropTypes.array.isRequried
+  colors: PropTypes.array.isRequired
 };

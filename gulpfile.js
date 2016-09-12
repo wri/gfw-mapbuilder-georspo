@@ -4,15 +4,16 @@ var prerender = require('react-prerender');
 var gulpPlumber = require('gulp-plumber');
 var browserSync = require('browser-sync');
 var imagemin = require('gulp-imagemin');
+var requirejs = require('requirejs');
 var locals = require('./src/locals');
 var stylus = require('gulp-stylus');
 var jade = require('gulp-jade');
 var gulp = require('gulp');
 var path = require('path');
+var fs = require('fs');
 
 //- Read the version from the package json
 var version = require('./package.json').version;
-locals.version = version;
 
 //- Set up error handling using plumber
 var plumber = function () {
@@ -25,7 +26,7 @@ var config = {
   imagemin: {
     src: 'src/**/*.{png,jpg,gif,svg,ico}',
     build: 'build',
-    dist: 'dist'
+    dist: 'dist/' + version
   },
   jade: {
     watch: ['src/**/*.jade', 'build/css/critical.css'],
@@ -37,7 +38,7 @@ var config = {
     watch: 'src/css/**/*.styl',
     src: ['src/css/critical.styl', 'src/css/app.styl', 'src/css/report.styl'],
     build: 'build/css',
-    dist: 'dist/css'
+    dist: 'dist/' + version + '/css'
   },
   server: {
     files: ['build/**/*.html', 'build/**/*.js', 'build/**/*.css'],
@@ -45,9 +46,11 @@ var config = {
     baseDir: 'build'
   },
   copy: {
-    filesaver: { src: 'build/vendor/file-saver.js/FileSaver.js', dest: 'dist/vendor/file-saver.js/'},
-    jquery: { src: 'build/vendor/jquery/dist/jquery.min.js', dest: 'dist/vendor/jquery/dist/'},
-    ion: { src: 'build/vendor/ion.rangeslider/**/*', dest: 'dist/vendor/ion.rangeslider/'}
+    filesaver: { src: 'build/vendor/file-saver.js/FileSaver.js', dest: 'dist/' + version + '/vendor/file-saver.js/'},
+    jquery: { src: 'build/vendor/jquery/dist/jquery.min.js', dest: 'dist/' + version + '/vendor/jquery/dist/'},
+    ion: { src: 'build/vendor/ion.rangeslider/**/*', dest: 'dist/' + version + '/vendor/ion.rangeslider/'},
+    resource: { src: 'build/resources.js', dest: 'dist/'},
+    pickadate: { src: 'build/vendor/pickadate/**/*', dest: 'dist/' + version + '/vendor/pickadate/'}
   }
 };
 
@@ -78,6 +81,10 @@ gulp.task('jade-build', function () {
 });
 
 gulp.task('jade-dist', function () {
+  // Update it in locals so it can be passed to index.html
+  locals.version = version;
+  locals.base = version;
+
   return gulp.src(config.jade.src)
     .pipe(jade({ locals: locals }))
     .pipe(minifyInline())
@@ -107,16 +114,20 @@ gulp.task('copy', function () {
     .pipe(gulp.dest(config.copy.ion.dest));
   gulp.src(config.copy.filesaver.src)
     .pipe(gulp.dest(config.copy.filesaver.dest));
+  gulp.src(config.copy.resource.src)
+    .pipe(gulp.dest(config.copy.resource.dest));
+  gulp.src(config.copy.pickadate.src)
+    .pipe(gulp.dest(config.copy.pickadate.dest));
 });
 
 gulp.task('prerender', function () {
   var htmlFile = path.join(__dirname, 'dist/index.html'),
       component = 'js/components/App',
       dom = '#root',
-      requirejs = {
+      requirejsProfile = {
         buildProfile: path.join(__dirname, 'rjs.main.js'),
         map: {
-          ignorePatterns: [/esri\//, /dojo\//, /dijit\//],
+          ignorePatterns: [/esri\//, /dojo\//, /dijit\//, /pickadate/],
           moduleRoot: path.join(__dirname, 'build/js'),
           remapModule: 'js/config'
         }
@@ -126,7 +137,22 @@ gulp.task('prerender', function () {
     component: component,
     target: htmlFile,
     mount: dom,
-    requirejs: requirejs
+    requirejs: requirejsProfile
+  });
+});
+
+gulp.task('bundle', function (cb) {
+  // Load in the profiles
+  var mainProfile = eval(fs.readFileSync(path.join(__dirname, 'rjs.main.js'), 'utf-8'));
+  var reportProfile = eval(fs.readFileSync(path.join(__dirname, 'rjs.report.js'), 'utf-8'));
+  // Update the name in the build profile
+  mainProfile.out = 'dist/' + version + '/js/main.js';
+  reportProfile.out = 'dist/' + version + '/js/reportMain.js';
+  // Generate the bundles
+  requirejs.optimize(mainProfile, function () {
+    requirejs.optimize(reportProfile, function () {
+      cb();
+    });
   });
 });
 

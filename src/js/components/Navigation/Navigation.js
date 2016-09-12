@@ -21,8 +21,9 @@ export default class Navigation extends Component {
     const shouldRender = settings.labels &&
                        settings.labels[language] &&
                        settings.labels[language].themes !== undefined;
+    const target = settings.navLinksInNewTab ? '_blank' : '_self';
 
-    return shouldRender ? <MapThemes themes={settings.labels[language].themes} /> : undefined;
+    return shouldRender ? <MapThemes themes={settings.labels[language].themes} target={target} /> : undefined;
   };
 
   render () {
@@ -33,6 +34,7 @@ export default class Navigation extends Component {
 
     const LanguageComponent = settings.useAlternativeLanguage ? <LanguageToggle /> : undefined;
     const ThemeComponent = this.renderMapThemes(language, settings);
+    const target = settings.navLinksInNewTab ? '_blank' : '_self';
 
     return (
       <nav className='app-header__nav'>
@@ -40,7 +42,7 @@ export default class Navigation extends Component {
           {ThemeComponent}
           {!settings.downloadLinkUrl ? null :
             <li className='app-header__nav-link pointer'>
-              <a target='_blank' href={settings.downloadLinkUrl}>
+              <a target={target} href={settings.downloadLinkUrl}>
                 <svg className='svg-icon__nav' dangerouslySetInnerHTML={{ __html: downloadSvg }}/>
                 {text[language].NAV_DOWNLOAD}
               </a>
@@ -48,7 +50,7 @@ export default class Navigation extends Component {
           }
           {!settings.aboutLinkUrl ? null :
             <li className='app-header__nav-link pointer'>
-              <a target='_blank' href={settings.aboutLinkUrl}>
+              <a target={target} href={settings.aboutLinkUrl}>
                 <svg className='svg-icon__nav' dangerouslySetInnerHTML={{ __html: aboutSvg }}/>
                 {text[language].NAV_ABOUT}
               </a>
@@ -56,7 +58,7 @@ export default class Navigation extends Component {
           }
           {!settings.includeMyGFWLogin ? null :
             <li className='app-header__nav-link pointer'>
-              <a target='_blank'>
+              <a target={target}>
                 <svg className='svg-icon__nav' dangerouslySetInnerHTML={{ __html: myGFWSvg }}/>
                 {text[language].NAV_MY_GFW}
               </a>

@@ -1,4 +1,6 @@
 import FindParameters from 'esri/tasks/FindParameters';
+import layerKeys from 'constants/LayerConstants';
+import StatisticDefinition from 'esri/tasks/StatisticDefinition';
 import QueryTask from 'esri/tasks/QueryTask';
 import FindTask from 'esri/tasks/FindTask';
 import esriRequest from 'esri/request';
@@ -94,11 +96,15 @@ const request = {
     const promise = new Deferred();
     const layer = feature._layer;
     const url = layer && layer._url && layer._url.path;
+    const id = feature.attributes[layer.objectIdField];
 
-    if (needsDynamicQuery(url) && layer.source) {
+    // Dont bother querying for custom geometry on the user features layer, we already have it
+    if (layer.id === layerKeys.USER_FEATURES) {
+      promise.resolve(feature.geometry);
+    } else if (needsDynamicQuery(url) && layer.source) { // If layer ends in /dynamicLayer, it takes different query params
       const content = {
         layer: JSON.stringify({ source: { type: 'mapLayer', mapLayerId: layer.source.mapLayerId }}),
-        objectIds: feature.attributes.OBJECTID,
+        objectIds: id,
         returnGeometry: true,
         outFields: '*',
         f: 'json'
@@ -116,20 +122,35 @@ const request = {
           promise.resolve(feature.geometry);
         }
       }, () => { promise.resolve(feature.geometry); });
-    } else if (url) {
-      this.queryTaskById(url, feature.attributes.OBJECTID).then((results) => {
+    } else if (url) { // If we have a url , query it
+      this.queryTaskById(url, id).then((results) => {
         if (results.features.length) {
           promise.resolve(results.features[0].geometry);
         } else {
           promise.resolve(feature.geometry);
         }
       }, () => { promise.resolve(feature.geometry); });
-    } else {
+    } else { // If we can't query it, and it's not a custom feature, just return it, this should not be happening though
       promise.resolve(feature.geometry);
     }
 
     return promise;
+  },
+
+  getLayerStatistics: (options) => {
+    const {url, outFields, type, field} = options;
+    const task = new QueryTask(url);
+    const query = new Query();
+    const stat = new StatisticDefinition();
+    stat.statisticType = type;
+    stat.onStatisticField = stat.outStatisticFieldName = field;
+
+    query.returnGeometry = false;
+    query.outFields = outFields;
+    query.outStatistics = [stat];
+    return task.execute(query);
   }
+
 
 };
 

@@ -4,9 +4,17 @@ import {getUrlParams} from 'utils/params';
 import Deferred from 'dojo/Deferred';
 import lang from 'dojo/_base/lang';
 import resources from 'resources';
-import {urls} from 'js/config';
 
 const SEPARATOR = ';';
+
+const pruneValues = (dict) => {
+  Object.keys(dict).forEach((key) => {
+    if (dict[key] === '' || dict[key] === undefined || dict[key] === null) {
+      delete dict[key];
+    }
+  });
+  return dict;
+};
 
 /**
 * Takes a string and parse it into an array based on separator, e.g hey;you; => ['hey', 'you', '']
@@ -24,6 +32,7 @@ const parseIntoArray = (resourceString) => {
 * them easier to consume in my components, do all the formatting here
 */
 const formatResources = () => {
+  const appUrl = location.href.replace(location.search, '');
   //- LANGUAGE SETTINGS START
   resources.labels = {};
   resources.labels[resources.language] = {
@@ -40,12 +49,12 @@ const formatResources = () => {
     names.forEach((name, i) => {
       resources.labels[resources.language].themes.push({
         label: name.trim(),
-        url: `${urls.liveSite}?appid=${appids[i].trim()}`
+        url: `${appUrl}?appid=${appids[i].trim()}`
       });
     });
   }
   //- Add content for second language if configured
-  if (resources.useAlternativeLanguage) {
+  if (resources.useAlternativeLanguage && resources.alternativeLanguage) {
     resources.labels[resources.alternativeLanguage] = {
       title: resources.alternativeLanguageTitle,
       subtitle: resources.alternativeLanguageSubtitle,
@@ -59,7 +68,7 @@ const formatResources = () => {
       secondNames.forEach((name, i) => {
         resources.labels[resources.alternativeLanguage].themes.push({
           label: name.trim(),
-          url: `${urls.liveSite}?appid=${appids[i].trim()}`
+          url: `${appUrl}?appid=${appids[i].trim()}`
         });
       });
     }
@@ -109,9 +118,19 @@ const formatResources = () => {
       resources.treeCoverClasses = parseIntoArray(resources.treeCoverClassNames);
       resources.treeCoverColors = parseIntoArray(resources.treeCoverClassColors);
     }
+    //- Parse land cover class names if present
+    if (resources.landCoverClassNames) {
+      resources.landCoverClasses = parseIntoArray(resources.landCoverClassNames);
+      resources.landCoverColors = parseIntoArray(resources.landCoverClassColors);
+    }
+    //- Parse population density class names if present
+    if (resources.populationClassNames) {
+      resources.populationClasses = parseIntoArray(resources.populationClassNames);
+      resources.populationColors = parseIntoArray(resources.populationClassColors);
+    }
   }
 
-  //- TODO: Remove Layers from resources.layers if configured
+  //- Remove Layers from resources.layers if configured
   Object.keys(resources.layers).forEach((language) => {
     resources.layers[language] = resources.layers[language].filter((layer) => {
       switch (layer.id) {
@@ -123,8 +142,31 @@ const formatResources = () => {
           return resources.aboveGroundBiomass;
         case layerKeys.IFL:
           return resources.intactForests;
+        case layerKeys.GLOB_MANGROVE:
+          return resources.mangroves;
+        case layerKeys.IMAZON_SAD:
+          return resources.sadAlerts;
+        case layerKeys.GLAD_ALERTS:
+          return resources.gladAlerts;
+        case layerKeys.TERRA_I_ALERTS:
+          return resources.terraIAlerts;
         default:
           return true;
+      }
+    });
+  });
+
+  //- Update path if it is relative to point to local
+  const base = window._app.base ? window._app.base + '/' : '';
+  if (resources.logoUrl && resources.logoUrl.indexOf('.') === 0) {
+    resources.logoUrl = base + resources.logoUrl;
+  }
+
+  Object.keys(resources.basemaps).forEach((language) => {
+    Object.keys(resources.basemaps[language]).forEach((bm) => {
+      const basemap = resources.basemaps[language][bm];
+      if (basemap.thumbnailUrl && basemap.thumbnailUrl.indexOf('.') === 0) {
+        basemap.thumbnailUrl = base + basemap.thumbnailUrl;
       }
     });
   });
@@ -142,6 +184,10 @@ export default {
     const promise = new Deferred();
     const appid = id ? id : getUrlParams(location.href).appid;
 
+    // Set the sharinghost to the correct location so the app can find the webmap content
+    if (!resources.sharinghost) { resources.sharinghost = 'http://www.arcgis.com'; }
+    arcgisUtils.arcgisUrl = `${resources.sharinghost}/sharing/rest/content/items`;
+
     if (!appid) {
       //- Format the resources before resolving
       formatResources();
@@ -150,7 +196,7 @@ export default {
     }
 
     arcgisUtils.getItem(appid).then(res => {
-      const agolValues = res.itemData && res.itemData.values;
+      let agolValues = res.itemData && res.itemData.values;
 
       //- If we dont have agol settings, save the defaults, else merge them in
       if (!agolValues) {
@@ -158,21 +204,13 @@ export default {
         formatResources();
         promise.resolve(resources);
       } else {
+        //- Prune agolValues by removing null keys
+        agolValues = pruneValues(agolValues);
         //- This will merge all the settings in, but some things need a little massaging
         lang.mixin(resources, agolValues);
 
         //- Put the appid in settings so its easy to get to elsewhere in the app without rereading the url
         resources.appid = appid;
-
-        //- We do not want to show the about or download link if they are not configured in AGOL, but we do
-        //- if there are no agolValues or there is no appid, so remove those here if applicable
-        if (!agolValues.aboutLinkUrl) {
-          resources.aboutLinkUrl = '';
-        }
-
-        if (!agolValues.downloadLinkUrl) {
-          resources.downloadLinkUrl = '';
-        }
 
         //- Format the resources before resolving
         formatResources();
@@ -181,6 +219,7 @@ export default {
 
     }, err => {
       if (brApp.debug) { console.warn(`template.getAppInfo >> ${err.message}`); }
+      formatResources();
       promise.resolve(resources);
     });
 

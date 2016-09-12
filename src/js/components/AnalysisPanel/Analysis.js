@@ -2,12 +2,15 @@ import CustomFeatureControl from 'components/AnalysisPanel/CustomFeatureControl'
 import CompositionPieChart from 'components/AnalysisPanel/CompositionPieChart';
 import AnalysisTypeSelect from 'components/AnalysisPanel/AnalysisTypeSelect';
 import RestorationCharts from 'components/AnalysisPanel/RestorationCharts';
+import TimeSeriesChart from 'components/AnalysisPanel/TimeSeriesChart';
 import TotalLossChart from 'components/AnalysisPanel/TotalLossChart';
+import SadAlertsChart from 'components/AnalysisPanel/SadAlertsChart';
 import ReportSubscribeButtons from 'components/Shared/ReportSubscribe';
 import SlopeSelect from 'components/AnalysisPanel/SlopeClassSelect';
 import LossGainBadge from 'components/AnalysisPanel/LossGainBadge';
 import SlopeBarChart from 'components/AnalysisPanel/SlopeBarChart';
 import DensityDisplay from 'components/LayerPanel/DensityDisplay';
+import BiomassChart from 'components/AnalysisPanel/BiomassChart';
 import FiresBadge from 'components/AnalysisPanel/FiresBadge';
 import BarChart from 'components/AnalysisPanel/BarChart';
 import analysisKeys from 'constants/AnalysisConstants';
@@ -28,6 +31,7 @@ import React, {
 
 const getDefaultState = function () {
   return {
+    error: false,
     isLoading: true,
     results: undefined
   };
@@ -52,7 +56,7 @@ export default class Analysis extends Component {
       activeSlopeClass
     } = this.props;
 
-    if (selectedFeature && activeTab === tabKeys.ANALYSIS) {
+    if (selectedFeature && activeAnalysisType && activeTab === tabKeys.ANALYSIS) {
       request.getRawGeometry(selectedFeature).then((geometry) => {
         performAnalysis({
           type: activeAnalysisType,
@@ -63,6 +67,8 @@ export default class Analysis extends Component {
           language: language
         }).then((results) => {
           this.setState({ results: results, isLoading: false });
+        }, () => {
+          this.setState({ isLoading: false, error: true });
         });
       });
     }
@@ -87,7 +93,8 @@ export default class Analysis extends Component {
       canopyDensity !== this.props.canopyDensity ||
       activeSlopeClass !== this.props.activeSlopeClass
       ) &&
-      activeTab === tabKeys.ANALYSIS
+      activeTab === tabKeys.ANALYSIS &&
+      activeAnalysisType !== ''
     ) {
       this.setState(getDefaultState());
       const {settings, language} = this.context;
@@ -101,6 +108,8 @@ export default class Analysis extends Component {
           language: language
         }).then((results) => {
           this.setState({ results: results, isLoading: false });
+        }, () => {
+          this.setState({ isLoading: false });
         });
       });
     }
@@ -128,14 +137,28 @@ export default class Analysis extends Component {
           counts={results.counts}
           colors={analysisConfig[type].colors}
           labels={lossLabels} />;
-      case analysisKeys.LC_LOSS:
       case analysisKeys.BIO_LOSS:
+        return <BiomassChart
+          payload={results}
+          labels={analysisConfig[type].labels}
+          colors={analysisConfig[type].colors}
+          />;
+      case analysisKeys.LC_LOSS:
       case analysisKeys.INTACT_LOSS:
+      case analysisKeys.MANGROVE_LOSS:
         layerConf = utils.getObject(settings.layers[language], 'id', layerKeys.LAND_COVER);
-        labels = (type === analysisKeys.LC_LOSS ? layerConf.classes :
-          (type === analysisKeys.INTACT_LOSS ? text[language].ANALYSIS_IFL_LABELS :
-            analysisConfig[type].labels)
-        );
+        labels = (function () {
+          switch (type) {
+            case analysisKeys.LC_LOSS:
+              return layerConf.classes;
+            case analysisKeys.INTACT_LOSS:
+              return text[language].ANALYSIS_IFL_LABELS;
+            case analysisKeys.MANGROVE_LOSS:
+              return text[language].ANALYSIS_MANGROVE_LABELS;
+            default:
+              return analysisConfig[type].labels;
+          }
+        })();
         colors = type === analysisKeys.LC_LOSS ? layerConf.colors : analysisConfig[type].colors;
         return <TotalLossChart
           counts={results.counts}
@@ -151,15 +174,25 @@ export default class Analysis extends Component {
         const tooltips = settings.labels[language].slopeAnalysisPotentialOptions;
         //- Need a new chart to handle these values correctly
         return <SlopeBarChart counts={counts} colors={colors} labels={labels} tooltips={tooltips} />;
+      case analysisKeys.SAD_ALERTS:
+        const {alerts} = results;
+        return <SadAlertsChart
+          alerts={alerts}
+          colors={analysisConfig[type].colors}
+          names={text[language].ANALYSIS_SAD_ALERT_NAMES} />;
+      case analysisKeys.GLAD_ALERTS:
+        return <TimeSeriesChart data={results} name={text[language].ANALYSIS_GLAD_ALERT_NAME} />;
+      case analysisKeys.TERRA_I_ALERTS:
+        return <TimeSeriesChart data={results} name={text[language].ANALYSIS_TERRA_I_ALERT_NAME} />;
       default:
       //- This should only be the restoration analysis, since its value is a plain rasterId
-        return <RestorationCharts results={results} config={analysisConfig.restoration} />;
+        return <RestorationCharts results={results} />;
     }
   };
 
   render () {
     const {selectedFeature, activeAnalysisType, canopyDensity, activeSlopeClass} = this.props;
-    const {results, isLoading} = this.state;
+    const {results, isLoading, error} = this.state;
     const {language, settings} = this.context;
     let chart, title, slopeSelect;
 
@@ -185,7 +218,9 @@ export default class Analysis extends Component {
       activeAnalysisType === analysisKeys.INTACT_LOSS
     );
 
-    if (selectedFeature.attributes.__source === attributes.SOURCE_DRAW) {
+    if (selectedFeature.attributes.source === attributes.SOURCE_DRAW ||
+      selectedFeature.attributes.source === attributes.SOURCE_UPLOAD
+    ) {
       title = (
         <div className='analysis-results__title'>
           <CustomFeatureControl feature={selectedFeature} />
@@ -208,11 +243,16 @@ export default class Analysis extends Component {
             {text[language].ANALYSIS_SELECT_TYPE_LABEL}
           </div>
           <AnalysisTypeSelect {...this.props} />
-          <div className={`analysis-results__density-display ${showDensityDisplay ? '' : 'hidden'}`}>
-            <DensityDisplay canopyDensity={canopyDensity} />
-          </div>
-          {slopeSelect}
-          {chart}
+          {error ?
+            <div className=''>Error Here</div> :
+            <div>
+              <div className={`analysis-results__density-display ${showDensityDisplay ? '' : 'hidden'}`}>
+                <DensityDisplay canopyDensity={canopyDensity} />
+              </div>
+              {slopeSelect}
+              {chart}
+            </div>
+          }
         </div>
         <div className='analysis-results__footer'>
           <ReportSubscribeButtons />

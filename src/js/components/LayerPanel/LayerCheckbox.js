@@ -32,13 +32,17 @@ const hideSubLayer = function hideSubLayer (layerItem) {
 };
 
 const showLayer = function showLayer (map, layerId) {
-  const layer = map.getLayer(layerId);
-  if (layer) { layer.show(); }
+  if (map && map.getLayer) {
+    const layer = map.getLayer(layerId);
+    if (layer) { layer.show(); }
+  }
 };
 
 const hideLayer = function hideLayer (map, layerId) {
-  const layer = map.getLayer(layerId);
-  if (layer) { layer.hide(); }
+  if (map && map.getLayer) {
+    const layer = map.getLayer(layerId);
+    if (layer) { layer.hide(); }
+  }
 };
 
 export default class LayerCheckbox extends Component {
@@ -97,11 +101,11 @@ export default class LayerCheckbox extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps) {
-    return nextProps.checked !== this.props.checked ||
-           nextProps.layer !== this.props.layer ||
-           !!this.props.children;
-  }
+  // shouldComponentUpdate(nextProps) {
+  //   return nextProps.checked !== this.props.checked ||
+  //          nextProps.layer !== this.props.layer ||
+  //          !!this.props.children;
+  // }
 
   showInfo () {
     const {layer} = this.props;
@@ -129,12 +133,13 @@ export default class LayerCheckbox extends Component {
   }
 
   render() {
+    const {map} = this.context;
     const {layer} = this.props;
     const {label, sublabel} = layer;
     // let {language} = this.context;
     const checked = this.props.checked ? 'active' : '';
     const disabled = layer.disabled ? 'disabled' : '';
-    const hidden = LayersHelper.isLayerVisible(layer) ? '' : 'hidden';
+    const hidden = LayersHelper.isLayerVisible(map, layer) ? '' : 'hidden';
 
     return (
       <div className={`layer-checkbox relative ${checked} ${disabled} ${hidden}`} >

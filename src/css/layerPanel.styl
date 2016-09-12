@@ -155,6 +155,7 @@
 //- The classes below are the layer ids, if those layer ids are changed in the config, they will need
 //- to be updated here as well so that the correct colors are applied to the layer checkbox
 .layer-checkbox
+.toggle-switch__container
   padding-bottom 3px
   margin-top 3px
   &.disabled
@@ -263,3 +264,33 @@
   right 0
   left 0
   top 0
+
+.toggle-switch__label
+  padding-left 10px
+  font-size 12px
+
+.picker__top
+  position fixed
+  width 300px
+  z-index 50
+  left 20px
+  top 140px
+  & .picker__select--year
+  & .picker__select--month
+    padding 0
+
+.root .picker__button--clear
+  display none
+
+.glad-controls__calendars
+.terra-i-controls__calendars
+  display table
+
+.glad-controls__calendars--row
+.terra-i-controls__calendars--row
+  display table-row
+  & input
+  & label
+    display table-cell
+    font-size 12px
+    margin 3px

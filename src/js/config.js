@@ -17,7 +17,9 @@ const config = {
 
   corsServers: [
     'gis-gfw.wri.org',
-    'gis-potico.wri.org'
+    'gis-potico.wri.org',
+    'api.globalforestwatch.org',
+    'production-api.globalforestwatch.org'
   ],
 
   // Note these will need to be copied in with the bulid script since they are not part of the main bundle
@@ -28,11 +30,12 @@ const config = {
     highchartsExports: '//code.highcharts.com/modules/exporting.js',
     ionCSS: 'vendor/ion.rangeslider/css/ion.rangeSlider.css',
     ionSkinCSS: 'vendor/ion.rangeslider/css/ion.rangeSlider.skinNice.css',
-    rangeSlider: 'vendor/ion.rangeslider/js/ion.rangeSlider.min.js'
+    rangeSlider: 'vendor/ion.rangeslider/js/ion.rangeSlider.min.js',
+    pickadateCSS: 'vendor/pickadate/lib/compressed/themes/classic.css',
+    pickadateDateCSS: 'vendor/pickadate/lib/compressed/themes/classic.date.css'
   },
 
   urls: {
-    liveSite: 'http://wri.github.io/gfw-mapbuilder/',
     metadataApi: 'http://api.globalforestwatch.org/metadata',
     metadataXmlEndpoint: (itemId) => `http://www.arcgis.com/sharing/rest/content/items/${itemId}/info/metadata/metadata.xml`
   },
@@ -147,18 +150,10 @@ const config = {
       inputRanges: (density) => [0, +density, +density, 101]
     },
     restoration: {
-      treeCoverId: '$4',
-      // treeCoverClasses: ['No Data', '<= 10%', '10 - 30%', '> 30%'],
-      // treeCoverColors: ['rgb(0, 0, 0)', 'rgb(180, 215, 158)', 'rgb(245, 245, 122)', 'rgb(205, 170, 102)'],
-      populationId: '$2',
-      populationClasses: ['No Data', '<= 20', '20 - 50', '50 - 150', '150 - 500', '> 500'],
-      populationColors: ['rgb(0, 0, 0)', 'rgb(255, 255, 128)', 'rgb(250, 209, 85)', 'rgb(242, 167, 46)', 'rgb(173, 83, 19)', 'rgb(107, 0, 0)'],
-      slopeId: '$3',
-      // slopeClasses: ['No Data', '<= 30%', '30 - 60%', '> 60%'],
-      // slopeColors: ['rgb(0, 0, 0)', 'rgb(255, 235, 175)', 'rgb(115, 115, 0)', 'rgb(168, 0, 0)'],
       landCoverId: '$1',
-      // landCoverClasses: [], // In the js/languages file
-      landCoverColors: ['rgb(0, 0, 0)', 'rgb(0, 174, 0)', 'rgb(255, 255, 0)', 'rgb(255, 155, 190)', 'rgb(0, 238, 238)', 'rgb(255, 0, 0)', 'rgb(255, 255, 188)']
+      populationId: '$2',
+      slopeId: '$3',
+      treeCoverId: '$4'
     }
   }
 };
@@ -170,27 +165,54 @@ config.analysis[analysisKeys.INTACT_LOSS] = {
   colors: ['#186513']
 };
 
-config.analysis[analysisKeys.BIO_LOSS] = {
-  id: '$524',
-  bounds: [0, 2],
-  labels: ['1 - 19', '20 - 79', '>= 80'],
-  colors: ['#fdffcc', '#f1bc8b', '#d56f4a'],
-  remap: {
-    'rasterFunction': 'Remap',
-    'rasterFunctionArguments': {
-      'InputRanges': [0, 20, 20, 80, 80, 1000],
-      'OutputValues': [0, 1, 2],
-      'Raster': '$524',
-      'AllowUnmatched': false
-    }
+config.analysis[analysisKeys.MANGROVE_LOSS] = {
+  id: '$564',
+  bounds: [0, 1],
+  colors: ['#06FFAA']
+};
+
+config.analysis[analysisKeys.SAD_ALERTS] = {
+  url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer/2',
+  outFields: ['date', 'data_type', 'st_area(shape)'],
+  colors: {
+    degrad: '#FA98B9',
+    defor: '#F13689'
   }
 };
 
-// config.analysis[analysisKeys.LC_LOSS] = {
-//   id: '$523',
-//   bounds: [1, 20],
-//   colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92']
-// };
+config.analysis[analysisKeys.GLAD_ALERTS] = {
+  url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts_analysis/ImageServer',
+  lockrasters: {
+    '2015': 6,
+    '2016': 4
+  }
+};
+
+config.analysis[analysisKeys.TERRA_I_ALERTS] = {
+  url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer'
+};
+
+config.analysis[analysisKeys.BIO_LOSS] = {
+  // id: '$524',
+  // bounds: [0, 2],
+  // labels: ['1 - 19', '20 - 79', '>= 80'],
+  // colors: ['#fdffcc', '#f1bc8b', '#d56f4a'],
+  // remap: {
+  //   'rasterFunction': 'Remap',
+  //   'rasterFunctionArguments': {
+  //     'InputRanges': [0, 20, 20, 80, 80, 1000],
+  //     'OutputValues': [0, 1, 2],
+  //     'Raster': '$524',
+  //     'AllowUnmatched': false
+  //   }
+  // },
+  labels: [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014],
+  url: '',
+  colors: {
+    loss: '#FF6699',
+    carbon: '#BEBCC2'
+  }
+};
 
 config.analysis[analysisKeys.SLOPE] = {
   id: '$3',
@@ -214,11 +236,6 @@ config.analysis[analysisKeys.TC_LOSS] = {
   bounds: [1, 14],
   labels: [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014]
 };
-
-// config.analysis[analysisKeys.LCC] = {
-//   lockRaster: 523,
-//   colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92']
-// };
 
 config.analysis[analysisKeys.FIRES] = {
   url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer/4'

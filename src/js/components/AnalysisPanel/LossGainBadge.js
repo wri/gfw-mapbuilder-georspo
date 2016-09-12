@@ -5,8 +5,8 @@ const LossGainBadge = (props, context) => {
   const {lossCounts, gainCounts} = props;
   const {language} = context;
 
-  const lossTotal = lossCounts.reduce((a, b) => { return a + b; }, 0);
-  const gainTotal = gainCounts.reduce((a, b) => { return a + b; }, 0);
+  const lossTotal = !lossCounts ? 0 : lossCounts.reduce((a, b) => { return a + b; }, 0);
+  const gainTotal = !gainCounts ? 0 : gainCounts.reduce((a, b) => { return a + b; }, 0);
 
   return (
     <div className='results__loss-gain'>
