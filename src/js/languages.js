@@ -396,12 +396,12 @@ strings.fr.MONTHS_LIST = [
 
 //- NOTE: Spanish
 //- Supported Languages
-strings.es.LANG_EN = 'English';
-strings.es.LANG_FR = 'French';
-strings.es.LANG_ES = 'Spanish';
+strings.es.LANG_EN = 'Inglés';
+strings.es.LANG_FR = 'Francés';
+strings.es.LANG_ES = 'Español';
 strings.es.LANG_PT = 'Portugese';
-strings.es.LANG_ID = 'Indonesian';
-strings.es.LANG_ZH = 'Mandarin';
+strings.es.LANG_ID = 'Portugués';
+strings.es.LANG_ZH = 'Mandarín';
 //- Header
 strings.es.NAV_ABOUT = 'Acerca de';
 strings.es.NAV_DOWNLOAD = 'Descargar Datos';
@@ -441,7 +441,7 @@ strings.es.ANALYSIS_DRAW_INSTRUCTIONS = [
 strings.es.ANALYSIS_DRAW_BUTTON = 'Empezar a dibujar';
 strings.es.ANALYSIS_INSTRUCTION_ADDITIONAL = `Añadir polígonos adicionales en el futuro usando la herramienta de dibujo ${drawIcon}`;
 strings.es.ANALYSIS_SHAPEFILE_UPLOAD = 'o dejar un shapefile aquí';
-strings.es.ANALYSIS_SHAPEFILE_INSTRUCTIONS = 'Only polygon data is supported and should use a spatial reference of WGS84. The recommended maximum size is 5MB, anything more than that may not work as expected. Esri shapefiles must be zipped (.zip) and GeoJSON files must be in .json files.';
+strings.es.ANALYSIS_SHAPEFILE_INSTRUCTIONS = 'Solo están permitido datos en formato de polígono, con el Sistema de Referencia de Coordinados WGS84. Se recomienda un tamaño máximo de 5MB, más grande de 5MB puede no funcionar como era de esperar. Shapefiles de ESRI necesitan estar en formato .zip, y archivos de GeoJSON necesitan estar en formato .json.';
 strings.es.ANALYSIS_SELECT_TYPE_LABEL = 'Seleccionar Análisis:';
 //- Chart Labels in the Analysis
 strings.es.ANALYSIS_TC_CHART_NAME = 'Pérdida de la cobertura arbórea (ha)';
@@ -461,11 +461,11 @@ strings.es.ANALYSIS_RESTORATION_ERROR = 'Área no coincide con los criterios/ Si
 strings.es.ANALYSIS_GROUP_RESTORATION = 'Potencial de restauración para';
 strings.es.ANALYSIS_GROUP_SLOPE = 'Potencial según';
 strings.es.ANALYSIS_GROUP_OTHER = 'Otro análisis';
-strings.es.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
-strings.es.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
+strings.es.ANALYSIS_GLAD_ALERT_NAME = 'Alertas Glad';
+strings.es.ANALYSIS_TERRA_I_ALERT_NAME = 'Alertas Terra-I';
 strings.es.ANALYSIS_SAD_ALERT_NAMES = {
-  degrad: 'Degradation',
-  defor: 'Deforestation'
+  degrad: 'Degradación',
+  defor: 'Deforestación'
 };
 //- Group and value should not be modified
 strings.es.ANALYSIS_SELECT_TYPE_OPTIONS = [
@@ -485,7 +485,7 @@ strings.es.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.LC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Aboveground Live Woody Biomass loss', //'Pérdida de biomasa',
+  { label: 'Pérdida de biomasa leñosa encima del suelo', //'Pérdida de biomasa',
     value: analysisKeys.BIO_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
@@ -524,23 +524,23 @@ strings.es.CANOPY_MODAL_TEXT = 'Ajustar el mínimo densidad del follaje para la 
 strings.es.DENSITY_FIRST = 'Mostrando';
 strings.es.DENSITY_SECOND = 'densidad de follaje.';
 strings.es.SEARCH_WIDGET_TITLE = 'Buscar polígono:';
-strings.es.SEARCH_CLICK_FOR_MORE = 'Please click on the selected feature for more info.';
+strings.es.SEARCH_CLICK_FOR_MORE = 'Haz clic en el elemento seleccionado para más información';
 //- Layer Info Modal
-strings.es.NO_INFO = 'No Information Available';
-strings.es.OVERVIEW = 'Overview';
-strings.es.CITATION = 'Citation';
+strings.es.NO_INFO = 'No hay información disponible';
+strings.es.OVERVIEW = 'Resumen';
+strings.es.CITATION = 'Citación';
 //- Case does not matter, css makes them all uppercase
-strings.es.FUNCTION = 'function';
-strings.es.RESOLUTION = 'resolution';
-strings.es.GEO_COVERAGE = 'geographic coverage';
-strings.es.SOURCE = 'source';
-strings.es.FREQUENCY = 'frequency';
-strings.es.CONTENT_DATE = 'date of content';
-strings.es.CAUTIONS = 'cautions';
-strings.es.LICENSE = 'license';
-strings.es.LEARN_MORE = 'learn More';
-strings.es.DOWNLOAD_DATA = 'download data';
-strings.es.DESCRIPTION = 'description';
+strings.es.FUNCTION = 'Función';
+strings.es.RESOLUTION = 'Resolución;
+strings.es.GEO_COVERAGE = 'Cobertura geográfica';
+strings.es.SOURCE = 'Fuente';
+strings.es.FREQUENCY = 'Frecuencia';
+strings.es.CONTENT_DATE = 'Fecha del contenido';
+strings.es.CAUTIONS = 'Precauciones';
+strings.es.LICENSE = 'Licencia';
+strings.es.LEARN_MORE = 'Conozca más';
+strings.es.DOWNLOAD_DATA = 'Descarga información';
+strings.es.DESCRIPTION = 'Descripción';
 
 //- Miscellaneous
 strings.es.PRINT_BUTTON_LABEL = 'Elegir diseño de página';
@@ -555,13 +555,13 @@ strings.es.MORE = 'Más';
 strings.es.DELETE = 'Eliminar';
 strings.es.DOCUMENTS = 'Documentos';
 
-strings.es.BASEMAP = 'Basemap';
+strings.es.BASEMAP = 'Mapa base';
 strings.es.SELECT_ALL = 'Seleccionar Todo';
 strings.es.CLEAR_ALL = 'Borrar Todo';
 strings.es.LEGEND = 'Leyenda';
-strings.es.TIMELINE = 'Timeline';
-strings.es.TIMELINE_START = 'Start: ';
-strings.es.TIMELINE_END = 'End: ';
+strings.es.TIMELINE = 'Línea de tiempo';
+strings.es.TIMELINE_START = 'Empezar: ';
+strings.es.TIMELINE_END = 'Parar: ';
 strings.es.SEARCH = 'Buscar'; // Also Used for tools, but was used else where first
 strings.es.TOOL_ZOOM_IN = 'Acercar';
 strings.es.TOOL_ZOOM_OUT = 'Alejar';
@@ -571,21 +571,21 @@ strings.es.TOOL_ANALYSIS = 'Análisis';
 strings.es.TOOL_TOGGLE = 'Alternar Pane';
 strings.es.TOOL_RESET = 'Reajustar';
 
-strings.es.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
-strings.es.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.es.ANALYSIS_CARBON_EMISSION = 'Emisiones de dióxido de carbono';
+strings.es.ANALYSIS_CARBON_LOSS = 'Pérdida de cobertura arbórea';
 strings.es.MONTHS_LIST = [
-  { name: 'January', abbr: 'Jan'},
-  { name: 'February', abbr: 'Feb'},
-  { name: 'March', abbr: 'Mar'},
-  { name: 'April', abbr: 'Apr'},
-  { name: 'May', abbr: 'May'},
-  { name: 'June', abbr: 'Jun'},
-  { name: 'July', abbr: 'Jul'},
-  { name: 'August', abbr: 'Aug'},
-  { name: 'September', abbr: 'Sep'},
-  { name: 'October', abbr: 'Oct'},
-  { name: 'November', abbr: 'Nov'},
-  { name: 'December', abbr: 'Dec'}
+  { name: 'Enero', abbr: 'Ene'},
+  { name: 'Febrero', abbr: 'Feb'},
+  { name: 'Marzo', abbr: 'Mar'},
+  { name: 'Abril', abbr: 'Abr'},
+  { name: 'Mayo', abbr: 'May'},
+  { name: 'Junio', abbr: 'Jun'},
+  { name: 'Julio', abbr: 'Jul'},
+  { name: 'Agosto', abbr: 'Ago'},
+  { name: 'Septiembre', abbr: 'Sep'},
+  { name: 'Octubre', abbr: 'Oct'},
+  { name: 'Noviembre', abbr: 'Nov'},
+  { name: 'Diciembre', abbr: 'Dic'}
 ];
 
 //- NOTE: Portugese
