@@ -202,11 +202,11 @@ strings.en.MONTHS_LIST = [
 
 //- NOTE: French
 //- Supported Languages
-strings.fr.LANG_EN = 'English';
-strings.fr.LANG_FR = 'French';
-strings.fr.LANG_ES = 'Spanish';
-strings.fr.LANG_PT = 'Portugese';
-strings.fr.LANG_ID = 'Indonesian';
+strings.fr.LANG_EN = 'Anglais';
+strings.fr.LANG_FR = 'Français';
+strings.fr.LANG_ES = 'Espagnol';
+strings.fr.LANG_PT = 'Portugais';
+strings.fr.LANG_ID = 'Indonesien';
 strings.fr.LANG_ZH = 'Mandarin';
 //- Header
 strings.fr.NAV_ABOUT = 'A Propos';
@@ -216,13 +216,13 @@ strings.fr.NAV_MY_GFW = 'Se connecter à GFW';
 strings.fr.NAV_LANGUAGE = 'Choisir Langue';
 //- Documents
 strings.fr.DOCS_INSTRUCTIONS = 'Choisisez une région d\'intérêt pour voir les documents associés';
-strings.fr.DOCS_NOT_AVAILABLE = 'pas de documents disponibles pour cette région';
+strings.fr.DOCS_NOT_AVAILABLE = 'Pas de documents disponibles pour cette région';
 strings.fr.DOCS_TYPE = 'Type';
 strings.fr.DOCS_AUTHOR = 'Auteur';
 strings.fr.DOCS_YEAR = 'Année';
 strings.fr.DOCS_PDF = 'PDF';
-strings.fr.DOCS_NAME = 'Name';
-strings.fr.DOCS_SIZE = 'Size';
+strings.fr.DOCS_NAME = 'Nom du fichier';
+strings.fr.DOCS_SIZE = 'Taille';
 //- Info Window
 strings.fr.INFO_WINDOW_INSTRUCTION_HEADER = 'Sélectionnez un polygone sur la carte';
 strings.fr.INFO_WINDOW_INSTRUCTION_LIST = [
@@ -247,13 +247,13 @@ strings.fr.ANALYSIS_DRAW_INSTRUCTIONS = [
 strings.fr.ANALYSIS_DRAW_BUTTON = 'Débutez le dessin';
 strings.fr.ANALYSIS_INSTRUCTION_ADDITIONAL = `Ajouter des polygones supplémentaires grâce à l\'outil dessin ${drawIcon}`;
 strings.fr.ANALYSIS_SHAPEFILE_UPLOAD = 'ou glissez un shapefile ici';
-strings.fr.ANALYSIS_SHAPEFILE_INSTRUCTIONS = 'Only polygon data is supported and should use a spatial reference of WGS84. The recommended maximum size is 5MB, anything more than that may not work as expected. Esri shapefiles must be zipped (.zip) and GeoJSON files must be in .json files.';
+strings.fr.ANALYSIS_SHAPEFILE_INSTRUCTIONS = 'Fonctionne uniquement avec des données de type polygone avec la réérence spatiale WGS84. La taille maximale est de 5MB. Les fichiers shapefiles doivent être compressés(.zip) et les fichiers GeoJSON sous le format .json.';
 strings.fr.ANALYSIS_SELECT_TYPE_LABEL = 'Choisissez le type d\'analyse:';
 //- Chart Labels in the Analysis
 strings.fr.ANALYSIS_TC_CHART_NAME = 'Perte de couvert arboré en Hectares';
 strings.fr.ANALYSIS_LCC_CHART_NAME = 'Occupation du sol';
 strings.fr.ANALYSIS_IFL_LABELS = ['Forêts intactes'];
-strings.fr.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
+strings.fr.ANALYSIS_MANGROVE_LABELS = ['Mangroves'];
 strings.fr.ANALYSIS_FIRES_PRE = 'Il y a';
 strings.fr.ANALYSIS_FIRES_ACTIVE = 'feux actifs';
 strings.fr.ANALYSIS_FIRES_POST = 'ces 7 derniers jours';
@@ -267,11 +267,11 @@ strings.fr.ANALYSIS_RESTORATION_ERROR = 'Région ne correspondant pas aux critè
 strings.fr.ANALYSIS_GROUP_RESTORATION = 'Potentiel de restauration pour';
 strings.fr.ANALYSIS_GROUP_SLOPE = 'Potentiel selon';
 strings.fr.ANALYSIS_GROUP_OTHER = 'Autre analyse';
-strings.fr.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
-strings.fr.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
+strings.fr.ANALYSIS_GLAD_ALERT_NAME = 'Alertes Glad';
+strings.fr.ANALYSIS_TERRA_I_ALERT_NAME = 'Alertes Terra-I';
 strings.fr.ANALYSIS_SAD_ALERT_NAMES = {
-  degrad: 'Degradation',
-  defor: 'Deforestation'
+  degrad: 'Dégradation',
+  defor: 'Déforestation'
 };
 //- Group and value should not be modified
 strings.fr.ANALYSIS_SELECT_TYPE_OPTIONS = [
@@ -291,7 +291,7 @@ strings.fr.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.LC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Aboveground Live Woody Biomass loss', //'Perte en biomasse',
+  { label: 'Perte en biomasse aérienne', //'Perte en biomasse',
     value: analysisKeys.BIO_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
@@ -299,19 +299,19 @@ strings.fr.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.INTACT_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Global mangrove loss',
+  { label: 'Perte en mangrove',
     value: analysisKeys.MANGROVE_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'SAD alerts',
+  { label: 'Alertes SAD',
     value: analysisKeys.SAD_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'GLAD alerts',
+  { label: 'Alertes GLAD',
     value: analysisKeys.GLAD_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Terra-I alerts',
+  { label: 'Alertes Terra-I',
     value: analysisKeys.TERRA_I_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
@@ -330,26 +330,26 @@ strings.fr.CANOPY_MODAL_TEXT = 'Ajuster la densité minimum de la canopée pour 
 strings.fr.DENSITY_FIRST = 'Affichage';
 strings.fr.DENSITY_SECOND = 'Densité de la canopée.';
 strings.fr.SEARCH_WIDGET_TITLE = 'Recherche de polygones:';
-strings.fr.SEARCH_CLICK_FOR_MORE = 'Please click on the selected feature for more info.';
+strings.fr.SEARCH_CLICK_FOR_MORE = 'Cliquez sur la géométrie sélectionnée pour plus d\'info.';
 //- Layer Info Modal
-strings.fr.NO_INFO = 'No Information Available';
-strings.fr.OVERVIEW = 'Overview';
-strings.fr.CITATION = 'Citation';
+strings.fr.NO_INFO = 'Pas d\'informations disponibles';
+strings.fr.OVERVIEW = 'Vue d\'ensemble';
+strings.fr.CITATION = 'Référence';
 //- Case does not matter, css makes them all uppercase
-strings.fr.FUNCTION = 'function';
-strings.fr.RESOLUTION = 'resolution';
-strings.fr.GEO_COVERAGE = 'geographic coverage';
+strings.fr.FUNCTION = 'Fonction';
+strings.fr.RESOLUTION = 'résolution';
+strings.fr.GEO_COVERAGE = 'couverture géographique';
 strings.fr.SOURCE = 'source';
-strings.fr.FREQUENCY = 'frequency';
-strings.fr.CONTENT_DATE = 'date of content';
-strings.fr.CAUTIONS = 'cautions';
-strings.fr.LICENSE = 'license';
-strings.fr.LEARN_MORE = 'learn More';
-strings.fr.DOWNLOAD_DATA = 'download data';
+strings.fr.FREQUENCY = 'fréquence';
+strings.fr.CONTENT_DATE = 'date d\'acquisition';
+strings.fr.CAUTIONS = 'Avertissements';
+strings.fr.LICENSE = 'licence';
+strings.fr.LEARN_MORE = 'En savoir plus';
+strings.fr.DOWNLOAD_DATA = 'Téléchargez les données';
 strings.fr.DESCRIPTION = 'description';
 
 //- Miscellaneous
-strings.fr.PRINT_BUTTON_LABEL = 'Choisissez un gabarit d\'impression';
+strings.fr.PRINT_BUTTON_LABEL = 'Choisissez un format d\'impression';
 strings.fr.PRINT_REPORT = 'Imprimer le Rapport';
 strings.fr.SUBSCRIBE = 'S\'abonner';
 strings.fr.LAYERS = 'Couches';
@@ -366,8 +366,8 @@ strings.fr.SELECT_ALL = 'Tout sélectionner';
 strings.fr.CLEAR_ALL = 'Tout effacer';
 strings.fr.LEGEND = 'Légende';
 strings.fr.TIMELINE = 'Timeline';
-strings.fr.TIMELINE_START = 'Start: ';
-strings.fr.TIMELINE_END = 'End: ';
+strings.fr.TIMELINE_START = 'début: ';
+strings.fr.TIMELINE_END = 'Fin: ';
 strings.fr.SEARCH = 'Chercher'; // Also Used for tools, but was used else where first
 strings.fr.TOOL_ZOOM_IN = 'Zoom avant';
 strings.fr.TOOL_ZOOM_OUT = 'Zoom arrière';
@@ -377,22 +377,23 @@ strings.fr.TOOL_ANALYSIS = 'Analyse';
 strings.fr.TOOL_TOGGLE = 'Basculer panneau';
 strings.fr.TOOL_RESET = 'Réinitialiser';
 
-strings.fr.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
-strings.fr.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.fr.ANALYSIS_CARBON_EMISSION = 'Emissions de carbone brutes';
+strings.fr.ANALYSIS_CARBON_LOSS = 'Perte en couvert arboré';
 strings.fr.MONTHS_LIST = [
-  { name: 'January', abbr: 'Jan'},
-  { name: 'February', abbr: 'Feb'},
-  { name: 'March', abbr: 'Mar'},
-  { name: 'April', abbr: 'Apr'},
-  { name: 'May', abbr: 'May'},
-  { name: 'June', abbr: 'Jun'},
-  { name: 'July', abbr: 'Jul'},
-  { name: 'August', abbr: 'Aug'},
-  { name: 'September', abbr: 'Sep'},
-  { name: 'October', abbr: 'Oct'},
-  { name: 'November', abbr: 'Nov'},
-  { name: 'December', abbr: 'Dec'}
+  { name: 'Janvier', abbr: 'Janv'},
+  { name: 'Février', abbr: 'Févr'},
+  { name: 'Mars', abbr: 'Mars'},
+  { name: 'Avril', abbr: 'Avr'},
+  { name: 'Mai', abbr: 'Mai'},
+  { name: 'Juin', abbr: 'Juin'},
+  { name: 'Juilller', abbr: 'Juil'},
+  { name: 'Août', abbr: 'Août'},
+  { name: 'Septembre', abbr: 'Sept'},
+  { name: 'Octobre', abbr: 'Oct'},
+  { name: 'Novembre', abbr: 'Nov'},
+  { name: 'Décembre', abbr: 'Déc'}
 ];
+
 
 //- NOTE: Spanish
 //- Supported Languages
