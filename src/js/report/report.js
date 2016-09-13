@@ -203,6 +203,11 @@ const formatRestorationData = (counts, labels, colors) => {
 };
 
 /**
+* Make sure both values are either truthy or falsy, otherwise return flase
+*/
+const haveSameBoolState = (a, b) => (!!a && !!b) || (!a && !b);
+
+/**
 * Each result set needs to create four dom nodes in a container and render charts into each node
 */
 const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (results, settings, lang, label) {
@@ -215,7 +220,12 @@ const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (re
   const popData = formatRestorationData(results.population, settings.populationClasses, settings.populationColors);
   const tcData = formatRestorationData(results.treeCover, settings.treeCoverClasses, settings.treeCoverColors);
   // If any if the results have no data (no length), don't render any content
-  if (!slopeData.length || !lcData.length || !popData.length || !tcData.length) { return; }
+  if (
+    !haveSameBoolState(settings.restorationSlopePotential, slopeData.length) ||
+    !haveSameBoolState(settings.restorationLandCover, lcData.length) ||
+    !haveSameBoolState(settings.restorationPopulation, popData.length) ||
+    !haveSameBoolState(settings.restorationTreeCover, tcData.length)
+  ) { return; }
   // Create all the necessary dom nodes
   const container = document.createElement('div');
   const labelNode = document.createElement('h4');
@@ -225,26 +235,35 @@ const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (re
   const tcNode = document.createElement('div');
   // Append all the nodes to the root node and add classes etc.
   container.setAttribute('class', 'restoration__module');
-  // container.setAttribute('class', 'restoration__module');
   labelNode.setAttribute('class', 'restoration__label');
   slopeNode.setAttribute('class', 'restoration__chart');
   lcNode.setAttribute('class', 'restoration__chart');
   popNode.setAttribute('class', 'restoration__chart');
   tcNode.setAttribute('class', 'restoration__chart');
   container.appendChild(labelNode);
-  container.appendChild(slopeNode);
-  container.appendChild(lcNode);
-  container.appendChild(popNode);
-  container.appendChild(tcNode);
+  labelNode.innerHTML = `${prefix} ${label}`;
   // Push the container to the DOM
   rootNode.appendChild(container);
-  // Set the label
-  labelNode.innerHTML = `${prefix} ${label}`;
-  // Render the charts
-  charts.makeRestorationBarChart(slopeNode, 'Slope', slopeData);
-  charts.makeRestorationBarChart(lcNode, 'Land Cover', lcData);
-  charts.makeRestorationBarChart(popNode, 'Population Density', popData);
-  charts.makeRestorationBarChart(tcNode, '% Tree cover', tcData);
+
+  if (settings.restorationSlopePotential) {
+    container.appendChild(slopeNode);
+    charts.makeRestorationBarChart(slopeNode, text[lang].ANALYSIS_SLOPE_CHART_HEADER, slopeData);
+  }
+
+  if (settings.restorationLandCover) {
+    container.appendChild(lcNode);
+    charts.makeRestorationBarChart(lcNode, text[lang].ANALYSIS_LAND_COVER_CHART_HEADER, lcData);
+  }
+
+  if (settings.restorationPopulation) {
+    container.appendChild(popNode);
+    charts.makeRestorationBarChart(popNode, text[lang].ANALYSIS_POPULATION_CHART_HEADER, popData);
+  }
+
+  if (settings.restorationTreeCover) {
+    container.appendChild(tcNode);
+    charts.makeRestorationBarChart(tcNode, text[lang].ANALYSIS_TREE_COVER_CHART_HEADER, tcData);
+  }
 };
 
 const runAnalysis = function runAnalysis (params, feature) {
@@ -606,24 +625,29 @@ const runAnalysis = function runAnalysis (params, feature) {
     });
 
     // Also perform the slope analysis
-    performAnalysis({
-      type: analysisKeys.SLOPE,
-      geometry: feature.geometry,
-      settings: settings,
-      canopyDensity: tcd,
-      activeSlopeClass: activeSlopeClass,
-      language: lang
-    }).then((results) => {
+    if (settings.restorationSlope) {
+      performAnalysis({
+        type: analysisKeys.SLOPE,
+        geometry: feature.geometry,
+        settings: settings,
+        canopyDensity: tcd,
+        activeSlopeClass: activeSlopeClass,
+        language: lang
+      }).then((results) => {
+        const element = document.getElementById('slope');
+        const {counts} = results;
+        const labels = counts.map((v, index) => text[lang].ANALYSIS_SLOPE_OPTION + (index + 1));
+        const colors = settings.slopeAnalysisPotentialColors;
+        const tooltips = settings.labels[lang].slopeAnalysisPotentialOptions;
+        const series = [{ data: counts }];
+        // Render the chart
+        charts.makeSlopeBarChart(element, labels, colors, tooltips, series);
+        element.classList.remove('hidden');
+      });
+    } else {
       const element = document.getElementById('slope');
-      const {counts} = results;
-      const labels = counts.map((v, index) => text[lang].ANALYSIS_SLOPE_OPTION + (index + 1));
-      const colors = settings.slopeAnalysisPotentialColors;
-      const tooltips = settings.labels[lang].slopeAnalysisPotentialOptions;
-      const series = [{ data: counts }];
-      // Render the chart
-      charts.makeSlopeBarChart(element, labels, colors, tooltips, series);
-      element.classList.remove('hidden');
-    });
+      if (element) { element.remove(); }
+    }
   } else {
     const node = document.getElementById('restoration');
     node.remove();

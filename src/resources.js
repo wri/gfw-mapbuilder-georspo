@@ -48,7 +48,7 @@ export default {
   terraIAlerts: true,
   webmapMenuName: 'Land Use',
   //- Restoration Module settings
-  restorationModule: false,
+  restorationModule: true,
   restorationImageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module/ImageServer',
   slopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
   alternativeSlopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
@@ -64,6 +64,13 @@ export default {
   landCoverClassColors: 'rgb(0, 0, 0);rgb(0, 174, 0);rgb(255, 255, 0);rgb(255, 155, 190);rgb(0, 238, 238);rgb(255, 0, 0);rgb(255, 255, 188);',
   populationClassNames: 'No Data;<= 20;20 - 50;50 - 150;150 - 500;> 500;',
   populationClassColors: 'rgb(0, 0, 0);rgb(255, 255, 128);rgb(250, 209, 85);rgb(242, 167, 46);rgb(173, 83, 19);rgb(107, 0, 0);',
+  //- Include/Exclude various restoration analysis types
+  restorationSlope: true, //- Main Slope Analysis
+  restorationSlopePotential: false, //- Part of the various restoration options
+  restorationTreeCover: true,
+  restorationLandCover: false,
+  restorationPopulation: true,
+  restorationRainfall: true,
 
   // Options not configurable from AGOL but can be from here
   // DO NOT MODIFY SHARINGHOST unless you are configuring this for a Portal Environment

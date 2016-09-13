@@ -21,8 +21,19 @@ export default class AnalysisTypeSelect extends Component {
     const options = this.prepareOptions(context.language);
     this.state = { options };
     // Set the default analysis type
+    // If we have restoration module, make it the first element in those options
+    let index = 0;
+    if (context.settings.restorationModule) {
+      options.some((item, i) => {
+        if (item.group === analysisKeys.ANALYSIS_GROUP_RESTORATION) {
+          index = i;
+          return true;
+        }
+      });
+    }
+
     mapActions.setAnalysisType.defer({
-      target: { value: options[0].value }
+      target: { value: options[index].value }
     });
   }
 
@@ -43,7 +54,7 @@ export default class AnalysisTypeSelect extends Component {
     options = options.filter((option) => {
       switch (option.value) {
         case analysisKeys.SLOPE:
-          return settings.restorationModule;
+          return settings.restorationSlope;
         case analysisKeys.INTACT_LOSS:
           return settings.intactForests;
         case analysisKeys.BIO_LOSS:
@@ -112,7 +123,8 @@ export default class AnalysisTypeSelect extends Component {
     let optionElements;
     //- Get a unique list of groups so I can render groups if necessary
     options.forEach((option) => { groups[option.group] = true; });
-    groupKeys = Object.keys(groups);
+    // Order should be ANALYSIS_GROUP_SLOPE, ANALYSIS_GROUP_RESTORATION, then ANALYSIS_GROUP_OTHER
+    groupKeys = Object.keys(groups).sort().reverse();
     //- Get the selected option
     activeOption = options.filter((option) => option.value === activeAnalysisType)[0];
 

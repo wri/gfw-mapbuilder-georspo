@@ -479,7 +479,7 @@ export default {
     return promise;
   },
 
-  getRestoration: (url, rasterId, geometry) => {
+  getRestoration: (url, rasterId, geometry, settings) => {
     const promise = new Deferred();
     const {pixelSize, restoration} = analysisConfig;
     const content = { pixelSize, geometry };
@@ -488,20 +488,32 @@ export default {
     const tcContent = lang.delegate(content, {renderingRule: rules.arithmetic(restoration.treeCoverId, rasterId, OP_MULTIPLY)});
     const popContent = lang.delegate(content, {renderingRule: rules.arithmetic(restoration.populationId, rasterId, OP_MULTIPLY)});
     const slopeContent = lang.delegate(content, {renderingRule: rules.arithmetic(restoration.slopeId, rasterId, OP_MULTIPLY)});
+    const promises = {};
 
-    all([
-      computeHistogram(url, lcContent),
-      computeHistogram(url, tcContent),
-      computeHistogram(url, popContent),
-      computeHistogram(url, slopeContent)
-    ]).always((results) => {
+    if (settings.restorationLandCover) {
+      promises.LC = computeHistogram(url, lcContent);
+    }
+
+    if (settings.restorationPopulation) {
+      promises.TC = computeHistogram(url, tcContent);
+    }
+
+    if (settings.restorationTreeCover) {
+      promises.POP = computeHistogram(url, popContent);
+    }
+
+    if (settings.restorationSlopePotential) {
+      promises.SLOPE = computeHistogram(url, slopeContent);
+    }
+
+    all(promises).always((results) => {
       //- the first value is No Data, don't slice as the charts formatting function will remove this
       if (!results.error) {
         promise.resolve({
-          landCover: results[0] ? formatters.getCounts(results[0], content.pixelSize, true).counts : [0],
-          treeCover: results[1] ? formatters.getCounts(results[1], content.pixelSize, true).counts : [0],
-          population: results[2] ? formatters.getCounts(results[2], content.pixelSize, true).counts : [0],
-          slope: results[3] ? formatters.getCounts(results[3], content.pixelSize, true).counts : [0]
+          landCover: results.LC ? formatters.getCounts(results.LC, content.pixelSize, true).counts : [0],
+          treeCover: results.TC ? formatters.getCounts(results.TC, content.pixelSize, true).counts : [0],
+          population: results.POP ? formatters.getCounts(results.POP, content.pixelSize, true).counts : [0],
+          slope: results.SLOPE ? formatters.getCounts(results.SLOPE, content.pixelSize, true).counts : [0]
         });
       } else {
         promise.resolve(results);

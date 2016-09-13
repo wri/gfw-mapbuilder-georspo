@@ -85,7 +85,7 @@ export default function performAnalysis (options) {
     break;
     default:
       //- This should only be the restoration analysis, since analysisType is a rasterId
-      analysisUtils.getRestoration(restorationUrl, type, geometry).then(promise.resolve);
+      analysisUtils.getRestoration(restorationUrl, type, geometry, settings).then(promise.resolve);
     break;
   }
 

@@ -343,6 +343,39 @@
       "tooltip": "Enter a semi-colon separated list of colors for your population classes",
       "label": "Enter a semi-colon separated list of colors for your population classes",
       "placeholder": "rgb(0, 0, 0);rgb(255, 255, 128);rgb(250, 209, 85);rgb(242, 167, 46);rgb(173, 83, 19);rgb(107, 0, 0);"
+    },
+
+
+    {
+      "type": "boolean",
+      "fieldName": "restorationSlope",
+      "tooltip": "This will include slope analysis in your app.",
+      "label": "Include slope analysis in your application if restoration module is enabled."
+    }, {
+      "type": "boolean",
+      "fieldName": "restorationSlopePotential",
+      "tooltip": "This will include slope analysis in your restoration potential.",
+      "label": "Include slope analysis in your restoration potential if restoration module is enabled."
+    }, {
+      "type": "boolean",
+      "fieldName": "restorationTreeCover",
+      "tooltip": "This will include tree cover analysis in your restoration potential.",
+      "label": "Include tree cover analysis in your restoration potential if restoration module is enabled."
+    }, {
+      "type": "boolean",
+      "fieldName": "restorationLandCover",
+      "tooltip": "This will include land cover analysis in your restoration potential.",
+      "label": "Include land cover analysis in your restoration potential if restoration module is enabled."
+    }, {
+      "type": "boolean",
+      "fieldName": "restorationPopulation",
+      "tooltip": "This will include population analysis in your restoration potential.",
+      "label": "Include population analysis in your restoration potential if restoration module is enabled."
+    }, {
+      "type": "boolean",
+      "fieldName": "restorationRainfall",
+      "tooltip": "This will include rainfall analysis in your restoration potential.",
+      "label": "Include rainfall analysis in your restoration potential if restoration module is enabled."
     }]
   }],
 
@@ -397,7 +430,12 @@
     "landCoverClassNames": "No Data;Forestland;Grassland;Cropland;Wetland and Waterbodies;Settlement;Bare soil;",
     "landCoverClassColors": "rgb(0, 0, 0);rgb(0, 174, 0);rgb(255, 255, 0);rgb(255, 155, 190);rgb(0, 238, 238);rgb(255, 0, 0);rgb(255, 255, 188);",
     "populationClassNames": "No Data;<= 20;20 - 50;50 - 150;150 - 500;> 500;",
-    "populationClassColors": "rgb(0, 0, 0);rgb(255, 255, 128);rgb(250, 209, 85);rgb(242, 167, 46);rgb(173, 83, 19);rgb(107, 0, 0);"
-
+    "populationClassColors": "rgb(0, 0, 0);rgb(255, 255, 128);rgb(250, 209, 85);rgb(242, 167, 46);rgb(173, 83, 19);rgb(107, 0, 0);",
+    "restorationSlope": true,
+    "restorationSlopePotential": true,
+    "restorationTreeCover": true,
+    "restorationLandCover": true,
+    "restorationPopulation": true,
+    "restorationRainfall": true
   }
 }

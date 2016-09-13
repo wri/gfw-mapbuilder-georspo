@@ -54,7 +54,7 @@ The `index.html` and `report.html` have an option to change where to load the ba
 This application has a general `src/js/config.js` file that contains things controlled by the developers.  There is also a `resources.js` file which contains more configurations.  However the Resources file contains configurations that are controlled via ArcGIS Online or whomever may be deploying the application.  You can control things like the layers in the accordion, their source urls, service urls (print, geometry, map, etc.), which layers to include in the analysis, and even the configurations for slope analysis and other aspects of the analysis.  Anything that needs to be controlled from ArcGIS Online or the person deploying it, should be placed in `resources.js`.
 
 #### Configuring Layers and Accordions
-The layers and the accordion are now more easily configurable via the `resources.js` file. The structure is similar to this:
+The layers and the accordion are now more easily configurable via the `resources.js` file. Layers that you want to appear on the map but not in the accordion should be placed under `extraLayers`.  The configuration structure is as follows:
 
 ```javascript
 GROUP_LCD: {
@@ -120,7 +120,7 @@ Properties for the groups and layers are described in detail in the resources fi
     * `popup` - See below for more explanation and an example of how to use this
 
 #### Configuring Popups for layers not in Webmaps
-This is currently only supported for dynamic layers and feature layers.  A popup configuration has some elements it must contain to keep the styling looking appropriate and they are outlined below. Here is an exmaple layer configuration that contains a popup configuration (NOTE the addition of `popup` at the bottom):
+This is currently only supported for dynamic layers and feature layers.  A popup configuration has some elements it must contain to keep the styling looking appropriate and they are outlined below. Here is an example layer configuration that contains a popup configuration (NOTE the addition of `popup` at the bottom):
 
 ```javascript
 order: 6,
@@ -216,6 +216,9 @@ strings.pt.DATA = 'Data'; // Portuguese
 ```
 
 The other location is the `src/js/resources.js` file.  There are `layers` and `basemaps` each with subsections for each of the four languages.  In each subsection is an array or objects containing the layer configuration.  Be careful what you change in here, the only three things related to labels are `label`, `sublabel`, and `group`. The `group` refers to the name on the accordion, it needs to be the same as the other layers in the same group (they are linked by a `groupKey`).
+
+### Adding Analysis
+
 
 ### Contributing
 Please fork off of the `develop` branch and submit your pull requests to `develop`.  Make sure `npm test` passes which will do a simple eslint test on your src code.

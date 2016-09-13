@@ -183,6 +183,10 @@ strings.en.TOOL_RESET = 'Reset';
 
 strings.en.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
 strings.en.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.en.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
+strings.en.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
+strings.en.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
+strings.en.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
 strings.en.MONTHS_LIST = [
   { name: 'January', abbr: 'Jan'},
   { name: 'February', abbr: 'Feb'},
@@ -378,6 +382,10 @@ strings.fr.TOOL_RESET = 'Réinitialiser';
 
 strings.fr.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
 strings.fr.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.fr.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
+strings.fr.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
+strings.fr.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
+strings.fr.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
 strings.fr.MONTHS_LIST = [
   { name: 'January', abbr: 'Jan'},
   { name: 'February', abbr: 'Feb'},
@@ -571,6 +579,10 @@ strings.es.TOOL_RESET = 'Reajustar';
 
 strings.es.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
 strings.es.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.es.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
+strings.es.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
+strings.es.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
+strings.es.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
 strings.es.MONTHS_LIST = [
   { name: 'January', abbr: 'Jan'},
   { name: 'February', abbr: 'Feb'},
@@ -764,6 +776,10 @@ strings.pt.TOOL_RESET = 'Reset';
 
 strings.pt.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
 strings.pt.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.pt.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
+strings.pt.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
+strings.pt.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
+strings.pt.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
 strings.pt.MONTHS_LIST = [
   { name: 'January', abbr: 'Jan'},
   { name: 'February', abbr: 'Feb'},
@@ -957,6 +973,10 @@ strings.id.TOOL_RESET = 'Reset';
 
 strings.id.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
 strings.id.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.id.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
+strings.id.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
+strings.id.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
+strings.id.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
 strings.id.MONTHS_LIST = [
   { name: 'January', abbr: 'Jan'},
   { name: 'February', abbr: 'Feb'},
@@ -1151,6 +1171,10 @@ strings.zh.TOOL_RESET = '重置';
 
 strings.zh.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
 strings.zh.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.zh.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
+strings.zh.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
+strings.zh.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
+strings.zh.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
 strings.zh.MONTHS_LIST = [
   { name: 'January', abbr: 'Jan'},
   { name: 'February', abbr: 'Feb'},
