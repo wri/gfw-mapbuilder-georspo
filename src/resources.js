@@ -286,7 +286,7 @@ export default {
                 '<tr><td class="attrName">Confidence</td><td class="attrValue">${CONFIDENCE}</td></tr>' +
                 '<tr><td class="attrName">Latitude</td><td class="attrValue">${LATITUDE}</td></tr>' +
                 '<tr><td class="attrName">Longitude</td><td class="attrValue">${LONGITUDE}</td></tr>' +
-                '<tr><td class="attrName">Acquisition Date</td><td class="attrValue">${ACQ_DATE}</td></tr>' +
+                '<tr><td class="attrName">Acquisition Date</td><td class="attrValue">${ACQ_DATE:DateString(hideTime:true)}</td></tr>' +
                 '<tr><td class="attrName">Acquisition Time</td><td class="attrValue">${ACQ_TIME}</td></tr>' +
               '</table>' +
             '</div></div>'
