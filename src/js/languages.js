@@ -591,196 +591,196 @@ strings.es.MONTHS_LIST = [
 
 //- NOTE: Portugese
 //- Supported Languages
-strings.pt.LANG_EN = 'English';
-strings.pt.LANG_FR = 'French';
-strings.pt.LANG_ES = 'Spanish';
-strings.pt.LANG_PT = 'Portugese';
-strings.pt.LANG_ID = 'Indonesian';
-strings.pt.LANG_ZH = 'Mandarin';
+strings.pt.LANG_EN = 'Inglês';
+strings.pt.LANG_FR = 'Francês';
+strings.pt.LANG_ES = 'Espanhol';
+strings.pt.LANG_PT = 'Português';
+strings.pt.LANG_ID = 'Indonésio';
+strings.pt.LANG_ZH = 'Mandarim';
 //- Header
-strings.pt.NAV_ABOUT = 'About';
-strings.pt.NAV_DOWNLOAD = 'Download Data';
-strings.pt.NAV_MAP_THEMES = 'Map Themes';
-strings.pt.NAV_MY_GFW = 'Log in to my GFW';
-strings.pt.NAV_LANGUAGE = 'Select Language';
+strings.pt.NAV_ABOUT = 'Sobre';
+strings.pt.NAV_DOWNLOAD = 'Baixar Dados';
+strings.pt.NAV_MAP_THEMES = 'Temas do Mapa';
+strings.pt.NAV_MY_GFW = 'Fazer Login no MEU GFW';
+strings.pt.NAV_LANGUAGE = 'Selecionar Idioma';
 //- Documents
-strings.pt.DOCS_INSTRUCTIONS = 'Select an area of interest to see if there are any related documents';
-strings.pt.DOCS_NOT_AVAILABLE = 'There are no documents available for this area';
-strings.pt.DOCS_TYPE = 'Type';
-strings.pt.DOCS_AUTHOR = 'Author';
-strings.pt.DOCS_YEAR = 'Year';
+strings.pt.DOCS_INSTRUCTIONS = 'Selecione área de interesse para verificar a existência de documentos relacionados;
+strings.pt.DOCS_NOT_AVAILABLE = 'Não existem documentos disponíveis para esta área';
+strings.pt.DOCS_TYPE = 'Tipo';
+strings.pt.DOCS_AUTHOR = 'Autor';
+strings.pt.DOCS_YEAR = 'Ano';
 strings.pt.DOCS_PDF = 'PDF';
-strings.pt.DOCS_NAME = 'Name';
-strings.pt.DOCS_SIZE = 'Size';
+strings.pt.DOCS_NAME = 'Nome';
+strings.pt.DOCS_SIZE = 'Tamanho';
 //- Info Window
-strings.pt.INFO_WINDOW_INSTRUCTION_HEADER = 'Select a shape on the map';
+strings.pt.INFO_WINDOW_INSTRUCTION_HEADER = 'Selecione uma área no mapa';
 strings.pt.INFO_WINDOW_INSTRUCTION_LIST = [
-  'Use the layers tab to turn on a data layer',
-  'Select a shape on the map'
+  'Use a guia camadas para ativar a os dados da camada',
+  'Selecione uma área no mapa'
 ];
 //- Analysis
-strings.pt.ANALYSIS_INSTRUCTION_HEADER = 'Analyze a shape on the map';
+strings.pt.ANALYSIS_INSTRUCTION_HEADER = 'Analise a área selecionada no mapa';
 strings.pt.ANALYSIS_INSTRUCTION_LIST = [
-  'Use the layers tab to turn on a data layer',
-  'Select a shape on the map',
-  'Click on the analyze tab'
+  'Use a guia camadas para ativar a os dados da camada',
+  'Selecione uma área no mapa',
+  'Clique na guia de Análise'
 ];
-strings.pt.ANALYSIS_OR = 'Or';
-strings.pt.ANALYSIS_DRAW_HEADER = 'Analyze your own shape';
+strings.pt.ANALYSIS_OR = 'Ou';
+strings.pt.ANALYSIS_DRAW_HEADER = 'Use sua propria área de Análise';
 //- ${drawIcon} references a variable above, do not translate
 strings.pt.ANALYSIS_DRAW_INSTRUCTIONS = [
-  `Choose the draw tool ${drawIcon} in the toolbox`,
-  'Draw a shape anywhere on the map',
-  'Select the shape to run the analysis'
+  `Escolha a ferramenta de desenho ${drawIcon} na caixa de ferramentas`,
+  'Desenhe uma área de interesse no mapa',
+  'Selecione a área na qual irá executar a análise'
 ];
-strings.pt.ANALYSIS_DRAW_BUTTON = 'Start drawing';
-strings.pt.ANALYSIS_INSTRUCTION_ADDITIONAL = `Add additional shapes in the future by visiting the draw tool ${drawIcon}`;
-strings.pt.ANALYSIS_SHAPEFILE_UPLOAD = 'or drop a custom shapefile here';
-strings.pt.ANALYSIS_SHAPEFILE_INSTRUCTIONS = 'Only polygon data is supported and should use a spatial reference of WGS84. The recommended maximum size is 5MB, anything more than that may not work as expected. Esri shapefiles must be zipped (.zip) and GeoJSON files must be in .json files.';
-strings.pt.ANALYSIS_SELECT_TYPE_LABEL = 'Select Analysis:';
+strings.pt.ANALYSIS_DRAW_BUTTON = 'Comece a desenhar';
+strings.pt.ANALYSIS_INSTRUCTION_ADDITIONAL = `Adicionar formas adicionais no futuro, visitando a ferramenta de desenho ${drawIcon}`;
+strings.pt.ANALYSIS_SHAPEFILE_UPLOAD = 'ou soltar aqui um shapefile personalizado';
+strings.pt.ANALYSIS_SHAPEFILE_INSTRUCTIONS = 'Somente geometria de polígono é suportada, devendo o mesmo usar WGS81 como sistema de referência espacial. O tamanho máximo recomendado é de 5 MB, arquivos com tamanho maior que o recomendado podem não funcionar como esperado. ESRI shapefiles devem estar compactados (.zip) e arquivos GeoJSON devem estar no formato .json.';
+strings.pt.ANALYSIS_SELECT_TYPE_LABEL = 'Selecione Análise:';
 //- Chart Labels in the Analysis
-strings.pt.ANALYSIS_TC_CHART_NAME = 'Tree cover loss in Hectares';
-strings.pt.ANALYSIS_LCC_CHART_NAME = 'Land Cover Composition';
-strings.pt.ANALYSIS_IFL_LABELS = ['Intact Forest'];
-strings.pt.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
-strings.pt.ANALYSIS_FIRES_PRE = 'There are';
-strings.pt.ANALYSIS_FIRES_ACTIVE = 'active fires';
-strings.pt.ANALYSIS_FIRES_POST = 'in the last 7 days';
-strings.pt.ANALYSIS_TOTAL_LOSS_LABEL = 'Total tree cover loss';
+strings.pt.ANALYSIS_TC_CHART_NAME = 'Perda de cobertura florestal em Hectares';
+strings.pt.ANALYSIS_LCC_CHART_NAME = 'Composicao da cobertura do solo';
+strings.pt.ANALYSIS_IFL_LABELS = ['Floresta Intacta'];
+strings.pt.ANALYSIS_MANGROVE_LABELS = ['Mangues Global'];
+strings.pt.ANALYSIS_FIRES_PRE = 'Existem';
+strings.pt.ANALYSIS_FIRES_ACTIVE = 'Focos de incêndio ativos';
+strings.pt.ANALYSIS_FIRES_POST = 'no ultimos 7 dias';
+strings.pt.ANALYSIS_TOTAL_LOSS_LABEL = 'Perda de cobertura florestal total';
 strings.pt.ANALYSIS_TOTAL_LOSS_RANGE = '(2001 - 2014):';
-strings.pt.ANALYSIS_TOTAL_GAIN_LABEL = 'Total tree cover gained';
+strings.pt.ANALYSIS_TOTAL_GAIN_LABEL = 'Ganho de cobertura florestal total';
 strings.pt.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
-strings.pt.ANALYSIS_SLOPE_OPTION = 'Option #';
-strings.pt.SLOPE_SELECT_LABEL = 'Choose slope percent:';
-strings.pt.ANALYSIS_RESTORATION_ERROR = 'Area not meeting criteria for potential/No data';
-strings.pt.ANALYSIS_GROUP_RESTORATION = 'Restoration potential for';
-strings.pt.ANALYSIS_GROUP_SLOPE = 'Potential according to';
-strings.pt.ANALYSIS_GROUP_OTHER = 'Other analysis';
-strings.pt.ANALYSIS_GLAD_ALERT_NAME = 'Glad Alerts';
-strings.pt.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
+strings.pt.ANALYSIS_SLOPE_OPTION = 'Opção #';
+strings.pt.SLOPE_SELECT_LABEL = 'Escolha a porcentagem de inclinação:';
+strings.pt.ANALYSIS_RESTORATION_ERROR = 'Área não satisfaz critérios de potencial/sem dados;
+strings.pt.ANALYSIS_GROUP_RESTORATION = 'Potencial de restauração para';
+strings.pt.ANALYSIS_GROUP_SLOPE = 'Potencial de acordo com';
+strings.pt.ANALYSIS_GROUP_OTHER = 'Outras análises';
+strings.pt.ANALYSIS_GLAD_ALERT_NAME = 'Alertas Glad';
+strings.pt.ANALYSIS_TERRA_I_ALERT_NAME = 'Alertas Terra-I';
 strings.pt.ANALYSIS_SAD_ALERT_NAMES = {
-  degrad: 'Degradation',
-  defor: 'Deforestation'
+  degrad: 'Degradação',
+  defor: 'Desmatamento'
 };
 //- Group and value should not be modified
 strings.pt.ANALYSIS_SELECT_TYPE_OPTIONS = [
-  { label: 'Slope',
+  { label: 'Declividade',
     value: analysisKeys.SLOPE,
     group: analysisKeys.ANALYSIS_GROUP_SLOPE
   },
-  { label: 'Total tree cover loss/gain',
+  { label: 'Perda/ganho de cobertura florestal total',
     value: analysisKeys.TC_LOSS_GAIN,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Tree cover loss',
+  { label: 'Perda de cobertura florestal',
     value: analysisKeys.TC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Land cover loss',
+  { label: 'Perda de cobertura do solo',
     value: analysisKeys.LC_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Aboveground Live Woody Biomass loss',
+  { label: 'Perda de Biomassa de madeira viva acima do solo',
     value: analysisKeys.BIO_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Intact forest loss',
+  { label: 'Perda de floresta intacta',
     value: analysisKeys.INTACT_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Global mangrove loss',
+  { label: 'Perda de Mangues Global',
     value: analysisKeys.MANGROVE_LOSS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'SAD alerts',
+  { label: 'Alertas SAD',
     value: analysisKeys.SAD_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'GLAD alerts',
+  { label: 'Alertas GLAD',
     value: analysisKeys.GLAD_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Terra-I alerts',
+  { label: 'Alertas Terra-I',
     value: analysisKeys.TERRA_I_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Active fires',
+  { label: 'Focos de incêndio ativos',
     value: analysisKeys.FIRES,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Land cover composition',
+  { label: 'Composicao da cobertura do solo',
     value: analysisKeys.LCC,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   }
 ];
 
 //- Modals
-strings.pt.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover and tree cover loss';
-strings.pt.DENSITY_FIRST = 'Displaying';
-strings.pt.DENSITY_SECOND = 'canopy density.';
-strings.pt.SEARCH_WIDGET_TITLE = 'Search for feature:';
-strings.pt.SEARCH_CLICK_FOR_MORE = 'Please click on the selected feature for more info.';
+strings.pt.CANOPY_MODAL_TEXT = 'Ajuste a densidade mínima de dossel para cobertura florestal e perda de cobertura florestal';
+strings.pt.DENSITY_FIRST = 'Exibindo';
+strings.pt.DENSITY_SECOND = 'densidade de dossel';
+strings.pt.SEARCH_WIDGET_TITLE = 'Buscar recurso:';
+strings.pt.SEARCH_CLICK_FOR_MORE = 'Por favor clique no recurso selecionado para mais informações.';
 //- Layer Info Modal
-strings.pt.NO_INFO = 'No Information Available';
-strings.pt.OVERVIEW = 'Overview';
-strings.pt.CITATION = 'Citation';
+strings.pt.NO_INFO = 'Sem informação disponível.';
+strings.pt.OVERVIEW = 'Visão geral';
+strings.pt.CITATION = 'Citação';
 //- Case does not matter, css makes them all uppercase
-strings.pt.FUNCTION = 'function';
-strings.pt.RESOLUTION = 'resolution';
-strings.pt.GEO_COVERAGE = 'geographic coverage';
-strings.pt.SOURCE = 'source';
-strings.pt.FREQUENCY = 'frequency';
-strings.pt.CONTENT_DATE = 'date of content';
-strings.pt.CAUTIONS = 'cautions';
-strings.pt.LICENSE = 'license';
-strings.pt.LEARN_MORE = 'learn More';
-strings.pt.DOWNLOAD_DATA = 'download data';
-strings.pt.DESCRIPTION = 'description';
+strings.pt.FUNCTION = 'função';
+strings.pt.RESOLUTION = 'resolução';
+strings.pt.GEO_COVERAGE = 'cobertura geográfica';
+strings.pt.SOURCE = 'fonte';
+strings.pt.FREQUENCY = 'frequência';
+strings.pt.CONTENT_DATE = 'data do conteúdo';
+strings.pt.CAUTIONS = 'precauções';
+strings.pt.LICENSE = 'licença';
+strings.pt.LEARN_MORE = 'Saiba mais';
+strings.pt.DOWNLOAD_DATA = 'Baixar dados';
+strings.pt.DESCRIPTION = 'Descrição';
 
 //- Miscellaneous
-strings.pt.PRINT_BUTTON_LABEL = 'Choose a print output';
-strings.pt.PRINT_REPORT = 'Print Report';
-strings.pt.SUBSCRIBE = 'Subscribe';
-strings.pt.LAYERS = 'Layers';
-strings.pt.DATA = 'Data';
-strings.pt.ANALYZE = 'Analyze';
+strings.pt.PRINT_BUTTON_LABEL = 'Escolher saída de impressão.';
+strings.pt.PRINT_REPORT = 'Imprimir Relatório';
+strings.pt.SUBSCRIBE = 'Inscrever-se';
+strings.pt.LAYERS = 'Camadas';
+strings.pt.DATA = 'Dados';
+strings.pt.ANALYZE = 'Analisar';
 strings.pt.DOCS = 'Docs';
-strings.pt.NARRATIVE = 'Narrative';
-strings.pt.MORE = 'More';
-strings.pt.DELETE = 'Delete';
-strings.pt.DOCUMENTS = 'Documents';
+strings.pt.NARRATIVE = 'Narrativa';
+strings.pt.MORE = 'Mais';
+strings.pt.DELETE = 'Excluir';
+strings.pt.DOCUMENTS = 'Documentos';
 
-strings.pt.BASEMAP = 'Basemap';
-strings.pt.SELECT_ALL = 'select all';
-strings.pt.CLEAR_ALL = 'clear all';
-strings.pt.LEGEND = 'Legend';
-strings.pt.TIMELINE = 'Timeline';
-strings.pt.TIMELINE_START = 'Start: ';
-strings.pt.TIMELINE_END = 'End: ';
-strings.pt.SEARCH = 'Search'; // Also Used for tools, but was used else where first
-strings.pt.TOOL_ZOOM_IN = 'Zoom In';
-strings.pt.TOOL_ZOOM_OUT = 'Zoom Out';
-strings.pt.TOOL_SHARE = 'Share';
-strings.pt.TOOL_PRINT = 'Print';
-strings.pt.TOOL_ANALYSIS = 'Analysis';
-strings.pt.TOOL_TOGGLE = 'Toggle Panel';
-strings.pt.TOOL_RESET = 'Reset';
+strings.pt.BASEMAP = 'Mapa Base';
+strings.pt.SELECT_ALL = 'Selecionar tudo';
+strings.pt.CLEAR_ALL = 'Limpar tudo';
+strings.pt.LEGEND = 'Legenda';
+strings.pt.TIMELINE = 'Cronologia';
+strings.pt.TIMELINE_START = 'Início: ';
+strings.pt.TIMELINE_END = 'Fim: ';
+strings.pt.SEARCH = 'Pesquisa:'; // Also Used for tools, but was used else where first
+strings.pt.TOOL_ZOOM_IN = 'Aumentar o Zoom';
+strings.pt.TOOL_ZOOM_OUT = 'Diminuir o Zoom';
+strings.pt.TOOL_SHARE = 'Compartilhar';
+strings.pt.TOOL_PRINT = 'Imprimir';
+strings.pt.TOOL_ANALYSIS = 'Análise';
+strings.pt.TOOL_TOGGLE = 'Alternar Painel';
+strings.pt.TOOL_RESET = 'Reiniciar';
 
-strings.pt.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
-strings.pt.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.pt.ANALYSIS_CARBON_EMISSION = 'Taxa de emissões de carbono';
+strings.pt.ANALYSIS_CARBON_LOSS = 'Perda de cobertura florestal';
 strings.pt.MONTHS_LIST = [
-  { name: 'January', abbr: 'Jan'},
-  { name: 'February', abbr: 'Feb'},
-  { name: 'March', abbr: 'Mar'},
-  { name: 'April', abbr: 'Apr'},
-  { name: 'May', abbr: 'May'},
-  { name: 'June', abbr: 'Jun'},
-  { name: 'July', abbr: 'Jul'},
-  { name: 'August', abbr: 'Aug'},
-  { name: 'September', abbr: 'Sep'},
-  { name: 'October', abbr: 'Oct'},
-  { name: 'November', abbr: 'Nov'},
-  { name: 'December', abbr: 'Dec'}
+  { name: 'Janeiro', abbr: 'Jan'},
+  { name: 'Fevereiro', abbr: 'Feb'},
+  { name: 'Março', abbr: 'Mar'},
+  { name: 'Abril', abbr: 'Abr'},
+  { name: 'Maio', abbr: 'Mai'},
+  { name: 'Junho', abbr: 'Jun'},
+  { name: 'Julho', abbr: 'Jul'},
+  { name: 'Agosto', abbr: 'Ago'},
+  { name: 'Setembro', abbr: 'Set'},
+  { name: 'Outubro', abbr: 'Out'},
+  { name: 'Novembro', abbr: 'Nov'},
+  { name: 'Dezembro', abbr: 'Dez'}
 ];
 
 //- NOTE: Bahasa Indonesia
