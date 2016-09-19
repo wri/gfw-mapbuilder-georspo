@@ -219,6 +219,18 @@ const formatRestorationData = (counts, labels, colors) => {
 const haveSameBoolState = (a, b) => (!!a && !!b) || (!a && !b);
 
 /**
+* Renders a table into the restoration analysis section
+*/
+const generateRestorationTable = function generateRestorationTable (series) {
+  const table = document.createElement('div');
+  table.setAttribute('class', 'restoration-table');
+  series.forEach((type) => {
+    table.appendChild(generateRow(type.name, number.format(type.data[0])));
+  });
+  return table;
+};
+
+/**
 * Each result set needs to create four dom nodes in a container and render charts into each node
 */
 const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (results, settings, lang, label) {
@@ -242,6 +254,7 @@ const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (re
   const labelNode = document.createElement('h3');
   const descriptionNode = document.createElement('h4');
   const gridNode = document.createElement('div');
+  const tableGridNode = document.createElement('div');
   const slopeNode = document.createElement('div');
   const lcNode = document.createElement('div');
   const popNode = document.createElement('div');
@@ -251,35 +264,41 @@ const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (re
   labelNode.setAttribute('class', 'restoration__label');
   descriptionNode.setAttribute('class', 'restoration__description');
   gridNode.setAttribute('class', 'restoration__grid');
+  tableGridNode.setAttribute('class', 'restoration__grid');
   slopeNode.setAttribute('class', 'restoration__chart');
   lcNode.setAttribute('class', 'restoration__chart');
   popNode.setAttribute('class', 'restoration__chart');
   tcNode.setAttribute('class', 'restoration__chart');
   labelNode.innerHTML = `${prefix} ${label}`;
-  descriptionNode.innerHTML = ''; // Add some descriptive text here
+  descriptionNode.innerHTML = settings.labels[lang].restorationChartDescription;
   container.appendChild(labelNode);
   container.appendChild(descriptionNode);
   container.appendChild(gridNode);
+  container.appendChild(tableGridNode);
   // Push the container to the DOM
   rootNode.appendChild(container);
 
   if (settings.restorationSlopePotential) {
     gridNode.appendChild(slopeNode);
+    tableGridNode.appendChild(generateRestorationTable(slopeData));
     charts.makeRestorationBarChart(slopeNode, text[lang].ANALYSIS_SLOPE_CHART_HEADER, slopeData);
   }
 
   if (settings.restorationLandCover) {
     gridNode.appendChild(lcNode);
+    tableGridNode.appendChild(generateRestorationTable(lcData));
     charts.makeRestorationBarChart(lcNode, text[lang].ANALYSIS_LAND_COVER_CHART_HEADER, lcData);
   }
 
   if (settings.restorationPopulation) {
     gridNode.appendChild(popNode);
+    tableGridNode.appendChild(generateRestorationTable(popData));
     charts.makeRestorationBarChart(popNode, text[lang].ANALYSIS_POPULATION_CHART_HEADER, popData);
   }
 
   if (settings.restorationTreeCover) {
     gridNode.appendChild(tcNode);
+    tableGridNode.appendChild(generateRestorationTable(tcData));
     charts.makeRestorationBarChart(tcNode, text[lang].ANALYSIS_TREE_COVER_CHART_HEADER, tcData);
   }
 };
@@ -666,10 +685,10 @@ const runAnalysis = function runAnalysis (params, feature) {
         // Render the chart, table, title, description, and unhide the container
         container.classList.remove('hidden');
         titleNode.innerHTML = text[lang].REPORT_SLOPE_TITLE;
-        descriptionNode.innerHTML = text[lang].REPORT_SLOPE_DESCRIPTION;
+        descriptionNode.innerHTML = settings.labels[lang].slopeDescription;
         charts.makeSlopeBarChart(chartNode, labels, colors, tooltips, series);
         //- Push headers into values and labels for the table and totals.
-        const total = counts.reduce((a,b) => a + b, 0);
+        const total = counts.reduce((a, b) => a + b, 0);
         labels.unshift(text[lang].REPORT_SLOPE_TABLE_TYPE);
         counts.unshift(text[lang].REPORT_SLOPE_TABLE_VALUE);
         labels.push(text[lang].REPORT_TABLE_TOTAL);

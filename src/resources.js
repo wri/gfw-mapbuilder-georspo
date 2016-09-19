@@ -73,6 +73,12 @@ export default {
   restorationRainfall: true,
 
   // Options not configurable from AGOL but can be from here
+  restorationChartDescription: 'Some explanatory text for this anlaysis',
+  restorationTableDescription: 'Some explanatory text for this anlaysis',
+  slopeDescription: 'Some explanatory text for this anlaysis',
+  alternativeRestorationChartDescription: 'Some explanatory text for this anlaysis',
+  alternativeRestorationTableDescription: 'Some explanatory text for this anlaysis',
+  alternativeSlopeDescription: 'Some explanatory text for this anlaysis',
   // DO NOT MODIFY SHARINGHOST unless you are configuring this for a Portal Environment
   sharinghost: 'http://www.arcgis.com',
   analyticsCode: 'UA-62288390-15',

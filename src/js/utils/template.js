@@ -93,6 +93,10 @@ const formatResources = () => {
       //- Parse the options, colors, and any other content that will be used in the analysis
       resources.slopeAnalysisPotentialColors = parseIntoArray(resources.slopePotentialColors);
       resources.labels[resources.language].slopeAnalysisPotentialOptions = parseIntoArray(resources.slopePotentialOptions);
+      //- Add description text
+      resources.labels[resources.language].restorationChartDescription = resources.restorationChartDescription;
+      resources.labels[resources.language].restorationTableDescription = resources.restorationTableDescription;
+      resources.labels[resources.language].slopeDescription = resources.slopeDescription;
       //- Add the slope options in another language if configured
       if (resources.useAlternativeLanguage) {
         // Slope Options
@@ -106,6 +110,10 @@ const formatResources = () => {
             label: label
           });
         });
+        //- Add description text
+        resources.labels[resources.alternativeLanguage].restorationChartDescription = resources.alternativeRestorationChartDescription;
+        resources.labels[resources.alternativeLanguage].restorationTableDescription = resources.alternativeRestorationTableDescription;
+        resources.labels[resources.alternativeLanguage].slopeDescription = resources.alternativeSlopeDescription;
       }
     }
     //- Parse slope class names if present

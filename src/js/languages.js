@@ -204,7 +204,6 @@ strings.en.MONTHS_LIST = [
 
 strings.en.REPORT_TABLE_TOTAL = 'Total';
 strings.en.REPORT_SLOPE_TITLE = 'Slope Analysis';
-strings.en.REPORT_SLOPE_DESCRIPTION = 'Some explanatory text for this anlaysis';
 strings.en.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
 strings.en.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
 
