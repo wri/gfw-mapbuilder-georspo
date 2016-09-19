@@ -18,6 +18,7 @@ const config = {
   corsServers: [
     'gis-gfw.wri.org',
     'gis-potico.wri.org',
+    'gis-treecover.wri.org',
     'api.globalforestwatch.org',
     'production-api.globalforestwatch.org'
   ],
