@@ -778,17 +778,12 @@ strings.pt.TOOL_ANALYSIS = 'Análise';
 strings.pt.TOOL_TOGGLE = 'Alternar Painel';
 strings.pt.TOOL_RESET = 'Reiniciar';
 
-<<<<<<< HEAD
 strings.pt.ANALYSIS_CARBON_EMISSION = 'Taxa de emissões de carbono';
 strings.pt.ANALYSIS_CARBON_LOSS = 'Perda de cobertura florestal';
 strings.pt.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
 strings.pt.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
 strings.pt.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
 strings.pt.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
-=======
-strings.pt.ANALYSIS_CARBON_EMISSION = 'Taxa de emissões de carbono';
-strings.pt.ANALYSIS_CARBON_LOSS = 'Perda de cobertura florestal';
->>>>>>> develop
 strings.pt.MONTHS_LIST = [
   { name: 'Janeiro', abbr: 'Jan'},
   { name: 'Fevereiro', abbr: 'Feb'},
