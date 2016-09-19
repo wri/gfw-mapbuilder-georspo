@@ -615,13 +615,13 @@ strings.pt.DOCS_SIZE = 'Tamanho';
 //- Info Window
 strings.pt.INFO_WINDOW_INSTRUCTION_HEADER = 'Selecione uma área no mapa';
 strings.pt.INFO_WINDOW_INSTRUCTION_LIST = [
-  'Use a guia camadas para ativar a os dados da camada',
+  'Use a guia camadas para ativar os dados da camada',
   'Selecione uma área no mapa'
 ];
 //- Analysis
 strings.pt.ANALYSIS_INSTRUCTION_HEADER = 'Analise a área selecionada no mapa';
 strings.pt.ANALYSIS_INSTRUCTION_LIST = [
-  'Use a guia camadas para ativar a os dados da camada',
+  'Use a guia camadas para ativar os dados da camada',
   'Selecione uma área no mapa',
   'Clique na guia de Análise'
 ];
@@ -636,22 +636,22 @@ strings.pt.ANALYSIS_DRAW_INSTRUCTIONS = [
 strings.pt.ANALYSIS_DRAW_BUTTON = 'Comece a desenhar';
 strings.pt.ANALYSIS_INSTRUCTION_ADDITIONAL = `Adicionar formas adicionais no futuro, visitando a ferramenta de desenho ${drawIcon}`;
 strings.pt.ANALYSIS_SHAPEFILE_UPLOAD = 'ou soltar aqui um shapefile personalizado';
-strings.pt.ANALYSIS_SHAPEFILE_INSTRUCTIONS = 'Somente geometria de polígono é suportada, devendo o mesmo usar WGS81 como sistema de referência espacial. O tamanho máximo recomendado é de 5 MB, arquivos com tamanho maior que o recomendado podem não funcionar como esperado. ESRI shapefiles devem estar compactados (.zip) e arquivos GeoJSON devem estar no formato .json.';
+strings.pt.ANALYSIS_SHAPEFILE_INSTRUCTIONS = 'Somente geometria de polígono é suportada, devendo-se usar WGS81 como sistema de referência espacial. O tamanho máximo recomendado é de 5 MB, arquivos com tamanho maior que o recomendado podem não funcionar corretamente. ESRI shapefiles devem estar compactados (.zip) e arquivos GeoJSON devem estar no formato .json.';
 strings.pt.ANALYSIS_SELECT_TYPE_LABEL = 'Selecione Análise:';
 //- Chart Labels in the Analysis
-strings.pt.ANALYSIS_TC_CHART_NAME = 'Perda de cobertura florestal em Hectares';
+strings.pt.ANALYSIS_TC_CHART_NAME = 'Perda de cobertura florestal em hectares';
 strings.pt.ANALYSIS_LCC_CHART_NAME = 'Composicao da cobertura do solo';
 strings.pt.ANALYSIS_IFL_LABELS = ['Floresta Intacta'];
 strings.pt.ANALYSIS_MANGROVE_LABELS = ['Mangues Global'];
 strings.pt.ANALYSIS_FIRES_PRE = 'Existem';
 strings.pt.ANALYSIS_FIRES_ACTIVE = 'Focos de incêndio ativos';
-strings.pt.ANALYSIS_FIRES_POST = 'no ultimos 7 dias';
+strings.pt.ANALYSIS_FIRES_POST = 'nos ultimos 7 dias';
 strings.pt.ANALYSIS_TOTAL_LOSS_LABEL = 'Perda de cobertura florestal total';
 strings.pt.ANALYSIS_TOTAL_LOSS_RANGE = '(2001 - 2014):';
 strings.pt.ANALYSIS_TOTAL_GAIN_LABEL = 'Ganho de cobertura florestal total';
 strings.pt.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.pt.ANALYSIS_SLOPE_OPTION = 'Opção #';
-strings.pt.SLOPE_SELECT_LABEL = 'Escolha a porcentagem de inclinação:';
+strings.pt.SLOPE_SELECT_LABEL = 'Escolha o gradiente de inclinação:';
 strings.pt.ANALYSIS_RESTORATION_ERROR = 'Área não satisfaz critérios de potencial/sem dados;
 strings.pt.ANALYSIS_GROUP_RESTORATION = 'Potencial de restauração para';
 strings.pt.ANALYSIS_GROUP_SLOPE = 'Potencial de acordo com';
