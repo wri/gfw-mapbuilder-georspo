@@ -54,7 +54,7 @@ export default class AnalysisTypeSelect extends Component {
     options = options.filter((option) => {
       switch (option.value) {
         case analysisKeys.SLOPE:
-          return settings.restorationSlope;
+          return settings.restorationModule && settings.restorationSlope;
         case analysisKeys.INTACT_LOSS:
           return settings.intactForests;
         case analysisKeys.BIO_LOSS:

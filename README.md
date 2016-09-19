@@ -29,7 +29,7 @@ Once you upload the module list and publish a build to CDN, swap the URL in inde
 npm run dist
 ```
 
-#### How the build works
+#### Deploying a build
 > If you need to configure the build or update the process for how it works, read this section
 
 The build can work and run right out of the `dist` folder which is generated when you run `npm run dist`.  However, there are some additional methods for deploying to allow greater flexibility and customization.  The current output looks something like this:
@@ -51,7 +51,7 @@ The `index.html` and `report.html` have an option to change where to load the ba
 2. Next you need to set the base variable, different from _app.base, and set it to "", this appears immediately after the above line. Example of original setting: `var _app={cache:"0.1.26",esri:"3.16",base:"0.1.26"},base=location.href.replace(/\/[^\/]+$/,"");`, example of new setting: `var _app={cache:"0.1.26",esri:"3.16",base:"http://s3.amazonaws.com/gfw-mapbuilder/0.1.26"},base='';`
 
 ### Configuring
-This application has a general `src/js/config.js` file that contains things controlled by the developers.  There is also a `resources.js` file which contains more configurations.  However the Resources file contains configurations that are controlled via ArcGIS Online or whomever may be deploying the application.  You can control things like the layers in the accordion, their source urls, service urls (print, geometry, map, etc.), which layers to include in the analysis, and even the configurations for slope analysis and other aspects of the analysis.  Anything that needs to be controlled from ArcGIS Online or the person deploying it, should be placed in `resources.js`.
+This application has a general `src/js/config.js` file that contains things controlled by the developers.  There is also a `resources.js` file which contains more configurations.  However the Resources file contains configurations that are controlled via ArcGIS Online or whomever may be deploying the application.  You can control things like the layers in the accordion, their source urls, their order on the map  and in the UI, service urls (print, geometry, map, etc.), which layers to include in the analysis, and even the configurations for slope analysis and other aspects of the analysis.  Anything that needs to be controlled from ArcGIS Online or the person deploying it, should be placed in `resources.js`.
 
 #### Configuring Layers and Accordions
 The layers and the accordion are now more easily configurable via the `resources.js` file. Layers that you want to appear on the map but not in the accordion should be placed under `extraLayers`.  The configuration structure is as follows:
@@ -218,7 +218,7 @@ strings.pt.DATA = 'Data'; // Portuguese
 The other location is the `src/js/resources.js` file.  There are `layers` and `basemaps` each with subsections for each of the four languages.  In each subsection is an array or objects containing the layer configuration.  Be careful what you change in here, the only three things related to labels are `label`, `sublabel`, and `group`. The `group` refers to the name on the accordion, it needs to be the same as the other layers in the same group (they are linked by a `groupKey`).
 
 ### Adding Analysis
-
+Documentation coming soon...
 
 ### Contributing
-Please fork off of the `develop` branch and submit your pull requests to `develop`.  Make sure `npm test` passes which will do a simple eslint test on your src code.
+[See CONTRIBUTING.md](CONTRIBUTING.md)

@@ -109,6 +109,14 @@ const generateRow = function generateRows (fieldName, fieldValue) {
   return row;
 };
 
+const generateTableFragment = function generateTableFragment (labels, values) {
+  const fragment = document.createDocumentFragment();
+  labels.forEach((label, index) => {
+    fragment.appendChild(generateRow(label, number.format(values[index])));
+  });
+  return fragment;
+};
+
 /**
 * Add a graphic to the map and set the map extent
 * Add layers to the map
@@ -141,10 +149,11 @@ const setupMap = function setupMap (params, feature) {
 };
 
 const addHeaderContent = function addHeaderContent (params) {
-  const {title, subtitle, logoUrl, logoLinkUrl} = params;
+  const {title, logoUrl, logoLinkUrl} = params; // subtitle was in params
 
   document.getElementById('report-title').innerHTML = title;
-  document.getElementById('report-subtitle').innerHTML = subtitle;
+  // document.getElementById('report-subtitle').innerHTML = subtitle;
+  // above is now using feature title in addTitleAndAttributes
   //- TODO: This should be modified, logoUrl should come from querying the appid instead of the url since that is safer
   document.getElementById('logo').setAttribute('src', logoUrl);
   document.getElementById('logo-anchor').setAttribute('href', logoLinkUrl);
@@ -155,7 +164,8 @@ const addTitleAndAttributes = function addTitleAndAttributes (params, featureInf
   const { operationalLayers } = webmap;
   //- Generate the attributes listing and set page title
   if (featureInfo.isCustom) {
-    document.getElementById('feature-title').innerHTML = featureInfo.title;
+    // document.getElementById('feature-title').innerHTML = featureInfo.title;
+    document.getElementById('report-subtitle').innerHTML = featureInfo.title;
   } else {
     const operationalLayer = operationalLayers.filter((layer) => layerName.search(layer.id) > -1)[0];
     //- layerid is a string but layer.id is a number, convert layerid to int
@@ -180,7 +190,8 @@ const addTitleAndAttributes = function addTitleAndAttributes (params, featureInf
       });
       if (brApp.debug) { console.log('Popup info: ', activeLayer.popupInfo); }
       //- Add title to the page
-      document.getElementById('feature-title').innerHTML = title;
+      // document.getElementById('feature-title').innerHTML = title;
+      document.getElementById('report-subtitle').innerHTML = title;
       //- Add the rows to the DOM
       document.getElementById('popup-content').appendChild(fragment);
     }
@@ -228,7 +239,9 @@ const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (re
   ) { return; }
   // Create all the necessary dom nodes
   const container = document.createElement('div');
-  const labelNode = document.createElement('h4');
+  const labelNode = document.createElement('h3');
+  const descriptionNode = document.createElement('h4');
+  const gridNode = document.createElement('div');
   const slopeNode = document.createElement('div');
   const lcNode = document.createElement('div');
   const popNode = document.createElement('div');
@@ -236,32 +249,37 @@ const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (re
   // Append all the nodes to the root node and add classes etc.
   container.setAttribute('class', 'restoration__module');
   labelNode.setAttribute('class', 'restoration__label');
+  descriptionNode.setAttribute('class', 'restoration__description');
+  gridNode.setAttribute('class', 'restoration__grid');
   slopeNode.setAttribute('class', 'restoration__chart');
   lcNode.setAttribute('class', 'restoration__chart');
   popNode.setAttribute('class', 'restoration__chart');
   tcNode.setAttribute('class', 'restoration__chart');
-  container.appendChild(labelNode);
   labelNode.innerHTML = `${prefix} ${label}`;
+  descriptionNode.innerHTML = ''; // Add some descriptive text here
+  container.appendChild(labelNode);
+  container.appendChild(descriptionNode);
+  container.appendChild(gridNode);
   // Push the container to the DOM
   rootNode.appendChild(container);
 
   if (settings.restorationSlopePotential) {
-    container.appendChild(slopeNode);
+    gridNode.appendChild(slopeNode);
     charts.makeRestorationBarChart(slopeNode, text[lang].ANALYSIS_SLOPE_CHART_HEADER, slopeData);
   }
 
   if (settings.restorationLandCover) {
-    container.appendChild(lcNode);
+    gridNode.appendChild(lcNode);
     charts.makeRestorationBarChart(lcNode, text[lang].ANALYSIS_LAND_COVER_CHART_HEADER, lcData);
   }
 
   if (settings.restorationPopulation) {
-    container.appendChild(popNode);
+    gridNode.appendChild(popNode);
     charts.makeRestorationBarChart(popNode, text[lang].ANALYSIS_POPULATION_CHART_HEADER, popData);
   }
 
   if (settings.restorationTreeCover) {
-    container.appendChild(tcNode);
+    gridNode.appendChild(tcNode);
     charts.makeRestorationBarChart(tcNode, text[lang].ANALYSIS_TREE_COVER_CHART_HEADER, tcData);
   }
 };
@@ -634,15 +652,29 @@ const runAnalysis = function runAnalysis (params, feature) {
         activeSlopeClass: activeSlopeClass,
         language: lang
       }).then((results) => {
-        const element = document.getElementById('slope');
+        const container = document.getElementById('slope');
+        const chartNode = document.getElementById('slope-chart');
+        const tableNode = document.getElementById('slope-table');
+        const titleNode = document.getElementById('slope-analysis-header');
+        const descriptionNode = document.getElementById('slope-analysis-description');
         const {counts} = results;
-        const labels = counts.map((v, index) => text[lang].ANALYSIS_SLOPE_OPTION + (index + 1));
+        // const labels = counts.map((v, index) => text[lang].ANALYSIS_SLOPE_OPTION + (index + 1));
+        const labels = settings.labels[lang].slopeAnalysisPotentialOptions;
         const colors = settings.slopeAnalysisPotentialColors;
         const tooltips = settings.labels[lang].slopeAnalysisPotentialOptions;
         const series = [{ data: counts }];
-        // Render the chart
-        charts.makeSlopeBarChart(element, labels, colors, tooltips, series);
-        element.classList.remove('hidden');
+        // Render the chart, table, title, description, and unhide the container
+        container.classList.remove('hidden');
+        titleNode.innerHTML = text[lang].REPORT_SLOPE_TITLE;
+        descriptionNode.innerHTML = text[lang].REPORT_SLOPE_DESCRIPTION;
+        charts.makeSlopeBarChart(chartNode, labels, colors, tooltips, series);
+        //- Push headers into values and labels for the table and totals.
+        const total = counts.reduce((a,b) => a + b, 0);
+        labels.unshift(text[lang].REPORT_SLOPE_TABLE_TYPE);
+        counts.unshift(text[lang].REPORT_SLOPE_TABLE_VALUE);
+        labels.push(text[lang].REPORT_TABLE_TOTAL);
+        counts.push(total);
+        tableNode.appendChild(generateTableFragment(labels, counts));
       });
     } else {
       const element = document.getElementById('slope');

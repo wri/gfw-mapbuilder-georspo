@@ -202,7 +202,11 @@ strings.en.MONTHS_LIST = [
   { name: 'December', abbr: 'Dec'}
 ];
 
-
+strings.en.REPORT_TABLE_TOTAL = 'Total';
+strings.en.REPORT_SLOPE_TITLE = 'Slope Analysis';
+strings.en.REPORT_SLOPE_DESCRIPTION = 'Some explanatory text for this anlaysis';
+strings.en.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
+strings.en.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
 
 //- NOTE: French
 //- Supported Languages
@@ -616,7 +620,7 @@ strings.pt.NAV_MAP_THEMES = 'Temas do Mapa';
 strings.pt.NAV_MY_GFW = 'Fazer Login no MEU GFW';
 strings.pt.NAV_LANGUAGE = 'Selecionar Idioma';
 //- Documents
-strings.pt.DOCS_INSTRUCTIONS = 'Selecione área de interesse para verificar a existência de documentos relacionados;
+strings.pt.DOCS_INSTRUCTIONS = 'Selecione área de interesse para verificar a existência de documentos relacionados';
 strings.pt.DOCS_NOT_AVAILABLE = 'Não existem documentos disponíveis para esta área';
 strings.pt.DOCS_TYPE = 'Tipo';
 strings.pt.DOCS_AUTHOR = 'Autor';
@@ -664,7 +668,7 @@ strings.pt.ANALYSIS_TOTAL_GAIN_LABEL = 'Ganho de cobertura florestal total';
 strings.pt.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.pt.ANALYSIS_SLOPE_OPTION = 'Opção #';
 strings.pt.SLOPE_SELECT_LABEL = 'Escolha o gradiente de inclinação:';
-strings.pt.ANALYSIS_RESTORATION_ERROR = 'Área não satisfaz critérios de potencial/sem dados;
+strings.pt.ANALYSIS_RESTORATION_ERROR = 'Área não satisfaz critérios de potencial/sem dados';
 strings.pt.ANALYSIS_GROUP_RESTORATION = 'Potencial de restauração para';
 strings.pt.ANALYSIS_GROUP_SLOPE = 'Potencial de acordo com';
 strings.pt.ANALYSIS_GROUP_OTHER = 'Outras análises';

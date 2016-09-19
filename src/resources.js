@@ -38,14 +38,14 @@ export default {
   documentsMapserver: 'http://gis.forest-atlas.org/arcgis/rest/services/CMR/documents_administratifs/MapServer',
   //- Layers/Analysis Settings
   iso: '',
-  activeFires: true,
-  intactForests: true,
-  aboveGroundBiomass: true,
-  landCover: true,
-  mangroves: true,
-  sadAlerts: true,
-  gladAlerts: true,
-  terraIAlerts: true,
+  activeFires: false,
+  intactForests: false,
+  aboveGroundBiomass: false,
+  landCover: false,
+  mangroves: false,
+  sadAlerts: false,
+  gladAlerts: false,
+  terraIAlerts: false,
   webmapMenuName: 'Land Use',
   //- Restoration Module settings
   restorationModule: true,
@@ -66,9 +66,9 @@ export default {
   populationClassColors: 'rgb(0, 0, 0);rgb(255, 255, 128);rgb(250, 209, 85);rgb(242, 167, 46);rgb(173, 83, 19);rgb(107, 0, 0);',
   //- Include/Exclude various restoration analysis types
   restorationSlope: true, //- Main Slope Analysis
-  restorationSlopePotential: false, //- Part of the various restoration options
+  restorationSlopePotential: true, //- Part of the various restoration options
   restorationTreeCover: true,
-  restorationLandCover: false,
+  restorationLandCover: true,
   restorationPopulation: true,
   restorationRainfall: true,
 
