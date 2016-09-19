@@ -121,7 +121,7 @@ export default {
       order: 1,
       label: {
         en: 'Land Cover Dynamics',
-        fr: 'Evolution de l\'occupation des sols',
+        fr: 'Evolution de la couverture des sols',
         es: 'Dinámica de la Cobertura del Suelo',
         pt: 'Land Cover Dynamics',
         id: 'Land Cover Dynamics',
@@ -185,7 +185,7 @@ export default {
         layerIds: [2],
         label: {
           en: 'SAD alerts',
-          fr: 'SAD alerts',
+          fr: 'Alertes SAD',
           es: 'SAD alerts',
           pt: 'SAD alerts',
           id: 'SAD alerts',
@@ -193,7 +193,7 @@ export default {
         },
         sublabel: {
           en: '(monthly, 250m, Brazilian Amazon, Imazon)',
-          fr: '(monthly, 250m, Brazilian Amazon, Imazon)',
+          fr: '(mensuel, 250m, Amazonie brésilienne, Imazon)',
           es: '(monthly, 250m, Brazilian Amazon, Imazon)',
           pt: '(monthly, 250m, Brazilian Amazon, Imazon)',
           id: '(monthly, 250m, Brazilian Amazon, Imazon)',
@@ -211,7 +211,7 @@ export default {
         confidence: [0, 1],
         label: {
           en: 'Glad Alerts',
-          fr: 'Glad Alerts',
+          fr: 'Alertes Glad',
           es: 'Glad Alerts',
           pt: 'Glad Alerts',
           id: 'Glad Alerts',
@@ -219,7 +219,7 @@ export default {
         },
         sublabel: {
           en: '(weekly, 30m, select countries, UMD/ GLAD)',
-          fr: '(weekly, 30m, select countries, UMD/ GLAD)',
+          fr: '(hebdomadaire, 30m, certains pays, UMD/ GLAD)',
           es: '(weekly, 30m, select countries, UMD/ GLAD)',
           pt: '(weekly, 30m, select countries, UMD/ GLAD)',
           id: '(weekly, 30m, select countries, UMD/ GLAD)',
@@ -240,7 +240,7 @@ export default {
         imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
         label: {
           en: 'Terra-I Alerts',
-          fr: 'Terra-I Alerts',
+          fr: 'Alertes Terra-I',
           es: 'Terra-I Alerts',
           pt: 'Terra-I Alerts',
           id: 'Terra-I Alerts',
@@ -248,7 +248,7 @@ export default {
         },
         sublabel: {
           en: '(monthly, 250m, Latin America, CIAT)',
-          fr: '(monthly, 250m, Latin America, CIAT)',
+          fr: '(mensuel, 250m, Amérique Latine, CIAT)',
           es: '(monthly, 250m, Latin America, CIAT)',
           pt: '(monthly, 250m, Latin America, CIAT)',
           id: '(monthly, 250m, Latin America, CIAT)',
@@ -297,7 +297,7 @@ export default {
       order: 3,
       label: {
         en: 'Land Cover',
-        fr: 'Occupation des sols',
+        fr: 'Couverture des sols',
         es: 'Cobertura vegetal',
         pt: 'Land Cover',
         id: 'Land Cover',
@@ -343,7 +343,7 @@ export default {
         legendLayer: 8,
         label: {
           en: 'Aboveground Live Woody Biomass Density',
-          fr: 'Aboveground Live Woody Biomass Density',
+          fr: 'Densité de la biomasse aérienne vivante',
           es: 'Aboveground Live Woody Biomass Density',
           pt: 'Aboveground Live Woody Biomass Density',
           id: 'Aboveground Live Woody Biomass Density',
@@ -362,7 +362,7 @@ export default {
         colors: ['#3B823D', '#7CA079', '#AAB785', '#355936', '#5BBCF8', '#8BB94B', '#F0F979', '#7B8840', '#CABA4F', '#D3A162', '#FDCA76', '#C1E5DC', '#7AD3AB', '#F3F3AF', '#F6988F', '#FFFFF0', '#FFFFF0', '#A7A7A7', '#F83D48', '#353C92'],
         label: {
           en: 'Land cover',
-          fr: 'Occupation des sols',
+          fr: 'Couverture des sols',
           es: 'Cobertura vegetal',
           pt: 'Land cover',
           id: 'Land cover',
