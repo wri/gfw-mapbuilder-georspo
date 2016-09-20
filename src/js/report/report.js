@@ -109,10 +109,12 @@ const generateRow = function generateRows (fieldName, fieldValue) {
   return row;
 };
 
-const generateTableFragment = function generateTableFragment (labels, values) {
+const generateSlopeTable = function generateSlopeTable (labels, values) {
   const fragment = document.createDocumentFragment();
   labels.forEach((label, index) => {
-    fragment.appendChild(generateRow(label, number.format(values[index])));
+    fragment.appendChild(generateRow(label,
+      typeof values[index] === 'number' ? number.format(values[index]) : values[index]
+    ));
   });
   return fragment;
 };
@@ -221,11 +223,30 @@ const haveSameBoolState = (a, b) => (!!a && !!b) || (!a && !b);
 /**
 * Renders a table into the restoration analysis section
 */
-const generateRestorationTable = function generateRestorationTable (series) {
+const generateRestorationTable = function generateRestorationTable (title, lang, series) {
+  //- Total of all the data
+  const total = series.reduce((a, b) => a + b.data[0], 0);
   const table = document.createElement('div');
+  const label = document.createElement('h3');
   table.setAttribute('class', 'restoration-table');
-  series.forEach((type) => {
-    table.appendChild(generateRow(type.name, number.format(type.data[0])));
+  label.setAttribute('class', 'restoration-table__header');
+  label.innerHTML = title;
+  table.appendChild(label);
+  //- Unshift in the Headers for the table
+  series.unshift({
+    name: text[lang].REPORT_RESTORATION_TABLE_TYPE,
+    data: [text[lang].REPORT_RESTORATION_TABLE_VALUE]
+  });
+  //- Push in the totals for the table
+  series.push({
+    name: text[lang].REPORT_TABLE_TOTAL,
+    data: [total]
+  });
+
+  series.forEach((datum) => {
+    table.appendChild(generateRow(datum.name,
+      typeof datum.data[0] === 'number' ? number.format(datum.data[0]) : datum.data[0]
+    ));
   });
   return table;
 };
@@ -253,6 +274,7 @@ const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (re
   const container = document.createElement('div');
   const labelNode = document.createElement('h3');
   const descriptionNode = document.createElement('h4');
+  const tableDescriptionNode = document.createElement('h4');
   const gridNode = document.createElement('div');
   const tableGridNode = document.createElement('div');
   const slopeNode = document.createElement('div');
@@ -263,6 +285,7 @@ const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (re
   container.setAttribute('class', 'restoration__module');
   labelNode.setAttribute('class', 'restoration__label');
   descriptionNode.setAttribute('class', 'restoration__description');
+  tableDescriptionNode.setAttribute('class', 'restoration__description');
   gridNode.setAttribute('class', 'restoration__grid');
   tableGridNode.setAttribute('class', 'restoration__grid');
   slopeNode.setAttribute('class', 'restoration__chart');
@@ -271,34 +294,36 @@ const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (re
   tcNode.setAttribute('class', 'restoration__chart');
   labelNode.innerHTML = `${prefix} ${label}`;
   descriptionNode.innerHTML = settings.labels[lang].restorationChartDescription;
+  descriptionNode.innerHTML = settings.labels[lang].restorationTableDescription;
   container.appendChild(labelNode);
   container.appendChild(descriptionNode);
   container.appendChild(gridNode);
+  container.appendChild(tableDescriptionNode);
   container.appendChild(tableGridNode);
   // Push the container to the DOM
   rootNode.appendChild(container);
 
   if (settings.restorationSlopePotential) {
     gridNode.appendChild(slopeNode);
-    tableGridNode.appendChild(generateRestorationTable(slopeData));
+    tableGridNode.appendChild(generateRestorationTable(text[lang].ANALYSIS_SLOPE_CHART_HEADER, lang, slopeData));
     charts.makeRestorationBarChart(slopeNode, text[lang].ANALYSIS_SLOPE_CHART_HEADER, slopeData);
   }
 
   if (settings.restorationLandCover) {
     gridNode.appendChild(lcNode);
-    tableGridNode.appendChild(generateRestorationTable(lcData));
+    tableGridNode.appendChild(generateRestorationTable(text[lang].ANALYSIS_LAND_COVER_CHART_HEADER, lang, lcData));
     charts.makeRestorationBarChart(lcNode, text[lang].ANALYSIS_LAND_COVER_CHART_HEADER, lcData);
   }
 
   if (settings.restorationPopulation) {
     gridNode.appendChild(popNode);
-    tableGridNode.appendChild(generateRestorationTable(popData));
+    tableGridNode.appendChild(generateRestorationTable(text[lang].ANALYSIS_POPULATION_CHART_HEADER, lang, popData));
     charts.makeRestorationBarChart(popNode, text[lang].ANALYSIS_POPULATION_CHART_HEADER, popData);
   }
 
   if (settings.restorationTreeCover) {
     gridNode.appendChild(tcNode);
-    tableGridNode.appendChild(generateRestorationTable(tcData));
+    tableGridNode.appendChild(generateRestorationTable(text[lang].ANALYSIS_TREE_COVER_CHART_HEADER, lang, tcData));
     charts.makeRestorationBarChart(tcNode, text[lang].ANALYSIS_TREE_COVER_CHART_HEADER, tcData);
   }
 };
@@ -318,8 +343,9 @@ const runAnalysis = function runAnalysis (params, feature) {
       canopyDensity: tcd,
       language: lang
     }).then((results) => {
-      const totalLoss = results.lossCounts.reduce((a, b) => a + b, 0);
-      const totalGain = results.gainCounts.reduce((a, b) => a + b, 0);
+      const {lossCounts = [], gainCounts = []} = results;
+      const totalLoss = lossCounts.reduce((a, b) => a + b, 0);
+      const totalGain = gainCounts.reduce((a, b) => a + b, 0);
       //- Generate chart for Tree Cover Loss
       const name = text[lang].ANALYSIS_TC_CHART_NAME;
       const colors = analysisConfig[analysisKeys.TC_LOSS].colors;
@@ -681,7 +707,8 @@ const runAnalysis = function runAnalysis (params, feature) {
         const labels = settings.labels[lang].slopeAnalysisPotentialOptions;
         const colors = settings.slopeAnalysisPotentialColors;
         const tooltips = settings.labels[lang].slopeAnalysisPotentialOptions;
-        const series = [{ data: counts }];
+        //- Create a  copy of the counts since I need to add data to it for the table below
+        const series = [{ data: counts.slice() }];
         // Render the chart, table, title, description, and unhide the container
         container.classList.remove('hidden');
         titleNode.innerHTML = text[lang].REPORT_SLOPE_TITLE;
@@ -693,7 +720,7 @@ const runAnalysis = function runAnalysis (params, feature) {
         counts.unshift(text[lang].REPORT_SLOPE_TABLE_VALUE);
         labels.push(text[lang].REPORT_TABLE_TOTAL);
         counts.push(total);
-        tableNode.appendChild(generateTableFragment(labels, counts));
+        tableNode.appendChild(generateSlopeTable(labels, counts));
       });
     } else {
       const element = document.getElementById('slope');

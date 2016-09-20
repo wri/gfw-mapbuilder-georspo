@@ -206,6 +206,8 @@ strings.en.REPORT_TABLE_TOTAL = 'Total';
 strings.en.REPORT_SLOPE_TITLE = 'Slope Analysis';
 strings.en.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
 strings.en.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
+strings.en.REPORT_RESTORATION_TABLE_TYPE = 'Category';
+strings.en.REPORT_RESTORATION_TABLE_VALUE = 'Value';
 
 //- NOTE: French
 //- Supported Languages

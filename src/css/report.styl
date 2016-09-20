@@ -106,8 +106,19 @@ body
   flex 1
 
 .restoration-table
-  margin 0 auto
+  margin 10px auto
   width 40%
+  & dl
+    border-bottom 1px solid $lightGrayHighlight
+  & dl:nth-child(2)
+  & dl:last-child
+    font-weight bold
+  & dd
+    text-align right
+
+.restoration-table__header
+  font-weight normal
+  margin-left 2.5%
 
 .restoration__chart
   display flex
@@ -121,3 +132,11 @@ body
 .restoration__description
 .slope__description
   font-weight normal
+
+@media (max-width: $mobileBreak)
+  .restoration-table
+  .restoration__chart
+    width 90%
+  h3
+  h4
+    margin 0 5px
