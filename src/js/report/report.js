@@ -228,22 +228,24 @@ const generateRestorationTable = function generateRestorationTable (title, lang,
   const total = series.reduce((a, b) => a + b.data[0], 0);
   const table = document.createElement('div');
   const label = document.createElement('h3');
+  //- Create a copy of the data so we don't mutate the original
+  const data = series.slice();
   table.setAttribute('class', 'restoration-table');
   label.setAttribute('class', 'restoration-table__header');
   label.innerHTML = title;
   table.appendChild(label);
   //- Unshift in the Headers for the table
-  series.unshift({
+  data.unshift({
     name: text[lang].REPORT_RESTORATION_TABLE_TYPE,
     data: [text[lang].REPORT_RESTORATION_TABLE_VALUE]
   });
   //- Push in the totals for the table
-  series.push({
+  data.push({
     name: text[lang].REPORT_TABLE_TOTAL,
     data: [total]
   });
 
-  series.forEach((datum) => {
+  data.forEach((datum) => {
     table.appendChild(generateRow(datum.name,
       typeof datum.data[0] === 'number' ? number.format(datum.data[0]) : datum.data[0]
     ));
@@ -294,7 +296,7 @@ const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (re
   tcNode.setAttribute('class', 'restoration__chart');
   labelNode.innerHTML = `${prefix} ${label}`;
   descriptionNode.innerHTML = settings.labels[lang].restorationChartDescription;
-  descriptionNode.innerHTML = settings.labels[lang].restorationTableDescription;
+  tableDescriptionNode.innerHTML = settings.labels[lang].restorationTableDescription;
   container.appendChild(labelNode);
   container.appendChild(descriptionNode);
   container.appendChild(gridNode);

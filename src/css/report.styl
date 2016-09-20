@@ -52,7 +52,8 @@ body
 .popup-content dl
 .table-container dl
 .restoration-table dl
-  margin 5px auto
+  border 1px solid #AEAEAE
+  margin 0 auto
   display table
   width 95%
 
@@ -74,10 +75,16 @@ body
   font-weight 500
 
 .table-container
+  background-color $reportTableBackground
+  padding 20px 0
   width 100%
   & dl:nth-child(1)
   & dl:last-child
     font-weight bold
+  & dl:nth-child(odd)
+    background $reportTableRow
+  & dl:nth-child(even)
+    background white
   & dt
     width 80%
   & dd
@@ -98,21 +105,29 @@ body
   margin 5px auto
   display flex
   width 100%
+  & .restoration__grid:nth-of-type(2)
+  & .restoration__description:nth-of-type(2)
+    background $reportTableBackground
+    padding 10px
 
 .restoration__grid
+  justify-content space-between
   flex-flow wrap row
-  margin 10px 0
+  padding 10px 0
   display flex
+  margin 0
   flex 1
 
 .restoration-table
-  margin 10px auto
-  width 40%
-  & dl
-    border-bottom 1px solid $lightGrayHighlight
-  & dl:nth-child(2)
+  margin 10px 0
+  width 47%
+  & dl:nth-of-type(1)
   & dl:last-child
     font-weight bold
+  & dl:nth-child(odd)
+    background $reportTableRow
+  & dl:nth-child(even)
+    background white
   & dd
     text-align right
 
@@ -121,9 +136,9 @@ body
   margin-left 2.5%
 
 .restoration__chart
+  margin auto 0
   display flex
   height 225px
-  margin auto
   width 40%
 
 .chart-container
@@ -133,9 +148,16 @@ body
 .slope__description
   font-weight normal
 
+.restoration__label
+  padding 10px 0 0 10px
+
+.restoration__description
+  padding 0 10px 10px
+
 @media (max-width: $mobileBreak)
   .restoration-table
   .restoration__chart
+    margin 10px auto
     width 90%
   h3
   h4

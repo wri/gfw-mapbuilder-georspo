@@ -207,7 +207,7 @@ strings.en.REPORT_SLOPE_TITLE = 'Slope Analysis';
 strings.en.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
 strings.en.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
 strings.en.REPORT_RESTORATION_TABLE_TYPE = 'Category';
-strings.en.REPORT_RESTORATION_TABLE_VALUE = 'Value';
+strings.en.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
 
 //- NOTE: French
 //- Supported Languages
@@ -406,6 +406,13 @@ strings.fr.MONTHS_LIST = [
   { name: 'Novembre', abbr: 'Nov'},
   { name: 'Décembre', abbr: 'Déc'}
 ];
+
+strings.fr.REPORT_TABLE_TOTAL = 'Total';
+strings.fr.REPORT_SLOPE_TITLE = 'Slope Analysis';
+strings.fr.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
+strings.fr.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
+strings.fr.REPORT_RESTORATION_TABLE_TYPE = 'Category';
+strings.fr.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
 
 
 //- NOTE: Spanish
@@ -606,6 +613,13 @@ strings.es.MONTHS_LIST = [
   { name: 'Diciembre', abbr: 'Dic'}
 ];
 
+strings.es.REPORT_TABLE_TOTAL = 'Total';
+strings.es.REPORT_SLOPE_TITLE = 'Slope Analysis';
+strings.es.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
+strings.es.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
+strings.es.REPORT_RESTORATION_TABLE_TYPE = 'Category';
+strings.es.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
+
 //- NOTE: Portugese
 //- Supported Languages
 strings.pt.LANG_EN = 'Inglês';
@@ -803,6 +817,13 @@ strings.pt.MONTHS_LIST = [
   { name: 'Novembro', abbr: 'Nov'},
   { name: 'Dezembro', abbr: 'Dez'}
 ];
+
+strings.pt.REPORT_TABLE_TOTAL = 'Total';
+strings.pt.REPORT_SLOPE_TITLE = 'Slope Analysis';
+strings.pt.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
+strings.pt.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
+strings.pt.REPORT_RESTORATION_TABLE_TYPE = 'Category';
+strings.pt.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
 
 //- NOTE: Bahasa Indonesia
 //- Supported Languages
@@ -1002,6 +1023,13 @@ strings.id.MONTHS_LIST = [
   { name: 'December', abbr: 'Dec'}
 ];
 
+strings.id.REPORT_TABLE_TOTAL = 'Total';
+strings.id.REPORT_SLOPE_TITLE = 'Slope Analysis';
+strings.id.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
+strings.id.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
+strings.id.REPORT_RESTORATION_TABLE_TYPE = 'Category';
+strings.id.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
+
 //- NOTE: Mandarin
 //- Supported Languages
 strings.zh.LANG_EN = 'English';
@@ -1200,5 +1228,12 @@ strings.zh.MONTHS_LIST = [
   { name: 'November', abbr: 'Nov'},
   { name: 'December', abbr: 'Dec'}
 ];
+
+strings.zh.REPORT_TABLE_TOTAL = 'Total';
+strings.zh.REPORT_SLOPE_TITLE = 'Slope Analysis';
+strings.zh.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
+strings.zh.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
+strings.zh.REPORT_RESTORATION_TABLE_TYPE = 'Category';
+strings.zh.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
 
 export { strings as default };
