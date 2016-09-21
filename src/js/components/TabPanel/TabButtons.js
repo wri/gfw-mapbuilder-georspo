@@ -163,7 +163,7 @@ export default class TabButtons extends Component {
           }
           <li className={`${this.getClassName(MORE)} mobile-show`} data-value={MORE} onClick={this.changeTab}>
             <svg className='svg-icon'>
-              <use xlink:href="#icon-menu" />
+              <use xlinkHref="#icon-menu" />
             </svg>
             <span className='tab-buttons__tab-label mobile-show'>
               {text[language].MORE}
