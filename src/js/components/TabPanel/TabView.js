@@ -61,7 +61,7 @@ export default class TabView extends Component {
         {!narrative ? null :
           <div className={this.getClassName(NARRATIVE)}>
             <div title='close' className='close-icon pointer mobile-show' onClick={this.hideTabView} >
-              <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
+              <svg><use xlinkHref="#shape-close" /></svg>
             </div>
             <h3 className='tab-view__mobile-header mobile-show'>NARRATIVE</h3>
             <div className='tab-view__narrative' dangerouslySetInnerHTML={{ __html: narrative }} />
@@ -69,7 +69,7 @@ export default class TabView extends Component {
         }
         <div className={this.getClassName(LAYERS)}>
           <div title='close' className='close-icon pointer mobile-show' onClick={this.hideTabView} >
-            <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
+            <svg><use xlinkHref="#shape-close" /></svg>
           </div>
           <h3 className='tab-view__mobile-header mobile-show'>{text[language].LAYERS}</h3>
           <LayerToggles />
@@ -77,14 +77,14 @@ export default class TabView extends Component {
         </div>
         <div className={this.getClassName(INFO_WINDOW)}>
           <div title='close' className='close-icon pointer mobile-show' onClick={this.hideTabView} >
-            <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
+            <svg><use xlinkHref="#shape-close" /></svg>
           </div>
           <h3 className='tab-view__mobile-header mobile-show'>{text[language].DATA}</h3>
           <InfoWindow map={map} />
         </div>
         <div className={this.getClassName(ANALYSIS)}>
           <div title='close' className='close-icon pointer mobile-show' onClick={this.hideTabView} >
-            <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
+            <svg><use xlinkHref="#shape-close" /></svg>
           </div>
           <h3 className='tab-view__mobile-header mobile-show'>{text[language].ANALYZE}</h3>
           <AnalysisPanel {...this.props} />
@@ -92,7 +92,7 @@ export default class TabView extends Component {
         {!settings.includeDocumentsTab ? null :
           <div className={this.getClassName(DOCUMENTS)}>
             <div title='close' className='close-icon pointer mobile-show' onClick={this.hideTabView} >
-              <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
+              <svg><use xlinkHref="#shape-close" /></svg>
             </div>
             <h3 className='tab-view__mobile-header mobile-show'>{text[language].DOCS}</h3>
             <Documents active={this.props.activeTab === DOCUMENTS} />
@@ -100,7 +100,7 @@ export default class TabView extends Component {
         }
         <div className={`${this.getClassName(MORE)} mobile-show`}>
           <div title='close' className='close-icon pointer mobile-show' onClick={this.hideTabView} >
-            <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
+            <svg><use xlinkHref="#shape-close" /></svg>
           </div>
           <h3 className='tab-view__mobile-header mobile-show'>{text[language].MORE}</h3>
           <MobileMenu />

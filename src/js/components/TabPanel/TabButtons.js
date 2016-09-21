@@ -14,13 +14,6 @@ const {
   MORE
 } = tabKeys;
 
-const documentsSvg = '<use xlink:href="#icon-documents" />';
-const dataSvg = '<use xlink:href="#icon-data" />';
-const layersSvg = '<use xlink:href="#icon-basemap" />';
-const narrativeSvg = '<use xlink:href="#shape-info" />';
-const analysisSvg = '<use xlink:href="#icon-analysis" />';
-const menuSvg = '<use xlink:href="#icon-menu" />';
-
 let currentFeature, initialTabSet = false;
 
 export default class TabButtons extends Component {
@@ -121,7 +114,9 @@ export default class TabButtons extends Component {
         <ul className='tab-buttons__header'>
           {!narrative ? null :
             <li className={this.getClassName(NARRATIVE)} data-value={NARRATIVE} onClick={this.changeTab}>
-              <svg className='svg-icon tab-icon-narrative' dangerouslySetInnerHTML={{ __html: narrativeSvg }}/>
+              <svg className='svg-icon tab-icon-narrative'>
+                <use xlinkHref="#shape-info" />
+              </svg>
               <span className='tab-tooltip'>{text[language].NARRATIVE}</span>
               <span className='tab-buttons__tab-label mobile-show'>
                 {text[language].NARRATIVE}
@@ -129,21 +124,27 @@ export default class TabButtons extends Component {
             </li>
           }
           <li className={this.getClassName(LAYERS)} data-value={LAYERS} onClick={this.changeTab}>
-            <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: layersSvg }}/>
+            <svg className='svg-icon'>
+              <use xlinkHref="#icon-basemap" />
+            </svg>
             <span className='tab-tooltip'>{text[language].LAYERS}</span>
             <span className='tab-buttons__tab-label mobile-show'>
               {text[language].LAYERS}
             </span>
           </li>
           <li className={this.getClassName(INFO_WINDOW)} data-value={INFO_WINDOW} onClick={this.changeTab}>
-            <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: dataSvg }}/>
+            <svg className='svg-icon'>
+              <use xlinkHref="#icon-data" />
+            </svg>
             <span className='tab-tooltip'>{text[language].DATA}</span>
             <span className='tab-buttons__tab-label mobile-show'>
               {text[language].DATA}
             </span>
           </li>
           <li className={`${this.getClassName(ANALYSIS)}${this.getAnimateClassName(ANALYSIS)}`} data-value={ANALYSIS} onClick={this.changeTab}>
-            <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: analysisSvg }}/>
+            <svg className='svg-icon'>
+              <use xlinkHref="#icon-analysis" />
+            </svg>
             <span className='tab-tooltip'>{text[language].ANALYZE}</span>
             <span className='tab-buttons__tab-label mobile-show'>
               {text[language].ANALYZE}
@@ -151,7 +152,9 @@ export default class TabButtons extends Component {
           </li>
           {!settings.includeDocumentsTab ? null :
             <li className={`${this.getClassName(DOCUMENTS)}${this.getAnimateClassName(DOCUMENTS)}`} data-value={DOCUMENTS} onClick={this.changeTab}>
-              <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: documentsSvg }}/>
+              <svg className='svg-icon'>
+                <use xlinkHref='#icon-documents' />
+              </svg>
               <span className='tab-tooltip'>{text[language].DOCUMENTS}</span>
               <span className='tab-buttons__tab-label mobile-show'>
                 {text[language].DOCS}
@@ -159,7 +162,9 @@ export default class TabButtons extends Component {
             </li>
           }
           <li className={`${this.getClassName(MORE)} mobile-show`} data-value={MORE} onClick={this.changeTab}>
-            <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: menuSvg }}/>
+            <svg className='svg-icon'>
+              <use xlink:href="#icon-menu" />
+            </svg>
             <span className='tab-buttons__tab-label mobile-show'>
               {text[language].MORE}
             </span>

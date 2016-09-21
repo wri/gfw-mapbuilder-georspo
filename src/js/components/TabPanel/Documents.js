@@ -17,8 +17,6 @@ import React, {
 //   }
 // };
 
-const documentsSvg = '<use xlink:href="#icon-documents" />';
-
 const DocumentInstructions = ({language}) => {
   return (
     <div className='documents-instructions'>
@@ -117,7 +115,9 @@ class DocumentResults extends Component {
                 <td>{doc.size}</td>
                 <td className='documents-table__link'>
                   <a href={doc.url} target='_blank'>
-                    <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: documentsSvg }}/>
+                    <svg className='svg-icon'>
+                      <use xlinkHref="#icon-documents" />
+                    </svg>
                   </a>
                 </td>
               </tr>

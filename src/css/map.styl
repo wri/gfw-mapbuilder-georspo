@@ -21,6 +21,17 @@
 .noSlider .map .esriScalebar
   bottom 20px
 
+.map__viewfinder
+  margin -8px 0 0 -8px
+  pointer-events none
+  position absolute
+  fill $darkGray
+  height 16px
+  width 16px
+  z-index 50
+  left 50%
+  top 50%
+
 @media (min-width: $mobileBreak)
   .esriScalebar
     left 50% !important

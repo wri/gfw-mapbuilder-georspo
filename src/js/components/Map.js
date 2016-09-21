@@ -323,6 +323,9 @@ export default class Map extends Component {
           <TabView {...this.state} />
           <Legend {...this.state} />
           {timeWidgets}
+          <svg className={`map__viewfinder${map.loaded ? '' : ' hidden'}`}>
+            <use xlinkHref='#shape-crosshairs' />
+          </svg>
         </div>
         <div className={`analysis-modal-container modal-wrapper ${analysisModalVisible ? '' : 'hidden'}`}>
           <AnalysisModal />

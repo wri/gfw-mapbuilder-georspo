@@ -9,9 +9,6 @@ import React, {
   PropTypes
 } from 'react';
 
-// Info Icon Markup for innerHTML
-const useSvg = '<use xlink:href="#shape-info" />';
-
 const showSubLayer = function showSubLayer (layerItem) {
   const {esriLayer, subIndex} = layerItem;
   //- If this layer is not already in visible layers, add it, then set visible layers
@@ -150,7 +147,7 @@ export default class LayerCheckbox extends Component {
           {label}
         </span>
         <span className='info-icon pointer' onClick={this.showInfo.bind(this)}>
-          <svg dangerouslySetInnerHTML={{ __html: useSvg }}/>
+          <svg><use xlinkHref="#shape-info" /></svg>
         </span>
         {!sublabel ? null : <div className='layer-checkbox-sublabel'>{sublabel[language]}</div>}
         {!this.props.children ? null :

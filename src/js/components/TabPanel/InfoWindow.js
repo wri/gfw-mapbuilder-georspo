@@ -7,9 +7,6 @@ import React, {
   PropTypes
 } from 'react';
 
-const closeSvg = '<use xlink:href="#shape-close" />';
-const polygonSvg = '<use xlink:href="#icon-analysis-poly" />';
-
 export default class InfoWindow extends Component {
 
   static contextTypes = {
@@ -80,9 +77,9 @@ export default class InfoWindow extends Component {
         <div className={`infoWindow__content ${selectedFeature ? '' : 'hidden'}`}>
           <div className='feature-controls'>
             <span>{count} features selected.</span>
-            <svg onClick={this.clearFeatures}
-              className='infoWindow__clearFeatures-icon pointer'
-              dangerouslySetInnerHTML={{ __html: closeSvg }} />
+            <svg onClick={this.clearFeatures} className='infoWindow__clearFeatures-icon pointer'>
+              <use xlinkHref="#shape-close" />
+            </svg>
             <span className={`arrow right ${selectedIndex < count - 1 ? '' : 'disabled'}`} onClick={this.next}>Next</span>
             <span className={`arrow left ${selectedIndex > 0 ? '' : 'disabled'}`} onClick={this.previous}>Prev</span>
           </div>
@@ -99,7 +96,9 @@ export default class InfoWindow extends Component {
             {text[language].INFO_WINDOW_INSTRUCTION_LIST.map(this.renderInstructionList)}
           </ol>
           <div className='analysis-instructions__draw-icon-container'>
-            <svg className='analysis-instructions__draw-icon' dangerouslySetInnerHTML={{ __html: polygonSvg }} />
+            <svg className='analysis-instructions__draw-icon'>
+              <use xlinkHref="#icon-analysis-poly" />
+            </svg>
           </div>
         </div>
         {footer}
