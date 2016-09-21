@@ -532,7 +532,7 @@ strings.es.OVERVIEW = 'Resumen';
 strings.es.CITATION = 'Citación';
 //- Case does not matter, css makes them all uppercase
 strings.es.FUNCTION = 'Función';
-strings.es.RESOLUTION = 'Resolución;
+strings.es.RESOLUTION = 'Resolución';
 strings.es.GEO_COVERAGE = 'Cobertura geográfica';
 strings.es.SOURCE = 'Fuente';
 strings.es.FREQUENCY = 'Frecuencia';
