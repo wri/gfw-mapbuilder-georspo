@@ -604,7 +604,7 @@ strings.pt.NAV_MAP_THEMES = 'Temas do Mapa';
 strings.pt.NAV_MY_GFW = 'Fazer Login no MEU GFW';
 strings.pt.NAV_LANGUAGE = 'Selecionar Idioma';
 //- Documents
-strings.pt.DOCS_INSTRUCTIONS = 'Selecione área de interesse para verificar a existência de documentos relacionados;
+strings.pt.DOCS_INSTRUCTIONS = 'Selecione área de interesse para verificar a existência de documentos relacionados';
 strings.pt.DOCS_NOT_AVAILABLE = 'Não existem documentos disponíveis para esta área';
 strings.pt.DOCS_TYPE = 'Tipo';
 strings.pt.DOCS_AUTHOR = 'Autor';
