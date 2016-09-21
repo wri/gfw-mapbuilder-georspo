@@ -532,7 +532,7 @@ strings.es.OVERVIEW = 'Resumen';
 strings.es.CITATION = 'Citación';
 //- Case does not matter, css makes them all uppercase
 strings.es.FUNCTION = 'Función';
-strings.es.RESOLUTION = 'Resolución;
+strings.es.RESOLUTION = 'Resolución';
 strings.es.GEO_COVERAGE = 'Cobertura geográfica';
 strings.es.SOURCE = 'Fuente';
 strings.es.FREQUENCY = 'Frecuencia';
@@ -604,7 +604,7 @@ strings.pt.NAV_MAP_THEMES = 'Temas do Mapa';
 strings.pt.NAV_MY_GFW = 'Fazer Login no MEU GFW';
 strings.pt.NAV_LANGUAGE = 'Selecionar Idioma';
 //- Documents
-strings.pt.DOCS_INSTRUCTIONS = 'Selecione área de interesse para verificar a existência de documentos relacionados;
+strings.pt.DOCS_INSTRUCTIONS = 'Selecione área de interesse para verificar a existência de documentos relacionados';
 strings.pt.DOCS_NOT_AVAILABLE = 'Não existem documentos disponíveis para esta área';
 strings.pt.DOCS_TYPE = 'Tipo';
 strings.pt.DOCS_AUTHOR = 'Autor';
@@ -652,7 +652,7 @@ strings.pt.ANALYSIS_TOTAL_GAIN_LABEL = 'Ganho de cobertura florestal total';
 strings.pt.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
 strings.pt.ANALYSIS_SLOPE_OPTION = 'Opção #';
 strings.pt.SLOPE_SELECT_LABEL = 'Escolha o gradiente de inclinação:';
-strings.pt.ANALYSIS_RESTORATION_ERROR = 'Área não satisfaz critérios de potencial/sem dados;
+strings.pt.ANALYSIS_RESTORATION_ERROR = 'Área não satisfaz critérios de potencial/sem dados';
 strings.pt.ANALYSIS_GROUP_RESTORATION = 'Potencial de restauração para';
 strings.pt.ANALYSIS_GROUP_SLOPE = 'Potencial de acordo com';
 strings.pt.ANALYSIS_GROUP_OTHER = 'Outras análises';
