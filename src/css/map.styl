@@ -15,11 +15,8 @@
   font-size 12px
 
 .map .esriScalebar
-  bottom 90px
-  z-index 3
-
-.noSlider .map .esriScalebar
-  bottom 20px
+  bottom 5px
+  z-index 15
 
 .map__viewfinder
   margin -8px 0 0 -8px
@@ -28,16 +25,14 @@
   fill $darkGray
   height 16px
   width 16px
-  z-index 50
+  z-index 4
   left 50%
   top 50%
 
-@media (min-width: $mobileBreak)
-  .esriScalebar
-    left 50% !important
-    & > div
-      transform translate(-50%, 0)
+//@media (min-width: $mobileBreak)
+//  .esriScalebar
+//    left 50% !important
 
 @media (max-width: $mobileBreak)
   .map .esriScalebar
-    bottom 60px
+    bottom 55px

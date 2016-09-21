@@ -205,6 +205,7 @@ const addTitleAndAttributes = function addTitleAndAttributes (params, featureInf
 */
 const formatRestorationData = (counts, labels, colors) => {
   return labels.map((label, index) => {
+    console.log(counts[index]);
     return {
       name: label,
       data: [counts[index]],
@@ -704,7 +705,7 @@ const runAnalysis = function runAnalysis (params, feature) {
         const tableNode = document.getElementById('slope-table');
         const titleNode = document.getElementById('slope-analysis-header');
         const descriptionNode = document.getElementById('slope-analysis-description');
-        const {counts} = results;
+        const {counts = []} = results;
         // const labels = counts.map((v, index) => text[lang].ANALYSIS_SLOPE_OPTION + (index + 1));
         const labels = settings.labels[lang].slopeAnalysisPotentialOptions;
         const colors = settings.slopeAnalysisPotentialColors;

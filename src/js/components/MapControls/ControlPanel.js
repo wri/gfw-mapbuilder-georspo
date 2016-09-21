@@ -90,8 +90,8 @@ export default class ControlPanel extends Component {
           </li>
           <li className='control-panel__toggle-panels pointer mobile-hide' title={text[language].TOOL_TOGGLE} onClick={this.togglePanels}>
             {tableOfContentsVisible ?
-              <svg><use xlinkHref="#icon-controls-toggle__on" /></svg> :
-              <svg><use xlinkHref="#icon-controls-toggle__off" /></svg>
+              <svg className='svg-icon'><use xlinkHref="#icon-controls-toggle__on" /></svg> :
+              <svg className='svg-icon'><use xlinkHref="#icon-controls-toggle__off" /></svg>
             }
           </li>
           <li className='control-panel__reset pointer mobile-hide' title={text[language].TOOL_RESET} onClick={this.resetPage}>
