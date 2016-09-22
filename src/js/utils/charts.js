@@ -73,6 +73,7 @@ export default {
     const chart = new Highcharts.Chart({
       chart: { renderTo: el, type: 'bar' },
       title: { text: name, align: 'left' },
+      legend: { align: 'left' },
       xAxis: { title: { text: false}, labels: { enabled: false}, categories: [name]},
       yAxis: { reversedStacks: false, title: { text: 'Hectares (k = 1000)' }},
       plotOptions: { series: { stacking: 'normal'}},

@@ -13,13 +13,14 @@ import all from 'dojo/promise/all';
 * @param {number} options.canopyDensity - Tree Canopy Density Value
 * @param {string} options.language - current language, Needed to get layer config from settings
 * @param {string=} options.activeSlopeClass - Current slope class setting
-* @param {object=} options.settings - Application settings from resources.j
+* @param {object=} options.settings - Application settings from resources.
 * @return {promise}
 */
 export default function performAnalysis (options) {
   const {type, geometry, canopyDensity, activeSlopeClass, settings} = options;
   const restorationUrl = settings && settings.restorationImageServer;
-  const landCoverConfig = settings && settings.layerPanel ? utils.getObject(settings.layerPanel.GROUP_LC.layers, 'id', layerKeys.LAND_COVER) : {};
+  const landCoverConfig = settings && settings.layerPanel && settings.layerPanel.GROUP_LC ?
+    utils.getObject(settings.layerPanel.GROUP_LC.layers, 'id', layerKeys.LAND_COVER) : {};
   const config = analysisConfig[type];
   const promise = new Deferred();
 

@@ -343,6 +343,18 @@
       "tooltip": "Enter a semi-colon separated list of colors for your population classes",
       "label": "Enter a semi-colon separated list of colors for your population classes",
       "placeholder": "rgb(0, 0, 0);rgb(255, 255, 128);rgb(250, 209, 85);rgb(242, 167, 46);rgb(173, 83, 19);rgb(107, 0, 0);"
+    }, {
+      "type": "string",
+      "fieldName": "rainfallClassNames",
+      "tooltip": "Enter a semi-colon separated list of class names for your rainfall classes",
+      "label": "Enter a semi-colon separated list of class names for your rainfall classes",
+      "placeholder": "No Data;Class 1;Class 2;Class 3;"
+    }, {
+      "type": "string",
+      "fieldName": "rainfallClassColors",
+      "tooltip": "Enter a semi-colon separated list of colors for your rainfall classes",
+      "label": "Enter a semi-colon separated list of colors for your rainfall classes",
+      "placeholder": "rgb(0, 0, 0);rgb(255, 0, 0), rgb(0, 255, 0);rgb(0, 0, 255);"
     },
 
 
@@ -415,6 +427,10 @@
     "intactForests": true,
     "aboveGroundBiomass": true,
     "landCover": true,
+    "mangroves": true,
+    "sadAlerts": true,
+    "gladAlerts": true,
+    "terraIAlerts": true,
     "webmapMenuName": "Land Use",
 
     "restorationModule": false,
@@ -431,6 +447,8 @@
     "landCoverClassColors": "rgb(0, 0, 0);rgb(0, 174, 0);rgb(255, 255, 0);rgb(255, 155, 190);rgb(0, 238, 238);rgb(255, 0, 0);rgb(255, 255, 188);",
     "populationClassNames": "No Data;<= 20;20 - 50;50 - 150;150 - 500;> 500;",
     "populationClassColors": "rgb(0, 0, 0);rgb(255, 255, 128);rgb(250, 209, 85);rgb(242, 167, 46);rgb(173, 83, 19);rgb(107, 0, 0);",
+    "rainfallClassNames": "No Data;Class 1;Class 2;Class 3;",
+    "rainfallClassColors": "rgb(0, 0, 0);rgb(255, 0, 0), rgb(0, 255, 0);rgb(0, 0, 255);",
     "restorationSlope": true,
     "restorationSlopePotential": true,
     "restorationTreeCover": true,

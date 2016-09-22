@@ -1,12 +1,17 @@
 import React, {PropTypes, Component} from 'react';
+import appUtils from 'utils/AppUtils';
 import charts from 'utils/charts';
 import text from 'js/languages';
 
 const formatData = (counts, labels, colors) => {
   return labels.map((label, index) => {
+    const value = typeof counts[index] === 'number' ?
+      appUtils.roundToHundred(counts[index]) :
+      counts[index];
+
     return {
       name: label,
-      data: [counts[index]],
+      data: [value],
       color: colors[index]
     };
   }).filter((item) => {
@@ -32,7 +37,7 @@ export default class RestorationCharts extends Component {
   }
 
   componentDidMount() {
-    const {slopeChart, landCoverChart, populationChart, treeCoverChart} = this.refs;
+    const {slopeChart, landCoverChart, populationChart, treeCoverChart, rainfallChart} = this.refs;
     const {results} = this.props;
     const {settings, language} = this.context;
     //- Format the data into series highcharts can easily consume
@@ -40,6 +45,7 @@ export default class RestorationCharts extends Component {
     const lcData = formatData(results.landCover, settings.landCoverClasses, settings.landCoverColors);
     const popData = formatData(results.population, settings.populationClasses, settings.populationColors);
     const tcData = formatData(results.treeCover, settings.treeCoverClasses, settings.treeCoverColors);
+    const rainfallData = formatData(results.rainfall, settings.rainfallClasses, settings.rainfallColors);
     //- If there is data and this chart is enabled, show it, make sure they both have the same
     //- boolean state otherwise something went wrong (e.g. true with data or false and no data),
     //- and we should show the error message
@@ -47,7 +53,8 @@ export default class RestorationCharts extends Component {
       haveSameBoolState(settings.restorationSlopePotential, slopeData.length) &&
       haveSameBoolState(settings.restorationLandCover, lcData.length) &&
       haveSameBoolState(settings.restorationPopulation, popData.length) &&
-      haveSameBoolState(settings.restorationTreeCover, tcData.length)
+      haveSameBoolState(settings.restorationTreeCover, tcData.length) &&
+      haveSameBoolState(settings.restorationRainfall, rainfallData.length)
     ) {
       if (settings.restorationSlopePotential) {
         charts.makeRestorationBarChart(slopeChart, text[language].ANALYSIS_SLOPE_CHART_HEADER, slopeData);
@@ -60,6 +67,10 @@ export default class RestorationCharts extends Component {
       }
       if (settings.restorationTreeCover) {
         charts.makeRestorationBarChart(treeCoverChart, text[language].ANALYSIS_TREE_COVER_CHART_HEADER, tcData);
+      }
+
+      if (settings.restorationRainfall) {
+        charts.makeRestorationBarChart(rainfallChart, text[language].ANALYSIS_RAINFALL_CHART_HEADER, rainfallData);
       }
     } else {
       this.setState({ hasErrors: true });
@@ -77,6 +88,7 @@ export default class RestorationCharts extends Component {
           <div ref='landCoverChart' className={`analysis__chart-container${settings.restorationLandCover ? '' : ' hidden'}`} />
           <div ref='populationChart' className={`analysis__chart-container${settings.restorationPopulation ? '' : ' hidden'}`} />
           <div ref='treeCoverChart' className={`analysis__chart-container${settings.restorationTreeCover ? '' : ' hidden'}`} />
+          <div ref='rainfallChart' className={`analysis__chart-container${settings.restorationRainfall ? '' : ' hidden'}`} />
         </div>
       );
   }

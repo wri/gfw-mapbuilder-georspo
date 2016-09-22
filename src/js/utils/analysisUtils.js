@@ -488,6 +488,7 @@ export default {
     const tcContent = lang.delegate(content, {renderingRule: rules.arithmetic(restoration.treeCoverId, rasterId, OP_MULTIPLY)});
     const popContent = lang.delegate(content, {renderingRule: rules.arithmetic(restoration.populationId, rasterId, OP_MULTIPLY)});
     const slopeContent = lang.delegate(content, {renderingRule: rules.arithmetic(restoration.slopeId, rasterId, OP_MULTIPLY)});
+    const rainfallContent = lang.delegate(content, {renderingRule: rules.arithmetic(restoration.rainfallId, rasterId, OP_MULTIPLY)});
     const promises = {};
 
     if (settings.restorationLandCover) {
@@ -506,6 +507,10 @@ export default {
       promises.SLOPE = computeHistogram(url, slopeContent);
     }
 
+    if (settings.restorationRainfall) {
+      promises.RAINFALL = computeHistogram(url, rainfallContent);
+    }
+
     all(promises).always((results) => {
       //- the first value is No Data, don't slice as the charts formatting function will remove this
       if (!results.error) {
@@ -513,7 +518,8 @@ export default {
           landCover: results.LC ? formatters.getCounts(results.LC, content.pixelSize, true).counts : [0],
           treeCover: results.TC ? formatters.getCounts(results.TC, content.pixelSize, true).counts : [0],
           population: results.POP ? formatters.getCounts(results.POP, content.pixelSize, true).counts : [0],
-          slope: results.SLOPE ? formatters.getCounts(results.SLOPE, content.pixelSize, true).counts : [0]
+          slope: results.SLOPE ? formatters.getCounts(results.SLOPE, content.pixelSize, true).counts : [0],
+          rainfall: results.RAINFALL ? formatters.getCounts(results.RAINFALL, content.pixelSize, true).counts : [0]
         });
       } else {
         promise.resolve(results);

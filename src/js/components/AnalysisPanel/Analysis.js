@@ -118,6 +118,7 @@ export default class Analysis extends Component {
   renderResults = (type, results, language) => {
     const {settings} = this.context;
     const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
+    const lcLayers = layerGroups.GROUP_LC ? layerGroups.GROUP_LC.layers : [];
     const layerGroups = settings.layerPanel;
     let labels, layerConf, colors;
     switch (type) {
@@ -126,12 +127,12 @@ export default class Analysis extends Component {
       case analysisKeys.TC_LOSS_GAIN:
         return <LossGainBadge lossCounts={results.lossCounts} gainCounts={results.gainCounts} />;
       case analysisKeys.LCC:
-        layerConf = utils.getObject(layerGroups.GROUP_LC.layers, 'id', layerKeys.LAND_COVER);
+        layerConf = utils.getObject(lcLayers, 'id', layerKeys.LAND_COVER);
         return <CompositionPieChart
           name={text[language].ANALYSIS_LCC_CHART_NAME}
           counts={results.counts}
           colors={layerConf.colors}
-          labels={layerConf.classes} />;
+          labels={layerConf.classes[language]} />;
       case analysisKeys.TC_LOSS:
         return <BarChart
           name={text[language].ANALYSIS_TC_CHART_NAME}
@@ -147,11 +148,11 @@ export default class Analysis extends Component {
       case analysisKeys.LC_LOSS:
       case analysisKeys.INTACT_LOSS:
       case analysisKeys.MANGROVE_LOSS:
-        layerConf = utils.getObject(layerGroups.GROUP_LC.layers, 'id', layerKeys.LAND_COVER);
+        layerConf = utils.getObject(lcLayers, 'id', layerKeys.LAND_COVER);
         labels = (function () {
           switch (type) {
             case analysisKeys.LC_LOSS:
-              return layerConf.classes;
+              return layerConf.classes[language];
             case analysisKeys.INTACT_LOSS:
               return text[language].ANALYSIS_IFL_LABELS;
             case analysisKeys.MANGROVE_LOSS:

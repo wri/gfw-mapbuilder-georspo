@@ -136,6 +136,12 @@ const formatResources = () => {
       resources.populationClasses = parseIntoArray(resources.populationClassNames);
       resources.populationColors = parseIntoArray(resources.populationClassColors);
     }
+
+    //- Parse rainfall class names if present
+    if (resources.rainfallClassNames) {
+      resources.rainfallClasses = parseIntoArray(resources.rainfallClassNames);
+      resources.rainfallColors = parseIntoArray(resources.rainfallClassColors);
+    }
   }
 
   //- Remove Layers from resources.layers if configured

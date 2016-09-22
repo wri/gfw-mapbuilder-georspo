@@ -187,6 +187,7 @@ strings.en.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
 strings.en.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
 strings.en.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
 strings.en.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
+strings.en.ANALYSIS_RAINFALL_CHART_HEADER = 'Rainfall';
 strings.en.MONTHS_LIST = [
   { name: 'January', abbr: 'Jan'},
   { name: 'February', abbr: 'Feb'},
@@ -392,6 +393,7 @@ strings.fr.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
 strings.fr.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
 strings.fr.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
 strings.fr.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
+strings.fr.ANALYSIS_RAINFALL_CHART_HEADER = 'Rainfall';
 strings.fr.MONTHS_LIST = [
   { name: 'Janvier', abbr: 'Janv'},
   { name: 'Février', abbr: 'Févr'},
@@ -598,6 +600,7 @@ strings.es.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
 strings.es.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
 strings.es.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
 strings.es.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
+strings.es.ANALYSIS_RAINFALL_CHART_HEADER = 'Rainfall';
 strings.es.MONTHS_LIST = [
   { name: 'Enero', abbr: 'Ene'},
   { name: 'Febrero', abbr: 'Feb'},
@@ -803,6 +806,7 @@ strings.pt.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
 strings.pt.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
 strings.pt.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
 strings.pt.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
+strings.pt.ANALYSIS_RAINFALL_CHART_HEADER = 'Rainfall';
 strings.pt.MONTHS_LIST = [
   { name: 'Janeiro', abbr: 'Jan'},
   { name: 'Fevereiro', abbr: 'Feb'},
@@ -1008,6 +1012,7 @@ strings.id.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
 strings.id.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
 strings.id.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
 strings.id.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
+strings.id.ANALYSIS_RAINFALL_CHART_HEADER = 'Rainfall';
 strings.id.MONTHS_LIST = [
   { name: 'January', abbr: 'Jan'},
   { name: 'February', abbr: 'Feb'},
@@ -1214,6 +1219,7 @@ strings.zh.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
 strings.zh.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
 strings.zh.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
 strings.zh.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
+strings.zh.ANALYSIS_RAINFALL_CHART_HEADER = 'Rainfall';
 strings.zh.MONTHS_LIST = [
   { name: 'January', abbr: 'Jan'},
   { name: 'February', abbr: 'Feb'},

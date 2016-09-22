@@ -47,7 +47,7 @@ export default class AnalysisTypeSelect extends Component {
   prepareOptions = (language) => {
     const {settings} = this.context;
     //- Get references to all the layers
-    const lcdGroupLayers = settings.layerPanel.GROUP_LCD;
+    const lcdGroupLayers = settings.layerPanel.GROUP_LCD ? settings.layerPanel.GROUP_LCD.layers : [];
     let options = text[language].ANALYSIS_SELECT_TYPE_OPTIONS;
     //- Remove options not included based on settings
     //- Also, remove Tree Cover Options if those layers are not in the settings.layerPanel.GROUP_LCD config
@@ -74,15 +74,19 @@ export default class AnalysisTypeSelect extends Component {
         case analysisKeys.TERRA_I_ALERTS:
           return settings.terraIAlerts;
         case analysisKeys.TC_LOSS:
-          return appUtils.containsObject(lcdGroupLayers.layers, 'id', layerKeys.TREE_COVER_LOSS);
+          return appUtils.containsObject(lcdGroupLayers, 'id', layerKeys.TREE_COVER_LOSS);
         case analysisKeys.TC_LOSS_GAIN:
-          return appUtils.containsObject(lcdGroupLayers.layers, 'id', layerKeys.TREE_COVER_GAIN);
+          return appUtils.containsObject(lcdGroupLayers, 'id', layerKeys.TREE_COVER_GAIN);
         default:
           return true;
       }
     });
-    //- Merge in the restoration options if the module is enabled
-    if (settings.restorationModule) {
+    //- Merge in the restoration options if the module is enabled and at least one options is enabled
+    if (settings.restorationModule &&
+      (settings.restorationSlopePotential || settings.restorationLandCover ||
+      settings.restorationPopulation || settings.restorationTreeCover ||
+      settings.restorationRainfall)
+    ) {
       const {restorationOptions} = settings.labels[language];
       restorationOptions.forEach((restorationOption) => {
         options.push({

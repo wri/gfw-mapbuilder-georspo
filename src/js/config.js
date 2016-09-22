@@ -154,7 +154,8 @@ const config = {
       landCoverId: '$1',
       populationId: '$2',
       slopeId: '$3',
-      treeCoverId: '$4'
+      treeCoverId: '$4',
+      rainfallId: '$5'
     }
   }
 };
@@ -217,7 +218,7 @@ config.analysis[analysisKeys.BIO_LOSS] = {
 
 config.analysis[analysisKeys.SLOPE] = {
   id: '$3',
-  restoration: '$5',
+  restoration: '$6',
   slopeOptions: [
     { label: '<= 30%', value: 1 },
     { label: '30% - 60%', value: 2 },

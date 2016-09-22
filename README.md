@@ -218,7 +218,7 @@ strings.pt.DATA = 'Data'; // Portuguese
 The other location is the `src/js/resources.js` file.  There are `layers` and `basemaps` each with subsections for each of the four languages.  In each subsection is an array or objects containing the layer configuration.  Be careful what you change in here, the only three things related to labels are `label`, `sublabel`, and `group`. The `group` refers to the name on the accordion, it needs to be the same as the other layers in the same group (they are linked by a `groupKey`).
 
 ### Adding Analysis
-Documentation coming soon...
+[See ANALYSIS.md](ANALYSIS.md)
 
 ### Contributing
 [See CONTRIBUTING.md](CONTRIBUTING.md)

@@ -60,7 +60,7 @@ export default class CanopyModal extends Component {
     const {map, settings} = this.context;
     if (map.loaded) {
       //- Get the layer config, I am hardcoding en becuase I do not need anything language specific, just its config
-      const lcGroupLayers = settings.layerPanel.GROUP_LC.layers;
+      const lcGroupLayers = settings.layerPanel.GROUP_LC ? settings.layerPanel.GROUP_LC.layers : [];
       const layerConfig = utils.getObject(lcGroupLayers, 'id', layerKeys.TREE_COVER);
       const renderingRule = rasterFuncs.getColormapRemap(layerConfig.colormap, [density, layerConfig.inputRange[1]], layerConfig.outputRange);
       const layer = map.getLayer(layerKeys.TREE_COVER);

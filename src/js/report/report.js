@@ -205,10 +205,12 @@ const addTitleAndAttributes = function addTitleAndAttributes (params, featureInf
 */
 const formatRestorationData = (counts, labels, colors) => {
   return labels.map((label, index) => {
-    console.log(counts[index]);
+    const value = typeof counts[index] === 'number' ?
+      appUtils.roundToHundred(counts[index]) :
+      counts[index];
     return {
       name: label,
-      data: [counts[index]],
+      data: [value],
       color: colors[index]
     };
   }).filter((item) => {
@@ -248,7 +250,9 @@ const generateRestorationTable = function generateRestorationTable (title, lang,
 
   data.forEach((datum) => {
     table.appendChild(generateRow(datum.name,
-      typeof datum.data[0] === 'number' ? number.format(datum.data[0]) : datum.data[0]
+      typeof datum.data[0] === 'number' ?
+        number.format(appUtils.roundToHundred(datum.data[0])) :
+        datum.data[0]
     ));
   });
   return table;
@@ -266,12 +270,20 @@ const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (re
   const lcData = formatRestorationData(results.landCover, settings.landCoverClasses, settings.landCoverColors);
   const popData = formatRestorationData(results.population, settings.populationClasses, settings.populationColors);
   const tcData = formatRestorationData(results.treeCover, settings.treeCoverClasses, settings.treeCoverColors);
+  const rainfallData = formatRestorationData(results.rainfall, settings.rainfallClasses, settings.rainfallColors);
   // If any if the results have no data (no length), don't render any content
+  // If all of the options are disabled, also return
   if (
     !haveSameBoolState(settings.restorationSlopePotential, slopeData.length) ||
     !haveSameBoolState(settings.restorationLandCover, lcData.length) ||
     !haveSameBoolState(settings.restorationPopulation, popData.length) ||
-    !haveSameBoolState(settings.restorationTreeCover, tcData.length)
+    !haveSameBoolState(settings.restorationTreeCover, tcData.length) ||
+    !haveSameBoolState(settings.restorationRainfall, rainfallData.length) ||
+    !(
+      settings.restorationSlopePotential && settings.restorationLandCover &&
+      settings.restorationPopulation && settings.restorationTreeCover &&
+      settings.restorationRainfall
+    )
   ) { return; }
   // Create all the necessary dom nodes
   const container = document.createElement('div');
@@ -284,6 +296,7 @@ const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (re
   const lcNode = document.createElement('div');
   const popNode = document.createElement('div');
   const tcNode = document.createElement('div');
+  const rainfallNode = document.createElement('div');
   // Append all the nodes to the root node and add classes etc.
   container.setAttribute('class', 'restoration__module');
   labelNode.setAttribute('class', 'restoration__label');
@@ -295,6 +308,7 @@ const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (re
   lcNode.setAttribute('class', 'restoration__chart');
   popNode.setAttribute('class', 'restoration__chart');
   tcNode.setAttribute('class', 'restoration__chart');
+  rainfallNode.setAttribute('class', 'restoration__chart');
   labelNode.innerHTML = `${prefix} ${label}`;
   descriptionNode.innerHTML = settings.labels[lang].restorationChartDescription;
   tableDescriptionNode.innerHTML = settings.labels[lang].restorationTableDescription;
@@ -329,15 +343,23 @@ const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (re
     tableGridNode.appendChild(generateRestorationTable(text[lang].ANALYSIS_TREE_COVER_CHART_HEADER, lang, tcData));
     charts.makeRestorationBarChart(tcNode, text[lang].ANALYSIS_TREE_COVER_CHART_HEADER, tcData);
   }
+
+  if (settings.restorationRainfall) {
+    gridNode.appendChild(rainfallNode);
+    tableGridNode.appendChild(generateRestorationTable(text[lang].ANALYSIS_RAINFALL_CHART_HEADER, lang, rainfallData));
+    charts.makeRestorationBarChart(rainfallNode, text[lang].ANALYSIS_RAINFALL_CHART_HEADER, rainfallData);
+  }
 };
 
 const runAnalysis = function runAnalysis (params, feature) {
-  const layerConf = appUtils.getObject(resources.layerPanel.GROUP_LC.layers, 'id', layerKeys.LAND_COVER);
+  const lcLayers = resources.layerPanel.GROUP_LC ? resources.layerPanel.GROUP_LC.layers : [];
+  const lcdLayers = resources.layerPanel.GROUP_LCD ? resources.layerPanel.GROUP_LC.layers : [];
+  const layerConf = appUtils.getObject(lcLayers, 'id', layerKeys.LAND_COVER);
   const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
   const { tcd, lang, settings, activeSlopeClass } = params;
   //- Only Analyze layers in the analysis
 
-  if (appUtils.containsObject(settings.layerPanel.GROUP_LCD.layers, 'id', layerKeys.TREE_COVER_LOSS)) {
+  if (appUtils.containsObject(lcdLayers, 'id', layerKeys.TREE_COVER_LOSS)) {
     //- Loss/Gain Analysis
     performAnalysis({
       type: analysisKeys.TC_LOSS_GAIN,
@@ -381,7 +403,7 @@ const runAnalysis = function runAnalysis (params, feature) {
     gainBadge.remove();
   }
 
-  if (settings.landCover) {
+  if (settings.landCover && layerConf) {
     //- Land Cover with Loss Analysis
     performAnalysis({
       type: analysisKeys.LC_LOSS,
@@ -391,7 +413,7 @@ const runAnalysis = function runAnalysis (params, feature) {
       language: lang
     }).then((results) => {
       const configuredColors = layerConf.colors;
-      const labels = layerConf.classes;
+      const labels = layerConf.classes[lang];
       const node = document.getElementById('lc-loss');
       const { counts, encoder } = results;
       const Xs = encoder.A;
@@ -426,7 +448,7 @@ const runAnalysis = function runAnalysis (params, feature) {
         const series = charts.formatCompositionAnalysis({
           colors: layerConf.colors,
           name: text[lang].ANALYSIS_LCC_CHART_NAME,
-          labels: layerConf.classes,
+          labels: layerConf.classes[lang],
           counts: results.counts
         });
 

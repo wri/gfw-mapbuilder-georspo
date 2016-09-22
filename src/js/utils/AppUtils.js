@@ -43,6 +43,11 @@ const utils = {
   },
 
   /**
+  * Round down to the nearest 100s
+  */
+  roundToHundred: (value) => (Math.floor(value / 100) * 100),
+
+  /**
   * Return true if the document.execCommand exists
   * @return {boolean}
   */
