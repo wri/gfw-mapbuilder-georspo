@@ -117,9 +117,9 @@ export default class Analysis extends Component {
 
   renderResults = (type, results, language) => {
     const {settings} = this.context;
+    const layerGroups = settings.layerPanel;
     const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
     const lcLayers = layerGroups.GROUP_LC ? layerGroups.GROUP_LC.layers : [];
-    const layerGroups = settings.layerPanel;
     let labels, layerConf, colors;
     switch (type) {
       case analysisKeys.FIRES:
