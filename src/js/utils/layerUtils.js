@@ -22,14 +22,18 @@ export default {
     const title = config.title[lang];
     const content = config.content[lang];
     //- Add the title
-    template += '<div class="header">' + title + '</div>';
+    if (title) {
+      template += '<div class="header">' + title + '</div>';
+    }
     //- Add the attr table
     template += '<table class="attrTable">';
     //- Add the content
-    content.forEach((row) => {
-      template += '<tr><td class="attrName">' + row.label + '</td>' +
-                  '<td class="attrValue">${' + row.fieldExpression + '}</td></tr>';
-    });
+    if (content) {
+      content.forEach((row) => {
+        template += '<tr><td class="attrName">' + row.label + '</td>' +
+                    '<td class="attrValue">${' + row.fieldExpression + '}</td></tr>';
+      });
+    }
     //- Close the table and container, then return the template
     template += '</table></div></div>';
     return new InfoTemplate({
