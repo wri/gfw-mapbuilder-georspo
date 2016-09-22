@@ -13,10 +13,27 @@ export default {
 
   /**
   * @param {object} config
-  * @param {string} config.title - Title for the info template
-  * @param {string} config.content - Content for the info template
+  * @param {object} config.title - Title for the info template in a dictionary of ISO Codes
+  * @param {object} config.content - Content for the info template in a dictionary of ISO Codes
+  * @param {string} lang - ISO Code to use for the popup
   */
-  makeInfoTemplate: (config) => {
-    return new InfoTemplate(config);
+  makeInfoTemplate: (config, lang) => {
+    let template = '<div class="esriViewPopup"><div class="mainSection">';
+    const title = config.title[lang];
+    const content = config.content[lang];
+    //- Add the title
+    template += '<div class="header">' + title + '</div>';
+    //- Add the attr table
+    template += '<table class="attrTable">';
+    //- Add the content
+    content.forEach((row) => {
+      template += '<tr><td class="attrName">' + row.label + '</td>' +
+                  '<td class="attrValue">${' + row.fieldExpression + '}</td></tr>';
+    });
+    //- Close the table and container, then return the template
+    template += '</table></div></div>';
+    return new InfoTemplate({
+      content: template
+    });
   }
 };

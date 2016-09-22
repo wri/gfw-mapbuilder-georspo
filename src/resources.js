@@ -38,17 +38,17 @@ export default {
   documentsMapserver: 'http://gis.forest-atlas.org/arcgis/rest/services/CMR/documents_administratifs/MapServer',
   //- Layers/Analysis Settings
   iso: '',
-  activeFires: false,
-  intactForests: false,
-  aboveGroundBiomass: false,
-  landCover: false,
-  mangroves: false,
-  sadAlerts: false,
-  gladAlerts: false,
-  terraIAlerts: false,
+  activeFires: true,
+  intactForests: true,
+  aboveGroundBiomass: true,
+  landCover: true,
+  mangroves: true,
+  sadAlerts: true,
+  gladAlerts: true,
+  terraIAlerts: true,
   webmapMenuName: 'Land Use',
   //- Restoration Module settings
-  restorationModule: true,
+  restorationModule: false,
   restorationImageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module2/ImageServer', //'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module/ImageServer'
   slopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
   alternativeSlopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
@@ -68,11 +68,11 @@ export default {
   rainfallClassColors: 'rgb(0, 0, 0);rgb(255, 0, 0), rgb(0, 255, 0);rgb(0, 0, 255);',
   //- Include/Exclude various restoration analysis types
   restorationSlope: true, //- Main Slope Analysis
-  restorationSlopePotential: false, //- Part of the various restoration options
-  restorationTreeCover: false,
-  restorationLandCover: false,
-  restorationPopulation: false,
-  restorationRainfall: false,
+  restorationSlopePotential: true, //- Part of the various restoration options
+  restorationTreeCover: true,
+  restorationLandCover: true,
+  restorationPopulation: true,
+  restorationRainfall: true,
 
   // Options not configurable from AGOL but can be from here
   restorationChartDescription: 'Some explanatory text for this anlaysis',
@@ -117,7 +117,7 @@ export default {
   * @property {object=} layers[].label - Label for the layer in the UI
   * @property {object=} layers[].sublabel - Sublabel for the layer in the UI
   * @property {boolean=} layers[].{ANY} - Any additional layer params that need to be passed through
-  * @property {object=} popupInfo - Popup configuration for the layer if it is available
+  * @property {object=} popup - Popup configuration for the layer if it is available
   */
   layerPanel: {
     GROUP_WEBMAP: {
@@ -286,18 +286,19 @@ export default {
           zh: '(每天更新, 1千米, 全球覆盖, 美国宇航局（NASA))'
         },
         popup: {
-          content:
-            '<div class="esriViewPopup"><div class="mainSection">' +
-              '<div class="header">Active Fires</div>' +
-              '<table class="attrTable">' +
-                '<tr><td class="attrName">Brightness</td><td class="attrValue">${BRIGHTNESS}</td></tr>' +
-                '<tr><td class="attrName">Confidence</td><td class="attrValue">${CONFIDENCE}</td></tr>' +
-                '<tr><td class="attrName">Latitude</td><td class="attrValue">${LATITUDE}</td></tr>' +
-                '<tr><td class="attrName">Longitude</td><td class="attrValue">${LONGITUDE}</td></tr>' +
-                '<tr><td class="attrName">Acquisition Date</td><td class="attrValue">${ACQ_DATE:DateString(hideTime:true)}</td></tr>' +
-                '<tr><td class="attrName">Acquisition Time</td><td class="attrValue">${ACQ_TIME}</td></tr>' +
-              '</table>' +
-            '</div></div>'
+          title: {
+            en: 'Active Fires'
+          },
+          content: {
+            en: [
+              {'label': 'Brightness', 'fieldExpression': 'BRIGHTNESS'},
+              {'label': 'Confidence', 'fieldExpression': 'CONFIDENCE'},
+              {'label': 'Latitude', 'fieldExpression': 'LATITUDE'},
+              {'label': 'Longitude', 'fieldExpression': 'LONGITUDE'},
+              {'label': 'Acquisition Date', 'fieldExpression': 'ACQ_DATE:DateString(hideTime:true)'},
+              {'label': 'Acquisition Time', 'fieldExpression': 'ACQ_TIME'}
+            ]
+          }
         }
       }]
     },

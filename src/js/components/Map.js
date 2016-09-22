@@ -149,7 +149,7 @@ export default class Map extends Component {
 
       const updateEnd = response.map.on('update-end', () => {
         updateEnd.remove();
-        mapActions.createLayers(response.map, settings.layerPanel, this.state.activeLayers);
+        mapActions.createLayers(response.map, settings.layerPanel, this.state.activeLayers, language);
         //- Set the default basemap in the store
         const basemap = itemData && itemData.baseMap;
         basemapUtils.prepareDefaultBasemap(response.map, basemap.baseMapLayers);

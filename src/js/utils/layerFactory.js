@@ -23,7 +23,7 @@ import {errors} from 'js/config';
 *   - ArcGISImageServiceLayer
 *   - FeatureLayer
 */
-export default (layer) => {
+export default (layer, lang) => {
   if (layer.hasOwnProperty('esriLayer')) { return layer.esriLayer; }
 
   if ((!layer.url && layer.type !== 'graphic') || !layer.type) { throw new Error(errors.missingLayerConfig); }
@@ -63,7 +63,7 @@ export default (layer) => {
       //- Add a popup template if configuration is present
       if (layer.popup) {
         options.infoTemplates = {};
-        const template = layerUtils.makeInfoTemplate(layer.popup);
+        const template = layerUtils.makeInfoTemplate(layer.popup, lang);
         layer.layerIds.forEach((id) => { options.infoTemplates[id] = { infoTemplate: template }; });
       }
       esriLayer = new DynamicLayer(layer.url, options);
@@ -73,7 +73,7 @@ export default (layer) => {
       options.visible = layer.visible || false;
       if (layer.mode !== undefined) { options.mode = layer.mode; } // mode could be 0, must check against undefined
       if (layer.definitionExpression) { options.definitionExpression = layer.definitionExpression; }
-      if (layer.popup) { options.infoTemplate = layerUtils.makeInfoTemplate(layer.popup); }
+      if (layer.popup) { options.infoTemplate = layerUtils.makeInfoTemplate(layer.popup, lang); }
       esriLayer = new FeatureLayer(layer.url, options);
     break;
     case 'graphic':

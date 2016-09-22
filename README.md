@@ -136,35 +136,22 @@ sublabel: {
   ...
 },
 popup: {
-  content:
-    '<div class="esriViewPopup"><div class="mainSection">' +
-      '<div class="header">Active Fires</div>' +
-      '<table class="attrTable">' +
-        '<tr><td class="attrName">Brightness</td><td class="attrValue">${BRIGHTNESS}</td></tr>' +
-        '<tr><td class="attrName">Confidence</td><td class="attrValue">${CONFIDENCE}</td></tr>' +
-        '<tr><td class="attrName">Latitude</td><td class="attrValue">${LATITUDE}</td></tr>' +
-        '<tr><td class="attrName">Longitude</td><td class="attrValue">${LONGITUDE}</td></tr>' +
-        '<tr><td class="attrName">Acquisition Date</td><td class="attrValue">${ACQ_DATE}</td></tr>' +
-        '<tr><td class="attrName">Acquisition Time</td><td class="attrValue">${ACQ_TIME}</td></tr>' +
-      '</table>' +
-    '</div></div>'
+  title: {
+    en: 'Active Fires'
+  },
+  content: {
+    en: [
+      {'label': 'Brightness', 'fieldExpression': 'BRIGHTNESS'},
+      {'label': 'Confidence', 'fieldExpression': 'CONFIDENCE'},
+      {'label': 'Latitude', 'fieldExpression': 'LATITUDE'},
+      {'label': 'Longitude', 'fieldExpression': 'LONGITUDE'},
+      {'label': 'Acquisition Date', 'fieldExpression': 'ACQ_DATE:DateString(hideTime:true)'},
+      {'label': 'Acquisition Time', 'fieldExpression': 'ACQ_TIME'}
+    ]
+  }
 }
 ```
-Popups must be structured like above, a long string set on a content property. The `${}` notation is how you pull data from fields that exist in the service. Here is an empty shell you can use for other layers.
-```javascript
-popup: {
-  content:
-   '<div class="esriViewPopup"><div class="mainSection">' +
-     '<div class="header"></div>' +  // Place title between these tags
-     // Add your table here
-     '<table class="attrTable">' +
-      '<tr><td class="attrName"></td><td class="attrValue"></td></tr>' + // Name of data and field of data in service wrapped in ${}.
-    '</table>' +
-   '</div></div>'
-}
-```
-In the table row(`<tr>`), your first table cell (`<td>`) needs a class of `attrName` and the second table cell needs a class of `attrValue`. This will make sure it's style is consistent with other layers.  You can always add your own classes and then add CSS as needed.  This configuration may eventually change to something more simple for user's to configure who have no interest in html tags or styling and/or to support multi-language services and popups.
-
+This way you can add more languages and also use modifiers on fields.  `fieldExpression` get's used in the same manner the JSAPI uses fields for popup content, in a string like so: '${BRIGHTNESS}'.  This is why we can use modifiers like `ACQ_DATE:DateString(hideTime:true)`.  You can see a list of available modifiers here: [Format info window content](https://developers.arcgis.com/javascript/3/jshelp/intro_formatinfowindow.html)
 
 ### Strings
 This portion refers to how a developer could add some  new strings, if you are looking at adding translations, see [Translations](#translations) below.  The convention to add new strings to the application is to add them in each language, in `src/js/languages.js`.  The name should be all uppercase separated by an underscore. For example, a link in the navigation bar for the word about would be added four times, once for each supported language in their appropriate section, like so:
