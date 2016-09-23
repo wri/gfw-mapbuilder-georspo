@@ -38,7 +38,7 @@ const getApplicationInfo = function getApplicationInfo (params) {
   // //- fall back to this
   if (webmap) {
     all({
-      appid: template.getAppInfo(appid),
+      settings: template.getAppInfo(appid),
       webmap: getWebmapInfo(webmap)
     }).then((results) => {
       promise.resolve(results);
@@ -96,6 +96,19 @@ const createMap = function createMap (params) {
 		map.disableRubberBandZoom();
 		map.disablePan();
 	});
+};
+
+const getLayerConfig = function getLayerConfig (layerPanel, id) {
+  let config;
+  Object.keys(layerPanel).some(groupKey => {
+    return layerPanel[groupKey].layers.some(conf => {
+      if (conf.id === id) {
+        config = conf;
+        return true;
+      }
+    });
+  });
+  return config;
 };
 
 const generateRow = function generateRows (fieldName, fieldValue) {
@@ -161,8 +174,9 @@ const addHeaderContent = function addHeaderContent (params) {
   document.getElementById('logo-anchor').setAttribute('href', logoLinkUrl);
 };
 
-const addTitleAndAttributes = function addTitleAndAttributes (params, featureInfo, webmap) {
-  const { layerName, layerid } = params;
+const addTitleAndAttributes = function addTitleAndAttributes (params, featureInfo, info) {
+  const { layerName, layerid, lang } = params;
+  const { webmap, settings } = info;
   const { operationalLayers } = webmap;
   //- Generate the attributes listing and set page title
   if (featureInfo.isCustom) {
@@ -170,32 +184,54 @@ const addTitleAndAttributes = function addTitleAndAttributes (params, featureInf
     document.getElementById('report-subtitle').innerHTML = featureInfo.title;
   } else {
     const operationalLayer = operationalLayers.filter((layer) => layerName.search(layer.id) > -1)[0];
-    //- layerid is a string but layer.id is a number, convert layerid to int
-    const activeLayer = !operationalLayer.layers ? operationalLayer : operationalLayer.layers.filter((layer) => layer.id === +layerid)[0];
-    if (activeLayer) {
-      const title = activeLayer.popupInfo.title.replace(/{.*}/, featureInfo.title || 'N/A');
-      //- generate rows for each field that is visible in popup for the configured layer
-      const fragment = document.createDocumentFragment();
-      activeLayer.popupInfo.fieldInfos.filter(fieldInfo => fieldInfo.visible).forEach((fieldInfo) => {
-        let fieldValue = featureInfo.attributes[fieldInfo.fieldName];
-        //- If it is a date, format that correctly
-        if (fieldInfo.format && fieldInfo.format.dateFormat) {
-          fieldValue = locale.format(new Date(fieldValue));
-        //- If it is a number, format that here, may need a better way
-        } else if (fieldInfo.format && fieldInfo.format.places !== undefined) {
-          fieldValue = number.format(fieldValue, fieldInfo.format);
-        }
-        fragment.appendChild(generateRow(
-          fieldInfo.label,
-          fieldValue
-        ));
-      });
-      if (brApp.debug) { console.log('Popup info: ', activeLayer.popupInfo); }
-      //- Add title to the page
-      // document.getElementById('feature-title').innerHTML = title;
-      document.getElementById('report-subtitle').innerHTML = title;
-      //- Add the rows to the DOM
-      document.getElementById('popup-content').appendChild(fragment);
+    if (operationalLayer) {
+      //- layerid is a string but layer.id is a number, convert layerid to int
+      const activeLayer = !operationalLayer.layers ? operationalLayer : operationalLayer.layers.filter((layer) => layer.id === +layerid)[0];
+      if (activeLayer) {
+        const title = activeLayer.popupInfo.title.replace(/{.*}/, featureInfo.title || 'N/A');
+        //- generate rows for each field that is visible in popup for the configured layer
+        const fragment = document.createDocumentFragment();
+        activeLayer.popupInfo.fieldInfos.filter(fieldInfo => fieldInfo.visible).forEach((fieldInfo) => {
+          let fieldValue = featureInfo.attributes[fieldInfo.fieldName];
+          //- If it is a date, format that correctly
+          if (fieldInfo.format && fieldInfo.format.dateFormat) {
+            fieldValue = locale.format(new Date(fieldValue));
+          //- If it is a number, format that here, may need a better way
+          } else if (fieldInfo.format && fieldInfo.format.places !== undefined) {
+            fieldValue = number.format(fieldValue, fieldInfo.format);
+          }
+          fragment.appendChild(generateRow(
+            fieldInfo.label,
+            fieldValue
+          ));
+        });
+        if (brApp.debug) { console.log('Popup info: ', activeLayer.popupInfo); }
+        //- Add title to the page
+        // document.getElementById('feature-title').innerHTML = title;
+        document.getElementById('report-subtitle').innerHTML = title;
+        //- Add the rows to the DOM
+        document.getElementById('popup-content').appendChild(fragment);
+      }
+    } else { //- Try to get it from the layer config
+      const id = layerName.replace(`_${layerid}`, '');
+      const config = getLayerConfig(settings.layerPanel, id);
+      //- Add title
+      document.getElementById('report-subtitle').innerHTML = featureInfo.title || '';
+      //- Add some popups if available
+      if (config.popup) {
+        const fields = config.popup.content[lang];
+        const fragment = document.createDocumentFragment();
+        fields.forEach((field) => {
+          // TODO: Figure out how to support popup modifiers like ACQ_DATE:DateString(hideTime:true)
+          const fieldName = field.fieldExpression.search(':') > -1 ?
+            field.fieldExpression.split(':')[0] : field.fieldExpression;
+          fragment.appendChild(generateRow(
+            field.label,
+            featureInfo.attributes[fieldName]
+          ));
+        });
+        document.getElementById('popup-content').appendChild(fragment);
+      }
     }
   }
 };
@@ -822,7 +858,7 @@ export default {
 
       const { feature, info } = response;
       //- Add Popup Info Now
-      addTitleAndAttributes(params, feature, info.webmap);
+      addTitleAndAttributes(params, feature, info);
       //- Need the map to be loaded to add graphics
       if (map.loaded) {
         setupMap(params, feature);
@@ -839,7 +875,7 @@ export default {
 
       //- Add the settings to the params so we can omit layers or do other things if necessary
       //- If no appid is provided, the value here is essentially resources.js
-      params.settings = info.appid;
+      params.settings = info.settings;
 
       //- Make sure highcharts is loaded before using it
       if (window.highchartsPromise.isResolved()) {
