@@ -4,6 +4,8 @@
 ### Deploying a build
 > If you need to configure the build or update the process for how it works, read this section
 
+NOTE: Current deployment goes to the `gh-pages` branch into the phase-2 folder until it becomes tested enough to be in production.
+
 #### Standard deployment
 Just run the following command and copy the contents of the dist directory to your webserver.
 ```shell
