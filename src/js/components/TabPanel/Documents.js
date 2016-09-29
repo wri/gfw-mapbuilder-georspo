@@ -111,7 +111,7 @@ class DocumentResults extends Component {
           {documents.map((doc) => {
             return (
               <tr title={doc.name}>
-                <td title={doc.name}>{doc.name}</td>
+                <td title={doc.name}>{doc.name.length < 20 ? doc.name : doc.name.slice(0, 17) + '...' }</td>
                 <td>{doc.size}</td>
                 <td className='documents-table__link'>
                   <a href={doc.url} target='_blank'>
