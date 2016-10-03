@@ -215,7 +215,7 @@ export default class Map extends Component {
     // If an additional language is configured but no additional webmap is, we need to push the layer config into both
     // languages so the original webmap works in both views
     const saveLayersInOtherLang = (
-      !settings.alternativeWebmap &&
+      // !settings.alternativeWebmap && //This statement can't grab certain bilingual labels
       settings.alternativeLanguage &&
       settings.useAlternativeLanguage
     );
