@@ -22,27 +22,50 @@ export default class CanopyModal extends Component {
 
   componentDidMount() {
     const base = window._app.base ? window._app.base + '/' : '';
+    this.loadedSlider = false;
     // loadJS(base + assetUrls.jQuery);
     loadJS(base + assetUrls.rangeSlider).then(() => {
-      $('#tree-cover-slider').ionRangeSlider({
-        type: 'double',
-        values: modalText.canopy.slider,
-        hide_min_max: true,
-        grid_snap: true,
-        to_fixed: true,
-        from_min: 1,
-        from_max: 7,
-        grid: true,
-        from: 5,
-        onFinish: this.sliderChanged,
-        prettify: value => (value + '%')
-      });
+      if ($('#tree-cover-slider').ionRangeSlider) {
+        $('#tree-cover-slider').ionRangeSlider({
+          type: 'double',
+          values: modalText.canopy.slider,
+          hide_min_max: true,
+          grid_snap: true,
+          to_fixed: true,
+          from_min: 1,
+          from_max: 7,
+          grid: true,
+          from: 5,
+          onFinish: this.sliderChanged,
+          prettify: value => (value + '%')
+        });
+        this.loadedSlider = true;
+      }
+
     }, console.error);
     loadCSS(base + assetUrls.ionCSS);
     loadCSS(base + assetUrls.ionSkinCSS);
   }
 
   componentDidUpdate(prevProps, prevState, prevContext) {
+    if (this.loadedSlider === false) {
+      if ($('#tree-cover-slider').ionRangeSlider) {
+        $('#tree-cover-slider').ionRangeSlider({
+          type: 'double',
+          values: modalText.canopy.slider,
+          hide_min_max: true,
+          grid_snap: true,
+          to_fixed: true,
+          from_min: 1,
+          from_max: 7,
+          grid: true,
+          from: 5,
+          onFinish: this.sliderChanged,
+          prettify: value => (value + '%')
+        });
+        this.loadedSlider = true;
+      }
+    }
     //- Set the default canopy density when the map loads
     const {map} = this.context;
     if (!prevContext.map.loaded && map.loaded) {
