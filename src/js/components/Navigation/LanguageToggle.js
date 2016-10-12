@@ -5,8 +5,6 @@ import React, {
   PropTypes
 } from 'react';
 
-const languageSvg = '<use xlink:href="#icon-h-language" />';
-
 export default class LanguageToggle extends Component {
 
   static contextTypes = {
@@ -48,7 +46,9 @@ export default class LanguageToggle extends Component {
 
     return (
       <li className='app-header__nav-link app-header__nav-link--language pointer'>
-        <svg className='svg-icon__nav' dangerouslySetInnerHTML={{ __html: languageSvg }}/>
+        <svg className='svg-icon__nav'>
+          <use xlinkHref="#icon-h-language" />
+        </svg>
         {text[language].NAV_LANGUAGE}
         <ul className='app-header__language-list shadow pointer'>
           {languageButtons}

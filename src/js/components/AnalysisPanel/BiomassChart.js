@@ -71,5 +71,5 @@ export default class BiomassChart extends Component {
 }
 
 BiomassChart.propTypes = {
-  data: PropTypes.object.isRequired
+  payload: PropTypes.object.isRequired
 };

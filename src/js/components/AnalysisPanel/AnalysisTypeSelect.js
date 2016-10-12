@@ -21,8 +21,19 @@ export default class AnalysisTypeSelect extends Component {
     const options = this.prepareOptions(context.language);
     this.state = { options };
     // Set the default analysis type
+    // If we have restoration module, make it the first element in those options
+    let index = 0;
+    if (context.settings.restorationModule) {
+      options.some((item, i) => {
+        if (item.group === analysisKeys.ANALYSIS_GROUP_RESTORATION) {
+          index = i;
+          return true;
+        }
+      });
+    }
+
     mapActions.setAnalysisType.defer({
-      target: { value: options[0].value }
+      target: { value: options[index].value }
     });
   }
 
@@ -35,14 +46,15 @@ export default class AnalysisTypeSelect extends Component {
 
   prepareOptions = (language) => {
     const {settings} = this.context;
-    const layers = settings.layers[language];
+    //- Get references to all the layers
+    const lcdGroupLayers = settings.layerPanel.GROUP_LCD ? settings.layerPanel.GROUP_LCD.layers : [];
     let options = text[language].ANALYSIS_SELECT_TYPE_OPTIONS;
     //- Remove options not included based on settings
-    //- Also, remove Tree Cover Options if those layers are not in the settings.layers.config
+    //- Also, remove Tree Cover Options if those layers are not in the settings.layerPanel.GROUP_LCD config
     options = options.filter((option) => {
       switch (option.value) {
         case analysisKeys.SLOPE:
-          return settings.restorationModule;
+          return settings.restorationModule && settings.restorationSlope;
         case analysisKeys.INTACT_LOSS:
           return settings.intactForests;
         case analysisKeys.BIO_LOSS:
@@ -62,15 +74,19 @@ export default class AnalysisTypeSelect extends Component {
         case analysisKeys.TERRA_I_ALERTS:
           return settings.terraIAlerts;
         case analysisKeys.TC_LOSS:
-          return appUtils.containsObject(layers, 'id', layerKeys.TREE_COVER_LOSS);
+          return appUtils.containsObject(lcdGroupLayers, 'id', layerKeys.TREE_COVER_LOSS);
         case analysisKeys.TC_LOSS_GAIN:
-          return appUtils.containsObject(layers, 'id', layerKeys.TREE_COVER_GAIN);
+          return appUtils.containsObject(lcdGroupLayers, 'id', layerKeys.TREE_COVER_GAIN);
         default:
           return true;
       }
     });
-    //- Merge in the restoration options if the module is enabled
-    if (settings.restorationModule) {
+    //- Merge in the restoration options if the module is enabled and at least one options is enabled
+    if (settings.restorationModule &&
+      (settings.restorationSlopePotential || settings.restorationLandCover ||
+      settings.restorationPopulation || settings.restorationTreeCover ||
+      settings.restorationRainfall)
+    ) {
       const {restorationOptions} = settings.labels[language];
       restorationOptions.forEach((restorationOption) => {
         options.push({
@@ -111,7 +127,8 @@ export default class AnalysisTypeSelect extends Component {
     let optionElements;
     //- Get a unique list of groups so I can render groups if necessary
     options.forEach((option) => { groups[option.group] = true; });
-    groupKeys = Object.keys(groups);
+    // Order should be ANALYSIS_GROUP_SLOPE, ANALYSIS_GROUP_RESTORATION, then ANALYSIS_GROUP_OTHER
+    groupKeys = Object.keys(groups).sort().reverse();
     //- Get the selected option
     activeOption = options.filter((option) => option.value === activeAnalysisType)[0];
 

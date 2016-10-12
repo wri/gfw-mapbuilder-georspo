@@ -9,9 +9,6 @@ import React, {
   PropTypes
 } from 'react';
 
-// Info Icon Markup for innerHTML
-const useSvg = '<use xlink:href="#shape-info" />';
-
 const showSubLayer = function showSubLayer (layerItem) {
   const {esriLayer, subIndex} = layerItem;
   //- If this layer is not already in visible layers, add it, then set visible layers
@@ -81,8 +78,11 @@ export default class LayerCheckbox extends Component {
   * legend, this is great for image services or other layers that don't have a legend but need one
   */
   updateLegendLayer (layerId, options) {
-    const {settings, map, language} = this.context;
-    const layersConfig = settings.layers[language];
+    const {settings, map} = this.context;
+    //- The layer could be in any of these two groups
+    const lcLayers = settings.layerPanel.GROUP_LC ? settings.layerPanel.GROUP_LC.layers : [];
+    const lcdLayers = settings.layerPanel.GROUP_LCD ? settings.layerPanel.GROUP_LC.layers : [];
+    const layersConfig = lcLayers.concat(lcdLayers);
 
     const conf = utils.getObject(layersConfig, 'id', layerId);
     if (conf && conf.legendLayer !== undefined) {
@@ -133,22 +133,24 @@ export default class LayerCheckbox extends Component {
   }
 
   render() {
-    const {map} = this.context;
+    const {map, language} = this.context;
     const {layer} = this.props;
-    const {label, sublabel} = layer;
-    // let {language} = this.context;
     const checked = this.props.checked ? 'active' : '';
     const disabled = layer.disabled ? 'disabled' : '';
     const hidden = LayersHelper.isLayerVisible(map, layer) ? '' : 'hidden';
+    const label = typeof layer.label === 'string' ? layer.label : layer.label[language];
+    const {sublabel} = layer;
 
     return (
       <div className={`layer-checkbox relative ${checked} ${disabled} ${hidden}`} >
         <span onClick={this.toggleLayer.bind(this)} className='toggle-switch pointer'><span /></span>
-        <span onClick={this.toggleLayer.bind(this)} className='layer-checkbox-label pointer'>{label}</span>
-        <span className='info-icon pointer' onClick={this.showInfo.bind(this)}>
-          <svg dangerouslySetInnerHTML={{ __html: useSvg }}/>
+        <span onClick={this.toggleLayer.bind(this)} className='layer-checkbox-label pointer'>
+          {label}
         </span>
-        {!sublabel ? null : <div className='layer-checkbox-sublabel'>{sublabel}</div>}
+        <span className='info-icon pointer' onClick={this.showInfo.bind(this)}>
+          <svg><use xlinkHref="#shape-info" /></svg>
+        </span>
+        {!sublabel ? null : <div className='layer-checkbox-sublabel'>{sublabel[language]}</div>}
         {!this.props.children ? null :
           <div className={`layer-content-container flex ${this.props.checked ? '' : 'hidden'}`}>
             {this.props.children}

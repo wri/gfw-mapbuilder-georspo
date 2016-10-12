@@ -6,10 +6,6 @@ import React, {
   PropTypes
 } from 'react';
 
-const aboutSvg = '<use xlink:href="#icon-h-about" />';
-const myGFWSvg = '<use xlink:href="#icon-h-mygfw" />';
-const downloadSvg = '<use xlink:href="#icon-download" />';
-
 export default class Navigation extends Component {
 
   static contextTypes = {
@@ -43,7 +39,7 @@ export default class Navigation extends Component {
           {!settings.downloadLinkUrl ? null :
             <li className='app-header__nav-link pointer'>
               <a target={target} href={settings.downloadLinkUrl}>
-                <svg className='svg-icon__nav' dangerouslySetInnerHTML={{ __html: downloadSvg }}/>
+                <svg className='svg-icon__nav'><use xlinkHref="#icon-download" /></svg>
                 {text[language].NAV_DOWNLOAD}
               </a>
             </li>
@@ -51,7 +47,9 @@ export default class Navigation extends Component {
           {!settings.aboutLinkUrl ? null :
             <li className='app-header__nav-link pointer'>
               <a target={target} href={settings.aboutLinkUrl}>
-                <svg className='svg-icon__nav' dangerouslySetInnerHTML={{ __html: aboutSvg }}/>
+                <svg className='svg-icon__nav'>
+                  <use xlinkHref="#icon-h-about" />
+                </svg>
                 {text[language].NAV_ABOUT}
               </a>
             </li>
@@ -59,7 +57,9 @@ export default class Navigation extends Component {
           {!settings.includeMyGFWLogin ? null :
             <li className='app-header__nav-link pointer'>
               <a target={target}>
-                <svg className='svg-icon__nav' dangerouslySetInnerHTML={{ __html: myGFWSvg }}/>
+                <svg className='svg-icon__nav'>
+                  <use xlinkHref="#icon-h-mygfw" />
+                </svg>
                 {text[language].NAV_MY_GFW}
               </a>
             </li>

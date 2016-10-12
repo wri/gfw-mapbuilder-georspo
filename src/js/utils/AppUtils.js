@@ -43,6 +43,11 @@ const utils = {
   },
 
   /**
+  * Round down to the nearest 100s
+  */
+  roundToHundred: (value) => (Math.floor(value / 100) * 100),
+
+  /**
   * Return true if the document.execCommand exists
   * @return {boolean}
   */
@@ -91,7 +96,7 @@ const utils = {
     ** visibleLayers - visible layers of dynamic layer selected feature belongs too, default is all
     */
     const { selectedFeature, settings, lang, canopyDensity, appid, activeSlopeClass } = options;
-    const USER_FEATURES_CONFIG = utils.getObject(resources.layers.en, 'id', layerKeys.USER_FEATURES);
+    const USER_FEATURES_CONFIG = utils.getObject(resources.layerPanel.extraLayers, 'id', layerKeys.USER_FEATURES);
     //- Is this a custom feature or a feature from the webmap
     const layer = selectedFeature._layer;
     //- NOTE: LAYER ID FOR REPORT

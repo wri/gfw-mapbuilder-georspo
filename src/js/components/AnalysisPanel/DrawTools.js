@@ -8,8 +8,6 @@ import React, {
   PropTypes
 } from 'react';
 
-const drawSvg = '<use xlink:href="#icon-analysis-draw" />';
-
 export default class DrawTools extends Component {
 
   static contextTypes = {
@@ -105,7 +103,9 @@ export default class DrawTools extends Component {
           {instructions.map(this.renderInstructionList)}
         </ol>
         <div className='analysis-instructions__draw-icon-container'>
-          <svg className='analysis-instructions__draw-icon' dangerouslySetInnerHTML={{ __html: drawSvg }} />
+          <svg className='analysis-instructions__draw-icon'>
+            <use xlinkHref="#icon-analysis-draw" />
+          </svg>
         </div>
         <div
           className={`fa-button gold analysis-instructions__draw-button ${this.state.drawButtonActive ? 'active' : ''}`}
@@ -122,5 +122,5 @@ export default class DrawTools extends Component {
 }
 
 DrawTools.propTypes = {
-  embeddedInModal: PropTypes.boolean
+  embeddedInModal: PropTypes.bool
 };
