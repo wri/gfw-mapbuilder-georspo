@@ -17,6 +17,7 @@ import arcgisUtils from 'esri/arcgis/utils';
 import mapActions from 'actions/MapActions';
 import appActions from 'actions/AppActions';
 import Scalebar from 'esri/dijit/Scalebar';
+import on from 'dojo/on';
 import {getUrlParams} from 'utils/params';
 import basemapUtils from 'utils/basemapUtils';
 import MapStore from 'stores/MapStore';
@@ -196,16 +197,21 @@ export default class Map extends Component {
     const {settings} = this.context;
     const {x, y, z, l} = params;
 
-    // Set zoom
-    if (x && y && z) {
-      map.centerAndZoom([x, y], z);
-    }
-
-    // Set Language if available
     const langKeys = Object.keys(settings.labels);
-    if (l && langKeys.indexOf(l) > -1) {
+
+    // Set zoom. If we have a language, set that after we have gotten our hash-initiated extent
+    if (x && y && z && l && langKeys.indexOf(l) > -1) {
+      on.once(map, 'extent-change', () => {
+        appActions.setLanguage.defer(l);
+      });
+
+      map.centerAndZoom([x, y], z);
+    } else if (x && y && z) {
+      map.centerAndZoom([x, y], z);
+    } else if (l && langKeys.indexOf(l) > -1) {
       appActions.setLanguage.defer(l);
     }
+
   };
 
   addLayersToLayerPanel = (settings, operationalLayers) => {
@@ -221,7 +227,7 @@ export default class Map extends Component {
     );
     // Add the layers to the webmap group
     /**
-    * NOTE: We use unshift becasue pushing the layers into an array results in a list that is
+    * NOTE: We use unshift because pushing the layers into an array results in a list that is
     * reversed from the webmap in ArcGIS Online, however, dynamic layers show up as separate layers in
     * our UI, but not in AGOL, so we need to not reverse those individual layers but make sure as a group
     * they show up in the correct location, which is why they have different logic for adding them to
