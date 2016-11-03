@@ -31,7 +31,7 @@ const config = {
     highchartsExports: '//code.highcharts.com/modules/exporting.js',
     ionCSS: 'vendor/ion.rangeslider/css/ion.rangeSlider.css',
     ionSkinCSS: 'vendor/ion.rangeslider/css/ion.rangeSlider.skinNice.css',
-    rangeSlider: 'vendor/ion.rangeslider/js/ion.rangeSlider.min.js',
+    rangeSlider: 'vendor/ion.rangeslider/js/ion.rangeSlider.js',
     pickadateCSS: 'vendor/pickadate/lib/compressed/themes/classic.css',
     pickadateDateCSS: 'vendor/pickadate/lib/compressed/themes/classic.date.css'
   },

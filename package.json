@@ -10,7 +10,7 @@
     "bundle": "r.js -o rjs.main.js; r.js -o rjs.report.js;",
     "test": "eslint src/js/**/*.js",
     "prerender": "gulp prerender;",
-    "postinstall": "bower install"
+    "postinstall": "bower install; cp ionOverride.js build/vendor/ion.rangeslider/js/ion.rangeSlider.js;"
   },
   "repository": {
     "type": "git",
