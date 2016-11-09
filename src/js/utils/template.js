@@ -44,12 +44,18 @@ const formatResources = () => {
   //- parse map themes for default laguage if present
   const names = resources.mapThemes ? parseIntoArray(resources.mapThemes) : [];
   const appids = resources.mapThemeIds ? parseIntoArray(resources.mapThemeIds) : [];
+
   if (names.length === appids.length && names.length > 0) {
     resources.labels[resources.language].themes = [];
     names.forEach((name, i) => {
+      let url = `${appUrl}?appid=${appids[i].trim()}`;
+      if (appids[i] === '#') {
+        url = appUrl + '?';
+      }
+
       resources.labels[resources.language].themes.push({
         label: name.trim(),
-        url: `${appUrl}?appid=${appids[i].trim()}`
+        url: url
       });
     });
   }
@@ -254,6 +260,7 @@ export default {
       } else {
         //- Prune agolValues by removing null keys
         agolValues = pruneValues(agolValues);
+
         //- This will merge all the settings in, but some things need a little massaging
         lang.mixin(resources, agolValues);
 
