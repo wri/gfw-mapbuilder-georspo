@@ -154,7 +154,7 @@ const utils = {
       const service = layer.url.slice(0, layer.url.lastIndexOf('/'));
       const labels = settings.labels[lang];
 
-      const path = toQuerystring({
+      const query = {
         title: labels.title,
         subtitle: labels.subtitle,
         logoUrl: settings.logoUrl,
@@ -168,7 +168,13 @@ const utils = {
         tcd: canopyDensity,
         lang: lang,
         activeLayers: activeLayers
-      });
+      };
+
+      if (appid) {
+        query.appid = appid;
+      }
+
+      const path = toQuerystring(query);
 
       window.open(`report.html?${path}`);
 
