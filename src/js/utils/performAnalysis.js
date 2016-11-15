@@ -59,7 +59,7 @@ export default function performAnalysis (options) {
       }).then(promise.resolve);
     break;
     case analysisKeys.BIO_LOSS:
-      const generalizedGeometry = GeometryEngine.generalize(geometry, 1, true, 'miles');
+      const generalizedGeometry = GeometryEngine.generalize(geometry, 10, true, 'miles');
       analysisUtils.getBiomassLoss(generalizedGeometry, canopyDensity).then(promise.resolve, promise.reject);
     break;
     case analysisKeys.INTACT_LOSS:
