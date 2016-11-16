@@ -80,7 +80,7 @@ const getFeature = function getFeature (params) {
   return promise;
 };
 
-const createLayers = function createLayers (layerPanel, activeLayers, language) {
+const createLayers = function createLayers (layerPanel, activeLayers, language, service) {
     //- Organize and order the layers before adding them to the map
     let layers = Object.keys(layerPanel).filter((groupName) => {
       //- remove basemaps and extra layers, extra layers will be added later and basemaps
@@ -102,6 +102,18 @@ const createLayers = function createLayers (layerPanel, activeLayers, language) 
 
     //- Add the extra layers now that all the others have been sorted
     layers = layers.concat(layerPanel.extraLayers);
+
+    //- remove custom features from the layersToAdd if we don't need it to avoid AGOL Auth
+    const USER_FEATURES_CONFIG = appUtils.getObject(resources.layerPanel.extraLayers, 'id', layerKeys.USER_FEATURES);
+    const custom = USER_FEATURES_CONFIG.url.search(service) > -1;
+    if (custom === false) {
+      layers.forEach((layer, i) => {
+        if (layer.id === 'USER_FEATURES') {
+          layers.splice(i, 1);
+          return;
+        }
+      });
+    }
 
     //- make sure there's only one entry for each dynamic layer
     const uniqueLayers = [];
@@ -224,7 +236,7 @@ const setupMap = function setupMap (params, feature) {
     map.addLayer(currentLayer);
   }
 
-  createLayers(resources.layerPanel, params.activeLayers, params.lang);
+  createLayers(resources.layerPanel, params.activeLayers, params.lang, params.service);
 
 };
 
@@ -897,10 +909,11 @@ export default {
     if (brApp.debug) { console.log(params); }
     //- Add Title, Subtitle, and logo right away
     addHeaderContent(params);
-    // Get the config for the user features layer incase we need it
+    // Get the config for the user features layer in case we need it
     const USER_FEATURES_CONFIG = appUtils.getObject(resources.layerPanel.extraLayers, 'id', layerKeys.USER_FEATURES);
     //- Augment params and add a custom attribute if this is from the user_features layer
     params.custom = USER_FEATURES_CONFIG.url.search(params.service) > -1;
+
     //- Setup the Request Pre Callback to handle tokens for tokenized services
     esriRequest.setRequestPreCallback((ioArgs) => {
       // Add token for user features service
