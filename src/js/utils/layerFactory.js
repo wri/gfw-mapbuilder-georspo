@@ -7,7 +7,12 @@ import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import FeatureLayer from 'esri/layers/FeatureLayer';
 import TerraILayer from 'js/layers/TerraILayer';
 import GladLayer from 'js/layers/GladLayer';
+import layerUtils from 'utils/layerUtils';
 import {errors} from 'js/config';
+
+/**
+* Helper function to make infoTemplates
+*/
 
 /**
 * Map Function that gets called for each entry in the provided layers config and returns an array of ArcGIS Layers
@@ -18,7 +23,7 @@ import {errors} from 'js/config';
 *   - ArcGISImageServiceLayer
 *   - FeatureLayer
 */
-export default (layer) => {
+export default (layer, lang) => {
   if (layer.hasOwnProperty('esriLayer')) { return layer.esriLayer; }
 
   if ((!layer.url && layer.type !== 'graphic') || !layer.type) { throw new Error(errors.missingLayerConfig); }
@@ -55,6 +60,12 @@ export default (layer) => {
       options.visible = layer.visible || false;
       options.opacity = layer.opacity || 1.0;
       options.imageParameters = imageParameters;
+      //- Add a popup template if configuration is present
+      if (layer.popup) {
+        options.infoTemplates = {};
+        const template = layerUtils.makeInfoTemplate(layer.popup, lang);
+        layer.layerIds.forEach((id) => { options.infoTemplates[id] = { infoTemplate: template }; });
+      }
       esriLayer = new DynamicLayer(layer.url, options);
     break;
     case 'feature':
@@ -62,11 +73,13 @@ export default (layer) => {
       options.visible = layer.visible || false;
       if (layer.mode !== undefined) { options.mode = layer.mode; } // mode could be 0, must check against undefined
       if (layer.definitionExpression) { options.definitionExpression = layer.definitionExpression; }
+      if (layer.popup) { options.infoTemplate = layerUtils.makeInfoTemplate(layer.popup, lang); }
       esriLayer = new FeatureLayer(layer.url, options);
     break;
     case 'graphic':
       options.id = layer.id;
       options.visible = layer.visible || false;
+      if (layer.popup) { options.infoTemplate = layerUtils.makeInfoTemplate(layer.popup); }
       esriLayer = new GraphicsLayer(options);
     break;
     case 'glad':
@@ -75,10 +88,11 @@ export default (layer) => {
       options.minDateValue = layer.minDateValue;
       options.maxDateValue = layer.maxDateValue;
       options.confidence = layer.confidence;
-      options.visible = layer.visible;
+      options.visible = layer.visible || false;
       esriLayer = new GladLayer(options);
     break;
     case 'terra':
+      layer.visible = layer.visible || false;
       esriLayer = new TerraILayer(layer);
     break;
     default:

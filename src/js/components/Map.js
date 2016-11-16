@@ -1,6 +1,7 @@
 /* eslint no-unused-vars: 0 */
 /* Creating some esri dijits needs the above rule disabled, choosing this over no-new */
 import MobileTimeWidget from 'components/MapControls/MobileTimeWidget';
+import FooterInfos from 'components/MapControls/FooterInfos';
 import AnalysisModal from 'components/Modals/AnalysisModal';
 import Controls from 'components/MapControls/ControlPanel';
 import TimeWidget from 'components/MapControls/TimeWidget';
@@ -16,6 +17,7 @@ import arcgisUtils from 'esri/arcgis/utils';
 import mapActions from 'actions/MapActions';
 import appActions from 'actions/AppActions';
 import Scalebar from 'esri/dijit/Scalebar';
+import on from 'dojo/on';
 import {getUrlParams} from 'utils/params';
 import basemapUtils from 'utils/basemapUtils';
 import MapStore from 'stores/MapStore';
@@ -84,7 +86,7 @@ export default class Map extends Component {
     MapStore.listen(this.storeDidUpdate);
 
     // I only need the token and url for config items, so language does not matter
-    const USER_FEATURES_CONFIG = utils.getObject(resources.layers.en, 'id', layerKeys.USER_FEATURES);
+    const USER_FEATURES_CONFIG = utils.getObject(resources.layerPanel.extraLayers, 'id', layerKeys.USER_FEATURES);
     // Make sure all requests that use tokens have them
     esriRequest.setRequestPreCallback((ioArgs) => {
       if (ioArgs.url.search(USER_FEATURES_CONFIG.url) > -1) {
@@ -119,7 +121,7 @@ export default class Map extends Component {
       prevState.basemap !== basemap ||
       prevState.map !== map
     ) {
-      basemapUtils.updateBasemap(map, basemap, settings.basemaps[language]);
+      basemapUtils.updateBasemap(map, basemap, settings.layerPanel.GROUP_BASEMAP.layers);
     }
   }
 
@@ -148,7 +150,7 @@ export default class Map extends Component {
 
       const updateEnd = response.map.on('update-end', () => {
         updateEnd.remove();
-        mapActions.createLayers(response.map, settings.layers[language], this.state.activeLayers);
+        mapActions.createLayers(response.map, settings.layerPanel, this.state.activeLayers, language);
         //- Set the default basemap in the store
         const basemap = itemData && itemData.baseMap;
         basemapUtils.prepareDefaultBasemap(response.map, basemap.baseMapLayers);
@@ -195,32 +197,37 @@ export default class Map extends Component {
     const {settings} = this.context;
     const {x, y, z, l} = params;
 
-    // Set zoom
-    if (x && y && z) {
-      map.centerAndZoom([x, y], z);
-    }
-
-    // Set Language if available
     const langKeys = Object.keys(settings.labels);
-    if (l && langKeys.indexOf(l) > -1) {
+
+    // Set zoom. If we have a language, set that after we have gotten our hash-initiated extent
+    if (x && y && z && l && langKeys.indexOf(l) > -1) {
+      on.once(map, 'extent-change', () => {
+        appActions.setLanguage.defer(l);
+      });
+
+      map.centerAndZoom([x, y], z);
+    } else if (x && y && z) {
+      map.centerAndZoom([x, y], z);
+    } else if (l && langKeys.indexOf(l) > -1) {
       appActions.setLanguage.defer(l);
     }
+
   };
 
   addLayersToLayerPanel = (settings, operationalLayers) => {
     const {language} = this.context, layers = [];
     // Remove any already existing webmap layers
-    settings.layers[language] = settings.layers[language].filter((layer) => layer.groupKey !== layerKeys.GROUP_WEBMAP);
+    settings.layerPanel.GROUP_WEBMAP.layers = [];
     // If an additional language is configured but no additional webmap is, we need to push the layer config into both
     // languages so the original webmap works in both views
     const saveLayersInOtherLang = (
-      !settings.alternativeWebmap &&
+      // !settings.alternativeWebmap && //This statement can't grab certain bilingual labels
       settings.alternativeLanguage &&
       settings.useAlternativeLanguage
     );
     // Add the layers to the webmap group
     /**
-    * NOTE: We use unshift becasue pushing the layers into an array results in a list that is
+    * NOTE: We use unshift because pushing the layers into an array results in a list that is
     * reversed from the webmap in ArcGIS Online, however, dynamic layers show up as separate layers in
     * our UI, but not in AGOL, so we need to not reverse those individual layers but make sure as a group
     * they show up in the correct location, which is why they have different logic for adding them to
@@ -239,8 +246,6 @@ export default class Map extends Component {
             hasScaleDependency: scaleDependency,
             maxScale: sublayer.maxScale,
             minScale: sublayer.minScale,
-            group: settings.labels[language].webmapMenuName,
-            groupKey: layerKeys.GROUP_WEBMAP,
             label: sublayer.name,
             opacity: 1,
             visible: visible,
@@ -256,8 +261,6 @@ export default class Map extends Component {
         layer.featureCollection.layers.forEach((sublayer) => {
           const layerInfo = {
             id: sublayer.id,
-            group: settings.labels[language].webmapMenuName,
-            groupKey: layerKeys.GROUP_WEBMAP,
             label: sublayer.title,
             opacity: sublayer.opacity,
             visible: layer.visibility,
@@ -269,8 +272,6 @@ export default class Map extends Component {
       } else {
         const layerInfo = {
           id: layer.id,
-          group: settings.labels[language].webmapMenuName,
-          groupKey: layerKeys.GROUP_WEBMAP,
           label: layer.title,
           opacity: layer.opacity,
           visible: layer.visibility,
@@ -280,9 +281,13 @@ export default class Map extends Component {
         layers.unshift(layerInfo);
       }
     });
-    settings.layers[language] = settings.layers[language].concat(layers);
+
+    //- Set up the group labels and group layers
+    settings.layerPanel.GROUP_WEBMAP.layers = layers;
+    settings.layerPanel.GROUP_WEBMAP.label[language] = settings.labels[language].webmapMenuName;
+
     if (saveLayersInOtherLang) {
-      settings.layers[settings.alternativeLanguage] = settings.layers[settings.alternativeLanguage].concat(layers);
+      settings.layerPanel.GROUP_WEBMAP.label[settings.alternativeLanguage] = settings.labels[settings.alternativeLanguage].webmapMenuName;
     }
   };
 
@@ -324,7 +329,11 @@ export default class Map extends Component {
           <TabButtons {...this.state} />
           <TabView {...this.state} />
           <Legend {...this.state} />
+          <FooterInfos map={map} />
           {timeWidgets}
+          <svg className={`map__viewfinder${map.loaded ? '' : ' hidden'}`}>
+            <use xlinkHref='#shape-crosshairs' />
+          </svg>
         </div>
         <div className={`analysis-modal-container modal-wrapper ${analysisModalVisible ? '' : 'hidden'}`}>
           <AnalysisModal />

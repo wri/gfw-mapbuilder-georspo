@@ -5,6 +5,7 @@ import {analysisConfig} from 'js/config';
 import Deferred from 'dojo/Deferred';
 import utils from 'utils/AppUtils';
 import all from 'dojo/promise/all';
+import GeometryEngine from 'esri/geometry/geometryEngine';
 
 /**
 * @param {object} options - Value from Analysis Select, also key to options in config
@@ -13,13 +14,14 @@ import all from 'dojo/promise/all';
 * @param {number} options.canopyDensity - Tree Canopy Density Value
 * @param {string} options.language - current language, Needed to get layer config from settings
 * @param {string=} options.activeSlopeClass - Current slope class setting
-* @param {object=} options.settings - Application settings from resources.j
+* @param {object=} options.settings - Application settings from resources.
 * @return {promise}
 */
 export default function performAnalysis (options) {
-  const {type, geometry, canopyDensity, activeSlopeClass, settings, language} = options;
+  const {type, geometry, canopyDensity, activeSlopeClass, settings} = options;
   const restorationUrl = settings && settings.restorationImageServer;
-  const landCoverConfig = settings && settings.layers ? utils.getObject(settings.layers[language], 'id', layerKeys.LAND_COVER) : {};
+  const landCoverConfig = settings && settings.layerPanel && settings.layerPanel.GROUP_LC ?
+    utils.getObject(settings.layerPanel.GROUP_LC.layers, 'id', layerKeys.LAND_COVER) : {};
   const config = analysisConfig[type];
   const promise = new Deferred();
 
@@ -57,10 +59,8 @@ export default function performAnalysis (options) {
       }).then(promise.resolve);
     break;
     case analysisKeys.BIO_LOSS:
-      analysisUtils.getBiomassLoss(geometry, canopyDensity).then(promise.resolve, promise.reject);
-      // analysisUtils.getCrossedWithLoss(config, analysisConfig[analysisKeys.TC_LOSS], geometry, {
-      //   canopyDensity: canopyDensity
-      // }).then(promise.resolve);
+      const generalizedGeometry = GeometryEngine.generalize(geometry, 10, true, 'miles');
+      analysisUtils.getBiomassLoss(generalizedGeometry, canopyDensity).then(promise.resolve, promise.reject);
     break;
     case analysisKeys.INTACT_LOSS:
       analysisUtils.getCrossedWithLoss(config, analysisConfig[analysisKeys.TC_LOSS], geometry, {
@@ -85,7 +85,7 @@ export default function performAnalysis (options) {
     break;
     default:
       //- This should only be the restoration analysis, since analysisType is a rasterId
-      analysisUtils.getRestoration(restorationUrl, type, geometry).then(promise.resolve);
+      analysisUtils.getRestoration(restorationUrl, type, geometry, settings).then(promise.resolve);
     break;
   }
 

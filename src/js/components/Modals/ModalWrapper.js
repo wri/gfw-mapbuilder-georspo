@@ -1,8 +1,7 @@
 import modalActions from 'actions/ModalActions';
 import modalStore from 'stores/ModalStore';
+import ReactDOM from 'react-dom';
 import React from 'react';
-
-const closeSvg = '<use xlink:href="#shape-close" />';
 
 export default class ModalWrapper extends React.Component {
 
@@ -22,7 +21,7 @@ export default class ModalWrapper extends React.Component {
   }
 
   close () {
-    modalActions.hideModal(React.findDOMNode(this).parentElement);
+    modalActions.hideModal(ReactDOM.findDOMNode(this).parentElement);
   }
 
   render() {
@@ -34,7 +33,7 @@ export default class ModalWrapper extends React.Component {
         <div className='modal-background' onClick={::this.close} />
         <article className='modal shadow'>
           <div title='close' className='close-icon pointer' onClick={::this.close} >
-            <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
+            <svg><use xlinkHref="#shape-close" /></svg>
           </div>
             <div className={contentClass}>
               {children}

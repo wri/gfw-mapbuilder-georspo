@@ -4,7 +4,8 @@ export const attributes = {
   SOURCE_UPLOAD: 'upload'
 };
 
-export const esriLayerTypes = {
+export const esriType = {
+  GEOMETRY_POINT: 'point',
   FEATURE: 'ArcGISFeatureLayer',
   DYNAMIC: 'ArcGISMapServiceLayer'
 };

@@ -2,8 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import mapActions from 'actions/MapActions';
 import text from 'js/languages';
 
-const closeSvg = '<use xlink:href="#shape-close" />',
-      START = 'START',
+const START = 'START',
       END = 'END';
 
 export default class MobileTimeWidget extends Component {
@@ -60,7 +59,9 @@ export default class MobileTimeWidget extends Component {
     return (
       <div className={`mobile-time-widget map-component mobile-show ${visible ? '' : 'hidden'}`}>
         <div title='close' className='close-icon pointer' onClick={mapActions.toggleMobileTimeWidgetVisible}>
-          <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: closeSvg }}/>
+          <svg className='svg-icon'>
+            <use xlinkHref="#shape-close" />
+          </svg>
         </div>
         <div className='timeline-container flex'>
           <div className='time-widget__select-label'>{text[language].TIMELINE_START}</div>

@@ -33,5 +33,5 @@ export default class BasemapLayer extends Component {
 BasemapLayer.propTypes = {
   icon: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  activeBasemap: PropTypes.string.isRequired
+  active: PropTypes.bool.isRequired
 };

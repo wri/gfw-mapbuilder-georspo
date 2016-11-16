@@ -183,6 +183,11 @@ strings.en.TOOL_RESET = 'Reset';
 
 strings.en.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
 strings.en.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.en.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
+strings.en.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
+strings.en.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
+strings.en.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
+strings.en.ANALYSIS_RAINFALL_CHART_HEADER = 'Rainfall';
 strings.en.MONTHS_LIST = [
   { name: 'January', abbr: 'Jan'},
   { name: 'February', abbr: 'Feb'},
@@ -198,7 +203,12 @@ strings.en.MONTHS_LIST = [
   { name: 'December', abbr: 'Dec'}
 ];
 
-
+strings.en.REPORT_TABLE_TOTAL = 'Total';
+strings.en.REPORT_SLOPE_TITLE = 'Slope Analysis';
+strings.en.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
+strings.en.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
+strings.en.REPORT_RESTORATION_TABLE_TYPE = 'Category';
+strings.en.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
 
 //- NOTE: French
 //- Supported Languages
@@ -379,6 +389,11 @@ strings.fr.TOOL_RESET = 'Réinitialiser';
 
 strings.fr.ANALYSIS_CARBON_EMISSION = 'Emissions de carbone brutes';
 strings.fr.ANALYSIS_CARBON_LOSS = 'Perte en couvert arboré';
+strings.fr.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
+strings.fr.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
+strings.fr.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
+strings.fr.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
+strings.fr.ANALYSIS_RAINFALL_CHART_HEADER = 'Rainfall';
 strings.fr.MONTHS_LIST = [
   { name: 'Janvier', abbr: 'Janv'},
   { name: 'Février', abbr: 'Févr'},
@@ -393,6 +408,13 @@ strings.fr.MONTHS_LIST = [
   { name: 'Novembre', abbr: 'Nov'},
   { name: 'Décembre', abbr: 'Déc'}
 ];
+
+strings.fr.REPORT_TABLE_TOTAL = 'Total';
+strings.fr.REPORT_SLOPE_TITLE = 'Slope Analysis';
+strings.fr.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
+strings.fr.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
+strings.fr.REPORT_RESTORATION_TABLE_TYPE = 'Category';
+strings.fr.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
 
 
 //- NOTE: Spanish
@@ -574,6 +596,11 @@ strings.es.TOOL_RESET = 'Reajustar';
 
 strings.es.ANALYSIS_CARBON_EMISSION = 'Emisiones de dióxido de carbono';
 strings.es.ANALYSIS_CARBON_LOSS = 'Pérdida de cobertura arbórea';
+strings.es.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
+strings.es.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
+strings.es.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
+strings.es.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
+strings.es.ANALYSIS_RAINFALL_CHART_HEADER = 'Rainfall';
 strings.es.MONTHS_LIST = [
   { name: 'Enero', abbr: 'Ene'},
   { name: 'Febrero', abbr: 'Feb'},
@@ -588,6 +615,13 @@ strings.es.MONTHS_LIST = [
   { name: 'Noviembre', abbr: 'Nov'},
   { name: 'Diciembre', abbr: 'Dic'}
 ];
+
+strings.es.REPORT_TABLE_TOTAL = 'Total';
+strings.es.REPORT_SLOPE_TITLE = 'Slope Analysis';
+strings.es.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
+strings.es.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
+strings.es.REPORT_RESTORATION_TABLE_TYPE = 'Category';
+strings.es.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
 
 //- NOTE: Portugese
 //- Supported Languages
@@ -768,6 +802,11 @@ strings.pt.TOOL_RESET = 'Reiniciar';
 
 strings.pt.ANALYSIS_CARBON_EMISSION = 'Taxa de emissões de carbono';
 strings.pt.ANALYSIS_CARBON_LOSS = 'Perda de cobertura florestal';
+strings.pt.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
+strings.pt.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
+strings.pt.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
+strings.pt.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
+strings.pt.ANALYSIS_RAINFALL_CHART_HEADER = 'Rainfall';
 strings.pt.MONTHS_LIST = [
   { name: 'Janeiro', abbr: 'Jan'},
   { name: 'Fevereiro', abbr: 'Feb'},
@@ -782,6 +821,13 @@ strings.pt.MONTHS_LIST = [
   { name: 'Novembro', abbr: 'Nov'},
   { name: 'Dezembro', abbr: 'Dez'}
 ];
+
+strings.pt.REPORT_TABLE_TOTAL = 'Total';
+strings.pt.REPORT_SLOPE_TITLE = 'Slope Analysis';
+strings.pt.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
+strings.pt.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
+strings.pt.REPORT_RESTORATION_TABLE_TYPE = 'Category';
+strings.pt.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
 
 //- NOTE: Bahasa Indonesia
 //- Supported Languages
@@ -962,6 +1008,11 @@ strings.id.TOOL_RESET = 'Reset';
 
 strings.id.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
 strings.id.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.id.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
+strings.id.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
+strings.id.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
+strings.id.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
+strings.id.ANALYSIS_RAINFALL_CHART_HEADER = 'Rainfall';
 strings.id.MONTHS_LIST = [
   { name: 'January', abbr: 'Jan'},
   { name: 'February', abbr: 'Feb'},
@@ -976,6 +1027,13 @@ strings.id.MONTHS_LIST = [
   { name: 'November', abbr: 'Nov'},
   { name: 'December', abbr: 'Dec'}
 ];
+
+strings.id.REPORT_TABLE_TOTAL = 'Total';
+strings.id.REPORT_SLOPE_TITLE = 'Slope Analysis';
+strings.id.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
+strings.id.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
+strings.id.REPORT_RESTORATION_TABLE_TYPE = 'Category';
+strings.id.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
 
 //- NOTE: Mandarin
 //- Supported Languages
@@ -1157,6 +1215,11 @@ strings.zh.TOOL_RESET = '重置';
 
 strings.zh.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
 strings.zh.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.zh.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
+strings.zh.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
+strings.zh.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
+strings.zh.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
+strings.zh.ANALYSIS_RAINFALL_CHART_HEADER = 'Rainfall';
 strings.zh.MONTHS_LIST = [
   { name: 'January', abbr: 'Jan'},
   { name: 'February', abbr: 'Feb'},
@@ -1171,5 +1234,12 @@ strings.zh.MONTHS_LIST = [
   { name: 'November', abbr: 'Nov'},
   { name: 'December', abbr: 'Dec'}
 ];
+
+strings.zh.REPORT_TABLE_TOTAL = 'Total';
+strings.zh.REPORT_SLOPE_TITLE = 'Slope Analysis';
+strings.zh.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
+strings.zh.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
+strings.zh.REPORT_RESTORATION_TABLE_TYPE = 'Category';
+strings.zh.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
 
 export { strings as default };

@@ -5,8 +5,7 @@ import Legend from 'esri/dijit/Legend';
 import text from 'js/languages';
 
 const closeSymbolCode = 9660,
-    openSymbolCode = 9650,
-    closeSvg = '<use xlink:href="#shape-close" />';
+    openSymbolCode = 9650;
 
 let legend;
 
@@ -119,7 +118,9 @@ export default class LegendPanel extends Component {
         </div>
 
         <div title='close' className='legend-close close-icon pointer mobile-show' onClick={mapActions.toggleLegendVisible}>
-          <svg className='svg-icon' dangerouslySetInnerHTML={{ __html: closeSvg }}/>
+          <svg className='svg-icon'>
+            <use xlinkHref="#shape-close" />
+          </svg>
         </div>
 
         <div className='legend-layers'>

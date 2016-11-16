@@ -158,5 +158,5 @@ export default class Upload extends Component {
 }
 
 Upload.propTypes = {
-  embeddedInModal: PropTypes.boolean
+  embeddedInModal: PropTypes.bool
 };

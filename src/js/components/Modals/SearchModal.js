@@ -1,5 +1,5 @@
 import ControlledModalWrapper from 'components/Modals/ControlledModalWrapper';
-import {esriLayerTypes} from 'constants/AppConstants';
+import {esriType} from 'constants/AppConstants';
 import mapActions from 'actions/MapActions';
 import text from 'js/languages';
 import Search from 'esri/dijit/Search';
@@ -36,7 +36,7 @@ export default class SearchModal extends Component {
     if (layers && layers.length) {
       layers.forEach(layer => {
         // If this is a dynamic layer
-        if (layer.layerType === esriLayerTypes.DYNAMIC) {
+        if (layer.layerType === esriType.DYNAMIC) {
           // If we have layer infos in a dynamic layer, push each one into the sources array
           if (layer.layerObject && layer.layerObject.layerInfos && layer.layerObject.layerInfos.length) {
             sources = sources.concat(layer.layerObject.layerInfos.map((info) => ({
@@ -53,7 +53,7 @@ export default class SearchModal extends Component {
               placeholder: info.name
             })));
           }
-        } else if (esriLayerTypes.FEATURE) {
+        } else if (esriType.FEATURE) {
           if (layer.layerObject) {
             sources.push({
               featureLayer: layer.layerObject,

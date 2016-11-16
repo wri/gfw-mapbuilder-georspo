@@ -44,12 +44,18 @@ const formatResources = () => {
   //- parse map themes for default laguage if present
   const names = resources.mapThemes ? parseIntoArray(resources.mapThemes) : [];
   const appids = resources.mapThemeIds ? parseIntoArray(resources.mapThemeIds) : [];
+
   if (names.length === appids.length && names.length > 0) {
     resources.labels[resources.language].themes = [];
     names.forEach((name, i) => {
+      let url = `${appUrl}?appid=${appids[i].trim()}`;
+      if (appids[i] === '#') {
+        url = appUrl + '?';
+      }
+
       resources.labels[resources.language].themes.push({
         label: name.trim(),
-        url: `${appUrl}?appid=${appids[i].trim()}`
+        url: url
       });
     });
   }
@@ -93,6 +99,10 @@ const formatResources = () => {
       //- Parse the options, colors, and any other content that will be used in the analysis
       resources.slopeAnalysisPotentialColors = parseIntoArray(resources.slopePotentialColors);
       resources.labels[resources.language].slopeAnalysisPotentialOptions = parseIntoArray(resources.slopePotentialOptions);
+      //- Add description text
+      resources.labels[resources.language].restorationChartDescription = resources.restorationChartDescription;
+      resources.labels[resources.language].restorationTableDescription = resources.restorationTableDescription;
+      resources.labels[resources.language].slopeDescription = resources.slopeDescription;
       //- Add the slope options in another language if configured
       if (resources.useAlternativeLanguage) {
         // Slope Options
@@ -106,6 +116,10 @@ const formatResources = () => {
             label: label
           });
         });
+        //- Add description text
+        resources.labels[resources.alternativeLanguage].restorationChartDescription = resources.alternativeRestorationChartDescription;
+        resources.labels[resources.alternativeLanguage].restorationTableDescription = resources.alternativeRestorationTableDescription;
+        resources.labels[resources.alternativeLanguage].slopeDescription = resources.alternativeSlopeDescription;
       }
     }
     //- Parse slope class names if present
@@ -128,11 +142,45 @@ const formatResources = () => {
       resources.populationClasses = parseIntoArray(resources.populationClassNames);
       resources.populationColors = parseIntoArray(resources.populationClassColors);
     }
+
+    //- Parse rainfall class names if present
+    if (resources.rainfallClassNames) {
+      resources.rainfallClasses = parseIntoArray(resources.rainfallClassNames);
+      resources.rainfallColors = parseIntoArray(resources.rainfallClassColors);
+    }
   }
 
   //- Remove Layers from resources.layers if configured
-  Object.keys(resources.layers).forEach((language) => {
-    resources.layers[language] = resources.layers[language].filter((layer) => {
+  // Object.keys(resources.layers).forEach((language) => {
+  //   resources.layers[language] = resources.layers[language].filter((layer) => {
+      // switch (layer.id) {
+      //   case layerKeys.ACTIVE_FIRES:
+      //     return resources.activeFires;
+      //   case layerKeys.LAND_COVER:
+      //     return resources.landCover;
+      //   case layerKeys.AG_BIOMASS:
+      //     return resources.aboveGroundBiomass;
+      //   case layerKeys.IFL:
+      //     return resources.intactForests;
+      //   case layerKeys.GLOB_MANGROVE:
+      //     return resources.mangroves;
+      //   case layerKeys.IMAZON_SAD:
+      //     return resources.sadAlerts;
+      //   case layerKeys.GLAD_ALERTS:
+      //     return resources.gladAlerts;
+      //   case layerKeys.TERRA_I_ALERTS:
+      //     return resources.terraIAlerts;
+      //   default:
+      //     return true;
+      // }
+  //   });
+  // });
+
+  //- Remove Layers from resources.layers if configured
+  Object.keys(resources.layerPanel).forEach((group) => {
+    const groupSettings = resources.layerPanel[group];
+    if (!groupSettings.layers) { return; }
+    resources.layerPanel[group].layers = resources.layerPanel[group].layers.filter((layer) => {
       switch (layer.id) {
         case layerKeys.ACTIVE_FIRES:
           return resources.activeFires;
@@ -162,13 +210,19 @@ const formatResources = () => {
     resources.logoUrl = base + resources.logoUrl;
   }
 
-  Object.keys(resources.basemaps).forEach((language) => {
-    Object.keys(resources.basemaps[language]).forEach((bm) => {
-      const basemap = resources.basemaps[language][bm];
-      if (basemap.thumbnailUrl && basemap.thumbnailUrl.indexOf('.') === 0) {
-        basemap.thumbnailUrl = base + basemap.thumbnailUrl;
-      }
-    });
+  // Object.keys(resources.basemaps).forEach((language) => {
+  //   Object.keys(resources.basemaps[language]).forEach((bm) => {
+  //     const basemap = resources.basemaps[language][bm];
+  //     if (basemap.thumbnailUrl && basemap.thumbnailUrl.indexOf('.') === 0) {
+  //       basemap.thumbnailUrl = base + basemap.thumbnailUrl;
+  //     }
+  //   });
+  // });
+
+  resources.layerPanel.GROUP_BASEMAP.layers.forEach((basemap) => {
+    if (basemap.thumbnailUrl && basemap.thumbnailUrl.indexOf('.') === 0) {
+      basemap.thumbnailUrl = base + basemap.thumbnailUrl;
+    }
   });
 
 };
@@ -206,6 +260,7 @@ export default {
       } else {
         //- Prune agolValues by removing null keys
         agolValues = pruneValues(agolValues);
+
         //- This will merge all the settings in, but some things need a little massaging
         lang.mixin(resources, agolValues);
 

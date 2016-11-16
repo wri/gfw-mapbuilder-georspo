@@ -4,8 +4,6 @@ import React, {
   PropTypes
 } from 'react';
 
-const polygonSvg = '<use xlink:href="#icon-analysis-poly" />';
-
 export default class Instructions extends Component {
 
   static contextTypes = {
@@ -30,7 +28,9 @@ export default class Instructions extends Component {
           {text[language].ANALYSIS_INSTRUCTION_LIST.map(this.renderInstructionList)}
         </ol>
         <div className='analysis-instructions__draw-icon-container'>
-          <svg className='analysis-instructions__draw-icon' dangerouslySetInnerHTML={{ __html: polygonSvg }} />
+          <svg className='analysis-instructions__draw-icon'>
+            <use xlinkHref="#icon-analysis-poly" />
+          </svg>
         </div>
         <div className='analysis-instructions__separator'>
           <span className='analysis-instructions__separator-text'>{text[language].ANALYSIS_OR}</span>

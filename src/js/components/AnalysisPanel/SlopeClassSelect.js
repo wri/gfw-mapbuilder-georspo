@@ -13,7 +13,7 @@ export default class SlopeClassSelect extends Component {
   };
 
   optionMapper = (item) => {
-    return <option value={item}>{item}</option>;
+    return <option key={item} value={item}>{item}</option>;
   };
 
   onChange = ({target}) => {

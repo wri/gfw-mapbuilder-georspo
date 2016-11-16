@@ -1,5 +1,7 @@
+import LayerKeys from 'constants/LayerConstants';
 import basemapUtils from 'utils/basemapUtils';
 import mapActions from 'actions/MapActions';
+import utils from 'utils/AppUtils';
 
 import React, {
   Component,
@@ -16,11 +18,9 @@ export default class LandsatLayer extends Component {
 
   constructor (props) {
     super(props);
-    this.state = { yearSelected: null };
-  }
-
-  componentDidMount () {
-    this.setState({ yearSelected: this.props.years[this.props.years.length - 1] });
+    this.state = {
+      yearSelected: this.props.years[this.props.years.length - 1]
+    };
   }
 
   render () {
@@ -30,7 +30,7 @@ export default class LandsatLayer extends Component {
         <span className='layer-basemap-icon landsat' onClick={this.toggle}></span>
         <span className='layer-basemap-label' onClick={this.toggle}>{this.props.label}</span>
         <div className='relative'>
-          <select className='pointer' onChange={this.changeYear.bind(this)}>
+          <select className='pointer' onChange={this.changeYear.bind(this)} value={this.state.yearSelected}>
             {this.props.years.map(this.yearOption.bind(this))}
           </select>
           <div className='fa-button sml white'>{this.state.yearSelected}</div>
@@ -39,10 +39,9 @@ export default class LandsatLayer extends Component {
     );
   }
 
-  yearOption (year, index) {
-    const selected = (this.props.years.length - 1 === index) ? true : false;
+  yearOption (year) {
     return (
-      <option value={year} selected={selected}>{year}</option>
+      <option key={year} value={year}>{year}</option>
     );
   }
 
@@ -51,11 +50,12 @@ export default class LandsatLayer extends Component {
   };
 
   changeYear (evt) {
-    const {map, language, settings} = this.context;
+    const {map, settings} = this.context;
     const year = this.props.years[evt.target.selectedIndex];
+    const landsatConfig = utils.getObject(settings.layerPanel.GROUP_BASEMAP.layers, 'id', LayerKeys.LANDSAT);
     this.setState({ yearSelected: year });
     mapActions.changeBasemap(this.props.layerId);
-    basemapUtils.changeLandsatYear(map, year, settings.basemaps[language].landsat);
+    basemapUtils.changeLandsatYear(map, year, landsatConfig);
   }
 }
 
