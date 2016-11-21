@@ -6,6 +6,7 @@ import layerKeys from 'constants/LayerConstants';
 import Polygon from 'esri/geometry/Polygon';
 import {getUrlParams} from 'utils/params';
 import {analysisConfig} from 'js/config';
+import layerFactory from 'utils/layerFactory';
 import esriRequest from 'esri/request';
 import template from 'utils/template';
 import appUtils from 'utils/AppUtils';
@@ -77,6 +78,80 @@ const getFeature = function getFeature (params) {
   }
 
   return promise;
+};
+
+const createLayers = function createLayers (layerPanel, activeLayers, language, service) {
+    //- Organize and order the layers before adding them to the map
+    let layers = Object.keys(layerPanel).filter((groupName) => {
+      //- remove basemaps and extra layers, extra layers will be added later and basemaps
+      //- handled differently elsewhere
+      return groupName !== layerKeys.GROUP_BASEMAP && groupName !== layerKeys.EXTRA_LAYERS;
+    }).sort((a, b) => {
+      //- Sort the groups based on their order property
+      return layerPanel[a].order < layerPanel[b].order;
+    }).reduce((list, groupName) => {
+      //- Flatten them into a single list but before that,
+      //- Multiple the order by 100 so I can sort them more easily below, this is because there
+      //- order numbers start at 0 for each group, so group 0, layer 1 would have order of 1
+      //- while group 1 layer 1 would have order of 100, and I need to integrate with webmap layers
+      return list.concat(layerPanel[groupName].layers.map((layer, index) => {
+        layer.order = (layerPanel[groupName].order * 100) + (layer.order || index);
+        return layer;
+      }));
+    }, []);
+
+    //- Add the extra layers now that all the others have been sorted
+    layers = layers.concat(layerPanel.extraLayers);
+
+    //- remove custom features from the layersToAdd if we don't need it to avoid AGOL Auth
+    const USER_FEATURES_CONFIG = appUtils.getObject(resources.layerPanel.extraLayers, 'id', layerKeys.USER_FEATURES);
+    const custom = USER_FEATURES_CONFIG.url.search(service) > -1;
+    if (custom === false) {
+      layers.forEach((layer, i) => {
+        if (layer.id === 'USER_FEATURES') {
+          layers.splice(i, 1);
+          return;
+        }
+      });
+    }
+
+    //- make sure there's only one entry for each dynamic layer
+    const uniqueLayers = [];
+    const existingIds = [];
+    layers.forEach(layer => {
+      if (existingIds.indexOf(layer.id) === -1) {
+        uniqueLayers.push(layer);
+        existingIds.push(layer.id);
+      }
+    });
+    //- If we are changing webmaps, and any layer is active, we want to make sure it shows up as active in the new map
+    //- Make those updates here to the config as this will trickle down
+    uniqueLayers.forEach(layer => {
+      layer.visible = activeLayers.indexOf(layer.id) > -1 || layer.visible;
+    });
+
+    //- remove layers from config that have no url unless they are of type graphic(which have no url)
+    //- sort by order from the layer config
+    //- return an arcgis layer for each config object
+    const esriLayers = uniqueLayers.filter(layer => layer && layer.visible && (layer.url || layer.type === 'graphic')).map((layer) => {
+      return layerFactory(layer, language);
+    });
+    map.addLayers(esriLayers);
+    // If there is an error with a particular layer, handle that here
+    // map.on('layers-add-result', result => {
+    //   const addedLayers = result.layers;
+    //   // Check for Errors
+    //   var layerErrors = addedLayers.filter(layer => layer.error);
+    //   if (layerErrors.length > 0) { console.error(layerErrors); }
+    //   //- Sort the layers, Webmap layers need to be ordered, unfortunately graphics/feature
+    //   //- layers wont be sorted, they always show on top
+    //   uniqueLayers.forEach((layer) => {
+    //     if (map.getLayer(layer.id) && layer.order) {
+    //       map.reorderLayer(map.getLayer(layer.id), layer.order);
+    //     }
+    //   });
+    // });
+
 };
 
 const createMap = function createMap (params) {
@@ -160,6 +235,8 @@ const setupMap = function setupMap (params, feature) {
 
     map.addLayer(currentLayer);
   }
+
+  createLayers(resources.layerPanel, params.activeLayers, params.lang, params.service);
 
 };
 
@@ -832,10 +909,11 @@ export default {
     if (brApp.debug) { console.log(params); }
     //- Add Title, Subtitle, and logo right away
     addHeaderContent(params);
-    // Get the config for the user features layer incase we need it
+    // Get the config for the user features layer in case we need it
     const USER_FEATURES_CONFIG = appUtils.getObject(resources.layerPanel.extraLayers, 'id', layerKeys.USER_FEATURES);
     //- Augment params and add a custom attribute if this is from the user_features layer
     params.custom = USER_FEATURES_CONFIG.url.search(params.service) > -1;
+
     //- Setup the Request Pre Callback to handle tokens for tokenized services
     esriRequest.setRequestPreCallback((ioArgs) => {
       // Add token for user features service

@@ -95,7 +95,9 @@ const utils = {
     ** basemap - basemap to use, default is topo
     ** visibleLayers - visible layers of dynamic layer selected feature belongs too, default is all
     */
-    const { selectedFeature, settings, lang, canopyDensity, appid, activeSlopeClass } = options;
+
+
+    const { selectedFeature, settings, lang, canopyDensity, appid, activeSlopeClass, activeLayers } = options;
     const USER_FEATURES_CONFIG = utils.getObject(resources.layerPanel.extraLayers, 'id', layerKeys.USER_FEATURES);
     //- Is this a custom feature or a feature from the webmap
     const layer = selectedFeature._layer;
@@ -125,7 +127,8 @@ const utils = {
             layerid: layerid,
             layerName: layerName,
             tcd: canopyDensity,
-            lang: lang
+            lang: lang,
+            activeLayers: activeLayers
           };
 
           if (appid) {
@@ -151,7 +154,7 @@ const utils = {
       const service = layer.url.slice(0, layer.url.lastIndexOf('/'));
       const labels = settings.labels[lang];
 
-      const path = toQuerystring({
+      const query = {
         title: labels.title,
         subtitle: labels.subtitle,
         logoUrl: settings.logoUrl,
@@ -163,8 +166,15 @@ const utils = {
         layerid: layerid,
         layerName: layerName,
         tcd: canopyDensity,
-        lang: lang
-      });
+        lang: lang,
+        activeLayers: activeLayers
+      };
+
+      if (appid) {
+        query.appid = appid;
+      }
+
+      const path = toQuerystring(query);
 
       window.open(`report.html?${path}`);
 
