@@ -124,6 +124,7 @@ const createLayers = function createLayers (layerPanel, activeLayers, language, 
         existingIds.push(layer.id);
       }
     });
+
     //- If we are changing webmaps, and any layer is active, we want to make sure it shows up as active in the new map
     //- Make those updates here to the config as this will trickle down
     uniqueLayers.forEach(layer => {
@@ -136,6 +137,7 @@ const createLayers = function createLayers (layerPanel, activeLayers, language, 
     const esriLayers = uniqueLayers.filter(layer => layer && layer.visible && (layer.url || layer.type === 'graphic')).map((layer) => {
       return layerFactory(layer, language);
     });
+
     map.addLayers(esriLayers);
     // If there is an error with a particular layer, handle that here
     // map.on('layers-add-result', result => {
@@ -198,10 +200,18 @@ const generateRow = function generateRows (fieldName, fieldValue) {
 };
 
 const generateSlopeTable = function generateSlopeTable (labels, values) {
+  const roundedValues = [];
+  values.forEach(value => {
+    if (typeof value === 'number') {
+      value = Math.round(value / 100) * 100;
+    }
+    roundedValues.push(value);
+  });
+
   const fragment = document.createDocumentFragment();
   labels.forEach((label, index) => {
     fragment.appendChild(generateRow(label,
-      typeof values[index] === 'number' ? number.format(values[index]) : values[index]
+      typeof roundedValues[index] === 'number' ? number.format(roundedValues[index]) : values[index]
     ));
   });
   return fragment;
