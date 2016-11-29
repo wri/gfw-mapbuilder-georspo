@@ -384,25 +384,69 @@ export default {
   },
 
   getBiomassLoss: (geometry, canopyDensity) => {
+    const deferred = new Deferred();
     const geographic = webmercatorUtils.webMercatorToGeographic(geometry);
     const geojson = geojsonUtil.arcgisToGeoJSON(geographic);
-    const content = {
-      type: 'geojson',
-      geojson: JSON.stringify(geojson),
-      dataset: 'biomass-loss',
-      period: '2001-01-01,2014-12-31',
-      begin: '2001-01-01',
-      end: '2014-12-31',
-      thresh: canopyDensity
+    // const content = {
+    //   type: 'geojson',
+    //   geojson: JSON.stringify(geojson),
+    //   dataset: 'biomass-loss',
+    //   period: '2001-01-01,2014-12-31',
+    //   begin: '2001-01-01',
+    //   end: '2014-12-31',
+    //   thresh: canopyDensity
+    // };
+
+    const geoStore = {
+      'geojson': {
+        'type': 'FeatureCollection',
+        'features': [{
+          'type': 'Feature',
+          'properties': {},
+          'geometry': geojson
+        }]
+      }
+    };
+    const content = JSON.stringify(geoStore);
+
+    const success = res => {
+      const biomassData = {
+        geostore: res.data.id,
+        period: '2001-01-01,2014-12-31',
+        thresh: canopyDensity
+      };
+      esriRequest({
+        url: 'https://production-api.globalforestwatch.org/biomass-loss',
+        callbackParamName: 'callback',
+        content: biomassData,
+        handleAs: 'json',
+        timeout: 30000
+      }, { usePost: false}).then(biomassResult => {
+        deferred.resolve(biomassResult || []);
+      }, err => {
+        console.error(err);
+        deferred.resolve([]);
+      });
     };
 
-    return esriRequest({
-      url: 'https://production-api.globalforestwatch.org/biomass-loss/wdpa/354010',
-      callbackParamName: 'callback',
-      content: content,
-      handleAs: 'json',
-      timeout: 30000
-    }, { usePost: false});
+    const http = new XMLHttpRequest();
+    const url = 'https://production-api.globalforestwatch.org/geostore';
+    const params = content;
+    http.open('POST', url, true);
+
+    http.setRequestHeader('Content-type', 'application/json');
+
+    http.onreadystatechange = () => {
+      if(http.readyState === 4 && http.status === 200) {
+        success(JSON.parse(http.responseText));
+      } else if (http.readyState === 4) {
+        deferred.resolve([]);
+      }
+    };
+    http.send(params);
+
+    return deferred;
+
   },
 
   getCrossedWithLoss: (config, lossConfig, geometry, options) => {
