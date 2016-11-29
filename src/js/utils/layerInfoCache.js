@@ -184,7 +184,16 @@ export default {
       url = urls.metadataXmlEndpoint(layer.itemId);
       getXMLTask(url).then(xmlDocument => {
         promise.resolve(reduceXML(xmlDocument));
-      }, () => { promise.resolve(); });
+      }, () => {
+        const {esriLayer, subIndex, subId} = layer;
+        url = `${esriLayer.url}/${subIndex !== undefined ? subIndex : ''}`;
+        getServiceInfoTask(url, {f: 'json'}).then(results => {
+          _cache[subId] = results;
+          promise.resolve(results);
+        }, () => {
+          promise.resolve();
+        });
+      });
     } else if (layer.esriLayer) {
       const {esriLayer, subIndex, subId} = layer;
       url = `${esriLayer.url}/${subIndex !== undefined ? subIndex : ''}`;
