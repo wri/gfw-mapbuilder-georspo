@@ -148,8 +148,7 @@ export default class Map extends Component {
         scalebarUnit: 'metric'
       });
 
-      const updateEnd = response.map.on('update-end', () => {
-        updateEnd.remove();
+      on.once(response.map, 'update-end', () => {
         mapActions.createLayers(response.map, settings.layerPanel, this.state.activeLayers, language);
         //- Set the default basemap in the store
         const basemap = itemData && itemData.baseMap;
