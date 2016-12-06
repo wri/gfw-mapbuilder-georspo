@@ -36,7 +36,7 @@ var config = {
   },
   stylus: {
     watch: 'src/css/**/*.styl',
-    src: ['src/css/critical.styl', 'src/css/app.styl', 'src/css/report.styl'],
+    src: ['src/css/critical.styl', 'src/css/app.styl', 'src/css/report.styl', 'src/css/tundra.css'],
     build: 'build/css',
     dist: 'dist/' + version + '/css'
   },
