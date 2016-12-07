@@ -36,9 +36,11 @@ var config = {
   },
   stylus: {
     watch: 'src/css/**/*.styl',
-    src: ['src/css/critical.styl', 'src/css/app.styl', 'src/css/report.styl', 'src/css/tundra.css'],
+    src: ['src/css/critical.styl', 'src/css/app.styl', 'src/css/report.styl', 'src/css/google-fira.styl', 'src/css/tundra.css'],
     build: 'build/css',
-    dist: 'dist/' + version + '/css'
+    dist: 'dist/' + version + '/css',
+    fontSrc: ['src/css/fonts/**/*.ttf', 'src/css/fonts/**/*.woff', 'src/css/fonts/**/*.woff2'],
+    fontBuild: 'build/css/fonts'
   },
   server: {
     files: ['build/**/*.html', 'build/**/*.js', 'build/**/*.css'],
@@ -60,6 +62,11 @@ gulp.task('stylus-build', function () {
     .pipe(stylus({ linenos: true }))
     .pipe(autoprefixer())
     .pipe(gulp.dest(config.stylus.build));
+});
+
+gulp.task('stylus-move', function () {
+  return gulp.src(config.stylus.fontSrc)
+    .pipe(gulp.dest(config.stylus.fontBuild));
 });
 
 gulp.task('stylus-dist', function () {
@@ -170,5 +177,5 @@ gulp.task('browser-sync', function () {
 });
 
 gulp.task('serve', ['browser-sync']);
-gulp.task('start', ['stylus-build', 'jade-build', 'imagemin-build', 'stylus-watch', 'jade-watch']);
+gulp.task('start', ['stylus-build', 'stylus-move', 'jade-build', 'imagemin-build', 'stylus-watch', 'jade-watch']);
 gulp.task('production', ['stylus-dist', 'jade-dist', 'imagemin-dist', 'copy']);
