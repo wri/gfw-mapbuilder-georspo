@@ -3,11 +3,10 @@ html
   head
     title #{defaultTitle}
     include meta.jade
-    style
-      :stylus
-        @require 'css/google-fira'
-    //- block styles
-    //-   link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Fira+Sans:400,500,300')
+    block append styles
+      style
+        :stylus
+          @require 'css/google-fira'
   body
     include svg.jade
     block content
