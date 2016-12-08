@@ -2,6 +2,7 @@
 import App from 'components/App';
 import ShareModal from 'components/Modals/ShareModal';
 import IdentityManager from 'esri/IdentityManager';
+import arcgisPortal from 'esri/arcgis/Portal';
 import {corsServers, assetUrls} from 'js/config';
 import {loadJS, loadCSS } from 'utils/loaders';
 import generateCSV from 'utils/csvUtils';
@@ -45,17 +46,19 @@ const lazyloadAssets = () => {
   loadCSS(`${window._app.base ? window._app.base + '/' : ''}css/google-fira.css`);
   loadCSS(`${window._app.base ? window._app.base + '/' : ''}css/app.css`);
   loadCSS(`${window._app.base ? window._app.base + '/' : ''}css/tundra.css`);
-  loadCSS('/vendor/esri/css/esri.css');
+  loadCSS(`${window._app.base ? window._app.base + '/' : ''}vendor/arcgis-api/esri/css/esri.css`);
 
-  loadJS(assetUrls.highcharts).then(() => {
+  const base = window._app.base ? window._app.base + '/' : '';
+
+  loadJS(base + assetUrls.highcharts).then(() => {
     //- Set default Options for Highcharts
     Highcharts.setOptions({
       chart: { style: { fontFamily: '"Fira Sans", Georgia, sans-serif' }},
       lang: { thousandsSep: ',' }
     });
   });
-  loadJS(assetUrls.highchartsMore);
-  loadJS(assetUrls.highchartsExports).then(() => {
+  loadJS(base + assetUrls.highchartsMore);
+  loadJS(base + assetUrls.highchartsExports).then(() => {
     //- Add CSV Exporting as an option
     Highcharts.getOptions().exporting.buttons.contextButton.menuItems.push({
       text: 'Download CSV',
@@ -71,4 +74,9 @@ const initializeApp = () => {
 
 configureApp();
 lazyloadAssets();
+// const portal = new arcgisPortal.Portal('http://ags104.blueraster.io/portal');
+// portal.signIn().then(loggedInUser => {
+//   console.log(loggedInUser);
+//   console.log(loggedInUser.portal.defaultBasemap);
 initializeApp();
+// });
