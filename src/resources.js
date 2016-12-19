@@ -361,10 +361,11 @@ define(['exports'], function (exports) {
         }, {
           order: 4,
           id: 'LAND_COVER',
-          type: 'dynamic',
-          url: 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
+          type: 'webtiled',
+          url: 'http://wri-tiles.s3.amazonaws.com/global-landcover/{level}/{col}/{row}.png',
           technicalName: 'global_landcover',
-          layerIds: [15],
+          // layerIds: [15],
+          legendLayer: 15,
           rasterId: '$568',
           bounds: [1, 16],
           classes: {
