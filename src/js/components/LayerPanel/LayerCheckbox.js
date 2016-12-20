@@ -81,7 +81,7 @@ export default class LayerCheckbox extends Component {
     const {settings, map} = this.context;
     //- The layer could be in any of these two groups
     const lcLayers = settings.layerPanel.GROUP_LC ? settings.layerPanel.GROUP_LC.layers : [];
-    const lcdLayers = settings.layerPanel.GROUP_LCD ? settings.layerPanel.GROUP_LC.layers : [];
+    const lcdLayers = settings.layerPanel.GROUP_LCD ? settings.layerPanel.GROUP_LCD.layers : [];
     const layersConfig = lcLayers.concat(lcdLayers);
 
     const conf = utils.getObject(layersConfig, 'id', layerId);

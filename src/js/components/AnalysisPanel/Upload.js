@@ -76,6 +76,10 @@ export default class Upload extends Component {
     const extent = scaleUtils.getExtentForScale(map, 40000);
     const type = isZip(file.name) ? TYPE.SHAPEFILE : TYPE.GEOJSON;
     const params = uploadConfig.shapefileParams(file.name, map.spatialReference, extent.getWidth(), map.width);
+    params.targetSr = {
+      latestWkid: 3857,
+      wkid: 102100
+    };
     const content = uploadConfig.shapefileContent(JSON.stringify(params), type);
 
     // the upload input needs to have the file associated to it

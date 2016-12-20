@@ -117,6 +117,9 @@ class MapActions {
           map.reorderLayer(map.getLayer(layer.id), layer.order);
         }
       });
+      if (map.getLayer('labels')) {
+        map.reorderLayer(map.getLayer('labels'), 200);
+      }
     });
     //- Return the layers through the dispatcher so the mapstore can update visible layers
     return {
