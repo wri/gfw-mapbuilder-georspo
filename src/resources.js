@@ -1,4 +1,10 @@
-export default {
+define(['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = {
 
   //- NOTE: New Forest Atlas 2.0 Options, These are the raw values coming from ArcGIS Online from
 
@@ -86,7 +92,6 @@ export default {
   analyticsCode: 'UA-62288390-15',
   userFeatureToken: {
     //- Localhost token for BR office
-    'localhost': 'TjEeQfPMtR-0kjqzTqIZ7R-NAzGK1Z2sEQo6Dzt17O42DeIlaAxdqeg7GPMANVcC',
     'alpha.blueraster.io': 'TjEeQfPMtR-0kjqzTqIZ7dagw25IJzDP02-D9WnUmPbMjcX-0zyr-9A_I9IqrImwJOwVpL_5qxPZAT-heBZ4RQ..',
     'alpha.blueraster.io.s3.amazonaws.com': 'TjEeQfPMtR-0kjqzTqIZ7dagw25IJzDP02-D9WnUmPbMjcX-0zyr-9A_I9IqrImwJOwVpL_5qxPZAT-heBZ4RQ..',
     //- Github token
@@ -484,4 +489,5 @@ export default {
       visible: true
     }]
   }
-};
+  };
+});
