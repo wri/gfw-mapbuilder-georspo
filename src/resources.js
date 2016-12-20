@@ -282,7 +282,7 @@ export default {
         sublabel: {
           en: '(daily, 1km, global, NASA)',
           fr: '(journalier, 1km, global, NASA)',
-          es: '活跃火点',
+          es: '(daily, 1km, global, NASA)',
           pt: '(daily, 1km, global, NASA)',
           id: '(daily, 1km, global, NASA)',
           zh: '(每天更新, 1千米, 全球覆盖, 美国宇航局（NASA))'
