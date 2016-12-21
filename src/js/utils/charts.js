@@ -136,6 +136,15 @@ export default {
       return result.join('<br>');
     };
 
+    const numberWithCommas = (roundedValue) => {
+      return roundedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    };
+
+    const roundHighcharts = (value) => {
+      const result = Math.round(value / 100) * 100;
+      return numberWithCommas(result);
+    };
+
     const chart = new Highcharts.Chart({
       chart: { renderTo: el, type: 'bar' },
       title: { text: null },
@@ -149,7 +158,7 @@ export default {
         useHTML: true,
         valueSuffix: ' (Ha)',
         formatter: function () {
-          return `${breakLabel(tooltips[this.point.index])} <b>${Highcharts.numberFormat(this.y, 0)} (Ha)</b>`;
+          return `${breakLabel(tooltips[this.point.index])} <b>${roundHighcharts(this.y)} (Ha)</b>`;
         }
       },
       plotOptions: { bar: { colorByPoint: true, colors: colors } },
