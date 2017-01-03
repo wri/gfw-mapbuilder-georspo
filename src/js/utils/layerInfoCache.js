@@ -185,8 +185,8 @@ export default {
       getXMLTask(url).then(xmlDocument => {
         promise.resolve(reduceXML(xmlDocument));
       }, () => {
-        const {esriLayer, subIndex, subId} = layer;
-        url = `${esriLayer.url}/${subIndex !== undefined ? subIndex : ''}`;
+        const {subId} = layer;
+        url = urls.agolItemEndpoint(layer.itemId);
         getServiceInfoTask(url, {f: 'json'}).then(results => {
           _cache[subId] = results;
           promise.resolve(results);

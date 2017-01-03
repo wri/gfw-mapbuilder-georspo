@@ -7,8 +7,7 @@ const config = {
     options: {
       navigationMode: 'css-transforms',
       force3DTransforms: true,
-      showAttribution: false,
-      // smartNavigation: false,
+      // showAttribution: false,
       fadeOnZoom: true,
       slider: false,
       logo: false
@@ -41,7 +40,8 @@ const config = {
 
   urls: {
     metadataApi: 'http://api.globalforestwatch.org/metadata',
-    metadataXmlEndpoint: (itemId) => `http://www.arcgis.com/sharing/rest/content/items/${itemId}/info/metadata/metadata.xml`
+    metadataXmlEndpoint: (itemId) => `http://www.arcgis.com/sharing/rest/content/items/${itemId}/info/metadata/metadata.xml`,
+    agolItemEndpoint: (itemId) => `http://www.arcgis.com/sharing/rest/content/items/${itemId}`
   },
 
   upload: {
