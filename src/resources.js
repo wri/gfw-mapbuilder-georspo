@@ -138,7 +138,7 @@ define(['exports'], function (exports) {
         en: 'Land Cover Dynamics',
         fr: 'Evolution de la couverture des sols',
         es: 'Dinámica de la Cobertura del Suelo',
-        pt: 'Land Cover Dynamics',
+        pt: 'Dinâmica de cobertura da terra ',
         id: 'Land Cover Dynamics',
         zh: '土地覆盖动态数据'
       },
@@ -156,7 +156,7 @@ define(['exports'], function (exports) {
           en: 'Tree cover loss',
           fr: 'Perte en couvert arboré',
           es: 'Pérdida de la cobertura arbórea',
-          pt: 'Tree cover loss',
+          pt: 'Perda de cobertura arbórea',
           id: 'Tree cover loss',
           zh: '森林覆盖损失'
         },
@@ -164,7 +164,7 @@ define(['exports'], function (exports) {
           en: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
           fr: '(annuel, 30m, global, Hansen/UMD/Google/USGS/NASA)',
           es: '(anual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-          pt: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+          pt: '(anual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
           id: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
           zh: '(每年更新, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))'
         }
@@ -179,7 +179,7 @@ define(['exports'], function (exports) {
           en: 'Tree cover gain',
           fr: 'Gain en couvert arboré',
           es: 'Aumento de la cobertura arbórea',
-          pt: 'Tree cover gain',
+          pt: 'Ganho de cobertura arbórea',
           id: 'Tree cover gain',
           zh: '森林覆盖增加'
         },
@@ -187,7 +187,7 @@ define(['exports'], function (exports) {
           en: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
           fr: '(12 ans, 30m, global, Hansen/UMD/Google/USGS/NASA)',
           es: '(12 años, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-          pt: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+          pt: '(12 anos, 30m, global, Hansen/UMD/Google/USGS/NASA)',
           id: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
           zh: '(12 年, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))'
         }
@@ -201,16 +201,16 @@ define(['exports'], function (exports) {
         label: {
           en: 'SAD alerts',
           fr: 'Alertes SAD',
-          es: 'SAD alerts',
-          pt: 'SAD alerts',
+          es: 'Alertas SAD',
+          pt: 'Alertas SAD',
           id: 'SAD alerts',
           zh: 'SAD alerts'
         },
         sublabel: {
           en: '(monthly, 250m, Brazilian Amazon, Imazon)',
           fr: '(mensuel, 250m, Amazonie brésilienne, Imazon)',
-          es: '(monthly, 250m, Brazilian Amazon, Imazon)',
-          pt: '(monthly, 250m, Brazilian Amazon, Imazon)',
+          es: '(mensual, 250m, Amazonia brasileña, Imazon)',
+          pt: '(mensal, 250m, Amazônia brasileira, Imazon)',
           id: '(monthly, 250m, Brazilian Amazon, Imazon)',
           zh: '(monthly, 250m, Brazilian Amazon, Imazon)'
         }
@@ -227,16 +227,16 @@ define(['exports'], function (exports) {
         label: {
           en: 'Glad Alerts',
           fr: 'Alertes Glad',
-          es: 'Glad Alerts',
-          pt: 'Glad Alerts',
+          es: 'Alertas Glad',
+          pt: 'Alertas Glad',
           id: 'Glad Alerts',
           zh: 'Glad Alerts'
         },
         sublabel: {
           en: '(weekly, 30m, select countries, UMD/ GLAD)',
           fr: '(hebdomadaire, 30m, certains pays, UMD/ GLAD)',
-          es: '(weekly, 30m, select countries, UMD/ GLAD)',
-          pt: '(weekly, 30m, select countries, UMD/ GLAD)',
+          es: '(semanal, 30m, select countries, UMD/ GLAD)',
+          pt: '(semanal, 30m, select countries, UMD/ GLAD)',
           id: '(weekly, 30m, select countries, UMD/ GLAD)',
           zh: '(weekly, 30m, select countries, UMD/ GLAD)'
         }
@@ -256,16 +256,16 @@ define(['exports'], function (exports) {
         label: {
           en: 'Terra-I Alerts',
           fr: 'Alertes Terra-I',
-          es: 'Terra-I Alerts',
-          pt: 'Terra-I Alerts',
+          es: 'Alertas Terra-I',
+          pt: 'Alertas Terra-I',
           id: 'Terra-I Alerts',
           zh: 'Terra-I Alerts'
         },
         sublabel: {
           en: '(monthly, 250m, Latin America, CIAT)',
           fr: '(mensuel, 250m, Amérique Latine, CIAT)',
-          es: '(monthly, 250m, Latin America, CIAT)',
-          pt: '(monthly, 250m, Latin America, CIAT)',
+          es: '(mensual, 250m, Latin America, CIAT)',
+          pt: '(Mensal, 250m, Latin America, CIAT)',
           id: '(monthly, 250m, Latin America, CIAT)',
           zh: '(monthly, 250m, Latin America, CIAT)'
         }
@@ -280,15 +280,15 @@ define(['exports'], function (exports) {
           en: 'Active fires',
           fr: 'Feux actifs',
           es: 'Incendios activos',
-          pt: 'Active fires',
+          pt: 'Incêndios ativos',
           id: 'Active fires',
           zh: '活跃火点'
         },
         sublabel: {
           en: '(daily, 1km, global, NASA)',
           fr: '(journalier, 1km, global, NASA)',
-          es: '(daily, 1km, global, NASA)',
-          pt: '(daily, 1km, global, NASA)',
+          es: '(Diaria, 1km, global, NASA)',
+          pt: '(Diária, 1km, global, NASA)',
           id: '(daily, 1km, global, NASA)',
           zh: '(每天更新, 1千米, 全球覆盖, 美国宇航局（NASA))'
         },
@@ -314,8 +314,8 @@ define(['exports'], function (exports) {
       label: {
         en: 'Land Cover',
         fr: 'Couverture des sols',
-        es: 'Cobertura vegetal',
-        pt: 'Land Cover',
+        es: 'Cobertura terrestre',
+        pt: 'Cobertura do Solo',
         id: 'Land Cover',
         zh: '土地覆盖'
       },
@@ -346,7 +346,7 @@ define(['exports'], function (exports) {
           en: 'Intact Forest Landscape',
           fr: 'Paysage forestier intact',
           es: 'Paisajes Forestales Intactos',
-          pt: 'Intact Forest Landscape',
+          pt: 'Paisagens Florestais Intactas',
           id: 'Intact Forest Landscape',
           zh: '原生森林景观'
         }
@@ -360,8 +360,8 @@ define(['exports'], function (exports) {
         label: {
           en: 'Aboveground Live Woody Biomass Density',
           fr: 'Densité de la biomasse aérienne vivante',
-          es: 'Aboveground Live Woody Biomass Density',
-          pt: 'Aboveground Live Woody Biomass Density',
+          es: 'Densidad de la biomasa viva en la superficie del suelo',
+          pt: 'Densidade de biomassa viva acima do solo',
           id: 'Aboveground Live Woody Biomass Density',
           zh: 'Aboveground Live Woody Biomass Density'
         }
@@ -378,7 +378,7 @@ define(['exports'], function (exports) {
             en: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
             fr: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
             es: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
-            pt: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
+            pt: ['Culturas Irrigadas', 'Rainfed croplands', 'Mosaico de areas florestais e de cultivo', 'Floresta verde ou semi-decídua', 'Floresta decídua de folha larga', 'Floresta verde de coníferas ou Floresta decídua', 'Misto de floresta de conifera e de folha larga"', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
             id: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
             zh: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice']
           },
