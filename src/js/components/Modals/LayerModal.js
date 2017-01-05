@@ -69,7 +69,7 @@ export default class Modal extends Component {
         </div>
         <div className='source-table'>
           {this.tableMap(text[language].DESCRIPTION, info.description || text[language].NO_INFO)}
-          {this.tableMap(text[language].CITATION, info.copyrightText || text[language].NO_INFO)}
+          {this.tableMap(text[language].CITATION, info.accessInformation || text[language].NO_INFO)}
         </div>
       </div>
     );
