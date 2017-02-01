@@ -174,7 +174,15 @@ export default function generateCSV () {
 		// Set up column headers
 		headers = series.map(serie => serie.name);
 
-		if (userOptions.series[0] && userOptions.series[0].name === 'Glad Alerts') {
+		if (this.xAxis[0] && this.xAxis[0].categories) {
+			//- Push in the Categories from the X Axis and all values associated to each category
+			this.xAxis[0].categories.forEach((category, index) => {
+				values.push(category);
+				series.forEach(serie => { values.push(serie.yData[index]); });
+				csvData.push(values.join(','));
+				values = [];
+			});
+		} else {
 			headers.unshift('Day');
 			csvData.push(headers.join(','));
 
@@ -184,17 +192,6 @@ export default function generateCSV () {
 				var datestring = (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear();
 				values.push(datestring);
 				values.push(this.series[0].processedYData[index]);
-				csvData.push(values.join(','));
-				values = [];
-			});
-		} else {
-			headers.unshift('Year');
-			csvData.push(headers.join(','));
-
-			//- Push in the Categories from the X Axis and all values associated to each category
-			this.xAxis[0].categories.forEach((category, index) => {
-				values.push(category);
-				series.forEach(serie => { values.push(serie.yData[index]); });
 				csvData.push(values.join(','));
 				values = [];
 			});
