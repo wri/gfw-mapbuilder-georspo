@@ -68,7 +68,7 @@ class MapActions {
       return groupName !== layerKeys.GROUP_BASEMAP && groupName !== layerKeys.EXTRA_LAYERS;
     }).sort((a, b) => {
       //- Sort the groups based on their order property
-      return layerPanel[a].order < layerPanel[b].order;
+      return layerPanel[a].order - layerPanel[b].order;
     }).reduce((list, groupName) => {
       //- Flatten them into a single list but before that,
       //- Multiple the order by 100 so I can sort them more easily below, this is because there
