@@ -154,7 +154,7 @@ function reduceXML (xmlDoc) {
     result.source = source.innerHTML;
   }
 
-  if (download_data) {
+  if (download_data && download_data[0]) {
     result.download_data = download_data[0].innerHTML;
   }
 
