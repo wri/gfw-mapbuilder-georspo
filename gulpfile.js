@@ -141,26 +141,26 @@ gulp.task('copy', function () {
     .pipe(gulp.dest(config.copy.resource.dest));
   gulp.src(config.copy.pickadate.src)
     .pipe(gulp.dest(config.copy.pickadate.dest));
-  gulp.src(config.copy.esri.src)
-    .pipe(gulp.dest(config.copy.esri.dest));
-  gulp.src(config.copy.dojo.src)
-    .pipe(gulp.dest(config.copy.dojo.dest));
-  gulp.src(config.copy.dojox.src)
-    .pipe(gulp.dest(config.copy.dojox.dest));
-  gulp.src(config.copy.dstore.src)
-    .pipe(gulp.dest(config.copy.dstore.dest));
-  gulp.src(config.copy.dijit.src)
-    .pipe(gulp.dest(config.copy.dijit.dest));
-  gulp.src(config.copy.dgrid.src)
-    .pipe(gulp.dest(config.copy.dgrid.dest));
   gulp.src(config.copy.highcharts.src)
     .pipe(gulp.dest(config.copy.highcharts.dest));
-  gulp.src(config.copy.moment.src)
-    .pipe(gulp.dest(config.copy.moment.dest));
-  gulp.src(config.copy.putSelector.src)
-    .pipe(gulp.dest(config.copy.putSelector.dest));
-  gulp.src(config.copy.xstyle.src)
-    .pipe(gulp.dest(config.copy.xstyle.dest));
+  // gulp.src(config.copy.esri.src)
+  //   .pipe(gulp.dest(config.copy.esri.dest));
+  // gulp.src(config.copy.dojo.src)
+  //   .pipe(gulp.dest(config.copy.dojo.dest));
+  // gulp.src(config.copy.dojox.src)
+  //   .pipe(gulp.dest(config.copy.dojox.dest));
+  // gulp.src(config.copy.dstore.src)
+  //   .pipe(gulp.dest(config.copy.dstore.dest));
+  // gulp.src(config.copy.dijit.src)
+  //   .pipe(gulp.dest(config.copy.dijit.dest));
+  // gulp.src(config.copy.dgrid.src)
+  //   .pipe(gulp.dest(config.copy.dgrid.dest));
+  // gulp.src(config.copy.moment.src)
+  //   .pipe(gulp.dest(config.copy.moment.dest));
+  // gulp.src(config.copy.putSelector.src)
+  //   .pipe(gulp.dest(config.copy.putSelector.dest));
+  // gulp.src(config.copy.xstyle.src)
+  //   .pipe(gulp.dest(config.copy.xstyle.dest));
 });
 
 gulp.task('prerender', function () {

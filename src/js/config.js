@@ -189,7 +189,8 @@ config.analysis[analysisKeys.GLAD_ALERTS] = {
   url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts_analysis/ImageServer',
   lockrasters: {
     '2015': 6,
-    '2016': 4
+    '2016': 4,
+    '2017': 9
   }
 };
 

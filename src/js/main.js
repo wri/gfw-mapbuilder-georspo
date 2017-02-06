@@ -45,8 +45,10 @@ const configureApp = () => {
 const lazyloadAssets = () => {
   loadCSS(`${window._app.base ? window._app.base + '/' : ''}css/google-fira.css`);
   loadCSS(`${window._app.base ? window._app.base + '/' : ''}css/app.css`);
-  loadCSS(`${window._app.base ? window._app.base + '/' : ''}vendor/arcgis-api/dijit/themes/tundra/tundra.css`);
-  loadCSS(`${window._app.base ? window._app.base + '/' : ''}vendor/arcgis-api/esri/css/esri.css`);
+  // loadCSS(`${window._app.base ? window._app.base + '/' : ''}vendor/arcgis-api/dijit/themes/tundra/tundra.css`);
+  // loadCSS(`${window._app.base ? window._app.base + '/' : ''}vendor/arcgis-api/esri/css/esri.css`);
+  loadCSS(`https://js.arcgis.com/${window._app.esri}/dijit/themes/tundra/tundra.css`);
+  loadCSS(`https://js.arcgis.com/${window._app.esri}/esri/css/esri.css`);
 
   const base = window._app.base ? window._app.base + '/' : '';
 
