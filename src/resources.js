@@ -219,12 +219,12 @@ export default {
         maxDateValue: 16365,
         confidence: [0, 1],
         label: {
-          en: 'Glad Alerts',
-          fr: 'Alertes Glad',
-          es: 'Alertas Glad',
-          pt: 'Alertas Glad',
-          id: 'Glad Alerts',
-          zh: 'Glad Alerts'
+          en: 'GLAD Alerts',
+          fr: 'Alertes GLAD',
+          es: 'Alertas GLAD',
+          pt: 'Alertas GLAD',
+          id: 'GLAD Alerts',
+          zh: 'GLAD Alerts'
         },
         sublabel: {
           en: '(weekly, 30m, select countries, UMD/ GLAD)',
