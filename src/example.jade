@@ -1,0 +1,22 @@
+doctype
+html
+  body.tundra
+    include jade/svg.jade
+    #root
+    div#share-modal.modal-wrapper.hidden
+    script(src="/js/library.js")
+    
+    script.
+      var ll = new MapBuilder({
+        el: 'root', //We need a div ID, not a class
+        config: {
+          language: 'en',
+          title: 'Lucas Appppppp',
+          labels: {
+            en: {
+              title: 'New Titleee',
+              subtitle: 'New subbb'
+            }
+          }
+        }
+      });
