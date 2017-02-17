@@ -11,6 +11,21 @@ html
     #root
     div#share-modal.modal-wrapper.hidden
     script.
+      var constructorParams = { //TODO: Get these from the constructor!!
+        el: 'root', //We need a div ID, not a class
+        config: {
+          language: 'en',
+          title: 'Lucas Appppppp',
+          labels: {
+            en: {
+              title: 'New Titleee',
+              subtitle: 'New subbb'
+            }
+          }
+        } //If this is blank or an empty object, use resources.js. If not, mix it in.
+        
+        //TODO: Explain that these parameters take precedence over resources, but not AGOL
+      }
       var _app = {
         cache: '#{version}',
         esri: '#{esriVersion}',
@@ -69,22 +84,14 @@ html
           
           var main = require(['js/main'], function(main) {
             console.log(main);
-            console.log(main.default);
             console.log(main.startup);
-            console.log(main.configureApp);
-            main.default.startup();
+            main.default.startup(constructorParams);
             main.default.configureApp();
+            main.default.lazyloadAssets();
+            main.default.initializeApp(constructorParams);
           });
           
-          
-          //- 
-          //- luke.letKickTheTiresAndLightTheFires({
-          //-   el: 'root',
-          //-   config: mapConfiguration
-          //- });
 
-          
-          //- require(['js/main']);
         }
       };
     //- PROD: if new modules are added, regenerate the JSAPI build

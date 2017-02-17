@@ -25,6 +25,7 @@ class AppStore {
   }
 
   applySettings (settings) {
+    console.log('applyinggg:', settings);
     this.settings = settings;
     this.language = settings.language;
     this.activeWebmap = settings.webmap;

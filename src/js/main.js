@@ -54,7 +54,6 @@ const main = {
   },
 
   configureApp: () => {
-    console.log('configureApp');
     console.log(name);
     corsServers.forEach((server) => { esriConfig.defaults.io.corsEnabledServers.push(server); });
   },
@@ -64,7 +63,6 @@ const main = {
   * When deploying to specific versions, this must be used for all relative paths
   */
   lazyloadAssets: () => {
-    console.log('lazyloadAssets');
     loadCSS(`${window._app.base ? window._app.base + '/' : ''}css/google-fira.css`);
     loadCSS(`${window._app.base ? window._app.base + '/' : ''}css/app.css`);
     // loadCSS(`${window._app.base ? window._app.base + '/' : ''}vendor/arcgis-api/dijit/themes/tundra/tundra.css`);
@@ -91,9 +89,9 @@ const main = {
     });
   },
 
-  initializeApp: () => {
-    console.log('initializeApp');
-    ReactDOM.render(<App />, document.getElementById('root'));
+  initializeApp: (constructorParams) => {
+    //TODO: To get our config params: the 'el' prop replaces the root, and the 'config' props is passed into App as props!
+    ReactDOM.render(<App constructorParams={constructorParams} />, document.getElementById(constructorParams.el));
     ReactDOM.render(<ShareModal />, document.getElementById('share-modal'));
   }
 

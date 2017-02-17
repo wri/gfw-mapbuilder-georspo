@@ -1,4 +1,5 @@
 import {createTracker} from 'utils/googleAnalytics';
+import lang from 'dojo/_base/lang';
 import appActions from 'actions/AppActions';
 import Header from 'components/Header';
 import AppStore from 'stores/AppStore';
@@ -31,6 +32,12 @@ export default class App extends Component {
   componentDidMount() {
     AppStore.listen(this.storeDidUpdate);
     template.getAppInfo().then(settings => {
+      if (this.props.constructorParams.config) {
+        console.log('props', this.props.constructorParams);
+        lang.mixin(settings, this.props.constructorParams.config);
+      }
+      console.log('settings', settings);
+
       appActions.applySettings(settings);
       this.updateTitle(settings);
       if (settings.analyticsCode) {

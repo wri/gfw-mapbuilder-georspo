@@ -30,7 +30,7 @@ var config = {
   },
   jade: {
     watch: ['src/**/*.jade', 'build/css/critical.css'],
-    src: ['src/index.jade', 'src/report.jade'],
+    src: ['src/index.jade', 'src/report.jade', 'src/example.jade'],
     build: 'build',
     dist: 'dist'
   },
@@ -44,7 +44,7 @@ var config = {
     fontDist: 'dist/' + version + '/css/fonts'
   },
   server: {
-    files: ['build/**/*.html', 'build/**/*.js', 'build/**/*.css'],
+    files: ['build/**/*.html', 'build/**/*.js', 'build/**/*.css', '!build/js/library.js', '!src/js/library.js'],
     port: process.env.PORT || 3000,
     baseDir: 'build'
   },
@@ -200,6 +200,8 @@ gulp.task('bundle', function (cb) {
 });
 
 gulp.task('browser-sync', function () {
+  console.log(config.server.baseDir);
+  console.log(config.server.files);
   browserSync({
     server: config.server.baseDir,
     files: config.server.files,

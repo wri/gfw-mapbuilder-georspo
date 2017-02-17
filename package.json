@@ -4,7 +4,7 @@
   "description": "Template for the WRI Forest Atlas that will be available through ArcGIS Online.",
   "main": "gulpfile.js",
   "scripts": {
-    "start": "npm run babel -- -w & gulp start & gulp serve",
+    "start": "npm run babel -- -w & gulp start & gulp serve & cp src/js/library.js build/js/library.js",
     "dist": "rm -rf dist; BABEL_ENV=production npm run babel; gulp production; gulp prerender; gulp bundle;",
     "babel": "babel src --out-dir build",
     "bundle": "r.js -o rjs.main.js; r.js -o rjs.report.js;",
