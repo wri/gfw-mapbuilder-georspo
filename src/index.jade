@@ -62,7 +62,31 @@ html
           ['pickadate', 'vendor/pickadate/lib/compressed/picker.date']
         ],
         deps: ['dojo/domReady!'],
-        callback: function () {require(['js/main']);}
+        callback: function () {
+          
+          //- define([
+          //-   'esri/layers/layer'
+          //- ], function(declare) {
+          
+          var main = require(['js/main'], function(main) {
+            console.log(main);
+            console.log(main.default);
+            console.log(main.startup);
+            console.log(main.configureApp);
+            main.default.startup();
+            main.default.configureApp();
+          });
+          
+          
+          //- 
+          //- luke.letKickTheTiresAndLightTheFires({
+          //-   el: 'root',
+          //-   config: mapConfiguration
+          //- });
+
+          
+          //- require(['js/main']);
+        }
       };
     //- PROD: if new modules are added, regenerate the JSAPI build
     //- script.
