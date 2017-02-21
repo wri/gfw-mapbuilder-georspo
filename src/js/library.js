@@ -1,15 +1,15 @@
 var MapBuilder = function(args){
-  // console.log('args', args);
 
   this.init = function(constructorParams) {
-    console.log(constructorParams);
-      //TODO: Explain that these parameters take precedence over resources, but not AGOL
+    //if dojo is alerady loaded (aka if window.dojoConfig exists) call main.js
 
-    var _app = {
+    //TODO: Explain that these parameters take precedence over resources, but not AGOL
+
+    window._app = {
       cache: '#{version}',
       esri: '#{esriVersion}',
-      base: '#{base}'
-    };
+      base: '#{base}' //TODO: how is this evaluated? We are missing this! --see the logo in upper left's img src
+    }; //these are no longer getting injected via gulp's jade-build or jade-dist tasks!
 
     function makePath (base, path) {
       var position = base.length - 1;
@@ -32,7 +32,7 @@ var MapBuilder = function(args){
     // if (_app.base) { base = makePath(base, _app.base); } // --> This is fucking our basepath up!! (as a library)
     console.log(getResourcePath(location.href.replace(/\/[^/]+$/, '')));
 
-    var dojoConfig = {
+    window.dojoConfig = {
       parseOnLoad: false,
       async: true,
       packages: [
@@ -57,13 +57,7 @@ var MapBuilder = function(args){
         ['pickadate', 'vendor/pickadate/lib/compressed/picker.date']
       ],
       deps: ['dojo/ready'],
-      callback: function () { //why is this not firing via a new MapBuilder?? Has the domReady already fired?!
-        console.log('in callback');
-        // define([
-        //  'js/exampleMain'
-        // ], function(exampleMain) {
-        //   console.log(exampleMain);
-        // });
+      callback: function () {
 
         require(['js/exampleMain'], function(exampleMain) { //TODO: Don't resort to module.default !!
           console.log(exampleMain);
@@ -83,19 +77,6 @@ var MapBuilder = function(args){
       // const dojoInit = basePath + filename;
 
       const script = document.createElement('script');
-      // script.onload = function() { //This doesn't work b/c we dont have our dojo paths anymore
-      //   console.log(arguments);
-      //   console.log('loadddeddd');
-      //   require(['/js/exampleMain.js'], function(exampleMain) {
-      //     console.log(exampleMain);
-      //     console.log(exampleMain.startup);
-      //     console.log('constructorParams!! ', constructorParams);
-      //     exampleMain.default.startup(constructorParams);
-      //     exampleMain.default.configureApp();
-      //     exampleMain.default.lazyloadAssets();
-      //     exampleMain.default.initializeApp(constructorParams);
-      //   });
-      // };
       script.src = filename;
       document.getElementsByTagName('head')[0].appendChild(script);
     }
