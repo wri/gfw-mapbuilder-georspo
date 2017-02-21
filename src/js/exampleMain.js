@@ -16,6 +16,8 @@ const exampleMain = {
     console.log(url);
     console.log(this);
 
+    // TODO: load critical in our startup!
+
     if (!_babelPolyfill) { console.log('Missing Babel Polyfill.  May experience some weirdness in IE < 9.'); }
 
     window.brApp = {
@@ -49,7 +51,7 @@ const exampleMain = {
   * When deploying to specific versions, this must be used for all relative paths
   */
   lazyloadAssets: () => {
-    console.log(window._app.base);
+    // console.log(window._app.base);
     loadCSS('css/critical.css');
     loadCSS('css/google-fira.css');
     loadCSS('css/app.css');
@@ -61,7 +63,7 @@ const exampleMain = {
     // loadCSS(`https://js.arcgis.com/${window._app.esri}/dijit/themes/tundra/tundra.css`);
     // loadCSS(`https://js.arcgis.com/${window._app.esri}/esri/css/esri.css`);
 
-    const base = window._app.base ? window._app.base + '/' : '';
+    // const base = window._app.base ? window._app.base + '/' : '';
 
     loadJS(assetUrls.highcharts).then(() => {
       //- Set default Options for Highcharts
@@ -89,3 +91,10 @@ const exampleMain = {
 };
 
 export {exampleMain as default};
+
+// export default {
+//   startup: exampleMain.startup,
+//   configureApp: exampleMain.startup,
+//   lazyloadAssets: exampleMain.lazyloadAssets,
+//   initializeApp: exampleMain.initializeApp
+// };
