@@ -9,28 +9,15 @@ html
   body.tundra
     include jade/svg.jade
     #root
+    div#layer-modal.modal-wrapper.hidden
     div#share-modal.modal-wrapper.hidden
     script.
-      var constructorParams = { //TODO: Get these from the constructor!!
-        el: 'root', //We need a div ID, not a class
-        config: {
-          language: 'en',
-          title: 'Lucas Appppppp',
-          labels: {
-            en: {
-              title: 'New Titleee',
-              subtitle: 'New subbb'
-            }
-          }
-        } //If this is blank or an empty object, use resources.js. If not, mix it in.
-        
-        //TODO: Explain that these parameters take precedence over resources, but not AGOL
-      }
       var _app = {
         cache: '#{version}',
         esri: '#{esriVersion}',
         base: '#{base}'
       };
+      console.log(_app);
 
       function makePath (base, path) {
         var position = base.length - 1;
@@ -48,9 +35,12 @@ html
       // Change this to '' if _app.base is a remote url
       var base = location.href.replace(/\/[^/]+$/, '');
       // Add trailing slash if it is not present
+      console.log('oldBase', base);
       base = makePath(base);
+      console.log(base);
       // Add _app.base if it is present
       if (_app.base) { base = makePath(base, _app.base); }
+      console.log(makePath(base, 'js/components'));
       var dojoConfig = {
         parseOnLoad: false,
         async: true,
@@ -76,23 +66,7 @@ html
           ['pickadate', 'vendor/pickadate/lib/compressed/picker.date']
         ],
         deps: ['dojo/domReady!'],
-        callback: function () {
-          
-          //- define([
-          //-   'esri/layers/layer'
-          //- ], function(declare) {
-          
-          var main = require(['js/main'], function(main) {
-            console.log(main);
-            console.log(main.startup);
-            main.default.startup(constructorParams);
-            main.default.configureApp();
-            main.default.lazyloadAssets();
-            main.default.initializeApp(constructorParams);
-          });
-          
-
-        }
+        callback: function () {require(['js/main']);}
       };
     //- PROD: if new modules are added, regenerate the JSAPI build
     //- script.
