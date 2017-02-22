@@ -1,7 +1,7 @@
 var MapBuilder = function(args){
 
   this.init = function(constructorParams) {
-    //if dojo is alerady loaded (aka if window.dojoConfig exists) call main.js
+    //if dojo is already loaded (aka if window.dojoConfig exists) call main.js
 
     //TODO: Explain that these parameters take precedence over resources, but not AGOL
 
@@ -59,19 +59,17 @@ var MapBuilder = function(args){
       deps: ['dojo/ready'],
       callback: function () {
 
-        require(['js/exampleMain'], function(exampleMain) { //TODO: Don't resort to module.default !!
-          console.log(exampleMain);
-          console.log(exampleMain.startup);
-          console.log('constructorParams!! ', constructorParams);
-          exampleMain.default.startup(constructorParams);
-          exampleMain.default.configureApp();
-          exampleMain.default.lazyloadAssets();
-          exampleMain.default.initializeApp(constructorParams);
+        require(['js/libraryMain'], function(libraryMain) { //TODO: Don't resort to module.default !!
+          console.log(libraryMain);
+          console.log(libraryMain.startup);
+          libraryMain.default.startup();
+          libraryMain.default.configureApp();
+          libraryMain.default.lazyloadAssets();
+          libraryMain.default.initializeApp(constructorParams);
         });
 
       }
     };
-
 
     function loadjsfile(filename) {
       // const dojoInit = basePath + filename;
@@ -83,12 +81,13 @@ var MapBuilder = function(args){
 
     loadjsfile('http://my.gfw-mapbuilder.org/js/arcgis-api-mapbuilder-1.0/dojo/dojo.js');
 
-
+    /*eslint-disable */
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  }
+    /*eslint-enable */
+  };
 
   this.init(args);
 };

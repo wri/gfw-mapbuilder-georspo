@@ -9,13 +9,9 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import 'babel-polyfill';
 
-console.log('in exampleMain!!');
-const exampleMain = {
+const libraryMain = {
 
-  startup: (url) => {
-    console.log(url);
-    console.log(this);
-
+  startup: () => {
     // TODO: load critical in our startup!
 
     if (!_babelPolyfill) { console.log('Missing Babel Polyfill.  May experience some weirdness in IE < 9.'); }
@@ -83,18 +79,17 @@ const exampleMain = {
   },
 
   initializeApp: (constructorParams) => {
-    //TODO: To get our config params: the 'el' prop replaces the root, and the 'config' props is passed into App as props!
     ReactDOM.render(<App constructorParams={constructorParams} />, document.getElementById(constructorParams.el));
     ReactDOM.render(<ShareModal />, document.getElementById('share-modal'));
   }
 
 };
 
-export {exampleMain as default};
+export {libraryMain as default};
 
 // export default {
-//   startup: exampleMain.startup,
-//   configureApp: exampleMain.startup,
-//   lazyloadAssets: exampleMain.lazyloadAssets,
-//   initializeApp: exampleMain.initializeApp
+//   startup: libraryMain.startup,
+//   configureApp: libraryMain.startup,
+//   lazyloadAssets: libraryMain.lazyloadAssets,
+//   initializeApp: libraryMain.initializeApp
 // };
