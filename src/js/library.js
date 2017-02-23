@@ -1,14 +1,15 @@
 var MapBuilder = function(args){
 
   this.init = function(constructorParams) {
+    console.log('constructorParams', constructorParams);
     //if dojo is already loaded (aka if window.dojoConfig exists) call main.js
 
     //TODO: Explain that these parameters take precedence over resources, but not AGOL
 
     window._app = {
-      cache: '#{version}',
+      cache: constructorParams.version,
       esri: '#{esriVersion}',
-      base: '#{base}' //TODO: how is this evaluated? We are missing this! --see the logo in upper left's img src
+      base: constructorParams.base //TODO: how is this evaluated? We are missing this! --see the logo in upper left's img src
     }; //these are no longer getting injected via gulp's jade-build or jade-dist tasks!
 
     function makePath (base, path) {
@@ -27,11 +28,13 @@ var MapBuilder = function(args){
     // Change this to '' if _app.base is a remote url
     var base = location.href.replace(/\/[^/]+$/, '');
     // Add trailing slash if it is not present
+    console.log('oldBase', base);
     base = makePath(base);
+    console.log(base);
     // Add _app.base if it is present
-    // if (_app.base) { base = makePath(base, _app.base); } // --> This is fucking our basepath up!! (as a library)
-    console.log(getResourcePath(location.href.replace(/\/[^/]+$/, '')));
-
+    if (window._app.base) { base = makePath(base, window._app.base); }
+    console.log('This is our base Path for js!!', makePath(base, 'js'));
+    // console.log(makePath(base, 'js/components'));
     window.dojoConfig = {
       parseOnLoad: false,
       async: true,
@@ -58,9 +61,10 @@ var MapBuilder = function(args){
       ],
       deps: ['dojo/ready'],
       callback: function () {
-
+        console.log('innn callback');
         require(['js/libraryMain'], function(libraryMain) { //TODO: Don't resort to module.default !!
           console.log(libraryMain);
+          console.log(libraryMain.default);
           console.log(libraryMain.startup);
           libraryMain.default.startup();
           libraryMain.default.configureApp();

@@ -63,7 +63,9 @@ var config = {
     dgrid: { src: 'build/vendor/arcgis-api/dgrid/**/*', dest: 'dist/' + version + '/vendor/arcgis-api/dgrid/'},
     moment: { src: 'build/vendor/arcgis-api/esri/moment/**/*', dest: 'dist/' + version + '/vendor/arcgis-api/moment'},
     putSelector: { src: 'build/vendor/arcgis-api/esri/put-selector/**/*', dest: 'dist/' + version + '/vendor/arcgis-api/put-selector'},
-    xstyle: { src: 'build/vendor/arcgis-api/esri/xstyle/**/*', dest: 'dist/' + version + '/vendor/arcgis-api/xstyle'}
+    xstyle: { src: 'build/vendor/arcgis-api/esri/xstyle/**/*', dest: 'dist/' + version + '/vendor/arcgis-api/xstyle'},
+    library: { src: 'build/js/library.js', dest: 'dist/' + version + '/js'},
+    libraryMain: { src: 'build/js/libraryMain.js', dest: 'dist/' + version + '/js'}
   }
 };
 
@@ -97,6 +99,7 @@ gulp.task('stylus-watch', function () {
 });
 
 gulp.task('jade-build', function () {
+  locals.version = version;
   return gulp.src(config.jade.src)
     .pipe(plumber())
     .pipe(jade({ pretty: true, locals: locals }))
@@ -143,6 +146,10 @@ gulp.task('copy', function () {
     .pipe(gulp.dest(config.copy.pickadate.dest));
   gulp.src(config.copy.highcharts.src)
     .pipe(gulp.dest(config.copy.highcharts.dest));
+  gulp.src(config.copy.library.src)
+    .pipe(gulp.dest(config.copy.library.dest));
+  gulp.src(config.copy.libraryMain.src)
+    .pipe(gulp.dest(config.copy.libraryMain.dest));
   // gulp.src(config.copy.esri.src)
   //   .pipe(gulp.dest(config.copy.esri.dest));
   // gulp.src(config.copy.dojo.src)
@@ -163,6 +170,7 @@ gulp.task('copy', function () {
   //   .pipe(gulp.dest(config.copy.xstyle.dest));
 });
 
+ //We might have to take our prerender due to the fact that we're no longer using #root be default
 gulp.task('prerender', function () {
   var htmlFile = path.join(__dirname, 'dist/index.html'),
       component = 'js/components/App',
@@ -188,14 +196,18 @@ gulp.task('bundle', function (cb) {
   // Load in the profiles
   var mainProfile = eval(fs.readFileSync(path.join(__dirname, 'rjs.main.js'), 'utf-8'));
   var reportProfile = eval(fs.readFileSync(path.join(__dirname, 'rjs.report.js'), 'utf-8'));
+  // var libProfile = eval(fs.readFileSync(path.join(__dirname, 'rjs.lib.js'), 'utf-8'));
   // Update the name in the build profile
   mainProfile.out = 'dist/' + version + '/js/main.js';
   reportProfile.out = 'dist/' + version + '/js/reportMain.js';
+  // reportProfile.out = 'dist/' + version + '/js/libraryMain.js';
   // Generate the bundles
   requirejs.optimize(mainProfile, function () {
-    requirejs.optimize(reportProfile, function () {
-      cb();
-    });
+    // requirejs.optimize(libProfile, function () {
+      requirejs.optimize(reportProfile, function () {
+        cb();
+      });
+    // });
   });
 });
 

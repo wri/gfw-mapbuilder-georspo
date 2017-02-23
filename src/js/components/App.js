@@ -32,7 +32,7 @@ export default class App extends Component {
   componentDidMount() {
     AppStore.listen(this.storeDidUpdate);
     template.getAppInfo().then(settings => {
-      if (this.props.constructorParams.config) {
+      if (this.props.constructorParams && this.props.constructorParams.config) {
         console.log('props', this.props.constructorParams);
         lang.mixin(settings, this.props.constructorParams.config);
       }
