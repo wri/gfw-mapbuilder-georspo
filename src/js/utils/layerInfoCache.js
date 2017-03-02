@@ -157,7 +157,7 @@ function reduceXML (xmlDoc) {
   if (download_data && download_data[0]) {
     result.download_data = download_data[0].innerHTML;
   }
-
+  console.log('results ', result);
   return result;
 }
 
@@ -181,9 +181,11 @@ export default {
     } else if (layer.itemId) {
       // This commented out URL contains a good item id to use for testing
       // url = urls.metadataXmlEndpoint('30e234e880c94a2ca54be9a132808eae');
+      // console.log(layer);
       url = urls.metadataXmlEndpoint(layer.itemId);
       getXMLTask(url).then(xmlDocument => {
         promise.resolve(reduceXML(xmlDocument));
+        //TODO: Add this as a cache!!
       }, () => {
         const {subId} = layer;
         url = urls.agolItemEndpoint(layer.itemId);

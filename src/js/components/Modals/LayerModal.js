@@ -66,7 +66,7 @@ export default class Modal extends Component {
         <div className='source-header'>
           <h2 className='source-title'>{info.name}</h2>
           <h3 className='source-subtitle'>{info.type}</h3>
-        </div>
+      </div>
         <div className='source-table'>
           {this.tableMap(text[language].DESCRIPTION, info.description || text[language].NO_INFO)}
           {this.tableMap(text[language].CITATION, info.accessInformation || text[language].NO_INFO)}
