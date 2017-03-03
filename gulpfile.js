@@ -30,7 +30,7 @@ var config = {
   },
   jade: {
     watch: ['src/**/*.jade', 'build/css/critical.css'],
-    src: ['src/index.jade', 'src/report.jade', 'src/example.jade'],
+    src: ['src/index.jade', 'src/report.jade', 'src/example.jade', 'src/external.jade'],
     build: 'build',
     dist: 'dist'
   },
@@ -148,8 +148,8 @@ gulp.task('copy', function () {
     .pipe(gulp.dest(config.copy.highcharts.dest));
   gulp.src(config.copy.library.src)
     .pipe(gulp.dest(config.copy.library.dest));
-  gulp.src(config.copy.libraryMain.src)
-    .pipe(gulp.dest(config.copy.libraryMain.dest));
+  // gulp.src(config.copy.libraryMain.src)
+  //   .pipe(gulp.dest(config.copy.libraryMain.dest));
   // gulp.src(config.copy.esri.src)
   //   .pipe(gulp.dest(config.copy.esri.dest));
   // gulp.src(config.copy.dojo.src)
@@ -196,18 +196,31 @@ gulp.task('bundle', function (cb) {
   // Load in the profiles
   var mainProfile = eval(fs.readFileSync(path.join(__dirname, 'rjs.main.js'), 'utf-8'));
   var reportProfile = eval(fs.readFileSync(path.join(__dirname, 'rjs.report.js'), 'utf-8'));
-  // var libProfile = eval(fs.readFileSync(path.join(__dirname, 'rjs.lib.js'), 'utf-8'));
   // Update the name in the build profile
   mainProfile.out = 'dist/' + version + '/js/main.js';
   reportProfile.out = 'dist/' + version + '/js/reportMain.js';
-  // reportProfile.out = 'dist/' + version + '/js/libraryMain.js';
+
   // Generate the bundles
   requirejs.optimize(mainProfile, function () {
-    // requirejs.optimize(libProfile, function () {
-      requirejs.optimize(reportProfile, function () {
-        cb();
-      });
-    // });
+    requirejs.optimize(reportProfile, function () {
+      cb();
+    });
+  });
+});
+
+gulp.task('bundle-lib', function (cb) {
+  // Load in the profiles
+  var libProfile = eval(fs.readFileSync(path.join(__dirname, 'rjs.lib.js'), 'utf-8'));
+  var reportProfile = eval(fs.readFileSync(path.join(__dirname, 'rjs.report.js'), 'utf-8'));
+  // Update the name in the build profile
+
+  reportProfile.out = 'dist/' + version + '/js/reportMain.js';
+  libProfile.out = 'dist/' + version + '/js/libraryMain.js';
+  // Generate the bundles
+  requirejs.optimize(libProfile, function () {
+    requirejs.optimize(reportProfile, function () {
+      cb();
+    });
   });
 });
 
