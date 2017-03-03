@@ -1,6 +1,27 @@
 var MapBuilder = function(args){
 
   this.init = function(constructorParams) {
+    var scripts = document.getElementsByTagName('script');
+    var newBase, resourcesBase;
+    for (var j = 0; j < scripts.length; j++) {
+      if (scripts[j].id === 'lucas1') {
+        newBase = scripts[j].src;
+        console.log(scripts[j]);
+      }
+    }
+    console.log('newBase', newBase);
+    if (newBase) {
+      newBase = newBase.split('js/library.js')[0];
+      resourcesBase = newBase.split('library-load/')[0];
+    }
+    console.log('newerBase!', newBase);
+
+
+    //TODO: Don't hard-code this, get it from our last url-to-lib/gfwLibName/somethingHere/
+
+    console.log('resourcesBase!', resourcesBase);
+
+    // console.log('src', src);
     console.log('constructorParams', constructorParams);
     //if dojo is already loaded (aka if window.dojoConfig exists) call main.js
 
@@ -33,13 +54,26 @@ var MapBuilder = function(args){
     console.log(base);
     // Add _app.base if it is present
     if (window._app.base) { base = makePath(base, window._app.base); }
+    if (newBase) {
+      base = newBase;
+    }
+
+    if (!resourcesBase) {
+      resourcesBase = location.href;
+    }
     console.log('This is our base Path for js!!', makePath(base, 'js'));
+    console.log('This is our base Path for vendor!', makePath(base, 'vendor'));
     // console.log(makePath(base, 'js/components'));
+
+    //TODO: We need a Different path if we are in build versus dist for root (for resources.js only):
+    //if we are build, resources.js lives at root, one folder above us: js/library.js
+    //if we are dist, resources.js lives at root, two folders above us: 1.1.10/js/library.js
+    // --> Either way, we can't use location.href! This is the same for our example.jade's src path
     window.dojoConfig = {
       parseOnLoad: false,
       async: true,
       packages: [
-        { name: 'root', location: getResourcePath(location.href.replace(/\/[^/]+$/, ''))},
+        { name: 'root', location: getResourcePath(resourcesBase.replace(/\/[^/]+$/, ''))},
         { name: 'js', location: makePath(base, 'js')},
         { name: 'vendor', location: makePath(base, 'vendor')},
         { name: 'utils', location: makePath(base, 'js/utils')},
@@ -57,11 +91,13 @@ var MapBuilder = function(args){
         ['babel-polyfill', 'vendor/babel-polyfill/browser-polyfill'],
         ['jquery', 'vendor/jquery/dist/jquery.min'],
         ['picker', 'vendor/pickadate/lib/compressed/picker'],
-        ['pickadate', 'vendor/pickadate/lib/compressed/picker.date']
+        ['pickadate', 'vendor/pickadate/lib/compressed/picker.date'],
+        ['FileSaver', 'vendor/file-saver.js/FileSaver']
       ],
       deps: ['dojo/ready'],
       callback: function () {
         console.log('innn callback');
+        console.log(window);
         require(['js/libraryMain'], function(libraryMain) { //TODO: Don't resort to module.default !!
           console.log(libraryMain);
           console.log(libraryMain.default);

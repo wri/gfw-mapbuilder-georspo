@@ -35,12 +35,10 @@ html
       // Change this to '' if _app.base is a remote url
       var base = location.href.replace(/\/[^/]+$/, '');
       // Add trailing slash if it is not present
-      console.log('oldBase', base);
       base = makePath(base);
-      console.log(base);
+
       // Add _app.base if it is present
       if (_app.base) { base = makePath(base, _app.base); }
-      console.log(makePath(base, 'js/components'));
       var dojoConfig = {
         parseOnLoad: false,
         async: true,
@@ -63,7 +61,8 @@ html
           ['babel-polyfill', 'vendor/babel-polyfill/browser-polyfill'],
           ['jquery', 'vendor/jquery/dist/jquery.min'],
           ['picker', 'vendor/pickadate/lib/compressed/picker'],
-          ['pickadate', 'vendor/pickadate/lib/compressed/picker.date']
+          ['pickadate', 'vendor/pickadate/lib/compressed/picker.date'],
+          ['FileSaver', 'vendor/file-saver.js/FileSaver']
         ],
         deps: ['dojo/domReady!'],
         callback: function () {require(['js/main']);}

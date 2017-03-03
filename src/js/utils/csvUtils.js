@@ -1,7 +1,8 @@
 import analysisKeys from 'constants/AnalysisConstants';
 import resources from 'resources';
 
-import 'vendor/file-saver.js/FileSaver.js';
+// import 'vendor/file-saver.js/FileSaver.js';
+import 'FileSaver';
 
 const base64_encode = function base64_encode (data) {
 	//  discuss at: http://phpjs.org/functions/base64_encode/

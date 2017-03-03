@@ -46,11 +46,19 @@ const libraryMain = {
   * Assets need to be loaded from base (if it is present) + url, or just url if _app.base is not set
   * When deploying to specific versions, this must be used for all relative paths
   */
-  lazyloadAssets: () => {
-    // console.log(window._app.base);
-    loadCSS('css/critical.css');
-    loadCSS('css/google-fira.css');
-    loadCSS('css/app.css');
+  lazyloadAssets: (constructorParams) => {
+    console.log(constructorParams);
+    let cssPath = 'css/';
+    let basePath = '';
+    if (constructorParams.cssPath) {
+      cssPath = constructorParams.cssPath + '/';
+    }
+    if (constructorParams.basePath) {
+      basePath = constructorParams.basePath + '/';
+    }
+    loadCSS(cssPath + 'critical.css');
+    loadCSS(cssPath + 'google-fira.css');
+    loadCSS(cssPath + 'app.css');
     loadCSS('https://js.arcgis.com/3.17/dijit/themes/tundra/tundra.css');
     loadCSS('https://js.arcgis.com/3.17/esri/css/esri.css');
     // loadCSS(`${window._app.base ? window._app.base + '/' : ''}css/critical.css`);
@@ -59,17 +67,15 @@ const libraryMain = {
     // loadCSS(`https://js.arcgis.com/${window._app.esri}/dijit/themes/tundra/tundra.css`);
     // loadCSS(`https://js.arcgis.com/${window._app.esri}/esri/css/esri.css`);
 
-    // const base = window._app.base ? window._app.base + '/' : '';
-
-    loadJS(assetUrls.highcharts).then(() => {
+    loadJS(basePath + assetUrls.highcharts).then(() => {
       //- Set default Options for Highcharts
       Highcharts.setOptions({
         chart: { style: { fontFamily: '"Fira Sans", Georgia, sans-serif' }},
         lang: { thousandsSep: ',' }
       });
     });
-    loadJS(assetUrls.highchartsMore);
-    loadJS(assetUrls.highchartsExports).then(() => {
+    loadJS(basePath + assetUrls.highchartsMore);
+    loadJS(basePath + assetUrls.highchartsExports).then(() => {
       //- Add CSV Exporting as an option
       Highcharts.getOptions().exporting.buttons.contextButton.menuItems.push({
         text: 'Download CSV',
