@@ -11,7 +11,7 @@ var MapBuilder = function(args){
     }
     console.log('newBase', newBase);
     if (newBase) {
-      newBase = newBase.split('js/library.js')[0];
+      newBase = newBase.split('/js/library.js')[0];
       resourcesBase = newBase.split('library-load/')[0];
     }
     console.log('newerBase!', newBase);
@@ -30,7 +30,7 @@ var MapBuilder = function(args){
     window._app = {
       cache: constructorParams.version,
       esri: '#{esriVersion}',
-      base: constructorParams.base //TODO: how is this evaluated? We are missing this! --see the logo in upper left's img src
+      base: newBase //TODO: how is this evaluated? We are missing this! --see the logo in upper left's img src
     }; //these are no longer getting injected via gulp's jade-build or jade-dist tasks!
 
     function makePath (base, path) {
@@ -50,16 +50,21 @@ var MapBuilder = function(args){
     var base = location.href.replace(/\/[^/]+$/, '');
     // Add trailing slash if it is not present
     console.log('oldBase', base);
-    base = makePath(base);
     console.log(base);
     // Add _app.base if it is present
-    if (window._app.base) { base = makePath(base, window._app.base); }
+    // if (window._app.base) { base = makePath(base, window._app.base); }
     if (newBase) {
       base = newBase;
+      constructorParams.cssPath = makePath(base, 'css');
+      constructorParams.basePath = base;
     }
+    base = makePath(base);
+
+    console.log('newesttttBase', base);
 
     if (!resourcesBase) {
       resourcesBase = location.href;
+      //todo: make css path
     }
     console.log('This is our base Path for js!!', makePath(base, 'js'));
     console.log('This is our base Path for vendor!', makePath(base, 'vendor'));
@@ -103,8 +108,8 @@ var MapBuilder = function(args){
           console.log(libraryMain.default);
           console.log(libraryMain.startup);
           libraryMain.default.startup();
-          libraryMain.default.configureApp();
-          libraryMain.default.lazyloadAssets();
+          libraryMain.default.configureApp(constructorParams);
+          libraryMain.default.lazyloadAssets(constructorParams);
           libraryMain.default.initializeApp(constructorParams);
         });
 

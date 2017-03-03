@@ -38,8 +38,9 @@ const libraryMain = {
 
   },
 
-  configureApp: () => {
+  configureApp: (constructorParams) => {
     corsServers.forEach((server) => { esriConfig.defaults.io.corsEnabledServers.push(server); });
+    // esriConfig.defaults.io.corsEnabledServers.push(constructorParams.basePath);
   },
 
   /**
