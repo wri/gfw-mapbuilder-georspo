@@ -1,7 +1,6 @@
 /* eslint no-unused-vars: 0 */
 import analysisKeys from 'constants/AnalysisConstants';
 import number from 'dojo/number';
-import dom from 'dojo/dom';
 /**
 * Module to help in generating charts and also in formatting data for the charts
 * Formatting functions should start with formatXXXX and return series and optionally colors
@@ -269,58 +268,45 @@ export default {
   },
 
   makeTimeSeriesCharts: (el, options) => {
-    let {data, name} = options;
-    let nullsArray = [];
-    data.forEach(dateArray => {
-      if(dateArray[1] === 0) {
-        const nullArray = [dateArray[0], null];
-        nullsArray.push(nullArray);
-      }
+    const {data, name} = options;
+    const chart = new Highcharts.Chart({
+      chart: {
+        renderTo: el,
+        zoomType: 'x',
+        resetZoomButton: {
+          position: {
+            align: 'left',
+            y: 0
+          }
+        }
+      },
+      title: { text: null },
+      xAxis: { type: 'datetime' },
+      credits: { enabled: false },
+      yAxis: { title: { text: null }, min: 0},
+      plotOptions: {
+        area: {
+          threshold: null,
+          lineWidth: 1,
+          states: { hover: { lineWidth: 1 }},
+          fillColor: {
+            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+            stops: [
+              [0, 'rgba(220,102,153, 1)'],
+              [1, 'rgba(220,102,153, 0)']
+            ]
+          }
+        }
+      },
+      tooltip: {
+        dateTimeLabelFormats: { hour: '%A, %b %e' }
+      },
+      series: [{
+        type: 'area',
+        name: name,
+        data: data
+      }]
     });
-
-
-      const chart = new Highcharts.Chart({
-        chart: {
-          renderTo: el,
-          zoomType: 'x',
-          resetZoomButton: {
-            position: {
-              align: 'left',
-              y: 0
-            }
-          }
-        },
-        lang: {
-          noData: "JESUS"
-        },
-        title: {text: null},
-        xAxis: {type: 'datetime'},
-        credits: {enabled: false},
-        yAxis: {title: {text: null}, min: 0},
-        plotOptions: {
-          area: {
-            threshold: null,
-            lineWidth: 1,
-            states: {hover: {lineWidth: 1}}
-            // fillColor: {
-            //   linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-            //   stops: [
-            //     [0, 'rgba(220,102,153, 1)'],
-            //     [1, 'rgba(220,102,153, 0)']
-            //   ]
-            // }
-          }
-        },
-        tooltip: {
-          dateTimeLabelFormats: {hour: '%A, %b %e'}
-        },
-        series: [{
-          type: 'area',
-          name: name,
-          data: []
-        }]
-      });
-
   },
 
   makeDualAxisTimeSeriesChart: (el, options) => {
