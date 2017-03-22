@@ -6,6 +6,7 @@ import Deferred from 'dojo/Deferred';
 import {urls} from 'js/config';
 
 const _cache = {};
+let _descExists = true;
 
 /**
 * Fetch the metadata from GFW's Metadata API
@@ -157,7 +158,6 @@ function reduceXML (xmlDoc) {
   if (download_data && download_data[0]) {
     result.download_data = download_data[0].innerHTML;
   }
-  console.log('results ', result);
   return result;
 }
 
@@ -185,6 +185,7 @@ export default {
       url = urls.metadataXmlEndpoint(layer.itemId);
       getXMLTask(url).then(xmlDocument => {
         promise.resolve(reduceXML(xmlDocument));
+        debugger;
         //TODO: Add this as a cache!!
       }, () => {
         const {subId} = layer;
@@ -192,6 +193,7 @@ export default {
         getServiceInfoTask(url, {f: 'json'}).then(results => {
           _cache[subId] = results;
           promise.resolve(results);
+          debugger;
         }, () => {
           promise.resolve();
         });

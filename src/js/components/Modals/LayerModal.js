@@ -11,6 +11,7 @@ export default class Modal extends Component {
 
   renderFromMetadataAPI (info) {
     const {language} = this.context;
+    console.log(info);
     return (
       <div className='layer-modal-content'>
         <div className='source-header'>
@@ -61,6 +62,7 @@ export default class Modal extends Component {
 
   renderFromMapService (info) {
     const {language} = this.context;
+    console.log(info);
     return (
       <div className='layer-modal-content'>
         <div className='source-header'>
@@ -93,9 +95,13 @@ export default class Modal extends Component {
     const {info} = this.props;
     const theme = info && info.download_data ? '' : 'no-download';
     const content = !info ? <div className='no-info-available'>{text[language].NO_INFO}</div> :
-      (info.title && info.hasOwnProperty('subtitle') ?
-        this.renderFromMetadataAPI(info) :
-        this.renderFromMapService(info)
+      // (info.title && info.hasOwnProperty('subtitle') ?
+      //   this.renderFromMetadataAPI(info) :
+      //   this.renderFromMapService(info)
+      // );
+      (info.hasOwnProperty('description') && info.hasOwnProperty('citation') ?
+        this.renderFromMapService(info) :
+        this.renderFromMetadataAPI(info)
       );
 
     return (
