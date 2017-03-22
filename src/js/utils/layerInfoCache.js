@@ -185,7 +185,6 @@ export default {
       url = urls.metadataXmlEndpoint(layer.itemId);
       getXMLTask(url).then(xmlDocument => {
         promise.resolve(reduceXML(xmlDocument));
-        debugger;
         //TODO: Add this as a cache!!
       }, () => {
         const {subId} = layer;
@@ -193,7 +192,6 @@ export default {
         getServiceInfoTask(url, {f: 'json'}).then(results => {
           _cache[subId] = results;
           promise.resolve(results);
-          debugger;
         }, () => {
           promise.resolve();
         });
