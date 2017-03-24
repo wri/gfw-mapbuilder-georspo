@@ -2,9 +2,10 @@ var MapBuilder = function(args){
 
   this.init = function(constructorParams) {
     var scripts = document.getElementsByTagName('script');
+    console.log('scripts', scripts);
     var newBase, resourcesBase;
     for (var j = 0; j < scripts.length; j++) {
-      if (scripts[j].id === 'lucas1') {
+      if (scripts[j].id === 'lucas') {
         newBase = scripts[j].src;
         console.log(scripts[j]);
       }
@@ -69,7 +70,7 @@ var MapBuilder = function(args){
     console.log('This is our base Path for js!!', makePath(base, 'js'));
     console.log('This is our base Path for vendor!', makePath(base, 'vendor'));
     // console.log(makePath(base, 'js/components'));
-
+    console.log('resourceBase!', getResourcePath(resourcesBase.replace(/\/[^/]+$/, '')));
     //TODO: We need a Different path if we are in build versus dist for root (for resources.js only):
     //if we are build, resources.js lives at root, one folder above us: js/library.js
     //if we are dist, resources.js lives at root, two folders above us: 1.1.10/js/library.js

@@ -87,6 +87,7 @@ export default {
   userFeatureToken: {
     //- Localhost token for BR office
     'localhost': 'TjEeQfPMtR-0kjqzTqIZ7YTRzWMIif5zOHutjZgD6lk7uv2eZmqSSkbywHkD67U3',
+    'stg.blueraster.com.s3.amazonaws.com': 'TjEeQfPMtR-0kjqzTqIZ7Sa9KfzWWRNkafbsiNHsV_V5s2pM7zD73fKp37Sx5EoXGMyWy5s74Sgjr0XUHlpu6ufFZ5Uh9mvAQkfVUKA-3sA.',
     'alpha.blueraster.io': 'TjEeQfPMtR-0kjqzTqIZ7dagw25IJzDP02-D9WnUmPbMjcX-0zyr-9A_I9IqrImwJOwVpL_5qxPZAT-heBZ4RQ..',
     'alpha.blueraster.io.s3.amazonaws.com': 'TjEeQfPMtR-0kjqzTqIZ7dagw25IJzDP02-D9WnUmPbMjcX-0zyr-9A_I9IqrImwJOwVpL_5qxPZAT-heBZ4RQ..',
     //- Github token
