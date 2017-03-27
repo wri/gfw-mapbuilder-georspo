@@ -1,6 +1,7 @@
 import dispatcher from 'js/dispatcher';
 import layerFactory from 'utils/layerFactory';
 import layerKeys from 'constants/LayerConstants';
+import Point from 'esri/geometry/Point';
 
 class MapActions {
   //- Action to notify the store the map has changed so we can rerender UI changes
@@ -21,6 +22,10 @@ class MapActions {
     return {
       type: evt.target.value
     };
+  }
+
+  centerAndZoomLatLng (lat, lng) {
+    brApp.map.centerAndZoom(new Point(lng, lat), 9);
   }
 
   //- Straight through dispatches, all have the following format
