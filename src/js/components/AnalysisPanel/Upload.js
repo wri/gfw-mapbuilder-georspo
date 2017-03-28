@@ -1,12 +1,19 @@
 import scaleUtils from 'esri/geometry/scaleUtils';
 import layerKeys from 'constants/LayerConstants';
 import geometryUtils from 'utils/geometryUtils';
-import graphicsUtils from 'esri/graphicsUtils';
+import Graphic from 'esri/graphic';
 import mapActions from 'actions/MapActions';
 import {uploadConfig} from 'js/config';
 import Loader from 'components/Loader';
 import request from 'utils/request';
 import text from 'js/languages';
+import esriRequest from 'esri/request';
+import geojsonUtil from 'utils/arcgis-to-geojson';
+import symbols from 'utils/symbols';
+import Polygon from 'esri/geometry/Polygon';
+import {attributes} from 'constants/AppConstants';
+import graphicsUtils from 'esri/graphicsUtils';
+
 import React, {
   Component,
   PropTypes
@@ -86,27 +93,60 @@ export default class Upload extends Component {
     const input = this.refs.fileInput;
     input.files = evt.dataTransfer.files;
 
-    request.upload(uploadConfig.portal, content, this.refs.upload).then((response) => {
-      this.setState({ isUploading: false });
-      if (response.featureCollection) {
-        const graphics = geometryUtils.generatePolygonsFromUpload(response.featureCollection);
-        const graphicsExtent = graphicsUtils.graphicsExtent(graphics);
-        const layer = map.getLayer(layerKeys.USER_FEATURES);
-        if (layer) {
-          map.setExtent(graphicsExtent, true);
-          graphics.forEach((graphic) => {
-            layer.add(graphic);
-          });
-        }
-      } else {
-        console.error('No feature collection present in the file');
-      }
-    }, (error) => {
-      this.setState({ isUploading: false });
-      console.error(error);
-    });
+    // console.log(input.files);
+    // debugger;
+    // esriRequest({
+    //   url: 'https://production-api.globalforestwatch.org/v1/ogr/convert',
+    //   form: input,
+    //   // content: content,
+    //   handleAs: 'json'
+    // }, { usePost: true }).then(res => {
+    //   console.log(res);
+    //   debugger;
+    // });
 
+    var formData = new FormData();
+    formData.append('file', input.files[0], input.files[0].name);
+
+    var xhr = new XMLHttpRequest();
+    const url = 'https://production-api.globalforestwatch.org/v1/ogr/convert';
+    xhr.open('POST', url, true);
+    xhr.onreadystatechange = () => {
+      if(xhr.readyState === 4 && xhr.status === 200) {
+        let response = geojsonUtil.geojsonToArcGIS(JSON.parse(xhr.responseText).data.attributes);
+        this.processGeojson(response);
+      } else if (xhr.readyState === 4) {
+        // deferred.resolve([]);
+        console.log("Error: shapefile not working");
+      }
+    };
+
+
+    xhr.send(formData);
   };
+
+  processGeojson = (esriJson) => {
+    let graphics = [];
+    esriJson.forEach(feature => {
+      graphics.push(new Graphic(
+          new Polygon(feature.geometry),
+          symbols.getCustomSymbol(),
+          {
+            ...feature.attributes,
+            source: attributes.SOURCE_UPLOAD
+          }
+      ));
+    });
+    const graphicsExtent = graphicsUtils.graphicsExtent(graphics);
+    const layer = this.context.map.getLayer(layerKeys.USER_FEATURES);
+    if (layer) {
+      this.context.map.setExtent(graphicsExtent, true);
+      graphics.forEach((graphic) => {
+        layer.add(graphic);
+      });
+    }
+    this.setState({isUploading: false});
+  }
 
   renderInstructionList = (instruction, index) => {
     return (
