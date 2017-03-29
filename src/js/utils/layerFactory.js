@@ -8,6 +8,7 @@ import FeatureLayer from 'esri/layers/FeatureLayer';
 import TerraILayer from 'js/layers/TerraILayer';
 import GladLayer from 'js/layers/GladLayer';
 import TreeCoverLossLayer from 'js/layers/TreeCoverLossLayer';
+import TreeCoverGainLayer from 'js/layers/TreeCoverGainLayer';
 import layerUtils from 'utils/layerUtils';
 import {errors} from 'js/config';
 
@@ -100,6 +101,15 @@ export default (layer, lang) => {
       // options.confidence = layer.confidence;
       options.visible = layer.visible || false;
       esriLayer = new TreeCoverLossLayer(options);
+    break;
+    case 'gain':
+      options.id = layer.id;
+      options.url = layer.url;
+      // options.minYear = layer.minYear;
+      // options.maxYear = layer.maxYear;
+      // options.confidence = layer.confidence;
+      options.visible = layer.visible || false;
+      esriLayer = new TreeCoverGainLayer(options);
     break;
     case 'terra':
       layer.visible = layer.visible || false;
