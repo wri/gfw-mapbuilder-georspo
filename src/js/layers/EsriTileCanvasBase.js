@@ -258,7 +258,8 @@ export default declare('EsriTileCanvasBase', [Layer], {
         z: tile.z,
         canvas,
         image,
-        id
+        id,
+        url: url
       };
 
       //- Cache the tile
@@ -287,20 +288,29 @@ export default declare('EsriTileCanvasBase', [Layer], {
         x: Math.abs(this.position.x) + coords.x,
         y: Math.abs(this.position.y) + coords.y
       });
-      //- Scale the tile if we are past max zoom
-      if (data.z > this.options.maxZoom) {
-        const info = this._getSubrectangleInfo(data);
-        //- Stop image enhancement
-        ctx.imageSmoothingEnabled = false;
-        ctx.mozImageSmoothingEnabled = false;
-        ctx.drawImage(data.image, info.sX, info.sY, info.sWidth, info.sHeight, 0, 0, tileSize, tileSize);
+
+      if (this.id === 'TREE_COVER_GAIN') {
+        const hardUrl = 'url(' + data.url + ')';
+        ctx.canvas.style.background = hardUrl;
+
+        // ctx.canvas.style.background = 'url(http://earthengine.google.org/static/hansen_2013/gain_alpha/3/7/5.png)';
       } else {
-        ctx.drawImage(data.image, 0, 0);
+        //- Scale the tile if we are past max zoom
+        if (data.z > this.options.maxZoom) {
+          const info = this._getSubrectangleInfo(data);
+          //- Stop image enhancement
+          ctx.imageSmoothingEnabled = false;
+          ctx.mozImageSmoothingEnabled = false;
+          ctx.drawImage(data.image, info.sX, info.sY, info.sWidth, info.sHeight, 0, 0, tileSize, tileSize);
+        } else {
+          ctx.drawImage(data.image, 0, 0);
+        }
+
+        const imageData = ctx.getImageData(0, 0, tileSize, tileSize);
+        imageData.data.set(this.filter(imageData.data));
+        ctx.putImageData(imageData, 0, 0);
       }
 
-      const imageData = ctx.getImageData(0, 0, tileSize, tileSize);
-      imageData.data.set(this.filter(imageData.data));
-      ctx.putImageData(imageData, 0, 0);
       this._container.appendChild(canvas);
     }
   },
