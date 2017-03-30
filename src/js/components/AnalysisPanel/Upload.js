@@ -90,39 +90,28 @@ export default class Upload extends Component {
     const content = uploadConfig.shapefileContent(JSON.stringify(params), type);
 
     // the upload input needs to have the file associated to it
-    const input = this.refs.fileInput;
-    input.files = evt.dataTransfer.files;
+    const inputs = this.refs.fileInput;
 
-    // console.log(input.files);
-    // debugger;
-    // esriRequest({
-    //   url: 'https://production-api.globalforestwatch.org/v1/ogr/convert',
-    //   form: input,
-    //   // content: content,
-    //   handleAs: 'json'
-    // }, { usePost: true }).then(res => {
-    //   console.log(res);
-    //   debugger;
-    // });
+    if(evt.dataTransfer.files.length > 0)
+    {
+      var formData = new FormData();
+      formData.append('file', evt.dataTransfer.files[0], evt.dataTransfer.files[0].name);
 
-    var formData = new FormData();
-    formData.append('file', input.files[0], input.files[0].name);
-
-    var xhr = new XMLHttpRequest();
-    const url = 'https://production-api.globalforestwatch.org/v1/ogr/convert';
-    xhr.open('POST', url, true);
-    xhr.onreadystatechange = () => {
-      if(xhr.readyState === 4 && xhr.status === 200) {
-        let response = geojsonUtil.geojsonToArcGIS(JSON.parse(xhr.responseText).data.attributes);
-        this.processGeojson(response);
-      } else if (xhr.readyState === 4) {
-        // deferred.resolve([]);
-        console.log("Error: shapefile not working");
-      }
-    };
-
-
-    xhr.send(formData);
+      var xhr = new XMLHttpRequest();
+      const url = 'https://production-api.globalforestwatch.org/v1/ogr/convert';
+      xhr.open('POST', url, true);
+      xhr.onreadystatechange = () => {
+        if(xhr.readyState === 4 && xhr.status === 200) {
+          let response = geojsonUtil.geojsonToArcGIS(JSON.parse(xhr.responseText).data.attributes);
+          this.processGeojson(response);
+        } else if (xhr.readyState === 4) {
+          console.log("Error: shapefile not working");
+        }
+      };
+      xhr.send(formData);
+    } else {
+      console.log('Error: file upload was unsuccessful');
+    }
   };
 
   processGeojson = (esriJson) => {
