@@ -13,6 +13,9 @@ import symbols from 'utils/symbols';
 import Polygon from 'esri/geometry/Polygon';
 import {attributes} from 'constants/AppConstants';
 import graphicsUtils from 'esri/graphicsUtils';
+import ProjectParameters from 'esri/tasks/ProjectParameters';
+import GeometryService from 'esri/tasks/GeometryService';
+import SpatialReference from 'esri/SpatialReference';
 
 import React, {
   Component,
@@ -130,9 +133,29 @@ export default class Upload extends Component {
     const layer = this.context.map.getLayer(layerKeys.USER_FEATURES);
     if (layer) {
       this.context.map.setExtent(graphicsExtent, true);
-      graphics.forEach((graphic) => {
-        layer.add(graphic);
+
+      const geometryService = new GeometryService('https://utility.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer');
+      var params = new ProjectParameters();
+
+      // Set the projection of the geometry for the image server
+      params.outSR = new SpatialReference(102100);
+      params.geometries = [];
+
+      graphics.forEach(feature => {
+        params.geometries.push(feature.geometry);
       });
+
+      // update the graphics geometry with the new projected geometry
+      let successfullyProjected = (geometries) => {
+        graphics.forEach((graphic, i) => {
+          graphic.geometry = geometries[i];
+          layer.add(graphic);
+        });
+      }
+      let failedToProject = (err) => {
+        console.log('Failed to project the geometry: ', err);
+      }
+      geometryService.project(params).then(successfullyProjected, failedToProject);
     }
     this.setState({isUploading: false});
   }
