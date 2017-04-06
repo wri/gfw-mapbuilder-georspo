@@ -107,6 +107,7 @@ export default declare('EsriTileCanvasBase', [Layer], {
     if (this.options.id) { this.id = this.options.id; }
     //- Create a tile cache to optimize this layer
     this.tiles = {};
+    this.tileRequests = [];
     //- Store the position of the map, this is used to apply transforms
     this.position = { x: 0, y: 0 };
     //- Create an array of handles for events
@@ -185,6 +186,28 @@ export default declare('EsriTileCanvasBase', [Layer], {
     const tileInfos = getTileInfos(rowMin, colMin, rowMax, colMax, level);
     //- Fetch the tile and update the map
     tileInfos.forEach(tile => this._fetchTile(tile));
+
+    const tilesToDelete = [];
+
+    for (var c = 0; c < this._container.children.length; c++) {
+      var tileId = this._container.children[c].id;
+      tileId = tileId.split('_');
+      if (tileId.length > 0) {
+        tileId = tileId[2];
+        if (tileId) {
+          tileId = parseInt(tileId);
+          if (tileId !== level) {
+            console.log(tileId);
+            // this._container.children[c].remove();
+            tilesToDelete.push(this._container.children[c]);
+          }
+        }
+      }
+    }
+    tilesToDelete.forEach(tile => {
+      tile.remove();
+    });
+
   },
 
   /**
@@ -199,6 +222,12 @@ export default declare('EsriTileCanvasBase', [Layer], {
     this.position = { x: 0, y: 0 };
     this._container.innerHTML = '';
     this._container.style.transform = getTranslate(this.position);
+
+    for (var c = 0; c < this.tileRequests.length; c++) {
+      // console.log(this.tileRequests[c].abort);
+      this.tileRequests[c].abort();
+    }
+    this.tileRequests = [];
   },
 
   /**
@@ -325,6 +354,12 @@ export default declare('EsriTileCanvasBase', [Layer], {
       }
 
       this._container.appendChild(canvas);
+
+      const level = this._map.getLevel();
+
+      if (data.z === level) {
+        this._container.appendChild(canvas);
+      }
     }
   },
 
