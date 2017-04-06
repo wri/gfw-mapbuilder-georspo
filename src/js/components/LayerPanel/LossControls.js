@@ -22,12 +22,12 @@ export default class LossControls extends Component {
         lossOptions.push({ label: 2000 + i + '', value: i });
       }
       //- Update the defaults to be the last year
-      layerActions.updateLossTimeline({
+      layerActions.updateLossTimeline.defer({
         fromSelectedIndex: 0,
         toSelectedIndex: 14
       });
       //- Set the options in the store so others can use it
-      layerActions.setLossOptions(lossOptions);
+      layerActions.setLossOptions.defer(lossOptions);
     // });
   }
 
