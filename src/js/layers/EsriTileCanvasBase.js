@@ -284,10 +284,23 @@ export default declare('EsriTileCanvasBase', [Layer], {
     if (!canvas.parentElement) {
       const ctx = canvas.getContext('2d');
       //- Get the current position of the container to offset the tile position
-      canvas.style.transform = getTranslate({
-        x: Math.abs(this.position.x) + coords.x,
-        y: Math.abs(this.position.y) + coords.y
-      });
+      // canvas.style.transform = getTranslate({
+        //   x: this.position.x + coords.x,
+        //   y: this.position.y + coords.y
+        // });
+
+        let yTransfrom = Math.abs(this.position.y) + coords.y;
+        if (this.position.y > 0) {
+          yTransfrom = coords.y - this.position.y;
+        }
+        let xTransfrom = Math.abs(this.position.x) + coords.x;
+        if (this.position.x > 0) {
+          xTransfrom = coords.x - this.position.x;
+        }
+        canvas.style.transform = getTranslate({
+          x: xTransfrom,
+          y: yTransfrom
+        });
 
       if (this.id === 'TREE_COVER_GAIN') {
         const hardUrl = 'url(' + data.url + ')';

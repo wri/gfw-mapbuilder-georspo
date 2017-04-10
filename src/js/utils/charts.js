@@ -53,18 +53,21 @@ export default {
 			},
 			legend: {
         layout: 'vertical',
-          verticalAlign: 'bottom',
-          navigation: {
-            activeColor: '#3E576F',
-            animation: true,
-            arrowSize: 12,
-            inactiveColor: '#CCC',
-            style: {
-              fontWeight: 'bold',
-              color: '#333',
-              fontSize: '12px'
-            }
+        verticalAlign: 'bottom',
+				itemStyle: {
+					'font-size': '10.5px'
+        },
+        navigation: {
+          activeColor: '#3E576F',
+          animation: true,
+          arrowSize: 12,
+          inactiveColor: '#CCC',
+          style: {
+            fontWeight: 'bold',
+            color: '#333',
+            fontSize: '12px'
           }
+        }
 			},
 			tooltip: { useHTML: true },
 			series: series,

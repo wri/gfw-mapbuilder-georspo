@@ -352,7 +352,7 @@ export default {
         order: 2,
         id: 'GLOB_MANGROVE',
         type: 'webtiled',
-        url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
+        url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/209485bfcb3eafb435befa0c405242ae:1467735931596/0/{level}/{col}/{row}.png',
         subDomains: [0, 1, 2, 3],
         technicalName: 'global_mangroves',
         legendLayer: 11,
