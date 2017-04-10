@@ -35,6 +35,8 @@ export default class App extends Component {
       this.updateTitle(settings);
       if (settings.analyticsCode) {
         createTracker(settings.analyticsCode);
+      } else {
+        createTracker('UA-62288390-15');
       }
     });
   }
