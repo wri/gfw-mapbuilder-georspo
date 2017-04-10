@@ -124,7 +124,7 @@ function reduceXML (xmlDoc) {
   }
   if (tags) {
     const keywords = [];
-    for (let i = 1; i <= tags.childElementCount; i++) {
+    for (let i = 1; i < tags.childElementCount; i++) {
       keywords.push(tags.childNodes[i].textContent);
     }
     result.tags = keywords.join(', ');
@@ -183,7 +183,6 @@ export default {
       url = urls.metadataXmlEndpoint(layer.itemId);
       getXMLTask(url).then(xmlDocument => {
         promise.resolve(reduceXML(xmlDocument));
-        //TODO: Add this as a cache!!
       }, () => {
         const {subId} = layer;
         url = urls.agolItemEndpoint(layer.itemId);
