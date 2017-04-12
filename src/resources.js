@@ -225,7 +225,7 @@ export default {
         technicalName: 'umd_landsat_alerts',
         legendLayer: 7,
         minDateValue: 15000,
-        maxDateValue: 16365,
+        maxDateValue: 999999,
         confidence: [0, 1],
         label: {
           en: 'GLAD Alerts',
