@@ -324,6 +324,52 @@ export default {
       },
       layers: [{
         order: 1,
+        id: 'GLOB_MANGROVE',
+        type: 'webtiled',
+        url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/209485bfcb3eafb435befa0c405242ae:1467735931596/0/{level}/{col}/{row}.png',
+        subDomains: [0, 1, 2, 3],
+        technicalName: 'global_mangroves',
+        legendLayer: 11,
+        label: {
+          en: 'Global Mangrove',
+          fr: 'Global Mangrove',
+          es: 'Global Mangrove',
+          pt: 'Global Mangrove',
+          id: 'Global Mangrove',
+          zh: 'Global Mangrove'
+        }
+      }, {
+        order: 2,
+        id: 'IFL',
+        type: 'dynamic',
+        url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+        technicalName: 'intact_forest_landscapes_change',
+        layerIds: [0],
+        label: {
+          en: 'Intact Forest Landscape',
+          fr: 'Paysage forestier intact',
+          es: 'Paisajes Forestales Intactos',
+          pt: 'Paisagens Florestais Intactas',
+          id: 'Intact Forest Landscape',
+          zh: '原生森林景观'
+        }
+      }, {
+        order: 3,
+        id: 'AG_BIOMASS',
+        type: 'image',
+        url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
+        technicalName: 'aboveground_biomass',
+        legendLayer: 8,
+        label: {
+          en: 'Aboveground Live Woody Biomass Density',
+          fr: 'Densité de la biomasse aérienne vivante',
+          es: 'Densidad de la biomasa viva en la superficie del suelo',
+          pt: 'Densidade de biomassa viva acima do solo',
+          id: 'Aboveground Live Woody Biomass Density',
+          zh: 'Aboveground Live Woody Biomass Density'
+        }
+      }, {
+        order: 4,
         id: 'LAND_COVER',
         type: 'webtiled',
         url: 'http://wri-tiles.s3.amazonaws.com/global-landcover/{level}/{col}/{row}.png',
@@ -349,38 +395,7 @@ export default {
           zh: '土地覆盖'
         }
       }, {
-        order: 2,
-        id: 'GLOB_MANGROVE',
-        type: 'webtiled',
-        url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/209485bfcb3eafb435befa0c405242ae:1467735931596/0/{level}/{col}/{row}.png',
-        subDomains: [0, 1, 2, 3],
-        technicalName: 'global_mangroves',
-        legendLayer: 11,
-        label: {
-          en: 'Global Mangrove',
-          fr: 'Global Mangrove',
-          es: 'Global Mangrove',
-          pt: 'Global Mangrove',
-          id: 'Global Mangrove',
-          zh: 'Global Mangrove'
-        }
-      }, {
-        order: 3,
-        id: 'AG_BIOMASS',
-        type: 'image',
-        url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
-        technicalName: 'aboveground_biomass',
-        legendLayer: 8,
-        label: {
-          en: 'Aboveground Live Woody Biomass Density',
-          fr: 'Densité de la biomasse aérienne vivante',
-          es: 'Densidad de la biomasa viva en la superficie del suelo',
-          pt: 'Densidade de biomassa viva acima do solo',
-          id: 'Aboveground Live Woody Biomass Density',
-          zh: 'Aboveground Live Woody Biomass Density'
-        }
-      }, {
-        order: 4,
+        order: 5,
         id: 'TREE_COVER',
         type: 'image',
         url: 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
@@ -405,21 +420,6 @@ export default {
           pt: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
           id: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
           zh: '(2000年, 30米 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))'
-        }
-      }, {
-        order: 5,
-        id: 'IFL',
-        type: 'dynamic',
-        url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-        technicalName: 'intact_forest_landscapes_change',
-        layerIds: [0],
-        label: {
-          en: 'Intact Forest Landscape',
-          fr: 'Paysage forestier intact',
-          es: 'Paisajes Forestales Intactos',
-          pt: 'Paisagens Florestais Intactas',
-          id: 'Intact Forest Landscape',
-          zh: '原生森林景观'
         }
       }]
     },
