@@ -83,8 +83,7 @@ export default {
   alternativeSlopeDescription: 'Some explanatory text for this anlaysis',
   // DO NOT MODIFY SHARINGHOST unless you are configuring this for a Portal Environment
   sharinghost: 'http://www.arcgis.com',
-  wriAnalyticsCode: 'UA-62288390-15',
-  userAnalyticsCode: 'UA-62288390-15',
+  analyticsCode: '',
   userFeatureToken: {
     //- Localhost token for BR office
     'alpha.blueraster.io': 'TjEeQfPMtR-0kjqzTqIZ7dagw25IJzDP02-D9WnUmPbMjcX-0zyr-9A_I9IqrImwJOwVpL_5qxPZAT-heBZ4RQ..',
