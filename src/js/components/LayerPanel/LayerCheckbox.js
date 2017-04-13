@@ -31,6 +31,7 @@ const hideSubLayer = function hideSubLayer (layerItem) {
 const showLayer = function showLayer (map, layerId) {
   if (map && map.getLayer) {
     const layer = map.getLayer(layerId);
+    console.log('layeorder', layer)
     if (layer) { layer.show(); }
   }
 };
