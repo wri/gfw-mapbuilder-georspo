@@ -83,7 +83,7 @@ export default {
   alternativeSlopeDescription: 'Some explanatory text for this anlaysis',
   // DO NOT MODIFY SHARINGHOST unless you are configuring this for a Portal Environment
   sharinghost: 'http://www.arcgis.com',
-  analyticsCode: 'UA-62288390-15',
+  analyticsCode: '',
   userFeatureToken: {
     'localhost': 'TjEeQfPMtR-0kjqzTqIZ7R-NAzGK1Z2sEQo6Dzt17O42DeIlaAxdqeg7GPMANVcC',
     //- Localhost token for BR office
