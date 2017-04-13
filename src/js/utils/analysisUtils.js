@@ -161,7 +161,7 @@ const computeHistogram = (url, content, success, fail) => {
   if (content.renderingRule) { content.renderingRule = JSON.stringify(content.renderingRule); }
   if (content.mosaicRule) { content.mosaicRule = JSON.stringify(content.mosaicRule); }
   //- Set some defaults if they are not set
-  content.geometryType = content.goemetryType || 'esriGeometryPolygon';
+  content.geometryType = content.geometryType || 'esriGeometryPolygon';
   content.f = content.f || 'json';
 
   if (success && fail) {
