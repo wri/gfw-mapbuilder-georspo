@@ -8,9 +8,6 @@ import Deferred from 'dojo/Deferred';
 import utils from 'utils/AppUtils';
 import lang from 'dojo/_base/lang';
 import all from 'dojo/promise/all';
-import ProjectParameters from 'esri/tasks/ProjectParameters';
-import GeometryService from 'esri/tasks/GeometryService';
-import SpatialReference from 'esri/SpatialReference';
 
 const INVALID_IMAGE_SIZE = 'The requested image exceeds the size limit.';
 const OP_MULTIPLY = 3;

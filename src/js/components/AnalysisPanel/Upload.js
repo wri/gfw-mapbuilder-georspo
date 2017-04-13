@@ -1,13 +1,10 @@
 import scaleUtils from 'esri/geometry/scaleUtils';
 import layerKeys from 'constants/LayerConstants';
-import geometryUtils from 'utils/geometryUtils';
 import Graphic from 'esri/graphic';
 import mapActions from 'actions/MapActions';
 import {uploadConfig} from 'js/config';
 import Loader from 'components/Loader';
-import request from 'utils/request';
 import text from 'js/languages';
-import esriRequest from 'esri/request';
 import geojsonUtil from 'utils/arcgis-to-geojson';
 import symbols from 'utils/symbols';
 import Polygon from 'esri/geometry/Polygon';
@@ -84,16 +81,11 @@ export default class Upload extends Component {
     mapActions.toggleAnalysisModal({ visible: false });
 
     const extent = scaleUtils.getExtentForScale(map, 40000);
-    const type = isZip(file.name) ? TYPE.SHAPEFILE : TYPE.GEOJSON;
     const params = uploadConfig.shapefileParams(file.name, map.spatialReference, extent.getWidth(), map.width);
     params.targetSr = {
       latestWkid: 3857,
       wkid: 102100
     };
-    const content = uploadConfig.shapefileContent(JSON.stringify(params), type);
-
-    // the upload input needs to have the file associated to it
-    const inputs = this.refs.fileInput;
 
     if(evt.dataTransfer.files.length > 0)
     {
@@ -105,10 +97,10 @@ export default class Upload extends Component {
       xhr.open('POST', url, true);
       xhr.onreadystatechange = () => {
         if(xhr.readyState === 4 && xhr.status === 200) {
-          let response = geojsonUtil.geojsonToArcGIS(JSON.parse(xhr.responseText).data.attributes);
+          const response = geojsonUtil.geojsonToArcGIS(JSON.parse(xhr.responseText).data.attributes);
           this.processGeojson(response);
         } else if (xhr.readyState === 4) {
-          console.log("Error: shapefile not working");
+          console.log('Error: shapefile not working');
         }
       };
       xhr.send(formData);
@@ -118,7 +110,7 @@ export default class Upload extends Component {
   };
 
   processGeojson = (esriJson) => {
-    let graphics = [];
+    const graphics = [];
     esriJson.forEach(feature => {
       graphics.push(new Graphic(
           new Polygon(feature.geometry),
@@ -146,15 +138,15 @@ export default class Upload extends Component {
       });
 
       // update the graphics geometry with the new projected geometry
-      let successfullyProjected = (geometries) => {
+      const successfullyProjected = (geometries) => {
         graphics.forEach((graphic, i) => {
           graphic.geometry = geometries[i];
           layer.add(graphic);
         });
-      }
-      let failedToProject = (err) => {
+      };
+      const failedToProject = (err) => {
         console.log('Failed to project the geometry: ', err);
-      }
+      };
       geometryService.project(params).then(successfullyProjected, failedToProject);
     }
     this.setState({isUploading: false});
