@@ -6,7 +6,6 @@ import Deferred from 'dojo/Deferred';
 import {urls} from 'js/config';
 
 const _cache = {};
-let _descExists = true;
 
 /**
 * Fetch the metadata from GFW's Metadata API

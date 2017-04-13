@@ -20,10 +20,8 @@ const config = {
     'gis-treecover.wri.org',
     'api.globalforestwatch.org',
     'production-api.globalforestwatch.org',
-    'https://production-api.globalforestwatch.org/v1/ogr',
     'production-api.globalforestwatch.org/v1/ogr',
-        'https://production-api.globalforestwatch.org/v1/ogr/convert',
-    'production-api.globalforestwatch.org/v1/ogr/convert',
+    'production-api.globalforestwatch.org/v1/ogr/convert'
     // '23.20.101.147:443'
   ],
 
