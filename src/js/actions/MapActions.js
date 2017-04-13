@@ -81,7 +81,6 @@ class MapActions {
       //- while group 1 layer 1 would have order of 100, and I need to integrate with webmap layers
       return list.concat(layerPanel[groupName].layers.map((layer, index) => {
         layer.order = ((10 - layerPanel[groupName].order) * 100) - (layer.order || index);
-        // console.log(layer.id + ", " + layer.order);
         return layer;
       }));
     }, []);
@@ -122,7 +121,6 @@ class MapActions {
       uniqueLayers.forEach((layer) => {
         if (map.getLayer(layer.id) && layer.order) {
           map.reorderLayer(map.getLayer(layer.id), layer.order);
-          console.log(layer.id + ", " + layer.order);
         }
       });
       if (map.getLayer('labels')) {

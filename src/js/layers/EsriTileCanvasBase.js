@@ -197,7 +197,6 @@ export default declare('EsriTileCanvasBase', [Layer], {
         if (tileId) {
           tileId = parseInt(tileId);
           if (tileId !== level) {
-            console.log(tileId);
             // this._container.children[c].remove();
             tilesToDelete.push(this._container.children[c]);
           }
