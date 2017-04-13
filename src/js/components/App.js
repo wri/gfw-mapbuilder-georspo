@@ -33,10 +33,9 @@ export default class App extends Component {
     template.getAppInfo().then(settings => {
       appActions.applySettings(settings);
       this.updateTitle(settings);
-      if (settings.analyticsCode) {
-        createTracker(settings.analyticsCode);
-      } else {
-        createTracker('UA-62288390-15');
+      createTracker(settings.wriAnalyticsCode);
+      if (settings.userAnalyticsCode) {
+        createTracker(settings.userAnalyticsCode);
       }
     });
   }
