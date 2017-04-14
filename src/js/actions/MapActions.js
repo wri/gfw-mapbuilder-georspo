@@ -80,7 +80,7 @@ class MapActions {
       //- order numbers start at 0 for each group, so group 0, layer 1 would have order of 1
       //- while group 1 layer 1 would have order of 100, and I need to integrate with webmap layers
       return list.concat(layerPanel[groupName].layers.map((layer, index) => {
-        layer.order = (layerPanel[groupName].order * 100) - (layer.order || index);
+        layer.order = ((10 - layerPanel[groupName].order) * 100) - (layer.order || index);
         return layer;
       }));
     }, []);
@@ -113,6 +113,7 @@ class MapActions {
     map.on('layers-add-result', result => {
       const addedLayers = result.layers;
       // Check for Errors
+
       var layerErrors = addedLayers.filter(layer => layer.error);
       if (layerErrors.length > 0) { console.error(layerErrors); }
       //- Sort the layers, Webmap layers need to be ordered, unfortunately graphics/feature
