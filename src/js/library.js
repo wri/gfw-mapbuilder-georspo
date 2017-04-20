@@ -5,7 +5,7 @@ var MapBuilder = function(args){
     console.log('scripts', scripts);
     var newBase, resourcesBase;
     for (var j = 0; j < scripts.length; j++) {
-      if (scripts[j].id === 'lucas') {
+      if (scripts[j].id === 'library-load') {
         newBase = scripts[j].src;
         console.log(scripts[j]);
       }
@@ -13,7 +13,7 @@ var MapBuilder = function(args){
     console.log('newBase', newBase);
     if (newBase) {
       newBase = newBase.split('/js/library.js')[0];
-      resourcesBase = newBase.split('library-load/')[0];
+      resourcesBase = newBase.split('library-load-dist/')[0];
     }
     console.log('newerBase!', newBase);
 
