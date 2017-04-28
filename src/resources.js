@@ -83,9 +83,8 @@ export default {
   alternativeSlopeDescription: 'Some explanatory text for this anlaysis',
   // DO NOT MODIFY SHARINGHOST unless you are configuring this for a Portal Environment
   sharinghost: 'http://www.arcgis.com',
-  analyticsCode: '',
+  analyticsCode: 'UA-62288390-15',
   userFeatureToken: {
-    'localhost': 'TjEeQfPMtR-0kjqzTqIZ7R-NAzGK1Z2sEQo6Dzt17O42DeIlaAxdqeg7GPMANVcC',
     //- Localhost token for BR office
     'localhost': 'TjEeQfPMtR-0kjqzTqIZ7R-NAzGK1Z2sEQo6Dzt17O42DeIlaAxdqeg7GPMANVcC',
     'alpha.blueraster.io': 'TjEeQfPMtR-0kjqzTqIZ7dagw25IJzDP02-D9WnUmPbMjcX-0zyr-9A_I9IqrImwJOwVpL_5qxPZAT-heBZ4RQ..',
@@ -141,21 +140,13 @@ export default {
       layers: [{
         order: 1,
         id: 'TREE_COVER_LOSS',
-        type: 'loss', //image
-        // url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
-        // url: 'https://storage.googleapis.com/forma-public/Hansen14_15/tiles/1/30/{z}/{x}/{y}',
-        url: 'https://storage.googleapis.com/wri-public/Hansen14_15/tiles/hansen_world/v4.0/tc30/{z}/{x}/{y}.png',
-        // legendLayer: 7,
-        minYear: 1,
-        maxYear: 15,
-        // minDateValue: 15000,
-        // maxDateValue: 16365,
-        // confidence: [0, 1],
+        type: 'image',
+        url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
         technicalName: 'tree_cover_loss',
         legendLayer: 0,
-        // colormap: [[1, 219, 101, 152]],
-        // inputRange: [1, 15],
-        // outputRange: [1],
+        colormap: [[1, 219, 101, 152]],
+        inputRange: [1, 15],
+        outputRange: [1],
         label: {
           en: 'Tree cover loss',
           fr: 'Perte en couvert arboré',
@@ -175,9 +166,8 @@ export default {
       }, {
         order: 2,
         id: 'TREE_COVER_GAIN',
-        type: 'gain', //'image',
-        // url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
-        url: 'http://earthengine.google.org/static/hansen_2013/gain_alpha/{z}/{x}/{y}.png',
+        type: 'image',
+        url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
         technicalName: 'tree_cover_gain',
         legendLayer: 1,
         label: {
@@ -227,7 +217,7 @@ export default {
         technicalName: 'umd_landsat_alerts',
         legendLayer: 7,
         minDateValue: 15000,
-        maxDateValue: 999999,
+        maxDateValue: 16365,
         confidence: [0, 1],
         label: {
           en: 'GLAD Alerts',
@@ -328,7 +318,7 @@ export default {
         order: 1,
         id: 'GLOB_MANGROVE',
         type: 'webtiled',
-        url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/209485bfcb3eafb435befa0c405242ae:1467735931596/0/{level}/{col}/{row}.png',
+        url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/23a7c3aea64174198a46c1fb4211023f:1467735931596/0/{level}/{col}/{row}.png',
         subDomains: [0, 1, 2, 3],
         technicalName: 'global_mangroves',
         legendLayer: 11,
@@ -371,31 +361,31 @@ export default {
           zh: 'Aboveground Live Woody Biomass Density'
         }
       }, {
-        order: 4,
-        id: 'LAND_COVER',
-        type: 'webtiled',
-        url: 'http://wri-tiles.s3.amazonaws.com/global-landcover/{level}/{col}/{row}.png',
-        technicalName: 'global_landcover',
-        legendLayer: 15,
-        rasterId: '$568',
-        bounds: [1, 16],
-        classes: {
-          en: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
-          fr: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
-          es: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
-          pt: ['Culturas Irrigadas', 'Rainfed croplands', 'Mosaico de areas florestais e de cultivo', 'Floresta verde ou semi-decídua', 'Floresta decídua de folha larga', 'Floresta verde de coníferas ou Floresta decídua', 'Misto de floresta de conifera e de folha larga"', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
-          id: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
-          zh: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice']
-        },
-        colors: ['#825D26', '#D1A969', '#DED6B4', '#157562', '#CC7A29', '#6DAD96', '#968635', '#C2B32F', '#6F7A53', '#96A36F', '#CDDB93', '#7DBDE8', '#0D63A1', '#F41E65', '#FFFFFF', '#DBDBDB'],
-        label: {
-          en: 'Land cover',
-          fr: 'Couverture des sols',
-          es: 'Cobertura vegetal',
-          pt: 'Land cover',
-          id: 'Land cover',
-          zh: '土地覆盖'
-        }
+          order: 4,
+          id: 'LAND_COVER',
+          type: 'webtiled',
+          url: 'http://wri-tiles.s3.amazonaws.com/global-landcover/{level}/{col}/{row}.png',
+          technicalName: 'global_landcover',
+          legendLayer: 15,
+          rasterId: '$568',
+          bounds: [1, 16],
+          classes: {
+            en: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
+            fr: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
+            es: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
+            pt: ['Culturas Irrigadas', 'Rainfed croplands', 'Mosaico de areas florestais e de cultivo', 'Floresta verde ou semi-decídua', 'Floresta decídua de folha larga', 'Floresta verde de coníferas ou Floresta decídua', 'Misto de floresta de conifera e de folha larga"', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
+            id: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
+            zh: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice']
+          },
+          colors: ['#825D26', '#D1A969', '#DED6B4', '#157562', '#CC7A29', '#6DAD96', '#968635', '#C2B32F', '#6F7A53', '#96A36F', '#CDDB93', '#7DBDE8', '#0D63A1', '#F41E65', '#FFFFFF', '#DBDBDB'],
+          label: {
+            en: 'Land cover',
+            fr: 'Couverture des sols',
+            es: 'Cobertura vegetal',
+            pt: 'Land cover',
+            id: 'Land cover',
+            zh: '土地覆盖'
+          }
       }, {
         order: 5,
         id: 'TREE_COVER',
@@ -437,7 +427,7 @@ export default {
       },
       layers: [{
         id: 'landsat',
-        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-s84b6feb159-b5c7519937c9732128e8b42b5865e7c2.png',
+        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-sdd18a411a3-5bf18f445e58b8766f773184b7741c67.png',
         templateUrl: 'http://d2h71bpqsyf4vw.cloudfront.net/2016/${level}/${col}/${row}.png',
         years: ['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016'],
         title: {
