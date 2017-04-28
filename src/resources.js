@@ -475,7 +475,6 @@ export default {
     extraLayers: [{
       id: 'MASK',
       type: 'dynamic',
-      order: 10000,
       url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
       opacity: 0.35,
       layerIds: [0]
