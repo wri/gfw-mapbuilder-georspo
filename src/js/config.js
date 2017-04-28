@@ -20,6 +20,8 @@ const config = {
     'gis-treecover.wri.org',
     'api.globalforestwatch.org',
     'production-api.globalforestwatch.org',
+    'alpha.blueraster.io',
+    'staging.blueraster.io',
     'stg.blueraster.com.s3.amazonaws.com'
   ],
 
