@@ -11,7 +11,6 @@ var MapBuilder = function(args){
 
     if (newBase) {
       newBase = newBase.split('/js/library.js')[0];
-      // resourcesBase = newBase.split('library-load-dist/')[0];
       resourcesBase = newBase.split(constructorParams.version)[0];
     }
     console.log('newerBase!', newBase);
@@ -25,10 +24,7 @@ var MapBuilder = function(args){
       cache: constructorParams.version,
       esri: '#{esriVersion}',
       base: newBase //TODO: how is this evaluated? We are missing this! --see the logo in upper left's img src
-    }; //these are no longer getting injected via gulp's jade-build or jade-dist tasks!
-
-    console.log('window._app', window._app);
-    console.log('we care about this somewhere because I want to say window.open(report.html) but prefix that url!');
+    };
 
     function makePath (base, path) {
       var position = base.length - 1;
@@ -46,9 +42,7 @@ var MapBuilder = function(args){
     // Change this to '' if _app.base is a remote url
     var base = location.href.replace(/\/[^/]+$/, '');
     // Add trailing slash if it is not present
-    console.log('oldBase', base);
-    // Add _app.base if it is present
-    // if (window._app.base) { base = makePath(base, window._app.base); }
+
     if (newBase) {
       base = newBase;
       constructorParams.cssPath = makePath(base, 'css');
@@ -87,23 +81,16 @@ var MapBuilder = function(args){
       ],
       deps: ['dojo/ready'],
       callback: function () {
-        console.log('innn callback');
-        console.log(window);
-        require(['js/libraryMain'], function(libraryMain) { //TODO: Don't resort to module.default !!
-          console.log(libraryMain);
-
+        require(['js/libraryMain'], function(libraryMain) {
           libraryMain.default.startup();
           libraryMain.default.configureApp(constructorParams);
           libraryMain.default.lazyloadAssets(constructorParams);
           libraryMain.default.initializeApp(constructorParams);
         });
-
       }
     };
 
     function loadjsfile(filename) {
-      // const dojoInit = basePath + filename;
-
       const script = document.createElement('script');
       script.src = filename;
       document.getElementsByTagName('head')[0].appendChild(script);
