@@ -136,7 +136,13 @@ const utils = {
           }
 
           const path = toQuerystring(query);
-          window.open(`report.html?${path}`);
+          //TODO: update report page prefix for library build: window._app.base?
+          if (window._app.base === window._app.cache) {
+            window.open(`report.html?${path}`);
+          } else {
+            const appBase = window._app.base.split(window._app.cache)[0];
+            window.open(`${appBase}report.html?${path}`);
+          }
         } else {
           console.error('Unable to save feature at this time');
         }
@@ -175,8 +181,13 @@ const utils = {
       }
 
       const path = toQuerystring(query);
-
-      window.open(`report.html?${path}`);
+      //TODO: update report page prefix for library build: window._app.base?
+      if (window._app.base === window._app.cache) {
+        window.open(`report.html?${path}`);
+      } else {
+        const appBase = window._app.base.split(window._app.cache)[0];
+        window.open(`${appBase}report.html?${path}`);
+      }
 
     }
 

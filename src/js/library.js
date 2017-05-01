@@ -2,37 +2,33 @@ var MapBuilder = function(args){
 
   this.init = function(constructorParams) {
     var scripts = document.getElementsByTagName('script');
-    console.log('scripts', scripts);
     var newBase, resourcesBase;
     for (var j = 0; j < scripts.length; j++) {
       if (scripts[j].id === 'library-load') {
         newBase = scripts[j].src;
-        console.log(scripts[j]);
       }
     }
-    console.log('newBase', newBase);
+
     if (newBase) {
       newBase = newBase.split('/js/library.js')[0];
-      resourcesBase = newBase.split('library-load-dist/')[0];
+      // resourcesBase = newBase.split('library-load-dist/')[0];
+      resourcesBase = newBase.split(constructorParams.version)[0];
     }
     console.log('newerBase!', newBase);
 
-
-    //TODO: Don't hard-code this, get it from our last url-to-lib/gfwLibName/somethingHere/
-
     console.log('resourcesBase!', resourcesBase);
 
-    // console.log('src', src);
-    console.log('constructorParams', constructorParams);
-    //if dojo is already loaded (aka if window.dojoConfig exists) call main.js
 
-    //TODO: Explain that these parameters take precedence over resources, but not AGOL
+    //TODO: Don't hard-code this, get it from our last url-to-lib/gfwLibName/somethingHere/
 
     window._app = {
       cache: constructorParams.version,
       esri: '#{esriVersion}',
       base: newBase //TODO: how is this evaluated? We are missing this! --see the logo in upper left's img src
     }; //these are no longer getting injected via gulp's jade-build or jade-dist tasks!
+
+    console.log('window._app', window._app);
+    console.log('we care about this somewhere because I want to say window.open(report.html) but prefix that url!');
 
     function makePath (base, path) {
       var position = base.length - 1;
@@ -51,7 +47,6 @@ var MapBuilder = function(args){
     var base = location.href.replace(/\/[^/]+$/, '');
     // Add trailing slash if it is not present
     console.log('oldBase', base);
-    console.log(base);
     // Add _app.base if it is present
     // if (window._app.base) { base = makePath(base, window._app.base); }
     if (newBase) {
@@ -62,24 +57,14 @@ var MapBuilder = function(args){
     base = makePath(base);
 
     console.log('newesttttBase', base);
-
-    if (!resourcesBase) {
-      resourcesBase = location.href;
-      //todo: make css path
-    }
-    console.log('This is our base Path for js!!', makePath(base, 'js'));
-    console.log('This is our base Path for vendor!', makePath(base, 'vendor'));
-    // console.log(makePath(base, 'js/components'));
     console.log('resourceBase!', getResourcePath(resourcesBase.replace(/\/[^/]+$/, '')));
-    //TODO: We need a Different path if we are in build versus dist for root (for resources.js only):
-    //if we are build, resources.js lives at root, one folder above us: js/library.js
-    //if we are dist, resources.js lives at root, two folders above us: 1.1.10/js/library.js
-    // --> Either way, we can't use location.href! This is the same for our example.jade's src path
+
     window.dojoConfig = {
       parseOnLoad: false,
       async: true,
       packages: [
         { name: 'root', location: getResourcePath(resourcesBase.replace(/\/[^/]+$/, ''))},
+        // { name: 'root', location: base},
         { name: 'js', location: makePath(base, 'js')},
         { name: 'vendor', location: makePath(base, 'vendor')},
         { name: 'utils', location: makePath(base, 'js/utils')},
@@ -106,8 +91,7 @@ var MapBuilder = function(args){
         console.log(window);
         require(['js/libraryMain'], function(libraryMain) { //TODO: Don't resort to module.default !!
           console.log(libraryMain);
-          console.log(libraryMain.default);
-          console.log(libraryMain.startup);
+
           libraryMain.default.startup();
           libraryMain.default.configureApp(constructorParams);
           libraryMain.default.lazyloadAssets(constructorParams);
