@@ -55,8 +55,10 @@ const libraryMain = {
       cssPath = constructorParams.cssPath + '/';
     }
     if (constructorParams.basePath) {
-      basePath = constructorParams.basePath + '/';
+      basePath = constructorParams.basePath;
     }
+    console.log('cssPath', cssPath);
+    console.log('basePath', basePath);
     loadCSS(cssPath + 'critical.css');
     // loadCSS(cssPath + 'google-fira.css');
     loadCSS('http://fonts.googleapis.com/css?family=Fira+Sans:400,500,300');
@@ -68,7 +70,7 @@ const libraryMain = {
     // loadCSS(`${window._app.base ? window._app.base + '/' : ''}css/app.css`);
     // loadCSS(`https://js.arcgis.com/${window._app.esri}/dijit/themes/tundra/tundra.css`);
     // loadCSS(`https://js.arcgis.com/${window._app.esri}/esri/css/esri.css`);
-
+    console.log(basePath + assetUrls.highcharts);
     loadJS(basePath + assetUrls.highcharts).then(() => {
       //- Set default Options for Highcharts
       Highcharts.setOptions({

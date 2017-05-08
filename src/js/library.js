@@ -1,30 +1,34 @@
 var MapBuilder = function(args){
 
   this.init = function(constructorParams) {
+    console.log('constructorParams', constructorParams);
     var scripts = document.getElementsByTagName('script');
     var newBase, resourcesBase;
     for (var j = 0; j < scripts.length; j++) {
       if (scripts[j].id === 'library-load') {
         newBase = scripts[j].src;
+        console.log('newBase is now', newBase);
       }
     }
 
     if (newBase) {
-      newBase = newBase.split('/js/library.js')[0];
+      console.log(constructorParams);
       resourcesBase = newBase.split(constructorParams.version)[0];
+      newBase = resourcesBase + constructorParams.version + '/';
+      console.log(resourcesBase);
+      // newBase = newBase.split('/js/library.js')[0];
     }
     console.log('newerBase!', newBase);
 
     console.log('resourcesBase!', resourcesBase);
 
-
-    //TODO: Don't hard-code this, get it from our last url-to-lib/gfwLibName/somethingHere/
-
     window._app = {
       cache: constructorParams.version,
       esri: '#{esriVersion}',
       base: newBase //TODO: how is this evaluated? We are missing this! --see the logo in upper left's img src
-    };
+    }; //these are no longer getting injected via gulp's jade-build or jade-dist tasks!
+
+    console.log('window._app', window._app);
 
     function makePath (base, path) {
       var position = base.length - 1;
@@ -42,7 +46,9 @@ var MapBuilder = function(args){
     // Change this to '' if _app.base is a remote url
     var base = location.href.replace(/\/[^/]+$/, '');
     // Add trailing slash if it is not present
-
+    console.log('oldBase', base);
+    // Add _app.base if it is present
+    // if (window._app.base) { base = makePath(base, window._app.base); }
     if (newBase) {
       base = newBase;
       constructorParams.cssPath = makePath(base, 'css');
@@ -81,16 +87,23 @@ var MapBuilder = function(args){
       ],
       deps: ['dojo/ready'],
       callback: function () {
-        require(['js/libraryMain'], function(libraryMain) {
+        console.log('innn callback');
+        console.log(window);
+        require(['js/libraryMain'], function(libraryMain) { //TODO: Don't resort to module.default !!
+          console.log(libraryMain);
+          console.log(libraryMain.default);
           libraryMain.default.startup();
           libraryMain.default.configureApp(constructorParams);
           libraryMain.default.lazyloadAssets(constructorParams);
           libraryMain.default.initializeApp(constructorParams);
         });
+
       }
     };
 
     function loadjsfile(filename) {
+      // const dojoInit = basePath + filename;
+
       const script = document.createElement('script');
       script.src = filename;
       document.getElementsByTagName('head')[0].appendChild(script);

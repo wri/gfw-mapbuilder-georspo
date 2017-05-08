@@ -4,6 +4,7 @@ var prerender = require('react-prerender');
 var gulpPlumber = require('gulp-plumber');
 var browserSync = require('browser-sync');
 var imagemin = require('gulp-imagemin');
+var rename = require('gulp-rename');
 var requirejs = require('requirejs');
 var locals = require('./src/locals');
 var stylus = require('gulp-stylus');
@@ -64,7 +65,8 @@ var config = {
     moment: { src: 'build/vendor/arcgis-api/esri/moment/**/*', dest: 'dist/' + version + '/vendor/arcgis-api/moment'},
     putSelector: { src: 'build/vendor/arcgis-api/esri/put-selector/**/*', dest: 'dist/' + version + '/vendor/arcgis-api/put-selector'},
     xstyle: { src: 'build/vendor/arcgis-api/esri/xstyle/**/*', dest: 'dist/' + version + '/vendor/arcgis-api/xstyle'},
-    library: { src: 'build/js/library.js', dest: 'dist/' + version + '/js'},
+    // library: { src: 'build/js/library.js', dest: 'dist/' + version + '/js'},
+    library: { src: 'build/js/library.js', dest: 'dist/'},
     libraryMain: { src: 'build/js/libraryMain.js', dest: 'dist/' + version + '/js'}
   }
 };
@@ -147,6 +149,7 @@ gulp.task('copy', function () {
   gulp.src(config.copy.highcharts.src)
     .pipe(gulp.dest(config.copy.highcharts.dest));
   gulp.src(config.copy.library.src)
+    .pipe(rename(version + '.js'))
     .pipe(gulp.dest(config.copy.library.dest));
   // gulp.src(config.copy.libraryMain.src)
   //   .pipe(gulp.dest(config.copy.libraryMain.dest));
