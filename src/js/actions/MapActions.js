@@ -126,6 +126,9 @@ class MapActions {
       if (map.getLayer('labels')) {
         map.reorderLayer(map.getLayer('labels'), 200);
       }
+      // Appending the mask to the end of the parent div to make sure mask is always on top of all layers
+      var mask = document.getElementById('esri.Map_0_MASK');
+      mask.parentNode.appendChild(mask);
     });
     //- Return the layers through the dispatcher so the mapstore can update visible layers
     return {
