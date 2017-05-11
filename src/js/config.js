@@ -19,10 +19,12 @@ const config = {
     'gis-potico.wri.org',
     'gis-treecover.wri.org',
     'api.globalforestwatch.org',
-    'production-api.globalforestwatch.org',
     'alpha.blueraster.io',
     'staging.blueraster.io',
-    'stg.blueraster.com.s3.amazonaws.com'
+    'stg.blueraster.com.s3.amazonaws.com',
+    'production-api.globalforestwatch.org',
+    'production-api.globalforestwatch.org/v1/ogr',
+    'production-api.globalforestwatch.org/v1/ogr/convert'
   ],
 
   // Note these will need to be copied in with the bulid script since they are not part of the main bundle
