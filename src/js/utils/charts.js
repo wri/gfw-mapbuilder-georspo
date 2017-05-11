@@ -226,8 +226,11 @@ export default {
 				title: { text: null }
 			},
 			legend: {
+				layout: 'vertical',
 				enabled: true,
 				verticalAlign: 'bottom',
+				// align: 'left',
+				// itemDistance: 100,
 				// Subtract a decent amount for padding
 				itemStyle: { width: `${legendWidth - 20}px` }
 			},
