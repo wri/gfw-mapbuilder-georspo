@@ -46,7 +46,6 @@ export default class CanopyModal extends Component {
       }
 
     }, console.error);
-    console.log(base + assetUrls.ionCSS);
     loadCSS(base + assetUrls.ionCSS);
     loadCSS(base + assetUrls.ionSkinCSS);
   }

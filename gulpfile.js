@@ -65,7 +65,6 @@ var config = {
     moment: { src: 'build/vendor/arcgis-api/esri/moment/**/*', dest: 'dist/' + version + '/vendor/arcgis-api/moment'},
     putSelector: { src: 'build/vendor/arcgis-api/esri/put-selector/**/*', dest: 'dist/' + version + '/vendor/arcgis-api/put-selector'},
     xstyle: { src: 'build/vendor/arcgis-api/esri/xstyle/**/*', dest: 'dist/' + version + '/vendor/arcgis-api/xstyle'},
-    // library: { src: 'build/js/library.js', dest: 'dist/' + version + '/js'},
     library: { src: 'build/js/library.js', dest: 'dist/'},
     libraryMain: { src: 'build/js/libraryMain.js', dest: 'dist/' + version + '/js'}
   }
@@ -228,8 +227,6 @@ gulp.task('bundle-lib', function (cb) {
 });
 
 gulp.task('browser-sync', function () {
-  console.log(config.server.baseDir);
-  console.log(config.server.files);
   browserSync({
     server: config.server.baseDir,
     files: config.server.files,

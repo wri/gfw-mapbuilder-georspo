@@ -25,10 +25,8 @@ var MapBuilder = function(args){
     window._app = {
       cache: constructorParams.version,
       esri: '#{esriVersion}',
-      base: newBase //TODO: how is this evaluated? We are missing this! --see the logo in upper left's img src
-    }; //these are no longer getting injected via gulp's jade-build or jade-dist tasks!
-
-    console.log('window._app', window._app);
+      base: newBase
+    };
 
     function makePath (base, path) {
       var position = base.length - 1;
@@ -45,8 +43,8 @@ var MapBuilder = function(args){
     }
     // Change this to '' if _app.base is a remote url
     var base = location.href.replace(/\/[^/]+$/, '');
-    // Add trailing slash if it is not present
-    console.log('oldBase', base);
+
+
     // Add _app.base if it is present
     // if (window._app.base) { base = makePath(base, window._app.base); }
     if (newBase) {
@@ -56,15 +54,11 @@ var MapBuilder = function(args){
     }
     base = makePath(base);
 
-    console.log('newesttttBase', base);
-    console.log('resourceBase!', getResourcePath(resourcesBase.replace(/\/[^/]+$/, '')));
-
     window.dojoConfig = {
       parseOnLoad: false,
       async: true,
       packages: [
         { name: 'root', location: getResourcePath(resourcesBase.replace(/\/[^/]+$/, ''))},
-        // { name: 'root', location: base},
         { name: 'js', location: makePath(base, 'js')},
         { name: 'vendor', location: makePath(base, 'vendor')},
         { name: 'utils', location: makePath(base, 'js/utils')},
@@ -87,11 +81,7 @@ var MapBuilder = function(args){
       ],
       deps: ['dojo/ready'],
       callback: function () {
-        console.log('innn callback');
-        console.log(window);
         require(['js/libraryMain'], function(libraryMain) { //TODO: Don't resort to module.default !!
-          console.log(libraryMain);
-          console.log(libraryMain.default);
           libraryMain.default.startup();
           libraryMain.default.configureApp(constructorParams);
           libraryMain.default.lazyloadAssets(constructorParams);

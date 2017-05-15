@@ -48,7 +48,6 @@ const libraryMain = {
   * When deploying to specific versions, this must be used for all relative paths
   */
   lazyloadAssets: (constructorParams) => {
-    console.log(constructorParams);
     let cssPath = 'css/';
     let basePath = '';
     if (constructorParams.cssPath) {
@@ -57,8 +56,7 @@ const libraryMain = {
     if (constructorParams.basePath) {
       basePath = constructorParams.basePath;
     }
-    console.log('cssPath', cssPath);
-    console.log('basePath', basePath);
+
     loadCSS(cssPath + 'critical.css');
     // loadCSS(cssPath + 'google-fira.css');
     loadCSS('http://fonts.googleapis.com/css?family=Fira+Sans:400,500,300');
@@ -70,7 +68,6 @@ const libraryMain = {
     // loadCSS(`${window._app.base ? window._app.base + '/' : ''}css/app.css`);
     // loadCSS(`https://js.arcgis.com/${window._app.esri}/dijit/themes/tundra/tundra.css`);
     // loadCSS(`https://js.arcgis.com/${window._app.esri}/esri/css/esri.css`);
-    console.log(basePath + assetUrls.highcharts);
     loadJS(basePath + assetUrls.highcharts).then(() => {
       //- Set default Options for Highcharts
       Highcharts.setOptions({

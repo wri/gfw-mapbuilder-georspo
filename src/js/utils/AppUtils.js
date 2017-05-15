@@ -136,7 +136,6 @@ const utils = {
           }
 
           const path = toQuerystring(query);
-          //TODO: update report page prefix for library build: window._app.base?
           if (window._app.base === window._app.cache) {
             window.open(`report.html?${path}`);
           } else {
@@ -181,7 +180,7 @@ const utils = {
       }
 
       const path = toQuerystring(query);
-      //TODO: update report page prefix for library build: window._app.base?
+
       if (window._app.base === window._app.cache) {
         window.open(`report.html?${path}`);
       } else {
