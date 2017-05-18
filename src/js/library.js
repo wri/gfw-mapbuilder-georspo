@@ -1,26 +1,18 @@
 var MapBuilder = function(args){
 
   this.init = function(constructorParams) {
-    console.log('constructorParams', constructorParams);
     var scripts = document.getElementsByTagName('script');
     var newBase, resourcesBase;
     for (var j = 0; j < scripts.length; j++) {
       if (scripts[j].id === 'library-load') {
         newBase = scripts[j].src;
-        console.log('newBase is now', newBase);
       }
     }
 
     if (newBase) {
-      console.log(constructorParams);
       resourcesBase = newBase.split(constructorParams.version)[0];
       newBase = resourcesBase + constructorParams.version + '/';
-      console.log(resourcesBase);
-      // newBase = newBase.split('/js/library.js')[0];
     }
-    console.log('newerBase!', newBase);
-
-    console.log('resourcesBase!', resourcesBase);
 
     window._app = {
       cache: constructorParams.version,
