@@ -4,14 +4,13 @@ import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import geojsonUtil from 'utils/arcgis-to-geojson';
 import InfoTemplate from 'esri/InfoTemplate';
 import declare from 'dojo/_base/declare';
-import Layer from 'esri/layers/layer';
 import Graphic from 'esri/graphic';
 import request from 'dojo/request';
 import dojoJSON from 'dojo/json';
 import Color from 'esri/Color';
 
 
-export default declare('CartoLayer', [Layer, GraphicsLayer], {
+export default declare('CartoLayer', [GraphicsLayer], {
   /*
    * params must contain
    * - user <string> CartoDB User Name
@@ -44,11 +43,10 @@ export default declare('CartoLayer', [Layer, GraphicsLayer], {
     this.cartoURL = urlBuilder.join('');
     this.cartoUser = resource.cartoUser;
     // this.symbolDictionary = resource.symbolDictionary || null;
-    // this.infoTemplate = resource.infotemplate || null;
+    this.infoTemplate = resource.infotemplate || null;
     this.cartoQuery = resource.cartoQuery;
     this.id = resource.id;
-    this.visible = true;
-
+    this.visible = false;
   },
 
   setParams: function () {
@@ -77,10 +75,8 @@ export default declare('CartoLayer', [Layer, GraphicsLayer], {
     request(_url).then(data => {
       var geojson = dojoJSON.parse(data);
       // assumes global Terraformer with ArcGIS Parser loaded
-      // http://terraformer.io/
       // var esriJson = Terraformer.ArcGIS.convert(geojson);
       const esriJson = geojsonUtil.geojsonToArcGIS(geojson);
-      console.log(esriJson);
       esriJson.forEach(x => {
         if (x.geometry) {
           var graphic = new Graphic(x);
@@ -90,32 +86,31 @@ export default declare('CartoLayer', [Layer, GraphicsLayer], {
               webMercatorUtils.geographicToWebMercator(graphic.geometry)
             );
           }
+          debugger;
           //set symbol for graphic and set info template
-          // if (!!this.symbolDictionary) {
+          if (!!this.symbolDictionary) {
             graphic.setSymbol(
               this.symbolDictionary[graphic.geometry.type]
             );
-          // }
-          // // else {
-          //   console.log('yyyyy');
-          //   return this.emit('queryDrawError', {
-          //     message: 'No symbolDictionary for feature'
-          //   });
-          // }
+          }
+          else {
+            return this.emit('queryDrawError', {
+              message: 'No symbolDictionary for feature'
+            });
+          }
 
-          // if (!!this.infoTemplate) {
-          //   graphic.setInfoTemplate(this.infoTemplate);
-          // } else {
-          //   graphic.setInfoTemplate(new InfoTemplate('Attributes', '${*}'));
-          // }
+          if (!!this.infoTemplate) {
+            console.log("first");
+            graphic.setInfoTemplate(this.infoTemplate);
+          } else {
+            console.log("second");
+            graphic.setInfoTemplate(new InfoTemplate('Attributes', '${*}'));
+            debugger;
+          }
           this.add(graphic);
-          // brApp.map.graphics.add(graphic);
         }
       });
-      console.log(this.visible);
       this.emit('querySuccess', this.graphics);
-      console.log(this);
-      // console.log(brApp.map.graphics);
     });
   }
 });
