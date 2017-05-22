@@ -36,7 +36,6 @@ export default (layer, lang) => {
   switch (layer.type) {
     case 'carto':
       options.id = layer.id;
-      debugger;
       esriLayer = new CartoLayer(layer);
       esriLayer.queryBuilder();
     break;

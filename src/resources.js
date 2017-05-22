@@ -474,8 +474,10 @@ export default {
         type: 'carto',
         url: 'timsurl',
         cartoUser: 'tgirgin',
-        cartoQuery: 'SELECT * FROM public.montreal_road_network',
-        cartoDataType: 'point',
+        cartoQuery: 'SELECT * FROM public.bikeroutes_ny',
+        cartoDataType: 'line',
+        cartoLineWidth: '2px',
+        cartoColor: [92, 92, 92, 1],
         technicalName: 'carto_layer_lines',
         colormap: [[1, 0, 179, 0]],
         inputRange: [30, 101],
@@ -488,6 +490,51 @@ export default {
           es: 'carto_layer_lines',
           pt: 'carto_layer_lines',
           id: 'carto_layer_lines',
+          zh: '森林覆盖密度'
+        },
+        sublabel: {
+          en: '(carto_layer)',
+          fr: '(carto_layer)',
+          es: '(2000, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+          pt: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
+          id: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
+          zh: '(2000年, 30米 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))'
+        },
+        popup: {
+          title: {
+            en: 'Carto Layer'
+          },
+          content: {
+            en: [
+              {'label': 'Type', 'fieldExpression': 'annoline2a'},
+              {'label': 'Borough', 'fieldExpression': 'borough'},
+              {'label': 'Place', 'fieldExpression': 'annoline1'},
+              {'label': 'Name', 'fieldExpression': 'name'}
+            ]
+          }
+        }
+      }, {
+        order: 8,
+        id: 'CARTO_LAYER_POLYGONS',
+        type: 'carto',
+        url: 'timsurl',
+        cartoUser: 'tgirgin',
+        cartoQuery: 'SELECT * FROM public.ny_policeprecints',
+        cartoDataType: 'polygon',
+        cartoOutlineStyle: 'STYLE_SOLID',
+        cartoColor: [68, 108, 179, 1],
+        technicalName: 'carto_layer_polygons',
+        colormap: [[1, 0, 179, 0]],
+        inputRange: [30, 101],
+        outputRange: [1],
+        opacity: 1,
+        // legendLayer: 2,
+        label: {
+          en: 'carto_layer_polygons',
+          fr: 'carto_layer_polygons',
+          es: 'carto_layer_polygons',
+          pt: 'carto_layer_polygons',
+          id: 'carto_layer_polygons',
           zh: '森林覆盖密度'
         },
         sublabel: {

@@ -1,5 +1,7 @@
 import SimpleMarkerSymbol from 'esri/symbols/SimpleMarkerSymbol';
 import webMercatorUtils from 'esri/geometry/webMercatorUtils';
+import SimpleFillSymbol from 'esri/symbols/SimpleFillSymbol';
+import SimpleLineSymbol from 'esri/symbols/SimpleLineSymbol';
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import geojsonUtil from 'utils/arcgis-to-geojson';
 import InfoTemplate from 'esri/InfoTemplate';
@@ -20,46 +22,77 @@ export default declare('CartoLayer', [GraphicsLayer], {
    * - infoTemplate <esri/InfoTemplate>
    */
   constructor: function(resource) {
+    const { cartoColor, cartoIcon, cartoUser, cartoQuery, cartoDataType, cartoLineWidth, popup, id } = resource;
+    switch (cartoDataType) {
+      case 'point':
+        this.setPointParams(cartoColor, cartoIcon, cartoUser);
+        break;
+      case 'line':
+        this.setLineParams(cartoColor, cartoUser, cartoLineWidth);
+        break;
+      case 'polygon':
+        debugger;
+        this.setPolygonParams(cartoColor, cartoUser);
+        break;
+    }
+
+    var urlBuilder = [
+      '//',
+      cartoUser,
+      '.cartodb.com/api/v2/sql?format=GeoJSON&q='
+    ];
+    this.cartoURL = urlBuilder.join('');
+    this.cartoUser = cartoUser;
+    // this.symbolDictionary = resource.symbolDictionary || null;
+    this.infoTemplate = popup || null;
+    this.cartoQuery = cartoQuery;
+    this.id = id;
+    this.visible = false;
+  },
+
+  setPointParams: function (cartoColor, cartoIcon, cartoUser) {
     var marker = SimpleMarkerSymbol();
-    marker.setPath(resource.cartoIcon);
-    marker.setColor(new Color(resource.cartoColor));
+    marker.setPath(cartoIcon);
+    marker.setColor(new Color(cartoColor));
     marker.setAngle(-1);
     marker.setStyle(SimpleMarkerSymbol.STYLE_PATH);
     const params = {
+      user: cartoUser,
       symbolDictionary: {
         point: marker
       }
     };
     this.symbolDictionary = params.symbolDictionary;
-    var urlBuilder = [
-      '//',
-      resource.cartoUser,
-      '.cartodb.com/api/v2/sql?format=GeoJSON&q='
-    ];
-    this.cartoURL = urlBuilder.join('');
-    this.cartoUser = resource.cartoUser;
-    // this.symbolDictionary = resource.symbolDictionary || null;
-    debugger;
-    this.infoTemplate = resource.popup || null;
-    this.cartoQuery = resource.cartoQuery;
-    this.id = resource.id;
-    this.visible = false;
   },
 
-  setParams: function () {
-    var marker = SimpleMarkerSymbol();
-    marker.setPath('M16,3.5c-4.142,0-7.5,3.358-7.5,7.5c0,4.143,7.5,18.121,7.5,18.121S23.5,15.143,23.5,11C23.5,6.858,20.143,3.5,16,3.5z M16,14.584c-1.979,0-3.584-1.604-3.584-3.584S14.021,7.416,16,7.416S19.584,9.021,19.584,11S17.979,14.584,16,14.584z');
-    marker.setColor(new Color([92, 92, 92, 1]));
-    marker.setAngle(-1);
-    marker.setStyle(SimpleMarkerSymbol.STYLE_PATH);
+  setLineParams: function (cartoColor, cartoUser, cartoLineWidth) {
+    var line = SimpleLineSymbol();
+    line.setStyle(SimpleLineSymbol.STYLE_SOLID);
+    line.setColor(new Color(cartoColor));
+    line.setWidth(cartoLineWidth);
+
     const params = {
-      user: this.cartoUser,
+      user: cartoUser,
       symbolDictionary: {
-        point: marker
+        polyline: line
       }
     };
+    this.symbolDictionary = params.symbolDictionary;
+  },
 
-    return params;
+  setPolygonParams: function (cartoColor, cartoUser) {
+    var polygon = SimpleFillSymbol();
+    polygon.setStyle(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([52, 152, 219]), 2));
+    polygon.setStyle(SimpleLineSymbol.STYLE_SOLID);
+    polygon.setColor(new Color(cartoColor));
+
+    const params = {
+      user: cartoUser,
+      symbolDictionary: {
+        polygon: polygon
+      }
+    };
+    this.symbolDictionary = params.symbolDictionary;
   },
 
   /**
@@ -74,9 +107,9 @@ export default declare('CartoLayer', [GraphicsLayer], {
       // assumes global Terraformer with ArcGIS Parser loaded
       // var esriJson = Terraformer.ArcGIS.convert(geojson);
       const esriJson = geojsonUtil.geojsonToArcGIS(geojson);
-      esriJson.forEach(x => {
-        if (x.geometry) {
-          var graphic = new Graphic(x);
+      esriJson.forEach(feature => {
+        if (feature.geometry) {
+          var graphic = new Graphic(feature);
           //project geometry to web mercator if needed
           if (graphic.geometry.spatialReference.wkid === 4326){
             graphic.setGeometry(
