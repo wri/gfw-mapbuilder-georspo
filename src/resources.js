@@ -431,6 +431,8 @@ export default {
         cartoUser: 'tgirgin',
         cartoQuery: 'SELECT * FROM public.areas_of_interest_newyork',
         cartoDataType: 'point',
+        cartoIcon: 'M16,3.5c-4.142,0-7.5,3.358-7.5,7.5c0,4.143,7.5,18.121,7.5,18.121S23.5,15.143,23.5,11C23.5,6.858,20.143,3.5,16,3.5z M16,14.584c-1.979,0-3.584-1.604-3.584-3.584S14.021,7.416,16,7.416S19.584,9.021,19.584,11S17.979,14.584,16,14.584z',
+        cartoColor: [92, 92, 92, 1],
         technicalName: 'carto_layer',
         colormap: [[1, 0, 179, 0]],
         inputRange: [30, 101],
@@ -452,6 +454,62 @@ export default {
           pt: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
           id: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
           zh: '(2000年, 30米 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))'
+        },
+        popup: {
+          title: {
+            en: 'Carto Layer'
+          },
+          content: {
+            en: [
+              {'label': 'Type', 'fieldExpression': 'annoline2a'},
+              {'label': 'Borough', 'fieldExpression': 'borough'},
+              {'label': 'Place', 'fieldExpression': 'annoline1'},
+              {'label': 'Name', 'fieldExpression': 'name'}
+            ]
+          }
+        }
+      }, {
+        order: 7,
+        id: 'CARTO_LAYER_LINES',
+        type: 'carto',
+        url: 'timsurl',
+        cartoUser: 'tgirgin',
+        cartoQuery: 'SELECT * FROM public.montreal_road_network',
+        cartoDataType: 'point',
+        technicalName: 'carto_layer_lines',
+        colormap: [[1, 0, 179, 0]],
+        inputRange: [30, 101],
+        outputRange: [1],
+        opacity: 1,
+        // legendLayer: 2,
+        label: {
+          en: 'carto_layer_lines',
+          fr: 'carto_layer_lines',
+          es: 'carto_layer_lines',
+          pt: 'carto_layer_lines',
+          id: 'carto_layer_lines',
+          zh: '森林覆盖密度'
+        },
+        sublabel: {
+          en: '(carto_layer)',
+          fr: '(carto_layer)',
+          es: '(2000, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+          pt: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
+          id: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
+          zh: '(2000年, 30米 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))'
+        },
+        popup: {
+          title: {
+            en: 'Carto Layer'
+          },
+          content: {
+            en: [
+              {'label': 'Type', 'fieldExpression': 'annoline2a'},
+              {'label': 'Borough', 'fieldExpression': 'borough'},
+              {'label': 'Place', 'fieldExpression': 'annoline1'},
+              {'label': 'Name', 'fieldExpression': 'name'}
+            ]
+          }
         }
       }]
     },

@@ -3,6 +3,7 @@ import webMercatorUtils from 'esri/geometry/webMercatorUtils';
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import geojsonUtil from 'utils/arcgis-to-geojson';
 import InfoTemplate from 'esri/InfoTemplate';
+import layerUtils from 'utils/layerUtils';
 import declare from 'dojo/_base/declare';
 import Graphic from 'esri/graphic';
 import request from 'dojo/request';
@@ -19,14 +20,9 @@ export default declare('CartoLayer', [GraphicsLayer], {
    * - infoTemplate <esri/InfoTemplate>
    */
   constructor: function(resource) {
-    // const params = this.setParams();
-    // const esriParams = Object.assign(resource, params);
-    // for (var attrname in esriParams) {
-    //   this[attrname] = esriParams[attrname];
-    // }
     var marker = SimpleMarkerSymbol();
-    marker.setPath('M16,3.5c-4.142,0-7.5,3.358-7.5,7.5c0,4.143,7.5,18.121,7.5,18.121S23.5,15.143,23.5,11C23.5,6.858,20.143,3.5,16,3.5z M16,14.584c-1.979,0-3.584-1.604-3.584-3.584S14.021,7.416,16,7.416S19.584,9.021,19.584,11S17.979,14.584,16,14.584z');
-    marker.setColor(new Color([92, 92, 92, 1]));
+    marker.setPath(resource.cartoIcon);
+    marker.setColor(new Color(resource.cartoColor));
     marker.setAngle(-1);
     marker.setStyle(SimpleMarkerSymbol.STYLE_PATH);
     const params = {
@@ -43,7 +39,8 @@ export default declare('CartoLayer', [GraphicsLayer], {
     this.cartoURL = urlBuilder.join('');
     this.cartoUser = resource.cartoUser;
     // this.symbolDictionary = resource.symbolDictionary || null;
-    this.infoTemplate = resource.infotemplate || null;
+    debugger;
+    this.infoTemplate = resource.popup || null;
     this.cartoQuery = resource.cartoQuery;
     this.id = resource.id;
     this.visible = false;
@@ -86,7 +83,6 @@ export default declare('CartoLayer', [GraphicsLayer], {
               webMercatorUtils.geographicToWebMercator(graphic.geometry)
             );
           }
-          debugger;
           //set symbol for graphic and set info template
           if (!!this.symbolDictionary) {
             graphic.setSymbol(
@@ -99,17 +95,17 @@ export default declare('CartoLayer', [GraphicsLayer], {
             });
           }
 
-          if (!!this.infoTemplate) {
-            console.log("first");
-            graphic.setInfoTemplate(this.infoTemplate);
-          } else {
-            console.log("second");
-            graphic.setInfoTemplate(new InfoTemplate('Attributes', '${*}'));
-            debugger;
-          }
+          // if (!!this.infoTemplate) {
+          //   console.log('test');
+          //   layerUtils.makeInfoTemplate(this.infoTemplate);
+          // } else {
+          //   graphic.setInfoTemplate(new InfoTemplate('Attributes', '${*}'));
+          // }
           this.add(graphic);
         }
       });
+      console.log(this.setInfoTemplate);
+      this.setInfoTemplate(layerUtils.makeInfoTemplate(this.infoTemplate));
       this.emit('querySuccess', this.graphics);
     });
   }

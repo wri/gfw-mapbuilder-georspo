@@ -36,6 +36,7 @@ export default (layer, lang) => {
   switch (layer.type) {
     case 'carto':
       options.id = layer.id;
+      debugger;
       esriLayer = new CartoLayer(layer);
       esriLayer.queryBuilder();
     break;
@@ -69,6 +70,7 @@ export default (layer, lang) => {
       options.imageParameters = imageParameters;
       //- Add a popup template if configuration is present
       if (layer.popup) {
+        console.log(layer.popup);
         options.infoTemplates = {};
         const template = layerUtils.makeInfoTemplate(layer.popup, lang);
         layer.layerIds.forEach((id) => { options.infoTemplates[id] = { infoTemplate: template }; });
