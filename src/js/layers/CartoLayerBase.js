@@ -31,7 +31,6 @@ export default declare('CartoLayer', [GraphicsLayer], {
         this.setLineParams(cartoColor, cartoUser, cartoLineWidth);
         break;
       case 'polygon':
-        debugger;
         this.setPolygonParams(cartoColor, cartoUser);
         break;
     }
@@ -137,8 +136,8 @@ export default declare('CartoLayer', [GraphicsLayer], {
           this.add(graphic);
         }
       });
-      console.log(this.setInfoTemplate);
-      this.setInfoTemplate(layerUtils.makeInfoTemplate(this.infoTemplate));
+      // console.log(this.setInfoTemplate);
+      this.setInfoTemplate(layerUtils.makeInfoTemplate(this.infoTemplate, 'en'));
       this.emit('querySuccess', this.graphics);
     });
   }
