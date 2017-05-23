@@ -99,7 +99,6 @@ export default declare('CartoLayer', [GraphicsLayer], {
    * @param {string} queryString
    */
   query: function(queryString) {
-
     var _url = this.cartoURL.concat(queryString);
     request(_url).then(data => {
       var geojson = dojoJSON.parse(data);
@@ -126,17 +125,9 @@ export default declare('CartoLayer', [GraphicsLayer], {
               message: 'No symbolDictionary for feature'
             });
           }
-
-          // if (!!this.infoTemplate) {
-          //   console.log('test');
-          //   layerUtils.makeInfoTemplate(this.infoTemplate);
-          // } else {
-          //   graphic.setInfoTemplate(new InfoTemplate('Attributes', '${*}'));
-          // }
           this.add(graphic);
         }
       });
-      // console.log(this.setInfoTemplate);
       this.setInfoTemplate(layerUtils.makeInfoTemplate(this.infoTemplate, 'en'));
       this.emit('querySuccess', this.graphics);
     });

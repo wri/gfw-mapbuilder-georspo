@@ -245,6 +245,7 @@ class MapStore {
     } else {
       layerInfoCache.fetch(layer).then(layerInfo => {
         this.modalLayerInfo = layerInfo;
+        console.log('test', this.modalLayerInfo);
         this.layerModalVisible = true;
         this.iconLoading = '';
         this.emitChange();

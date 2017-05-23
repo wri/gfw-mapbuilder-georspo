@@ -21,7 +21,8 @@ const config = {
     'api.globalforestwatch.org',
     'production-api.globalforestwatch.org',
     'production-api.globalforestwatch.org/v1/ogr',
-    'production-api.globalforestwatch.org/v1/ogr/convert'
+    'production-api.globalforestwatch.org/v1/ogr/convert',
+    'https://tgirgin.carto.com/api'
     // '23.20.101.147:443'
   ],
 
@@ -44,7 +45,8 @@ const config = {
   urls: {
     metadataApi: 'http://api.globalforestwatch.org/metadata',
     metadataXmlEndpoint: (itemId) => `http://www.arcgis.com/sharing/rest/content/items/${itemId}/info/metadata/metadata.xml`,
-    agolItemEndpoint: (itemId) => `http://www.arcgis.com/sharing/rest/content/items/${itemId}`
+    agolItemEndpoint: (itemId) => `http://www.arcgis.com/sharing/rest/content/items/${itemId}`,
+    cartoMetaEndpoint: (cartoLayerId, cartoApiKey) => `https://tgirgin.carto.com/api/v1/viz/${cartoLayerId}?api_key=${cartoApiKey}`
   },
 
   upload: {
