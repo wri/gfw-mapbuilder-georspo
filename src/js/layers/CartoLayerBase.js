@@ -10,6 +10,7 @@ import declare from 'dojo/_base/declare';
 import Graphic from 'esri/graphic';
 import request from 'dojo/request';
 import dojoJSON from 'dojo/json';
+import {urls} from 'js/config';
 import Color from 'esri/Color';
 
 
@@ -22,7 +23,7 @@ export default declare('CartoLayer', [GraphicsLayer], {
    * - infoTemplate <esri/InfoTemplate>
    */
   constructor: function(resource) {
-    const { cartoColor, cartoIcon, cartoUser, cartoQuery, cartoDataType, cartoLineWidth, popup, id } = resource;
+    const { cartoColor, cartoIcon, cartoUser, cartoQuery, cartoDataType, cartoLineWidth, popup, id, cartoApiKey } = resource;
     switch (cartoDataType) {
       case 'point':
         this.setPointParams(cartoColor, cartoIcon, cartoUser);
@@ -35,16 +36,11 @@ export default declare('CartoLayer', [GraphicsLayer], {
         break;
     }
 
-    var urlBuilder = [
-      '//',
-      cartoUser,
-      '.cartodb.com/api/v2/sql?format=GeoJSON&q='
-    ];
-    this.cartoURL = urlBuilder.join('');
     this.cartoUser = cartoUser;
     // this.symbolDictionary = resource.symbolDictionary || null;
     this.infoTemplate = popup || null;
     this.cartoQuery = cartoQuery;
+    this.cartoApiKey = cartoApiKey;
     this.id = id;
     this.visible = false;
   },
@@ -99,7 +95,7 @@ export default declare('CartoLayer', [GraphicsLayer], {
    * @param {string} queryString
    */
   query: function(queryString) {
-    var _url = this.cartoURL.concat(queryString);
+    var _url = urls.cartoDataEndpoint(this.cartoUser, queryString, this.cartoApiKey);
     request(_url).then(data => {
       var geojson = dojoJSON.parse(data);
       // assumes global Terraformer with ArcGIS Parser loaded
