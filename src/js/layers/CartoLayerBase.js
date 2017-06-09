@@ -3,16 +3,25 @@ import webMercatorUtils from 'esri/geometry/webMercatorUtils';
 import SimpleFillSymbol from 'esri/symbols/SimpleFillSymbol';
 import SimpleLineSymbol from 'esri/symbols/SimpleLineSymbol';
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
+import layerInfoCache from 'utils/layerInfoCache';
 import geojsonUtil from 'utils/arcgis-to-geojson';
 import InfoTemplate from 'esri/InfoTemplate';
 import layerUtils from 'utils/layerUtils';
+import appActions from 'actions/AppActions';
 import declare from 'dojo/_base/declare';
+import Deferred from 'dojo/Deferred';
 import Graphic from 'esri/graphic';
 import request from 'dojo/request';
+import resources from 'resources';
 import dojoJSON from 'dojo/json';
 import {urls} from 'js/config';
 import Color from 'esri/Color';
 
+const getDefaultState = function () {
+  return {
+    cartoMetadata: {}
+  };
+};
 
 export default declare('CartoLayer', [GraphicsLayer], {
   /*
@@ -23,28 +32,144 @@ export default declare('CartoLayer', [GraphicsLayer], {
    * - infoTemplate <esri/InfoTemplate>
    */
   constructor: function(resource) {
-    const { cartoColor, cartoIcon, cartoUser, cartoQuery, cartoDataType, cartoLineWidth, popup, id, cartoApiKey } = resource;
-    switch (cartoDataType) {
-      case 'point':
-        this.setPointParams(cartoColor, cartoIcon, cartoUser);
-        break;
-      case 'line':
-        this.setLineParams(cartoColor, cartoUser, cartoLineWidth);
-        break;
-      case 'polygon':
-        this.setPolygonParams(cartoColor, cartoUser);
-        break;
-    }
-
+    const { cartoColor, cartoIcon, cartoUser, cartoQuery, cartoDataType, cartoLineWidth, popup, id, cartoApiKey, cartoTemplateId } = resource;
+    this.state = getDefaultState();
     this.cartoUser = cartoUser;
-    // this.symbolDictionary = resource.symbolDictionary || null;
+    this.cartoTemplateId = cartoTemplateId;
     this.infoTemplate = popup || null;
     this.cartoQuery = cartoQuery;
     this.cartoApiKey = cartoApiKey;
+    this.cartoColor = cartoColor;
+    this.cartoIcon = cartoIcon;
+    this.cartoDataType = cartoDataType;
+    this.cartoLineWidth = cartoLineWidth;
     this.id = id;
     this.visible = false;
   },
 
+  /*
+   *  Takes in the data type of the carto layer
+   *  Returns the a symbolDictionary to draw the shapes onto the map
+   */
+   setParameters: function(cartoDataType) {
+     switch (cartoDataType) {
+       case 'Point':
+        this.setPointParams(this.cartoColor, this.cartoIcon, this.cartoUser);
+        break;
+       case 'MultiLineString':
+        this.setLineParams(this.cartoColor, this.cartoUser, this.cartoLineWidth);
+        break;
+       case 'MultiPolygon':
+        this.setPolygonParams(this.cartoColor, this.cartoUser);
+        break;
+     }
+   },
+
+   /*
+   *  Gets the layer name from the Carto metadata call
+   **/
+   getLayerName: function(layer, layerId) {
+     const promise = new Deferred();
+     layerInfoCache.fetch(layer, layerId).then(layerInfo => {
+       this.modalLayerInfo = layerInfo;
+       promise.resolve(layerInfo);
+     });
+     return promise;
+   },
+
+  /*
+  * Using a Carto map template, get the layers
+  * Returns an object of layers with their ID, data type, and query
+  **/
+  getLayers: function() {
+    // Getting the Carto template url
+    const _url = urls.cartoTemplateEndpoint(this.cartoUser, this.cartoTemplateId, this.cartoApiKey);
+    let json = {};
+
+    // Making a call to get the Carto template
+    request(_url).then((template) => {
+      json = dojoJSON.parse(template);
+      const layers = json.template.layergroup.layers;
+      const cartoMapID = json.template.layergroup.stat_tag;
+      const cartoLayers = resources.layerPanel.GROUP_CARTO.layers;
+      this.getLayerName(cartoLayers[0], cartoMapID).then(response => {
+        layers.forEach((layer, i) => {
+          // Continue if the layer is a data layer or else skip
+          if(layer.options.cartocss === undefined) {
+            return;
+          }
+
+          const cartoTemplate = 'CARTO_TEMPLATE' + i;
+
+          cartoLayers.push({
+              order: i + 1,
+              id: cartoTemplate,
+              type: 'carto',
+              url: 'cartoLayer',
+              colormap: [[1, 0, 179, 0]],
+              opacity: 0.8,
+              label: {
+                en: response.layerNames[i - 1],
+                fr: response.layerNames[i - 1],
+                es: response.layerNames[i - 1],
+                pt: response.layerNames[i - 1],
+                id: response.layerNames[i - 1],
+                zh: response.layerNames[i - 1]
+              },
+              sublabel: {
+                en: '(carto_layer)',
+                fr: '(carto_layer)',
+                es: '(carto_layer)',
+                pt: '(carto_layer)',
+                id: '(carto_layer)',
+                zh: '(carto_layer)'
+              },
+              popup: {
+                title: {
+                  en: response.layerNames[i - 1]
+                },
+                content: {
+                  en: []
+                }
+              }
+            });
+
+          // Getting the query out of the original carto returned query
+          const cartoQuery = layer.options.sql.match(/\((.*?)\)/)[1];
+
+          // Querying carto to get the geojson layer
+          this.query(cartoQuery, cartoTemplate, i);
+        });
+        const tempResources = resources;
+        tempResources.layerPanel.GROUP_CARTO.layers = cartoLayers;
+        appActions.applySettings(tempResources);
+      });
+    });
+  },
+
+  /**
+  * Adds the layer to the list of graphics. This could be improved not to use
+  * the global brApp.map
+  **/
+  addLayer: function(graphic, id, meta) {
+    const graphLayer = new GraphicsLayer({
+      id: id,
+      visible: false
+    });
+    for(var i = 0; i < graphic.length; i++) {
+      graphLayer.add(graphic[i]);
+      debugger;
+      graphLayer.setInfoTemplate(layerUtils.makeInfoTemplate(meta, 'en'));
+    }
+    // graphLayer.setInfoTemplate(layerUtils.makeInfoTemplate(this.infoTemplate, 'en'));
+    brApp.map.addLayer(graphLayer);
+    brApp.map.removeLayer('CARTO_TEMPLATE')
+    graphLayer.redraw();
+  },
+
+  /**
+  * Sets the parameters for the Carto points
+  **/
   setPointParams: function (cartoColor, cartoIcon, cartoUser) {
     var marker = SimpleMarkerSymbol();
     marker.setPath(cartoIcon);
@@ -60,6 +185,9 @@ export default declare('CartoLayer', [GraphicsLayer], {
     this.symbolDictionary = params.symbolDictionary;
   },
 
+  /**
+  * Sets the parameters for the Carto polylines
+  **/
   setLineParams: function (cartoColor, cartoUser, cartoLineWidth) {
     var line = SimpleLineSymbol();
     line.setStyle(SimpleLineSymbol.STYLE_SOLID);
@@ -75,6 +203,9 @@ export default declare('CartoLayer', [GraphicsLayer], {
     this.symbolDictionary = params.symbolDictionary;
   },
 
+  /**
+  * Sets the parameters for the Carto polygons
+  **/
   setPolygonParams: function (cartoColor, cartoUser) {
     var polygon = SimpleFillSymbol();
     polygon.setStyle(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([52, 152, 219]), 2));
@@ -90,27 +221,46 @@ export default declare('CartoLayer', [GraphicsLayer], {
     this.symbolDictionary = params.symbolDictionary;
   },
 
+  setMetadataFields: function(properties, layerNumber) {
+    console.log(resources);
+    const popupContent = resources.layerPanel.GROUP_CARTO.layers[layerNumber].popup.content.en;
+    for(var property in properties) {
+      popupContent.push({
+        label: property,
+        fieldExpression: property
+      });
+    }
+    const meta = resources.layerPanel.GROUP_CARTO.layers[layerNumber].popup;
+    return meta;
+  },
+
   /**
    * The main query function of the CartoDBLayer
    * @param {string} queryString
    */
-  query: function(queryString) {
-    var _url = urls.cartoDataEndpoint(this.cartoUser, queryString, this.cartoApiKey);
-    request(_url).then(data => {
+  query: function(cartoQuery, cartoTemplate, layerNumber) {
+    var _url = urls.cartoDataEndpoint(this.cartoUser, cartoQuery, this.cartoApiKey);
+    var esriJsonLayer = [];
+
+    request(_url).then((data) => {
+
       var geojson = dojoJSON.parse(data);
-      // assumes global Terraformer with ArcGIS Parser loaded
-      // var esriJson = Terraformer.ArcGIS.convert(geojson);
+      const meta = this.setMetadataFields(geojson.features[0].properties, layerNumber);
+      this.setParameters(geojson.features[0].geometry.type);
       const esriJson = geojsonUtil.geojsonToArcGIS(geojson);
+
       esriJson.forEach(feature => {
         if (feature.geometry) {
           var graphic = new Graphic(feature);
           //project geometry to web mercator if needed
+
           if (graphic.geometry.spatialReference.wkid === 4326){
             graphic.setGeometry(
               webMercatorUtils.geographicToWebMercator(graphic.geometry)
             );
           }
-          //set symbol for graphic and set info template
+
+          // Set the symbolDictionary depending on the geometry type
           if (!!this.symbolDictionary) {
             graphic.setSymbol(
               this.symbolDictionary[graphic.geometry.type]
@@ -121,11 +271,10 @@ export default declare('CartoLayer', [GraphicsLayer], {
               message: 'No symbolDictionary for feature'
             });
           }
-          this.add(graphic);
+          esriJsonLayer.push(graphic);
         }
       });
-      this.setInfoTemplate(layerUtils.makeInfoTemplate(this.infoTemplate, 'en'));
-      this.emit('querySuccess', this.graphics);
+      this.addLayer(esriJsonLayer, cartoTemplate, meta);
     });
   }
 });

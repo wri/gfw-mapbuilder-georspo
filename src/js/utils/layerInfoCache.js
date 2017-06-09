@@ -104,6 +104,13 @@ function reduceCarto (rawResults) {
     }
     results.tags = keywords.join(', ');
   }
+  if(related_tables) {
+    const layerNames = [];
+    for (let i = 0; i < related_tables.length; i++) {
+      layerNames.push(related_tables[i].name);
+    }
+    results.layerNames = layerNames;
+  }
   // console.log(results);
   return results;
 }
@@ -223,7 +230,7 @@ export default {
     return _cache[layerId];
   },
 
-  fetch (layer) {
+  fetch (layer, cartoId) {
     const promise = new Deferred();
     let url;
     // If a technicalName is configured, fetch from the metadata API
@@ -259,7 +266,7 @@ export default {
       });
     } else if (layer.cartoLayer) {
       const {subId} = layer;
-      url = urls.cartoMetaEndpoint(layer.cartoLayerId, layer.cartoApiKey);
+      url = urls.cartoMetaEndpoint(layer.cartoUser, cartoId ? cartoId : layer.cartoLayerId, layer.cartoApiKey);
       const cartoMeta = getCartoMetadata(url);
       cartoMeta.then(results => {
           _cache[subId] = JSON.parse(results);

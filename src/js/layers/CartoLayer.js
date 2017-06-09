@@ -3,6 +3,6 @@ import declare from 'dojo/_base/declare';
 
 export default declare('CartoLayer', [CartoLayerBase], {
   queryBuilder: function() {
-    this.query(this.cartoQuery);
+    this.getLayers();
   }
 });

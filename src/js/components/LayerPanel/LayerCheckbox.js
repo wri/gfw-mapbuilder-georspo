@@ -116,6 +116,7 @@ export default class LayerCheckbox extends Component {
 
   toggleLayer () {
     const {layer} = this.props;
+    console.log(layer.popup.content.en);
     if (layer.disabled) { return; }
     if (layer.subId) {
       // TODO:  Update visible layers.

@@ -437,134 +437,33 @@ export default {
       },
       layers: [{
           order: 1,
-          id: 'CARTO_LAYER',
+          id: 'CARTO_TEMPLATE',
           type: 'carto',
-          url: 'timsurl',
-          cartoUser: 'wri-02',
-          cartoQuery: 'SELECT * FROM tiger_conservation_landscapes',
-          cartoDataType: 'polygon',
-          cartoTemplateId: 'tpl_03f2eab6_ef0e_11e6_a1dc_0ee66e2c9693',
-          cartoApiKey: '437bccaeec274664457746f6299d929f4e35bbb9',
-          cartoLayerId: '03f2eab6-ef0e-11e6-a1dc-0ee66e2c9693',
-          cartoIcon: 'M16,3.5c-4.142,0-7.5,3.358-7.5,7.5c0,4.143,7.5,18.121,7.5,18.121S23.5,15.143,23.5,11C23.5,6.858,20.143,3.5,16,3.5z M16,14.584c-1.979,0-3.584-1.604-3.584-3.584S14.021,7.416,16,7.416S19.584,9.021,19.584,11S17.979,14.584,16,14.584z',
-          cartoColor: [92, 92, 92, 1],
-          cartoLayer: true,
-          colormap: [[1, 0, 179, 0]],
-          inputRange: [30, 101],
-          outputRange: [1],
-          opacity: 1,
-          label: {
-            en: 'carto_layer',
-            fr: 'carto_layer',
-            es: 'carto_layer',
-            pt: 'carto_layer',
-            id: 'carto_layer',
-            zh: '森林覆盖密度'
-          },
-          sublabel: {
-            en: '(carto_layer)',
-            fr: '(carto_layer)',
-            es: '(2000, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-            pt: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
-            id: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
-            zh: '(2000年, 30米 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))'
-          },
-          popup: {
-            title: {
-              en: 'Carto Layer'
-            },
-            content: {
-              en: [
-                {'label': 'Type', 'fieldExpression': 'annoline2a'},
-                {'label': 'Borough', 'fieldExpression': 'borough'},
-                {'label': 'Place', 'fieldExpression': 'annoline1'},
-                {'label': 'Name', 'fieldExpression': 'name'}
-              ]
-            }
-          }
-        }, {
-          order: 2,
-          id: 'CARTO_LAYER_LINES',
-          type: 'carto',
-          url: 'timsurl',
+          url: 'cartoLayer',
           cartoUser: 'wri-01',
-          cartoQuery: 'SELECT * FROM aqueduct_projections_20150309',
-          cartoDataType: 'polygon',
+          cartoIcon: 'M16,3.5c-4.142,0-7.5,3.358-7.5,7.5c0,4.143,7.5,18.121,7.5,18.121S23.5,15.143,23.5,11C23.5,6.858,20.143,3.5,16,3.5z M16,14.584c-1.979,0-3.584-1.604-3.584-3.584S14.021,7.416,16,7.416S19.584,9.021,19.584,11S17.979,14.584,16,14.584z',
+          cartoTemplateId: 'tpl_c4ffec3c_1e29_11e7_8fcd_0e05a8b3e3d7',
           cartoApiKey: '0e5365cb1a299778e9df9c7bf6db489af8aa08e1',
-          cartoLayerId: '43384622-b005-4634-bea6-55cd8af753d4',
-          cartoLineWidth: '2px',
-          cartoColor: [92, 92, 92, 1],
-          // technicalName: 'carto_layer_lines',
-          cartoLayer: true,
-          colormap: [[1, 0, 179, 0]],
-          inputRange: [30, 101],
-          outputRange: [1],
-          opacity: 1,
-          // legendLayer: 2,
-          label: {
-            en: 'carto_layer_lines',
-            fr: 'carto_layer_lines',
-            es: 'carto_layer_lines',
-            pt: 'carto_layer_lines',
-            id: 'carto_layer_lines',
-            zh: '森林覆盖密度'
-          },
-          sublabel: {
-            en: '(carto_layer)',
-            fr: '(carto_layer)',
-            es: '(2000, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-            pt: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
-            id: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
-            zh: '(2000年, 30米 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))'
-          },
-          popup: {
-            title: {
-              en: 'Carto Layer'
-            },
-            content: {
-              en: [
-                {'label': 'Type', 'fieldExpression': 'annoline2a'},
-                {'label': 'Borough', 'fieldExpression': 'borough'},
-                {'label': 'Place', 'fieldExpression': 'annoline1'},
-                {'label': 'Name', 'fieldExpression': 'name'}
-              ]
-            }
-          }
-        }, {
-          order: 3,
-          id: 'CARTO_LAYER_POLYGONS',
-          type: 'carto',
-          url: 'timsurl',
-          cartoUser: 'tgirgin',
-          cartoQuery: 'SELECT * FROM public.ny_policeprecints',
-          cartoDataType: 'polygon',
-          cartoApiKey: '25c710a9c6c1510a6059c6b4fb50d17ffaf50449',
-          cartoLayerId: 'c4ffec3c-1e29-11e7-8fcd-0e05a8b3e3d7',
-          cartoOutlineStyle: 'STYLE_SOLID',
           cartoMetadataFields: {},
           cartoColor: [68, 108, 179, 1],
-          // technicalName: 'carto_layer_polygons',
           cartoLayer: true,
           colormap: [[1, 0, 179, 0]],
-          inputRange: [30, 101],
-          outputRange: [1],
-          opacity: 1,
-          // legendLayer: 2,
+          opacity: 0.8,
           label: {
-            en: 'carto_layer_polygons',
-            fr: 'carto_layer_polygons',
-            es: 'carto_layer_polygons',
-            pt: 'carto_layer_polygons',
-            id: 'carto_layer_polygons',
+            en: 'carto_layer_template',
+            fr: 'carto_layer_template',
+            es: 'carto_layer_template',
+            pt: 'carto_layer_template',
+            id: 'carto_layer_template',
             zh: '森林覆盖密度'
           },
           sublabel: {
             en: '(carto_layer)',
             fr: '(carto_layer)',
-            es: '(2000, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-            pt: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
-            id: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
-            zh: '(2000年, 30米 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))'
+            es: '(carto_layer)',
+            pt: '(carto_layer)',
+            id: '(carto_layer)',
+            zh: '(carto_layer)'
           },
           popup: {
             title: {
@@ -572,7 +471,7 @@ export default {
             },
             content: {
               en: [
-                {'label': 'Type', 'fieldExpression': 'annoline2a'},
+                {'label': 'Basin', 'fieldExpression': 'basin_name'},
                 {'label': 'Borough', 'fieldExpression': 'borough'},
                 {'label': 'Place', 'fieldExpression': 'annoline1'},
                 {'label': 'Name', 'fieldExpression': 'name'}
