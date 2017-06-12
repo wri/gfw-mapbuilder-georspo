@@ -14,7 +14,7 @@ export default {
   logoLinkUrl: 'http://www.gfw-mapbuilder.org/',
   aboutLinkUrl: '', // http://www.gfw-mapbuilder.org/
   downloadLinkUrl: '', // http://data.globalforestwatch.org/
-  printServiceUrl: 'http://gis.forest-atlas.org/arcgis/rest/services/print/ExportWebMap/GPServer/Export%20Web%20Map',
+  printServiceUrl: 'http://gis.forest-atlas.org/server/rest/services/print/ExportWebMap/GPServer/Export%20Web%20Map',
   maskServiceUrl: '', // e.g. http://gis-forest-atlas.wri.org/arcgis/rest/services/CMR/CMR_00_Africa/MapServer
   mapThemeIds: '', // e.g. 1c38ba1095fe49e3ba234bf9105c1077;c76d788b7487476bae4d09a4e933be19
   mapThemes: '', // e.g. Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea
@@ -35,7 +35,7 @@ export default {
   //- Documents Settings
   includeDocumentsTab: false,
   documentsDirectory: 'https://cmr.forest-atlas.org/resources/docs/',
-  documentsMapserver: 'http://gis.forest-atlas.org/arcgis/rest/services/CMR/documents_administratifs/MapServer',
+  documentsMapserver: 'http://gis.forest-atlas.org/server/rest/services/CMR/documents_administratifs/MapServer',
   //- Layers/Analysis Settings
   iso: '',
   activeFires: true,
@@ -49,7 +49,7 @@ export default {
   webmapMenuName: 'Land Use',
   //- Restoration Module settings
   restorationModule: false,
-  restorationImageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module2/ImageServer', //'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module/ImageServer'
+  restorationImageServer: 'http://gis-gfw.wri.org/server/rest/services/image_services/eth_restoration_module2/ImageServer', //'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module/ImageServer'
   slopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
   alternativeSlopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
   slopePotentialColors: 'rgb(234,199,253);rgb(253,178,46);rgb(88,126,15);rgb(210,147,116);rgb(245,208,139);rgb(177,177,36);rgb(26,176,144);rgb(175,15,143);rgb(217,254,199);rgb(255,254,137);',
@@ -531,7 +531,7 @@ export default {
       id: 'MASK',
       type: 'dynamic',
       order: 10000,
-      url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
+      url: 'http://gis.forest-atlas.org/server/rest/services/country_masks/country_mask_global/MapServer',
       opacity: 0.35,
       layerIds: [0]
     }, {

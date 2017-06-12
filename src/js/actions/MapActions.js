@@ -1,6 +1,9 @@
 import dispatcher from 'js/dispatcher';
 import layerFactory from 'utils/layerFactory';
 import layerKeys from 'constants/LayerConstants';
+// import CartoLayer from 'js/layers/CartoLayer';
+import appActions from 'actions/AppActions';
+import resources from 'resources';
 import Point from 'esri/geometry/Point';
 
 class MapActions {
@@ -113,7 +116,17 @@ class MapActions {
     map.on('layers-add-result', result => {
       const addedLayers = result.layers;
       // Check for Errors
+      var cartoLayers = addedLayers.filter(layer => layer.layer.cartoUser);
+      cartoLayers.forEach((cartoLayer) => {
 
+        // debugger;
+        cartoLayer.layer.on('tim', evt => {
+          const tempResources = resources;
+          tempResources.layerPanel.GROUP_CARTO.layers = evt.target.cartoLayers;
+          // this.cartoLayers = cartoLayers;
+          appActions.applySettings(tempResources);
+        });
+      });
       var layerErrors = addedLayers.filter(layer => layer.error);
       if (layerErrors.length > 0) { console.error(layerErrors); }
       //- Sort the layers, Webmap layers need to be ordered, unfortunately graphics/feature

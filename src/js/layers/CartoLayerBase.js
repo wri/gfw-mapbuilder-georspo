@@ -7,8 +7,7 @@ import layerInfoCache from 'utils/layerInfoCache';
 import geojsonUtil from 'utils/arcgis-to-geojson';
 import InfoTemplate from 'esri/InfoTemplate';
 import layerUtils from 'utils/layerUtils';
-import appActions from 'actions/AppActions';
-import declare from 'dojo/_base/declare';
+// import appActions from 'actions/AppActions';
 import Deferred from 'dojo/Deferred';
 import Graphic from 'esri/graphic';
 import request from 'dojo/request';
@@ -16,6 +15,7 @@ import resources from 'resources';
 import dojoJSON from 'dojo/json';
 import {urls} from 'js/config';
 import Color from 'esri/Color';
+import declare from 'dojo/_base/declare';
 
 const getDefaultState = function () {
   return {
@@ -45,6 +45,7 @@ export default declare('CartoLayer', [GraphicsLayer], {
     this.cartoLineWidth = cartoLineWidth;
     this.id = id;
     this.visible = false;
+    this.cartoLayers = null;
   },
 
   /*
@@ -138,11 +139,16 @@ export default declare('CartoLayer', [GraphicsLayer], {
           const cartoQuery = layer.options.sql.match(/\((.*?)\)/)[1];
 
           // Querying carto to get the geojson layer
-          this.query(cartoQuery, cartoTemplate, i);
+          this.query(cartoQuery, cartoTemplate, i - 1);
         });
+        // Removing the first carto layer as it is the template
+        cartoLayers.shift();
         const tempResources = resources;
         tempResources.layerPanel.GROUP_CARTO.layers = cartoLayers;
-        appActions.applySettings(tempResources);
+        this.cartoLayers = cartoLayers;
+        this.loaded = true;
+        // appActions.applySettings(tempResources);
+        this.emit('tim');
       });
     });
   },
@@ -158,12 +164,11 @@ export default declare('CartoLayer', [GraphicsLayer], {
     });
     for(var i = 0; i < graphic.length; i++) {
       graphLayer.add(graphic[i]);
-      debugger;
       graphLayer.setInfoTemplate(layerUtils.makeInfoTemplate(meta, 'en'));
     }
     // graphLayer.setInfoTemplate(layerUtils.makeInfoTemplate(this.infoTemplate, 'en'));
     brApp.map.addLayer(graphLayer);
-    brApp.map.removeLayer('CARTO_TEMPLATE')
+    brApp.map.removeLayer('CARTO_TEMPLATE');
     graphLayer.redraw();
   },
 
@@ -240,10 +245,11 @@ export default declare('CartoLayer', [GraphicsLayer], {
    */
   query: function(cartoQuery, cartoTemplate, layerNumber) {
     var _url = urls.cartoDataEndpoint(this.cartoUser, cartoQuery, this.cartoApiKey);
+    const cartoLayers = resources.layerPanel.GROUP_CARTO.layers;
     var esriJsonLayer = [];
-
-    request(_url).then((data) => {
-
+    let errCount = [];
+    request.id = 2;
+    request(_url, {timeout: 5000}).then((data) => {
       var geojson = dojoJSON.parse(data);
       const meta = this.setMetadataFields(geojson.features[0].properties, layerNumber);
       this.setParameters(geojson.features[0].geometry.type);
@@ -275,6 +281,24 @@ export default declare('CartoLayer', [GraphicsLayer], {
         }
       });
       this.addLayer(esriJsonLayer, cartoTemplate, meta);
+    }, (err) => {
+      // errCount.push(layerNumber);
+      // t = JSON.parse(JSON.stringify(cartoLayers))
+      const cartoLayerLength = resources.layerPanel.GROUP_CARTO.layers.length + errCount;
+      // debugger;
+      console.log(cartoLayers);
+      // debugger;
+      // cartoLayers.splice((cartoLayerLength - 1) - (layerNumber), 1);
+      delete cartoLayers[(cartoLayerLength - 1) - layerNumber];
+      console.log(cartoLayers);
+      const tempResources = resources;
+      tempResources.layerPanel.GROUP_CARTO.layers = cartoLayers;
+      this.cartoLayers = cartoLayers;
+      this.loaded = true;
+      this.emit('tim');
     });
+    console.log(errCount);
+    debugger;
+    // this.emit('tim');
   }
 });
