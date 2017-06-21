@@ -1,14 +1,14 @@
 import layerKeys from 'constants/LayerConstants';
 import React, {PropTypes, Component} from 'react';
 import mapActions from 'actions/MapActions';
-import Legend from 'esri/dijit/Legend';
+// import Legend from 'esri/dijit/Legend';
+import DynamicLegend from 'components/LegendPanel/DynamicLegend';
 import text from 'js/languages';
 
 const closeSymbolCode = 9660,
     openSymbolCode = 9650;
 
 let legend;
-
 
 export default class LegendPanel extends Component {
 
@@ -26,23 +26,23 @@ export default class LegendPanel extends Component {
   }
 
   componentDidUpdate() {
-    const {map} = this.context;
-    if (map.loaded && !legend) {
-      legend = new Legend({
-        map: map,
-        layerInfos: this.getLayersForLegend()
-      }, this.refs.legendNode);
-      legend.startup();
-    } else if (legend) {
-      legend.refresh(this.getLayersForLegend());
-    }
+    // const {map} = this.context;
+    // if (map.loaded && !legend) {
+    //   legend = new Legend({
+    //     map: map,
+    //     layerInfos: this.getLayersForLegend()
+    //   }, this.refs.legendNode);
+    //   legend.startup();
+    // } else if (legend) {
+    //   legend.refresh(this.getLayersForLegend());
+    // }
   }
 
   getLayersForLegend () {
-    const {map, webmapInfo} = this.context;
+    const {map, settings} = this.context;
     const {basemapLayerIds, graphicsLayerIds} = map;
     let {layerIds = []} = map;
-    let legendInfos = [];
+    const legendInfos = [];
     let ids = [];
 
     // Loop through layer ids and if those layers exist, add them to the legend
@@ -94,9 +94,28 @@ export default class LegendPanel extends Component {
     return legendInfos;
   }
 
+  createLegend = (layerDiv) => {
+    // return layer => {
+      let childComponent;
+      switch(layerDiv.layer.type) {
+        case 'dynamic':
+          childComponent = <DynamicLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+          break;
+      }
+      return (
+        <div>
+          <div className='test'>{layerDiv.layer.title}</div>
+          <div>{childComponent}</div>
+        </div>
+      );
+    // };
+  }
+
   render () {
     const {tableOfContentsVisible, legendOpen} = this.props;
     const {language} = this.context;
+
+    const legendLayers = this.getLayersForLegend();
 
     let rootClasses = legendOpen ? 'legend-panel map-component shadow' : 'legend-panel map-component shadow legend-collapsed';
 
@@ -124,6 +143,7 @@ export default class LegendPanel extends Component {
         </div>
 
         <div className='legend-layers'>
+          <div className='legendContainer'>{legendLayers.map(this.createLegend)}</div>
           <div id='legend' ref='legendNode' className={`${legendOpen ? '' : 'hidden'}`}></div>
         </div>
       </div>

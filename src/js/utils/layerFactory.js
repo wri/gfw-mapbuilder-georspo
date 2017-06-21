@@ -69,12 +69,13 @@ export default (layer, lang) => {
       options.imageParameters = imageParameters;
       //- Add a popup template if configuration is present
       if (layer.popup) {
-        console.log(layer.popup);
         options.infoTemplates = {};
+        // options.title = layer.label[lang];
         const template = layerUtils.makeInfoTemplate(layer.popup, lang);
         layer.layerIds.forEach((id) => { options.infoTemplates[id] = { infoTemplate: template }; });
       }
       esriLayer = new DynamicLayer(layer.url, options);
+      esriLayer.layerIds = layer.layerIds;
     break;
     case 'feature':
       options.id = layer.id;
@@ -104,16 +105,12 @@ export default (layer, lang) => {
       options.url = layer.url;
       options.minYear = layer.minYear;
       options.maxYear = layer.maxYear;
-      // options.confidence = layer.confidence;
       options.visible = layer.visible || false;
       esriLayer = new TreeCoverLossLayer(options);
     break;
     case 'gain':
       options.id = layer.id;
       options.url = layer.url;
-      // options.minYear = layer.minYear;
-      // options.maxYear = layer.maxYear;
-      // options.confidence = layer.confidence;
       options.visible = layer.visible || false;
       esriLayer = new TreeCoverGainLayer(options);
     break;
@@ -124,6 +121,9 @@ export default (layer, lang) => {
     default:
       throw new Error(errors.incorrectLayerConfig(layer.type));
   }
-
+  if(layer.label !== undefined) {
+    esriLayer.title = layer.label[lang] ? layer.label[lang] : 'null';
+  }
+  esriLayer.type = layer.type;
   return esriLayer;
 };

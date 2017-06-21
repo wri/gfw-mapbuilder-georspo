@@ -227,7 +227,6 @@ export default declare('CartoLayer', [GraphicsLayer], {
   },
 
   setMetadataFields: function(properties, layerNumber) {
-    console.log(resources);
     const popupContent = resources.layerPanel.GROUP_CARTO.layers[layerNumber].popup.content.en;
     for(var property in properties) {
       popupContent.push({
@@ -246,9 +245,10 @@ export default declare('CartoLayer', [GraphicsLayer], {
   query: function(cartoQuery, cartoTemplate, layerNumber) {
     var _url = urls.cartoDataEndpoint(this.cartoUser, cartoQuery, this.cartoApiKey);
     const cartoLayers = resources.layerPanel.GROUP_CARTO.layers;
-    var esriJsonLayer = [];
     let errCount = [];
+    var esriJsonLayer = [];
     request.id = 2;
+
     request(_url, {timeout: 5000}).then((data) => {
       var geojson = dojoJSON.parse(data);
       const meta = this.setMetadataFields(geojson.features[0].properties, layerNumber);
@@ -282,23 +282,14 @@ export default declare('CartoLayer', [GraphicsLayer], {
       });
       this.addLayer(esriJsonLayer, cartoTemplate, meta);
     }, (err) => {
-      // errCount.push(layerNumber);
-      // t = JSON.parse(JSON.stringify(cartoLayers))
       const cartoLayerLength = resources.layerPanel.GROUP_CARTO.layers.length + errCount;
-      // debugger;
-      console.log(cartoLayers);
-      // debugger;
-      // cartoLayers.splice((cartoLayerLength - 1) - (layerNumber), 1);
       delete cartoLayers[(cartoLayerLength - 1) - layerNumber];
-      console.log(cartoLayers);
       const tempResources = resources;
       tempResources.layerPanel.GROUP_CARTO.layers = cartoLayers;
       this.cartoLayers = cartoLayers;
       this.loaded = true;
       this.emit('tim');
     });
-    console.log(errCount);
-    debugger;
     // this.emit('tim');
   }
 });

@@ -30,7 +30,12 @@ const request = {
     }).then(res => {
       if (res && res.layers && res.layers.length > 0) {
         const layers = res.layers.filter(layer => layerIds.indexOf(layer.layerId) > -1);
-        const legendInfos = layers.length === 1 ? layers[0].legend : layers.map(layer => layer.legend);
+        const legendInfos = layers.length === 1 ? layers[0].legend : layers.map(layer => layer.legend[0]);
+        legendInfos.map( (legendInfo, index) => {
+          if(legendInfo.label === '') {
+            legendInfo.label = layers[index].layerName;
+          }
+        });
         deferred.resolve(legendInfos || []);
       }
     }, err => {
