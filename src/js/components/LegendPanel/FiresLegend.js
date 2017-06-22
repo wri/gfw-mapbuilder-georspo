@@ -1,7 +1,7 @@
 import Request from 'utils/request';
 import React from 'react';
 
-export default class DynamicLegend extends React.Component {
+export default class FiresLegend extends React.Component {
   constructor (props) {
     super(props);
     this.state = { legendInfos: [] };

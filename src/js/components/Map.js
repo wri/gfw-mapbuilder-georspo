@@ -185,6 +185,7 @@ export default class Map extends Component {
       //- Make the map a global in debug mode for easier debugging
       if (brApp.debug) { brApp.map = response.map; }
 
+      console.log('test');
       //- Update local state since the map is ready now, keep above userFeaturesLayer
       //- If that layer has an invalid token, it may cause issues
       this.setState({
@@ -329,7 +330,7 @@ export default class Map extends Component {
           <Controls {...this.state} timeEnabled={!!timeSlider} />
           <TabButtons {...this.state} />
           <TabView {...this.state} />
-          <Legend {...this.state} />
+          {map.loaded ? <Legend {...this.state} /> : null}
           <FooterInfos map={map} />
           {timeWidgets}
           <svg className={`map__viewfinder${map.loaded ? '' : ' hidden'}`}>

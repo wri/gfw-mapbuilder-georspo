@@ -73,6 +73,7 @@ export default {
     //- level row and col and necessary in the url for the API to generate the correct url request
     const url = `${mapboxApiBase}${mapboxId}/` + '${level}/${col}/${row}.png?access_token=' + mapboxToken;
     const labelsUrl = `${mapboxApiBase}${mapboxLabelsId}/` + '${level}/${col}/${row}.png?access_token=' + mapboxToken;
+    console.log(url);
     customBasemapLayer = new WebTiledLayer(url, {});
     customLabelLayer = new WebTiledLayer(labelsUrl, {});
     map.addLayer(customBasemapLayer, newBasemapIndex);

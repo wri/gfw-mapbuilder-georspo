@@ -3,6 +3,9 @@ import React, {PropTypes, Component} from 'react';
 import mapActions from 'actions/MapActions';
 // import Legend from 'esri/dijit/Legend';
 import DynamicLegend from 'components/LegendPanel/DynamicLegend';
+import FiresLegend from 'components/LegendPanel/FiresLegend';
+import SADLegend from 'components/LegendPanel/SADLegend';
+import IFLLegend from 'components/LegendPanel/IFLLegend';
 import text from 'js/languages';
 
 const closeSymbolCode = 9660,
@@ -25,21 +28,8 @@ export default class LegendPanel extends Component {
     }
   }
 
-  componentDidUpdate() {
-    // const {map} = this.context;
-    // if (map.loaded && !legend) {
-    //   legend = new Legend({
-    //     map: map,
-    //     layerInfos: this.getLayersForLegend()
-    //   }, this.refs.legendNode);
-    //   legend.startup();
-    // } else if (legend) {
-    //   legend.refresh(this.getLayersForLegend());
-    // }
-  }
-
   getLayersForLegend () {
-    const {map, settings} = this.context;
+    const {map} = this.context;
     const {basemapLayerIds, graphicsLayerIds} = map;
     let {layerIds = []} = map;
     const legendInfos = [];
@@ -90,20 +80,31 @@ export default class LegendPanel extends Component {
         }
       });
     }
-
+    console.log(legendInfos);
     return legendInfos;
   }
 
-  createLegend = (layerDiv) => {
+  createLegend = (layerDiv, index) => {
     // return layer => {
       let childComponent;
-      switch(layerDiv.layer.type) {
-        case 'dynamic':
-          childComponent = <DynamicLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+      // switch(layerDiv.layer.type) {
+      //   case 'dynamic':
+      //     childComponent = <DynamicLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+      //     break;
+      // }
+      switch(layerDiv.layer.id) {
+        case 'IFL':
+          childComponent = <IFLLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+          break;
+        case 'IMAZON_SAD':
+          childComponent = <SADLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+          break;
+        case 'ACTIVE_FIRES':
+          childComponent = <FiresLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
           break;
       }
       return (
-        <div>
+        <div key={index}>
           <div className='test'>{layerDiv.layer.title}</div>
           <div>{childComponent}</div>
         </div>
@@ -113,6 +114,7 @@ export default class LegendPanel extends Component {
 
   render () {
     const {tableOfContentsVisible, legendOpen} = this.props;
+    console.log('props', this.props);
     const {language} = this.context;
 
     const legendLayers = this.getLayersForLegend();

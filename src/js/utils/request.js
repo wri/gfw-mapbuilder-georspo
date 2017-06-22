@@ -13,7 +13,6 @@ const needsDynamicQuery = function needsDynamicQuery (url) {
 };
 
 const request = {
-
   /**
   * @param {string} url - Url for an esri map service
   * @param {array} layerIds - An array of layer ids
@@ -21,7 +20,7 @@ const request = {
   */
   getLegendInfos: (url, layerIds) => {
     const deferred = new Deferred();
-
+    console.log(layerIds);
     esriRequest({
       url: `${url}/legend`,
       handleAs: 'json',
