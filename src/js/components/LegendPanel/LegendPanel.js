@@ -2,16 +2,20 @@ import layerKeys from 'constants/LayerConstants';
 import React, {PropTypes, Component} from 'react';
 import mapActions from 'actions/MapActions';
 // import Legend from 'esri/dijit/Legend';
-import DynamicLegend from 'components/LegendPanel/DynamicLegend';
+import CartoLegend from 'components/LegendPanel/CartoLegend';
+import MangroveLegend from 'components/LegendPanel/MangroveLegend';
+import BiomassLegend from 'components/LegendPanel/BiomassLegend';
+import TerraLegend from 'components/LegendPanel/TerraLegend';
+import GladLegend from 'components/LegendPanel/GladLegend';
 import FiresLegend from 'components/LegendPanel/FiresLegend';
+import TreeCoverGainLegend from 'components/LegendPanel/TreeCoverGainLegend';
+import TreeCoverLossLegend from 'components/LegendPanel/TreeCoverLossLegend';
 import SADLegend from 'components/LegendPanel/SADLegend';
 import IFLLegend from 'components/LegendPanel/IFLLegend';
 import text from 'js/languages';
 
 const closeSymbolCode = 9660,
     openSymbolCode = 9650;
-
-let legend;
 
 export default class LegendPanel extends Component {
 
@@ -57,19 +61,6 @@ export default class LegendPanel extends Component {
       layerIds = layerIds.concat(graphicsLayerIds);
     }
 
-    //- Get layers from the webmap, we could comment out this block but may miss any layers added from
-    //- the webmap as graphics or feature layers since those won't be in layerIds
-    // legendInfos = webmapInfo.operationalLayers.filter((item) => {
-    //   //- Add them to ignores so they do not show up twice
-    //   if (item.layerObject) { ignores.push(item.id); }
-    //   return item.layerObject;
-    // }).map((layer) => {
-    //   return {
-    //     layer: layer.layerObject,
-    //     title: '' // layer.layerObject.name
-    //   };
-    // });
-
     if (layerIds) {
       //- Remove layers to ignore
       ids = layerIds.filter(id => ignores.indexOf(id) === -1);
@@ -80,41 +71,60 @@ export default class LegendPanel extends Component {
         }
       });
     }
-    console.log(legendInfos);
     return legendInfos;
   }
 
   createLegend = (layerDiv, index) => {
-    // return layer => {
-      let childComponent;
-      // switch(layerDiv.layer.type) {
-      //   case 'dynamic':
-      //     childComponent = <DynamicLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
-      //     break;
-      // }
-      switch(layerDiv.layer.id) {
-        case 'IFL':
-          childComponent = <IFLLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
-          break;
-        case 'IMAZON_SAD':
-          childComponent = <SADLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
-          break;
-        case 'ACTIVE_FIRES':
-          childComponent = <FiresLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
-          break;
-      }
-      return (
-        <div key={index}>
-          <div className='test'>{layerDiv.layer.title}</div>
-          <div>{childComponent}</div>
-        </div>
-      );
-    // };
-  }
+    let childComponent;
 
+    switch(layerDiv.layer.id) {
+      case 'IFL':
+        childComponent = <IFLLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+        break;
+      case 'IMAZON_SAD':
+        childComponent = <SADLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+        break;
+      case 'ACTIVE_FIRES':
+        childComponent = <FiresLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+        break;
+      case 'GLOB_MANGROVE':
+        childComponent = <MangroveLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+        break;
+      case 'AG_BIOMASS':
+      debugger;
+        childComponent = <BiomassLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+        break;
+      case 'TERRA_I_ALERTS':
+        childComponent = <TerraLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+        break;
+      case 'GLAD_ALERTS':
+        childComponent = <GladLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+        break;
+      case 'TREE_COVER_GAIN':
+        childComponent = <TreeCoverGainLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+        break;
+      case 'TREE_COVER_LOSS':
+        debugger;
+        childComponent = <TreeCoverLossLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+        break;
+      default:
+        if(layerDiv.layer.type === 'CARTO') {
+          childComponent = <CartoLegend title={layerDiv.layer.title}/>;
+        } else {
+          return false;
+        }
+    }
+
+
+    return (
+      <div key={index}>
+        <div className='test'>{layerDiv.layer.title}</div>
+        <div>{childComponent}</div>
+      </div>
+    );
+  }
   render () {
     const {tableOfContentsVisible, legendOpen} = this.props;
-    console.log('props', this.props);
     const {language} = this.context;
 
     const legendLayers = this.getLayersForLegend();

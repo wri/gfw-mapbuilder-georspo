@@ -111,7 +111,6 @@ function reduceCarto (rawResults) {
     }
     results.layerNames = layerNames;
   }
-  // console.log(results);
   return results;
 }
 
@@ -269,13 +268,12 @@ export default {
       url = urls.cartoMetaEndpoint(layer.cartoUser, cartoId ? cartoId : layer.cartoLayerId, layer.cartoApiKey);
       const cartoMeta = getCartoMetadata(url);
       cartoMeta.then(results => {
-          _cache[subId] = JSON.parse(results);
-          promise.resolve(reduceCarto(JSON.parse(results)));
+        _cache[subId] = JSON.parse(results);
+        promise.resolve(reduceCarto(JSON.parse(results)));
       });
     } else {
       promise.resolve();
     }
-    console.log(promise);
     return promise;
   }
 

@@ -8,14 +8,11 @@ export default class IFLLegend extends React.Component {
   }
 
   componentDidMount() {
-    const layerIds = this.props.layerIds;
-    Request.getLegendInfos(this.props.url, layerIds).then(legendInfos => {
-      this.setState({ legendInfos: legendInfos });
+    Request.getLegendInfos(this.props.url, this.props.layerIds).then(legendInfos => {
+      if(this.refs.myRef) {
+        this.setState({ legendInfos: legendInfos });
+      }
     });
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextState.legendInfos.length !== this.state.legendInfos.length;
   }
 
   itemMapper (item, index) {
@@ -29,7 +26,7 @@ export default class IFLLegend extends React.Component {
 
   render () {
     return (
-      <div className='legend-container'>
+      <div className='legend-container' ref="myRef">
         {this.state.legendInfos.length === 0 ? <div className='legend-unavailable'>No Legend</div> :
           <div className='crowdsource-legend'>
             {this.state.legendInfos.map(this.itemMapper, this)}

@@ -199,19 +199,19 @@ gulp.task('bundle', function (cb) {
   });
 });
 
-gulp.task('browser-sync', function () {
-  browserSync({
-    server: config.server.baseDir,
-    files: config.server.files,
-    port: config.server.port,
-    reloadOnRestart: false,
-    logFileChanges: false,
-    ghostMode: false,
-    open: false,
-    ui: false
-  });
-});
+// gulp.task('browser-sync', function () {
+//   browserSync({
+//     server: config.server.baseDir,
+//     files: config.server.files,
+//     port: config.server.port,
+//     reloadOnRestart: false,
+//     logFileChanges: false,
+//     ghostMode: false,
+//     open: false,
+//     ui: false
+//   });
+// });
 
-gulp.task('serve', ['browser-sync']);
+// gulp.task('serve', ['browser-sync']);
 gulp.task('start', ['stylus-build', 'stylus-move', 'jade-build', 'imagemin-build', 'stylus-watch', 'jade-watch']);
 gulp.task('production', ['stylus-dist', 'stylus-move-dist', 'jade-dist', 'imagemin-dist', 'copy']);

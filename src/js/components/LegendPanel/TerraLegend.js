@@ -1,7 +1,7 @@
 import Request from 'utils/request';
 import React from 'react';
 
-export default class DynamicLegend extends React.Component {
+export default class TerraLegend extends React.Component {
   constructor (props) {
     super(props);
     this.state = { legendInfos: [] };
@@ -13,10 +13,6 @@ export default class DynamicLegend extends React.Component {
         this.setState({ legendInfos: legendInfos });
       }
     });
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextState.legendInfos.length !== this.state.legendInfos.length;
   }
 
   itemMapper (item, index) {

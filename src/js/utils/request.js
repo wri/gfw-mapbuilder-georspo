@@ -20,7 +20,6 @@ const request = {
   */
   getLegendInfos: (url, layerIds) => {
     const deferred = new Deferred();
-    console.log(layerIds);
     esriRequest({
       url: `${url}/legend`,
       handleAs: 'json',

@@ -121,7 +121,6 @@ class MapActions {
         cartoLayer.layer.on('tim', evt => {
           const tempResources = resources;
           tempResources.layerPanel.GROUP_CARTO.layers = evt.target.cartoLayers;
-          // this.cartoLayers = cartoLayers;
           appActions.applySettings(tempResources);
         });
       });

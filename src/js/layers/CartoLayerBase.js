@@ -166,7 +166,8 @@ export default declare('CartoLayer', [GraphicsLayer], {
       graphLayer.add(graphic[i]);
       graphLayer.setInfoTemplate(layerUtils.makeInfoTemplate(meta, 'en'));
     }
-    // graphLayer.setInfoTemplate(layerUtils.makeInfoTemplate(this.infoTemplate, 'en'));
+    graphLayer.title = meta.title.en;
+    graphLayer.type = 'CARTO';
     brApp.map.addLayer(graphLayer);
     brApp.map.removeLayer('CARTO_TEMPLATE');
     graphLayer.redraw();
@@ -245,11 +246,11 @@ export default declare('CartoLayer', [GraphicsLayer], {
   query: function(cartoQuery, cartoTemplate, layerNumber) {
     var _url = urls.cartoDataEndpoint(this.cartoUser, cartoQuery, this.cartoApiKey);
     const cartoLayers = resources.layerPanel.GROUP_CARTO.layers;
-    let errCount = [];
+    const errCount = [];
     var esriJsonLayer = [];
     request.id = 2;
 
-    request(_url, {timeout: 5000}).then((data) => {
+    request(_url, {timeout: 15000}).then((data) => {
       var geojson = dojoJSON.parse(data);
       const meta = this.setMetadataFields(geojson.features[0].properties, layerNumber);
       this.setParameters(geojson.features[0].geometry.type);
