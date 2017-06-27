@@ -49,7 +49,7 @@ export default {
   webmapMenuName: 'Land Use',
   //- Restoration Module settings
   restorationModule: false,
-  restorationImageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module2/ImageServer', //'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module/ImageServer'
+  restorationImageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module3/ImageServer', //'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module/ImageServer'
   slopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
   alternativeSlopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
   slopePotentialColors: 'rgb(234,199,253);rgb(253,178,46);rgb(88,126,15);rgb(210,147,116);rgb(245,208,139);rgb(177,177,36);rgb(26,176,144);rgb(175,15,143);rgb(217,254,199);rgb(255,254,137);',
@@ -85,16 +85,16 @@ export default {
   sharinghost: 'http://www.arcgis.com',
   analyticsCode: '',
   userFeatureToken: {
-    'tib': '7gkZSf3Dzqlgt6hiNA15dQxtrBRvbkrKLAzRJ8D0lUI4wvEoJTmBVs2rsQhZi9VDmYXujb1Bz7PVD6OnkXQ9-DSuyocnW-6Ob3hWPw9WizQ.',
+    'tib': 'Xp-u_2XkTG_AuN0ZUYHXRD63KKVcRbIYvNlO_LKV_mQytRWYsRoNpnyGH-HfJmleSRm9_lA35wU4kWO-AU-cjg..',
     //- Localhost token for BR office
-    'localhost': 'TjEeQfPMtR-0kjqzTqIZ7R-NAzGK1Z2sEQo6Dzt17O42DeIlaAxdqeg7GPMANVcC',
+    'localhost': 'Xp-u_2XkTG_AuN0ZUYHXRPPSyN1NiHneh7VGDLK6uogpan_5keg5POtR_QZFotKg',
     'alpha.blueraster.io': 'TjEeQfPMtR-0kjqzTqIZ7dagw25IJzDP02-D9WnUmPbMjcX-0zyr-9A_I9IqrImwJOwVpL_5qxPZAT-heBZ4RQ..',
     'alpha.blueraster.io.s3.amazonaws.com': 'TjEeQfPMtR-0kjqzTqIZ7dagw25IJzDP02-D9WnUmPbMjcX-0zyr-9A_I9IqrImwJOwVpL_5qxPZAT-heBZ4RQ..',
     //- Github token
     'wri.github.io': 'TjEeQfPMtR-0kjqzTqIZ7cl-o01RHvmC7tVmcyLHrT3-TfMZbwysm9txFEib56OM',
-    //- Other production tokens
-    'my.gfw-mapbuilder.org': 'HChmm-nytaxWk0D4nKljrtwXUelpvdU3R5vZ3jA1H7aqX5jcgUWd-H2dHXpm6ENNEFuRfPl_WgQMQYbgffjedA..',
-    'wri-sites.s3-website-us-east-1.amazonaws.com': 'xtpo8j176BbwJJDdlfLlDyvkZbSYFLxiub2ND-fWDVpOpPhSfwcm0wiMHJktvhG3oBwivVuykjMgz90rherwt_b9tR4vRfggoMgqIIQzN8ufDziAtmpI2xl7niY82c0P'
+    //- Production tokens
+   'my.gfw-mapbuilder.org': '8KiqcmKgUGK1iReXwjfOi0sCeJRiYKqRes6ntHJn5u2NFbgyri_cWB2i9WqjhAIt', // Valid until 6/26/2018
+      'wri-sites.s3-website-us-east-1.amazonaws.com': 'z9L6X0Egj9hx4i6nhhQEsYSsebcb_gnM-grirV9HnVAtMmexXUOAWbaKmvl2Am7zNQBsI3pwHIDijYYTZV58SJ_P_FTdIJ-xGPCzBn_TfYk.' // Valid until 6/26/2018
   },
 
   /**

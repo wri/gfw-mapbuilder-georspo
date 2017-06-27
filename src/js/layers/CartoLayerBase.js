@@ -51,32 +51,41 @@ export default declare('CartoLayer', [GraphicsLayer], {
   /*
    *  Takes in the data type of the carto layer
    *  Returns the a symbolDictionary to draw the shapes onto the map
-   */
-   setParameters: function(cartoDataType) {
-     switch (cartoDataType) {
-       case 'Point':
-        this.setPointParams(this.cartoColor, this.cartoIcon, this.cartoUser);
-        break;
-       case 'MultiLineString':
-        this.setLineParams(this.cartoColor, this.cartoUser, this.cartoLineWidth);
-        break;
-       case 'MultiPolygon':
-        this.setPolygonParams(this.cartoColor, this.cartoUser);
-        break;
-     }
-   },
+  */
+  setParameters: function(cartoDataType) {
+    switch (cartoDataType) {
+      case 'Point':
+      this.setPointParams(this.cartoColor, this.cartoIcon, this.cartoUser);
+      break;
+      case 'MultiLineString':
+      this.setLineParams(this.cartoColor, this.cartoUser, this.cartoLineWidth);
+      break;
+      case 'MultiPolygon':
+      this.setPolygonParams(this.cartoColor, this.cartoUser);
+      break;
+    }
+  },
 
-   /*
-   *  Gets the layer name from the Carto metadata call
-   **/
-   getLayerName: function(layer, layerId) {
-     const promise = new Deferred();
-     layerInfoCache.fetch(layer, layerId).then(layerInfo => {
-       this.modalLayerInfo = layerInfo;
-       promise.resolve(layerInfo);
-     });
-     return promise;
-   },
+  /*
+  *  Gets the layer name from the Carto metadata call
+  **/
+  getLayerName: function(layer, layerId) {
+    const promise = new Deferred();
+    layerInfoCache.fetch(layer, layerId).then(layerInfo => {
+      this.modalLayerInfo = layerInfo;
+      promise.resolve(layerInfo);
+    });
+    return promise;
+  },
+
+  processCartoCSS: function(cartoCSS) {
+    // Converting from cartoCSS to arrays
+    let right = cartoCSS.match(/[^:\]]+(?=;)/g);
+    let left = cartoCSS.match(/.+?(?=:)/g);
+    right = right.map(function(string) { return string.trim(); });
+    left = left.map(function(string) { return string.trim(); });
+
+  },
 
   /*
   * Using a Carto map template, get the layers
@@ -93,13 +102,15 @@ export default declare('CartoLayer', [GraphicsLayer], {
       const layers = json.template.layergroup.layers;
       const cartoMapID = json.template.layergroup.stat_tag;
       const cartoLayers = resources.layerPanel.GROUP_CARTO.layers;
-      debugger;
+
       this.getLayerName(cartoLayers[0], cartoMapID).then(response => {
         layers.forEach((layer, i) => {
           // Continue if the layer is a data layer or else skip
           if(layer.options.cartocss === undefined) {
             return;
           }
+
+          this.processCartoCSS(layer.options.cartocss);
 
           const cartoTemplate = 'CARTO_TEMPLATE' + i;
 
