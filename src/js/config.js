@@ -47,7 +47,8 @@ const config = {
     agolItemEndpoint: (itemId) => `http://www.arcgis.com/sharing/rest/content/items/${itemId}`,
     cartoMetaEndpoint: (cartoUser, cartoLayerId, cartoApiKey) => `https://${cartoUser}.carto.com/api/v1/viz/${cartoLayerId}?api_key=${cartoApiKey}`,
     cartoDataEndpoint: (cartoUser, queryString, cartoApiKey) => `//${cartoUser}.cartodb.com/api/v2/sql?format=GeoJSON&q=${queryString}&api_key=${cartoApiKey}`,
-    cartoTemplateEndpoint: (cartoUser, cartoTemplateId, cartoApiKey) => `https://${cartoUser}.carto.com/api/v1/map/named/${cartoTemplateId}?api_key=${cartoApiKey}`
+    cartoTemplateEndpoint: (cartoUser, cartoTemplateId, cartoApiKey) => `https://${cartoUser}.carto.com/api/v1/map/named/${cartoTemplateId}?api_key=${cartoApiKey}`,
+    esriLegendService: 'http://gfw.blueraster.io/arcgis/rest/services/legends/MapServer'
   },
 
   upload: {

@@ -28,10 +28,16 @@ const request = {
     }).then(res => {
       if (res && res.layers && res.layers.length > 0) {
         const layers = res.layers.filter(layer => layerIds.indexOf(layer.layerId) > -1);
-        const legendInfos = layers.length === 1 ? layers[0].legend : layers.map(layer => layer.legend[0]);
+        const legendInfos = layers.length === 1 ? layers[0].legend : layers.map(layer => layer.legend);
+        const legendLength = legendInfos.length;
         legendInfos.map( (legendInfo, index) => {
           if(legendInfo.label === '') {
-            legendInfo.label = layers[index].layerName;
+            // In case we have multiple sub-labels 
+            if(layers[index] && legendLength === 1) {
+              legendInfo.label = layers[index].layerName;
+            } else if (legendLength === 1) { 
+              legendInfo.label = layers[0].layerName;
+            }
           }
         });
         deferred.resolve(legendInfos || []);

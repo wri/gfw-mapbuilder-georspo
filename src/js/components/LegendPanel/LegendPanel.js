@@ -12,6 +12,7 @@ import TreeCoverGainLegend from 'components/LegendPanel/TreeCoverGainLegend';
 import TreeCoverLossLegend from 'components/LegendPanel/TreeCoverLossLegend';
 import SADLegend from 'components/LegendPanel/SADLegend';
 import IFLLegend from 'components/LegendPanel/IFLLegend';
+import {urls} from 'js/config';
 import text from 'js/languages';
 
 const closeSymbolCode = 9660,
@@ -46,10 +47,7 @@ export default class LegendPanel extends Component {
     let ignores = [
       layerKeys.MASK,
       layerKeys.TREE_COVER,
-      layerKeys.AG_BIOMASS,
-      layerKeys.USER_FEATURES,
-      layerKeys.TREE_COVER_GAIN,
-      layerKeys.TREE_COVER_LOSS
+      layerKeys.USER_FEATURES
     ];
 
     //- Add basemap layers and graphics layers
@@ -76,7 +74,6 @@ export default class LegendPanel extends Component {
 
   createLegend = (layerDiv, index) => {
     let childComponent;
-
     switch(layerDiv.layer.id) {
       case 'IFL':
         childComponent = <IFLLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
@@ -88,24 +85,22 @@ export default class LegendPanel extends Component {
         childComponent = <FiresLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
         break;
       case 'GLOB_MANGROVE':
-        childComponent = <MangroveLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+        childComponent = <MangroveLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer}/>;
         break;
       case 'AG_BIOMASS':
-      debugger;
-        childComponent = <BiomassLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+        childComponent = <BiomassLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer}/>;
         break;
       case 'TERRA_I_ALERTS':
-        childComponent = <TerraLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+        childComponent = <TerraLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer}/>;
         break;
       case 'GLAD_ALERTS':
-        childComponent = <GladLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+        childComponent = <GladLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer}/>;
         break;
       case 'TREE_COVER_GAIN':
-        childComponent = <TreeCoverGainLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+        childComponent = <TreeCoverGainLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer}/>;
         break;
       case 'TREE_COVER_LOSS':
-        debugger;
-        childComponent = <TreeCoverLossLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+        childComponent = <TreeCoverLossLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer}/>;
         break;
       default:
         if(layerDiv.layer.type === 'CARTO') {
@@ -119,6 +114,7 @@ export default class LegendPanel extends Component {
     return (
       <div key={index}>
         <div className='test'>{layerDiv.layer.title}</div>
+        {/*{layerDiv.layer.legendLayer ? <span></span> : <div className='test'>{layerDiv.layer.title}</div>}*/}
         <div>{childComponent}</div>
       </div>
     );

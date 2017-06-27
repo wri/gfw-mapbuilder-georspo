@@ -18,7 +18,7 @@ export default class TreeCoverGainLegend extends React.Component {
   itemMapper (item, index) {
     return (
       <div className='legend-row' key={index}>
-        <img title={item.label} src={`data:image/png;base64,${item.imageData}`} />
+        <img className='legend-icon' title={item.label} src={`data:image/png;base64,${item.imageData}`} />
         <div className='legend-label' key={index}>{item.label}</div>
       </div>
     );

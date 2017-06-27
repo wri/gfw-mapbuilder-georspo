@@ -93,6 +93,7 @@ export default declare('CartoLayer', [GraphicsLayer], {
       const layers = json.template.layergroup.layers;
       const cartoMapID = json.template.layergroup.stat_tag;
       const cartoLayers = resources.layerPanel.GROUP_CARTO.layers;
+      debugger;
       this.getLayerName(cartoLayers[0], cartoMapID).then(response => {
         layers.forEach((layer, i) => {
           // Continue if the layer is a data layer or else skip
