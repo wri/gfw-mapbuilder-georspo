@@ -17,12 +17,6 @@ import {urls} from 'js/config';
 import Color from 'esri/Color';
 import declare from 'dojo/_base/declare';
 
-const getDefaultState = function () {
-  return {
-    cartoMetadata: {}
-  };
-};
-
 export default declare('CartoLayer', [GraphicsLayer], {
   /*
    * params must contain
@@ -33,7 +27,6 @@ export default declare('CartoLayer', [GraphicsLayer], {
    */
   constructor: function(resource) {
     const { cartoColor, cartoIcon, cartoUser, cartoQuery, cartoDataType, cartoLineWidth, popup, id, cartoApiKey, cartoTemplateId } = resource;
-    this.state = getDefaultState();
     this.cartoUser = cartoUser;
     this.cartoTemplateId = cartoTemplateId;
     this.infoTemplate = popup || null;
@@ -84,7 +77,11 @@ export default declare('CartoLayer', [GraphicsLayer], {
     let left = cartoCSS.match(/.+?(?=:)/g);
     right = right.map(function(string) { return string.trim(); });
     left = left.map(function(string) { return string.trim(); });
-
+    // Creating an object out of the cartoCSS
+    const cartoObj = {};
+    left.forEach((leftProp, index) => {
+      cartoObj[leftProp] = right[index];
+    });
   },
 
   /*
@@ -105,6 +102,7 @@ export default declare('CartoLayer', [GraphicsLayer], {
 
       this.getLayerName(cartoLayers[0], cartoMapID).then(response => {
         layers.forEach((layer, i) => {
+          
           // Continue if the layer is a data layer or else skip
           if(layer.options.cartocss === undefined) {
             return;
@@ -159,7 +157,6 @@ export default declare('CartoLayer', [GraphicsLayer], {
         tempResources.layerPanel.GROUP_CARTO.layers = cartoLayers;
         this.cartoLayers = cartoLayers;
         this.loaded = true;
-        // appActions.applySettings(tempResources);
         this.emit('tim');
       });
     });
@@ -301,8 +298,7 @@ export default declare('CartoLayer', [GraphicsLayer], {
       tempResources.layerPanel.GROUP_CARTO.layers = cartoLayers;
       this.cartoLayers = cartoLayers;
       this.loaded = true;
-      this.emit('tim');
+      this.emit('onCartoLayerAdd');
     });
-    // this.emit('tim');
   }
 });

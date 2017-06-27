@@ -118,7 +118,7 @@ class MapActions {
       // Prepare the carto layer
       var cartoLayers = addedLayers.filter(layer => layer.layer.cartoUser);
       cartoLayers.forEach((cartoLayer) => {
-        cartoLayer.layer.on('tim', evt => {
+        cartoLayer.layer.on('onCartoLayerAdd', evt => {
           const tempResources = resources;
           tempResources.layerPanel.GROUP_CARTO.layers = evt.target.cartoLayers;
           appActions.applySettings(tempResources);
