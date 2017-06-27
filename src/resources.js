@@ -49,7 +49,7 @@ export default {
   webmapMenuName: 'Land Use',
   //- Restoration Module settings
   restorationModule: false,
-  restorationImageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module3/ImageServer', //'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module/ImageServer'
+  restorationImageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module2/ImageServer', //'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module/ImageServer'
   slopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
   alternativeSlopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
   slopePotentialColors: 'rgb(234,199,253);rgb(253,178,46);rgb(88,126,15);rgb(210,147,116);rgb(245,208,139);rgb(177,177,36);rgb(26,176,144);rgb(175,15,143);rgb(217,254,199);rgb(255,254,137);',
@@ -85,10 +85,10 @@ export default {
   sharinghost: 'http://www.arcgis.com',
   analyticsCode: '',
   userFeatureToken: {
-    'tib': 'Xp-u_2XkTG_AuN0ZUYHXRD63KKVcRbIYvNlO_LKV_mQytRWYsRoNpnyGH-HfJmleSRm9_lA35wU4kWO-AU-cjg..',
     //- Localhost token for BR office
+    'tib': 'Xp-u_2XkTG_AuN0ZUYHXRD63KKVcRbIYvNlO_LKV_mQytRWYsRoNpnyGH-HfJmleSRm9_lA35wU4kWO-AU-cjg..',
     'localhost': 'Xp-u_2XkTG_AuN0ZUYHXRPPSyN1NiHneh7VGDLK6uogpan_5keg5POtR_QZFotKg',
-    'alpha.blueraster.io': 'TjEeQfPMtR-0kjqzTqIZ7dagw25IJzDP02-D9WnUmPbMjcX-0zyr-9A_I9IqrImwJOwVpL_5qxPZAT-heBZ4RQ..',
+    'alpha.blueraster.io': 'Xp-u_2XkTG_AuN0ZUYHXRIHlZj5dq2u768zYxmMQ91w8wrGodM0EVBxEHnfOJ-DSbRG5DXXvLQFOc14KoPtkDQ..',
     'alpha.blueraster.io.s3.amazonaws.com': 'TjEeQfPMtR-0kjqzTqIZ7dagw25IJzDP02-D9WnUmPbMjcX-0zyr-9A_I9IqrImwJOwVpL_5qxPZAT-heBZ4RQ..',
     //- Github token
     'wri.github.io': 'TjEeQfPMtR-0kjqzTqIZ7cl-o01RHvmC7tVmcyLHrT3-TfMZbwysm9txFEib56OM',
@@ -200,7 +200,7 @@ export default {
           order: 3,
           id: 'IMAZON_SAD',
           type: 'dynamic',
-          url: 'https://gfw-staging.wri.org/arcgis/rest/services/forest_change/MapServer',
+          url: 'https://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
           technicalName: 'imazon_sad',
           layerIds: [2],
           label: {
@@ -278,7 +278,7 @@ export default {
           order: 6,
           id: 'ACTIVE_FIRES',
           type: 'dynamic',
-          url: 'https://gfw-staging.wri.org/arcgis/rest/services/Fires/FIRMS_Global/MapServer',
+          url: 'https://gis-gfw.wri.org/arcgis/rest/services/Fires/FIRMS_Global/MapServer',
           technicalName: 'noaa18_fires',
           layerIds: [9],
           label: {
@@ -337,7 +337,7 @@ export default {
           order: 2,
           id: 'IFL',
           type: 'dynamic',
-          url: 'https://gfw-staging.wri.org/arcgis/rest/services/forest_cover/MapServer',
+          url: 'https://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
           technicalName: 'intact_forest_landscapes_change',
           layerIds: [0],
           label: {
@@ -352,7 +352,7 @@ export default {
           order: 3,
           id: 'AG_BIOMASS',
           type: 'image',
-          url: 'https://gfw-staging.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
+          url: 'https://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
           technicalName: 'aboveground_biomass',
           legendLayer: [8],
           label: {
@@ -415,34 +415,8 @@ export default {
             pt: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
             id: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
             zh: '(2000年, 30米 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))'
-            // }, {
-            //     order: 6,
-            //     id: 'WFS_COVER',
-            //     type: 'wfs',
-            //     url: 'http://139.255.83.75:3000/geoserver/smallholder_database/wfs',
-            //     technicalName: 'wfs_cover',
-            //     colormap: [[1, 0, 179, 0]],
-            //     inputRange: [30, 101],
-            //     outputRange: [1],
-            //     opacity: 0.8,
-            //     legendLayer: 2,
-            //     label: {
-            //       en: 'WFS',
-            //       fr: 'Densité du couvert arboré',
-            //       es: 'Densidad de follaje',
-            //       pt: 'Tree cover density',
-            //       id: 'Tree cover density',
-            //       zh: '森林覆盖密度'
-            //     },
-            //     sublabel: {
-            //       en: 'WFS',
-            //       fr: '(année 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
-            //       es: '(2000, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-            //       pt: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
-            //       id: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
-            //       zh: '(2000年, 30米 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))'
-            //     }
-          } }]
+          }
+        }]
       },
     GROUP_CARTO: {
       order: 4,
