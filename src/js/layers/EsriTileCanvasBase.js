@@ -1,4 +1,4 @@
-import declare from 'dojo/_base/declare';
+import declare from 'dojo/_base/declare'; //this is breaking our prerender!
 import Point from 'esri/geometry/Point';
 import Layer from 'esri/layers/layer';
 
