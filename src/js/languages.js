@@ -3,7 +3,7 @@ import analysisKeys from 'constants/AnalysisConstants';
 //- Embedded Icons
 const drawIcon = '<svg class="svg-icon"><use xlink:href="#icon-draw-upload" /></svg>';
 
-const strings = { en: {}, fr: {}, es: {}, pt: {}, id: {}, zh: {} };
+const strings = { en: {}, fr: {}, es: {}, pt: {}, id: {}, zh: {}, ka: {} };
 //- NOTE: English
 //- Supported Languages
 strings.en.LANG_EN = 'English';
@@ -209,6 +209,212 @@ strings.en.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
 strings.en.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
 strings.en.REPORT_RESTORATION_TABLE_TYPE = 'Category';
 strings.en.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
+
+//- NOTE: Georgian
+//- Supported Languages
+strings.ka.LANG_EN = 'English';
+strings.ka.LANG_FR = 'French';
+strings.ka.LANG_ES = 'Spanish';
+strings.ka.LANG_PT = 'Portugese';
+strings.ka.LANG_ID = 'Indonesian';
+strings.ka.LANG_ZH = 'Mandarin';
+//- Header
+strings.ka.NAV_ABOUT = 'About';
+strings.ka.NAV_DOWNLOAD = 'Download Data';
+strings.ka.NAV_MAP_THEMES = 'Map Themes';
+strings.ka.NAV_MY_GFW = 'Log in to my GFW';
+strings.ka.NAV_LANGUAGE = 'Select Language';
+//- Documents
+strings.ka.DOCS_INSTRUCTIONS = 'Select an area of interest to see if there are any related documents';
+strings.ka.DOCS_NOT_AVAILABLE = 'There are no documents available for this area';
+strings.ka.DOCS_TYPE = 'Type';
+strings.ka.DOCS_AUTHOR = 'Author';
+strings.ka.DOCS_YEAR = 'Year';
+strings.ka.DOCS_PDF = 'PDF';
+strings.ka.DOCS_NAME = 'Name';
+strings.ka.DOCS_SIZE = 'Size';
+//- Info Window
+strings.ka.INFO_WINDOW_INSTRUCTION_HEADER = 'Select a shape on the map';
+strings.ka.INFO_WINDOW_INSTRUCTION_LIST = [
+  'Use the layers tab to turn on a data layer',
+  'Select a shape on the map'
+];
+//- Analysis
+strings.ka.ANALYSIS_INSTRUCTION_HEADER = 'Analyze a shape on the map';
+strings.ka.ANALYSIS_INSTRUCTION_LIST = [
+  'Use the layers tab to turn on a data layer',
+  'Select a shape on the map',
+  'Click on the analyze tab'
+];
+strings.ka.ANALYSIS_OR = 'Or';
+strings.ka.ANALYSIS_DRAW_HEADER = 'Analyze your own shape';
+//- ${drawIcon} references a variable above, do not translate
+strings.ka.ANALYSIS_DRAW_INSTRUCTIONS = [
+  `Choose the draw tool ${drawIcon} in the toolbox`,
+  'Draw a shape anywhere on the map',
+  'Select the shape to run the analysis'
+];
+strings.ka.ANALYSIS_DRAW_BUTTON = 'Start drawing';
+strings.ka.ANALYSIS_INSTRUCTION_ADDITIONAL = `Add additional shapes in the future by visiting the draw tool ${drawIcon}`;
+strings.ka.ANALYSIS_SHAPEFILE_UPLOAD = 'or drop a custom shapefile here';
+strings.ka.ANALYSIS_SHAPEFILE_INSTRUCTIONS = 'Only polygon data is supported and should use a spatial reference of WGS84. The recommended maximum size is 5MB, anything more than that may not work as expected. Esri shapefiles must be zipped (.zip) and GeoJSON files must be in .json files.';
+strings.ka.ANALYSIS_SELECT_TYPE_LABEL = 'Select Analysis:';
+//- Chart Labels in the Analysis
+strings.ka.ANALYSIS_TC_CHART_NAME = 'Tree cover loss in Hectares';
+strings.ka.ANALYSIS_LCC_CHART_NAME = 'Land Cover Composition';
+strings.ka.ANALYSIS_IFL_LABELS = ['Intact Forest'];
+strings.ka.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
+strings.ka.ANALYSIS_FIRES_PRE = 'There are';
+strings.ka.ANALYSIS_FIRES_ACTIVE = 'active fires';
+strings.ka.ANALYSIS_FIRES_POST = 'in the last 7 days';
+strings.ka.ANALYSIS_TOTAL_LOSS_LABEL = 'Total tree cover loss';
+strings.ka.ANALYSIS_TOTAL_LOSS_RANGE = '(2001 - 2014):';
+strings.ka.ANALYSIS_TOTAL_GAIN_LABEL = 'Total tree cover gained';
+strings.ka.ANALYSIS_TOTAL_GAIN_RANGE = '(2001 - 2012):';
+strings.ka.ANALYSIS_SLOPE_OPTION = 'Option #';
+strings.ka.SLOPE_SELECT_LABEL = 'Choose slope percent:';
+strings.ka.ANALYSIS_RESTORATION_ERROR = 'Area not meeting criteria for potential/No data';
+strings.ka.ANALYSIS_GROUP_RESTORATION = 'Restoration potential for';
+strings.ka.ANALYSIS_GROUP_SLOPE = 'Potential according to';
+strings.ka.ANALYSIS_GROUP_OTHER = 'Other analysis';
+strings.ka.ANALYSIS_GLAD_ALERT_NAME = 'GLAD Alerts';
+strings.ka.ANALYSIS_TERRA_I_ALERT_NAME = 'Terra-I Alerts';
+strings.ka.ANALYSIS_SAD_ALERT_NAMES = {
+  degrad: 'Degradation',
+  defor: 'Deforestation'
+};
+//- Group and value should not be modified
+strings.ka.ANALYSIS_SELECT_TYPE_OPTIONS = [
+  { label: 'Slope',
+    value: analysisKeys.SLOPE,
+    group: analysisKeys.ANALYSIS_GROUP_SLOPE
+  },
+  { label: 'Total tree cover loss/gain',
+    value: analysisKeys.TC_LOSS_GAIN,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Tree cover loss',
+    value: analysisKeys.TC_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Land cover loss',
+    value: analysisKeys.LC_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Aboveground Live Woody Biomass loss',
+    value: analysisKeys.BIO_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Intact forest loss',
+    value: analysisKeys.INTACT_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Global mangrove loss',
+    value: analysisKeys.MANGROVE_LOSS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'SAD alerts',
+    value: analysisKeys.SAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'GLAD alerts',
+    value: analysisKeys.GLAD_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Terra-I alerts',
+    value: analysisKeys.TERRA_I_ALERTS,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Active fires',
+    value: analysisKeys.FIRES,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'Land cover composition',
+    value: analysisKeys.LCC,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  }
+];
+
+//- Modals
+strings.ka.CANOPY_MODAL_TEXT = 'Adjust the minimum canopy density for tree cover and tree cover loss';
+strings.ka.DENSITY_FIRST = 'Displaying';
+strings.ka.DENSITY_SECOND = 'canopy density.';
+strings.ka.SEARCH_WIDGET_TITLE = 'Search for feature:';
+strings.ka.SEARCH_CLICK_FOR_MORE = 'Please click on the selected feature for more info.';
+//- Layer Info Modal
+strings.ka.NO_INFO = 'No Information Available';
+strings.ka.OVERVIEW = 'Overview';
+strings.ka.CITATION = 'Citation';
+//- Case does not matter, css makes them all uppercase
+strings.ka.FUNCTION = 'function';
+strings.ka.RESOLUTION = 'resolution';
+strings.ka.GEO_COVERAGE = 'geographic coverage';
+strings.ka.SOURCE = 'source';
+strings.ka.FREQUENCY = 'frequency';
+strings.ka.CONTENT_DATE = 'date of content';
+strings.ka.CAUTIONS = 'cautions';
+strings.ka.LICENSE = 'license';
+strings.ka.LEARN_MORE = 'learn More';
+strings.ka.DOWNLOAD_DATA = 'download data';
+strings.ka.DESCRIPTION = 'description';
+
+//- Miscellaneous
+strings.ka.PRINT_BUTTON_LABEL = 'Choose a print output';
+strings.ka.PRINT_REPORT = 'Print Report';
+strings.ka.SUBSCRIBE = 'Subscribe';
+strings.ka.LAYERS = 'Layers';
+strings.ka.DATA = 'Data';
+strings.ka.ANALYZE = 'Analyze';
+strings.ka.DOCS = 'Docs';
+strings.ka.NARRATIVE = 'Narrative';
+strings.ka.MORE = 'More';
+strings.ka.DELETE = 'Delete';
+strings.ka.DOCUMENTS = 'Documents';
+
+strings.ka.BASEMAP = 'Basemap';
+strings.ka.SELECT_ALL = 'Select all';
+strings.ka.CLEAR_ALL = 'Clear all';
+strings.ka.LEGEND = 'Legend';
+strings.ka.TIMELINE = 'Timeline';
+strings.ka.TIMELINE_START = 'Start: ';
+strings.ka.TIMELINE_END = 'End: ';
+strings.ka.SEARCH = 'Search'; // Also Used for tools, but was used else where first
+strings.ka.TOOL_ZOOM_IN = 'Zoom In';
+strings.ka.TOOL_ZOOM_OUT = 'Zoom Out';
+strings.ka.TOOL_SHARE = 'Share';
+strings.ka.TOOL_PRINT = 'Print';
+strings.ka.TOOL_ANALYSIS = 'Analysis';
+strings.ka.TOOL_TOGGLE = 'Toggle Panel';
+strings.ka.TOOL_RESET = 'Reset';
+
+strings.ka.ANALYSIS_CARBON_EMISSION = 'Gross carbon emissions';
+strings.ka.ANALYSIS_CARBON_LOSS = 'Tree cover loss';
+strings.ka.ANALYSIS_SLOPE_CHART_HEADER = 'Slope';
+strings.ka.ANALYSIS_LAND_COVER_CHART_HEADER = 'Land Cover';
+strings.ka.ANALYSIS_POPULATION_CHART_HEADER = 'Population Density';
+strings.ka.ANALYSIS_TREE_COVER_CHART_HEADER = '% Tree cover';
+strings.ka.ANALYSIS_RAINFALL_CHART_HEADER = 'Rainfall';
+strings.ka.MONTHS_LIST = [
+  { name: 'January', abbr: 'Jan'},
+  { name: 'February', abbr: 'Feb'},
+  { name: 'March', abbr: 'Mar'},
+  { name: 'April', abbr: 'Apr'},
+  { name: 'May', abbr: 'May'},
+  { name: 'June', abbr: 'Jun'},
+  { name: 'July', abbr: 'Jul'},
+  { name: 'August', abbr: 'Aug'},
+  { name: 'September', abbr: 'Sep'},
+  { name: 'October', abbr: 'Oct'},
+  { name: 'November', abbr: 'Nov'},
+  { name: 'December', abbr: 'Dec'}
+];
+
+strings.ka.REPORT_TABLE_TOTAL = 'Total';
+strings.ka.REPORT_SLOPE_TITLE = 'Slope Analysis';
+strings.ka.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
+strings.ka.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
+strings.ka.REPORT_RESTORATION_TABLE_TYPE = 'Category';
+strings.ka.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
 
 //- NOTE: French
 //- Supported Languages

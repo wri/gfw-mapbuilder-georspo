@@ -24,7 +24,7 @@ export default {
   includeMyGFWLogin: false,
   navLinksInNewTab: false,
   //- Language Settings
-  language: 'en',
+  language: 'ka',
   useAlternativeLanguage: false,
   alternativeWebmap: '',
   alternativeLanguage: 'fr',
@@ -138,7 +138,8 @@ export default {
         es: 'Dinámica de la Cobertura del Suelo',
         pt: 'Dinâmica de cobertura da terra ',
         id: 'Land Cover Dynamics',
-        zh: '土地覆盖动态数据'
+        zh: '土地覆盖动态数据',
+        ka: 'Georgian'
       },
       layers: [{
         order: 1,
@@ -164,7 +165,8 @@ export default {
           es: 'Pérdida de la cobertura arbórea',
           pt: 'Perda de cobertura arbórea',
           id: 'Tree cover loss',
-          zh: '森林覆盖损失'
+          zh: '森林覆盖损失',
+          ka: 'Georgian'
         },
         sublabel: {
           en: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
@@ -172,7 +174,8 @@ export default {
           es: '(anual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
           pt: '(anual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
           id: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-          zh: '(每年更新, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))'
+          zh: '(每年更新, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))',
+          ka: 'Georgian'
         }
       }, {
         order: 2,
@@ -188,7 +191,8 @@ export default {
           es: 'Aumento de la cobertura arbórea',
           pt: 'Ganho de cobertura arbórea',
           id: 'Tree cover gain',
-          zh: '森林覆盖增加'
+          zh: '森林覆盖增加',
+          ka: 'Georgian'
         },
         sublabel: {
           en: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
@@ -196,7 +200,8 @@ export default {
           es: '(12 años, 30m, global, Hansen/UMD/Google/USGS/NASA)',
           pt: '(12 anos, 30m, global, Hansen/UMD/Google/USGS/NASA)',
           id: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-          zh: '(12 年, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))'
+          zh: '(12 年, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))',
+          ka: 'Georgian'
         }
       }, {
         order: 3,
@@ -211,7 +216,8 @@ export default {
           es: 'Alertas SAD',
           pt: 'Alertas SAD',
           id: 'SAD alerts',
-          zh: 'SAD alerts'
+          zh: 'SAD alerts',
+          ka: 'Georgian'
         },
         sublabel: {
           en: '(monthly, 250m, Brazilian Amazon, Imazon)',
@@ -219,7 +225,8 @@ export default {
           es: '(mensual, 250m, Amazonia brasileña, Imazon)',
           pt: '(mensal, 250m, Amazônia brasileira, Imazon)',
           id: '(monthly, 250m, Brazilian Amazon, Imazon)',
-          zh: '(monthly, 250m, Brazilian Amazon, Imazon)'
+          zh: '(monthly, 250m, Brazilian Amazon, Imazon)',
+          ka: 'Georgian'
         }
       }, {
         order: 4,
@@ -237,7 +244,8 @@ export default {
           es: 'Alertas GLAD',
           pt: 'Alertas GLAD',
           id: 'GLAD Alerts',
-          zh: 'GLAD Alerts'
+          zh: 'GLAD Alerts',
+          ka: 'Georgian'
         },
         sublabel: {
           en: '(weekly, 30m, select countries, UMD/ GLAD)',
@@ -245,7 +253,8 @@ export default {
           es: '(semanal, 30m, select countries, UMD/ GLAD)',
           pt: '(semanal, 30m, select countries, UMD/ GLAD)',
           id: '(weekly, 30m, select countries, UMD/ GLAD)',
-          zh: '(weekly, 30m, select countries, UMD/ GLAD)'
+          zh: '(weekly, 30m, select countries, UMD/ GLAD)',
+          ka: 'Georgian'
         }
       }, {
         order: 5,
@@ -266,7 +275,8 @@ export default {
           es: 'Alertas Terra-I',
           pt: 'Alertas Terra-I',
           id: 'Terra-I Alerts',
-          zh: 'Terra-I Alerts'
+          zh: 'Terra-I Alerts',
+          ka: 'Georgian'
         },
         sublabel: {
           en: '(monthly, 250m, Latin America, CIAT)',
@@ -274,7 +284,8 @@ export default {
           es: '(mensual, 250m, Latin America, CIAT)',
           pt: '(Mensal, 250m, Latin America, CIAT)',
           id: '(monthly, 250m, Latin America, CIAT)',
-          zh: '(monthly, 250m, Latin America, CIAT)'
+          zh: '(monthly, 250m, Latin America, CIAT)',
+          ka: 'Georgian'
         }
       }, {
         order: 6,
@@ -289,7 +300,8 @@ export default {
           es: 'Incendios activos',
           pt: 'Incêndios ativos',
           id: 'Active fires',
-          zh: '活跃火点'
+          zh: '活跃火点',
+          ka: 'Georgian'
         },
         sublabel: {
           en: '(daily, 1km, global, NASA)',
@@ -297,7 +309,8 @@ export default {
           es: '(Diaria, 1km, global, NASA)',
           pt: '(Diária, 1km, global, NASA)',
           id: '(daily, 1km, global, NASA)',
-          zh: '(每天更新, 1千米, 全球覆盖, 美国宇航局（NASA))'
+          zh: '(每天更新, 1千米, 全球覆盖, 美国宇航局（NASA))',
+          ka: 'Georgian'
         },
         popup: {
           title: {
@@ -324,7 +337,8 @@ export default {
         es: 'Cobertura terrestre',
         pt: 'Cobertura do Solo',
         id: 'Land Cover',
-        zh: '土地覆盖'
+        zh: '土地覆盖',
+        ka: 'Georgian'
       },
       layers: [{
         order: 1,
@@ -340,7 +354,8 @@ export default {
           es: 'Global Mangrove',
           pt: 'Global Mangrove',
           id: 'Global Mangrove',
-          zh: 'Global Mangrove'
+          zh: 'Global Mangrove',
+          ka: 'Georgian'
         }
       }, {
         order: 2,
@@ -355,7 +370,8 @@ export default {
           es: 'Paisajes Forestales Intactos',
           pt: 'Paisagens Florestais Intactas',
           id: 'Intact Forest Landscape',
-          zh: '原生森林景观'
+          zh: '原生森林景观',
+          ka: 'Georgian'
         }
       }, {
         order: 3,
@@ -370,7 +386,8 @@ export default {
           es: 'Densidad de la biomasa viva en la superficie del suelo',
           pt: 'Densidade de biomassa viva acima do solo',
           id: 'Aboveground Live Woody Biomass Density',
-          zh: 'Aboveground Live Woody Biomass Density'
+          zh: 'Aboveground Live Woody Biomass Density',
+          ka: 'Georgian'
         }
       }, {
         order: 4,
@@ -387,7 +404,8 @@ export default {
           es: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
           pt: ['Culturas Irrigadas', 'Rainfed croplands', 'Mosaico de areas florestais e de cultivo', 'Floresta verde ou semi-decídua', 'Floresta decídua de folha larga', 'Floresta verde de coníferas ou Floresta decídua', 'Misto de floresta de conifera e de folha larga"', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
           id: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
-          zh: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice']
+          zh: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
+          ka: 'Georgian'
         },
         colors: ['#825D26', '#D1A969', '#DED6B4', '#157562', '#CC7A29', '#6DAD96', '#968635', '#C2B32F', '#6F7A53', '#96A36F', '#CDDB93', '#7DBDE8', '#0D63A1', '#F41E65', '#FFFFFF', '#DBDBDB'],
         label: {
@@ -396,7 +414,8 @@ export default {
           es: 'Cobertura vegetal',
           pt: 'Land cover',
           id: 'Land cover',
-          zh: '土地覆盖'
+          zh: '土地覆盖',
+          ka: 'Georgian'
         }
       }, {
         order: 5,
@@ -415,7 +434,8 @@ export default {
           es: 'Densidad de follaje',
           pt: 'Tree cover density',
           id: 'Tree cover density',
-          zh: '森林覆盖密度'
+          zh: '森林覆盖密度',
+          ka: 'Georgian'
         },
         sublabel: {
           en: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
@@ -423,7 +443,8 @@ export default {
           es: '(2000, 30m, global, Hansen/UMD/Google/USGS/NASA)',
           pt: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
           id: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
-          zh: '(2000年, 30米 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))'
+          zh: '(2000年, 30米 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))',
+          ka: 'Georgian'
         }
       }]
     },
@@ -435,7 +456,8 @@ export default {
         es: 'Basemap',
         pt: 'Basemap',
         id: 'Basemap',
-        zh: 'Basemap'
+        zh: 'Basemap',
+        ka: 'Georgian'
       },
       layers: [{
         id: 'landsat',
@@ -448,7 +470,8 @@ export default {
           es: 'Landsat',
           pt: 'Landsat',
           id: 'Landsat',
-          zh: 'Landsat'
+          zh: 'Landsat',
+          ka: 'Georgian'
         }
       }, {
         id: 'wri_mono',
@@ -460,7 +483,8 @@ export default {
           es: 'WRI Mono',
           pt: 'WRI Mono',
           id: 'WRI Mono',
-          zh: 'WRI Mono'
+          zh: 'WRI Mono',
+          ka: 'Georgian'
         }
       }, {
         id: 'wri_contextual',
@@ -472,7 +496,8 @@ export default {
           es: 'WRI Contextual',
           pt: 'WRI Contextual',
           id: 'WRI Contextual',
-          zh: 'WRI Contextual'
+          zh: 'WRI Contextual',
+          ka: 'Georgian'
         }
       }]
     },
