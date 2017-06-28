@@ -49,7 +49,7 @@ export default {
   webmapMenuName: 'Land Use',
   //- Restoration Module settings
   restorationModule: false,
-  restorationImageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module2/ImageServer', //'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module/ImageServer'
+  restorationImageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module3/ImageServer', //'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module/ImageServer'
   slopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
   alternativeSlopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
   slopePotentialColors: 'rgb(234,199,253);rgb(253,178,46);rgb(88,126,15);rgb(210,147,116);rgb(245,208,139);rgb(177,177,36);rgb(26,176,144);rgb(175,15,143);rgb(217,254,199);rgb(255,254,137);',
@@ -91,7 +91,7 @@ export default {
     'alpha.blueraster.io': 'Xe4QHKF7wZGHOoQpCKDloPjkD-_biQgy-OohOcZsjGZ4eUBtVi_45z1WcZV8arrCqiKDazcn3pIbm5icCHkHUg..',
     'alpha.blueraster.io.s3.amazonaws.com': 'TjEeQfPMtR-0kjqzTqIZ7dagw25IJzDP02-D9WnUmPbMjcX-0zyr-9A_I9IqrImwJOwVpL_5qxPZAT-heBZ4RQ..',
     //- Github token
-    'wri.github.io': 'Xe4QHKF7wZGHOoQpCKDloC8gyRnzDwtZHVWIpetgw3Mgc1XIKm3PRnl6jeaPLvd7m5XwWjD0md4c-8BxtXOgRA..',
+    'wri.github.io': 'Xe4QHKF7wZGHOoQpCKDloBTlYkjuSocYOZYTfNueQUh6q4EEmTOYgmpNIyS8VnOC_DEU2rxc8k0g7Ns3f31KQw..',
     //- Production tokens
     'my.gfw-mapbuilder.org': '8KiqcmKgUGK1iReXwjfOi0sCeJRiYKqRes6ntHJn5u2NFbgyri_cWB2i9WqjhAIt', // Valid until 6/26/2018
     'wri-sites.s3-website-us-east-1.amazonaws.com': 'z9L6X0Egj9hx4i6nhhQEsYSsebcb_gnM-grirV9HnVAtMmexXUOAWbaKmvl2Am7zNQBsI3pwHIDijYYTZV58SJ_P_FTdIJ-xGPCzBn_TfYk.' // Valid until 6/26/2018
@@ -257,7 +257,7 @@ export default {
           // We are setting this way over max, the max date will get set set when TerraIControls mounts
           // We set this over max so all data is visible by default, and it will update the dates when available
           maxDateValue: 20000,
-          imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
+          imageServer: 'https://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
           label: {
             en: 'Terra-I Alerts',
             fr: 'Alertes Terra-I',
@@ -530,7 +530,7 @@ export default {
     }, {
       id: 'LEGEND_LAYER',
       type: 'dynamic',
-      url: 'http://gfw.blueraster.io/arcgis/rest/services/legends/MapServer',
+      url: 'https://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
       visible: false,
       opacity: 0,
       layerIds: []
@@ -539,7 +539,7 @@ export default {
       type: 'feature',
       definitionExpression: '1 = 2', // show no features from the service ever
       mode: 0, // equals MODE_SNAPSHOT
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
+      url: 'https://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
       visible: true
     }]
   }

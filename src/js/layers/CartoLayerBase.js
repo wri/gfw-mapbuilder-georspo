@@ -99,6 +99,7 @@ export default declare('CartoLayer', [GraphicsLayer], {
       const layers = json.template.layergroup.layers;
       const cartoMapID = json.template.layergroup.stat_tag;
       const cartoLayers = resources.layerPanel.GROUP_CARTO.layers;
+      const deferreds = [];
 
       this.getLayerName(cartoLayers[0], cartoMapID).then(response => {
         layers.forEach((layer, i) => {
@@ -107,10 +108,17 @@ export default declare('CartoLayer', [GraphicsLayer], {
           if(layer.options.cartocss === undefined) {
             return;
           }
-
-          this.processCartoCSS(layer.options.cartocss);
-
           const cartoTemplate = 'CARTO_TEMPLATE' + i;
+
+          // Getting the query out of the original carto returned query
+          const cartoQuery = layer.options.sql.match(/\((.*?)\)/)[1];
+
+          // Querying carto to get the geojson layer
+          this.query(cartoQuery, cartoTemplate, i - 1, callback)
+          // deferreds.push(cartoType);
+
+          // all(deferreds).then
+          this.processCartoCSS(layer.options.cartocss, cartoType);
 
           cartoLayers.push({
               order: i + 1,
@@ -144,12 +152,6 @@ export default declare('CartoLayer', [GraphicsLayer], {
                 }
               }
             });
-
-          // Getting the query out of the original carto returned query
-          const cartoQuery = layer.options.sql.match(/\((.*?)\)/)[1];
-
-          // Querying carto to get the geojson layer
-          this.query(cartoQuery, cartoTemplate, i - 1);
         });
         // Removing the first carto layer as it is the template
         cartoLayers.shift();
@@ -253,6 +255,7 @@ export default declare('CartoLayer', [GraphicsLayer], {
    * @param {string} queryString
    */
   query: function(cartoQuery, cartoTemplate, layerNumber) {
+    const promise = new Deferred();
     var _url = urls.cartoDataEndpoint(this.cartoUser, cartoQuery, this.cartoApiKey);
     const cartoLayers = resources.layerPanel.GROUP_CARTO.layers;
     const errCount = [];
@@ -291,7 +294,7 @@ export default declare('CartoLayer', [GraphicsLayer], {
         }
       });
       this.addLayer(esriJsonLayer, cartoTemplate, meta);
-    }, (err) => {
+    }, (graphic) => {
       const cartoLayerLength = resources.layerPanel.GROUP_CARTO.layers.length + errCount;
       delete cartoLayers[(cartoLayerLength - 1) - layerNumber];
       const tempResources = resources;
@@ -299,6 +302,7 @@ export default declare('CartoLayer', [GraphicsLayer], {
       this.cartoLayers = cartoLayers;
       this.loaded = true;
       this.emit('onCartoLayerAdd');
+      promise.resolve(graphic.geometry.type);
     });
   }
 });
