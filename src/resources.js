@@ -86,15 +86,15 @@ export default {
   analyticsCode: '',
   userFeatureToken: {
     //- Localhost token for BR office
-    'tib': 'Xp-u_2XkTG_AuN0ZUYHXRD63KKVcRbIYvNlO_LKV_mQytRWYsRoNpnyGH-HfJmleSRm9_lA35wU4kWO-AU-cjg..',
-    'localhost': 'Xp-u_2XkTG_AuN0ZUYHXRPPSyN1NiHneh7VGDLK6uogpan_5keg5POtR_QZFotKg',
-    'alpha.blueraster.io': 'Xp-u_2XkTG_AuN0ZUYHXRIHlZj5dq2u768zYxmMQ91w8wrGodM0EVBxEHnfOJ-DSbRG5DXXvLQFOc14KoPtkDQ..',
+    'tib': 'Xe4QHKF7wZGHOoQpCKDloPnyA4ZimKQ-dH3yAiA-UI9FNPSUG_mdnEiGQEfOCKmAXJzPDSzNRLdl_suxkimYaA..',
+    'localhost': 'Xe4QHKF7wZGHOoQpCKDloGqwWTeh9jD9CnQFU3Sh63nZ9cJx3xt7yCv4ERO6nqNZ',
+    'alpha.blueraster.io': 'Xe4QHKF7wZGHOoQpCKDloPjkD-_biQgy-OohOcZsjGZ4eUBtVi_45z1WcZV8arrCqiKDazcn3pIbm5icCHkHUg..',
     'alpha.blueraster.io.s3.amazonaws.com': 'TjEeQfPMtR-0kjqzTqIZ7dagw25IJzDP02-D9WnUmPbMjcX-0zyr-9A_I9IqrImwJOwVpL_5qxPZAT-heBZ4RQ..',
     //- Github token
-    'wri.github.io': 'TjEeQfPMtR-0kjqzTqIZ7cl-o01RHvmC7tVmcyLHrT3-TfMZbwysm9txFEib56OM',
+    'wri.github.io': 'Xe4QHKF7wZGHOoQpCKDloC8gyRnzDwtZHVWIpetgw3Mgc1XIKm3PRnl6jeaPLvd7m5XwWjD0md4c-8BxtXOgRA..',
     //- Production tokens
-   'my.gfw-mapbuilder.org': '8KiqcmKgUGK1iReXwjfOi0sCeJRiYKqRes6ntHJn5u2NFbgyri_cWB2i9WqjhAIt', // Valid until 6/26/2018
-      'wri-sites.s3-website-us-east-1.amazonaws.com': 'z9L6X0Egj9hx4i6nhhQEsYSsebcb_gnM-grirV9HnVAtMmexXUOAWbaKmvl2Am7zNQBsI3pwHIDijYYTZV58SJ_P_FTdIJ-xGPCzBn_TfYk.' // Valid until 6/26/2018
+    'my.gfw-mapbuilder.org': '8KiqcmKgUGK1iReXwjfOi0sCeJRiYKqRes6ntHJn5u2NFbgyri_cWB2i9WqjhAIt', // Valid until 6/26/2018
+    'wri-sites.s3-website-us-east-1.amazonaws.com': 'z9L6X0Egj9hx4i6nhhQEsYSsebcb_gnM-grirV9HnVAtMmexXUOAWbaKmvl2Am7zNQBsI3pwHIDijYYTZV58SJ_P_FTdIJ-xGPCzBn_TfYk.' // Valid until 6/26/2018
   },
 
   /**
