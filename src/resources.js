@@ -257,7 +257,7 @@ export default {
           // We are setting this way over max, the max date will get set set when TerraIControls mounts
           // We set this over max so all data is visible by default, and it will update the dates when available
           maxDateValue: 20000,
-          imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
+          imageServer: 'https://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
           label: {
             en: 'Terra-I Alerts',
             fr: 'Alertes Terra-I',
@@ -475,7 +475,7 @@ export default {
     }, {
       id: 'LEGEND_LAYER',
       type: 'dynamic',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
+      url: 'https://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
       visible: false,
       opacity: 0,
       layerIds: []
@@ -484,7 +484,7 @@ export default {
       type: 'feature',
       definitionExpression: '1 = 2', // show no features from the service ever
       mode: 0, // equals MODE_SNAPSHOT
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
+      url: 'https://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
       visible: true
     }]
   }
