@@ -10,12 +10,11 @@ export default {
   webmap: 'de85e3fcc07948238aa6c1afd2a4ceb0',
   title: 'GFW Mapbuilder',
   subtitle: 'Make maps that matter',
-  // logoUrl: window && window._app && window._app.base ? window._app.base + 'css/images/gfw-logo.png' : './css/images/gfw-logo.png',
   logoUrl: './css/images/gfw-logo.png',
   logoLinkUrl: 'http://www.gfw-mapbuilder.org/',
   aboutLinkUrl: '', // http://www.gfw-mapbuilder.org/
   downloadLinkUrl: '', // http://data.globalforestwatch.org/
-  printServiceUrl: 'http://gis.forest-atlas.org/arcgis/rest/services/print/ExportWebMap/GPServer/Export%20Web%20Map',
+  printServiceUrl: 'http://gis.forest-atlas.org/server/rest/services/print/ExportWebMap/GPServer/Export%20Web%20Map',
   maskServiceUrl: '', // e.g. http://gis-forest-atlas.wri.org/arcgis/rest/services/CMR/CMR_00_Africa/MapServer
   mapThemeIds: '', // e.g. 1c38ba1095fe49e3ba234bf9105c1077;c76d788b7487476bae4d09a4e933be19
   mapThemes: '', // e.g. Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea
@@ -24,7 +23,7 @@ export default {
   includeMyGFWLogin: false,
   navLinksInNewTab: false,
   //- Language Settings
-  language: 'en',
+  language: 'ka',
   useAlternativeLanguage: false,
   alternativeWebmap: '',
   alternativeLanguage: 'fr',
@@ -36,7 +35,7 @@ export default {
   //- Documents Settings
   includeDocumentsTab: false,
   documentsDirectory: 'https://cmr.forest-atlas.org/resources/docs/',
-  documentsMapserver: 'http://gis.forest-atlas.org/arcgis/rest/services/CMR/documents_administratifs/MapServer',
+  documentsMapserver: 'http://gis.forest-atlas.org/server/rest/services/CMR/documents_administratifs/MapServer',
   //- Layers/Analysis Settings
   iso: '',
   activeFires: true,
@@ -50,7 +49,7 @@ export default {
   webmapMenuName: 'Land Use',
   //- Restoration Module settings
   restorationModule: false,
-  restorationImageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module2/ImageServer', //'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module/ImageServer'
+  restorationImageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module3/ImageServer', //'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module/ImageServer'
   slopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
   alternativeSlopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
   slopePotentialColors: 'rgb(234,199,253);rgb(253,178,46);rgb(88,126,15);rgb(210,147,116);rgb(245,208,139);rgb(177,177,36);rgb(26,176,144);rgb(175,15,143);rgb(217,254,199);rgb(255,254,137);',
@@ -86,17 +85,16 @@ export default {
   sharinghost: 'http://www.arcgis.com',
   analyticsCode: '',
   userFeatureToken: {
-    'localhost': 'TjEeQfPMtR-0kjqzTqIZ7R-NAzGK1Z2sEQo6Dzt17O42DeIlaAxdqeg7GPMANVcC',
     //- Localhost token for BR office
-    'staging.blueraster.com': 'TjEeQfPMtR-0kjqzTqIZ7ZcTy6iHPAbdZQNaAPNBXQHgKwP6t8xmE7d0w7Hsi4HfRgaWltqVI3Y7Bq8aT5unCg..',
-    'stg.blueraster.com.s3.amazonaws.com': 'TjEeQfPMtR-0kjqzTqIZ7Sa9KfzWWRNkafbsiNHsV_V5s2pM7zD73fKp37Sx5EoXGMyWy5s74Sgjr0XUHlpu6ufFZ5Uh9mvAQkfVUKA-3sA.',
-    'alpha.blueraster.io': 'TjEeQfPMtR-0kjqzTqIZ7dagw25IJzDP02-D9WnUmPbMjcX-0zyr-9A_I9IqrImwJOwVpL_5qxPZAT-heBZ4RQ..',
+    'tib': 'Xe4QHKF7wZGHOoQpCKDloPnyA4ZimKQ-dH3yAiA-UI9FNPSUG_mdnEiGQEfOCKmAXJzPDSzNRLdl_suxkimYaA..',
+    'localhost': 'Xe4QHKF7wZGHOoQpCKDloGqwWTeh9jD9CnQFU3Sh63nZ9cJx3xt7yCv4ERO6nqNZ',
+    'alpha.blueraster.io': 'Xe4QHKF7wZGHOoQpCKDloPjkD-_biQgy-OohOcZsjGZ4eUBtVi_45z1WcZV8arrCqiKDazcn3pIbm5icCHkHUg..',
     'alpha.blueraster.io.s3.amazonaws.com': 'TjEeQfPMtR-0kjqzTqIZ7dagw25IJzDP02-D9WnUmPbMjcX-0zyr-9A_I9IqrImwJOwVpL_5qxPZAT-heBZ4RQ..',
     //- Github token
-    'wri.github.io': 'TjEeQfPMtR-0kjqzTqIZ7cl-o01RHvmC7tVmcyLHrT3-TfMZbwysm9txFEib56OM',
-    //- Other production tokens
-    'my.gfw-mapbuilder.org': 'HChmm-nytaxWk0D4nKljrtwXUelpvdU3R5vZ3jA1H7aqX5jcgUWd-H2dHXpm6ENNEFuRfPl_WgQMQYbgffjedA..',
-    'wri-sites.s3-website-us-east-1.amazonaws.com': 'xtpo8j176BbwJJDdlfLlDyvkZbSYFLxiub2ND-fWDVpOpPhSfwcm0wiMHJktvhG3oBwivVuykjMgz90rherwt_b9tR4vRfggoMgqIIQzN8ufDziAtmpI2xl7niY82c0P'
+    'wri.github.io': 'Xe4QHKF7wZGHOoQpCKDloBTlYkjuSocYOZYTfNueQUh6q4EEmTOYgmpNIyS8VnOC_DEU2rxc8k0g7Ns3f31KQw..',
+    //- Production tokens
+    'my.gfw-mapbuilder.org': '8KiqcmKgUGK1iReXwjfOi0sCeJRiYKqRes6ntHJn5u2NFbgyri_cWB2i9WqjhAIt', // Valid until 6/26/2018
+    'wri-sites.s3-website-us-east-1.amazonaws.com': 'z9L6X0Egj9hx4i6nhhQEsYSsebcb_gnM-grirV9HnVAtMmexXUOAWbaKmvl2Am7zNQBsI3pwHIDijYYTZV58SJ_P_FTdIJ-xGPCzBn_TfYk.' // Valid until 6/26/2018
   },
 
   /**
@@ -182,7 +180,7 @@ export default {
         id: 'TREE_COVER_GAIN',
         type: 'gain', //'image',
         // url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
-        url: 'http://earthengine.google.org/static/hansen_2013/gain_alpha/{z}/{x}/{y}.png',
+        url: 'https://earthengine.google.org/static/hansen_2013/gain_alpha/{z}/{x}/{y}.png',
         technicalName: 'tree_cover_gain',
         legendLayer: 1,
         label: {
@@ -207,7 +205,7 @@ export default {
         order: 3,
         id: 'IMAZON_SAD',
         type: 'dynamic',
-        url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+        url: 'https://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
         technicalName: 'imazon_sad',
         layerIds: [2],
         label: {
@@ -232,7 +230,7 @@ export default {
         order: 4,
         id: 'GLAD_ALERTS',
         type: 'glad',
-        url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
+        url: 'https://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
         technicalName: 'umd_landsat_alerts',
         legendLayer: 7,
         minDateValue: 15000,
@@ -260,7 +258,7 @@ export default {
         order: 5,
         id: 'TERRA_I_ALERTS',
         type: 'terra',
-        url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+        url: 'https://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
         technicalName: 'terra_i_alerts',
         legendLayer: 13,
         maxZoom: 10,
@@ -268,7 +266,7 @@ export default {
         // We are setting this way over max, the max date will get set set when TerraIControls mounts
         // We set this over max so all data is visible by default, and it will update the dates when available
         maxDateValue: 20000,
-        imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
+        imageServer: 'https://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
         label: {
           en: 'Terra-I Alerts',
           fr: 'Alertes Terra-I',
@@ -291,7 +289,7 @@ export default {
         order: 6,
         id: 'ACTIVE_FIRES',
         type: 'dynamic',
-        url: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
+        url: 'https://gis-gfw.wri.org/arcgis/rest/services/Fires/FIRMS_Global/MapServer',
         technicalName: 'noaa18_fires',
         layerIds: [0, 1, 2, 3],
         label: {
@@ -316,15 +314,13 @@ export default {
           title: {
             en: 'Active Fires'
           },
-          content: {
-            en: [
-              {'label': 'Brightness', 'fieldExpression': 'BRIGHTNESS'},
-              {'label': 'Confidence', 'fieldExpression': 'CONFIDENCE'},
-              {'label': 'Latitude', 'fieldExpression': 'LATITUDE'},
-              {'label': 'Longitude', 'fieldExpression': 'LONGITUDE'},
-              {'label': 'Acquisition Date', 'fieldExpression': 'ACQ_DATE:DateString(hideTime:true)'},
-              {'label': 'Acquisition Time', 'fieldExpression': 'ACQ_TIME'}
-            ]
+          sublabel: {
+            en: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+            fr: '(annuel, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+            es: '(anual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+            pt: '(anual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+            id: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+            zh: '(每年更新, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))'
           }
         }
       }]
@@ -377,7 +373,7 @@ export default {
         order: 3,
         id: 'AG_BIOMASS',
         type: 'image',
-        url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
+        url: 'https://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
         technicalName: 'aboveground_biomass',
         legendLayer: 8,
         label: {
@@ -393,7 +389,7 @@ export default {
         order: 4,
         id: 'LAND_COVER',
         type: 'webtiled',
-        url: 'http://wri-tiles.s3.amazonaws.com/global-landcover/{level}/{col}/{row}.png',
+        url: 'https://wri-tiles.s3.amazonaws.com/global-landcover/{level}/{col}/{row}.png',
         technicalName: 'global_landcover',
         legendLayer: 15,
         rasterId: '$568',
@@ -409,7 +405,7 @@ export default {
         },
         colors: ['#825D26', '#D1A969', '#DED6B4', '#157562', '#CC7A29', '#6DAD96', '#968635', '#C2B32F', '#6F7A53', '#96A36F', '#CDDB93', '#7DBDE8', '#0D63A1', '#F41E65', '#FFFFFF', '#DBDBDB'],
         label: {
-          en: 'Land cover',
+          en: 'Land Cover',
           fr: 'Couverture des sols',
           es: 'Cobertura vegetal',
           pt: 'Land cover',
@@ -449,7 +445,7 @@ export default {
       }]
     },
     GROUP_BASEMAP: {
-      order: 4,
+      order: 5,
       label: {
         en: 'Basemap',
         fr: 'Basemap',
@@ -475,8 +471,7 @@ export default {
         }
       }, {
         id: 'wri_mono',
-        // thumbnailUrl: window && window._app && window._app.base ? window._app.base + 'css/images/wri_mono.png' : './css/images/wri_mono.png',
-        thumbnailUrl: 'css/images/wri_mono.png',
+        thumbnailUrl: './css/images/wri_mono.png',
         title: {
           en: 'WRI Mono',
           fr: 'WRI Mono',
@@ -488,8 +483,7 @@ export default {
         }
       }, {
         id: 'wri_contextual',
-        // thumbnailUrl: window && window._app && window._app.base ? window._app.base + 'css/images/wri_contextual.png' : './css/images/wri_contextual.png',
-        thumbnailUrl: 'css/images/wri_contextual.png',
+        thumbnailUrl: './css/images/wri_contextual.png',
         title: {
           en: 'WRI Contextual',
           fr: 'WRI Contextual',
@@ -505,13 +499,13 @@ export default {
       id: 'MASK',
       type: 'dynamic',
       order: 10000,
-      url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
+      url: 'http://gis.forest-atlas.org/server/rest/services/country_masks/country_mask_global/MapServer',
       opacity: 0.35,
       layerIds: [0]
     }, {
       id: 'LEGEND_LAYER',
       type: 'dynamic',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
+      url: 'https://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
       visible: false,
       opacity: 0,
       layerIds: []
@@ -520,7 +514,7 @@ export default {
       type: 'feature',
       definitionExpression: '1 = 2', // show no features from the service ever
       mode: 0, // equals MODE_SNAPSHOT
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
+      url: 'https://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
       visible: true
     }]
   }
