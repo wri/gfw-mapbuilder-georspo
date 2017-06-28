@@ -475,7 +475,7 @@ export default {
     }, {
       id: 'LEGEND_LAYER',
       type: 'dynamic',
-      url: 'http://gfw.blueraster.io/arcgis/rest/services/legends/MapServer',
+      url: 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
       visible: false,
       opacity: 0,
       layerIds: []
