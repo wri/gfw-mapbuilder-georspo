@@ -24,7 +24,7 @@ export default {
   includeMyGFWLogin: false,
   navLinksInNewTab: false,
   //- Language Settings
-  language: 'ka',
+  language: 'en',
   useAlternativeLanguage: false,
   alternativeWebmap: '',
   alternativeLanguage: 'fr',
