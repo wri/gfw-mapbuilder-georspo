@@ -2,6 +2,7 @@ import SimpleMarkerSymbol from 'esri/symbols/SimpleMarkerSymbol';
 import webMercatorUtils from 'esri/geometry/webMercatorUtils';
 import SimpleFillSymbol from 'esri/symbols/SimpleFillSymbol';
 import SimpleLineSymbol from 'esri/symbols/SimpleLineSymbol';
+import CartoLegend from 'components/LegendPanel/CartoLegend';
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import layerInfoCache from 'utils/layerInfoCache';
 import geojsonUtil from 'utils/arcgis-to-geojson';
@@ -125,9 +126,8 @@ export default declare('CartoLayer', [GraphicsLayer], {
    * The main query function of the CartoDBLayer
    * @param {string} queryString
    */
-  query: function(cartoQuery, cartoTemplate, layerNumber, layerIndex, cartocss, layerName, resolve, reject) {
+  query: function(cartoQuery, cartoTemplate, layerNumber, layerIndex, cartocss, layerName, cartoLayers, resolve, reject) {
     var _url = urls.cartoDataEndpoint(this.cartoUser, cartoQuery, this.cartoApiKey);
-    const cartoLayers = resources.layerPanel.GROUP_CARTO.layers;
     var esriJsonLayer = [];
     request.id = 2;
 
@@ -161,12 +161,15 @@ export default declare('CartoLayer', [GraphicsLayer], {
               message: 'No symbolDictionary for feature'
             });
           }
+
           esriJsonLayer.push(graphic);
         }
       });
+
       this.addLayer(esriJsonLayer, cartoTemplate, meta);
       const dataInfo = {symbol: this.symbolDictionary, cartoTemplate: cartoTemplate};
       resolve(dataInfo);
+
     }, () => {
       cartoLayers.forEach((layer, index) => {
         if(layer.id === layerName) {
@@ -178,8 +181,7 @@ export default declare('CartoLayer', [GraphicsLayer], {
       this.cartoLayers = cartoLayers;
       this.loaded = true;
       this.emit('onCartoLayerAdd');
-      const dataInfo = {symbol: this.symbolDictionary, cartoTemplate: cartoTemplate};
-      resolve(dataInfo);
+      resolve('err');
     });
   },
 
@@ -203,85 +205,58 @@ export default declare('CartoLayer', [GraphicsLayer], {
         const all = [];
         layers.forEach((layer, i) => {
           const promise = new Promise((resolve, reject) => {
-          const cartoCSS = layer.options.cartocss;
-          if(cartoCSS === undefined) {
-            resolve('err');
-            return;
-          }
-          const cartoTemplate = 'CARTO_TEMPLATE' + i;
-          // Getting the query out of the original carto returned query
-          const cartoQuery = layer.options.sql.match(/\((.*?)\)/)[1];
-          // Querying carto to get the geojson layer
-          cartoLayers.push({
-            order: i + 1,
-            id: cartoTemplate,
-            type: 'carto',
-            url: 'cartoLayer',
-            // symbolDic: symbolDic,
-            label: {
-              en: response.layerNames[i - 1],
-              fr: response.layerNames[i - 1],
-              es: response.layerNames[i - 1],
-              pt: response.layerNames[i - 1],
-              id: response.layerNames[i - 1],
-              zh: response.layerNames[i - 1]
-            },
-            sublabel: {
-              en: '(carto_layer)',
-              fr: '(carto_layer)',
-              es: '(carto_layer)',
-              pt: '(carto_layer)',
-              id: '(carto_layer)',
-              zh: '(carto_layer)'
-            },
-            popup: {
-              title: {
-                en: response.layerNames[i - 1]
-              },
-              content: {
-                en: []
-              }
+            const cartoCSS = layer.options.cartocss;
+            if(cartoCSS === undefined) {
+              resolve('err');
+              return;
             }
-          });
-          this.query(cartoQuery, cartoTemplate, i - 1, i, cartoCSS, cartoTemplate, resolve, reject);
+            const cartoTemplate = 'CARTO_TEMPLATE' + i;
+            // Getting the query out of the original carto returned query
+            const cartoQuery = layer.options.sql.match(/\((.*?)\)/)[1];
+            // Querying carto to get the geojson layer
+            cartoLayers.push({
+              order: i + 1,
+              id: cartoTemplate,
+              type: 'carto',
+              url: 'cartoLayer',
+              // symbolDic: symbolDic,
+              label: {
+                en: response.layerNames[i - 1],
+                fr: response.layerNames[i - 1],
+                es: response.layerNames[i - 1],
+                pt: response.layerNames[i - 1],
+                id: response.layerNames[i - 1],
+                zh: response.layerNames[i - 1]
+              },
+              sublabel: {
+                en: '(carto_layer)',
+                fr: '(carto_layer)',
+                es: '(carto_layer)',
+                pt: '(carto_layer)',
+                id: '(carto_layer)',
+                zh: '(carto_layer)'
+              },
+              popup: {
+                title: {
+                  en: response.layerNames[i - 1]
+                },
+                content: {
+                  en: []
+                }
+              }
+            });
+            this.query(cartoQuery, cartoTemplate, i - 1, i, cartoCSS, cartoTemplate, cartoLayers, resolve, reject);
           });
           all.push(promise);
         });
         Promise.all(all).then((responses) => {
-          debugger;
-          cartoLayers.push({
-            order: i + 1,
-            id: cartoTemplate,
-            type: 'carto',
-            url: 'cartoLayer',
-            // symbolDic: symbolDic,
-            label: {
-              en: response.layerNames[i - 1],
-              fr: response.layerNames[i - 1],
-              es: response.layerNames[i - 1],
-              pt: response.layerNames[i - 1],
-              id: response.layerNames[i - 1],
-              zh: response.layerNames[i - 1]
-            },
-            sublabel: {
-              en: '(carto_layer)',
-              fr: '(carto_layer)',
-              es: '(carto_layer)',
-              pt: '(carto_layer)',
-              id: '(carto_layer)',
-              zh: '(carto_layer)'
-            },
-            popup: {
-              title: {
-                en: response.layerNames[i - 1]
-              },
-              content: {
-                en: []
+          responses.forEach((data) => {
+            cartoLayers.forEach((layer) => {
+              if(data.cartoTemplate === layer.id) {
+                layer.symbol = data.symbol;
               }
-            }
+            });
           });
-        }).catch(err => {
-          console.log(err);
         });
         // Removing the first carto layer as it is the template
         cartoLayers.shift();
