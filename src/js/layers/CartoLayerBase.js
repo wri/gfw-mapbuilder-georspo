@@ -125,17 +125,17 @@ export default declare('CartoLayer', [GraphicsLayer], {
    * The main query function of the CartoDBLayer
    * @param {string} queryString
    */
-  query: function(cartoQuery, cartoTemplate, layerNumber, cartocss, layerName) {
+  query: function(cartoQuery, cartoTemplate, layerNumber, layerIndex, cartocss, layerName, resolve, reject) {
     var _url = urls.cartoDataEndpoint(this.cartoUser, cartoQuery, this.cartoApiKey);
     const cartoLayers = resources.layerPanel.GROUP_CARTO.layers;
     var esriJsonLayer = [];
     request.id = 2;
 
     request(_url, {timeout: 5000}).then((data) => {
+
       var geojson = dojoJSON.parse(data);
       const meta = this.setMetadataFields(geojson.features[0].properties, layerNumber);
       const { esriObj, esriObjLineSymbol } = this.processCartoCSS(cartocss, geojson.features[0].geometry.type);
-
       this.setParameters(geojson.features[0].geometry.type, esriObj, esriObjLineSymbol);
       const esriJson = geojsonUtil.geojsonToArcGIS(geojson);
 
@@ -165,11 +165,12 @@ export default declare('CartoLayer', [GraphicsLayer], {
         }
       });
       this.addLayer(esriJsonLayer, cartoTemplate, meta);
+      const dataInfo = {symbol: this.symbolDictionary, cartoTemplate: cartoTemplate};
+      resolve(dataInfo);
     }, () => {
       cartoLayers.forEach((layer, index) => {
         if(layer.id === layerName) {
           delete cartoLayers[index];
-
         }
       });
       const tempResources = resources;
@@ -177,6 +178,8 @@ export default declare('CartoLayer', [GraphicsLayer], {
       this.cartoLayers = cartoLayers;
       this.loaded = true;
       this.emit('onCartoLayerAdd');
+      const dataInfo = {symbol: this.symbolDictionary, cartoTemplate: cartoTemplate};
+      resolve(dataInfo);
     });
   },
 
@@ -197,24 +200,24 @@ export default declare('CartoLayer', [GraphicsLayer], {
       const cartoLayers = resources.layerPanel.GROUP_CARTO.layers;
 
       this.getLayerName(cartoLayers[0], cartoMapID).then(response => {
+        const all = [];
         layers.forEach((layer, i) => {
+          const promise = new Promise((resolve, reject) => {
           const cartoCSS = layer.options.cartocss;
-          // Continue if the layer is a data layer or else skip
           if(cartoCSS === undefined) {
+            resolve('err');
             return;
           }
-
           const cartoTemplate = 'CARTO_TEMPLATE' + i;
-
           // Getting the query out of the original carto returned query
           const cartoQuery = layer.options.sql.match(/\((.*?)\)/)[1];
           // Querying carto to get the geojson layer
-          this.query(cartoQuery, cartoTemplate, i - 1, cartoCSS, cartoTemplate);
           cartoLayers.push({
             order: i + 1,
             id: cartoTemplate,
             type: 'carto',
             url: 'cartoLayer',
+            // symbolDic: symbolDic,
             label: {
               en: response.layerNames[i - 1],
               fr: response.layerNames[i - 1],
@@ -240,6 +243,45 @@ export default declare('CartoLayer', [GraphicsLayer], {
               }
             }
           });
+          this.query(cartoQuery, cartoTemplate, i - 1, i, cartoCSS, cartoTemplate, resolve, reject);
+          });
+          all.push(promise);
+        });
+        Promise.all(all).then((responses) => {
+          debugger;
+          cartoLayers.push({
+            order: i + 1,
+            id: cartoTemplate,
+            type: 'carto',
+            url: 'cartoLayer',
+            // symbolDic: symbolDic,
+            label: {
+              en: response.layerNames[i - 1],
+              fr: response.layerNames[i - 1],
+              es: response.layerNames[i - 1],
+              pt: response.layerNames[i - 1],
+              id: response.layerNames[i - 1],
+              zh: response.layerNames[i - 1]
+            },
+            sublabel: {
+              en: '(carto_layer)',
+              fr: '(carto_layer)',
+              es: '(carto_layer)',
+              pt: '(carto_layer)',
+              id: '(carto_layer)',
+              zh: '(carto_layer)'
+            },
+            popup: {
+              title: {
+                en: response.layerNames[i - 1]
+              },
+              content: {
+                en: []
+              }
+            }
+          });
+        }).catch(err => {
+          console.log(err);
         });
         // Removing the first carto layer as it is the template
         cartoLayers.shift();
@@ -276,24 +318,17 @@ export default declare('CartoLayer', [GraphicsLayer], {
   * Sets the parameters for the Carto points
   **/
   setPointParams: function (cartoUser, esriObj, esriObjLineSymbol) {
-    console.log(esriObj.color);
     var markerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 10,
                         new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
                         new Color(esriObjLineSymbol.color), 1),
                         new Color(esriObj.color));
 
-      // var markerSymbol = new SimpleMarkerSymbol(
-      //   new SimpleMarkerSymbol(SimpleLineSymbol.STYLE_SQUARE, esriObj.width,
-      //   new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID),
-      //                       new Color([esriObjLineSymbol.color]), 1),
-      //   new Color(esriObj.color));
     const params = {
       user: cartoUser,
       symbolDictionary: {
         point: markerSymbol
       }
     };
-    console.log(params.symbolDictionary);
     this.symbolDictionary = params.symbolDictionary;
   },
 
@@ -319,7 +354,6 @@ export default declare('CartoLayer', [GraphicsLayer], {
   * Sets the parameters for the Carto polygons
   **/
   setPolygonParams: function (cartoUser, esriObj, esriObjLineSymbol) {
-    console.log(esriObj.color);
     var polySymbol = new SimpleFillSymbol(
       SimpleLineSymbol.STYLE_SOLID,
       new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
@@ -332,7 +366,6 @@ export default declare('CartoLayer', [GraphicsLayer], {
         polygon: polySymbol
       }
     };
-    console.log(params.symbolDictionary);
     this.symbolDictionary = params.symbolDictionary;
   },
 
