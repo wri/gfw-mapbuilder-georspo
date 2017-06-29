@@ -94,6 +94,7 @@ export default declare('CartoLayer', [GraphicsLayer], {
         esriObj.color = this.convertHex(cartoObj['marker-fill'], cartoObj['marker-opacity']);
         esriObj.size = cartoObj['marker-width'];
         esriObj.style = 'STYLE_CIRCLE';
+        esriObjLineSymbol.width = cartoObj['marker-line-width'];
         break;
       case 'MultiPolygon':
         esriObj.color = this.convertHex(cartoObj['polygon-fill'], cartoObj['polygon-opacity']);
@@ -108,6 +109,7 @@ export default declare('CartoLayer', [GraphicsLayer], {
   },
 
   convertHex: function(hex, opacity){
+    const result = [];
     hex = hex.replace('#', '');
     hex = hex.length === 3 ? hex.repeat(2) : hex;
 
@@ -115,7 +117,7 @@ export default declare('CartoLayer', [GraphicsLayer], {
     const green = parseInt(hex.substring(2, 4), 16);
     const blue = parseInt(hex.substring(4, 6), 16);
 
-    const result = '[' + red + ', ' + green + ', ' + blue + ', ' + opacity + ']';
+    result.push(red, green, blue, opacity);
     return result;
   },
 
@@ -126,7 +128,6 @@ export default declare('CartoLayer', [GraphicsLayer], {
   query: function(cartoQuery, cartoTemplate, layerNumber, cartocss, layerName) {
     var _url = urls.cartoDataEndpoint(this.cartoUser, cartoQuery, this.cartoApiKey);
     const cartoLayers = resources.layerPanel.GROUP_CARTO.layers;
-    const errCount = [];
     var esriJsonLayer = [];
     request.id = 2;
 
@@ -163,26 +164,17 @@ export default declare('CartoLayer', [GraphicsLayer], {
           esriJsonLayer.push(graphic);
         }
       });
-      console.log('test');
       this.addLayer(esriJsonLayer, cartoTemplate, meta);
-    }, (err) => {
-      console.log(layerName);
-      debugger;
+    }, () => {
       cartoLayers.forEach((layer, index) => {
-        console.log(layer.id);
         if(layer.id === layerName) {
           delete cartoLayers[index];
-          
+
         }
       });
-      // const cartoLayerLength = resources.layerPanel.GROUP_CARTO.layers.length + errCount;
-      // delete cartoLayers[(cartoLayerLength - 1) - layerNumber];
       const tempResources = resources;
-      console.log(resources);
       tempResources.layerPanel.GROUP_CARTO.layers = cartoLayers;
       this.cartoLayers = cartoLayers;
-      console.log(cartoLayers);
-      // callback('test');
       this.loaded = true;
       this.emit('onCartoLayerAdd');
     });
@@ -223,8 +215,6 @@ export default declare('CartoLayer', [GraphicsLayer], {
             id: cartoTemplate,
             type: 'carto',
             url: 'cartoLayer',
-            colormap: [[1, 0, 179, 0]],
-            opacity: 0.8,
             label: {
               en: response.layerNames[i - 1],
               fr: response.layerNames[i - 1],
@@ -276,7 +266,6 @@ export default declare('CartoLayer', [GraphicsLayer], {
       graphLayer.setInfoTemplate(layerUtils.makeInfoTemplate(meta, 'en'));
     }
     graphLayer.title = meta.title.en;
-    console.log(meta.title.en);
     graphLayer.type = 'CARTO';
     brApp.map.addLayer(graphLayer);
     brApp.map.removeLayer('CARTO_TEMPLATE');
@@ -287,18 +276,24 @@ export default declare('CartoLayer', [GraphicsLayer], {
   * Sets the parameters for the Carto points
   **/
   setPointParams: function (cartoUser, esriObj, esriObjLineSymbol) {
-    var marker = new SimpleMarkerSymbol();
-    // marker.setPath(cartoIcon);
-    marker.setColor(new Color(esriObj.color));
-    marker.setAngle(-1);
-    marker.setStyle(SimpleMarkerSymbol[esriObj.STYLE_CIRCLE]);
-    marker.setSize(esriObj.size);
+    console.log(esriObj.color);
+    var markerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 10,
+                        new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+                        new Color(esriObjLineSymbol.color), 1),
+                        new Color(esriObj.color));
+
+      // var markerSymbol = new SimpleMarkerSymbol(
+      //   new SimpleMarkerSymbol(SimpleLineSymbol.STYLE_SQUARE, esriObj.width,
+      //   new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID),
+      //                       new Color([esriObjLineSymbol.color]), 1),
+      //   new Color(esriObj.color));
     const params = {
       user: cartoUser,
       symbolDictionary: {
-        point: marker
+        point: markerSymbol
       }
     };
+    console.log(params.symbolDictionary);
     this.symbolDictionary = params.symbolDictionary;
   },
 
@@ -324,18 +319,20 @@ export default declare('CartoLayer', [GraphicsLayer], {
   * Sets the parameters for the Carto polygons
   **/
   setPolygonParams: function (cartoUser, esriObj, esriObjLineSymbol) {
-
-    var polySymbolRed = new SimpleFillSymbol(
+    console.log(esriObj.color);
+    var polySymbol = new SimpleFillSymbol(
       SimpleLineSymbol.STYLE_SOLID,
       new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-                            new Color(esriObjLineSymbol.color), 1),
+                            new Color([esriObjLineSymbol.color]), 1),
       new Color(esriObj.color));
+
     const params = {
       user: cartoUser,
       symbolDictionary: {
-        polygon: polySymbolRed
+        polygon: polySymbol
       }
     };
+    console.log(params.symbolDictionary);
     this.symbolDictionary = params.symbolDictionary;
   },
 
