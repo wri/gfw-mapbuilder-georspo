@@ -112,9 +112,11 @@ export default class LegendPanel extends Component {
           return false;
         // }
     }
-
-    console.log(visibility);
-    console.log(layerDiv.layer.id);
+    layer.on('visibility-change', (test) => {
+      console.log(test);
+    });
+    // console.log(visibility);
+    // console.log(layerDiv.layer.id);
     return (
       <div key={index} className={`legend-parent-container ${visibility ? '' : 'hidden'}`}>
         <div className='test'>{layerDiv.layer.title}</div>
