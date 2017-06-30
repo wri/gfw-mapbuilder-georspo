@@ -59,7 +59,7 @@ const libraryMain = {
 
     loadCSS(cssPath + 'critical.css');
     // loadCSS(cssPath + 'google-fira.css');
-    loadCSS('http://fonts.googleapis.com/css?family=Fira+Sans:400,500,300');
+    loadCSS('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,300');
     loadCSS(cssPath + 'app.css');
     loadCSS('https://js.arcgis.com/3.17/dijit/themes/tundra/tundra.css');
     loadCSS('https://js.arcgis.com/3.17/esri/css/esri.css');
