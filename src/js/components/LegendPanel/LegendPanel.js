@@ -73,6 +73,9 @@ export default class LegendPanel extends Component {
   }
 
   createLegend = (layerDiv, index) => {
+    const {map} = this.context;
+    const layer = map.getLayer(layerDiv.layer.id);
+    const visibility = layer.visible;
     let childComponent;
     switch(layerDiv.layer.id) {
       case 'IFL':
@@ -103,16 +106,17 @@ export default class LegendPanel extends Component {
         childComponent = <TreeCoverLossLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer}/>;
         break;
       default:
-        if(layerDiv.layer.type === 'CARTO') {
-          childComponent = <CartoLegend title={layerDiv.layer.title}/>;
-        } else {
+        // if(layerDiv.layer.type === 'CARTO') {
+        //   childComponent = <CartoLegend title={layerDiv.layer.title}/>;
+        // } else {
           return false;
-        }
+        // }
     }
 
-
+    console.log(visibility);
+    console.log(layerDiv.layer.id);
     return (
-      <div key={index}>
+      <div key={index} className={`legend-parent-container ${visibility ? '' : 'hidden'}`}>
         <div className='test'>{layerDiv.layer.title}</div>
         {/*{layerDiv.layer.legendLayer ? <span></span> : <div className='test'>{layerDiv.layer.title}</div>}*/}
         <div>{childComponent}</div>

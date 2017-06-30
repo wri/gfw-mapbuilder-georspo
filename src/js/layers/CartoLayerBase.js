@@ -2,13 +2,11 @@ import SimpleMarkerSymbol from 'esri/symbols/SimpleMarkerSymbol';
 import webMercatorUtils from 'esri/geometry/webMercatorUtils';
 import SimpleFillSymbol from 'esri/symbols/SimpleFillSymbol';
 import SimpleLineSymbol from 'esri/symbols/SimpleLineSymbol';
-import CartoLegend from 'components/LegendPanel/CartoLegend';
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import layerInfoCache from 'utils/layerInfoCache';
 import geojsonUtil from 'utils/arcgis-to-geojson';
-import InfoTemplate from 'esri/InfoTemplate';
 import layerUtils from 'utils/layerUtils';
-// import appActions from 'actions/AppActions';
+import layerActions from 'actions/LayerActions';
 import Deferred from 'dojo/Deferred';
 import Graphic from 'esri/graphic';
 import request from 'dojo/request';
@@ -253,10 +251,12 @@ export default declare('CartoLayer', [GraphicsLayer], {
           responses.forEach((data) => {
             cartoLayers.forEach((layer) => {
               if(data.cartoTemplate === layer.id) {
+                debugger;
                 layer.symbol = data.symbol;
               }
             });
           });
+          layerActions.updateCartoSymbol(cartoLayers);
         });
         // Removing the first carto layer as it is the template
         cartoLayers.shift();

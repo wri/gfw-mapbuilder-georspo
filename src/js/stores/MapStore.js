@@ -25,6 +25,7 @@ class MapStore {
     this.landsatVisible = false;
     this.dynamicLayers = {};
     this.activeAnalysisType = '';
+    this.cartoSymbol = {};
     this.lossFromSelectIndex = 0; // Will get initialized when the data is fetched
     this.lossToSelectIndex = 0;
     this.lossOptions = [];
@@ -79,7 +80,8 @@ class MapStore {
       updateTimeExtent: mapActions.updateTimeExtent,
       updateImazonAlertSettings: mapActions.updateImazonAlertSettings,
       toggleMobileTimeWidgetVisible: mapActions.toggleMobileTimeWidgetVisible,
-      showLoading: layerActions.showLoading
+      showLoading: layerActions.showLoading,
+      updateCartoSymbol: layerActions.updateCartoSymbol
     });
   }
 
@@ -169,6 +171,11 @@ class MapStore {
         }
       }
     });
+  }
+
+  updateCartoSymbol (symbol) {
+    this.cartoSymbol = symbol;
+    console.log(this.cartoSymbol);
   }
 
   changeActiveTab (payload) {
