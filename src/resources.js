@@ -12,10 +12,10 @@ export default {
   subtitle: 'Make maps that matter',
   // logoUrl: window && window._app && window._app.base ? window._app.base + 'css/images/gfw-logo.png' : './css/images/gfw-logo.png',
   logoUrl: './css/images/gfw-logo.png',
-  logoLinkUrl: 'http://www.gfw-mapbuilder.org/',
+  logoLinkUrl: 'https://www.gfw-mapbuilder.org/',
   aboutLinkUrl: '', // http://www.gfw-mapbuilder.org/
   downloadLinkUrl: '', // http://data.globalforestwatch.org/
-  printServiceUrl: 'http://gis.forest-atlas.org/server/rest/services/print/ExportWebMap/GPServer/Export%20Web%20Map',
+  printServiceUrl: 'https://gis.forest-atlas.org/server/rest/services/print/ExportWebMap/GPServer/Export%20Web%20Map',
   maskServiceUrl: '', // e.g. http://gis-forest-atlas.wri.org/arcgis/rest/services/CMR/CMR_00_Africa/MapServer
   mapThemeIds: '', // e.g. 1c38ba1095fe49e3ba234bf9105c1077;c76d788b7487476bae4d09a4e933be19
   mapThemes: '', // e.g. Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea
@@ -35,22 +35,22 @@ export default {
   alternativeWebmapMenuName: 'Land Use',
   //- Documents Settings
   includeDocumentsTab: false,
-  documentsDirectory: 'https://cmr.forest-atlas.org/resources/docs/',
-  documentsMapserver: 'http://gis.forest-atlas.org/server/rest/services/CMR/documents_administratifs/MapServer',
+  //documentsDirectory: 'https://cmr.forest-atlas.org/resources/docs/',
+  //documentsMapserver: 'https://gis.forest-atlas.org/server/rest/services/CMR/documents_administratifs/MapServer',
   //- Layers/Analysis Settings
   iso: '',
   activeFires: true,
   intactForests: true,
   aboveGroundBiomass: true,
   landCover: true,
-  mangroves: true,
+  mangroves: false,
   sadAlerts: true,
   gladAlerts: true,
   terraIAlerts: true,
   webmapMenuName: 'Land Use',
   //- Restoration Module settings
   restorationModule: false,
-  restorationImageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module3/ImageServer', //'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module/ImageServer'
+  restorationImageServer: 'https://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module3/ImageServer', //'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module/ImageServer'
   slopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
   alternativeSlopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
   slopePotentialColors: 'rgb(234,199,253);rgb(253,178,46);rgb(88,126,15);rgb(210,147,116);rgb(245,208,139);rgb(177,177,36);rgb(26,176,144);rgb(175,15,143);rgb(217,254,199);rgb(255,254,137);',
@@ -83,7 +83,7 @@ export default {
   alternativeRestorationTableDescription: 'Some explanatory text for this anlaysis',
   alternativeSlopeDescription: 'Some explanatory text for this anlaysis',
   // DO NOT MODIFY SHARINGHOST unless you are configuring this for a Portal Environment
-  sharinghost: 'http://www.arcgis.com',
+  sharinghost: 'https://www.arcgis.com',
   analyticsCode: '',
   userFeatureToken: {
     //- Localhost token for BR office
@@ -95,7 +95,7 @@ export default {
     'wri.github.io': 'Xe4QHKF7wZGHOoQpCKDloBTlYkjuSocYOZYTfNueQUh6q4EEmTOYgmpNIyS8VnOC_DEU2rxc8k0g7Ns3f31KQw..',
     //- Production tokens
     'my.gfw-mapbuilder.org': '8KiqcmKgUGK1iReXwjfOi0sCeJRiYKqRes6ntHJn5u2NFbgyri_cWB2i9WqjhAIt', // Valid until 6/26/2018
-    'wri-sites.s3-website-us-east-1.amazonaws.com': 'z9L6X0Egj9hx4i6nhhQEsYSsebcb_gnM-grirV9HnVAtMmexXUOAWbaKmvl2Am7zNQBsI3pwHIDijYYTZV58SJ_P_FTdIJ-xGPCzBn_TfYk.' // Valid until 6/26/2018
+    'wri-sites.s3-website-us-east-1.amazonaws.com': 'Nf_zOJfFogItxMAsdY01Y6PYDgjxr20igxJqCkHZqSr3m-w3OsxLgHirlnpCeMCozsiL_qip08UDNbSQAzD8TjJapWcOzsQSzeGmL-h9Ss8.' // Valid until 6/26/2018
   },
 
   /**
@@ -322,7 +322,7 @@ export default {
           order: 1,
           id: 'GLOB_MANGROVE',
           type: 'webtiled',
-          url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/209485bfcb3eafb435befa0c405242ae:1467735931596/0/{level}/{col}/{row}.png',
+          url: 'https://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/209485bfcb3eafb435befa0c405242ae:1467735931596/0/{level}/{col}/{row}.png',
           subDomains: [0, 1, 2, 3],
           technicalName: 'global_mangroves',
           legendLayer: [11],
@@ -394,7 +394,7 @@ export default {
           order: 5,
           id: 'TREE_COVER',
           type: 'image',
-          url: 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
+          url: 'https://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
           technicalName: 'tree_cover',
           colormap: [[1, 0, 179, 0]],
           inputRange: [30, 101],
@@ -431,8 +431,8 @@ export default {
       },
       layers: [{
         id: 'landsat',
-        thumbnailUrl: 'http://www.globalforestwatch.org/assets/basemaps-sdd18a411a3-5bf18f445e58b8766f773184b7741c67.png',
-        templateUrl: 'http://d2h71bpqsyf4vw.cloudfront.net/2016/${level}/${col}/${row}.png',
+        thumbnailUrl: 'https://my.gfw-mapbuilder.org/img/basemaps-sdd18a411a3-5bf18f445e58b8766f773184b7741c67.png',
+        templateUrl: 'https://d2h71bpqsyf4vw.cloudfront.net/2016/${level}/${col}/${row}.png',
         years: ['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016'],
         title: {
           en: 'Landsat',
@@ -472,7 +472,7 @@ export default {
       id: 'MASK',
       type: 'dynamic',
       order: 10000,
-      url: 'http://gis.forest-atlas.org/server/rest/services/country_masks/country_mask_global/MapServer',
+      url: 'https://gis.forest-atlas.org/server/rest/services/country_masks/country_mask_global/MapServer',
       opacity: 0.35,
       layerIds: [0]
     }, {
