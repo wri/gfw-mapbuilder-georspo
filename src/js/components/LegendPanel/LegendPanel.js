@@ -14,6 +14,7 @@ import SADLegend from 'components/LegendPanel/SADLegend';
 import IFLLegend from 'components/LegendPanel/IFLLegend';
 import {urls} from 'js/config';
 import text from 'js/languages';
+import on from 'dojo/on';
 
 const closeSymbolCode = 9660,
     openSymbolCode = 9650;
@@ -79,13 +80,13 @@ export default class LegendPanel extends Component {
     let childComponent;
     switch(layerDiv.layer.id) {
       case 'IFL':
-        childComponent = <IFLLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+        childComponent = <IFLLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds} layerId={layerDiv.layer.id}/>;
         break;
       case 'IMAZON_SAD':
         childComponent = <SADLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
         break;
       case 'ACTIVE_FIRES':
-        childComponent = <FiresLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+        childComponent = <FiresLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id}/>;
         break;
       case 'GLOB_MANGROVE':
         childComponent = <MangroveLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer}/>;
@@ -103,7 +104,7 @@ export default class LegendPanel extends Component {
         childComponent = <TreeCoverGainLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer}/>;
         break;
       case 'TREE_COVER_LOSS':
-        childComponent = <TreeCoverLossLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer}/>;
+        childComponent = <TreeCoverLossLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id}/>;
         break;
       default:
         // if(layerDiv.layer.type === 'CARTO') {
@@ -112,13 +113,11 @@ export default class LegendPanel extends Component {
           return false;
         // }
     }
-    layer.on('visibility-change', (test) => {
-      console.log(test);
-    });
+
     // console.log(visibility);
     // console.log(layerDiv.layer.id);
     return (
-      <div key={index} className={`legend-parent-container ${visibility ? '' : 'hidden'}`}>
+      <div key={index}>
         <div className='test'>{layerDiv.layer.title}</div>
         {/*{layerDiv.layer.legendLayer ? <span></span> : <div className='test'>{layerDiv.layer.title}</div>}*/}
         <div>{childComponent}</div>
