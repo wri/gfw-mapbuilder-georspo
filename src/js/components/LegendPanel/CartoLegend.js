@@ -13,7 +13,6 @@ export default class CartoLegend extends React.Component {
 
   storeDidUpdate = () => {
     const {cartoSymbol} = MapStore.getState();
-    console.log(cartoSymbol);
     if(cartoSymbol !== null) {
       this.setState({ cartoSymbol: cartoSymbol });
     }
@@ -21,11 +20,6 @@ export default class CartoLegend extends React.Component {
 
   componentDidMount() {
     MapStore.listen(this.storeDidUpdate);
-    // Request.getLegendInfos(this.props.url, this.props.layerIds).then(legendInfos => {
-    //   if(this.refs.myRef) {
-    //     this.setState({ legendInfos: legendInfos });
-    //   }
-    // });
   }
 
   render () {

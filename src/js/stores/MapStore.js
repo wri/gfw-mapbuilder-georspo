@@ -181,7 +181,6 @@ class MapStore {
 
   updateLegend (layer) {
     this.currentLayer = layer;
-    console.log(this.currentLayer);
   }
 
   changeActiveTab (payload) {

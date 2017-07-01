@@ -3,15 +3,25 @@ import MapStore from 'stores/MapStore';
 import React from 'react';
 
 export default class FiresLegend extends React.Component {
+
   constructor (props) {
     super(props);
     const {currentLayer} = MapStore.getState();
     this.state = { legendInfos: [], currentLayer: currentLayer };
   }
 
+  storeDidUpdate = () => {
+    const {currentLayer} = MapStore.getState();
+    if(currentLayer === null) return;
+    this.setState({currentLayer: currentLayer});
+  };
+
   componentDidMount() {
+    MapStore.listen(this.storeDidUpdate);
+
     const map = this.props.map;
     const layer = map.getLayer(this.props.layerId);
+    
     Request.getLegendInfos(this.props.url, this.props.layerIds).then(legendInfos => {
       if(this.refs.myRef) {
         this.setState({ legendInfos: legendInfos });
@@ -30,12 +40,9 @@ export default class FiresLegend extends React.Component {
 
   render () {
     let bool;
-    console.log(this.state.currentLayer);
     if(this.state.currentLayer === null) {
-      console.log('doesnotexist');
       bool = false;
     } else {
-      console.log('need to hide');
       bool = this.state.currentLayer.visible ? '' : 'hidden';
     }
     
