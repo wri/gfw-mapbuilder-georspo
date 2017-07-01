@@ -9,11 +9,8 @@ export default class TreeCoverLossLegend extends React.Component {
 
   componentDidMount() {
     const map = this.props.map;
-    console.log(map);
     const layer = map.getLayer(this.props.layerId);
-    console.log(layer);
     layer.on('visibility-change', (test) => {
-      console.log('in layer');
       this.setState(test.visible);
     });
     Request.getLegendInfos(this.props.url, this.props.layerIds).then(legendInfos => {

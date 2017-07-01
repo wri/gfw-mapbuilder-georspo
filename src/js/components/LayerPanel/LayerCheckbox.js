@@ -126,8 +126,12 @@ export default class LayerCheckbox extends Component {
       }
     } else {
       if (this.props.checked) {
+        layer.visible = false;
+        layerActions.updateLegend(layer);
         layerActions.removeActiveLayer(layer.id);
       } else {
+        layer.visible = true;
+        layerActions.updateLegend(layer);
         layerActions.addActiveLayer(layer.id);
       }
     }

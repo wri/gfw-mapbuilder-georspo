@@ -8,6 +8,7 @@ import BiomassLegend from 'components/LegendPanel/BiomassLegend';
 import TerraLegend from 'components/LegendPanel/TerraLegend';
 import GladLegend from 'components/LegendPanel/GladLegend';
 import FiresLegend from 'components/LegendPanel/FiresLegend';
+import LayerCheckbox from 'components/LayerPanel/LayerCheckbox';
 import TreeCoverGainLegend from 'components/LegendPanel/TreeCoverGainLegend';
 import TreeCoverLossLegend from 'components/LegendPanel/TreeCoverLossLegend';
 import SADLegend from 'components/LegendPanel/SADLegend';
@@ -114,8 +115,6 @@ export default class LegendPanel extends Component {
         // }
     }
 
-    // console.log(visibility);
-    // console.log(layerDiv.layer.id);
     return (
       <div key={index}>
         <div className='test'>{layerDiv.layer.title}</div>

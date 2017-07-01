@@ -1,21 +1,17 @@
 import Request from 'utils/request';
+import MapStore from 'stores/MapStore';
 import React from 'react';
 
 export default class FiresLegend extends React.Component {
   constructor (props) {
     super(props);
-    this.state = { legendInfos: [], visibile: false };
+    const {currentLayer} = MapStore.getState();
+    this.state = { legendInfos: [], currentLayer: currentLayer };
   }
 
   componentDidMount() {
     const map = this.props.map;
-    console.log(map);
     const layer = map.getLayer(this.props.layerId);
-    console.log(layer);
-    layer.on('visibility-change', (test) => {
-      console.log('in layer');
-      this.setState({visible: test.visible});
-    });
     Request.getLegendInfos(this.props.url, this.props.layerIds).then(legendInfos => {
       if(this.refs.myRef) {
         this.setState({ legendInfos: legendInfos });
@@ -33,8 +29,18 @@ export default class FiresLegend extends React.Component {
   }
 
   render () {
+    let bool;
+    console.log(this.state.currentLayer);
+    if(this.state.currentLayer === null) {
+      console.log('doesnotexist');
+      bool = false;
+    } else {
+      console.log('need to hide');
+      bool = this.state.currentLayer.visible ? '' : 'hidden';
+    }
+    
     return (
-      <div className={`legend-container  ${this.state.visible ? '' : 'hidden'}`} ref="myRef">
+      <div className={`legend-container  ${bool}`} ref="myRef">
         {this.state.legendInfos.length === 0 ? <div className='legend-unavailable'>No Legend</div> :
           <div className='crowdsource-legend'>
             {this.state.legendInfos.map(this.itemMapper, this)}

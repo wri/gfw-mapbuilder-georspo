@@ -23,6 +23,7 @@ class MapStore {
     this.basemap = null;
     this.legendOpen = false;
     this.landsatVisible = false;
+    this.currentLayer = null;
     this.dynamicLayers = {};
     this.activeAnalysisType = '';
     this.cartoSymbol = {};
@@ -81,6 +82,7 @@ class MapStore {
       updateImazonAlertSettings: mapActions.updateImazonAlertSettings,
       toggleMobileTimeWidgetVisible: mapActions.toggleMobileTimeWidgetVisible,
       showLoading: layerActions.showLoading,
+      updateLegend: layerActions.updateLegend,
       updateCartoSymbol: layerActions.updateCartoSymbol
     });
   }
@@ -175,7 +177,11 @@ class MapStore {
 
   updateCartoSymbol (symbol) {
     this.cartoSymbol = symbol;
-    console.log(this.cartoSymbol);
+  }
+
+  updateLegend (layer) {
+    this.currentLayer = layer;
+    console.log(this.currentLayer);
   }
 
   changeActiveTab (payload) {

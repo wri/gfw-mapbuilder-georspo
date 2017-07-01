@@ -264,7 +264,7 @@ export default declare('CartoLayer', [GraphicsLayer], {
         tempResources.layerPanel.GROUP_CARTO.layers = cartoLayers;
         this.cartoLayers = cartoLayers;
         this.loaded = true;
-        this.emit('tim');
+        this.emit('onCartoLayerAdd');
       });
     });
   },

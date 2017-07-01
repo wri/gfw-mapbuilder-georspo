@@ -41,6 +41,10 @@ class LayerActions {
     };
   }
 
+  updateLegend (layer) {
+    return layer;
+  }
+
   setLossOptions (lossOptionsData) {
     return lossOptionsData;
   }
