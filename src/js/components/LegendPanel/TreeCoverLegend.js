@@ -14,7 +14,7 @@ export default class BiomassLegend extends React.Component {
     const {currentLayer} = MapStore.getState();
     if(currentLayer === null) return;
 
-    if(this.refs.myRef && currentLayer.label["en"] === "Aboveground Live Woody Biomass Density") {
+    if(this.refs.myRef && currentLayer.label["en"] === "Tree cover density") {
       this.setState({currentLayer: currentLayer});
     }
   };

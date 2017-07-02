@@ -13,7 +13,10 @@ export default class FiresLegend extends React.Component {
   storeDidUpdate = () => {
     const {currentLayer} = MapStore.getState();
     if(currentLayer === null) return;
-    this.setState({currentLayer: currentLayer});
+
+    if(this.refs.myRef && currentLayer.label["en"] === "Active fires") {
+      this.setState({currentLayer: currentLayer});
+    }
   };
 
   componentDidMount() {
@@ -39,20 +42,25 @@ export default class FiresLegend extends React.Component {
   }
 
   render () {
-    let bool;
+    let bool, label;
+    
     if(this.state.currentLayer === null) {
-      bool = false;
+      bool = 'hidden';
     } else {
       bool = this.state.currentLayer.visible ? '' : 'hidden';
+      label = this.state.currentLayer.label["en"];
     }
-    
+
     return (
-      <div className={`legend-container  ${bool}`} ref="myRef">
-        {this.state.legendInfos.length === 0 ? <div className='legend-unavailable'>No Legend</div> :
-          <div className='crowdsource-legend'>
-            {this.state.legendInfos.map(this.itemMapper, this)}
-          </div>
-        }
+      <div className={`parent-legend-container ${bool}`} ref="myRef">
+        <div className='test'>{label}</div>
+        <div className={`legend-container ${bool}`}>
+          {this.state.legendInfos.length === 0 ? '' :
+            <div className='crowdsource-legend'>
+              {this.state.legendInfos.map(this.itemMapper, this)}
+            </div>
+          }
+        </div>
       </div>
     );
   }

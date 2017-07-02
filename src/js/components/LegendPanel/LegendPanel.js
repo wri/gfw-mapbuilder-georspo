@@ -9,6 +9,8 @@ import TerraLegend from 'components/LegendPanel/TerraLegend';
 import GladLegend from 'components/LegendPanel/GladLegend';
 import FiresLegend from 'components/LegendPanel/FiresLegend';
 import LayerCheckbox from 'components/LayerPanel/LayerCheckbox';
+import LandCoverLegend from 'components/LegendPanel/LandCoverLegend';
+import TreeCoverLegend from 'components/LegendPanel/TreeCoverLegend';
 import TreeCoverGainLegend from 'components/LegendPanel/TreeCoverGainLegend';
 import TreeCoverLossLegend from 'components/LegendPanel/TreeCoverLossLegend';
 import SADLegend from 'components/LegendPanel/SADLegend';
@@ -48,7 +50,6 @@ export default class LegendPanel extends Component {
     // two legends from the same service from showing up
     let ignores = [
       layerKeys.MASK,
-      layerKeys.TREE_COVER,
       layerKeys.USER_FEATURES
     ];
 
@@ -75,37 +76,44 @@ export default class LegendPanel extends Component {
   }
 
   createLegend = (layerDiv, index) => {
+    let childComponent;
     const {map} = this.context;
     const layer = map.getLayer(layerDiv.layer.id);
     const visibility = layer.visible;
-    let childComponent;
+
     switch(layerDiv.layer.id) {
       case 'IFL':
-        childComponent = <IFLLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds} layerId={layerDiv.layer.id}/>;
+        childComponent = <IFLLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id}/>;
         break;
       case 'IMAZON_SAD':
-        childComponent = <SADLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds}/>;
+        childComponent = <SADLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id}/>;
         break;
       case 'ACTIVE_FIRES':
         childComponent = <FiresLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id}/>;
         break;
       case 'GLOB_MANGROVE':
-        childComponent = <MangroveLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer}/>;
+        childComponent = <MangroveLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id}/>;
         break;
       case 'AG_BIOMASS':
-        childComponent = <BiomassLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer}/>;
+        childComponent = <BiomassLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id}/>;
         break;
       case 'TERRA_I_ALERTS':
-        childComponent = <TerraLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer}/>;
+        childComponent = <TerraLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id}/>;
         break;
       case 'GLAD_ALERTS':
-        childComponent = <GladLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer}/>;
+        childComponent = <GladLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id}/>;
         break;
       case 'TREE_COVER_GAIN':
-        childComponent = <TreeCoverGainLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer}/>;
+        childComponent = <TreeCoverGainLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id}/>;
         break;
       case 'TREE_COVER_LOSS':
         childComponent = <TreeCoverLossLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id}/>;
+        break;
+      case 'LAND_COVER':
+        childComponent = <LandCoverLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id}/>;
+        break;
+      case 'TREE_COVER':
+        childComponent = <TreeCoverLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id}/>;
         break;
       default:
         // if(layerDiv.layer.type === 'CARTO') {
@@ -117,8 +125,6 @@ export default class LegendPanel extends Component {
 
     return (
       <div key={index}>
-        <div className='test'>{layerDiv.layer.title}</div>
-        {/*{layerDiv.layer.legendLayer ? <span></span> : <div className='test'>{layerDiv.layer.title}</div>}*/}
         <div>{childComponent}</div>
       </div>
     );
