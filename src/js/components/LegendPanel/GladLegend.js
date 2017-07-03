@@ -12,9 +12,11 @@ export default class GladLegend extends React.Component {
 
   storeDidUpdate = () => {
     const {currentLayer} = MapStore.getState();
-    if(currentLayer === null) return;
+    if(currentLayer === null) {
+      return;
+    }
 
-    if(this.refs.myRef && currentLayer.label["en"] === "GLAD Alerts") {
+    if(this.refs.myRef && currentLayer.label["en"] === 'GLAD Alerts') {
       this.setState({currentLayer: currentLayer});
     }
   };
@@ -43,7 +45,7 @@ export default class GladLegend extends React.Component {
 
   render () {
     let bool, label;
-    
+
     if(this.state.currentLayer === null) {
       bool = 'hidden';
     } else {

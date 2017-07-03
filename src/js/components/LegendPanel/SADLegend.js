@@ -5,6 +5,7 @@ import React from 'react';
 //SAD alerts
 
 export default class SADLegend extends React.Component {
+
   constructor (props) {
     super(props);
     const {currentLayer} = MapStore.getState();
@@ -15,7 +16,7 @@ export default class SADLegend extends React.Component {
     const {currentLayer} = MapStore.getState();
     if(currentLayer === null) return;
 
-    if(this.refs.myRef && currentLayer.label["en"] === "SAD Alerts") {
+    if(this.refs.myRef && currentLayer.label["en"] === 'SAD alerts') {
       this.setState({currentLayer: currentLayer});
     }
   };
@@ -44,7 +45,7 @@ export default class SADLegend extends React.Component {
 
   render () {
     let bool, label;
-    
+    console.log(this.state);
     if(this.state.currentLayer === null) {
       bool = 'hidden';
     } else {

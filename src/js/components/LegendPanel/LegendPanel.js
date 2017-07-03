@@ -68,18 +68,34 @@ export default class LegendPanel extends Component {
       ids.forEach((layerId) => {
         const layer = map.getLayer(layerId);
         if (layer) {
-          legendInfos.push({ layer, title: '' });
+          legendInfos.push({ layer });
         }
       });
     }
+
+    function compare(a, b) {
+      if(a.layer.order === undefined) {
+        a.layer.order = 0;
+      }
+      if(b.layer.order === undefined) {
+        b.layer.order = 0;
+      }
+      if(a.layer.order < b.layer.order) {
+        return 1;
+      }
+      if(a.layer.order > b.layer.order) {
+        return -1;
+      }
+      return 0;
+    }
+    legendInfos.sort(compare);
+
     return legendInfos;
   }
 
   createLegend = (layerDiv, index) => {
     let childComponent;
     const {map} = this.context;
-    const layer = map.getLayer(layerDiv.layer.id);
-    const visibility = layer.visible;
 
     switch(layerDiv.layer.id) {
       case 'IFL':
@@ -129,6 +145,7 @@ export default class LegendPanel extends Component {
       </div>
     );
   }
+
   render () {
     const {tableOfContentsVisible, legendOpen} = this.props;
     const {language} = this.context;

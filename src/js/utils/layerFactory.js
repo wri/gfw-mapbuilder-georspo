@@ -44,6 +44,7 @@ export default (layer, lang) => {
       options.visible = layer.visible || false;
       esriLayer = new TiledLayer(layer.url, options);
       esriLayer.legendLayer = layer.legendLayer || null;
+      esriLayer.order = layer.order;
     break;
     case 'webtiled':
       options.id = layer.id;
@@ -51,12 +52,14 @@ export default (layer, lang) => {
       if (layer.subDomains) { options.subDomains = layer.subDomains; }
       esriLayer = new WebTiledLayer(layer.url, options);
       esriLayer.legendLayer = layer.legendLayer || null;
+      esriLayer.order = layer.order;
     break;
     case 'image':
       options.id = layer.id;
       options.visible = layer.visible || false;
       options.opacity = layer.opacity || 1;
       esriLayer = new ImageLayer(layer.url, options);
+      esriLayer.order = layer.order;
       esriLayer.legendLayer = layer.legendLayer || null;
     break;
     case 'dynamic':
@@ -73,13 +76,13 @@ export default (layer, lang) => {
       //- Add a popup template if configuration is present
       if (layer.popup) {
         options.infoTemplates = {};
-        // options.title = layer.label[lang];
         const template = layerUtils.makeInfoTemplate(layer.popup, lang);
         layer.layerIds.forEach((id) => { options.infoTemplates[id] = { infoTemplate: template }; });
       }
       esriLayer = new DynamicLayer(layer.url, options);
       esriLayer.legendLayer = layer.legendLayer || null;
       esriLayer.layerIds = layer.layerIds;
+      esriLayer.order = layer.order;
     break;
     case 'feature':
       options.id = layer.id;
@@ -89,6 +92,7 @@ export default (layer, lang) => {
       if (layer.popup) { options.infoTemplate = layerUtils.makeInfoTemplate(layer.popup, lang); }
       esriLayer = new FeatureLayer(layer.url, options);
       esriLayer.legendLayer = layer.legendLayer || null;
+      esriLayer.order = layer.order;
     break;
     case 'graphic':
       options.id = layer.id;
@@ -96,6 +100,7 @@ export default (layer, lang) => {
       if (layer.popup) { options.infoTemplate = layerUtils.makeInfoTemplate(layer.popup); }
       esriLayer = new GraphicsLayer(options);
       esriLayer.legendLayer = layer.legendLayer || null;
+      esriLayer.order = layer.order;
     break;
     case 'glad':
       options.id = layer.id;
@@ -106,6 +111,7 @@ export default (layer, lang) => {
       options.visible = layer.visible || false;
       esriLayer = new GladLayer(options);
       esriLayer.legendLayer = layer.legendLayer || null;
+      esriLayer.order = layer.order;
     break;
     case 'loss':
       options.id = layer.id;
@@ -115,6 +121,7 @@ export default (layer, lang) => {
       options.visible = layer.visible || false;
       esriLayer = new TreeCoverLossLayer(options);
       esriLayer.legendLayer = layer.legendLayer || null;
+      esriLayer.order = layer.order;
     break;
     case 'gain':
       options.id = layer.id;
@@ -122,11 +129,13 @@ export default (layer, lang) => {
       options.visible = layer.visible || false;
       esriLayer = new TreeCoverGainLayer(options);
       esriLayer.legendLayer = layer.legendLayer || null;
+      esriLayer.order = layer.order;
     break;
     case 'terra':
       layer.visible = layer.visible || false;
       esriLayer = new TerraILayer(layer);
       esriLayer.legendLayer = layer.legendLayer || null;
+      esriLayer.order = layer.order;
     break;
     default:
       throw new Error(errors.incorrectLayerConfig(layer.type));
