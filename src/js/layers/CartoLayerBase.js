@@ -256,7 +256,7 @@ export default declare('CartoLayer', [GraphicsLayer], {
               }
             });
           });
-          layerActions.updateCartoSymbol(cartoLayers);
+          // layerActions.updateCartoSymbol(cartoLayers);
         });
         // Removing the first carto layer as it is the template
         cartoLayers.shift();
