@@ -1,7 +1,6 @@
 import layerKeys from 'constants/LayerConstants';
 import React, {PropTypes, Component} from 'react';
 import mapActions from 'actions/MapActions';
-// import Legend from 'esri/dijit/Legend';
 import CartoLegend from 'components/LegendPanel/CartoLegend';
 import MangroveLegend from 'components/LegendPanel/MangroveLegend';
 import BiomassLegend from 'components/LegendPanel/BiomassLegend';
@@ -13,6 +12,7 @@ import LandCoverLegend from 'components/LegendPanel/LandCoverLegend';
 import TreeCoverLegend from 'components/LegendPanel/TreeCoverLegend';
 import TreeCoverGainLegend from 'components/LegendPanel/TreeCoverGainLegend';
 import TreeCoverLossLegend from 'components/LegendPanel/TreeCoverLossLegend';
+import WebMapLegend from 'components/LegendPanel/WebMapLegend';
 import SADLegend from 'components/LegendPanel/SADLegend';
 import IFLLegend from 'components/LegendPanel/IFLLegend';
 import {urls} from 'js/config';
@@ -89,7 +89,7 @@ export default class LegendPanel extends Component {
       return 0;
     }
     legendInfos.sort(compare);
-
+    // console.log(legendInfos);
     return legendInfos;
   }
 
@@ -132,10 +132,17 @@ export default class LegendPanel extends Component {
         childComponent = <TreeCoverLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id}/>;
         break;
       default:
+        if(layerDiv.layer.type === undefined && layerDiv.layer.arcgisProps && layerDiv.layer._basemapGalleryLayerType !== 'basemap') {
+          layerDiv.layer.dynamicLayerInfos.map((layer) => {
+            childComponent = <WebMapLegend url={layerDiv.layer.url} map={map} layerName={layer.name} layerId={layer.id}/>;
+          });
+        } else {
+          return false;
+        }
         // if(layerDiv.layer.type === 'CARTO') {
         //   childComponent = <CartoLegend title={layerDiv.layer.title}/>;
         // } else {
-          return false;
+        break;
         // }
     }
 

@@ -33,6 +33,7 @@ export default (layer, lang) => {
 
   const options = {};
   let esriLayer;
+
   switch (layer.type) {
     // case 'carto_template':
     //   options.id = layer.id;

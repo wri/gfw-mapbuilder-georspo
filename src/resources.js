@@ -7,83 +7,83 @@ export default {
   // webmap to use for testing document attachments - b514d31339954ba9a0c5822135bc2001
   // webmap to use for testing time enabled layers - 9416e5b5beea4d329dbbfdc3312d2c35
   // webmap to use for deployment, this should be the default - de85e3fcc07948238aa6c1afd2a4ceb0
-  webmap: 'de85e3fcc07948238aa6c1afd2a4ceb0',
-  title: 'GFW Mapbuilder',
-  subtitle: 'Make maps that matter',
-  logoUrl: './css/images/gfw-logo.png',
-  logoLinkUrl: 'http://www.gfw-mapbuilder.org/',
-  aboutLinkUrl: '', // http://www.gfw-mapbuilder.org/
-  downloadLinkUrl: '', // http://data.globalforestwatch.org/
-  printServiceUrl: 'http://gis.forest-atlas.org/server/rest/services/print/ExportWebMap/GPServer/Export%20Web%20Map',
-  maskServiceUrl: '', // e.g. http://gis-forest-atlas.wri.org/arcgis/rest/services/CMR/CMR_00_Africa/MapServer
-  mapThemeIds: '', // e.g. 1c38ba1095fe49e3ba234bf9105c1077;c76d788b7487476bae4d09a4e933be19
-  mapThemes: '', // e.g. Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea
-  narrative: '',
-  includeSubscribeButton: false,
-  includeMyGFWLogin: false,
-  navLinksInNewTab: false,
-  //- Language Settings
-  language: 'en',
-  useAlternativeLanguage: false,
-  alternativeWebmap: '',
-  alternativeLanguage: 'fr',
-  alternativeLanguageTitle: 'GFW Mapbuilder',
-  alternativeLanguageSubtitle: 'Make maps that matter',
-  alternativeMapThemes: '', // e.g. Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea
-  alternativeNarrative: '',
-  alternativeWebmapMenuName: 'Land Use',
-  //- Documents Settings
-  includeDocumentsTab: false,
-  documentsDirectory: 'https://cmr.forest-atlas.org/resources/docs/',
-  documentsMapserver: 'http://gis.forest-atlas.org/server/rest/services/CMR/documents_administratifs/MapServer',
-  //- Layers/Analysis Settings
-  iso: '',
-  activeFires: true,
-  intactForests: true,
-  aboveGroundBiomass: true,
-  landCover: true,
-  mangroves: true,
-  sadAlerts: true,
-  gladAlerts: true,
-  terraIAlerts: true,
-  webmapMenuName: 'Land Use',
-  //- Restoration Module settings
-  restorationModule: false,
-  restorationImageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module3/ImageServer', //'http://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module/ImageServer'
-  slopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
-  alternativeSlopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
-  slopePotentialColors: 'rgb(234,199,253);rgb(253,178,46);rgb(88,126,15);rgb(210,147,116);rgb(245,208,139);rgb(177,177,36);rgb(26,176,144);rgb(175,15,143);rgb(217,254,199);rgb(255,254,137);',
-  restorationOptions: 'establishing natural forest outside of cropland;restocking of degraded natural forest;agri-silviculture and agro-silvo-pastoralism;silvo-pastoralism;woodlot;commercial plantation on bare soil and shrubland;commercial plantation as buffer zone to national forest priority areas and protected areas;tree-based buffer zone along rivers, lakes and reservoirs;',
-  alternativeRestorationOptions: 'establishing natural forest outside of cropland;restocking of degraded natural forest;agri-silviculture and agro-silvo-pastoralism;silvo-pastoralism;woodlot;commercial plantation on bare soil and shrubland;commercial plantation as buffer zone to national forest priority areas and protected areas;tree-based buffer zone along rivers, lakes and reservoirs;',
-  restorationOptionsRasterIds: '9;10;6;11;13;8;7;12;',
-  slopeClassNames: 'No Data;<= 30%;30 - 60%;> 60%;',
-  slopeClassColors: 'rgb(0, 0, 0);rgb(255, 235, 175);rgb(115, 115, 0);rgb(168, 0, 0);',
-  treeCoverClassNames: 'No Data;<= 10%;10 - 30%;> 30%;',
-  treeCoverClassColors: 'rgb(0, 0, 0);rgb(180, 215, 158);rgb(245, 245, 122);rgb(205, 170, 102);',
-  landCoverClassNames: 'No Data;Forestland;Grassland;Cropland;Wetland and Waterbodies;Settlement;Bare soil;',
-  landCoverClassColors: 'rgb(0, 0, 0);rgb(0, 174, 0);rgb(255, 255, 0);rgb(255, 155, 190);rgb(0, 238, 238);rgb(255, 0, 0);rgb(255, 255, 188);',
-  populationClassNames: 'No Data;<= 20;20 - 50;50 - 150;150 - 500;> 500;',
-  populationClassColors: 'rgb(0, 0, 0);rgb(255, 255, 128);rgb(250, 209, 85);rgb(242, 167, 46);rgb(173, 83, 19);rgb(107, 0, 0);',
-  rainfallClassNames: 'No Data;Class 1;Class 2;Class 3;',
-  rainfallClassColors: 'rgb(0, 0, 0);rgb(255, 0, 0), rgb(0, 255, 0);rgb(0, 0, 255);',
-  //- Include/Exclude various restoration analysis types
-  restorationSlope: true, //- Main Slope Analysis
-  restorationSlopePotential: true, //- Part of the various restoration options
-  restorationTreeCover: true,
-  restorationLandCover: true,
-  restorationPopulation: true,
-  restorationRainfall: true,
+  webmap: '249156099c444112a992cd91017fcf99',
+    title: 'Atlas Forestier du Gabon',
+    subtitle: 'Affectation des terres',
+    logoUrl: 'img/minef.png',
+    logoLinkUrl: 'http://www.eaux-forets.gouv.ga',
+    aboutLinkUrl: 'https://gab.forest-atlas.org', // http://www.gfw-mapbuilder.org/
+    downloadLinkUrl: 'http://gab-data.forest-atlas.org', // http://data.globalforestwatch.org/
+    printServiceUrl: 'https://gis.forest-atlas.org/server/rest/services/gab/ExportWebMap/GPServer/Export%20Web%20Map',
+    maskServiceUrl: '', // e.g. http://gis-forest-atlas.wri.org/arcgis/rest/services/CMR/CMR_00_Africa/MapServer
+    mapThemeIds: '', // e.g. 1c38ba1095fe49e3ba234bf9105c1077;c76d788b7487476bae4d09a4e933be19
+    mapThemes: '', // e.g. Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea
+    narrative: 'L’Atlas forestier interactif du Gabon est un système de suivi forestier dynamique qui fournit des informations crédibles et actualisées sur le secteur forestier au Gabon. Construit sur une plateforme SIG (Système d’Information Géographique), l’Atlas a pour but de renforcer la gestion des forêts et la planification de l’utilisation des terres en réunissant sur une même plateforme standardisée les informations sur les principales catégories d’utilisation des terres.',
+    includeSubscribeButton: false,
+    includeMyGFWLogin: false,
+    navLinksInNewTab: false,
+    //- Language Settings
+    language: 'fr',
+    useAlternativeLanguage: true,
+    alternativeWebmap: '5f3010b9257f4a35a5f1af74809b4a95',
+    alternativeLanguage: 'en',
+    alternativeLanguageTitle: 'Forest Atlas of Gabon',
+    alternativeLanguageSubtitle: 'Land Use Allocation',
+    alternativeMapThemes: '', // e.g. Forest Atlas of Cameroon;Forest Atlas of Equatorial Guinea
+    alternativeNarrative: 'The Interactive forest atlas of Gabon is a living, dynamic forest monitoring system that provides unbiased and up-to-date information on Gabon\'s forest sector. Built on a geographic information system (GIS) platform, the Atlas aims to strengthen forest management and land use planning by bringing information on all major land use categories onto the same standardized platform.',
+    alternativeWebmapMenuName: 'Land Use',
+    //- Documents Settings
+    includeDocumentsTab: false,
+    documentsDirectory: 'https://cmr.forest-atlas.org/resources/docs/',
+    documentsMapserver: 'https://gis.forest-atlas.org/arcgis/rest/services/CMR/documents_administratifs/MapServer',
+    //- Layers/Analysis Settings
+    iso: 'GAB',
+    activeFires: true,
+    intactForests: true,
+    aboveGroundBiomass: true,
+    landCover: true,
+    mangroves: false,
+    sadAlerts: true,
+    gladAlerts: true,
+    terraIAlerts: true,
+    webmapMenuName: 'Affectation des terres',
+    //- Restoration Module settings
+    restorationModule: false,
+    restorationImageServer: 'https://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module2/ImageServer', //'https://gis-gfw.wri.org/arcgis/rest/services/image_services/eth_restoration_module/ImageServer'
+    slopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
+    alternativeSlopePotentialOptions: 'Potential for commercial plantation on bare soil and shrubland only;Potential for agri-silviculture and agro-silvo-pastoralism, and woodlot;Potential for establishing natural forest only;Potential for restocking degraded natural forest only;Potential for woodlot only;Potential for silvo-pastoralism only;Potential for tree-buffer zone along rivers, lakes and reservoirs only;Potential for commercial plantation as buffer zone around (NF)PAs;Two restoration options identified as having potential;Three or more restoration options identified as having potential',
+    slopePotentialColors: 'rgb(234,199,253);rgb(253,178,46);rgb(88,126,15);rgb(210,147,116);rgb(245,208,139);rgb(177,177,36);rgb(26,176,144);rgb(175,15,143);rgb(217,254,199);rgb(255,254,137);',
+    restorationOptions: 'establishing natural forest outside of cropland;restocking of degraded natural forest;agri-silviculture and agro-silvo-pastoralism;silvo-pastoralism;woodlot;commercial plantation on bare soil and shrubland;commercial plantation as buffer zone to national forest priority areas and protected areas;tree-based buffer zone along rivers, lakes and reservoirs;',
+    alternativeRestorationOptions: 'establishing natural forest outside of cropland;restocking of degraded natural forest;agri-silviculture and agro-silvo-pastoralism;silvo-pastoralism;woodlot;commercial plantation on bare soil and shrubland;commercial plantation as buffer zone to national forest priority areas and protected areas;tree-based buffer zone along rivers, lakes and reservoirs;',
+    restorationOptionsRasterIds: '9;10;6;11;13;8;7;12;',
+    slopeClassNames: 'No Data;<= 30%;30 - 60%;> 60%;',
+    slopeClassColors: 'rgb(0, 0, 0);rgb(255, 235, 175);rgb(115, 115, 0);rgb(168, 0, 0);',
+    treeCoverClassNames: 'No Data;<= 10%;10 - 30%;> 30%;',
+    treeCoverClassColors: 'rgb(0, 0, 0);rgb(180, 215, 158);rgb(245, 245, 122);rgb(205, 170, 102);',
+    landCoverClassNames: 'No Data;Forestland;Grassland;Cropland;Wetland and Waterbodies;Settlement;Bare soil;',
+    landCoverClassColors: 'rgb(0, 0, 0);rgb(0, 174, 0);rgb(255, 255, 0);rgb(255, 155, 190);rgb(0, 238, 238);rgb(255, 0, 0);rgb(255, 255, 188);',
+    populationClassNames: 'No Data;<= 20;20 - 50;50 - 150;150 - 500;> 500;',
+    populationClassColors: 'rgb(0, 0, 0);rgb(255, 255, 128);rgb(250, 209, 85);rgb(242, 167, 46);rgb(173, 83, 19);rgb(107, 0, 0);',
+    rainfallClassNames: 'No Data;Class 1;Class 2;Class 3;',
+    rainfallClassColors: 'rgb(0, 0, 0);rgb(255, 0, 0), rgb(0, 255, 0);rgb(0, 0, 255);',
+    //- Include/Exclude various restoration analysis types
+    restorationSlope: true, //- Main Slope Analysis
+    restorationSlopePotential: true, //- Part of the various restoration options
+    restorationTreeCover: true,
+    restorationLandCover: true,
+    restorationPopulation: true,
+    restorationRainfall: true,
 
-  // Options not configurable from AGOL but can be from here
-  restorationChartDescription: 'Some explanatory text for this anlaysis',
-  restorationTableDescription: 'Some explanatory text for this anlaysis',
-  slopeDescription: 'Some explanatory text for this anlaysis',
-  alternativeRestorationChartDescription: 'Some explanatory text for this anlaysis',
-  alternativeRestorationTableDescription: 'Some explanatory text for this anlaysis',
-  alternativeSlopeDescription: 'Some explanatory text for this anlaysis',
-  // DO NOT MODIFY SHARINGHOST unless you are configuring this for a Portal Environment
-  sharinghost: 'http://www.arcgis.com',
-  analyticsCode: '',
+    // Options not configurable from AGOL but can be from here
+    restorationChartDescription: 'Some explanatory text for this anlaysis',
+    restorationTableDescription: 'Some explanatory text for this anlaysis',
+    slopeDescription: 'Some explanatory text for this anlaysis',
+    alternativeRestorationChartDescription: 'Some explanatory text for this anlaysis',
+    alternativeRestorationTableDescription: 'Some explanatory text for this anlaysis',
+    alternativeSlopeDescription: 'Some explanatory text for this anlaysis',
+    // DO NOT MODIFY SHARINGHOST unless you are configuring this for a Portal Environment
+    sharinghost: 'https://www.arcgis.com',
+    analyticsCode: 'UA-62288390-10',
   userFeatureToken: {
     //- Localhost token for BR office
     'tib': 'Xe4QHKF7wZGHOoQpCKDloPnyA4ZimKQ-dH3yAiA-UI9FNPSUG_mdnEiGQEfOCKmAXJzPDSzNRLdl_suxkimYaA..',
@@ -125,6 +125,7 @@ export default {
   layerPanel: {
       GROUP_WEBMAP: {
         order: 2,
+        type: 'webmap',
         label: {}, // Configurable via alternativeWebmapMenuName and webmapMenuName above
         layers: [] // Will get filled in with layers from the webmap
       },

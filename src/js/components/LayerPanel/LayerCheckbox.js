@@ -52,10 +52,12 @@ export default class LayerCheckbox extends Component {
 
   componentDidUpdate(prevProps) {
     const {map} = this.context;
+
     if (prevProps.checked !== this.props.checked) {
       if (this.props.checked) {
         if (this.props.subLayer) {
           showSubLayer(this.props.layer);
+          this.updateLegendLayer(this.props.layer.id, { visible: true });
         } else {
           showLayer(map, this.props.layer.id);
           //- If the legend layer is present, update it
@@ -64,6 +66,7 @@ export default class LayerCheckbox extends Component {
       } else {
         if (this.props.subLayer) {
           hideSubLayer(this.props.layer);
+          this.updateLegendLayer(this.props.layer.id, { visible: false });
         } else {
           hideLayer(map, this.props.layer.id);
           //- If the legend layer is present, update it
@@ -120,8 +123,10 @@ export default class LayerCheckbox extends Component {
     if (layer.subId) {
       // TODO:  Update visible layers.
       if (this.props.checked) {
+        layerActions.updateLegend(layer);
         layerActions.removeSubLayer(layer);
       } else {
+        layerActions.updateLegend(layer);
         layerActions.addSubLayer(layer);
       }
     } else {

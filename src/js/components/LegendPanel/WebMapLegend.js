@@ -2,9 +2,7 @@ import Request from 'utils/request';
 import MapStore from 'stores/MapStore';
 import React from 'react';
 
-//SAD alerts
-
-export default class SADLegend extends React.Component {
+export default class WebMapLegend extends React.Component {
 
   constructor (props) {
     super(props);
@@ -12,11 +10,11 @@ export default class SADLegend extends React.Component {
     this.state = { legendInfos: [], currentLayer: currentLayer };
   }
 
-  storeDidUpdate = () => {
+  storeDidUpdate = () => {      
     const {currentLayer} = MapStore.getState();
     if(currentLayer === null) return;
-
-    if(this.refs.myRef && currentLayer.label["en"] === 'SAD alerts') {
+    
+    if(this.refs.myRef) {
       this.setState({currentLayer: currentLayer});
     }
   };
@@ -26,7 +24,7 @@ export default class SADLegend extends React.Component {
 
     const map = this.props.map;
     const layer = map.getLayer(this.props.layerId);
-
+    
     Request.getLegendInfos(this.props.url, this.props.layerIds).then(legendInfos => {
       if(this.refs.myRef) {
         this.setState({ legendInfos: legendInfos });
@@ -45,7 +43,7 @@ export default class SADLegend extends React.Component {
 
   render () {
     let bool, label;
-
+    debugger;
     if(this.state.currentLayer === null) {
       bool = 'hidden';
     } else {

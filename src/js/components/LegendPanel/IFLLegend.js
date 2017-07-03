@@ -13,13 +13,14 @@ export default class IFLLegend extends React.Component {
   storeDidUpdate = () => {
     const {currentLayer} = MapStore.getState();
     if(currentLayer === null) return;
-
+    // console.log(currentLayer.label);
     if(this.refs.myRef && currentLayer.label["en"] === "Intact Forest Landscape") {
       this.setState({currentLayer: currentLayer});
     }
   };
 
   componentDidMount() {
+    // console.log('mounting');
     MapStore.listen(this.storeDidUpdate);
 
     const map = this.props.map;
@@ -50,7 +51,7 @@ export default class IFLLegend extends React.Component {
       bool = this.state.currentLayer.visible ? '' : 'hidden';
       label = this.state.currentLayer.label["en"];
     }
-
+    // console.log('rendering');
     return (
       <div className={`parent-legend-container ${bool}`} ref="myRef">
         <div className='test'>{label}</div>
