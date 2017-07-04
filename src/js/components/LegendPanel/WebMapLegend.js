@@ -48,7 +48,7 @@ export default class WebMapLegend extends React.Component {
       bool = 'hidden';
     } else {
       bool = this.state.currentLayer.visible ? '' : 'hidden';
-      label = this.state.currentLayer.label["en"];
+      label = this.state.currentLayer.label;
     }
 
     return (
