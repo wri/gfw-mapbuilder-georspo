@@ -51,6 +51,44 @@ const request = {
   },
 
   /**
+  * @param {string} url - Url for an esri map service
+  * @param {array} layerIds - An array of layer ids
+  * @return {Deferred} deferred - A promise, will return either an array of layerInfos or an empty array
+  */
+  getWebMapLegendInfos: (url, layerIds) => {
+    const deferred = new Deferred();
+    esriRequest({
+      url: `${url}/legend`,
+      handleAs: 'json',
+      callbackParamName: 'callback',
+      content: { f: 'json' }
+    }).then(res => {
+      if (res && res.layers && res.layers.length > 0) {
+        // console.log("layersIds (should not be 6: ", layerIds);
+        const layers = res.layers.filter(layer => layerIds.indexOf(layer.layerId) > -1);
+        const legendInfos = layers.length === 1 ? layers[0].legend : layers.map(layer => layer.legend);
+        const legendLength = legendInfos.length;
+        legendInfos.map( (legendInfo, index) => {
+          if(legendInfo.label === '') {
+            // In case we have multiple sub-labels 
+            if(layers[index] && legendLength === 1) {
+              legendInfo.label = layers[index].layerName;
+            } else if (legendLength === 1) { 
+              legendInfo.label = layers[0].layerName;
+            }
+          }
+        });
+        deferred.resolve(legendInfos || []);
+      }
+    }, err => {
+      console.error(err);
+      deferred.resolve([]);
+    });
+
+    return deferred;
+  },
+
+  /**
   * @param {string} url - Portal URL for the generate features service
   * @param {object} content - payload for the request
   * @param {DOM} form - form containing an input with files attached to it

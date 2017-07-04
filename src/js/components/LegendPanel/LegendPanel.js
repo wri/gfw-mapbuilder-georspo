@@ -134,7 +134,8 @@ export default class LegendPanel extends Component {
       default:
         if(layerDiv.layer.type === undefined && layerDiv.layer.arcgisProps && layerDiv.layer._basemapGalleryLayerType !== 'basemap') {
           layerDiv.layer.dynamicLayerInfos.map((layer) => {
-            childComponent = <WebMapLegend url={layerDiv.layer.url} map={map} layerName={layer.name} layerId={layer.id}/>;
+            // console.log('legendPanel  layer', layer);
+            childComponent = <WebMapLegend url={layerDiv.layer.url} map={map} layerName={layer.name} layerIds={layer.id}/>;
           });
         } else {
           return false;

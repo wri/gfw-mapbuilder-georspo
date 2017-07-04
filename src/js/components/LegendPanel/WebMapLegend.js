@@ -10,22 +10,23 @@ export default class WebMapLegend extends React.Component {
     this.state = { legendInfos: [], currentLayer: currentLayer };
   }
 
-  storeDidUpdate = () => {      
+  storeDidUpdate = () => {
     const {currentLayer} = MapStore.getState();
-    if(currentLayer === null) return;
-    
-    if(this.refs.myRef) {
-      this.setState({currentLayer: currentLayer});
+    if(currentLayer === null) {
+      return;
     }
+    // Need to make a new request to update the legendInfos
+    Request.getWebMapLegendInfos(this.props.url, [currentLayer.subIndex]).then(legendInfos => {
+      if(this.refs.myRef) {
+        this.setState({ legendInfos: legendInfos, currentLayer: currentLayer });
+      }
+    });
   };
 
   componentDidMount() {
     MapStore.listen(this.storeDidUpdate);
 
-    const map = this.props.map;
-    const layer = map.getLayer(this.props.layerId);
-    
-    Request.getLegendInfos(this.props.url, this.props.layerIds).then(legendInfos => {
+    Request.getWebMapLegendInfos(this.props.url, [this.props.layerIds]).then(legendInfos => {
       if(this.refs.myRef) {
         this.setState({ legendInfos: legendInfos });
       }
@@ -43,14 +44,14 @@ export default class WebMapLegend extends React.Component {
 
   render () {
     let bool, label;
-    debugger;
+
     if(this.state.currentLayer === null) {
       bool = 'hidden';
     } else {
       bool = this.state.currentLayer.visible ? '' : 'hidden';
       label = this.state.currentLayer.label;
     }
-
+    debugger;
     return (
       <div className={`parent-legend-container ${bool}`} ref="myRef">
         <div className='test'>{label}</div>
