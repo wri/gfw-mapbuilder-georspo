@@ -62,7 +62,9 @@ export default class LossControls extends Component {
     const fromYear = lossOptions[fromIndex].label;
     const toYear = lossOptions[toIndex].label;
 
-    layer.setDateRange(fromYear - 2000, toYear - 2000);
+    if (layer && layer.setDateRange) {
+      layer.setDateRange(fromYear - 2000, toYear - 2000);
+    }
   }
 
   updateDensity (layer, density) {
