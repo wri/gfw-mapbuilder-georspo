@@ -401,7 +401,7 @@
     "logoLinkUrl": "http://www.gfw-mapbuilder.org",
     "aboutLinkUrl": "http://www.gfw-mapbuilder.org",
     "downloadLinkUrl": "http://data.globalforestwatch.org/",
-    "printServiceUrl": "http://gis.forest-atlas.org/arcgis/rest/services/print/ExportWebMap/GPServer/Export%20Web%20Map",
+    "printServiceUrl": "https://gis.forest-atlas.org/arcgis/rest/services/print/ExportWebMap/GPServer/Export%20Web%20Map",
     "maskServiceUrl": "",
     "mapThemeIds": "",
     "mapThemes": "",

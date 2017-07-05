@@ -27,7 +27,7 @@ let map;
 
 const getWebmapInfo = function getWebmapInfo (webmap) {
   return esriRequest({
-    url: `http://www.arcgis.com/sharing/rest/content/items/${webmap}/data?f=json`,
+    url: `https://www.arcgis.com/sharing/rest/content/items/${webmap}/data?f=json`,
     callbackParamName: 'callback'
   });
 };
