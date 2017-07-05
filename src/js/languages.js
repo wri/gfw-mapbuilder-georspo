@@ -12,6 +12,7 @@ strings.en.LANG_ES = 'Spanish';
 strings.en.LANG_PT = 'Portugese';
 strings.en.LANG_ID = 'Indonesian';
 strings.en.LANG_ZH = 'Mandarin';
+strings.en.LANG_KA = 'Georgian';
 //- Header
 strings.en.NAV_ABOUT = 'About';
 strings.en.NAV_DOWNLOAD = 'Download Data';

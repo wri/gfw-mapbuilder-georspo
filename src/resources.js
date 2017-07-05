@@ -320,7 +320,8 @@ export default {
             es: '(anual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
             pt: '(anual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
             id: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-            zh: '(每年更新, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))'
+            zh: '(每年更新, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))',
+            ka: 'Georgian'
           }
         }
       }]
