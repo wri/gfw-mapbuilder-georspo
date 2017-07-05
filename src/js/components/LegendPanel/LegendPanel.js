@@ -95,58 +95,61 @@ export default class LegendPanel extends Component {
 
   createLegend = (layerDiv, index) => {
     let childComponent;
-    const {map} = this.context;
+    const {map, language} = this.context;
 
     switch(layerDiv.layer.id) {
       case 'IFL':
-        childComponent = <IFLLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id}/>;
+        childComponent = <IFLLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'IMAZON_SAD':
-        childComponent = <SADLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id}/>;
+        childComponent = <SADLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'ACTIVE_FIRES':
-        childComponent = <FiresLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id}/>;
+        childComponent = <FiresLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'GLOB_MANGROVE':
-        childComponent = <MangroveLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id}/>;
+        childComponent = <MangroveLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'AG_BIOMASS':
-        childComponent = <BiomassLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id}/>;
+        childComponent = <BiomassLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'TERRA_I_ALERTS':
-        childComponent = <TerraLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id}/>;
+        childComponent = <TerraLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'GLAD_ALERTS':
-        childComponent = <GladLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id}/>;
+        childComponent = <GladLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'TREE_COVER_GAIN':
-        childComponent = <TreeCoverGainLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id}/>;
+        childComponent = <TreeCoverGainLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'TREE_COVER_LOSS':
-        childComponent = <TreeCoverLossLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id}/>;
+        childComponent = <TreeCoverLossLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'LAND_COVER':
-        childComponent = <LandCoverLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id}/>;
+        childComponent = <LandCoverLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'TREE_COVER':
-        childComponent = <TreeCoverLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id}/>;
+        childComponent = <TreeCoverLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       default:
         if(layerDiv.layer.type === undefined && layerDiv.layer.arcgisProps && layerDiv.layer._basemapGalleryLayerType !== 'basemap') {
-          layerDiv.layer.dynamicLayerInfos.map((layer) => {
-            // console.log('legendPanel  layer', layer);
-            childComponent = <WebMapLegend url={layerDiv.layer.url} map={map} layerName={layer.name} layerIds={layer.id}/>;
-          });
+          console.log('done');
+          return layerDiv;
+          
+          // layerDiv.layer.dynamicLayerInfos.map((layer) => {
+            // childComponent = <WebMapLegend url={layerDiv.layer.url} map={map} layerName={layer.name} layerIds={layer.id} language={language}/>;
+            // console.log('done');
+            // return layerDiv;
+          // });
         } else {
           return false;
         }
         // if(layerDiv.layer.type === 'CARTO') {
         //   childComponent = <CartoLegend title={layerDiv.layer.title}/>;
         // } else {
-        break;
+        // break;
         // }
     }
-
     return (
       <div key={index}>
         <div>{childComponent}</div>
@@ -167,6 +170,28 @@ export default class LegendPanel extends Component {
       rootClasses += ' hidden';
     }
 
+    let legendComponents = legendLayers.map(this.createLegend);
+    let webmapChildComponents = [];
+    debugger;
+    <WebMapLegend map={map}  language={language}/>;
+    
+    legendComponents.map((component) => {
+      const {map, language} = this.context;
+      if(component.layer) {
+        const currComponent = component;
+        legendComponents.pop();
+       
+        currComponent.layer.dynamicLayerInfos.map((layer) => {
+          debugger;
+          childComponent = <WebMapLegend map={map}  language={language}/>;
+          webmapChildComponents.push(childComponent);
+        });
+      }
+    });
+    
+    // legendComponents.concat(webmapChildComponents);
+    // console.log(legendComponents);
+
     return (
       <div className={rootClasses}>
 
@@ -186,7 +211,7 @@ export default class LegendPanel extends Component {
         </div>
 
         <div className='legend-layers'>
-          <div className='legendContainer'>{legendLayers.map(this.createLegend)}</div>
+          <div className='legendContainer'>{legendComponents}</div>
           <div id='legend' ref='legendNode' className={`${legendOpen ? '' : 'hidden'}`}></div>
         </div>
       </div>

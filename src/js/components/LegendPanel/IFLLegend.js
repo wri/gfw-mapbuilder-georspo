@@ -49,7 +49,7 @@ export default class IFLLegend extends React.Component {
       bool = 'hidden';
     } else {
       bool = this.state.currentLayer.visible ? '' : 'hidden';
-      label = this.state.currentLayer.label["en"];
+      label = this.state.currentLayer.label[this.props.language];
     }
     // console.log('rendering');
     return (

@@ -5,6 +5,7 @@ import React from 'react';
 export default class WebMapLegend extends React.Component {
 
   constructor (props) {
+    console.log("CONSTRUCTOR");
     super(props);
     const {currentLayer} = MapStore.getState();
     this.state = { legendInfos: [], currentLayer: currentLayer };
@@ -54,7 +55,7 @@ export default class WebMapLegend extends React.Component {
     debugger;
     return (
       <div className={`parent-legend-container ${bool}`} ref="myRef">
-        <div className='test'>{label}</div>
+        <div className={label}>{label}</div>
         <div className={`legend-container ${bool}`}>
           {this.state.legendInfos.length === 0 ? '' :
             <div className='crowdsource-legend'>

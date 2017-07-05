@@ -49,7 +49,7 @@ export default class TreeCoverLossLegend extends React.Component {
       bool = 'hidden';
     } else {
       bool = this.state.currentLayer.visible ? '' : 'hidden';
-      label = this.state.currentLayer.label["en"];
+      label = this.state.currentLayer.label[this.props.language];
     }
 
     return (

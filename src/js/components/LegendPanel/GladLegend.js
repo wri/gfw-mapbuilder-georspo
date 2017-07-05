@@ -50,7 +50,8 @@ export default class GladLegend extends React.Component {
       bool = 'hidden';
     } else {
       bool = this.state.currentLayer.visible ? '' : 'hidden';
-      label = this.state.currentLayer.label["en"];
+      debugger;
+      label = this.state.currentLayer.label[this.props.language];
     }
 
     return (
