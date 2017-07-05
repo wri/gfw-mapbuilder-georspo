@@ -1,37 +1,30 @@
 import Request from 'utils/request';
-import MapStore from 'stores/MapStore';
+import utils from 'utils/AppUtils';
 import React from 'react';
 
 export default class TreeCoverLossLegend extends React.Component {
 
   constructor (props) {
     super(props);
-    const {currentLayer} = MapStore.getState();
-    this.state = { legendInfos: [], currentLayer: currentLayer };
+    this.state = { legendInfos: [], visible: false };
   }
 
-  storeDidUpdate = () => {
-    const {currentLayer} = MapStore.getState();
-    if(currentLayer === null) return;
-
-    if(this.refs.myRef && currentLayer.label["en"] === "Tree cover loss") {
-      this.setState({currentLayer: currentLayer});
+  componentDidUpdate(prevProps) {
+    if(this.props.visibleLayers.indexOf(this.props.layerId) > -1 && prevProps.visibleLayers.indexOf(this.props.layerId) === -1) {
+      this.setState({ visible: true });
     }
-  };
+    else if(this.props.visibleLayers.indexOf(this.props.layerId) === -1 && prevProps.visibleLayers.indexOf(this.props.layerId) > -1) {
+      this.setState({ visible: false });
+    }
+  }
 
   componentDidMount() {
-    MapStore.listen(this.storeDidUpdate);
-
-    const map = this.props.map;
-    const layer = map.getLayer(this.props.layerId);
-    
     Request.getLegendInfos(this.props.url, this.props.layerIds).then(legendInfos => {
       if(this.refs.myRef) {
         this.setState({ legendInfos: legendInfos });
       }
     });
   }
-
 
   itemMapper (item, index) {
     return (
@@ -43,13 +36,17 @@ export default class TreeCoverLossLegend extends React.Component {
   }
 
   render () {
-    let bool, label;
-    
-    if(this.state.currentLayer === null) {
+    const layerGroups = this.props.settings.layerPanel;
+    const layerConf = utils.getObject(layerGroups.GROUP_LCD.layers, 'id', this.props.layerId);
+
+    let bool = '';
+    let label;
+
+    if(this.state.visible === false) {
       bool = 'hidden';
     } else {
-      bool = this.state.currentLayer.visible ? '' : 'hidden';
-      label = this.state.currentLayer.label[this.props.language];
+      bool = '';
+      label = layerConf.label[this.props.language];
     }
 
     return (

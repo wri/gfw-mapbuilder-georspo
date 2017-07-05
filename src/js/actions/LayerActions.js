@@ -41,7 +41,11 @@ class LayerActions {
     };
   }
 
-  updateLegend (layer) {
+  addVisibleLayer (layer) {
+    return layer;
+  }
+
+  removeVisibleLayer (layer) {
     return layer;
   }
 

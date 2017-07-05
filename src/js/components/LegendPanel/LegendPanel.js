@@ -89,61 +89,61 @@ export default class LegendPanel extends Component {
       return 0;
     }
     legendInfos.sort(compare);
-    // console.log(legendInfos);
+
     return legendInfos;
   }
 
   createLegend = (layerDiv, index) => {
     let childComponent;
-    const {map, language} = this.context;
+    const {map, language, settings} = this.context;
+    const {visibleLayers} = this.props;
 
     switch(layerDiv.layer.id) {
       case 'IFL':
-        childComponent = <IFLLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <IFLLegend url={layerDiv.layer.url} settings={settings} visibleLayers={visibleLayers} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'IMAZON_SAD':
-        childComponent = <SADLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <SADLegend url={layerDiv.layer.url} settings={settings} visibleLayers={visibleLayers} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'ACTIVE_FIRES':
-        childComponent = <FiresLegend url={layerDiv.layer.url} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <FiresLegend url={layerDiv.layer.url} settings={settings} visibleLayers={visibleLayers} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'GLOB_MANGROVE':
-        childComponent = <MangroveLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <MangroveLegend url={urls.esriLegendService} settings={settings} visibleLayers={visibleLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'AG_BIOMASS':
-        childComponent = <BiomassLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <BiomassLegend url={urls.esriLegendService} settings={settings} visibleLayers={visibleLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'TERRA_I_ALERTS':
-        childComponent = <TerraLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <TerraLegend url={urls.esriLegendService} settings={settings} visibleLayers={visibleLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'GLAD_ALERTS':
-        childComponent = <GladLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <GladLegend url={urls.esriLegendService} settings={settings} visibleLayers={visibleLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'TREE_COVER_GAIN':
-        childComponent = <TreeCoverGainLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <TreeCoverGainLegend url={urls.esriLegendService} settings={settings} visibleLayers={visibleLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'TREE_COVER_LOSS':
-        childComponent = <TreeCoverLossLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <TreeCoverLossLegend url={urls.esriLegendService} settings={settings} visibleLayers={visibleLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'LAND_COVER':
-        childComponent = <LandCoverLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <LandCoverLegend url={urls.esriLegendService} settings={settings} visibleLayers={visibleLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'TREE_COVER':
-        childComponent = <TreeCoverLegend url={urls.esriLegendService} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <TreeCoverLegend url={urls.esriLegendService} settings={settings} visibleLayers={visibleLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       default:
-        if(layerDiv.layer.type === undefined && layerDiv.layer.arcgisProps && layerDiv.layer._basemapGalleryLayerType !== 'basemap') {
-          console.log('done');
-          return layerDiv;
-          
-          // layerDiv.layer.dynamicLayerInfos.map((layer) => {
-            // childComponent = <WebMapLegend url={layerDiv.layer.url} map={map} layerName={layer.name} layerIds={layer.id} language={language}/>;
-            // console.log('done');
-            // return layerDiv;
-          // });
-        } else {
+        // if(layerDiv.layer.type === undefined && layerDiv.layer.arcgisProps && layerDiv.layer._basemapGalleryLayerType !== 'basemap') {
+        //   console.log('done');
+        //   // return layerDiv;
+        //   layerDiv.layer.dynamicLayerInfos.map((layer) => {
+        //     childComponent = <WebMapLegend url={layerDiv.layer.url} map={map} visibleLayers={visibleLayers} layerName={layer.name} layerIds={layer.id} language={language}/>;
+        //     console.log('done');
+        //     return childComponent;
+        //   });
+        // } else {
           return false;
-        }
+        // }
         // if(layerDiv.layer.type === 'CARTO') {
         //   childComponent = <CartoLegend title={layerDiv.layer.title}/>;
         // } else {
@@ -170,22 +170,22 @@ export default class LegendPanel extends Component {
       rootClasses += ' hidden';
     }
 
-    let legendComponents = legendLayers.map(this.createLegend);
-    let webmapChildComponents = [];
+    // let legendComponents = legendLayers.map(this.createLegend);
+    // let webmapChildComponents = [];
     
-    legendComponents.map((component) => {
-      const {map, language} = this.context;
-      if(component.layer) {
-        const currComponent = component;
-        legendComponents.pop();
+    // legendComponents.map((component) => {
+    //   const {map, language} = this.context;
+    //   if(component.layer) {
+    //     const currComponent = component;
+    //     legendComponents.pop();
        
-        currComponent.layer.dynamicLayerInfos.map((layer) => {
-          debugger;
-          childComponent = <WebMapLegend url={layerDiv.layer.url} map={map} layerName={layer.name} layerIds={layer.id} language={language}/>;
-          webmapChildComponents.push(childComponent);
-        });
-      }
-    });
+    //     currComponent.layer.dynamicLayerInfos.map((layer) => {
+    //       debugger;
+    //       childComponent = <WebMapLegend url={layerDiv.layer.url} map={map} layerName={layer.name} layerIds={layer.id} language={language}/>;
+    //       webmapChildComponents.push(childComponent);
+    //     });
+    //   }
+    // });
     
     // legendComponents.concat(webmapChildComponents);
     // console.log(legendComponents);
@@ -209,7 +209,7 @@ export default class LegendPanel extends Component {
         </div>
 
         <div className='legend-layers'>
-          <div className='legendContainer'>{legendComponents}</div>
+          <div className='legendContainer'>{legendLayers.map(this.createLegend)}</div>
           <div id='legend' ref='legendNode' className={`${legendOpen ? '' : 'hidden'}`}></div>
         </div>
       </div>
