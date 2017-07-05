@@ -172,8 +172,6 @@ export default class LegendPanel extends Component {
 
     let legendComponents = legendLayers.map(this.createLegend);
     let webmapChildComponents = [];
-    debugger;
-    <WebMapLegend map={map}  language={language}/>;
     
     legendComponents.map((component) => {
       const {map, language} = this.context;
@@ -183,7 +181,7 @@ export default class LegendPanel extends Component {
        
         currComponent.layer.dynamicLayerInfos.map((layer) => {
           debugger;
-          childComponent = <WebMapLegend map={map}  language={language}/>;
+          childComponent = <WebMapLegend url={layerDiv.layer.url} map={map} layerName={layer.name} layerIds={layer.id} language={language}/>;
           webmapChildComponents.push(childComponent);
         });
       }
