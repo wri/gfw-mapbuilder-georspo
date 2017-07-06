@@ -7,7 +7,6 @@ import BiomassLegend from 'components/LegendPanel/BiomassLegend';
 import TerraLegend from 'components/LegendPanel/TerraLegend';
 import GladLegend from 'components/LegendPanel/GladLegend';
 import FiresLegend from 'components/LegendPanel/FiresLegend';
-import LayerCheckbox from 'components/LayerPanel/LayerCheckbox';
 import LandCoverLegend from 'components/LegendPanel/LandCoverLegend';
 import TreeCoverLegend from 'components/LegendPanel/TreeCoverLegend';
 import TreeCoverGainLegend from 'components/LegendPanel/TreeCoverGainLegend';
@@ -15,9 +14,9 @@ import TreeCoverLossLegend from 'components/LegendPanel/TreeCoverLossLegend';
 import WebMapLegend from 'components/LegendPanel/WebMapLegend';
 import SADLegend from 'components/LegendPanel/SADLegend';
 import IFLLegend from 'components/LegendPanel/IFLLegend';
+import utils from 'utils/AppUtils';
 import {urls} from 'js/config';
 import text from 'js/languages';
-import on from 'dojo/on';
 
 const closeSymbolCode = 9660,
     openSymbolCode = 9650;
@@ -133,17 +132,17 @@ export default class LegendPanel extends Component {
         childComponent = <TreeCoverLegend url={urls.esriLegendService} settings={settings} visibleLayers={visibleLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       default:
-        // if(layerDiv.layer.type === undefined && layerDiv.layer.arcgisProps && layerDiv.layer._basemapGalleryLayerType !== 'basemap') {
-        //   console.log('done');
+        if(layerDiv.layer.type === undefined && layerDiv.layer.arcgisProps && layerDiv.layer._basemapGalleryLayerType !== 'basemap') {
+          // console.log('done');
         //   // return layerDiv;
         //   layerDiv.layer.dynamicLayerInfos.map((layer) => {
-        //     childComponent = <WebMapLegend url={layerDiv.layer.url} map={map} visibleLayers={visibleLayers} layerName={layer.name} layerIds={layer.id} language={language}/>;
+            // childComponent = <WebMapLegend url={layerDiv.layer.url} settings={settings} visibleLayers={visibleLayers} map={map} layerId={layerDiv.layer.id} language={language}/>;
         //     console.log('done');
         //     return childComponent;
         //   });
-        // } else {
+        } else {
           return false;
-        // }
+        }
         // if(layerDiv.layer.type === 'CARTO') {
         //   childComponent = <CartoLegend title={layerDiv.layer.title}/>;
         // } else {
@@ -157,9 +156,17 @@ export default class LegendPanel extends Component {
     );
   }
 
+  processWebmapDiv = (childComponent, index) => {
+    return (
+      <div key={index}>
+        <div>{childComponent}</div>
+      </div>
+    );
+  }
+
   render () {
-    const {tableOfContentsVisible, legendOpen} = this.props;
-    const {language} = this.context;
+    const {tableOfContentsVisible, legendOpen, visibleLayers} = this.props;
+    const {language, settings, map} = this.context;
 
     const legendLayers = this.getLayersForLegend();
 
@@ -170,25 +177,19 @@ export default class LegendPanel extends Component {
       rootClasses += ' hidden';
     }
 
-    // let legendComponents = legendLayers.map(this.createLegend);
-    // let webmapChildComponents = [];
-    
-    // legendComponents.map((component) => {
-    //   const {map, language} = this.context;
-    //   if(component.layer) {
-    //     const currComponent = component;
-    //     legendComponents.pop();
-       
-    //     currComponent.layer.dynamicLayerInfos.map((layer) => {
-    //       debugger;
-    //       childComponent = <WebMapLegend url={layerDiv.layer.url} map={map} layerName={layer.name} layerIds={layer.id} language={language}/>;
-    //       webmapChildComponents.push(childComponent);
-    //     });
-    //   }
-    // });
-    
-    // legendComponents.concat(webmapChildComponents);
-    // console.log(legendComponents);
+    const webmapChildComponents = [];
+
+    const layerGroups = settings.layerPanel;
+    const layers = layerGroups.GROUP_WEBMAP.layers;
+    layers.forEach((layer, index) => {
+      const subLayerConf = utils.getObject(layerGroups.GROUP_WEBMAP.layers, 'subId', layer.subId);
+      const layerConf = utils.getWebMapObject(legendLayers, 'layer', 'id', layer.id);
+      const childComponent = <WebMapLegend url={layerConf.url} labels={subLayerConf.label} visibility={layer.visible} settings={settings} visibleLayers={visibleLayers} map={map} layerSubIndex={subLayerConf.subIndex} layerId={subLayerConf.subId} language={language}/>;
+      webmapChildComponents.push(this.processWebmapDiv(childComponent, index + 1000));
+    });
+
+    let legendComponents = legendLayers.map(this.createLegend);
+    legendComponents = legendComponents.concat(webmapChildComponents);
 
     return (
       <div className={rootClasses}>
@@ -209,7 +210,7 @@ export default class LegendPanel extends Component {
         </div>
 
         <div className='legend-layers'>
-          <div className='legendContainer'>{legendLayers.map(this.createLegend)}</div>
+          <div className='legendContainer'>{legendComponents}</div>
           <div id='legend' ref='legendNode' className={`${legendOpen ? '' : 'hidden'}`}></div>
         </div>
       </div>

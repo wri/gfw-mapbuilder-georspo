@@ -1,9 +1,7 @@
-import layerKeys from 'constants/LayerConstants';
 import layerActions from 'actions/LayerActions';
 import mapActions from 'actions/MapActions';
 import LayersHelper from 'helpers/LayersHelper';
 import LayerTransparency from './LayerTransparency';
-import utils from 'utils/AppUtils';
 import React, {
   Component,
   PropTypes
@@ -57,58 +55,18 @@ export default class LayerCheckbox extends Component {
       if (this.props.checked) {
         if (this.props.subLayer) {
           showSubLayer(this.props.layer);
-          this.updateLegendLayer(this.props.layer.id, { visible: true });
         } else {
           showLayer(map, this.props.layer.id);
-          //- If the legend layer is present, update it
-          this.updateLegendLayer(this.props.layer.id, { visible: true });
         }
       } else {
         if (this.props.subLayer) {
           hideSubLayer(this.props.layer);
-          this.updateLegendLayer(this.props.layer.id, { visible: false });
         } else {
           hideLayer(map, this.props.layer.id);
-          //- If the legend layer is present, update it
-          this.updateLegendLayer(this.props.layer.id, { visible: false });
         }
       }
     }
   }
-
-  /**
-  * There is a dynamic layer with opacity set to 0, turn on or off its sub layers so they show up in the
-  * legend, this is great for image services or other layers that don't have a legend but need one
-  */
-  updateLegendLayer (layerId, options) {
-    const {settings, map} = this.context;
-    //- The layer could be in any of these two groups
-    const lcLayers = settings.layerPanel.GROUP_LC ? settings.layerPanel.GROUP_LC.layers : [];
-    const lcdLayers = settings.layerPanel.GROUP_LCD ? settings.layerPanel.GROUP_LCD.layers : [];
-    const layersConfig = lcLayers.concat(lcdLayers);
-
-    const conf = utils.getObject(layersConfig, 'id', layerId);
-    if (conf && conf.legendLayer !== undefined) {
-      const layer = map.getLayer(layerKeys.LEGEND_LAYER);
-      const {visibleLayers} = layer;
-
-      if (options.visible) {
-        visibleLayers.push(conf.legendLayer);
-        layer.show();
-      } else {
-        visibleLayers.splice(visibleLayers.indexOf(conf.legendLayer), 1);
-        if (visibleLayers.length === 0) {
-          layer.hide();
-        }
-      }
-    }
-  }
-
-  // shouldComponentUpdate(nextProps) {
-  //   return nextProps.checked !== this.props.checked ||
-  //          nextProps.layer !== this.props.layer ||
-  //          !!this.props.children;
-  // }
 
   showInfo () {
     const {layer} = this.props;
@@ -123,10 +81,10 @@ export default class LayerCheckbox extends Component {
     if (layer.subId) {
       // TODO:  Update visible layers.
       if (this.props.checked) {
-        layerActions.removeVisibleLayer(layer.id);
+        layerActions.removeVisibleLayer(layer.subId);
         layerActions.removeSubLayer(layer);
       } else {
-        layerActions.addVisibleLayer(layer.id);
+        layerActions.addVisibleLayer(layer.subId);
         layerActions.addSubLayer(layer);
       }
     } else {

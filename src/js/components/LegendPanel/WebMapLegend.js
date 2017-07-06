@@ -1,33 +1,24 @@
 import Request from 'utils/request';
-import MapStore from 'stores/MapStore';
 import React from 'react';
 
 export default class WebMapLegend extends React.Component {
 
   constructor (props) {
-    console.log("CONSTRUCTOR");
     super(props);
-    const {currentLayer} = MapStore.getState();
-    this.state = { legendInfos: [], currentLayer: currentLayer };
+    this.state = { legendInfos: [], visible: this.props.visibility };
   }
 
-  storeDidUpdate = () => {
-    const {currentLayer} = MapStore.getState();
-    if(currentLayer === null) {
-      return;
+  componentDidUpdate(prevProps) {
+    if(this.props.visibleLayers.indexOf(this.props.layerId) > -1 && prevProps.visibleLayers.indexOf(this.props.layerId) === -1) {
+      this.setState({ visible: true });
     }
-    // Need to make a new request to update the legendInfos
-    Request.getWebMapLegendInfos(this.props.url, [currentLayer.subIndex]).then(legendInfos => {
-      if(this.refs.myRef) {
-        this.setState({ legendInfos: legendInfos, currentLayer: currentLayer });
-      }
-    });
-  };
+    else if(this.props.visibleLayers.indexOf(this.props.layerId) === -1 && prevProps.visibleLayers.indexOf(this.props.layerId) > -1) {
+      this.setState({ visible: false });
+    }
+  }
 
   componentDidMount() {
-    MapStore.listen(this.storeDidUpdate);
-
-    Request.getWebMapLegendInfos(this.props.url, [this.props.layerIds]).then(legendInfos => {
+    Request.getLegendInfos(this.props.url, [this.props.layerSubIndex]).then(legendInfos => {
       if(this.refs.myRef) {
         this.setState({ legendInfos: legendInfos });
       }
@@ -44,18 +35,19 @@ export default class WebMapLegend extends React.Component {
   }
 
   render () {
-    let bool, label;
+    let bool = '';
+    let label;
 
-    if(this.state.currentLayer === null) {
+    if(this.state.visible === false) {
       bool = 'hidden';
     } else {
-      bool = this.state.currentLayer.visible ? '' : 'hidden';
-      label = this.state.currentLayer.label;
+      bool = '';
+      label = this.props.labels;
     }
-    debugger;
+
     return (
       <div className={`parent-legend-container ${bool}`} ref="myRef">
-        <div className={label}>{label}</div>
+        <div className='test'>{label}</div>
         <div className={`legend-container ${bool}`}>
           {this.state.legendInfos.length === 0 ? '' :
             <div className='crowdsource-legend'>
