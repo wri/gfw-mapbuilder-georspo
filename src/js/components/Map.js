@@ -285,7 +285,7 @@ export default class Map extends Component {
 
     //- Set up the group labels and group layers
     settings.layerPanel.GROUP_WEBMAP.layers = layers;
-    settings.layerPanel.GROUP_WEBMAP.label[language] = settings.labels[language].webmapMenuName;
+    settings.layerPanel.GROUP_WEBMAP.label[language] = settings.labels[language] ? settings.labels[language].webmapMenuName : '';
 
     if (saveLayersInOtherLang) {
       settings.layerPanel.GROUP_WEBMAP.label[settings.alternativeLanguage] = settings.labels[settings.alternativeLanguage].webmapMenuName;
