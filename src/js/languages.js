@@ -219,6 +219,8 @@ strings.ka.LANG_ES = 'Spanish';
 strings.ka.LANG_PT = 'Portugese';
 strings.ka.LANG_ID = 'Indonesian';
 strings.ka.LANG_ZH = 'Mandarin';
+strings.ka.LANG_KA = 'Georgian';
+
 //- Header
 strings.ka.NAV_ABOUT = 'About';
 strings.ka.NAV_DOWNLOAD = 'Download Data';
@@ -425,6 +427,8 @@ strings.fr.LANG_ES = 'Espagnol';
 strings.fr.LANG_PT = 'Portugais';
 strings.fr.LANG_ID = 'Indonesien';
 strings.fr.LANG_ZH = 'Mandarin';
+strings.fr.LANG_KA = 'Georgian';
+
 //- Header
 strings.fr.NAV_ABOUT = 'A Propos';
 strings.fr.NAV_DOWNLOAD = 'Téléchargez les Données';
@@ -632,6 +636,8 @@ strings.es.LANG_ES = 'Español';
 strings.es.LANG_PT = 'Portugese';
 strings.es.LANG_ID = 'Portugués';
 strings.es.LANG_ZH = 'Mandarín';
+strings.es.LANG_KA = 'Georgian';
+
 //- Header
 strings.es.NAV_ABOUT = 'Acerca de';
 strings.es.NAV_DOWNLOAD = 'Descargar Datos';
@@ -838,6 +844,8 @@ strings.pt.LANG_ES = 'Espanhol';
 strings.pt.LANG_PT = 'Português';
 strings.pt.LANG_ID = 'Indonésio';
 strings.pt.LANG_ZH = 'Mandarim';
+strings.pt.LANG_KA = 'Georgian';
+
 //- Header
 strings.pt.NAV_ABOUT = 'Sobre';
 strings.pt.NAV_DOWNLOAD = 'Baixar Dados';
@@ -1044,6 +1052,8 @@ strings.id.LANG_ES = 'Spanish';
 strings.id.LANG_PT = 'Portugese';
 strings.id.LANG_ID = 'Indonesian';
 strings.id.LANG_ZH = 'Mandarin';
+strings.id.LANG_KA = 'Georgian';
+
 //- Header
 strings.id.NAV_ABOUT = 'About';
 strings.id.NAV_DOWNLOAD = 'Download Data';
@@ -1250,6 +1260,8 @@ strings.zh.LANG_ES = 'Spanish';
 strings.zh.LANG_PT = 'Portugese';
 strings.zh.LANG_ID = 'Indonesian';
 strings.zh.LANG_ZH = 'Mandarin';
+strings.zh.LANG_KA = 'Georgian';
+
 //- Header
 strings.zh.NAV_ABOUT = '关于';
 strings.zh.NAV_DOWNLOAD = '下载数据';
