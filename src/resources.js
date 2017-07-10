@@ -358,7 +358,7 @@ export default {
         order: 2,
         id: 'IFL',
         type: 'dynamic',
-        url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+        url: 'https://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
         technicalName: 'intact_forest_landscapes_change',
         layerIds: [0],
         label: {
