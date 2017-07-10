@@ -315,6 +315,16 @@ export default {
           title: {
             en: 'Active Fires'
           },
+          content: {
+            en: [
+              { 'label': 'Brightness', 'fieldExpression': 'BRIGHTNESS' },
+              { 'label': 'Confidence', 'fieldExpression': 'CONFIDENCE' },
+              { 'label': 'Latitude', 'fieldExpression': 'LATITUDE' },
+              { 'label': 'Longitude', 'fieldExpression': 'LONGITUDE' },
+              { 'label': 'Acquisition Date', 'fieldExpression': 'ACQ_DATE:DateString(hideTime:true)' },
+              { 'label': 'Acquisition Time', 'fieldExpression': 'ACQ_TIME' }
+            ]
+          },
           sublabel: {
             en: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
             fr: '(annuel, 30m, global, Hansen/UMD/Google/USGS/NASA)',
