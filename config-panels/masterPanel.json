@@ -106,7 +106,8 @@
         { "value": "fr", "label": "French" },
         { "value": "es", "label": "Spanish" },
         { "value": "id", "label": "Indonesian" },
-        { "value": "zh", "label": "Chinese" }
+        { "value": "zh", "label": "Chinese" },
+        { "value": "ka", "label": "Georgian" }
       ]
     }, {
       "type": "boolean",
@@ -129,7 +130,8 @@
         { "value": "en", "label": "English" },
         { "value": "es", "label": "Spanish" },
         { "value": "id", "label": "Indonesian" },
-        { "value": "zh", "label": "Chinese" }
+        { "value": "zh", "label": "Chinese" },
+        { "value": "ka", "label": "Georgian" }
       ]
     }, {
       "type": "string",
