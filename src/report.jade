@@ -5,8 +5,8 @@ block append styles
     :stylus
       @require 'css/report'
       
-  link(rel='stylesheet', href='http://js.arcgis.com/#{esriVersion}/esri/css/esri.css')
-  link(rel='stylesheet', href='http://js.arcgis.com/#{esriVersion}/dijit/themes/tundra/tundra.css')
+  link(rel='stylesheet', href='https://js.arcgis.com/#{esriVersion}/esri/css/esri.css')
+  link(rel='stylesheet', href='https://js.arcgis.com/#{esriVersion}/dijit/themes/tundra/tundra.css')
 
 
 block append content
@@ -73,7 +73,6 @@ block append esri-script
     }
     // Change this to '' if _app.base is a remote url
     var base = location.href.replace(/\/[^/]+$/, '');
-    // var base = 'http://s3.amazonaws.com/summertop/gfw-mapbuilder/0.1.26';
     // Add trailing slash if it is not present
     base = makePath(base);
     // Add _app.base if it is present

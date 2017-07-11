@@ -35,6 +35,7 @@ html
       var base = location.href.replace(/\/[^/]+$/, '');
       // Add trailing slash if it is not present
       base = makePath(base);
+
       // Add _app.base if it is present
       if (_app.base) { base = makePath(base, _app.base); }
       var dojoConfig = {
@@ -59,7 +60,8 @@ html
           ['babel-polyfill', 'vendor/babel-polyfill/browser-polyfill'],
           ['jquery', 'vendor/jquery/dist/jquery.min'],
           ['picker', 'vendor/pickadate/lib/compressed/picker'],
-          ['pickadate', 'vendor/pickadate/lib/compressed/picker.date']
+          ['pickadate', 'vendor/pickadate/lib/compressed/picker.date'],
+          ['FileSaver', 'vendor/file-saver.js/FileSaver']
         ],
         deps: ['dojo/domReady!'],
         callback: function () {require(['js/main']);}
@@ -100,7 +102,7 @@ html
     //-   }
     //-
     //-   loadjsfile('/vendor/arcgis-api/dojo/dojo.js', base);
-    script(src='//my.gfw-mapbuilder.org/js/arcgis-api-mapbuilder-1.2/dojo/dojo.js', async)
+    script(src='https://my.gfw-mapbuilder.org/js/arcgis-api-mapbuilder-1.2/dojo/dojo.js', async)
     //- DEV: Use the normal JSAPI
     //script(src='//js.arcgis.com/#{esriVersion}/init.js', async)
     //- script(src='vendor/dojo/dojo.js', async)

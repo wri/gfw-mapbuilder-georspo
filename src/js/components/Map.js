@@ -307,6 +307,8 @@ export default class Map extends Component {
       visibleLayers
     } = this.state;
 
+    const { settings } = this.context;
+
     const timeSlider = webmapInfo && webmapInfo.widgets && webmapInfo.widgets.timeSlider;
     const timeWidgets = [];
 
@@ -331,7 +333,7 @@ export default class Map extends Component {
           <TabButtons {...this.state} />
           <TabView {...this.state} />
           {map.loaded ? <Legend tableOfContentsVisible={this.state.tableOfContentsVisible} visibleLayers={visibleLayers} legendOpen={this.state.legendOpen} /> : null}
-          <FooterInfos map={map} />
+          <FooterInfos hidden={settings.hideHeaderFooter} map={map} />
           {timeWidgets}
           <svg className={`map__viewfinder${map.loaded ? '' : ' hidden'}`}>
             <use xlinkHref='#shape-crosshairs' />
