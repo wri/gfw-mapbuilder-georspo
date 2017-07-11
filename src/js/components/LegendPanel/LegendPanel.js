@@ -156,7 +156,7 @@ export default class LegendPanel extends Component {
     );
   }
 
-  processWebmapDiv = (childComponent, index) => {
+  webmapDiv = (childComponent, index) => {
     return (
       <div key={index}>
         <div>{childComponent}</div>
@@ -177,19 +177,26 @@ export default class LegendPanel extends Component {
       rootClasses += ' hidden';
     }
 
+    // Processing the webmap legend
     const webmapChildComponents = [];
-
+    let legendComponents;
     const layerGroups = settings.layerPanel;
     const layers = layerGroups.GROUP_WEBMAP.layers;
-    layers.forEach((layer, index) => {
-      const subLayerConf = utils.getObject(layerGroups.GROUP_WEBMAP.layers, 'subId', layer.subId);
-      const layerConf = utils.getWebMapObject(legendLayers, 'layer', 'id', layer.id);
-      const childComponent = <WebMapLegend url={layerConf.url} labels={subLayerConf.label} visibility={layer.visible} settings={settings} visibleLayers={visibleLayers} map={map} layerSubIndex={subLayerConf.subIndex} layerId={subLayerConf.subId} language={language}/>;
-      webmapChildComponents.push(this.processWebmapDiv(childComponent, index + 1000));
-    });
 
-    let legendComponents = legendLayers.map(this.createLegend);
-    legendComponents = legendComponents.concat(webmapChildComponents);
+    if(layers !== undefined && layers !== [] && layers !== '') {
+      // Going through each webmap layer and creating a unique legend component
+      layers.forEach((layer, index) => {
+        const subLayerConf = utils.getObject(layerGroups.GROUP_WEBMAP.layers, 'subId', layer.subId);
+        const layerConf = utils.getWebMapObject(legendLayers, 'layer', 'id', layer.id);
+        const childComponent = <WebMapLegend url={layerConf.url} labels={subLayerConf.label} visibility={layer.visible} settings={settings} visibleLayers={visibleLayers} map={map} layerSubIndex={subLayerConf.subIndex} layerId={subLayerConf.subId} language={language}/>;
+        webmapChildComponents.push(this.webmapDiv(childComponent, index + 1000));
+      });
+
+      legendComponents = legendLayers.map(this.createLegend);
+      legendComponents = legendComponents.concat(webmapChildComponents);
+    } else {
+      legendComponents = legendLayers.map(this.createLegend);
+    }
 
     return (
       <div className={rootClasses}>
