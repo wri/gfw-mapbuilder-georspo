@@ -251,7 +251,6 @@ export default declare('CartoLayer', [GraphicsLayer], {
           responses.forEach((data) => {
             cartoLayers.forEach((layer) => {
               if(data.cartoTemplate === layer.id) {
-                debugger;
                 layer.symbol = data.symbol;
               }
             });
