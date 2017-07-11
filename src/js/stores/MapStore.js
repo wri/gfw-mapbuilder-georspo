@@ -82,8 +82,6 @@ class MapStore {
       updateImazonAlertSettings: mapActions.updateImazonAlertSettings,
       toggleMobileTimeWidgetVisible: mapActions.toggleMobileTimeWidgetVisible,
       showLoading: layerActions.showLoading,
-      addVisibleLayer: layerActions.addVisibleLayer,
-      removeVisibleLayer: layerActions.removeVisibleLayer,
       updateCartoSymbol: layerActions.updateCartoSymbol
     });
   }
@@ -178,18 +176,6 @@ class MapStore {
 
   updateCartoSymbol (symbol) {
     this.cartoSymbol = symbol;
-  }
-
-  addVisibleLayer (layer) {
-    const temp = JSON.parse(JSON.stringify(this.visibleLayers));
-    temp.push(layer);
-    this.visibleLayers = temp;
-  }
-
-  removeVisibleLayer (layerId) {
-    const temp = JSON.parse(JSON.stringify(this.visibleLayers));
-    temp.splice(temp.indexOf(layerId), 1);
-    this.visibleLayers = temp;
   }
 
   changeActiveTab (payload) {

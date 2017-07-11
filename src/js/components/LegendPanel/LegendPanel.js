@@ -165,7 +165,7 @@ export default class LegendPanel extends Component {
   }
 
   render () {
-    const {tableOfContentsVisible, legendOpen, visibleLayers} = this.props;
+    const {tableOfContentsVisible, legendOpen, activeLayers} = this.props;
     const {language, settings, map} = this.context;
 
     const legendLayers = this.getLayersForLegend();
@@ -188,7 +188,7 @@ export default class LegendPanel extends Component {
       layers.forEach((layer, index) => {
         const subLayerConf = utils.getObject(layerGroups.GROUP_WEBMAP.layers, 'subId', layer.subId);
         const layerConf = utils.getWebMapObject(legendLayers, 'layer', 'id', layer.id);
-        const childComponent = <WebMapLegend url={layerConf.url} labels={subLayerConf.label} visibility={layer.visible} settings={settings} visibleLayers={visibleLayers} map={map} layerSubIndex={subLayerConf.subIndex} layerId={subLayerConf.subId} language={language}/>;
+        const childComponent = <WebMapLegend url={layerConf.url} labels={subLayerConf.label} visibility={layer.visible} settings={settings} visibleLayers={activeLayers} map={map} layerSubIndex={subLayerConf.subIndex} layerId={subLayerConf.subId} language={language}/>;
         webmapChildComponents.push(this.webmapDiv(childComponent, index + 1000));
       });
 

@@ -41,14 +41,6 @@ class LayerActions {
     };
   }
 
-  addVisibleLayer (layer) {
-    return layer;
-  }
-
-  removeVisibleLayer (layer) {
-    return layer;
-  }
-
   setLossOptions (lossOptionsData) {
     return lossOptionsData;
   }

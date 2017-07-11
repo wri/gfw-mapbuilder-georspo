@@ -81,22 +81,18 @@ export default class LayerCheckbox extends Component {
     if (layer.subId) {
       // TODO:  Update visible layers.
       if (this.props.checked) {
-        layerActions.removeVisibleLayer(layer.subId);
         layerActions.removeSubLayer(layer);
         layer.visible = false;
       } else {
-        layerActions.addVisibleLayer(layer.subId);
         layerActions.addSubLayer(layer);
         layer.visible = true;
       }
     } else {
       if (this.props.checked) {
         layer.visible = false;
-        layerActions.removeVisibleLayer(layer.id);
         layerActions.removeActiveLayer(layer.id);
       } else {
         layer.visible = true;
-        layerActions.addVisibleLayer(layer.id);
         layerActions.addActiveLayer(layer.id);
       }
     }
