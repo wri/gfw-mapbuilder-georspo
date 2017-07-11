@@ -2,7 +2,7 @@ import Request from 'utils/request';
 import utils from 'utils/AppUtils';
 import React from 'react';
 
-export default class MangroveLegend extends React.Component {
+export default class LayerLegend extends React.Component {
 
   constructor (props) {
     super(props);
@@ -10,6 +10,7 @@ export default class MangroveLegend extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    debugger;
     if(this.props.visibleLayers.indexOf(this.props.layerId) > -1 && prevProps.visibleLayers.indexOf(this.props.layerId) === -1) {
       this.setState({ visible: true });
     }
@@ -37,10 +38,15 @@ export default class MangroveLegend extends React.Component {
 
   render () {
     const layerGroups = this.props.settings.layerPanel;
-    const layerConf = utils.getObject(layerGroups.GROUP_LC.layers, 'id', this.props.layerId);
-
     let bool = '';
-    let label;
+    let label = '';
+    let layerConf;
+
+    if(utils.getObject(layerGroups.GROUP_LC.layers, 'id', this.props.layerId)) {
+      layerConf = utils.getObject(layerGroups.GROUP_LC.layers, 'id', this.props.layerId);
+    } else if(utils.getObject(layerGroups.GROUP_LCD.layers, 'id', this.props.layerId)) {
+      layerConf = utils.getObject(layerGroups.GROUP_LCD.layers, 'id', this.props.layerId);
+    }
 
     if(this.state.visible === false) {
       bool = 'hidden';
@@ -51,7 +57,7 @@ export default class MangroveLegend extends React.Component {
 
     return (
       <div className={`parent-legend-container ${bool}`} ref="myRef">
-        <div className='test'>{label}</div>
+        <div className='label-container'>{label}</div>
         <div className={`legend-container ${bool}`}>
           {this.state.legendInfos.length === 0 ? '' :
             <div className='crowdsource-legend'>

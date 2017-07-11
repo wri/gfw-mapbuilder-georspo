@@ -1,19 +1,9 @@
 import layerKeys from 'constants/LayerConstants';
 import React, {PropTypes, Component} from 'react';
 import mapActions from 'actions/MapActions';
-import CartoLegend from 'components/LegendPanel/CartoLegend';
-import MangroveLegend from 'components/LegendPanel/MangroveLegend';
-import BiomassLegend from 'components/LegendPanel/BiomassLegend';
-import TerraLegend from 'components/LegendPanel/TerraLegend';
-import GladLegend from 'components/LegendPanel/GladLegend';
-import FiresLegend from 'components/LegendPanel/FiresLegend';
-import LandCoverLegend from 'components/LegendPanel/LandCoverLegend';
-import TreeCoverLegend from 'components/LegendPanel/TreeCoverLegend';
-import TreeCoverGainLegend from 'components/LegendPanel/TreeCoverGainLegend';
-import TreeCoverLossLegend from 'components/LegendPanel/TreeCoverLossLegend';
+// import CartoLegend from 'components/LegendPanel/CartoLegend';
 import WebMapLegend from 'components/LegendPanel/WebMapLegend';
-import SADLegend from 'components/LegendPanel/SADLegend';
-import IFLLegend from 'components/LegendPanel/IFLLegend';
+import LayerLegend from 'components/LegendPanel/LayerLegend';
 import utils from 'utils/AppUtils';
 import {urls} from 'js/config';
 import text from 'js/languages';
@@ -99,37 +89,37 @@ export default class LegendPanel extends Component {
 
     switch(layerDiv.layer.id) {
       case 'IFL':
-        childComponent = <IFLLegend url={layerDiv.layer.url} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <LayerLegend url={layerDiv.layer.url} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'IMAZON_SAD':
-        childComponent = <SADLegend url={layerDiv.layer.url} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <LayerLegend url={layerDiv.layer.url} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'ACTIVE_FIRES':
-        childComponent = <FiresLegend url={layerDiv.layer.url} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <LayerLegend url={layerDiv.layer.url} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.layerIds} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'GLOB_MANGROVE':
-        childComponent = <MangroveLegend url={urls.esriLegendService} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <LayerLegend url={urls.esriLegendService} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'AG_BIOMASS':
-        childComponent = <BiomassLegend url={urls.esriLegendService} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <LayerLegend url={urls.esriLegendService} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'TERRA_I_ALERTS':
-        childComponent = <TerraLegend url={urls.esriLegendService} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <LayerLegend url={urls.esriLegendService} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'GLAD_ALERTS':
-        childComponent = <GladLegend url={urls.esriLegendService} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <LayerLegend url={urls.esriLegendService} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'TREE_COVER_GAIN':
-        childComponent = <TreeCoverGainLegend url={urls.esriLegendService} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <LayerLegend url={urls.esriLegendService} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'TREE_COVER_LOSS':
-        childComponent = <TreeCoverLossLegend url={urls.esriLegendService} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <LayerLegend url={urls.esriLegendService} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'LAND_COVER':
-        childComponent = <LandCoverLegend url={urls.esriLegendService} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <LayerLegend url={urls.esriLegendService} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       case 'TREE_COVER':
-        childComponent = <TreeCoverLegend url={urls.esriLegendService} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
+        childComponent = <LayerLegend url={urls.esriLegendService} settings={settings} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} map={map} layerId={layerDiv.layer.id} language={language}/>;
         break;
       default:
         if(layerDiv.layer.type === undefined && layerDiv.layer.arcgisProps && layerDiv.layer._basemapGalleryLayerType !== 'basemap') {
