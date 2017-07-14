@@ -17,8 +17,7 @@ export default class LayerLegend extends React.Component {
   componentDidUpdate(prevProps) {
     if(this.props.visibleLayers.indexOf(this.props.layerId) > -1 && prevProps.visibleLayers.indexOf(this.props.layerId) === -1) {
       this.setState({ visible: true });
-    }
-    else if(this.props.visibleLayers.indexOf(this.props.layerId) === -1 && prevProps.visibleLayers.indexOf(this.props.layerId) > -1) {
+    } else if(this.props.visibleLayers.indexOf(this.props.layerId) === -1 && prevProps.visibleLayers.indexOf(this.props.layerId) > -1) {
       this.setState({ visible: false });
     }
   }
@@ -56,7 +55,6 @@ export default class LayerLegend extends React.Component {
     if(this.state.visible === false) {
       bool = 'hidden';
     } else {
-      bool = '';
       label = layerConf.label[language];
     }
 
