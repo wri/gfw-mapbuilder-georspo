@@ -23,7 +23,6 @@ class MapStore {
     this.basemap = null;
     this.legendOpen = false;
     this.landsatVisible = false;
-    this.visibleLayers = [];
     this.dynamicLayers = {};
     this.activeAnalysisType = '';
     this.cartoSymbol = {};

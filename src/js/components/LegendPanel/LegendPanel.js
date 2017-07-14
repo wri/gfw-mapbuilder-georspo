@@ -61,25 +61,25 @@ export default class LegendPanel extends Component {
         }
       });
     }
-
-    function compare(a, b) {
-      if(a.layer.order === undefined) {
-        a.layer.order = 0;
-      }
-      if(b.layer.order === undefined) {
-        b.layer.order = 0;
-      }
-      if(a.layer.order < b.layer.order) {
-        return 1;
-      }
-      if(a.layer.order > b.layer.order) {
-        return -1;
-      }
-      return 0;
-    }
-    legendInfos.sort(compare);
+    legendInfos.sort(this.compare);
 
     return legendInfos;
+  }
+
+  compare = (a, b) => {
+    if(a.layer.order === undefined) {
+      a.layer.order = 0;
+    }
+    if(b.layer.order === undefined) {
+      b.layer.order = 0;
+    }
+    if(a.layer.order < b.layer.order) {
+      return 1;
+    }
+    if(a.layer.order > b.layer.order) {
+      return -1;
+    }
+    return 0;
   }
 
   createLegend = (layerDiv, index) => {
@@ -156,7 +156,7 @@ export default class LegendPanel extends Component {
 
   render () {
     const {tableOfContentsVisible, legendOpen, activeLayers} = this.props;
-    const {language, settings, map} = this.context;
+    const {language, settings } = this.context;
 
     const legendLayers = this.getLayersForLegend();
 
@@ -178,7 +178,7 @@ export default class LegendPanel extends Component {
       layers.forEach((layer, index) => {
         const subLayerConf = utils.getObject(layerGroups.GROUP_WEBMAP.layers, 'subId', layer.subId);
         const layerConf = utils.getWebMapObject(legendLayers, 'layer', 'id', layer.id);
-        const childComponent = <WebMapLegend url={layerConf.url} labels={subLayerConf.label} visibility={layer.visible} settings={settings} visibleLayers={activeLayers} map={map} layerSubIndex={subLayerConf.subIndex} layerId={subLayerConf.subId} language={language}/>;
+        const childComponent = <WebMapLegend url={layerConf.url} labels={subLayerConf.label} visibility={layer.visible} visibleLayers={activeLayers} layerSubIndex={subLayerConf.subIndex} layerId={subLayerConf.subId}/>;
         webmapChildComponents.push(this.webmapDiv(childComponent, index + 1000));
       });
 
@@ -208,7 +208,6 @@ export default class LegendPanel extends Component {
 
         <div className='legend-layers'>
           <div className='legendContainer'>{legendComponents}</div>
-          <div id='legend' ref='legendNode' className={`${legendOpen ? '' : 'hidden'}`}></div>
         </div>
       </div>
     );
