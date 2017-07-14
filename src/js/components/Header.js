@@ -17,9 +17,10 @@ export default class Header extends Component {
       settings
     } = this.context;
 
-    const {labels} = settings;
+    const {labels, hideHeaderFooter} = settings;
     let title = '';
     let subtitle = '';
+
 
     if (labels) {
       const text = labels[language];
@@ -30,7 +31,7 @@ export default class Header extends Component {
     }
 
     return (
-      <div className='app-header'>
+      <div className={`app-header ${hideHeaderFooter ? 'hidden' : ''}`}>
         <div className='app-header__logo-container'>
           <a href={settings.logoLinkUrl} target='_blank'>
             <img className='app-header__logo' src={settings.logoUrl} />
