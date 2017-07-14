@@ -1,8 +1,13 @@
 import Request from 'utils/request';
+import React, {PropTypes} from 'react';
 import utils from 'utils/AppUtils';
-import React from 'react';
 
 export default class LayerLegend extends React.Component {
+
+  static contextTypes = {
+    settings: PropTypes.object.isRequired,
+    language: PropTypes.string.isRequired
+  };
 
   constructor (props) {
     super(props);
@@ -36,7 +41,8 @@ export default class LayerLegend extends React.Component {
   }
 
   render () {
-    const layerGroups = this.props.settings.layerPanel;
+    const { settings, language } = this.context;
+    const layerGroups = settings.layerPanel;
     let bool = '';
     let label = '';
     let layerConf;
@@ -51,7 +57,7 @@ export default class LayerLegend extends React.Component {
       bool = 'hidden';
     } else {
       bool = '';
-      label = layerConf.label[this.props.language];
+      label = layerConf.label[language];
     }
 
     return (
