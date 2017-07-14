@@ -7,13 +7,13 @@ import Polygon from 'esri/geometry/Polygon';
 import {getUrlParams} from 'utils/params';
 import {analysisConfig} from 'js/config';
 import layerFactory from 'utils/layerFactory';
+import geojsonUtil from 'utils/arcgis-to-geojson';
 import esriRequest from 'esri/request';
 import template from 'utils/template';
 import appUtils from 'utils/AppUtils';
 import locale from 'dojo/date/locale';
 import Deferred from 'dojo/Deferred';
 import symbols from 'utils/symbols';
-import request from 'utils/request';
 import arcgisUtils from 'esri/arcgis/utils';
 import all from 'dojo/promise/all';
 import Graphic from 'esri/graphic';
@@ -21,7 +21,6 @@ import resources from 'resources';
 import charts from 'utils/charts';
 import number from 'dojo/number';
 import text from 'js/languages';
-import Map from 'esri/map';
 
 let map;
 
@@ -51,37 +50,38 @@ const getApplicationInfo = function getApplicationInfo (params) {
       error: new Error('Missing Webmap Id. We need atleast one.')
     });
   }
-
   return promise;
 };
 
 const getFeature = function getFeature (params) {
-  const { idvalue, service, layerid } = params;
+  const { idvalue } = params;
   const promise = new Deferred();
-  if (idvalue && service && layerid) {
-    //- This assumes id field is object id, if thats not the case, will need a different request method
-    request.queryTaskById(`${service}/${layerid}`, idvalue).then((results) => {
-      const feature = results.features[0];
-      if (feature) {
-        promise.resolve({
-          attributes: feature.attributes,
-          geometry: feature.geometry,
-          title: params.custom ? feature.attributes.title : feature.attributes[results.displayFieldName],
-          isCustom: params.custom
-        });
-      } else {
-        promise.reject({ error: new Error('Unable to query for feature. Check the configuration.') });
-      }
-      if (brApp.debug) { console.log('getFeature: ', results); }
+  if (idvalue) {
+    esriRequest({
+      url: 'https://production-api.globalforestwatch.org/geostore/' + idvalue,
+      callbackParamName: 'callback',
+      handleAs: 'json',
+      timeout: 30000
+    }, { usePost: false}).then(geostoreResult => {
+      const esriJson = geojsonUtil.geojsonToArcGIS(geostoreResult.data.attributes.geojson.features[0].geometry);
+      promise.resolve({
+        attributes: geostoreResult.data.attributes,
+        geostoreId: geostoreResult.data.id,
+        geometry: esriJson,
+        title: 'Tims layer',
+        isCustom: true // TODO MAKE SURE NOT TO HARD CODE THAT IN
+      });
+    }, err => {
+      console.error(err);
+      promise.resolve([]);
     });
   } else {
     promise.reject({ error: new Error('Unable to retrieve feature.') });
   }
-
   return promise;
 };
 
-const createLayers = function createLayers (layerPanel, activeLayers, language, service) {
+const createLayers = function createLayers (layerPanel, activeLayers, language) {
     //- Organize and order the layers before adding them to the map
     let layers = Object.keys(layerPanel).filter((groupName) => {
       //- remove basemaps and extra layers, extra layers will be added later and basemaps
@@ -105,16 +105,12 @@ const createLayers = function createLayers (layerPanel, activeLayers, language, 
     layers = layers.concat(layerPanel.extraLayers);
 
     //- remove custom features from the layersToAdd if we don't need it to avoid AGOL Auth
-    const USER_FEATURES_CONFIG = appUtils.getObject(resources.layerPanel.extraLayers, 'id', layerKeys.USER_FEATURES);
-    const custom = USER_FEATURES_CONFIG.url.search(service) > -1;
-    if (custom === false) {
-      layers.forEach((layer, i) => {
-        if (layer.id === 'USER_FEATURES') {
-          layers.splice(i, 1);
-          return;
-        }
-      });
-    }
+    layers.forEach((layer, i) => {
+      if (layer.id === 'USER_FEATURES') {
+        layers.splice(i, 1);
+        return;
+      }
+    });
 
     //- make sure there's only one entry for each dynamic layer
     const uniqueLayers = [];
@@ -141,19 +137,19 @@ const createLayers = function createLayers (layerPanel, activeLayers, language, 
 
     map.addLayers(esriLayers);
     // If there is an error with a particular layer, handle that here
-    // map.on('layers-add-result', result => {
-    //   const addedLayers = result.layers;
-    //   // Check for Errors
-    //   var layerErrors = addedLayers.filter(layer => layer.error);
-    //   if (layerErrors.length > 0) { console.error(layerErrors); }
-    //   //- Sort the layers, Webmap layers need to be ordered, unfortunately graphics/feature
-    //   //- layers wont be sorted, they always show on top
-    //   uniqueLayers.forEach((layer) => {
-    //     if (map.getLayer(layer.id) && layer.order) {
-    //       map.reorderLayer(map.getLayer(layer.id), layer.order);
-    //     }
-    //   });
-    // });
+    map.on('layers-add-result', result => {
+      const addedLayers = result.layers;
+      // Check for Errors
+      var layerErrors = addedLayers.filter(layer => layer.error);
+      if (layerErrors.length > 0) { console.error(layerErrors); }
+      //- Sort the layers, Webmap layers need to be ordered, unfortunately graphics/feature
+      //- layers wont be sorted, they always show on top
+      uniqueLayers.forEach((layer) => {
+        if (map.getLayer(layer.id) && layer.order) {
+          map.reorderLayer(map.getLayer(layer.id), layer.order);
+        }
+      });
+    });
 
 };
 
@@ -169,69 +165,47 @@ const createMap = function createMap (params) {
   };
 
   arcgisUtils.createMap(params.webmap, 'map', { mapOptions: options }).then(response => {
-  //   // Add operational layers from the webmap to the array of layers from the config file.
-  //   const {itemData} = response.itemInfo;
-  //   this.addLayersToLayerPanel(settings, itemData.operationalLayers);
+    map = response.map;
 
-  // map = new Map('map', {
-  //   center: [-8.086, 21.085],
-  //   basemap: basemap || 'topo',
-  //   slider: false,
-  //   logo: false,
-  //   zoom: 2
-  // });
-  map = response.map;
+    map.disableKeyboardNavigation();
+    map.disableMapNavigation();
+    map.disableRubberBandZoom();
+    map.disablePan();
 
-  // map.on('load', () => {
-	map.disableKeyboardNavigation();
-	map.disableMapNavigation();
-	map.disableRubberBandZoom();
-	map.disablePan();
-  // });
+    all({
+      feature: getFeature(params),
+      info: getApplicationInfo(params)
+    }).always((featureResponse) => {
+      //- Bail if anything failed
+      if (featureResponse.error) {
+        throw featureResponse.error;
+      }
 
-  all({
-    feature: getFeature(params),
-    info: getApplicationInfo(params)
-  }).always((featureResponse) => {
-    //- Bail if anything failed
-    if (featureResponse.error) {
-      throw featureResponse.error;
-    }
-
-    const { feature, info } = featureResponse;
-    //- Add Popup Info Now
-    addTitleAndAttributes(params, feature, info);
-    //- Need the map to be loaded to add graphics
-    if (map.loaded) {
-      setupMap(params, feature);
-    } else {
-      map.on('load', () => {
+      const { feature, info } = featureResponse;
+      //- Add Popup Info Now
+      addTitleAndAttributes(params, feature, info);
+      //- Need the map to be loaded to add graphics
+      if (map.loaded) {
         setupMap(params, feature);
-      });
-    }
+      } else {
+        map.on('load', () => {
+          setupMap(params, feature);
+        });
+      }
 
-    //- Currently we do not support points, so if its a point, just bail
-    if (feature.geometry.type !== analysisKeys.GEOMETRY_POLYGON) {
-      return;
-    }
+      //- Add the settings to the params so we can omit layers or do other things if necessary
+      //- If no appid is provided, the value here is essentially resources.js
+      params.settings = info.settings;
 
-    //- Add the settings to the params so we can omit layers or do other things if necessary
-    //- If no appid is provided, the value here is essentially resources.js
-    params.settings = info.settings;
-
-    //- Make sure highcharts is loaded before using it
-    if (window.highchartsPromise.isResolved()) {
-      runAnalysis(params, feature);
-    } else {
-      window.highchartsPromise.then(() => {
+      //- Make sure highcharts is loaded before using it
+      if (window.highchartsPromise.isResolved()) {
         runAnalysis(params, feature);
-      });
-    }
-  });
-
-
-
-
+      } else {
+        window.highchartsPromise.then(() => {
+          runAnalysis(params, feature);
+        });
+      }
+    });
 	});
 };
 
@@ -654,7 +628,8 @@ const runAnalysis = function runAnalysis (params, feature) {
       geometry: feature.geometry,
       settings: settings,
       canopyDensity: tcd,
-      language: lang
+      language: lang,
+      geostoreId: feature.geostoreId
     }).then((results) => {
       const { labels, colors } = analysisConfig[analysisKeys.BIO_LOSS];
       const { data } = results;
@@ -685,24 +660,6 @@ const runAnalysis = function runAnalysis (params, feature) {
         content.add();
 
       });
-      // const { counts, encoder } = results;
-      // const Xs = encoder.A;
-      // const Ys = encoder.B;
-      // const chartInfo = charts.formatSeriesWithEncoder({
-      //   encoder: encoder,
-      //   counts: counts,
-      //   labels: labels,
-      //   colors: colors,
-      //   Xs: Xs,
-      //   Ys: Ys
-      // });
-      //
-      // if (chartInfo.series && chartInfo.series.length) {
-      //   charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
-      // } else {
-      //   node.remove();
-      // }
-
     });
   } else {
     const node = document.getElementById('bio-loss');
@@ -977,21 +934,9 @@ export default {
     //- Get params necessary for the report
     const params = getUrlParams(location.href);
     if (brApp.debug) { console.log(params); }
+
     //- Add Title, Subtitle, and logo right away
     addHeaderContent(params);
-    // Get the config for the user features layer in case we need it
-    const USER_FEATURES_CONFIG = appUtils.getObject(resources.layerPanel.extraLayers, 'id', layerKeys.USER_FEATURES);
-    //- Augment params and add a custom attribute if this is from the user_features layer
-    params.custom = USER_FEATURES_CONFIG.url.search(params.service) > -1;
-
-    //- Setup the Request Pre Callback to handle tokens for tokenized services
-    esriRequest.setRequestPreCallback((ioArgs) => {
-      // Add token for user features service
-      if (ioArgs.url.search(params.service) > -1 && params.custom) {
-        ioArgs.content.token = resources.userFeatureToken[location.hostname];
-      }
-      return ioArgs;
-    });
 
     //- Create the map as soon as possible
     createMap(params);

@@ -5,7 +5,6 @@ import {analysisConfig} from 'js/config';
 import Deferred from 'dojo/Deferred';
 import utils from 'utils/AppUtils';
 import all from 'dojo/promise/all';
-import GeometryEngine from 'esri/geometry/geometryEngine';
 
 /**
 * @param {object} options - Value from Analysis Select, also key to options in config
@@ -18,7 +17,7 @@ import GeometryEngine from 'esri/geometry/geometryEngine';
 * @return {promise}
 */
 export default function performAnalysis (options) {
-  const {type, geometry, canopyDensity, activeSlopeClass, settings} = options;
+  const {type, geometry, canopyDensity, activeSlopeClass, settings, geostoreId} = options;
   const restorationUrl = settings && settings.restorationImageServer;
   const landCoverConfig = settings && settings.layerPanel && settings.layerPanel.GROUP_LC ?
     utils.getObject(settings.layerPanel.GROUP_LC.layers, 'id', layerKeys.LAND_COVER) : {};
@@ -59,8 +58,8 @@ export default function performAnalysis (options) {
       }).then(promise.resolve);
     break;
     case analysisKeys.BIO_LOSS:
-      const generalizedGeometry = GeometryEngine.generalize(geometry, 10, true, 'miles');
-      analysisUtils.getBiomassLoss(generalizedGeometry, canopyDensity).then(promise.resolve, promise.reject);
+      // const generalizedGeometry = GeometryEngine.generalize(geometry, 10, true, 'miles');
+      analysisUtils.getBiomassLoss(geometry, canopyDensity, geostoreId).then(promise.resolve, promise.reject);
     break;
     case analysisKeys.INTACT_LOSS:
       analysisUtils.getCrossedWithLoss(config, analysisConfig[analysisKeys.TC_LOSS], geometry, {
