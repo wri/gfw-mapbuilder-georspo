@@ -18,15 +18,16 @@ export default class Header extends Component {
     } = this.context;
 
     const {labels, hideHeaderFooter} = settings;
-    let title, subtitle;
+    let title = '';
+    let subtitle = '';
+
 
     if (labels) {
       const text = labels[language];
-      title = text.title;
-      subtitle = text.subtitle;
-    } else {
-      title = '';
-      subtitle = '';
+      if (text) {
+        title = text.title;
+        subtitle = text.subtitle;
+      }
     }
 
     return (
