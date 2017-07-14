@@ -154,7 +154,7 @@ export default {
         // maxDateValue: 16365,
         // confidence: [0, 1],
         technicalName: 'tree_cover_loss',
-        legendLayer: 0,
+        legendLayer: [0],
         // colormap: [[1, 219, 101, 152]],
         // inputRange: [1, 15],
         // outputRange: [1],
@@ -183,7 +183,7 @@ export default {
         // url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
         url: 'https://earthengine.google.org/static/hansen_2013/gain_alpha/{z}/{x}/{y}.png',
         technicalName: 'tree_cover_gain',
-        legendLayer: 1,
+        legendLayer: [1],
         label: {
           en: 'Tree cover gain',
           fr: 'Gain en couvert arboré',
@@ -233,7 +233,7 @@ export default {
         type: 'glad',
         url: 'https://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
         technicalName: 'umd_landsat_alerts',
-        legendLayer: 7,
+        legendLayer: [7],
         minDateValue: 15000,
         maxDateValue: 999999,
         confidence: [0, 1],
@@ -261,7 +261,7 @@ export default {
         type: 'terra',
         url: 'https://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
         technicalName: 'terra_i_alerts',
-        legendLayer: 13,
+        legendLayer: [13],
         maxZoom: 10,
         minDateValue: 4000, //We know data starts in 2004
         // We are setting this way over max, the max date will get set set when TerraIControls mounts
@@ -292,7 +292,7 @@ export default {
         type: 'dynamic',
         url: 'https://gis-gfw.wri.org/arcgis/rest/services/Fires/FIRMS_Global/MapServer',
         technicalName: 'noaa18_fires',
-        layerIds: [0, 1, 2, 3],
+        layerIds: [8],
         label: {
           en: 'Active fires',
           fr: 'Feux actifs',
@@ -355,7 +355,7 @@ export default {
         url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/209485bfcb3eafb435befa0c405242ae:1467735931596/0/{level}/{col}/{row}.png',
         subDomains: [0, 1, 2, 3],
         technicalName: 'global_mangroves',
-        legendLayer: 11,
+        legendLayer: [11],
         label: {
           en: 'Global Mangrove',
           fr: 'Global Mangrove',
@@ -387,7 +387,7 @@ export default {
         type: 'image',
         url: 'https://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
         technicalName: 'aboveground_biomass',
-        legendLayer: 8,
+        legendLayer: [8],
         label: {
           en: 'Aboveground Live Woody Biomass Density',
           fr: 'Densité de la biomasse aérienne vivante',
@@ -403,7 +403,7 @@ export default {
         type: 'webtiled',
         url: 'https://wri-tiles.s3.amazonaws.com/global-landcover/{level}/{col}/{row}.png',
         technicalName: 'global_landcover',
-        legendLayer: 15,
+        legendLayer: [15],
         rasterId: '$568',
         bounds: [1, 16],
         classes: {
@@ -435,7 +435,7 @@ export default {
         inputRange: [30, 101],
         outputRange: [1],
         opacity: 0.8,
-        legendLayer: 2,
+      legendLayer: [2],
         label: {
           en: 'Tree cover density',
           fr: 'Densité du couvert arboré',
