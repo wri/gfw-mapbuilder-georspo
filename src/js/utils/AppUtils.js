@@ -135,7 +135,7 @@ const utils = {
   geometrySuccess: (response, options) => {
     const { settings, lang, canopyDensity, appid, activeSlopeClass, activeLayers } = options;
     const labels = settings.labels[lang];
-    
+
     const query = {
       title: labels.title,
       subtitle: labels.subtitle,

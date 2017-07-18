@@ -386,11 +386,9 @@ export default {
 
   getBiomassLoss: (geometry, canopyDensity, geostoreId) => {
     const deferred = new Deferred();
-    let geojson;
 
     // See if the geometry has already been processed or not
-    if(geometry.rings && geometry.spatialReference) {
-      geojson = geometry;
+    if (geostoreId) {
       const biomassData = {
         geostore: geostoreId,
         period: '2001-01-01,2014-12-31',
@@ -410,7 +408,7 @@ export default {
       });
     } else {
       const geographic = webmercatorUtils.webMercatorToGeographic(geometry);
-      geojson = geojsonUtil.arcgisToGeoJSON(geographic);
+      const geojson = geojsonUtil.arcgisToGeoJSON(geographic);
 
       const geoStore = {
         'geojson': {
