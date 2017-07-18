@@ -68,7 +68,7 @@ const getFeature = function getFeature (params) {
         attributes: geostoreResult.data.attributes,
         geostoreId: geostoreResult.data.id,
         geometry: esriJson,
-        title: 'Tims layer',
+        title: 'Custom Analysis',
         isCustom: true // TODO MAKE SURE NOT TO HARD CODE THAT IN
       });
     }, err => {
@@ -795,7 +795,8 @@ const runAnalysis = function runAnalysis (params, feature) {
       geometry: feature.geometry,
       settings: settings,
       canopyDensity: tcd,
-      language: lang
+      language: lang,
+      geostoreId: feature.geostoreId
     }).then((results) => {
       const node = document.getElementById('glad-alerts');
       const name = text[lang].ANALYSIS_GLAD_ALERT_NAME;
