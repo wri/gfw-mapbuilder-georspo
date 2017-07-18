@@ -85,18 +85,6 @@ export default {
   // DO NOT MODIFY SHARINGHOST unless you are configuring this for a Portal Environment
   sharinghost: 'https://www.arcgis.com',
   analyticsCode: '',
-  userFeatureToken: {
-    //- Localhost token for BR office
-    'tib': 'Xe4QHKF7wZGHOoQpCKDloPnyA4ZimKQ-dH3yAiA-UI9FNPSUG_mdnEiGQEfOCKmAXJzPDSzNRLdl_suxkimYaA..',
-    'localhost': 'Xe4QHKF7wZGHOoQpCKDloGqwWTeh9jD9CnQFU3Sh63nZ9cJx3xt7yCv4ERO6nqNZ',
-    'alpha.blueraster.io': 'Xe4QHKF7wZGHOoQpCKDloPjkD-_biQgy-OohOcZsjGZ4eUBtVi_45z1WcZV8arrCqiKDazcn3pIbm5icCHkHUg..',
-    'alpha.blueraster.io.s3.amazonaws.com': 'TjEeQfPMtR-0kjqzTqIZ7dagw25IJzDP02-D9WnUmPbMjcX-0zyr-9A_I9IqrImwJOwVpL_5qxPZAT-heBZ4RQ..',
-    //- Github token
-    'wri.github.io': 'Xe4QHKF7wZGHOoQpCKDloBTlYkjuSocYOZYTfNueQUh6q4EEmTOYgmpNIyS8VnOC_DEU2rxc8k0g7Ns3f31KQw..',
-    //- Production tokens
-    'my.gfw-mapbuilder.org': '8KiqcmKgUGK1iReXwjfOi0sCeJRiYKqRes6ntHJn5u2NFbgyri_cWB2i9WqjhAIt', // Valid until 6/26/2018
-    'wri-sites.s3-website-us-east-1.amazonaws.com': 'Nf_zOJfFogItxMAsdY01Y6PYDgjxr20igxJqCkHZqSr3m-w3OsxLgHirlnpCeMCozsiL_qip08UDNbSQAzD8TjJapWcOzsQSzeGmL-h9Ss8.' // Valid until 6/26/2018
-  },
 
   /**
   * Layer panel configuration, anything with an = is optional, {object=}
@@ -523,10 +511,7 @@ export default {
       layerIds: []
     }, {
       id: 'USER_FEATURES',
-      type: 'feature',
-      definitionExpression: '1 = 2', // show no features from the service ever
-      mode: 0, // equals MODE_SNAPSHOT
-      url: 'https://gis-gfw.wri.org/arcgis/rest/services/user_features/FeatureServer/1',
+      type: 'graphic',
       visible: true
     }]
   }

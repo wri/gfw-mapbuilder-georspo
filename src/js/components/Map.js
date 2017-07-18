@@ -84,16 +84,6 @@ export default class Map extends Component {
 
   componentDidMount() {
     MapStore.listen(this.storeDidUpdate);
-
-    // I only need the token and url for config items, so language does not matter
-    const USER_FEATURES_CONFIG = utils.getObject(resources.layerPanel.extraLayers, 'id', layerKeys.USER_FEATURES);
-    // Make sure all requests that use tokens have them
-    esriRequest.setRequestPreCallback((ioArgs) => {
-      if (ioArgs.url.search(USER_FEATURES_CONFIG.url) > -1) {
-        ioArgs.content.token = resources.userFeatureToken[location.hostname];
-      }
-      return ioArgs;
-    });
   }
 
   componentDidUpdate (prevProps, prevState) {
