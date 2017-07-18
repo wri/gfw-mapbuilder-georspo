@@ -291,16 +291,55 @@ export default {
     return promise;
   },
 
-  getGLADAlerts: function (config, geometry) {
+  getGLADAlerts: function (config, geometry, geostoreId) {
     const promise = new Deferred();
-    all([
-      this.getMosaic(config.lockrasters['2015'], geometry, config.url),
-      this.getMosaic(config.lockrasters['2016'], geometry, config.url),
-      this.getMosaic(config.lockrasters['2017'], geometry, config.url)
-    ]).then(results => {
-      const alerts = this.cleanGlad(results);
-      promise.resolve(alerts);
-    });
+
+    if (geostoreId) {
+      const biomassData = {
+        geostore: geostoreId,
+        period: '2015-01-01,2017-06-10',
+        aggregate_values: 'True',
+        aggregate_by: 'day'
+      };
+      esriRequest({
+        url: 'https://production-api.globalforestwatch.org/glad-alerts',
+        callbackParamName: 'callback',
+        content: biomassData,
+        handleAs: 'json',
+        timeout: 30000
+      }, { usePost: false}).then(gladResult => {
+        const alerts = this.cleanGlad(gladResult.data.attributes);
+        promise.resolve(alerts || []);
+      }, err => {
+        console.error(err);
+        promise.resolve([]);
+      });
+    } else {
+      const success = res => {
+        const biomassData = {
+          geostore: res.data.id,
+          period: '2015-01-01,2017-06-10',
+          aggregate_values: 'True',
+          aggregate_by: 'day'
+        };
+        esriRequest({
+          url: 'https://production-api.globalforestwatch.org/glad-alerts',
+          callbackParamName: 'callback',
+          content: biomassData,
+          handleAs: 'json',
+          timeout: 30000
+        }, { usePost: false}).then(gladResult => {
+          const alerts = this.cleanGlad(gladResult.data.attributes);
+          promise.resolve(alerts || []);
+        }, err => {
+          console.error(err);
+          promise.resolve([]);
+        });
+      };
+
+      this.registerGeom(geometry, success, promise);
+    }
+
     return promise;
   },
 
@@ -383,7 +422,7 @@ export default {
     return promise;
   },
 
-  getBiomassLoss: (geometry, canopyDensity, geostoreId) => {
+  getBiomassLoss: function (geometry, canopyDensity, geostoreId) {
     const deferred = new Deferred();
 
     // See if the geometry has already been processed or not
@@ -406,21 +445,6 @@ export default {
         deferred.resolve([]);
       });
     } else {
-      const geographic = webmercatorUtils.webMercatorToGeographic(geometry);
-      const geojson = geojsonUtil.arcgisToGeoJSON(geographic);
-
-      const geoStore = {
-        'geojson': {
-          'type': 'FeatureCollection',
-          'features': [{
-            'type': 'Feature',
-            'properties': {},
-            'geometry': geojson
-          }]
-        }
-      };
-
-      const content = JSON.stringify(geoStore);
 
       const success = res => {
         const biomassData = {
@@ -442,23 +466,44 @@ export default {
         });
       };
 
-      const http = new XMLHttpRequest();
-      const url = 'https://production-api.globalforestwatch.org/geostore';
-      const params = content;
-
-      http.open('POST', url, true);
-      http.setRequestHeader('Content-type', 'application/json');
-
-      http.onreadystatechange = () => {
-        if(http.readyState === 4 && http.status === 200) {
-          success(JSON.parse(http.responseText));
-        } else if (http.readyState === 4) {
-          deferred.resolve([]);
-        }
-      };
-      http.send(params);
+      this.registerGeom(geometry, success, deferred);
     }
+
     return deferred;
+  },
+
+  registerGeom: (geometry, success, deferred) => {
+    const geographic = webmercatorUtils.webMercatorToGeographic(geometry);
+    const geojson = geojsonUtil.arcgisToGeoJSON(geographic);
+
+    const geoStore = {
+      'geojson': {
+        'type': 'FeatureCollection',
+        'features': [{
+          'type': 'Feature',
+          'properties': {},
+          'geometry': geojson
+        }]
+      }
+    };
+
+    const content = JSON.stringify(geoStore);
+
+    const http = new XMLHttpRequest();
+    const url = 'https://production-api.globalforestwatch.org/geostore';
+    const params = content;
+
+    http.open('POST', url, true);
+    http.setRequestHeader('Content-type', 'application/json');
+
+    http.onreadystatechange = () => {
+      if(http.readyState === 4 && http.status === 200) {
+        success(JSON.parse(http.responseText));
+      } else if (http.readyState === 4) {
+        deferred.resolve([]);
+      }
+    };
+    http.send(params);
   },
 
   getCrossedWithLoss: (config, lossConfig, geometry, options) => {
@@ -537,29 +582,36 @@ export default {
 
   cleanGlad: (results) => {
     let alerts = [];
-    results.forEach((result, j) => {
-      if (j !== results.length - 1) {
-        for (var k = result.counts.length; k < 366; k++) {
-          result.counts.push(0);
-        }
-      } else {
-        const now = new Date();
-        const start = new Date(now.getFullYear(), 0, 0);
-        const diff = now - start;
-        const oneDay = 1000 * 60 * 60 * 24;
-        const day = Math.floor(diff / oneDay);
 
-        const dayDiff = day - result.counts.length;
+    const yearOne = [], yearTwo = [], yearThree = [];
+    for (let k = 1; k < 366; k++) {
+      yearOne.push(0);
+      yearTwo.push(0);
+    }
 
-        for (let l = 0; l < dayDiff; l++) {
-          result.counts.push(0);
-        }
-      }
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 0);
+    const diff = now - start;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const day = Math.floor(diff / oneDay);
 
-      let year = 2015 + j;
-      year = year.toString();
-      alerts = alerts.concat(formatters.gladAlerts(year, result.counts));
-    });
+    for (let l = 0; l < day; l++) {
+      yearThree.push(0);
+    }
+
+    for (const key in results['2015']) {
+      yearOne[key] = results['2015'][key];
+    }
+    for (const key in results['2016']) {
+      yearTwo[key] = results['2016'][key];
+    }
+    for (const key in results['2017']) {
+      yearThree[key] = results['2017'][key];
+    }
+
+    alerts = alerts.concat(formatters.gladAlerts(2015, yearOne));
+    alerts = alerts.concat(formatters.gladAlerts(2016, yearTwo));
+    alerts = alerts.concat(formatters.gladAlerts(2017, yearThree));
 
     return alerts;
   },

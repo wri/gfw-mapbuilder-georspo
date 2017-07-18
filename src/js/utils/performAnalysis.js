@@ -77,7 +77,7 @@ export default function performAnalysis (options) {
       analysisUtils.getSADAlerts(config, geometry).then(promise.resolve);
     break;
     case analysisKeys.GLAD_ALERTS:
-      analysisUtils.getGLADAlerts(config, geometry).then(promise.resolve);
+      analysisUtils.getGLADAlerts(config, geometry, geostoreId).then(promise.resolve);
     break;
     case analysisKeys.TERRA_I_ALERTS:
       analysisUtils.getTerraIAlerts(config, geometry).then(promise.resolve);
