@@ -1,5 +1,4 @@
 import webmercatorUtils from 'esri/geometry/webMercatorUtils';
-// import GeometryEngine from 'esri/geometry/geometryEngine';
 import geojsonUtil from 'utils/arcgis-to-geojson';
 import QueryTask from 'esri/tasks/QueryTask';
 import {analysisConfig} from 'js/config';
@@ -552,7 +551,7 @@ export default {
 
         const dayDiff = day - result.counts.length;
 
-        for (var l = 0; l < dayDiff; l++) {
+        for (let l = 0; l < dayDiff; l++) {
           result.counts.push(0);
         }
       }
