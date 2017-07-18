@@ -295,7 +295,7 @@ export default {
     const promise = new Deferred();
 
     if (geostoreId) {
-      const biomassData = {
+      const gladData = {
         geostore: geostoreId,
         period: '2015-01-01,2017-06-10',
         aggregate_values: 'True',
@@ -304,7 +304,7 @@ export default {
       esriRequest({
         url: 'https://production-api.globalforestwatch.org/glad-alerts',
         callbackParamName: 'callback',
-        content: biomassData,
+        content: gladData,
         handleAs: 'json',
         timeout: 30000
       }, { usePost: false}).then(gladResult => {
@@ -316,7 +316,7 @@ export default {
       });
     } else {
       const success = res => {
-        const biomassData = {
+        const gladData = {
           geostore: res.data.id,
           period: '2015-01-01,2017-06-10',
           aggregate_values: 'True',
@@ -325,7 +325,7 @@ export default {
         esriRequest({
           url: 'https://production-api.globalforestwatch.org/glad-alerts',
           callbackParamName: 'callback',
-          content: biomassData,
+          content: gladData,
           handleAs: 'json',
           timeout: 30000
         }, { usePost: false}).then(gladResult => {
