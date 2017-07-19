@@ -125,7 +125,7 @@ export default class Analysis extends Component {
       case analysisKeys.FIRES:
         return <FiresBadge count={results.fireCount} />;
       case analysisKeys.TC_LOSS_GAIN:
-        return <LossGainBadge lossCounts={results.lossCounts} gainCounts={results.gainCounts} />;
+        return <LossGainBadge lossTotal={results.lossTotal} gainTotal={results.gainTotal} />;
       case analysisKeys.LCC:
         layerConf = utils.getObject(lcLayers, 'id', layerKeys.LAND_COVER);
         return <CompositionPieChart

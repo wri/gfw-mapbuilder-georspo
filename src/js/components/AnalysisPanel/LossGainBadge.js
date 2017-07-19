@@ -2,11 +2,9 @@ import React, {PropTypes} from 'react';
 import text from 'js/languages';
 
 const LossGainBadge = (props, context) => {
-  const {lossCounts, gainCounts} = props;
-  const {language} = context;
 
-  const lossTotal = !lossCounts ? 0 : lossCounts.reduce((a, b) => { return a + b; }, 0);
-  const gainTotal = !gainCounts ? 0 : gainCounts.reduce((a, b) => { return a + b; }, 0);
+  const {lossTotal, gainTotal} = props;
+  const {language} = context;
 
   return (
     <div className='results__loss-gain'>
@@ -27,8 +25,8 @@ const LossGainBadge = (props, context) => {
 };
 
 LossGainBadge.propTypes = {
-  lossCounts: PropTypes.array.isRequired,
-  gainCounts: PropTypes.array.isRequired
+  lossTotal: PropTypes.number.isRequired,
+  gainTotal: PropTypes.number.isRequired
 };
 
 LossGainBadge.contextTypes = {

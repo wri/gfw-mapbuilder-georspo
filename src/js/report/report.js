@@ -510,21 +510,23 @@ const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (re
 
 const runAnalysis = function runAnalysis (params, feature) {
   const lcLayers = resources.layerPanel.GROUP_LC ? resources.layerPanel.GROUP_LC.layers : [];
-  const lcdLayers = resources.layerPanel.GROUP_LCD ? resources.layerPanel.GROUP_LC.layers : [];
+  const lcdLayers = resources.layerPanel.GROUP_LCD ? resources.layerPanel.GROUP_LCD.layers : [];
   const layerConf = appUtils.getObject(lcLayers, 'id', layerKeys.LAND_COVER);
   const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
   const { tcd, lang, settings, activeSlopeClass } = params;
   //- Only Analyze layers in the analysis
-
   if (appUtils.containsObject(lcdLayers, 'id', layerKeys.TREE_COVER_LOSS)) {
+    console.log('lcdLayers contains tree cover loss');
     //- Loss/Gain Analysis
     performAnalysis({
       type: analysisKeys.TC_LOSS_GAIN,
       geometry: feature.geometry,
       settings: settings,
       canopyDensity: tcd,
-      language: lang
+      language: lang,
+      geostoreId: feature.geostoreId
     }).then((results) => {
+      console.log(results);
       const {lossCounts = [], gainCounts = []} = results;
       const totalLoss = lossCounts.reduce((a, b) => a + b, 0);
       const totalGain = gainCounts.reduce((a, b) => a + b, 0);

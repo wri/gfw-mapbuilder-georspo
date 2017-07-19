@@ -367,33 +367,84 @@ export default {
     return promise;
   },
 
-  getCountsWithDensity: (rasterId, geometry, canopyDensity) => {
-    const promise = new Deferred();
-    const tcd = analysisConfig.tcd;
-    const densityRule = rules.remap(tcd.id, tcd.inputRanges(canopyDensity), tcd.outputValues);
-    const {imageService, pixelSize} = analysisConfig;
+  // TODO: this is what to change
+  getCountsWithDensity: function (geometry, canopyDensity, geostoreId, aggregateValues) {
+    const deferred = new Deferred();
 
-    const content = {
-      pixelSize: pixelSize,
-      geometry: geometry,
-      renderingRule: rules.arithmetic(densityRule, rasterId, OP_MULTIPLY)
-    };
+    // See if the geometry has already been processed or not
+    if (geostoreId) {
+      const lossGainData = {
+        geostore: geostoreId,
+        period: '2001-01-01,2015-12-31',
+        thresh: canopyDensity,
+        aggregate_values: aggregateValues
+      };
+      esriRequest({
+        url: 'https://production-api.globalforestwatch.org/v1/umd-loss-gain',
+        callbackParamName: 'callback',
+        content: lossGainData,
+        handleAs: 'json',
+        timeout: 30000
+      }, { usePost: false}).then(lossGainResult => {
+        deferred.resolve(lossGainResult || []);
+      }, err => {
+        console.error(err);
+        deferred.resolve([]);
+      });
+    } else {
 
-    const success = (response) => {
-      promise.resolve(formatters.getCounts(response, content.pixelSize));
-    };
+      const success = res => {
+        const lossGainData = {
+          geostore: res.data.id,
+          period: '2001-01-01,2015-12-31',
+          thresh: canopyDensity,
+          aggregate_values: aggregateValues
+        };
+        esriRequest({
+          url: 'https://production-api.globalforestwatch.org/v1/umd-loss-gain',
+          callbackParamName: 'callback',
+          content: lossGainData,
+          handleAs: 'json',
+          timeout: 30000
+        }, { usePost: false}).then(lossGainResult => {
+          deferred.resolve(lossGainResult || []);
+        }, err => {
+          console.error(err);
+          deferred.resolve([]);
+        });
+      };
 
-    const failure = (error) => {
-      if (errorIsInvalidImageSize(error) && content.pixelSize !== 500) {
-        content.pixelSize = 500;
-        computeHistogram(imageService, content, success, failure);
-      } else {
-        promise.resolve(error);
-      }
-    };
+      this.registerGeom(geometry, success, deferred);
+    }
 
-    computeHistogram(imageService, content, success, failure);
-    return promise;
+    return deferred;
+
+    // const promise = new Deferred();
+    // const tcd = analysisConfig.tcd;
+    // const densityRule = rules.remap(tcd.id, tcd.inputRanges(canopyDensity), tcd.outputValues);
+    // const {imageService, pixelSize} = analysisConfig;
+
+    // const content = {
+    //   pixelSize: pixelSize,
+    //   geometry: geometry,
+    //   renderingRule: rules.arithmetic(densityRule, rasterId, OP_MULTIPLY)
+    // };
+
+    // const success = (response) => {
+    //   promise.resolve(formatters.getCounts(response, content.pixelSize));
+    // };
+
+    // const failure = (error) => {
+    //   if (errorIsInvalidImageSize(error) && content.pixelSize !== 500) {
+    //     content.pixelSize = 500;
+    //     computeHistogram(imageService, content, success, failure);
+    //   } else {
+    //     promise.resolve(error);
+    //   }
+    // };
+
+    // computeHistogram(imageService, content, success, failure);
+    // return promise;
   },
 
   getMosaic: (lockRaster, geometry, url) => {

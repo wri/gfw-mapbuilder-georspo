@@ -32,20 +32,26 @@ export default function performAnalysis (options) {
       analysisUtils.getMosaic(landCoverConfig.rasterId, geometry).then(promise.resolve);
     break;
     case analysisKeys.TC_LOSS:
-      analysisUtils.getCountsWithDensity(config.id, geometry, canopyDensity).then(promise.resolve);
+      analysisUtils.getCountsWithDensity(geometry, canopyDensity, geostoreId, false).then(response => {
+        const lossObj = response.data.attributes.loss;
+        const counts = Object.values(lossObj);
+        promise.resolve({ counts });
+      });
     break;
     case analysisKeys.SLOPE:
       const slopeValue = settings.slopeClasses.indexOf(activeSlopeClass);
       analysisUtils.getSlope(restorationUrl, slopeValue, config.id, config.restoration, geometry).then(promise.resolve);
     break;
     case analysisKeys.TC_LOSS_GAIN:
-      all([
-        analysisUtils.getCountsWithDensity(config.lossRaster, geometry, canopyDensity),
-        analysisUtils.getCountsWithDensity(config.gainRaster, geometry, canopyDensity)
-      ]).then((response) => {
+      // all([
+      //   analysisUtils.getCountsWithDensity(config.lossRaster, geometry, canopyDensity),
+      //   analysisUtils.getCountsWithDensity(config.gainRaster, geometry, canopyDensity)
+      // ]).then((response) => {
+        analysisUtils.getCountsWithDensity(geometry, canopyDensity, geostoreId, true).then(response => {
+
         promise.resolve({
-          lossCounts: response[0].counts,
-          gainCounts: response[1].counts
+          lossTotal: response.data.attributes.loss,
+          gainTotal: response.data.attributes.gain
         });
       });
     break;
