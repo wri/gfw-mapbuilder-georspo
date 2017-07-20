@@ -75,7 +75,7 @@ export default class LayerPanel extends Component {
   };
 
   checkboxMap (layer) {
-    const {activeLayers, dynamicLayers, iconLoading, ...props} = this.props;
+    const {activeLayers, dynamicLayers, iconLoading, gladStartDate, gladEndDate, ...props} = this.props;
     let childComponent;
 
     switch (layer.id) {
@@ -102,7 +102,7 @@ export default class LayerPanel extends Component {
           />;
         break;
       case LayerKeys.GLAD_ALERTS:
-        childComponent = <GladControls layer={layer} />;
+        childComponent = <GladControls layer={layer} startDate={gladStartDate} endDate={gladEndDate} />;
       break;
       case LayerKeys.TERRA_I_ALERTS:
         childComponent = <TerraIControls layer={layer} />;

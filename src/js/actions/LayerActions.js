@@ -41,6 +41,14 @@ class LayerActions {
     };
   }
 
+  updateGladStartDate (startDate) {
+    return startDate;
+  }
+
+  updateGladEndDate (endDate) {
+    return endDate;
+  }
+
   setLossOptions (lossOptionsData) {
     return lossOptionsData;
   }

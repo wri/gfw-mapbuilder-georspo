@@ -1,5 +1,6 @@
 import ToggleSwitch from 'components/Shared/ToggleSwitch';
 import React, {Component, PropTypes} from 'react';
+import layerActions from 'actions/LayerActions';
 import {loadCSS} from 'utils/loaders';
 import {assetUrls} from 'js/config';
 import text from 'js/languages';
@@ -26,12 +27,10 @@ export default class GladControls extends Component {
     super(props);
     //- Defaults
     this.min = new Date('2015', 0, 1);
-    this.max = Date.now();
+    this.max = new Date();
 
     this.state = {
-      unconfirmed: false,
-      startDate: this.min,
-      endDate: this.max
+      unconfirmed: false
     };
   }
 
@@ -46,7 +45,7 @@ export default class GladControls extends Component {
     loadCSS(base + assetUrls.pickadateDateCSS);
     //- Create the date pickers
     const {fromCalendar, toCalendar} = this.refs;
-    const {startDate, endDate} = this.state;
+    const {startDate, endDate} = this.props;
     //- Starting date
     this.fromPicker = $(fromCalendar).pickadate({
       today: 'Jump to today',
@@ -75,7 +74,9 @@ export default class GladControls extends Component {
 
   didSetStartDate = ({select}) => {
     if (select) {
-      this.setState({ startDate: new Date(select) });
+      const startDate = new Date(select);
+      // this.setState({ startDate });
+      layerActions.updateGladStartDate(startDate);
       this.updateDateRange();
       if (this.fromPicker && this.toPicker) {
         this.toPicker.set('min', this.fromPicker.get('select'));
@@ -85,7 +86,9 @@ export default class GladControls extends Component {
 
   didSetEndDate = ({select}) => {
     if (select) {
-      this.setState({ endDate: new Date(select) });
+      const endDate = new Date(select);
+      // this.setState({ endDate });
+      layerActions.updateGladEndDate(endDate);
       this.updateDateRange();
       if (this.fromPicker && this.toPicker) {
         this.fromPicker.set('max', this.toPicker.get('select'));
@@ -102,9 +105,8 @@ export default class GladControls extends Component {
   };
 
   updateDateRange = () => {
-    const {startDate, endDate} = this.state;
+    const {startDate, endDate, layer} = this.props;
     const {map} = this.context;
-    const {layer} = this.props;
     const julianFrom = getJulianDate(startDate);
     const julianTo = getJulianDate(endDate);
     if (map.getLayer) {

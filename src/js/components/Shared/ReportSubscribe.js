@@ -15,13 +15,17 @@ export default class ReportSubscribeButtons extends Component {
   printReport = () => {
     const { map, settings, language } = this.context;
     const selectedFeature = map.infoWindow && map.infoWindow.getSelectedFeature();
-    const {canopyDensity, activeSlopeClass, activeLayers} = mapStore.getState();
+    const {canopyDensity, activeSlopeClass, activeLayers, lossFromSelectIndex, lossToSelectIndex, gladStartDate, gladEndDate} = mapStore.getState();
 
     if (selectedFeature) {
       const params = getUrlParams(location.href);
       const payload = {
         lang: language,
         activeLayers: activeLayers,
+        tcLossFrom: lossFromSelectIndex,
+        tcLossTo: lossToSelectIndex,
+        gladFrom: gladStartDate,
+        gladTo: gladEndDate,
         activeSlopeClass,
         selectedFeature,
         canopyDensity,

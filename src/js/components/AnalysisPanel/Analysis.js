@@ -53,7 +53,11 @@ export default class Analysis extends Component {
       activeTab,
       activeAnalysisType,
       canopyDensity,
-      activeSlopeClass
+      activeSlopeClass,
+      lossFromSelectIndex,
+      lossToSelectIndex,
+      gladStartDate,
+      gladEndDate
     } = this.props;
 
     if (selectedFeature && activeAnalysisType && activeTab === tabKeys.ANALYSIS) {
@@ -64,7 +68,11 @@ export default class Analysis extends Component {
           canopyDensity: canopyDensity,
           activeSlopeClass: activeSlopeClass,
           settings: settings,
-          language: language
+          language: language,
+          tcLossFrom: lossFromSelectIndex,
+          tcLossTo: lossToSelectIndex,
+          gladFrom: gladStartDate,
+          gladTo: gladEndDate
         }).then((results) => {
           this.setState({ results: results, isLoading: false });
         }, () => {
@@ -82,7 +90,11 @@ export default class Analysis extends Component {
       activeTab,
       activeAnalysisType,
       canopyDensity,
-      activeSlopeClass
+      activeSlopeClass,
+      lossFromSelectIndex,
+      lossToSelectIndex,
+      gladStartDate,
+      gladEndDate
     } = nextProps;
 
     //- Only rerun the analysis if one of these things changes
@@ -105,7 +117,11 @@ export default class Analysis extends Component {
           canopyDensity: canopyDensity,
           activeSlopeClass: activeSlopeClass,
           settings: settings,
-          language: language
+          language: language,
+          tcLossFrom: lossFromSelectIndex,
+          tcLossTo: lossToSelectIndex,
+          gladFrom: gladStartDate,
+          gladTo: gladEndDate
         }).then((results) => {
           this.setState({ results: results, isLoading: false });
         }, () => {
@@ -115,7 +131,7 @@ export default class Analysis extends Component {
     }
   }
 
-  renderResults = (type, results, language) => {
+  renderResults = (type, results, language, lossFromSelectIndex, lossToSelectIndex) => {
     const {settings} = this.context;
     const layerGroups = settings.layerPanel;
     const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
@@ -125,7 +141,7 @@ export default class Analysis extends Component {
       case analysisKeys.FIRES:
         return <FiresBadge count={results.fireCount} />;
       case analysisKeys.TC_LOSS_GAIN:
-        return <LossGainBadge lossTotal={results.lossTotal} gainTotal={results.gainTotal} />;
+        return <LossGainBadge lossTotal={results.lossTotal} gainTotal={results.gainTotal} lossFromSelectIndex={lossFromSelectIndex} lossToSelectIndex={lossToSelectIndex} />;
       case analysisKeys.LCC:
         layerConf = utils.getObject(lcLayers, 'id', layerKeys.LAND_COVER);
         return <CompositionPieChart
@@ -193,14 +209,14 @@ export default class Analysis extends Component {
   };
 
   render () {
-    const {selectedFeature, activeAnalysisType, canopyDensity, activeSlopeClass} = this.props;
+    const {selectedFeature, activeAnalysisType, canopyDensity, activeSlopeClass, lossFromSelectIndex, lossToSelectIndex} = this.props;
     const {results, isLoading, error} = this.state;
     const {language, settings} = this.context;
     let chart, title, slopeSelect;
 
     // If we have results, show a chart
     if (results) {
-      chart = this.renderResults(activeAnalysisType, results, language);
+      chart = this.renderResults(activeAnalysisType, results, language, lossFromSelectIndex, lossToSelectIndex);
     }
 
     // If we have the restoration module, add in the slope select

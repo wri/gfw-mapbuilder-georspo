@@ -133,7 +133,7 @@ const utils = {
   },
 
   geometrySuccess: (response, options) => {
-    const { settings, lang, canopyDensity, appid, activeSlopeClass, activeLayers } = options;
+    const { settings, lang, canopyDensity, appid, activeSlopeClass, activeLayers, tcLossFrom, tcLossTo, gladStartDate, gladEndDate } = options;
     const labels = settings.labels[lang];
 
     const query = {
@@ -146,7 +146,11 @@ const utils = {
       idvalue: response.data.id,
       tcd: canopyDensity,
       lang: lang,
-      activeLayers: activeLayers
+      activeLayers: activeLayers,
+      tcLossFrom: tcLossFrom,
+      tcLossTo: tcLossTo,
+      gladStartDate: gladStartDate,
+      gladEndDate: gladEndDate
     };
 
     if (appid) {
