@@ -69,7 +69,7 @@ export default class LossControls extends Component {
 
   updateDensity (layer, density) {
     const {lossFromSelectIndex, lossToSelectIndex} = this.props;
-    let baseUrl = 'https://storage.googleapis.com/wri-public/Hansen14_15/tiles/hansen_world/v4.0/tc';
+    let baseUrl = 'https://storage.googleapis.com/wri-public/Hansen15/tiles/hansen_world/v1/tc';
     baseUrl += density;
     baseUrl += '/{z}/{x}/{y}.png';
 
