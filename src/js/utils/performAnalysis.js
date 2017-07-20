@@ -46,8 +46,8 @@ export default function performAnalysis (options) {
         analysisUtils.getCountsWithDensity(geometry, canopyDensity, geostoreId).then(response => {
         const lossObj = response.data.attributes.loss;
         const lossCounts = Object.values(lossObj);
-        const lossTotal = Number(lossCounts.reduce((a, b) => a + b, 0));
-        const gainTotal = response.data.attributes.gain;
+        const lossTotal = parseInt(lossCounts.reduce((a, b) => a + b, 0));
+        const gainTotal = parseInt(response.data.attributes.gain);
         promise.resolve({ lossCounts, lossTotal, gainTotal });
       });
     break;
