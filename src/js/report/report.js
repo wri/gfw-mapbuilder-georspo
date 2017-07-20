@@ -1,5 +1,6 @@
 import DynamicLayer from 'esri/layers/ArcGISDynamicMapServiceLayer';
 import ImageParameters from 'esri/layers/ImageParameters';
+import webmercatorUtils from 'esri/geometry/webMercatorUtils';
 import analysisKeys from 'constants/AnalysisConstants';
 import performAnalysis from 'utils/performAnalysis';
 import layerKeys from 'constants/LayerConstants';
@@ -67,7 +68,7 @@ const getFeature = function getFeature (params) {
       promise.resolve({
         attributes: geostoreResult.data.attributes,
         geostoreId: geostoreResult.data.id,
-        geometry: esriJson,
+        geometry: new Polygon(esriJson),
         title: 'Custom Analysis',
         isCustom: true // TODO MAKE SURE NOT TO HARD CODE THAT IN
       });
@@ -510,12 +511,12 @@ const makeRestorationAnalysisCharts = function makeRestorationAnalysisCharts (re
 
 const runAnalysis = function runAnalysis (params, feature) {
   const lcLayers = resources.layerPanel.GROUP_LC ? resources.layerPanel.GROUP_LC.layers : [];
-  const lcdLayers = resources.layerPanel.GROUP_LCD ? resources.layerPanel.GROUP_LC.layers : [];
+  const lcdLayers = resources.layerPanel.GROUP_LCD ? resources.layerPanel.GROUP_LCD.layers : [];
   const layerConf = appUtils.getObject(lcLayers, 'id', layerKeys.LAND_COVER);
   const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
   const { tcd, lang, settings, activeSlopeClass } = params;
+  const geographic = webmercatorUtils.geographicToWebMercator(feature.geometry);
   //- Only Analyze layers in the analysis
-
   if (appUtils.containsObject(lcdLayers, 'id', layerKeys.TREE_COVER_LOSS)) {
     //- Loss/Gain Analysis
     performAnalysis({
@@ -523,11 +524,12 @@ const runAnalysis = function runAnalysis (params, feature) {
       geometry: feature.geometry,
       settings: settings,
       canopyDensity: tcd,
-      language: lang
+      language: lang,
+      geostoreId: feature.geostoreId
     }).then((results) => {
-      const {lossCounts = [], gainCounts = []} = results;
+      const {lossCounts = [], gainTotal} = results;
       const totalLoss = lossCounts.reduce((a, b) => a + b, 0);
-      const totalGain = gainCounts.reduce((a, b) => a + b, 0);
+      const totalGain = gainTotal;
       //- Generate chart for Tree Cover Loss
       const name = text[lang].ANALYSIS_TC_CHART_NAME;
       const colors = analysisConfig[analysisKeys.TC_LOSS].colors;
@@ -561,10 +563,9 @@ const runAnalysis = function runAnalysis (params, feature) {
   }
 
   if (settings.landCover && layerConf) {
-    //- Land Cover with Loss Analysis
     performAnalysis({
       type: analysisKeys.LC_LOSS,
-      geometry: feature.geometry,
+      geometry: geographic,
       settings: settings,
       canopyDensity: tcd,
       language: lang
@@ -594,7 +595,7 @@ const runAnalysis = function runAnalysis (params, feature) {
     //- Land Cover Composition Analysis
     performAnalysis({
       type: analysisKeys.LCC,
-      geometry: feature.geometry,
+      geometry: geographic,
       settings: settings,
       canopyDensity: tcd,
       language: lang
@@ -670,7 +671,7 @@ const runAnalysis = function runAnalysis (params, feature) {
     //- Intact Forest with Loss Analysis
     performAnalysis({
       type: analysisKeys.INTACT_LOSS,
-      geometry: feature.geometry,
+      geometry: geographic,
       settings: settings,
       canopyDensity: tcd,
       language: lang
@@ -727,7 +728,7 @@ const runAnalysis = function runAnalysis (params, feature) {
   if (settings.mangroves) {
     performAnalysis({
       type: analysisKeys.MANGROVE_LOSS,
-      geometry: feature.geometry,
+      geometry: geographic,
       settings: settings,
       canopyDensity: tcd,
       language: lang
@@ -815,7 +816,7 @@ const runAnalysis = function runAnalysis (params, feature) {
   if (settings.terraIAlerts) {
     performAnalysis({
       type: analysisKeys.TERRA_I_ALERTS,
-      geometry: feature.geometry,
+      geometry: geographic,
       settings: settings,
       canopyDensity: tcd,
       language: lang

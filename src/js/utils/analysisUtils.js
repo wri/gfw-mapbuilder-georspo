@@ -2,6 +2,7 @@ import webmercatorUtils from 'esri/geometry/webMercatorUtils';
 import geojsonUtil from 'utils/arcgis-to-geojson';
 import QueryTask from 'esri/tasks/QueryTask';
 import {analysisConfig} from 'js/config';
+import analysisKeys from 'constants/AnalysisConstants';
 import esriRequest from 'esri/request';
 import Query from 'esri/tasks/query';
 import Deferred from 'dojo/Deferred';
@@ -293,16 +294,17 @@ export default {
 
   getGLADAlerts: function (config, geometry, geostoreId) {
     const promise = new Deferred();
+    const gladConfig = analysisConfig[analysisKeys.GLAD_ALERTS];
 
     if (geostoreId) {
       const gladData = {
         geostore: geostoreId,
-        period: '2015-01-01,2017-06-10',
+        period: `${gladConfig.startDate},${gladConfig.endDate}`,
         aggregate_values: 'True',
         aggregate_by: 'day'
       };
       esriRequest({
-        url: 'https://production-api.globalforestwatch.org/glad-alerts',
+        url: gladConfig.analysisUrl,
         callbackParamName: 'callback',
         content: gladData,
         handleAs: 'json',
@@ -318,12 +320,12 @@ export default {
       const success = res => {
         const gladData = {
           geostore: res.data.id,
-          period: '2015-01-01,2017-06-10',
+          period: `${gladConfig.startDate},${gladConfig.endDate}`,
           aggregate_values: 'True',
           aggregate_by: 'day'
         };
         esriRequest({
-          url: 'https://production-api.globalforestwatch.org/glad-alerts',
+          url: gladConfig.analysisUrl,
           callbackParamName: 'callback',
           content: gladData,
           handleAs: 'json',
@@ -367,33 +369,57 @@ export default {
     return promise;
   },
 
-  getCountsWithDensity: (rasterId, geometry, canopyDensity) => {
-    const promise = new Deferred();
-    const tcd = analysisConfig.tcd;
-    const densityRule = rules.remap(tcd.id, tcd.inputRanges(canopyDensity), tcd.outputValues);
-    const {imageService, pixelSize} = analysisConfig;
+  getCountsWithDensity: function (geometry, canopyDensity, geostoreId) {
+    const deferred = new Deferred();
+    const tcLossGainConfig = analysisConfig[analysisKeys.TC_LOSS_GAIN];
 
-    const content = {
-      pixelSize: pixelSize,
-      geometry: geometry,
-      renderingRule: rules.arithmetic(densityRule, rasterId, OP_MULTIPLY)
-    };
+    // See if the geometry has already been processed or not
+    if (geostoreId) {
+      const lossGainData = {
+        geostore: geostoreId,
+        period: `${tcLossGainConfig.startDate},${tcLossGainConfig.endDate}`,
+        thresh: canopyDensity,
+        aggregate_values: false
+      };
+      esriRequest({
+        url: tcLossGainConfig.analysisUrl,
+        callbackParamName: 'callback',
+        content: lossGainData,
+        handleAs: 'json',
+        timeout: 30000
+      }, { usePost: false}).then(lossGainResult => {
+        deferred.resolve(lossGainResult || []);
+      }, err => {
+        console.error(err);
+        deferred.resolve([]);
+      });
+    } else {
 
-    const success = (response) => {
-      promise.resolve(formatters.getCounts(response, content.pixelSize));
-    };
+      const success = res => {
+        const lossGainData = {
+          geostore: res.data.id,
+          period: `${tcLossGainConfig.startDate},${tcLossGainConfig.endDate}`,
+          thresh: canopyDensity,
+          aggregate_values: false
+        };
+        esriRequest({
+          url: tcLossGainConfig.analysisUrl,
+          callbackParamName: 'callback',
+          content: lossGainData,
+          handleAs: 'json',
+          timeout: 30000
+        }, { usePost: false}).then(lossGainResult => {
+          deferred.resolve(lossGainResult || []);
+        }, err => {
+          console.error(err);
+          deferred.resolve([]);
+        });
+      };
 
-    const failure = (error) => {
-      if (errorIsInvalidImageSize(error) && content.pixelSize !== 500) {
-        content.pixelSize = 500;
-        computeHistogram(imageService, content, success, failure);
-      } else {
-        promise.resolve(error);
-      }
-    };
+      this.registerGeom(geometry, success, deferred);
+    }
 
-    computeHistogram(imageService, content, success, failure);
-    return promise;
+    return deferred;
   },
 
   getMosaic: (lockRaster, geometry, url) => {
@@ -424,16 +450,17 @@ export default {
 
   getBiomassLoss: function (geometry, canopyDensity, geostoreId) {
     const deferred = new Deferred();
+    const biomassConfig = analysisConfig[analysisKeys.BIO_LOSS];
 
     // See if the geometry has already been processed or not
     if (geostoreId) {
       const biomassData = {
         geostore: geostoreId,
-        period: '2001-01-01,2014-12-31',
+        period: `${biomassConfig.startDate},${biomassConfig.endDate}`,
         thresh: canopyDensity
       };
       esriRequest({
-        url: 'https://production-api.globalforestwatch.org/biomass-loss',
+        url: biomassConfig.analysisUrl,
         callbackParamName: 'callback',
         content: biomassData,
         handleAs: 'json',
@@ -449,11 +476,11 @@ export default {
       const success = res => {
         const biomassData = {
           geostore: res.data.id,
-          period: '2001-01-01,2014-12-31',
+          period: `${biomassConfig.startDate},${biomassConfig.endDate}`,
           thresh: canopyDensity
         };
         esriRequest({
-          url: 'https://production-api.globalforestwatch.org/biomass-loss',
+          url: biomassConfig.analysisUrl,
           callbackParamName: 'callback',
           content: biomassData,
           handleAs: 'json',
@@ -490,7 +517,7 @@ export default {
     const content = JSON.stringify(geoStore);
 
     const http = new XMLHttpRequest();
-    const url = 'https://production-api.globalforestwatch.org/geostore';
+    const url = analysisConfig.apiUrl;
     const params = content;
 
     http.open('POST', url, true);

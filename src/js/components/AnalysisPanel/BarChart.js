@@ -14,7 +14,7 @@ export default class BarChart extends Component {
     if(counts.length === 0) {
       this.setState({ isEmpty: true });
     } else {
-      let series = [{
+      const series = [{
         name: name,
         data: counts
       }];
