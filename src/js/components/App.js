@@ -38,19 +38,16 @@ export default class App extends Component {
 
         lang.mixin(settings, this.props.constructorParams.config);
 
-        const langUrlParam = getUrlParams(location.href).l;
         const appid = getUrlParams(location.href).appid;
 
         if (appid) {
           template.getAppInfo(appid).then(newSettings => {
             this.setSettings(newSettings);
           });
-        } else if (langUrlParam) {
+        } else {
           template.getAppInfo().then(newSettings => {
             this.setSettings(newSettings);
           });
-        } else {
-          this.setSettings(settings);
         }
       } else {
         this.setSettings(settings);
