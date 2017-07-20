@@ -8,10 +8,13 @@ var MapBuilder = function(args){
         newBase = scripts[j].src;
       }
     }
+    console.log('newBase', newBase);
 
     if (newBase) {
       resourcesBase = newBase.split(constructorParams.version)[0];
       newBase = resourcesBase + constructorParams.version + '/';
+      console.log('newweBase', newBase);
+      console.log('resourcesBase', resourcesBase);
     }
 
     window._app = {
@@ -45,6 +48,9 @@ var MapBuilder = function(args){
       constructorParams.basePath = base;
     }
     base = makePath(base);
+    console.log('base', base);
+    console.log('resourcesBase', resourcesBase);
+    console.log('root', getResourcePath(resourcesBase.replace(/\/[^/]+$/, '')));
 
     window.dojoConfig = {
       parseOnLoad: false,
