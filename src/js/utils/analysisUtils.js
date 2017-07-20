@@ -367,7 +367,6 @@ export default {
     return promise;
   },
 
-  // TODO: this is what to change
   getCountsWithDensity: function (geometry, canopyDensity, geostoreId) {
     const deferred = new Deferred();
 
@@ -418,33 +417,6 @@ export default {
     }
 
     return deferred;
-
-    // const promise = new Deferred();
-    // const tcd = analysisConfig.tcd;
-    // const densityRule = rules.remap(tcd.id, tcd.inputRanges(canopyDensity), tcd.outputValues);
-    // const {imageService, pixelSize} = analysisConfig;
-
-    // const content = {
-    //   pixelSize: pixelSize,
-    //   geometry: geometry,
-    //   renderingRule: rules.arithmetic(densityRule, rasterId, OP_MULTIPLY)
-    // };
-
-    // const success = (response) => {
-    //   promise.resolve(formatters.getCounts(response, content.pixelSize));
-    // };
-
-    // const failure = (error) => {
-    //   if (errorIsInvalidImageSize(error) && content.pixelSize !== 500) {
-    //     content.pixelSize = 500;
-    //     computeHistogram(imageService, content, success, failure);
-    //   } else {
-    //     promise.resolve(error);
-    //   }
-    // };
-
-    // computeHistogram(imageService, content, success, failure);
-    // return promise;
   },
 
   getMosaic: (lockRaster, geometry, url) => {
