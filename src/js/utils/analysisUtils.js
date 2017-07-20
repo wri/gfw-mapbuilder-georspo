@@ -368,7 +368,7 @@ export default {
   },
 
   // TODO: this is what to change
-  getCountsWithDensity: function (geometry, canopyDensity, geostoreId, aggregateValues) {
+  getCountsWithDensity: function (geometry, canopyDensity, geostoreId) {
     const deferred = new Deferred();
 
     // See if the geometry has already been processed or not
@@ -377,7 +377,7 @@ export default {
         geostore: geostoreId,
         period: '2001-01-01,2015-12-31',
         thresh: canopyDensity,
-        aggregate_values: aggregateValues
+        aggregate_values: false
       };
       esriRequest({
         url: 'https://production-api.globalforestwatch.org/v1/umd-loss-gain',
@@ -398,7 +398,7 @@ export default {
           geostore: res.data.id,
           period: '2001-01-01,2015-12-31',
           thresh: canopyDensity,
-          aggregate_values: aggregateValues
+          aggregate_values: false
         };
         esriRequest({
           url: 'https://production-api.globalforestwatch.org/v1/umd-loss-gain',

@@ -32,7 +32,7 @@ export default function performAnalysis (options) {
       analysisUtils.getMosaic(landCoverConfig.rasterId, geometry).then(promise.resolve);
     break;
     case analysisKeys.TC_LOSS:
-      analysisUtils.getCountsWithDensity(geometry, canopyDensity, geostoreId, false).then(response => {
+      analysisUtils.getCountsWithDensity(geometry, canopyDensity, geostoreId).then(response => {
         const lossObj = response.data.attributes.loss;
         const counts = Object.values(lossObj);
         promise.resolve({ counts });
@@ -43,16 +43,12 @@ export default function performAnalysis (options) {
       analysisUtils.getSlope(restorationUrl, slopeValue, config.id, config.restoration, geometry).then(promise.resolve);
     break;
     case analysisKeys.TC_LOSS_GAIN:
-      // all([
-      //   analysisUtils.getCountsWithDensity(config.lossRaster, geometry, canopyDensity),
-      //   analysisUtils.getCountsWithDensity(config.gainRaster, geometry, canopyDensity)
-      // ]).then((response) => {
-        analysisUtils.getCountsWithDensity(geometry, canopyDensity, geostoreId, true).then(response => {
-
-        promise.resolve({
-          lossTotal: response.data.attributes.loss,
-          gainTotal: response.data.attributes.gain
-        });
+        analysisUtils.getCountsWithDensity(geometry, canopyDensity, geostoreId).then(response => {
+        const lossObj = response.data.attributes.loss;
+        const lossCounts = Object.values(lossObj);
+        const lossTotal = Number(lossCounts.reduce((a, b) => a + b, 0));
+        const gainTotal = response.data.attributes.gain;
+        promise.resolve({ lossCounts, lossTotal, gainTotal });
       });
     break;
     case analysisKeys.LC_LOSS:
