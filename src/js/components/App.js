@@ -37,14 +37,16 @@ export default class App extends Component {
         this.updateBasemapImages(this.props.constructorParams.config);
 
         lang.mixin(settings, this.props.constructorParams.config);
-        const langUrlParam = getUrlParams(location.href).l;
-        console.log('langUrlParam', langUrlParam);
-        console.log('settings', settings);
 
+        const langUrlParam = getUrlParams(location.href).l;
         const appid = getUrlParams(location.href).appid;
+
         if (appid) {
           template.getAppInfo(appid).then(newSettings => {
-            console.log('newSettings', newSettings);
+            this.setSettings(newSettings);
+          });
+        } else if (langUrlParam) {
+          template.getAppInfo().then(newSettings => {
             this.setSettings(newSettings);
           });
         } else {

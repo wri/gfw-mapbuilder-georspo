@@ -59,6 +59,11 @@ const formatResources = () => {
       });
     });
   }
+
+  const langUrlParam = getUrlParams(location.href).l;
+  if (langUrlParam && langUrlParam === resources.alternativeLanguage) {
+    resources.useAlternativeLanguage = true;
+  }
   //- Add content for second language if configured
   if (resources.useAlternativeLanguage && resources.alternativeLanguage) {
     resources.labels[resources.alternativeLanguage] = {

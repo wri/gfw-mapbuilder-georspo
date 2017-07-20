@@ -26,8 +26,10 @@ const request = {
       callbackParamName: 'callback',
       content: { f: 'json' }
     }).then(res => {
-      if (layerIds && layerIds.indexOf && res && res.layers && res.layers.length > 0) {
-        console.log('layerIds', layerIds);
+      if (layerIds && typeof layerIds === 'number') {
+        layerIds = [layerIds];
+      }
+      if (layerIds && res && res.layers && res.layers.length > 0) {
         const layers = res.layers.filter(layer => layerIds.indexOf(layer.layerId) > -1);
         const legendInfos = layers.length === 1 ? layers[0].legend : layers.map(layer => layer.legend);
         const legendLength = legendInfos.length;
@@ -64,9 +66,10 @@ const request = {
       callbackParamName: 'callback',
       content: { f: 'json' }
     }).then(res => {
-      if (layerIds && layerIds.indexOf && res && res.layers && res.layers.length > 0) {
-        // console.log("layersIds (should not be 6: ", layerIds);
-        console.log('layerIds', layerIds);
+      if (layerIds && typeof layerIds === 'number') {
+        layerIds = [layerIds];
+      }
+      if (layerIds && res && res.layers && res.layers.length > 0) {
         const layers = res.layers.filter(layer => layerIds.indexOf(layer.layerId) > -1);
         const legendInfos = layers.length === 1 ? layers[0].legend : layers.map(layer => layer.legend);
         const legendLength = legendInfos.length;
