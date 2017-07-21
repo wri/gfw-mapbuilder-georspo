@@ -75,8 +75,7 @@ export default class GladControls extends Component {
   didSetStartDate = ({select}) => {
     if (select) {
       const startDate = new Date(select);
-      // this.setState({ startDate });
-      layerActions.updateGladStartDate(startDate);
+      layerActions.updateGladStartDate.defer(startDate);
       this.updateDateRange();
       if (this.fromPicker && this.toPicker) {
         this.toPicker.set('min', this.fromPicker.get('select'));
@@ -87,8 +86,7 @@ export default class GladControls extends Component {
   didSetEndDate = ({select}) => {
     if (select) {
       const endDate = new Date(select);
-      // this.setState({ endDate });
-      layerActions.updateGladEndDate(endDate);
+      layerActions.updateGladEndDate.defer(endDate);
       this.updateDateRange();
       if (this.fromPicker && this.toPicker) {
         this.fromPicker.set('max', this.toPicker.get('select'));
