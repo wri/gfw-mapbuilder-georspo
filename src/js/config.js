@@ -203,8 +203,8 @@ config.analysis[analysisKeys.GLAD_ALERTS] = {
     '2017': 9
   },
   analysisUrl: 'https://production-api.globalforestwatch.org/glad-alerts',
-  startDate: '2015-01-01',
-  endDate: new Date(Date.now()).toISOString().split('T')[0]
+  startDate: '2015',
+  endDate: new Date().getFullYear()
 };
 
 config.analysis[analysisKeys.TERRA_I_ALERTS] = {
@@ -232,8 +232,8 @@ config.analysis[analysisKeys.BIO_LOSS] = {
     carbon: '#BEBCC2'
   },
   analysisUrl: 'https://production-api.globalforestwatch.org/biomass-loss',
-  startDate: '2001-01-01',
-  endDate: '2014-12-31'
+  startDate: '2001',
+  endDate: '2014'
 };
 
 config.analysis[analysisKeys.SLOPE] = {
@@ -249,9 +249,7 @@ config.analysis[analysisKeys.SLOPE] = {
 config.analysis[analysisKeys.TC_LOSS_GAIN] = {
   lossRaster: '$530',
   gainRaster: '$527',
-  analysisUrl: 'https://production-api.globalforestwatch.org/v1/umd-loss-gain',
-  startDate: '2001-01-01',
-  endDate: '2015-12-31'
+  analysisUrl: 'https://production-api.globalforestwatch.org/v1/umd-loss-gain'
 };
 
 config.analysis[analysisKeys.TC_LOSS] = {

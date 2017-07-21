@@ -17,7 +17,7 @@ import all from 'dojo/promise/all';
 * @return {promise}
 */
 export default function performAnalysis (options) {
-  const {type, geometry, canopyDensity, activeSlopeClass, settings, geostoreId} = options;
+  const {type, geometry, canopyDensity, activeSlopeClass, settings, geostoreId, tcLossFrom, tcLossTo, gladFrom, gladTo} = options;
   const restorationUrl = settings && settings.restorationImageServer;
   const landCoverConfig = settings && settings.layerPanel && settings.layerPanel.GROUP_LC ?
     utils.getObject(settings.layerPanel.GROUP_LC.layers, 'id', layerKeys.LAND_COVER) : {};
@@ -32,7 +32,7 @@ export default function performAnalysis (options) {
       analysisUtils.getMosaic(landCoverConfig.rasterId, geometry).then(promise.resolve);
     break;
     case analysisKeys.TC_LOSS:
-      analysisUtils.getCountsWithDensity(geometry, canopyDensity, geostoreId).then(response => {
+      analysisUtils.getCountsWithDensity(geometry, canopyDensity, tcLossFrom, tcLossTo, geostoreId).then(response => {
         const lossObj = response.data.attributes.loss;
         const counts = Object.values(lossObj);
         promise.resolve({ counts });
@@ -43,7 +43,7 @@ export default function performAnalysis (options) {
       analysisUtils.getSlope(restorationUrl, slopeValue, config.id, config.restoration, geometry).then(promise.resolve);
     break;
     case analysisKeys.TC_LOSS_GAIN:
-        analysisUtils.getCountsWithDensity(geometry, canopyDensity, geostoreId).then(response => {
+        analysisUtils.getCountsWithDensity(geometry, canopyDensity, tcLossFrom, tcLossTo, geostoreId).then(response => {
         const lossObj = response.data.attributes.loss;
         const lossCounts = Object.values(lossObj);
         const lossTotal = parseInt(lossCounts.reduce((a, b) => a + b, 0));
@@ -79,7 +79,7 @@ export default function performAnalysis (options) {
       analysisUtils.getSADAlerts(config, geometry).then(promise.resolve);
     break;
     case analysisKeys.GLAD_ALERTS:
-      analysisUtils.getGLADAlerts(config, geometry, geostoreId).then(promise.resolve);
+      analysisUtils.getGLADAlerts(config, geometry, gladFrom, gladTo, geostoreId).then(promise.resolve);
     break;
     case analysisKeys.TERRA_I_ALERTS:
       analysisUtils.getTerraIAlerts(config, geometry).then(promise.resolve);

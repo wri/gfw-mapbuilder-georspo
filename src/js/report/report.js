@@ -514,7 +514,7 @@ const runAnalysis = function runAnalysis (params, feature) {
   const lcdLayers = resources.layerPanel.GROUP_LCD ? resources.layerPanel.GROUP_LCD.layers : [];
   const layerConf = appUtils.getObject(lcLayers, 'id', layerKeys.LAND_COVER);
   const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
-  const { tcd, lang, settings, activeSlopeClass } = params;
+  const { tcd, lang, settings, activeSlopeClass, tcLossFrom, tcLossTo, gladFrom, gladTo } = params;
   const geographic = webmercatorUtils.geographicToWebMercator(feature.geometry);
   //- Only Analyze layers in the analysis
   if (appUtils.containsObject(lcdLayers, 'id', layerKeys.TREE_COVER_LOSS)) {
@@ -525,26 +525,29 @@ const runAnalysis = function runAnalysis (params, feature) {
       settings: settings,
       canopyDensity: tcd,
       language: lang,
-      geostoreId: feature.geostoreId
+      geostoreId: feature.geostoreId,
+      tcLossFrom: tcLossFrom,
+      tcLossTo: tcLossTo
     }).then((results) => {
-      const {lossCounts = [], gainTotal} = results;
-      const totalLoss = lossCounts.reduce((a, b) => a + b, 0);
+      const {lossCounts = [], gainTotal, lossTotal} = results;
+      const totalLoss = lossTotal;
       const totalGain = gainTotal;
       //- Generate chart for Tree Cover Loss
       const name = text[lang].ANALYSIS_TC_CHART_NAME;
       const colors = analysisConfig[analysisKeys.TC_LOSS].colors;
       const tcLossNode = document.getElementById('tc-loss');
-      const series = [{ name: name, data: results.lossCounts }];
+      const series = [{ name: name, data: lossCounts }];
 
       if (results.lossCounts && results.lossCounts.length) {
-        charts.makeSimpleBarChart(tcLossNode, lossLabels, colors, series);
+        const chartLabels = lossLabels.slice(tcLossFrom, tcLossTo + 1);
+        charts.makeSimpleBarChart(tcLossNode, chartLabels, colors, series);
       } else {
         tcLossNode.remove();
       }
       //- Generate content for Loss and Gain Badges
       //- Loss
       document.querySelector('#total-loss-badge .results__loss-gain--label').innerHTML = text[lang].ANALYSIS_TOTAL_LOSS_LABEL;
-      document.querySelector('#total-loss-badge .results__loss-gain--range').innerHTML = text[lang].ANALYSIS_TOTAL_LOSS_RANGE;
+      document.querySelector('#total-loss-badge .results__loss-gain--range').innerHTML = `${lossLabels[tcLossFrom]} &ndash; ${lossLabels[tcLossTo]}`;
       document.querySelector('.results__loss--count').innerHTML = totalLoss;
       document.getElementById('total-loss-badge').classList.remove('hidden');
       //- Gain
@@ -797,7 +800,9 @@ const runAnalysis = function runAnalysis (params, feature) {
       settings: settings,
       canopyDensity: tcd,
       language: lang,
-      geostoreId: feature.geostoreId
+      geostoreId: feature.geostoreId,
+      gladFrom: new Date(gladFrom),
+      gladTo: new Date(gladTo)
     }).then((results) => {
       const node = document.getElementById('glad-alerts');
       const name = text[lang].ANALYSIS_GLAD_ALERT_NAME;

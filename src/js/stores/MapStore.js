@@ -28,6 +28,8 @@ class MapStore {
     this.cartoSymbol = {};
     this.lossFromSelectIndex = 0; // Will get initialized when the data is fetched
     this.lossToSelectIndex = 0;
+    this.gladStartDate = new Date('2015', 0, 1);
+    this.gladEndDate = new Date();
     this.lossOptions = [];
     this.firesSelectIndex = layerPanelText.firesOptions.length - 1;
     this.tableOfContentsVisible = true;
@@ -76,6 +78,8 @@ class MapStore {
       removeAll: layerActions.removeAll,
       setLossOptions: layerActions.setLossOptions,
       updateLossTimeline: layerActions.updateLossTimeline,
+      updateGladStartDate: layerActions.updateGladStartDate,
+      updateGladEndDate: layerActions.updateGladEndDate,
       changeOpacity: layerActions.changeOpacity,
       updateTimeExtent: mapActions.updateTimeExtent,
       updateImazonAlertSettings: mapActions.updateImazonAlertSettings,
@@ -236,6 +240,14 @@ class MapStore {
   updateLossTimeline (payload) {
     this.lossFromSelectIndex = payload.from;
     this.lossToSelectIndex = payload.to;
+  }
+
+  updateGladStartDate (startDate) {
+    this.gladStartDate = startDate;
+  }
+
+  updateGladEndDate (endDate) {
+    this.gladEndDate = endDate;
   }
 
   showLayerInfo (layer) {

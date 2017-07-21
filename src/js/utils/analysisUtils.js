@@ -292,14 +292,16 @@ export default {
     return promise;
   },
 
-  getGLADAlerts: function (config, geometry, geostoreId) {
+  getGLADAlerts: function (config, geometry, gladFrom, gladTo, geostoreId) {
     const promise = new Deferred();
     const gladConfig = analysisConfig[analysisKeys.GLAD_ALERTS];
+    const startDate = gladFrom.toISOString().split('T')[0];
+    const endDate = gladTo.toISOString().split('T')[0];
 
     if (geostoreId) {
       const gladData = {
         geostore: geostoreId,
-        period: `${gladConfig.startDate},${gladConfig.endDate}`,
+        period: `${startDate},${endDate}`,
         aggregate_values: 'True',
         aggregate_by: 'day'
       };
@@ -320,7 +322,7 @@ export default {
       const success = res => {
         const gladData = {
           geostore: res.data.id,
-          period: `${gladConfig.startDate},${gladConfig.endDate}`,
+          period: `${startDate},${endDate}`,
           aggregate_values: 'True',
           aggregate_by: 'day'
         };
@@ -369,15 +371,16 @@ export default {
     return promise;
   },
 
-  getCountsWithDensity: function (geometry, canopyDensity, geostoreId) {
+  getCountsWithDensity: function (geometry, canopyDensity, tcLossFrom, tcLossTo, geostoreId) {
     const deferred = new Deferred();
     const tcLossGainConfig = analysisConfig[analysisKeys.TC_LOSS_GAIN];
+    const yearsArray = analysisConfig[analysisKeys.TC_LOSS].labels;
 
     // See if the geometry has already been processed or not
     if (geostoreId) {
       const lossGainData = {
         geostore: geostoreId,
-        period: `${tcLossGainConfig.startDate},${tcLossGainConfig.endDate}`,
+        period: `${yearsArray[tcLossFrom]}-01-01,${yearsArray[tcLossTo]}-12-31`,
         thresh: canopyDensity,
         aggregate_values: false
       };
@@ -398,7 +401,7 @@ export default {
       const success = res => {
         const lossGainData = {
           geostore: res.data.id,
-          period: `${tcLossGainConfig.startDate},${tcLossGainConfig.endDate}`,
+          period: `${yearsArray[tcLossFrom]}-01-01,${yearsArray[tcLossTo]}-12-31`,
           thresh: canopyDensity,
           aggregate_values: false
         };
@@ -456,7 +459,7 @@ export default {
     if (geostoreId) {
       const biomassData = {
         geostore: geostoreId,
-        period: `${biomassConfig.startDate},${biomassConfig.endDate}`,
+        period: `${biomassConfig.startDate}-01-01,${biomassConfig.endDate}-12-31`,
         thresh: canopyDensity
       };
       esriRequest({
@@ -476,7 +479,7 @@ export default {
       const success = res => {
         const biomassData = {
           geostore: res.data.id,
-          period: `${biomassConfig.startDate},${biomassConfig.endDate}`,
+          period: `${biomassConfig.startDate}-01-01,${biomassConfig.endDate}-12-31`,
           thresh: canopyDensity
         };
         esriRequest({
