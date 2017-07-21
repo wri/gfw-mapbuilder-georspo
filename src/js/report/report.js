@@ -137,6 +137,8 @@ const createLayers = function createLayers (layerPanel, activeLayers, language) 
     });
 
     map.addLayers(esriLayers);
+    map.setExtent(map.extent); //To trigger our custom layers' refresh above certain zoom leves (10 or 11)
+
     // If there is an error with a particular layer, handle that here
     map.on('layers-add-result', result => {
       const addedLayers = result.layers;
