@@ -150,11 +150,14 @@ export default class Analysis extends Component {
           colors={layerConf.colors}
           labels={layerConf.classes[language]} />;
       case analysisKeys.TC_LOSS:
+
+        labels = lossLabels.slice(lossFromSelectIndex, lossToSelectIndex + 1);
+
         return <BarChart
           name={text[language].ANALYSIS_TC_CHART_NAME}
           counts={results.counts}
           colors={analysisConfig[type].colors}
-          labels={lossLabels} />;
+          labels={labels} />;
       case analysisKeys.BIO_LOSS:
         return <BiomassChart
           payload={results}

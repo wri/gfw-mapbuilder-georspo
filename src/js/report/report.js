@@ -539,7 +539,8 @@ const runAnalysis = function runAnalysis (params, feature) {
       const series = [{ name: name, data: lossCounts }];
 
       if (results.lossCounts && results.lossCounts.length) {
-        charts.makeSimpleBarChart(tcLossNode, lossLabels, colors, series);
+        const chartLabels = lossLabels.slice(tcLossFrom, tcLossTo + 1);
+        charts.makeSimpleBarChart(tcLossNode, chartLabels, colors, series);
       } else {
         tcLossNode.remove();
       }
