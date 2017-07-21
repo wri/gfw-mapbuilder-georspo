@@ -800,8 +800,8 @@ const runAnalysis = function runAnalysis (params, feature) {
       canopyDensity: tcd,
       language: lang,
       geostoreId: feature.geostoreId,
-      gladFrom: gladFrom,
-      gladTo: gladTo
+      gladFrom: new Date(gladFrom),
+      gladTo: new Date(gladTo)
     }).then((results) => {
       const node = document.getElementById('glad-alerts');
       const name = text[lang].ANALYSIS_GLAD_ALERT_NAME;
