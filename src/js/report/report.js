@@ -82,7 +82,9 @@ const getFeature = function getFeature (params) {
   return promise;
 };
 
-const createLayers = function createLayers (layerPanel, activeLayers, language) {
+const createLayers = function createLayers (layerPanel, activeLayers, language, params) {
+    const {tcLossFrom, tcLossTo, gladFrom, gladTo} = params;
+
     //- Organize and order the layers before adding them to the map
     let layers = Object.keys(layerPanel).filter((groupName) => {
       //- remove basemaps and extra layers, extra layers will be added later and basemaps
@@ -135,6 +137,18 @@ const createLayers = function createLayers (layerPanel, activeLayers, language) 
     const esriLayers = uniqueLayers.filter(layer => layer && layer.visible && (layer.url || layer.type === 'graphic')).map((layer) => {
       return layerFactory(layer, language);
     });
+
+    // Set the date range for the loss and glad layers
+    const lossLayer = esriLayers.filter(layer => layer.id === 'TREE_COVER_LOSS')[0];
+    const gladLayer = esriLayers.filter(layer => layer.id === 'GLAD_ALERTS')[0];
+
+    if (lossLayer && lossLayer.setDateRange) {
+      const yearsArray = analysisConfig[analysisKeys.TC_LOSS].labels;
+      const fromYear = yearsArray[tcLossFrom];
+      const toYear = yearsArray[tcLossTo];
+      
+      lossLayer.setDateRange(fromYear - 2000, toYear - 2000);
+    }
 
     map.addLayers(esriLayers);
     map.setExtent(map.extent); //To trigger our custom layers' refresh above certain zoom leves (10 or 11)
@@ -260,6 +274,7 @@ const generateSlopeTable = function generateSlopeTable (labels, values) {
 */
 const setupMap = function setupMap (params, feature) {
   const { service, visibleLayers } = params;
+  console.log(params);
   //- Add a graphic to the map
   const graphic = new Graphic(new Polygon(feature.geometry), symbols.getCustomSymbol());
   map.setExtent(graphic.geometry.getExtent(), true);
@@ -283,7 +298,7 @@ const setupMap = function setupMap (params, feature) {
     map.addLayer(currentLayer);
   }
 
-  createLayers(resources.layerPanel, params.activeLayers, params.lang, params.service);
+  createLayers(resources.layerPanel, params.activeLayers, params.lang, params);
 
 };
 
