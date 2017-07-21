@@ -2,6 +2,7 @@ import layerActions from 'actions/LayerActions';
 import layerUtils from 'utils/layerUtils';
 import layerKeys from 'constants/LayerConstants';
 import rasterFuncs from 'utils/rasterFunctions';
+import utils from 'utils/AppUtils';
 import React, { Component, PropTypes } from 'react';
 
 const lossOptions = [];
@@ -69,7 +70,11 @@ export default class LossControls extends Component {
 
   updateDensity (layer, density) {
     const {lossFromSelectIndex, lossToSelectIndex} = this.props;
-    let baseUrl = 'https://storage.googleapis.com/wri-public/Hansen15/tiles/hansen_world/v1/tc';
+    const { settings } = this.context;
+    const layerGroups = settings.layerPanel;
+    const layerConf = utils.getObject(layerGroups.GROUP_LCD.layers, 'id', this.props.layerId);
+    let baseUrl = layerConf.url;
+    baseUrl = baseUrl.split('tc')[0] + 'tc';
     baseUrl += density;
     baseUrl += '/{z}/{x}/{y}.png';
 
