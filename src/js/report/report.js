@@ -6,7 +6,7 @@ import performAnalysis from 'utils/performAnalysis';
 import layerKeys from 'constants/LayerConstants';
 import Polygon from 'esri/geometry/Polygon';
 import {getUrlParams} from 'utils/params';
-import {analysisConfig} from 'js/config';
+import {analysisConfig, layerPanelText} from 'js/config';
 import layerFactory from 'utils/layerFactory';
 import geojsonUtil from 'utils/arcgis-to-geojson';
 import esriRequest from 'esri/request';
@@ -22,6 +22,7 @@ import resources from 'resources';
 import charts from 'utils/charts';
 import number from 'dojo/number';
 import text from 'js/languages';
+import layersHelper from 'js/helpers/LayersHelper';
 
 let map;
 
@@ -83,7 +84,7 @@ const getFeature = function getFeature (params) {
 };
 
 const createLayers = function createLayers (layerPanel, activeLayers, language, params) {
-    const {tcLossFrom, tcLossTo, gladFrom, gladTo} = params;
+    const {tcLossFrom, tcLossTo, gladFrom, gladTo, firesSelectIndex} = params;
 
     //- Organize and order the layers before adding them to the map
     let layers = Object.keys(layerPanel).filter((groupName) => {
@@ -139,16 +140,31 @@ const createLayers = function createLayers (layerPanel, activeLayers, language, 
     });
 
     // Set the date range for the loss and glad layers
-    const lossLayer = esriLayers.filter(layer => layer.id === 'TREE_COVER_LOSS')[0];
-    const gladLayer = esriLayers.filter(layer => layer.id === 'GLAD_ALERTS')[0];
+    const lossLayer = esriLayers.filter(layer => layer.id === layerKeys.TREE_COVER_LOSS)[0];
+    const gladLayer = esriLayers.filter(layer => layer.id === layerKeys.GLAD_ALERTS)[0];
+    const firesLayer = esriLayers.filter(layer => layer.id === layerKeys.ACTIVE_FIRES)[0];
 
     if (lossLayer && lossLayer.setDateRange) {
       const yearsArray = analysisConfig[analysisKeys.TC_LOSS].labels;
       const fromYear = yearsArray[tcLossFrom];
       const toYear = yearsArray[tcLossTo];
-      
+
       lossLayer.setDateRange(fromYear - 2000, toYear - 2000);
     }
+
+    if (gladLayer && gladLayer.setDateRange) {
+      const julianFrom = appUtils.getJulianDate(gladFrom);
+      const julianTo = appUtils.getJulianDate(gladTo);
+
+      gladLayer.setDateRange(julianFrom, julianTo);
+    }
+
+    // if (firesLayer) {
+    //   const firesOptions = layerPanelText.firesOptions;
+    //   const value = firesOptions[firesSelectIndex].value;
+    //   layersHelper.updateFiresLayerDefinitionsReport(firesLayer, value);
+    //   console.log(firesLayer);
+    // }
 
     map.addLayers(esriLayers);
     map.setExtent(map.extent); //To trigger our custom layers' refresh above certain zoom leves (10 or 11)
@@ -274,7 +290,6 @@ const generateSlopeTable = function generateSlopeTable (labels, values) {
 */
 const setupMap = function setupMap (params, feature) {
   const { service, visibleLayers } = params;
-  console.log(params);
   //- Add a graphic to the map
   const graphic = new Graphic(new Polygon(feature.geometry), symbols.getCustomSymbol());
   map.setExtent(graphic.geometry.getExtent(), true);
