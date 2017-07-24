@@ -159,12 +159,11 @@ const createLayers = function createLayers (layerPanel, activeLayers, language, 
       gladLayer.setDateRange(julianFrom, julianTo);
     }
 
-    // if (firesLayer) {
-    //   const firesOptions = layerPanelText.firesOptions;
-    //   const value = firesOptions[firesSelectIndex].value;
-    //   layersHelper.updateFiresLayerDefinitionsReport(firesLayer, value);
-    //   console.log(firesLayer);
-    // }
+    if (firesLayer) {
+      const firesOptions = layerPanelText.firesOptions;
+      const value = firesOptions[firesSelectIndex].value;
+      layersHelper.updateFiresLayerDefinitions(value);
+    }
 
     map.addLayers(esriLayers);
     map.setExtent(map.extent); //To trigger our custom layers' refresh above certain zoom leves (10 or 11)
@@ -199,6 +198,7 @@ const createMap = function createMap (params) {
 
   arcgisUtils.createMap(params.webmap, 'map', { mapOptions: options }).then(response => {
     map = response.map;
+    brApp.map = map;
 
     map.disableKeyboardNavigation();
     map.disableMapNavigation();
@@ -546,7 +546,7 @@ const runAnalysis = function runAnalysis (params, feature) {
   const lcdLayers = resources.layerPanel.GROUP_LCD ? resources.layerPanel.GROUP_LCD.layers : [];
   const layerConf = appUtils.getObject(lcLayers, 'id', layerKeys.LAND_COVER);
   const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
-  const { tcd, lang, settings, activeSlopeClass, tcLossFrom, tcLossTo, gladFrom, gladTo } = params;
+  const { tcd, lang, settings, activeSlopeClass, tcLossFrom, tcLossTo, gladFrom, gladTo, firesSelectIndex } = params;
   const geographic = webmercatorUtils.geographicToWebMercator(feature.geometry);
   //- Only Analyze layers in the analysis
   if (appUtils.containsObject(lcdLayers, 'id', layerKeys.TREE_COVER_LOSS)) {
@@ -751,7 +751,7 @@ const runAnalysis = function runAnalysis (params, feature) {
       document.querySelector('.results__fires-pre').innerHTML = text[lang].ANALYSIS_FIRES_PRE;
       document.querySelector('.results__fires-count').innerHTML = results.fireCount;
       document.querySelector('.results__fires-active').innerHTML = text[lang].ANALYSIS_FIRES_ACTIVE;
-      document.querySelector('.results__fires-post').innerHTML = text[lang].ANALYSIS_FIRES_POST;
+      document.querySelector('.results__fires-post').innerHTML = text[lang].ANALYSIS_FIRES_POST_LIST[firesSelectIndex];
       document.getElementById('fires-badge').classList.remove('hidden');
     });
   } else {

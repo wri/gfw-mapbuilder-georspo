@@ -41,22 +41,6 @@ const LayersHelper = {
   },
 
   /**
-  * @param {number} optionIndex - Index of the selected option in the UI, see js/config
-  * @param {boolean} dontRefresh - Whether or not to not fetch a new image
-  */
-  updateFiresLayerDefinitionsReport (firesLayer, value, dontRefresh) {
-    const queryString = this.generateFiresQuery(value);
-    const defs = [];
-
-    if (firesLayer) {
-      console.log(firesLayer.visibleLayers);
-      firesLayer.visibleLayers.forEach(val => { val !== undefined ? defs[val] = queryString : null; });
-      console.log(defs);
-      firesLayer.setLayerDefinitions(defs, dontRefresh);
-    }
-  },
-
-  /**
   * Generate a date query for active fires layers
   * @param {number} filterValue - Numeric value representing the number of days to show in the output query
   * @return {string} Query String to use for Fires Filter

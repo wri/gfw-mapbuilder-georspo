@@ -8,7 +8,7 @@ const FiresBadge = (props, context) => {
       <div className='results__fires-pre'>{text[language].ANALYSIS_FIRES_PRE}</div>
       <div className='results__fires-count'>{props.count}</div>
       <div className='results__fires-active'>{text[language].ANALYSIS_FIRES_ACTIVE}</div>
-      <div className='results__fires-post'>{text[language].ANALYSIS_FIRES_POST}</div>
+      <div className='results__fires-post'>{text[language].ANALYSIS_FIRES_POST_LIST[props.firesSelectIndex]}</div>
     </div>
   );
 };

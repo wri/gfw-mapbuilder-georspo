@@ -61,7 +61,12 @@ strings.en.ANALYSIS_IFL_LABELS = ['Intact Forest'];
 strings.en.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.en.ANALYSIS_FIRES_PRE = 'There are';
 strings.en.ANALYSIS_FIRES_ACTIVE = 'active fires';
-strings.en.ANALYSIS_FIRES_POST = 'in the last 7 days';
+strings.en.ANALYSIS_FIRES_POST_LIST = [
+  'in the last 7 days',
+  'in the last 72 hours',
+  'in the last 48 hours',
+  'in the last 24 hours'
+];
 strings.en.ANALYSIS_TOTAL_LOSS_LABEL = 'Total tree cover loss';
 strings.en.ANALYSIS_TOTAL_LOSS_RANGE = '(2001 - 2015):';
 strings.en.ANALYSIS_TOTAL_GAIN_LABEL = 'Total tree cover gained';
