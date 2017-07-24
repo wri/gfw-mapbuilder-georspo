@@ -87,10 +87,18 @@ const formatters = {
       alerts: bin
     };
   },
-  gladAlerts: function (year, counts) {
+  gladAlerts: function (year, counts, date, type) {
     var results = [];
-    for (let i = 0; i < counts.length; i++) {
-      results.push([new Date(year, 0, i + 1).getTime(), counts[i] || 0]);
+    if (type === 'start') {
+      for (let i = date - 10; i < counts.length; i++) {
+        results.push([new Date(year, 0, i).getTime(), counts[i] || 0]);
+      }
+
+    } else {
+      for (let i = 1; i < counts.length; i++) {
+        results.push([new Date(year, 0, i).getTime(), counts[i] || 0]);
+      }
+
     }
     return results;
   },
@@ -613,36 +621,75 @@ export default {
   cleanGlad: (results) => {
     let alerts = [];
 
-    const yearOne = [], yearTwo = [], yearThree = [];
-    for (let k = 1; k < 366; k++) {
-      yearOne.push(0);
-      yearTwo.push(0);
-    }
+    const sortedYears = Object.keys(results)
+      .filter(key => !isNaN(Number(key)))
+      .map(year => Number(year))
+      .sort((a, b) => a - b);
 
-    const now = new Date();
-    const start = new Date(now.getFullYear(), 0, 0);
-    const diff = now - start;
-    const oneDay = 1000 * 60 * 60 * 24;
-    const day = Math.floor(diff / oneDay);
+    sortedYears.forEach((year, index) => {
+      const alertsTmp = [];
+      const sortedKeys = Object.keys(results[year]).map(key => Number(key));
 
-    for (let l = 0; l < day; l++) {
-      yearThree.push(0);
-    }
+      if (sortedYears.length === 1) { // if there is only one year selected we need start and end dates
+        const firstAlertOfYear = sortedKeys.sort((a, b) => a - b)[0];
 
-    for (const key in results['2015']) {
-      yearOne[key] = results['2015'][key];
-    }
-    for (const key in results['2016']) {
-      yearTwo[key] = results['2016'][key];
-    }
-    for (const key in results['2017']) {
-      yearThree[key] = results['2017'][key];
-    }
+        const lastAlertOfYear = sortedKeys.sort((a, b) => b - a)[0];
 
-    alerts = alerts.concat(formatters.gladAlerts(2015, yearOne));
-    alerts = alerts.concat(formatters.gladAlerts(2016, yearTwo));
-    alerts = alerts.concat(formatters.gladAlerts(2017, yearThree));
+        for (let i = 0; i <= lastAlertOfYear + 10; i++) {
 
+          if (results[year].hasOwnProperty(i)) {
+            alertsTmp.push(results[year][i]);
+          } else {
+            alertsTmp.push(0);
+          }
+        }
+
+        alerts = alerts.concat(formatters.gladAlerts(year, alertsTmp, firstAlertOfYear, 'start'));
+
+      } else { // if there is more than one year
+
+        if (index === 0) { // if it's the first year
+
+          const firstAlertOfYear = sortedKeys.sort((a, b) => a - b)[0];
+
+          for (let j = 0; j < 365; j++) {
+            if (results[year].hasOwnProperty(j)) {
+              alertsTmp.push(results[year][j]);
+            } else {
+              alertsTmp.push(0);
+            }
+          }
+
+          alerts = alerts.concat(formatters.gladAlerts(year, alertsTmp, firstAlertOfYear, 'start'));
+
+        } else if (index === sortedYears.length - 1) { // if it's the last year
+
+          const lastAlertOfYear = sortedKeys.sort((a, b) => b - a)[0];
+
+          for (let k = 0; k <= lastAlertOfYear + 10; k++) {
+            if (results[year].hasOwnProperty(k)) {
+              alertsTmp.push(results[year][k]);
+            } else {
+              alertsTmp.push(0);
+            }
+          }
+
+          alerts = alerts.concat(formatters.gladAlerts(year, alertsTmp));
+
+        } else { // if it's any year other than the first or last
+
+          for (let l = 0; l < 365; l++) {
+            if (results[year].hasOwnProperty(l)) {
+              alertsTmp.push(results[year][l]);
+            } else {
+              alertsTmp.push(0);
+            }
+          }
+
+          alerts = alerts.concat(formatters.gladAlerts(year, alertsTmp));
+        }
+      }
+    });
     return alerts;
   },
 
