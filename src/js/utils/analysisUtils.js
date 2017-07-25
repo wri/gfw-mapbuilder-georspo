@@ -620,41 +620,24 @@ export default {
 
   cleanGlad: (results) => {
     let alerts = [];
-
     const sortedYears = Object.keys(results)
       .filter(key => !isNaN(Number(key)))
       .map(year => Number(year))
       .sort((a, b) => a - b);
 
     sortedYears.forEach((year, index) => {
-      const alertsTmp = [];
-      const sortedKeys = Object.keys(results[year]).map(key => Number(key));
+        const alertsTmp = [];
+        const sortedKeys = Object.keys(results[year]).map(key => Number(key));
 
-      if (sortedYears.length === 1) { // if there is only one year selected we need start and end dates
-        const firstAlertOfYear = sortedKeys.sort((a, b) => a - b)[0];
-
-        const lastAlertOfYear = sortedKeys.sort((a, b) => b - a)[0];
-
-        for (let i = 0; i <= lastAlertOfYear + 10; i++) {
-
-          if (results[year].hasOwnProperty(i)) {
-            alertsTmp.push(results[year][i]);
-          } else {
-            alertsTmp.push(0);
-          }
-        }
-
-        alerts = alerts.concat(formatters.gladAlerts(year, alertsTmp, firstAlertOfYear, 'start'));
-
-      } else { // if there is more than one year
-
-        if (index === 0) { // if it's the first year
-
+        if (sortedYears.length === 1) { // if there is only one year selected we need start and end dates
           const firstAlertOfYear = sortedKeys.sort((a, b) => a - b)[0];
 
-          for (let j = 0; j < 365; j++) {
-            if (results[year].hasOwnProperty(j)) {
-              alertsTmp.push(results[year][j]);
+          const lastAlertOfYear = sortedKeys.sort((a, b) => b - a)[0];
+
+          for (let i = 0; i <= lastAlertOfYear + 10; i++) {
+
+            if (results[year].hasOwnProperty(i)) {
+              alertsTmp.push(results[year][i]);
             } else {
               alertsTmp.push(0);
             }
@@ -662,33 +645,49 @@ export default {
 
           alerts = alerts.concat(formatters.gladAlerts(year, alertsTmp, firstAlertOfYear, 'start'));
 
-        } else if (index === sortedYears.length - 1) { // if it's the last year
+        } else { // if there is more than one year
 
-          const lastAlertOfYear = sortedKeys.sort((a, b) => b - a)[0];
+          if (index === 0) { // if it's the first year
 
-          for (let k = 0; k <= lastAlertOfYear + 10; k++) {
-            if (results[year].hasOwnProperty(k)) {
-              alertsTmp.push(results[year][k]);
-            } else {
-              alertsTmp.push(0);
+            const firstAlertOfYear = sortedKeys.sort((a, b) => a - b)[0];
+
+            for (let j = 0; j < 365; j++) {
+              if (results[year].hasOwnProperty(j)) {
+                alertsTmp.push(results[year][j]);
+              } else {
+                alertsTmp.push(0);
+              }
             }
-          }
 
-          alerts = alerts.concat(formatters.gladAlerts(year, alertsTmp));
+            alerts = alerts.concat(formatters.gladAlerts(year, alertsTmp, firstAlertOfYear, 'start'));
 
-        } else { // if it's any year other than the first or last
+          } else if (index === sortedYears.length - 1) { // if it's the last year
 
-          for (let l = 0; l < 365; l++) {
-            if (results[year].hasOwnProperty(l)) {
-              alertsTmp.push(results[year][l]);
-            } else {
-              alertsTmp.push(0);
+            const lastAlertOfYear = sortedKeys.sort((a, b) => b - a)[0];
+
+            for (let k = 0; k <= lastAlertOfYear + 10; k++) {
+              if (results[year].hasOwnProperty(k)) {
+                alertsTmp.push(results[year][k]);
+              } else {
+                alertsTmp.push(0);
+              }
             }
-          }
 
-          alerts = alerts.concat(formatters.gladAlerts(year, alertsTmp));
+            alerts = alerts.concat(formatters.gladAlerts(year, alertsTmp));
+
+          } else { // if it's any year other than the first or last
+
+            for (let l = 0; l < 365; l++) {
+              if (results[year].hasOwnProperty(l)) {
+                alertsTmp.push(results[year][l]);
+              } else {
+                alertsTmp.push(0);
+              }
+            }
+
+            alerts = alerts.concat(formatters.gladAlerts(year, alertsTmp));
+          }
         }
-      }
     });
     return alerts;
   },

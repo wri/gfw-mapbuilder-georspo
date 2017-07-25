@@ -84,7 +84,7 @@ const getFeature = function getFeature (params) {
 };
 
 const createLayers = function createLayers (layerPanel, activeLayers, language, params) {
-    const {tcLossFrom, tcLossTo, gladFrom, gladTo, firesSelectIndex} = params;
+    const {tcLossFrom, tcLossTo, gladFrom, gladTo, firesSelectIndex, tcd} = params;
 
     //- Organize and order the layers before adding them to the map
     let layers = Object.keys(layerPanel).filter((groupName) => {
@@ -162,11 +162,17 @@ const createLayers = function createLayers (layerPanel, activeLayers, language, 
     if (firesLayer) {
       const firesOptions = layerPanelText.firesOptions;
       const value = firesOptions[firesSelectIndex].value;
-      layersHelper.updateFiresLayerDefinitions(value);
+      layersHelper.updateFiresLayerDefinitions(value, firesLayer);
     }
 
     map.addLayers(esriLayers);
-    map.setExtent(map.extent); //To trigger our custom layers' refresh above certain zoom leves (10 or 11)
+
+    layersHelper.updateTreeCoverDefinitions(tcd, map, layerPanel);
+    layersHelper.updateAGBiomassLayer(tcd, map);
+
+    if (map.getZoom() > 9) {
+      map.setExtent(map.extent, true); //To trigger our custom layers' refresh above certain zoom leves (10 or 11)
+    }
 
     // If there is an error with a particular layer, handle that here
     map.on('layers-add-result', result => {
@@ -198,7 +204,6 @@ const createMap = function createMap (params) {
 
   arcgisUtils.createMap(params.webmap, 'map', { mapOptions: options }).then(response => {
     map = response.map;
-    brApp.map = map;
 
     map.disableKeyboardNavigation();
     map.disableMapNavigation();
@@ -292,7 +297,8 @@ const setupMap = function setupMap (params, feature) {
   const { service, visibleLayers } = params;
   //- Add a graphic to the map
   const graphic = new Graphic(new Polygon(feature.geometry), symbols.getCustomSymbol());
-  map.setExtent(graphic.geometry.getExtent(), true);
+  const graphicExtent = graphic.geometry.getExtent();
+  map.setExtent(graphicExtent, true);
   map.graphics.add(graphic);
   //- Add the layer to the map
   //- TODO: Old method adds a dynamic layer, this needs to be able to handle all layer types eventually,
