@@ -87,19 +87,13 @@ const formatters = {
       alerts: bin
     };
   },
-  gladAlerts: function (year, counts, date, type) {
+  gladAlerts: function (year, counts, startDate = 1) {
     var results = [];
-    if (type === 'start') {
-      for (let i = date - 10; i < counts.length; i++) {
-        results.push([new Date(year, 0, i).getTime(), counts[i] || 0]);
-      }
 
-    } else {
-      for (let i = 1; i < counts.length; i++) {
-        results.push([new Date(year, 0, i).getTime(), counts[i] || 0]);
-      }
-
+    for (let i = startDate; i < counts.length; i++) {
+      results.push([new Date(year, 0, i).getTime(), counts[i] || 0]);
     }
+
     return results;
   },
   terraIAlerts: function (counts) {
@@ -631,10 +625,11 @@ export default {
 
         if (sortedYears.length === 1) { // if there is only one year selected we need start and end dates
           const firstAlertOfYear = sortedKeys.sort((a, b) => a - b)[0];
-
+          const startDate = firstAlertOfYear - 10;
           const lastAlertOfYear = sortedKeys.sort((a, b) => b - a)[0];
+          const endDate = lastAlertOfYear + 10;
 
-          for (let i = 0; i <= lastAlertOfYear + 10; i++) {
+          for (let i = 0; i <= endDate; i++) {
 
             if (results[year].hasOwnProperty(i)) {
               alertsTmp.push(results[year][i]);
@@ -643,13 +638,14 @@ export default {
             }
           }
 
-          alerts = alerts.concat(formatters.gladAlerts(year, alertsTmp, firstAlertOfYear, 'start'));
+          alerts = alerts.concat(formatters.gladAlerts(year, alertsTmp, startDate));
 
         } else { // if there is more than one year
 
           if (index === 0) { // if it's the first year
 
             const firstAlertOfYear = sortedKeys.sort((a, b) => a - b)[0];
+            const startDate = firstAlertOfYear - 10;
 
             for (let j = 0; j < 365; j++) {
               if (results[year].hasOwnProperty(j)) {
@@ -659,13 +655,14 @@ export default {
               }
             }
 
-            alerts = alerts.concat(formatters.gladAlerts(year, alertsTmp, firstAlertOfYear, 'start'));
+            alerts = alerts.concat(formatters.gladAlerts(year, alertsTmp, startDate));
 
           } else if (index === sortedYears.length - 1) { // if it's the last year
 
             const lastAlertOfYear = sortedKeys.sort((a, b) => b - a)[0];
+            const endDate = lastAlertOfYear + 10;
 
-            for (let k = 0; k <= lastAlertOfYear + 10; k++) {
+            for (let k = 0; k <= endDate; k++) {
               if (results[year].hasOwnProperty(k)) {
                 alertsTmp.push(results[year][k]);
               } else {
