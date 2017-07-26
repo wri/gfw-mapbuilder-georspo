@@ -17,7 +17,7 @@ export default class Header extends Component {
       settings
     } = this.context;
 
-    const {labels, hideHeaderFooter} = settings;
+    const {labels, hideHeader} = settings;
     let title = '';
     let subtitle = '';
 
@@ -31,7 +31,7 @@ export default class Header extends Component {
     }
 
     return (
-      <div className={`app-header ${hideHeaderFooter ? 'hidden' : ''}`}>
+      <div className={`app-header ${hideHeader ? 'hidden' : ''}`}>
         <div className='app-header__logo-container'>
           <a href={settings.logoLinkUrl} target='_blank'>
             <img className='app-header__logo' src={settings.logoUrl} />

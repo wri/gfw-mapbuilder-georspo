@@ -323,7 +323,7 @@ export default class Map extends Component {
           <TabButtons {...this.state} />
           <TabView {...this.state} />
           {map.loaded ? <Legend tableOfContentsVisible={this.state.tableOfContentsVisible} activeLayers={activeLayers} legendOpen={this.state.legendOpen} /> : null}
-          <FooterInfos hidden={settings.hideHeaderFooter} map={map} />
+          <FooterInfos hidden={settings.hideFooter} map={map} />
           {timeWidgets}
           <svg className={`map__viewfinder${map.loaded ? '' : ' hidden'}`}>
             <use xlinkHref='#shape-crosshairs' />
