@@ -5,7 +5,7 @@ import {loadJS, loadCSS} from 'utils/loaders';
 import mapActions from 'actions/MapActions';
 import mapStore from 'stores/MapStore';
 import text from 'js/languages';
-import layersHelper from 'js/helpers/LayersHelper';
+import layersHelper from 'helpers/LayersHelper';
 import React, {
   Component,
   PropTypes

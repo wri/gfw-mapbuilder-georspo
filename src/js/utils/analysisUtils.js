@@ -9,6 +9,7 @@ import Deferred from 'dojo/Deferred';
 import utils from 'utils/AppUtils';
 import lang from 'dojo/_base/lang';
 import all from 'dojo/promise/all';
+import layersHelper from 'helpers/LayersHelper';
 
 const INVALID_IMAGE_SIZE = 'The requested image exceeds the size limit.';
 const OP_MULTIPLY = 3;
@@ -259,14 +260,15 @@ export default {
   /**
   * Fetch and format fire results
   */
-  getFireCount: (url, geometry) => {
+  getFireCount: (url, geometry, value) => {
     const queryTask = new QueryTask(url);
     const promise = new Deferred();
     const query = new Query();
+    const layerDef = layersHelper.generateFiresQuery(value);
     query.geometry = geometry;
     query.returnGeometry = false;
     query.outFields = [''];
-    query.where = '1 = 1';
+    query.where = layerDef;
     queryTask.execute(query).then(function (response) {
       promise.resolve(formatters.fires(response));
     }, (error) => {

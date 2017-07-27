@@ -57,7 +57,8 @@ export default class Analysis extends Component {
       lossFromSelectIndex,
       lossToSelectIndex,
       gladStartDate,
-      gladEndDate
+      gladEndDate,
+      firesSelectIndex
     } = this.props;
 
     if (selectedFeature && activeAnalysisType && activeTab === tabKeys.ANALYSIS) {
@@ -72,7 +73,8 @@ export default class Analysis extends Component {
           tcLossFrom: lossFromSelectIndex,
           tcLossTo: lossToSelectIndex,
           gladFrom: gladStartDate,
-          gladTo: gladEndDate
+          gladTo: gladEndDate,
+          firesSelectIndex: firesSelectIndex
         }).then((results) => {
           this.setState({ results: results, isLoading: false });
         }, () => {
@@ -94,7 +96,8 @@ export default class Analysis extends Component {
       lossFromSelectIndex,
       lossToSelectIndex,
       gladStartDate,
-      gladEndDate
+      gladEndDate,
+      firesSelectIndex
     } = nextProps;
 
     //- Only rerun the analysis if one of these things changes
@@ -121,7 +124,8 @@ export default class Analysis extends Component {
           tcLossFrom: lossFromSelectIndex,
           tcLossTo: lossToSelectIndex,
           gladFrom: gladStartDate,
-          gladTo: gladEndDate
+          gladTo: gladEndDate,
+          firesSelectIndex: firesSelectIndex
         }).then((results) => {
           this.setState({ results: results, isLoading: false });
         }, () => {

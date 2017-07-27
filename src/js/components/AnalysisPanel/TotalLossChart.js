@@ -11,7 +11,7 @@ export default class TotalLossChart extends Component {
 
   componentDidMount() {
     const {labels, colors, counts, encoder, options, lossLabels} = this.props;
-    if(counts.length === 0) {
+    if(counts.length === 0 || !counts.some(value => value !== 0)) {
       this.setState({ isEmpty: true });
     } else {
       this.setState({ isEmpty: false });

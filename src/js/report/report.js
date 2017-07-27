@@ -22,7 +22,7 @@ import resources from 'resources';
 import charts from 'utils/charts';
 import number from 'dojo/number';
 import text from 'js/languages';
-import layersHelper from 'js/helpers/LayersHelper';
+import layersHelper from 'helpers/LayersHelper';
 
 let map;
 
@@ -752,7 +752,8 @@ const runAnalysis = function runAnalysis (params, feature) {
       geometry: feature.geometry,
       settings: settings,
       canopyDensity: tcd,
-      language: lang
+      language: lang,
+      firesSelectIndex: firesSelectIndex
     }).then((results) => {
       document.querySelector('.results__fires-pre').innerHTML = text[lang].ANALYSIS_FIRES_PRE;
       document.querySelector('.results__fires-count').innerHTML = results.fireCount;
