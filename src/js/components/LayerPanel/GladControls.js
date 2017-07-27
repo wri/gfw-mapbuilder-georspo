@@ -2,19 +2,10 @@ import ToggleSwitch from 'components/Shared/ToggleSwitch';
 import React, {Component, PropTypes} from 'react';
 import layerActions from 'actions/LayerActions';
 import {loadCSS} from 'utils/loaders';
+import utils from 'utils/AppUtils';
 import {assetUrls} from 'js/config';
 import text from 'js/languages';
 import 'pickadate';
-
-const day = 1000 * 60 * 60 * 24;
-const getJulianDate = function getJulianDate (timestamp) {
-  const newDate = new Date(timestamp);
-  const year = new Date(newDate.getFullYear(), 0, 0);
-  const currentDay = Math.ceil((newDate - year) / day);
-  //- Year should be 15000 or 16000
-  const julianYear = (newDate.getFullYear() - 2000) * 1000;
-  return julianYear + currentDay;
-};
 
 export default class GladControls extends Component {
 
@@ -72,11 +63,16 @@ export default class GladControls extends Component {
     }).pickadate('picker');
   }
 
+  componentDidUpdate(prevProps) {
+    if ((Date.parse(prevProps.startDate) !== Date.parse(this.props.startDate)) || (Date.parse(prevProps.endDate) !== Date.parse(this.props.endDate))) {
+      this.updateDateRange();
+    }
+  }
+
   didSetStartDate = ({select}) => {
     if (select) {
       const startDate = new Date(select);
       layerActions.updateGladStartDate.defer(startDate);
-      this.updateDateRange();
       if (this.fromPicker && this.toPicker) {
         this.toPicker.set('min', this.fromPicker.get('select'));
       }
@@ -87,7 +83,6 @@ export default class GladControls extends Component {
     if (select) {
       const endDate = new Date(select);
       layerActions.updateGladEndDate.defer(endDate);
-      this.updateDateRange();
       if (this.fromPicker && this.toPicker) {
         this.fromPicker.set('max', this.toPicker.get('select'));
       }
@@ -105,8 +100,8 @@ export default class GladControls extends Component {
   updateDateRange = () => {
     const {startDate, endDate, layer} = this.props;
     const {map} = this.context;
-    const julianFrom = getJulianDate(startDate);
-    const julianTo = getJulianDate(endDate);
+    const julianFrom = utils.getJulianDate(startDate);
+    const julianTo = utils.getJulianDate(endDate);
     if (map.getLayer) {
       map.getLayer(layer.id).setDateRange(julianFrom, julianTo);
     }

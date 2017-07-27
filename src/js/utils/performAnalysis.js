@@ -1,7 +1,7 @@
 import analysisKeys from 'constants/AnalysisConstants';
 import layerKeys from 'constants/LayerConstants';
 import analysisUtils from 'utils/analysisUtils';
-import {analysisConfig} from 'js/config';
+import {analysisConfig, layerPanelText} from 'js/config';
 import Deferred from 'dojo/Deferred';
 import utils from 'utils/AppUtils';
 import all from 'dojo/promise/all';
@@ -17,7 +17,7 @@ import all from 'dojo/promise/all';
 * @return {promise}
 */
 export default function performAnalysis (options) {
-  const {type, geometry, canopyDensity, activeSlopeClass, settings, geostoreId, tcLossFrom, tcLossTo, gladFrom, gladTo} = options;
+  const {type, geometry, canopyDensity, activeSlopeClass, settings, geostoreId, tcLossFrom, tcLossTo, gladFrom, gladTo, firesSelectIndex} = options;
   const restorationUrl = settings && settings.restorationImageServer;
   const landCoverConfig = settings && settings.layerPanel && settings.layerPanel.GROUP_LC ?
     utils.getObject(settings.layerPanel.GROUP_LC.layers, 'id', layerKeys.LAND_COVER) : {};
@@ -26,7 +26,9 @@ export default function performAnalysis (options) {
 
   switch (type) {
     case analysisKeys.FIRES:
-      analysisUtils.getFireCount(config.url, geometry).then(promise.resolve);
+      const firesOptions = layerPanelText.firesOptions;
+      const value = firesOptions[firesSelectIndex].value;
+      analysisUtils.getFireCount(config.url, geometry, value).then(promise.resolve);
     break;
     case analysisKeys.LCC:
       analysisUtils.getMosaic(landCoverConfig.rasterId, geometry).then(promise.resolve);

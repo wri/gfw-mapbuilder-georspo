@@ -261,7 +261,7 @@ config.analysis[analysisKeys.TC_LOSS] = {
 };
 
 config.analysis[analysisKeys.FIRES] = {
-  url: 'https://gis-gfw.wri.org/arcgis/rest/services/Fires/FIRMS_Global/MapServer/4'
+  url: 'https://gis-gfw.wri.org/arcgis/rest/services/Fires/FIRMS_Global/MapServer/8'
 };
 
 export const mapConfig = config.map;

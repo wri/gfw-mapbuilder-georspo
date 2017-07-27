@@ -133,7 +133,7 @@ const utils = {
   },
 
   geometrySuccess: (response, options) => {
-    const { settings, lang, canopyDensity, appid, activeSlopeClass, activeLayers, tcLossFrom, tcLossTo, gladFrom, gladTo } = options;
+    const { settings, lang, canopyDensity, appid, activeSlopeClass, activeLayers, tcLossFrom, tcLossTo, gladFrom, gladTo, firesSelectIndex } = options;
     const labels = settings.labels[lang];
     const query = {
       title: labels.title,
@@ -149,7 +149,8 @@ const utils = {
       tcLossFrom: tcLossFrom,
       tcLossTo: tcLossTo,
       gladFrom: gladFrom,
-      gladTo: gladTo
+      gladTo: gladTo,
+      firesSelectIndex: firesSelectIndex
     };
 
     if (appid) {

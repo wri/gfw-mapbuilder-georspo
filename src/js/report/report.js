@@ -6,7 +6,7 @@ import performAnalysis from 'utils/performAnalysis';
 import layerKeys from 'constants/LayerConstants';
 import Polygon from 'esri/geometry/Polygon';
 import {getUrlParams} from 'utils/params';
-import {analysisConfig} from 'js/config';
+import {analysisConfig, layerPanelText} from 'js/config';
 import layerFactory from 'utils/layerFactory';
 import geojsonUtil from 'utils/arcgis-to-geojson';
 import esriRequest from 'esri/request';
@@ -22,6 +22,7 @@ import resources from 'resources';
 import charts from 'utils/charts';
 import number from 'dojo/number';
 import text from 'js/languages';
+import layersHelper from 'helpers/LayersHelper';
 
 let map;
 
@@ -82,7 +83,9 @@ const getFeature = function getFeature (params) {
   return promise;
 };
 
-const createLayers = function createLayers (layerPanel, activeLayers, language) {
+const createLayers = function createLayers (layerPanel, activeLayers, language, params) {
+    const {tcLossFrom, tcLossTo, gladFrom, gladTo, firesSelectIndex, tcd} = params;
+
     //- Organize and order the layers before adding them to the map
     let layers = Object.keys(layerPanel).filter((groupName) => {
       //- remove basemaps and extra layers, extra layers will be added later and basemaps
@@ -136,8 +139,40 @@ const createLayers = function createLayers (layerPanel, activeLayers, language) 
       return layerFactory(layer, language);
     });
 
+    // Set the date range for the loss and glad layers
+    const lossLayer = esriLayers.filter(layer => layer.id === layerKeys.TREE_COVER_LOSS)[0];
+    const gladLayer = esriLayers.filter(layer => layer.id === layerKeys.GLAD_ALERTS)[0];
+    const firesLayer = esriLayers.filter(layer => layer.id === layerKeys.ACTIVE_FIRES)[0];
+
+    if (lossLayer && lossLayer.setDateRange) {
+      const yearsArray = analysisConfig[analysisKeys.TC_LOSS].labels;
+      const fromYear = yearsArray[tcLossFrom];
+      const toYear = yearsArray[tcLossTo];
+
+      lossLayer.setDateRange(fromYear - 2000, toYear - 2000);
+    }
+
+    if (gladLayer && gladLayer.setDateRange) {
+      const julianFrom = appUtils.getJulianDate(gladFrom);
+      const julianTo = appUtils.getJulianDate(gladTo);
+
+      gladLayer.setDateRange(julianFrom, julianTo);
+    }
+
+    if (firesLayer) {
+      const firesOptions = layerPanelText.firesOptions;
+      const value = firesOptions[firesSelectIndex].value;
+      layersHelper.updateFiresLayerDefinitions(value, firesLayer);
+    }
+
     map.addLayers(esriLayers);
-    map.setExtent(map.extent); //To trigger our custom layers' refresh above certain zoom leves (10 or 11)
+
+    layersHelper.updateTreeCoverDefinitions(tcd, map, layerPanel);
+    layersHelper.updateAGBiomassLayer(tcd, map);
+
+    if (map.getZoom() > 9) {
+      map.setExtent(map.extent, true); //To trigger our custom layers' refresh above certain zoom leves (10 or 11)
+    }
 
     // If there is an error with a particular layer, handle that here
     map.on('layers-add-result', result => {
@@ -262,7 +297,8 @@ const setupMap = function setupMap (params, feature) {
   const { service, visibleLayers } = params;
   //- Add a graphic to the map
   const graphic = new Graphic(new Polygon(feature.geometry), symbols.getCustomSymbol());
-  map.setExtent(graphic.geometry.getExtent(), true);
+  const graphicExtent = graphic.geometry.getExtent();
+  map.setExtent(graphicExtent, true);
   map.graphics.add(graphic);
   //- Add the layer to the map
   //- TODO: Old method adds a dynamic layer, this needs to be able to handle all layer types eventually,
@@ -283,7 +319,7 @@ const setupMap = function setupMap (params, feature) {
     map.addLayer(currentLayer);
   }
 
-  createLayers(resources.layerPanel, params.activeLayers, params.lang, params.service);
+  createLayers(resources.layerPanel, params.activeLayers, params.lang, params);
 
 };
 
@@ -516,7 +552,7 @@ const runAnalysis = function runAnalysis (params, feature) {
   const lcdLayers = resources.layerPanel.GROUP_LCD ? resources.layerPanel.GROUP_LCD.layers : [];
   const layerConf = appUtils.getObject(lcLayers, 'id', layerKeys.LAND_COVER);
   const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
-  const { tcd, lang, settings, activeSlopeClass, tcLossFrom, tcLossTo, gladFrom, gladTo } = params;
+  const { tcd, lang, settings, activeSlopeClass, tcLossFrom, tcLossTo, gladFrom, gladTo, firesSelectIndex } = params;
   const geographic = webmercatorUtils.geographicToWebMercator(feature.geometry);
   //- Only Analyze layers in the analysis
   if (appUtils.containsObject(lcdLayers, 'id', layerKeys.TREE_COVER_LOSS)) {
@@ -716,12 +752,13 @@ const runAnalysis = function runAnalysis (params, feature) {
       geometry: feature.geometry,
       settings: settings,
       canopyDensity: tcd,
-      language: lang
+      language: lang,
+      firesSelectIndex: firesSelectIndex
     }).then((results) => {
       document.querySelector('.results__fires-pre').innerHTML = text[lang].ANALYSIS_FIRES_PRE;
       document.querySelector('.results__fires-count').innerHTML = results.fireCount;
       document.querySelector('.results__fires-active').innerHTML = text[lang].ANALYSIS_FIRES_ACTIVE;
-      document.querySelector('.results__fires-post').innerHTML = text[lang].ANALYSIS_FIRES_POST;
+      document.querySelector('.results__fires-post').innerHTML = text[lang].ANALYSIS_FIRES_POST_LIST[firesSelectIndex];
       document.getElementById('fires-badge').classList.remove('hidden');
     });
   } else {
