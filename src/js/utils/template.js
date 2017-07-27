@@ -159,7 +159,7 @@ const formatResources = () => {
   // Object.keys(resources.layers).forEach((language) => {
   //   resources.layers[language] = resources.layers[language].filter((layer) => {
       // switch (layer.id) {
-      //   case layerKeys.ACTIVE_FIRES:
+      //   case layerKeys.VIIRS_ACTIVE_FIRES:
       //     return resources.activeFires;
       //   case layerKeys.LAND_COVER:
       //     return resources.landCover;
@@ -187,7 +187,7 @@ const formatResources = () => {
     if (!groupSettings.layers) { return; }
     resources.layerPanel[group].layers = resources.layerPanel[group].layers.filter((layer) => {
       switch (layer.id) {
-        case layerKeys.ACTIVE_FIRES:
+        case layerKeys.VIIRS_ACTIVE_FIRES:
           return resources.activeFires;
         case layerKeys.LAND_COVER:
           return resources.landCover;

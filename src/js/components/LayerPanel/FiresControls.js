@@ -1,4 +1,3 @@
-import layerActions from 'actions/LayerActions';
 import LayersHelper from 'helpers/LayersHelper';
 import {layerPanelText} from 'js/config';
 import React, {PropTypes} from 'react';
@@ -15,7 +14,7 @@ export default class FiresControls extends React.Component {
     const value = firesOptions[this.props.firesSelectIndex].value;
 
     if (prevProps.firesSelectIndex !== this.props.firesSelectIndex) {
-      LayersHelper.updateFiresLayerDefinitions(value);
+      LayersHelper.updateFiresLayerDefinitions(value, this.props.layer.id);
     }
 
     // Anytime the map changes to a new map, update that here
@@ -23,7 +22,7 @@ export default class FiresControls extends React.Component {
     if (prevContext.map !== map) {
       const signal = map.on('update-end', () => {
         signal.remove();
-        LayersHelper.updateFiresLayerDefinitions(value);
+        LayersHelper.updateFiresLayerDefinitions(value, this.props.layer.id);
       });
     }
   }
@@ -32,8 +31,8 @@ export default class FiresControls extends React.Component {
     return <option key={index} value={item.value}>{item.label}</option>;
   }
 
-  changeFiresTimeline (evt) {
-    layerActions.changeFiresTimeline(evt.target.selectedIndex);
+  changeFiresTimeline = (evt) => {
+    this.props.selectChangeAction(evt.target.selectedIndex);
   }
 
   render () {

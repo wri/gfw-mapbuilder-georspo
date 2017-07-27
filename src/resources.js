@@ -276,13 +276,62 @@ export default {
         }
       }, {
         order: 6,
-        id: 'ACTIVE_FIRES',
+        id: 'VIIRS_ACTIVE_FIRES',
         type: 'dynamic',
         url: 'https://gis-gfw.wri.org/arcgis/rest/services/Fires/FIRMS_Global/MapServer',
-        technicalName: 'noaa18_fires',
+        technicalName: 'viirs_fires',
         layerIds: [8],
         label: {
-          en: 'Active fires',
+          en: 'VIIRS Active Fires',
+          fr: 'Feux actifs',
+          es: 'Incendios activos',
+          pt: 'Incêndios ativos',
+          id: 'Active fires',
+          zh: '活跃火点',
+          ka: 'Georgian'
+        },
+        sublabel: {
+          en: '(daily, 1km, global, NASA)',
+          fr: '(journalier, 1km, global, NASA)',
+          es: '(Diaria, 1km, global, NASA)',
+          pt: '(Diária, 1km, global, NASA)',
+          id: '(daily, 1km, global, NASA)',
+          zh: '(每天更新, 1千米, 全球覆盖, 美国宇航局（NASA))',
+          ka: 'Georgian'
+        },
+        popup: {
+          title: {
+            en: 'Active Fires'
+          },
+          content: {
+            en: [
+              { 'label': 'Brightness', 'fieldExpression': 'BRIGHTNESS' },
+              { 'label': 'Confidence', 'fieldExpression': 'CONFIDENCE' },
+              { 'label': 'Latitude', 'fieldExpression': 'LATITUDE' },
+              { 'label': 'Longitude', 'fieldExpression': 'LONGITUDE' },
+              { 'label': 'Acquisition Date', 'fieldExpression': 'ACQ_DATE:DateString(hideTime:true)' },
+              { 'label': 'Acquisition Time', 'fieldExpression': 'ACQ_TIME' }
+            ]
+          },
+          sublabel: {
+            en: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+            fr: '(annuel, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+            es: '(anual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+            pt: '(anual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+            id: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+            zh: '(每年更新, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))',
+            ka: 'Georgian'
+          }
+        }
+      }, {
+        order: 7,
+        id: 'MODIS_ACTIVE_FIRES',
+        type: 'dynamic',
+        url: 'https://gfw-staging.wri.org/arcgis/rest/services/Fires/FIRMS_Global/MapServer',
+        technicalName: 'firms_active_fires',
+        layerIds: [9],
+        label: {
+          en: 'MODIS Active Fires',
           fr: 'Feux actifs',
           es: 'Incendios activos',
           pt: 'Incêndios ativos',

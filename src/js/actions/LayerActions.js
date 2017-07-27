@@ -30,7 +30,11 @@ class LayerActions {
     return info;
   }
 
-  changeFiresTimeline (selectedIndex) {
+  changeViirsFiresTimeline (selectedIndex) {
+    return selectedIndex;
+  }
+
+  changeModisFiresTimeline (selectedIndex) {
     return selectedIndex;
   }
 

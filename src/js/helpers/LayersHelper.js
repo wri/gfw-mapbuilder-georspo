@@ -29,9 +29,9 @@ const LayersHelper = {
   * @param {number} optionIndex - Index of the selected option in the UI, see js/config
   * @param {boolean} dontRefresh - Whether or not to not fetch a new image
   */
-  updateFiresLayerDefinitions (value, dontRefresh) {
+  updateFiresLayerDefinitions (value, layerKey, dontRefresh) {
     const queryString = this.generateFiresQuery(value);
-    const firesLayer = brApp.map.getLayer(layerKeys.ACTIVE_FIRES);
+    const firesLayer = brApp.map.getLayer(layerKey);
     const defs = [];
 
     if (firesLayer) {

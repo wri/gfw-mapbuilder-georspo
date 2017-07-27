@@ -31,7 +31,8 @@ class MapStore {
     this.gladStartDate = new Date('2015', 0, 1);
     this.gladEndDate = new Date();
     this.lossOptions = [];
-    this.firesSelectIndex = layerPanelText.firesOptions.length - 1;
+    this.viirsFiresSelectIndex = layerPanelText.firesOptions.length - 1;
+    this.modisFiresSelectIndex = layerPanelText.firesOptions.length - 1;
     this.tableOfContentsVisible = true;
     this.activeTOCGroup = layerKeys.GROUP_WEBMAP;
     this.analysisModalVisible = false;
@@ -73,7 +74,8 @@ class MapStore {
       toggleLegendVisible: mapActions.toggleLegendVisible,
       addSubLayer: layerActions.addSubLayer,
       removeSubLayer: layerActions.removeSubLayer,
-      changeFiresTimeline: layerActions.changeFiresTimeline,
+      changeViirsFiresTimeline: layerActions.changeViirsFiresTimeline,
+      changeModisFiresTimeline: layerActions.changeModisFiresTimeline,
       addAll: layerActions.addAll,
       removeAll: layerActions.removeAll,
       setLossOptions: layerActions.setLossOptions,
@@ -229,8 +231,12 @@ class MapStore {
     this.lossOptions = lossOptionsData;
   }
 
-  changeFiresTimeline (firesSelectIndex) {
-    this.firesSelectIndex = firesSelectIndex;
+  changeViirsFiresTimeline (firesSelectIndex) {
+    this.viirsFiresSelectIndex = firesSelectIndex;
+  }
+
+  changeModisFiresTimeline (firesSelectIndex) {
+    this.modisFiresSelectIndex = firesSelectIndex;
   }
 
   updateActiveSlopeClass (newSlopeClass) {
