@@ -1,4 +1,6 @@
 import layerKeys from 'constants/LayerConstants';
+import rasterFuncs from 'utils/rasterFunctions';
+import utils from 'utils/AppUtils';
 
 const LayersHelper = {
 
@@ -29,9 +31,9 @@ const LayersHelper = {
   * @param {number} optionIndex - Index of the selected option in the UI, see js/config
   * @param {boolean} dontRefresh - Whether or not to not fetch a new image
   */
-  updateFiresLayerDefinitions (value, layerKey, dontRefresh) {
+  updateFiresLayerDefinitions (value, layer, dontRefresh) {
     const queryString = this.generateFiresQuery(value);
-    const firesLayer = brApp.map.getLayer(layerKey);
+    const firesLayer = layer;
     const defs = [];
 
     if (firesLayer) {
@@ -78,6 +80,31 @@ const LayersHelper = {
       }
     }
     return visible;
+  },
+
+  updateTreeCoverDefinitions (density, map, layerPanel) {
+    if (map.loaded) {
+      //- Get the layer config, I am hardcoding en becuase I do not need anything language specific, just its config
+      const lcGroupLayers = layerPanel.GROUP_LC ? layerPanel.GROUP_LC.layers : [];
+      const layerConfig = utils.getObject(lcGroupLayers, 'id', layerKeys.TREE_COVER);
+      const layer = map.getLayer(layerKeys.TREE_COVER);
+
+      if (layer && layerConfig) {
+        const renderingRule = rasterFuncs.getColormapRemap(layerConfig.colormap, [density, layerConfig.inputRange[1]], layerConfig.outputRange);
+        layer.setRenderingRule(renderingRule);
+      }
+    }
+  },
+
+  updateAGBiomassLayer (density, map) {
+    if (map.loaded) {
+      const layer = map.getLayer(layerKeys.AG_BIOMASS);
+      const mosaicRule = rasterFuncs.getBiomassMosaicRule(density);
+
+      if (layer) {
+        layer.setMosaicRule(mosaicRule);
+      }
+    }
   }
 
 };

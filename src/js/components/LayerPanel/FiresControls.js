@@ -14,7 +14,7 @@ export default class FiresControls extends React.Component {
     const value = firesOptions[this.props.firesSelectIndex].value;
 
     if (prevProps.firesSelectIndex !== this.props.firesSelectIndex) {
-      LayersHelper.updateFiresLayerDefinitions(value, this.props.layer.id);
+      LayersHelper.updateFiresLayerDefinitions(value, this.props.layer);
     }
 
     // Anytime the map changes to a new map, update that here
@@ -22,7 +22,7 @@ export default class FiresControls extends React.Component {
     if (prevContext.map !== map) {
       const signal = map.on('update-end', () => {
         signal.remove();
-        LayersHelper.updateFiresLayerDefinitions(value, this.props.layer.id);
+        LayersHelper.updateFiresLayerDefinitions(value, this.props.layer);
       });
     }
   }

@@ -9,6 +9,7 @@ import Deferred from 'dojo/Deferred';
 import utils from 'utils/AppUtils';
 import lang from 'dojo/_base/lang';
 import all from 'dojo/promise/all';
+import layersHelper from 'helpers/LayersHelper';
 
 const INVALID_IMAGE_SIZE = 'The requested image exceeds the size limit.';
 const OP_MULTIPLY = 3;
@@ -87,11 +88,13 @@ const formatters = {
       alerts: bin
     };
   },
-  gladAlerts: function (year, counts) {
+  gladAlerts: function (year, counts, startDate = 1) {
     var results = [];
-    for (let i = 0; i < counts.length; i++) {
-      results.push([new Date(year, 0, i + 1).getTime(), counts[i] || 0]);
+
+    for (let i = startDate; i < counts.length; i++) {
+      results.push([new Date(year, 0, i).getTime(), counts[i] || 0]);
     }
+
     return results;
   },
   terraIAlerts: function (counts) {
@@ -257,14 +260,15 @@ export default {
   /**
   * Fetch and format fire results
   */
-  getFireCount: (url, geometry) => {
+  getFireCount: (url, geometry, value) => {
     const queryTask = new QueryTask(url);
     const promise = new Deferred();
     const query = new Query();
+    const layerDef = layersHelper.generateFiresQuery(value);
     query.geometry = geometry;
     query.returnGeometry = false;
     query.outFields = [''];
-    query.where = '1 = 1';
+    query.where = layerDef;
     queryTask.execute(query).then(function (response) {
       promise.resolve(formatters.fires(response));
     }, (error) => {
@@ -612,37 +616,78 @@ export default {
 
   cleanGlad: (results) => {
     let alerts = [];
+    const sortedYears = Object.keys(results)
+      .filter(key => !isNaN(Number(key)))
+      .map(year => Number(year))
+      .sort((a, b) => a - b);
 
-    const yearOne = [], yearTwo = [], yearThree = [];
-    for (let k = 1; k < 366; k++) {
-      yearOne.push(0);
-      yearTwo.push(0);
-    }
+    sortedYears.forEach((year, index) => {
+        const alertsTmp = [];
+        const sortedKeys = Object.keys(results[year]).map(key => Number(key));
 
-    const now = new Date();
-    const start = new Date(now.getFullYear(), 0, 0);
-    const diff = now - start;
-    const oneDay = 1000 * 60 * 60 * 24;
-    const day = Math.floor(diff / oneDay);
+        if (sortedYears.length === 1) { // if there is only one year selected we need start and end dates
+          const firstAlertOfYear = sortedKeys.sort((a, b) => a - b)[0];
+          const startDate = firstAlertOfYear - 10;
+          const lastAlertOfYear = sortedKeys.sort((a, b) => b - a)[0];
+          const endDate = lastAlertOfYear + 10;
 
-    for (let l = 0; l < day; l++) {
-      yearThree.push(0);
-    }
+          for (let i = 0; i <= endDate; i++) {
 
-    for (const key in results['2015']) {
-      yearOne[key] = results['2015'][key];
-    }
-    for (const key in results['2016']) {
-      yearTwo[key] = results['2016'][key];
-    }
-    for (const key in results['2017']) {
-      yearThree[key] = results['2017'][key];
-    }
+            if (results[year].hasOwnProperty(i)) {
+              alertsTmp.push(results[year][i]);
+            } else {
+              alertsTmp.push(0);
+            }
+          }
 
-    alerts = alerts.concat(formatters.gladAlerts(2015, yearOne));
-    alerts = alerts.concat(formatters.gladAlerts(2016, yearTwo));
-    alerts = alerts.concat(formatters.gladAlerts(2017, yearThree));
+          alerts = alerts.concat(formatters.gladAlerts(year, alertsTmp, startDate));
 
+        } else { // if there is more than one year
+
+          if (index === 0) { // if it's the first year
+
+            const firstAlertOfYear = sortedKeys.sort((a, b) => a - b)[0];
+            const startDate = firstAlertOfYear - 10;
+
+            for (let j = 0; j < 365; j++) {
+              if (results[year].hasOwnProperty(j)) {
+                alertsTmp.push(results[year][j]);
+              } else {
+                alertsTmp.push(0);
+              }
+            }
+
+            alerts = alerts.concat(formatters.gladAlerts(year, alertsTmp, startDate));
+
+          } else if (index === sortedYears.length - 1) { // if it's the last year
+
+            const lastAlertOfYear = sortedKeys.sort((a, b) => b - a)[0];
+            const endDate = lastAlertOfYear + 10;
+
+            for (let k = 0; k <= endDate; k++) {
+              if (results[year].hasOwnProperty(k)) {
+                alertsTmp.push(results[year][k]);
+              } else {
+                alertsTmp.push(0);
+              }
+            }
+
+            alerts = alerts.concat(formatters.gladAlerts(year, alertsTmp));
+
+          } else { // if it's any year other than the first or last
+
+            for (let l = 0; l < 365; l++) {
+              if (results[year].hasOwnProperty(l)) {
+                alertsTmp.push(results[year][l]);
+              } else {
+                alertsTmp.push(0);
+              }
+            }
+
+            alerts = alerts.concat(formatters.gladAlerts(year, alertsTmp));
+          }
+        }
+    });
     return alerts;
   },
 

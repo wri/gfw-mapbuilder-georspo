@@ -57,7 +57,8 @@ export default class Analysis extends Component {
       lossFromSelectIndex,
       lossToSelectIndex,
       gladStartDate,
-      gladEndDate
+      gladEndDate,
+      firesSelectIndex
     } = this.props;
 
     if (selectedFeature && activeAnalysisType && activeTab === tabKeys.ANALYSIS) {
@@ -72,7 +73,8 @@ export default class Analysis extends Component {
           tcLossFrom: lossFromSelectIndex,
           tcLossTo: lossToSelectIndex,
           gladFrom: gladStartDate,
-          gladTo: gladEndDate
+          gladTo: gladEndDate,
+          firesSelectIndex: firesSelectIndex
         }).then((results) => {
           this.setState({ results: results, isLoading: false });
         }, () => {
@@ -94,7 +96,8 @@ export default class Analysis extends Component {
       lossFromSelectIndex,
       lossToSelectIndex,
       gladStartDate,
-      gladEndDate
+      gladEndDate,
+      firesSelectIndex
     } = nextProps;
 
     //- Only rerun the analysis if one of these things changes
@@ -121,7 +124,8 @@ export default class Analysis extends Component {
           tcLossFrom: lossFromSelectIndex,
           tcLossTo: lossToSelectIndex,
           gladFrom: gladStartDate,
-          gladTo: gladEndDate
+          gladTo: gladEndDate,
+          firesSelectIndex: firesSelectIndex
         }).then((results) => {
           this.setState({ results: results, isLoading: false });
         }, () => {
@@ -131,7 +135,7 @@ export default class Analysis extends Component {
     }
   }
 
-  renderResults = (type, results, language, lossFromSelectIndex, lossToSelectIndex) => {
+  renderResults = (type, results, language, lossFromSelectIndex, lossToSelectIndex, firesSelectIndex) => {
     const {settings} = this.context;
     const layerGroups = settings.layerPanel;
     const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
@@ -139,7 +143,7 @@ export default class Analysis extends Component {
     let labels, layerConf, colors;
     switch (type) {
       case analysisKeys.FIRES:
-        return <FiresBadge count={results.fireCount} />;
+        return <FiresBadge count={results.fireCount} firesSelectIndex={firesSelectIndex}/>;
       case analysisKeys.TC_LOSS_GAIN:
         return <LossGainBadge lossTotal={results.lossTotal} gainTotal={results.gainTotal} lossFromSelectIndex={lossFromSelectIndex} lossToSelectIndex={lossToSelectIndex} />;
       case analysisKeys.LCC:
@@ -212,14 +216,14 @@ export default class Analysis extends Component {
   };
 
   render () {
-    const {selectedFeature, activeAnalysisType, canopyDensity, activeSlopeClass, lossFromSelectIndex, lossToSelectIndex} = this.props;
+    const {selectedFeature, activeAnalysisType, canopyDensity, activeSlopeClass, lossFromSelectIndex, lossToSelectIndex, firesSelectIndex} = this.props;
     const {results, isLoading, error} = this.state;
     const {language, settings} = this.context;
     let chart, title, slopeSelect;
 
     // If we have results, show a chart
     if (results) {
-      chart = this.renderResults(activeAnalysisType, results, language, lossFromSelectIndex, lossToSelectIndex);
+      chart = this.renderResults(activeAnalysisType, results, language, lossFromSelectIndex, lossToSelectIndex, firesSelectIndex);
     }
 
     // If we have the restoration module, add in the slope select
