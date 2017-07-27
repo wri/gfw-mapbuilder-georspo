@@ -274,7 +274,12 @@ strings.ka.ANALYSIS_IFL_LABELS = ['Intact Forest'];
 strings.ka.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.ka.ANALYSIS_FIRES_PRE = 'There are';
 strings.ka.ANALYSIS_FIRES_ACTIVE = 'active fires';
-strings.ka.ANALYSIS_FIRES_POST = 'in the last 7 days';
+strings.ka.ANALYSIS_FIRES_POST_LIST = [
+  'in the last 7 days',
+  'in the last 72 hours',
+  'in the last 48 hours',
+  'in the last 24 hours'
+];
 strings.ka.ANALYSIS_TOTAL_LOSS_LABEL = 'Total tree cover loss';
 strings.ka.ANALYSIS_TOTAL_LOSS_RANGE = '(2001 - 2015):';
 strings.ka.ANALYSIS_TOTAL_GAIN_LABEL = 'Total tree cover gained';
@@ -482,7 +487,12 @@ strings.fr.ANALYSIS_IFL_LABELS = ['Forêts intactes'];
 strings.fr.ANALYSIS_MANGROVE_LABELS = ['Mangroves'];
 strings.fr.ANALYSIS_FIRES_PRE = 'Il y a';
 strings.fr.ANALYSIS_FIRES_ACTIVE = 'feux actifs';
-strings.fr.ANALYSIS_FIRES_POST = 'ces 7 derniers jours';
+strings.fr.ANALYSIS_FIRES_POST_LIST = [
+  'in the last 7 days',
+  'in the last 72 hours',
+  'in the last 48 hours',
+  'in the last 24 hours'
+];
 strings.fr.ANALYSIS_TOTAL_LOSS_LABEL = 'Total Perte en couvert arboré';
 strings.fr.ANALYSIS_TOTAL_LOSS_RANGE = '(2001 - 2015):';
 strings.fr.ANALYSIS_TOTAL_GAIN_LABEL = 'Total Gain en couvert arboré';
@@ -691,7 +701,12 @@ strings.es.ANALYSIS_IFL_LABELS = ['Bosque Intacto'];
 strings.es.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.es.ANALYSIS_FIRES_PRE = 'Hay';
 strings.es.ANALYSIS_FIRES_ACTIVE = 'incendios activos';
-strings.es.ANALYSIS_FIRES_POST = 'en los últimos 7 días';
+strings.es.ANALYSIS_FIRES_POST_LIST = [
+  'in the last 7 days',
+  'in the last 72 hours',
+  'in the last 48 hours',
+  'in the last 24 hours'
+];
 strings.es.ANALYSIS_TOTAL_LOSS_LABEL = 'Pérdida total de la cobertura arbórea';
 strings.es.ANALYSIS_TOTAL_LOSS_RANGE = '(2001 - 2015):';
 strings.es.ANALYSIS_TOTAL_GAIN_LABEL = 'Ganancia total de la cobertura arbórea';
@@ -899,7 +914,12 @@ strings.pt.ANALYSIS_IFL_LABELS = ['Floresta Intacta'];
 strings.pt.ANALYSIS_MANGROVE_LABELS = ['Mangues Global'];
 strings.pt.ANALYSIS_FIRES_PRE = 'Existem';
 strings.pt.ANALYSIS_FIRES_ACTIVE = 'Focos de incêndio ativos';
-strings.pt.ANALYSIS_FIRES_POST = 'nos ultimos 7 dias';
+strings.pt.ANALYSIS_FIRES_POST_LIST = [
+  'in the last 7 days',
+  'in the last 72 hours',
+  'in the last 48 hours',
+  'in the last 24 hours'
+];
 strings.pt.ANALYSIS_TOTAL_LOSS_LABEL = 'Perda de cobertura florestal total';
 strings.pt.ANALYSIS_TOTAL_LOSS_RANGE = '(2001 - 2015):';
 strings.pt.ANALYSIS_TOTAL_GAIN_LABEL = 'Ganho de cobertura florestal total';
@@ -1107,7 +1127,12 @@ strings.id.ANALYSIS_IFL_LABELS = ['Intact Forest'];
 strings.id.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.id.ANALYSIS_FIRES_PRE = 'There are';
 strings.id.ANALYSIS_FIRES_ACTIVE = 'active fires';
-strings.id.ANALYSIS_FIRES_POST = 'in the last 7 days';
+strings.id.ANALYSIS_FIRES_POST_LIST = [
+  'in the last 7 days',
+  'in the last 72 hours',
+  'in the last 48 hours',
+  'in the last 24 hours'
+];
 strings.id.ANALYSIS_TOTAL_LOSS_LABEL = 'Total tree cover loss';
 strings.id.ANALYSIS_TOTAL_LOSS_RANGE = '(2001 - 2015):';
 strings.id.ANALYSIS_TOTAL_GAIN_LABEL = 'Total tree cover gained';
@@ -1315,7 +1340,12 @@ strings.zh.ANALYSIS_IFL_LABELS = ['原生森林'];
 strings.zh.ANALYSIS_MANGROVE_LABELS = ['Global Mangroves'];
 strings.zh.ANALYSIS_FIRES_PRE = '共计';
 strings.zh.ANALYSIS_FIRES_ACTIVE = '活跃火点';
-strings.zh.ANALYSIS_FIRES_POST = '在过去7天里';
+strings.zh.ANALYSIS_FIRES_POST_LIST = [
+  'in the last 7 days',
+  'in the last 72 hours',
+  'in the last 48 hours',
+  'in the last 24 hours'
+];
 strings.zh.ANALYSIS_TOTAL_LOSS_LABEL = '总森林覆盖损失';
 strings.zh.ANALYSIS_TOTAL_LOSS_RANGE = '(2001 - 2015):';
 strings.zh.ANALYSIS_TOTAL_GAIN_LABEL = '总森林覆盖增加';

@@ -1,7 +1,6 @@
 import geojsonUtil from 'utils/arcgis-to-geojson';
 import webmercatorUtils from 'esri/geometry/webMercatorUtils';
 import {toQuerystring} from 'utils/params';
-import layerKeys from 'constants/LayerConstants';
 
 const utils = {
   /**
