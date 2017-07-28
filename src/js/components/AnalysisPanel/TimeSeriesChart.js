@@ -8,26 +8,32 @@ export default class TimeSeriesChart extends Component {
     this.state = { isEmpty: false };
   }
 
-  componentDidMount () {
-    const {chart} = this.refs;
-    const {data} = this.props;
+  componentDidMount() {
+    const { chart } = this.refs;
+    const { data } = this.props;
 
-    let emptyValues = 0;
-    data.forEach(dateArray => {
-      if(dateArray[1] === 0) {
-        emptyValues++;
-      }
-    });
-    if(data.length === emptyValues) {
-      this.setState({isEmpty: true});
+    if (typeof data === 'object' && data.hasOwnProperty('error')) {
+      this.setState({ isEmpty: true });
     } else {
-      charts.makeTimeSeriesCharts(chart, this.props);
-      this.setState({isEmpty: false});
+
+
+      let emptyValues = 0;
+      data.forEach(dateArray => {
+        if (dateArray[1] === 0) {
+          emptyValues++;
+        }
+      });
+      if (data.length === emptyValues) {
+        this.setState({ isEmpty: true });
+      } else {
+        charts.makeTimeSeriesCharts(chart, this.props);
+        this.setState({ isEmpty: false });
+      }
     }
   }
 
   render () {
-    return ( 
+    return (
       <div>
         <div ref='chart' />
         <div id='chartError' className={`chart-error ${this.state.isEmpty ? '' : ' hidden'}`}>No data available.</div>

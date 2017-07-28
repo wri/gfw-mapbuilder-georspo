@@ -13,7 +13,7 @@ const LossGainBadge = (props, context) => {
   if (results.hasOwnProperty('error')) {
     return (
       <div className='results__loss-gain'>
-        <h4 style={{ color: 'red' }}>{results.error}</h4>
+        <h4 style={{ color: 'red' }}>{results.message}</h4>
       </div>
     );
   } else {

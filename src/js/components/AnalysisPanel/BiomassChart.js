@@ -15,36 +15,41 @@ export default class BiomassChart extends Component {
     this.state = {
       loading: true,
       grossEmissions: 0,
-      grossLoss: 0
+      grossLoss: 0,
+      isEmpty: false
     };
   }
 
   componentDidMount() {
-    const {payload, colors, labels} = this.props;
-    const {language} = this.context;
-    const {data} = payload;
+    const { payload, colors, labels } = this.props;
+    const { language } = this.context;
+    const { data } = payload;
 
-    const {series, grossLoss, grossEmissions} = charts.formatSeriesForBiomassLoss({
-      data: data.attributes,
-      lossColor: colors.loss,
-      carbonColor: colors.carbon,
-      lossName: text[language].ANALYSIS_CARBON_LOSS,
-      carbonName: 't CO2'
-    });
+    if (typeof payload === 'object' && payload.hasOwnProperty('error')) {
+      this.setState({ isEmpty: true });
+    } else {
 
-    //- Data is in million tons for emission, multiply by a million so we can show tons
-    // If they update the api, remove the * 1000000
-    this.setState({
-      loading: false,
-      grossEmissions: grossEmissions,
-      grossLoss
-    });
+      const { series, grossLoss, grossEmissions } = charts.formatSeriesForBiomassLoss({
+        data: data.attributes,
+        lossColor: colors.loss,
+        carbonColor: colors.carbon,
+        lossName: text[language].ANALYSIS_CARBON_LOSS,
+        carbonName: 't CO2'
+      });
 
-    charts.makeBiomassLossChart(this.refs.chart, {
-      series,
-      categories: labels
-    });
+      //- Data is in million tons for emission, multiply by a million so we can show tons
+      // If they update the api, remove the * 1000000
+      this.setState({
+        loading: false,
+        grossEmissions: grossEmissions,
+        grossLoss
+      });
 
+      charts.makeBiomassLossChart(this.refs.chart, {
+        series,
+        categories: labels
+      });
+    }
   }
 
   render () {
@@ -64,6 +69,7 @@ export default class BiomassChart extends Component {
             <span>{number.format(grossEmissions, { places: 0 })} t CO<sub>2</sub></span>
           </div>
         </div>
+        <div id='chartError' className={`chart-error ${this.state.isEmpty ? '' : ' hidden'}`}>No data available.</div>
       </div>
     );
   }
