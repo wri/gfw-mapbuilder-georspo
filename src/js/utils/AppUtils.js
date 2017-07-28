@@ -133,7 +133,24 @@ const utils = {
   },
 
   geometrySuccess: (response, options) => {
-    const { settings, lang, canopyDensity, appid, activeSlopeClass, activeLayers, tcLossFrom, tcLossTo, gladFrom, gladTo, viirsFiresSelectIndex, modisFiresSelectIndex } = options;
+    const {
+      settings,
+      lang,
+      canopyDensity,
+      appid,
+      activeSlopeClass,
+      activeLayers,
+      tcLossFrom,
+      tcLossTo,
+      gladFrom,
+      gladTo,
+      viirsFiresSelectIndex,
+      modisFiresSelectIndex,
+      viirsStartDate,
+      viirsEndDate,
+      modisStartDate,
+      modisEndDate
+    } = options;
     const labels = settings.labels[lang];
     const query = {
       title: labels.title,
@@ -151,7 +168,11 @@ const utils = {
       gladFrom: gladFrom,
       gladTo: gladTo,
       viirsFiresSelectIndex: viirsFiresSelectIndex,
-      modisFiresSelectIndex: modisFiresSelectIndex
+      modisFiresSelectIndex: modisFiresSelectIndex,
+      viirsStartDate: viirsStartDate,
+      viirsEndDate: viirsEndDate,
+      modisStartDate: modisStartDate,
+      modisEndDate: modisEndDate
     };
 
     if (appid) {

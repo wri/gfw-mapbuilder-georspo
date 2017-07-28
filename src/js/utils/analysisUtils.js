@@ -260,11 +260,11 @@ export default {
   /**
   * Fetch and format fire results
   */
-  getFireCount: (url, geometry, value) => {
+  getFireCount: (url, geometry, startDate, endDate) => {
     const queryTask = new QueryTask(url);
     const promise = new Deferred();
     const query = new Query();
-    const layerDef = layersHelper.generateFiresQuery(value);
+    const layerDef = layersHelper.generateFiresQuery(startDate, endDate);
     query.geometry = geometry;
     query.returnGeometry = false;
     query.outFields = [''];

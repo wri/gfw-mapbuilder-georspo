@@ -56,8 +56,6 @@ class MapStore {
     this.imazonEndYear = 0;
     this.iconLoading = '';
 
-    console.log(this.viirsStartDate, this.modisStartDate);
-
     this.bindListeners({
       setDefaults: appActions.applySettings,
       mapUpdated: mapActions.mapUpdated,

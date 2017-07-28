@@ -38,8 +38,8 @@ const LossGainBadge = (props, context) => {
 };
 
 LossGainBadge.propTypes = {
-  lossTotal: PropTypes.number.isRequired,
-  gainTotal: PropTypes.number.isRequired
+  lossFromSelectIndex: PropTypes.number.isRequired,
+  lossToSelectIndex: PropTypes.number.isRequired
 };
 
 LossGainBadge.contextTypes = {

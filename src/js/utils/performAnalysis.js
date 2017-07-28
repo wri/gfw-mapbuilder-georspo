@@ -1,10 +1,9 @@
 import analysisKeys from 'constants/AnalysisConstants';
 import layerKeys from 'constants/LayerConstants';
 import analysisUtils from 'utils/analysisUtils';
-import {analysisConfig, layerPanelText} from 'js/config';
+import {analysisConfig} from 'js/config';
 import Deferred from 'dojo/Deferred';
 import utils from 'utils/AppUtils';
-import all from 'dojo/promise/all';
 
 /**
 * @param {object} options - Value from Analysis Select, also key to options in config
@@ -17,23 +16,36 @@ import all from 'dojo/promise/all';
 * @return {promise}
 */
 export default function performAnalysis (options) {
-  const {type, geometry, canopyDensity, activeSlopeClass, settings, geostoreId, tcLossFrom, tcLossTo, gladFrom, gladTo, viirsFiresSelectIndex, modisFiresSelectIndex} = options;
+  const {
+    type,
+    geometry,
+    canopyDensity,
+    activeSlopeClass,
+    settings,
+    geostoreId,
+    tcLossFrom,
+    tcLossTo,
+    gladFrom,
+    gladTo,
+    viirsFiresSelectIndex,
+    modisFiresSelectIndex,
+    viirsFrom,
+    viirsTo,
+    modisFrom,
+    modisTo
+  } = options;
   const restorationUrl = settings && settings.restorationImageServer;
   const landCoverConfig = settings && settings.layerPanel && settings.layerPanel.GROUP_LC ?
     utils.getObject(settings.layerPanel.GROUP_LC.layers, 'id', layerKeys.LAND_COVER) : {};
-  const firesOptions = layerPanelText.firesOptions;
   const config = analysisConfig[type];
   const promise = new Deferred();
-  let firesValue;
 
   switch (type) {
     case analysisKeys.VIIRS_FIRES:
-      firesValue = firesOptions[viirsFiresSelectIndex].value;
-      analysisUtils.getFireCount(config.url, geometry, firesValue).then(promise.resolve);
+      analysisUtils.getFireCount(config.url, geometry, viirsFrom, viirsTo).then(promise.resolve);
     break;
     case analysisKeys.MODIS_FIRES:
-      firesValue = firesOptions[modisFiresSelectIndex].value;
-      analysisUtils.getFireCount(config.url, geometry, firesValue).then(promise.resolve);
+      analysisUtils.getFireCount(config.url, geometry, modisFrom, modisTo).then(promise.resolve);
     break;
     case analysisKeys.LCC:
       analysisUtils.getMosaic(landCoverConfig.rasterId, geometry).then(promise.resolve);

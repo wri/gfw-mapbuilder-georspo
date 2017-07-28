@@ -59,7 +59,11 @@ export default class Analysis extends Component {
       gladStartDate,
       gladEndDate,
       viirsFiresSelectIndex,
-      modisFiresSelectIndex
+      modisFiresSelectIndex,
+      viirsStartDate,
+      viirsEndDate,
+      modisStartDate,
+      modisEndDate
     } = this.props;
 
     if (selectedFeature && activeAnalysisType && activeTab === tabKeys.ANALYSIS) {
@@ -76,7 +80,11 @@ export default class Analysis extends Component {
           gladFrom: gladStartDate,
           gladTo: gladEndDate,
           viirsFiresSelectIndex: viirsFiresSelectIndex,
-          modisFiresSelectIndex: modisFiresSelectIndex
+          modisFiresSelectIndex: modisFiresSelectIndex,
+          viirsFrom: viirsStartDate,
+          viirsTo: viirsEndDate,
+          modisFrom: modisStartDate,
+          modisTo: modisEndDate
         }).then((results) => {
           this.setState({ results: results, isLoading: false });
         }, () => {
@@ -100,7 +108,11 @@ export default class Analysis extends Component {
       gladStartDate,
       gladEndDate,
       viirsFiresSelectIndex,
-      modisFiresSelectIndex
+      modisFiresSelectIndex,
+      viirsStartDate,
+      viirsEndDate,
+      modisStartDate,
+      modisEndDate
     } = nextProps;
 
     //- Only rerun the analysis if one of these things changes
@@ -129,7 +141,11 @@ export default class Analysis extends Component {
           gladFrom: gladStartDate,
           gladTo: gladEndDate,
           viirsFiresSelectIndex: viirsFiresSelectIndex,
-          modisFiresSelectIndex: modisFiresSelectIndex
+          modisFiresSelectIndex: modisFiresSelectIndex,
+          viirsFrom: viirsStartDate,
+          viirsTo: viirsEndDate,
+          modisFrom: modisStartDate,
+          modisTo: modisEndDate
         }).then((results) => {
           this.setState({ results: results, isLoading: false });
         }, () => {
@@ -139,7 +155,7 @@ export default class Analysis extends Component {
     }
   }
 
-  renderResults = (type, results, language, lossFromSelectIndex, lossToSelectIndex, viirsFiresSelectIndex, modisFiresSelectIndex) => {
+  renderResults = (type, results, language, lossFromSelectIndex, lossToSelectIndex, viirsFrom, viirsTo, modisFrom, modisTo) => {
     const {settings} = this.context;
     const layerGroups = settings.layerPanel;
     const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
@@ -147,9 +163,9 @@ export default class Analysis extends Component {
     let labels, layerConf, colors;
     switch (type) {
       case analysisKeys.VIIRS_FIRES:
-        return <FiresBadge count={results.fireCount} viirsFiresSelectIndex={viirsFiresSelectIndex} modisFiresSelectIndex={modisFiresSelectIndex} />;
+        return <FiresBadge count={results.fireCount} from={viirsFrom.toLocaleDateString()} to={viirsTo.toLocaleDateString()} />;
       case analysisKeys.MODIS_FIRES:
-        return <FiresBadge count={results.fireCount} viirsFiresSelectIndex={viirsFiresSelectIndex} modisFiresSelectIndex={modisFiresSelectIndex} />;
+        return <FiresBadge count={results.fireCount} from={modisFrom.toLocaleDateString()} to={modisTo.toLocaleDateString()} />;
       case analysisKeys.TC_LOSS_GAIN:
         return <LossGainBadge results={results} lossFromSelectIndex={lossFromSelectIndex} lossToSelectIndex={lossToSelectIndex} />;
       case analysisKeys.LCC:
@@ -222,14 +238,14 @@ export default class Analysis extends Component {
   };
 
   render () {
-    const {selectedFeature, activeAnalysisType, canopyDensity, activeSlopeClass, lossFromSelectIndex, lossToSelectIndex, viirsFiresSelectIndex, modisFiresSelectIndex} = this.props;
+    const {selectedFeature, activeAnalysisType, canopyDensity, activeSlopeClass, lossFromSelectIndex, lossToSelectIndex, viirsStartDate, viirsEndDate, modisStartDate, modisEndDate} = this.props;
     const {results, isLoading, error} = this.state;
     const {language, settings} = this.context;
     let chart, title, slopeSelect;
 
     // If we have results, show a chart
     if (results) {
-      chart = this.renderResults(activeAnalysisType, results, language, lossFromSelectIndex, lossToSelectIndex, viirsFiresSelectIndex, modisFiresSelectIndex);
+      chart = this.renderResults(activeAnalysisType, results, language, lossFromSelectIndex, lossToSelectIndex, viirsStartDate, viirsEndDate, modisStartDate, modisEndDate);
     }
 
     // If we have the restoration module, add in the slope select
