@@ -84,7 +84,7 @@ const getFeature = function getFeature (params) {
 };
 
 const createLayers = function createLayers (layerPanel, activeLayers, language, params) {
-    const {tcLossFrom, tcLossTo, gladFrom, gladTo, firesSelectIndex, tcd} = params;
+    const {tcLossFrom, tcLossTo, gladFrom, gladTo, tcd, viirsFrom, viirsTo, modisFrom, modisTo} = params;
 
     //- Organize and order the layers before adding them to the map
     let layers = Object.keys(layerPanel).filter((groupName) => {
@@ -142,7 +142,8 @@ const createLayers = function createLayers (layerPanel, activeLayers, language, 
     // Set the date range for the loss and glad layers
     const lossLayer = esriLayers.filter(layer => layer.id === layerKeys.TREE_COVER_LOSS)[0];
     const gladLayer = esriLayers.filter(layer => layer.id === layerKeys.GLAD_ALERTS)[0];
-    const firesLayer = esriLayers.filter(layer => layer.id === layerKeys.ACTIVE_FIRES)[0];
+    const viirsFiresLayer = esriLayers.filter(layer => layer.id === layerKeys.VIIRS_ACTIVE_FIRES)[0];
+    const modisFiresLayer = esriLayers.filter(layer => layer.id === layerKeys.MODIS_ACTIVE_FIRES)[0];
 
     if (lossLayer && lossLayer.setDateRange) {
       const yearsArray = analysisConfig[analysisKeys.TC_LOSS].labels;
@@ -159,10 +160,12 @@ const createLayers = function createLayers (layerPanel, activeLayers, language, 
       gladLayer.setDateRange(julianFrom, julianTo);
     }
 
-    if (firesLayer) {
-      const firesOptions = layerPanelText.firesOptions;
-      const value = firesOptions[firesSelectIndex].value;
-      layersHelper.updateFiresLayerDefinitions(value, firesLayer);
+    if (viirsFiresLayer) {
+      layersHelper.updateFiresLayerDefinitions(viirsFrom, viirsTo, viirsFiresLayer);
+    }
+
+    if (modisFiresLayer) {
+      layersHelper.updateFiresLayerDefinitions(modisFrom, modisTo, modisFiresLayer);
     }
 
     map.addLayers(esriLayers);
@@ -552,7 +555,7 @@ const runAnalysis = function runAnalysis (params, feature) {
   const lcdLayers = resources.layerPanel.GROUP_LCD ? resources.layerPanel.GROUP_LCD.layers : [];
   const layerConf = appUtils.getObject(lcLayers, 'id', layerKeys.LAND_COVER);
   const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
-  const { tcd, lang, settings, activeSlopeClass, tcLossFrom, tcLossTo, gladFrom, gladTo, firesSelectIndex } = params;
+  const { tcd, lang, settings, activeSlopeClass, tcLossFrom, tcLossTo, gladFrom, gladTo, viirsFrom, viirsTo, modisFrom, modisTo } = params;
   const geographic = webmercatorUtils.geographicToWebMercator(feature.geometry);
   //- Only Analyze layers in the analysis
   if (appUtils.containsObject(lcdLayers, 'id', layerKeys.TREE_COVER_LOSS)) {
@@ -744,25 +747,47 @@ const runAnalysis = function runAnalysis (params, feature) {
     const node = document.getElementById('intact-loss');
     node.remove();
   }
-
-  if (settings.activeFires) {
+  if (settings.viirsFires) {
     //- Fires Analysis
     performAnalysis({
-      type: analysisKeys.FIRES,
+      type: analysisKeys.VIIRS_FIRES,
       geometry: feature.geometry,
       settings: settings,
       canopyDensity: tcd,
       language: lang,
-      firesSelectIndex: firesSelectIndex
+      viirsFrom: viirsFrom,
+      viirsTo: viirsTo
     }).then((results) => {
-      document.querySelector('.results__fires-pre').innerHTML = text[lang].ANALYSIS_FIRES_PRE;
-      document.querySelector('.results__fires-count').innerHTML = results.fireCount;
-      document.querySelector('.results__fires-active').innerHTML = text[lang].ANALYSIS_FIRES_ACTIVE;
-      document.querySelector('.results__fires-post').innerHTML = text[lang].ANALYSIS_FIRES_POST_LIST[firesSelectIndex];
-      document.getElementById('fires-badge').classList.remove('hidden');
+      document.querySelector('.results__viirs-pre').innerHTML = text[lang].ANALYSIS_FIRES_PRE;
+      document.querySelector('.results__viirs-count').innerHTML = results.fireCount;
+      document.querySelector('.results__viirs-active').innerHTML = text[lang].ANALYSIS_FIRES_ACTIVE + ' (VIIRS)';
+      document.querySelector('.results__viirs-post').innerHTML = `${text[lang].TIMELINE_START}${viirsFrom.toLocaleDateString()}<br/>${text[lang].TIMELINE_END}${viirsTo.toLocaleDateString()}`;
+      document.getElementById('viirs-badge').classList.remove('hidden');
     });
   } else {
-    const node = document.getElementById('fires-badge');
+    const node = document.getElementById('viirs-badge');
+    node.remove();
+  }
+
+  if (settings.modisFires) {
+    //- Fires Analysis
+    performAnalysis({
+      type: analysisKeys.MODIS_FIRES,
+      geometry: feature.geometry,
+      settings: settings,
+      canopyDensity: tcd,
+      language: lang,
+      modisFrom: modisFrom,
+      modisTo: modisTo
+    }).then((results) => {
+      document.querySelector('.results__modis-pre').innerHTML = text[lang].ANALYSIS_FIRES_PRE;
+      document.querySelector('.results__modis-count').innerHTML = results.fireCount;
+      document.querySelector('.results__modis-active').innerHTML = text[lang].ANALYSIS_FIRES_ACTIVE + ' (MODIS)';
+      document.querySelector('.results__modis-post').innerHTML = `${text[lang].TIMELINE_START}${modisFrom.toLocaleDateString()}<br/>${text[lang].TIMELINE_END}${modisTo.toLocaleDateString()}`;
+      document.getElementById('modis-badge').classList.remove('hidden');
+    });
+  } else {
+    const node = document.getElementById('modis-badge');
     node.remove();
   }
 
@@ -983,6 +1008,12 @@ export default {
 
     //- Add Title, Subtitle, and logo right away
     addHeaderContent(params);
+    //- Convert stringified dates back to date objects for analysis
+    const { viirsStartDate, viirsEndDate, modisStartDate, modisEndDate } = params;
+    params.viirsFrom = new Date(viirsStartDate);
+    params.viirsTo = new Date(viirsEndDate);
+    params.modisFrom = new Date(modisStartDate);
+    params.modisTo = new Date(modisEndDate);
 
     //- Create the map as soon as possible
     createMap(params);

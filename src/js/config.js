@@ -260,8 +260,12 @@ config.analysis[analysisKeys.TC_LOSS] = {
   labels: [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015]
 };
 
-config.analysis[analysisKeys.FIRES] = {
+config.analysis[analysisKeys.VIIRS_FIRES] = {
   url: 'https://gis-gfw.wri.org/arcgis/rest/services/Fires/FIRMS_Global/MapServer/8'
+};
+
+config.analysis[analysisKeys.MODIS_FIRES] = {
+  url: 'https://gis-gfw.wri.org/arcgis/rest/services/Fires/FIRMS_Global/MapServer/9'
 };
 
 export const mapConfig = config.map;

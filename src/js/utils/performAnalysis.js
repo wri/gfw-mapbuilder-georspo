@@ -1,10 +1,9 @@
 import analysisKeys from 'constants/AnalysisConstants';
 import layerKeys from 'constants/LayerConstants';
 import analysisUtils from 'utils/analysisUtils';
-import {analysisConfig, layerPanelText} from 'js/config';
+import {analysisConfig} from 'js/config';
 import Deferred from 'dojo/Deferred';
 import utils from 'utils/AppUtils';
-import all from 'dojo/promise/all';
 
 /**
 * @param {object} options - Value from Analysis Select, also key to options in config
@@ -17,7 +16,24 @@ import all from 'dojo/promise/all';
 * @return {promise}
 */
 export default function performAnalysis (options) {
-  const {type, geometry, canopyDensity, activeSlopeClass, settings, geostoreId, tcLossFrom, tcLossTo, gladFrom, gladTo, firesSelectIndex} = options;
+  const {
+    type,
+    geometry,
+    canopyDensity,
+    activeSlopeClass,
+    settings,
+    geostoreId,
+    tcLossFrom,
+    tcLossTo,
+    gladFrom,
+    gladTo,
+    viirsFiresSelectIndex,
+    modisFiresSelectIndex,
+    viirsFrom,
+    viirsTo,
+    modisFrom,
+    modisTo
+  } = options;
   const restorationUrl = settings && settings.restorationImageServer;
   const landCoverConfig = settings && settings.layerPanel && settings.layerPanel.GROUP_LC ?
     utils.getObject(settings.layerPanel.GROUP_LC.layers, 'id', layerKeys.LAND_COVER) : {};
@@ -25,10 +41,11 @@ export default function performAnalysis (options) {
   const promise = new Deferred();
 
   switch (type) {
-    case analysisKeys.FIRES:
-      const firesOptions = layerPanelText.firesOptions;
-      const value = firesOptions[firesSelectIndex].value;
-      analysisUtils.getFireCount(config.url, geometry, value).then(promise.resolve);
+    case analysisKeys.VIIRS_FIRES:
+      analysisUtils.getFireCount(config.url, geometry, viirsFrom, viirsTo).then(promise.resolve);
+    break;
+    case analysisKeys.MODIS_FIRES:
+      analysisUtils.getFireCount(config.url, geometry, modisFrom, modisTo).then(promise.resolve);
     break;
     case analysisKeys.LCC:
       analysisUtils.getMosaic(landCoverConfig.rasterId, geometry).then(promise.resolve);
@@ -45,14 +62,18 @@ export default function performAnalysis (options) {
       analysisUtils.getSlope(restorationUrl, slopeValue, config.id, config.restoration, geometry).then(promise.resolve);
     break;
     case analysisKeys.TC_LOSS_GAIN:
-        analysisUtils.getCountsWithDensity(geometry, canopyDensity, tcLossFrom, tcLossTo, geostoreId).then(response => {
-        const lossObj = response.data.attributes.loss;
-        const lossCounts = Object.values(lossObj);
-        const lossTotal = parseInt(lossCounts.reduce((a, b) => a + b, 0));
-        const gainTotal = parseInt(response.data.attributes.gain);
-        promise.resolve({ lossCounts, lossTotal, gainTotal });
+      analysisUtils.getCountsWithDensity(geometry, canopyDensity, tcLossFrom, tcLossTo, geostoreId).then(response => {
+        if (response === []) {
+          promise.resolve({ error: 'There was an error retrieving the data' });
+        } else {
+          const lossObj = response.data.attributes.loss;
+          const lossCounts = Object.values(lossObj);
+          const lossTotal = parseInt(lossCounts.reduce((a, b) => a + b, 0));
+          const gainTotal = parseInt(response.data.attributes.gain);
+          promise.resolve({ lossCounts, lossTotal, gainTotal });
+        }
       });
-    break;
+      break;
     case analysisKeys.LC_LOSS:
       analysisUtils.getCrossedWithLoss({
         id: landCoverConfig.rasterId,
