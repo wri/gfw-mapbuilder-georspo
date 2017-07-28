@@ -10,16 +10,23 @@ export default class BarChart extends Component {
   }
 
   componentDidMount() {
-    const {labels, colors, counts, name} = this.props;
-    if(counts.length === 0) {
+    const { labels, colors, counts, name, results } = this.props;
+
+    if (typeof results === 'object' && results.hasOwnProperty('error')) {
       this.setState({ isEmpty: true });
     } else {
-      const series = [{
-        name: name,
-        data: counts
-      }];
-      this.setState({ isEmpty: false });
-      charts.makeSimpleBarChart(this.refs.chart, labels, colors, series);
+
+
+      if (counts.length === 0) {
+        this.setState({ isEmpty: true });
+      } else {
+        const series = [{
+          name: name,
+          data: counts
+        }];
+        this.setState({ isEmpty: false });
+        charts.makeSimpleBarChart(this.refs.chart, labels, colors, series);
+      }
     }
   }
 

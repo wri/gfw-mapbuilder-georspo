@@ -13,7 +13,18 @@ const LossGainBadge = (props, context) => {
   if (results.hasOwnProperty('error')) {
     return (
       <div className='results__loss-gain'>
-        <h4 style={{ color: 'red' }}>{results.error}</h4>
+        <h4 style={{ color: 'red' }}>{results.message}</h4>
+      </div>
+    );
+  } else {
+
+  return (
+    <div className='results__loss-gain'>
+      <div className='results__loss-badge'>
+        <div className='results__loss-gain--label'>{text[language].ANALYSIS_TOTAL_LOSS_LABEL}</div>
+        <div className='results__loss-gain--range'>{labelArray[lossFromSelectIndex]} &ndash; {labelArray[lossToSelectIndex]}</div>
+        <span className='results__loss--count'>{lossTotal}</span>
+        <span className='results__loss--unit'>Ha</span>
       </div>
     );
   } else {

@@ -52,9 +52,13 @@ export default function performAnalysis (options) {
     break;
     case analysisKeys.TC_LOSS:
       analysisUtils.getCountsWithDensity(geometry, canopyDensity, tcLossFrom, tcLossTo, geostoreId).then(response => {
-        const lossObj = response.data.attributes.loss;
-        const counts = Object.values(lossObj);
-        promise.resolve({ counts });
+        if (typeof response === 'object' && response.hasOwnProperty('error')) {
+          promise.resolve({error: response.error, message: response.message});
+        } else {
+          const lossObj = response.data.attributes.loss;
+          const counts = Object.values(lossObj);
+          promise.resolve({ counts });
+        }
       });
     break;
     case analysisKeys.SLOPE:
@@ -63,8 +67,8 @@ export default function performAnalysis (options) {
     break;
     case analysisKeys.TC_LOSS_GAIN:
       analysisUtils.getCountsWithDensity(geometry, canopyDensity, tcLossFrom, tcLossTo, geostoreId).then(response => {
-        if (response === []) {
-          promise.resolve({ error: 'There was an error retrieving the data' });
+        if (typeof response === 'object' && response.hasOwnProperty('error')) {
+          promise.resolve({ error: response.error, message: response.message});
         } else {
           const lossObj = response.data.attributes.loss;
           const lossCounts = Object.values(lossObj);

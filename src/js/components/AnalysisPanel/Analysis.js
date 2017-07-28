@@ -183,7 +183,8 @@ export default class Analysis extends Component {
           name={text[language].ANALYSIS_TC_CHART_NAME}
           counts={results.counts}
           colors={analysisConfig[type].colors}
-          labels={labels} />;
+          labels={labels}
+          results={results}/>;
       case analysisKeys.BIO_LOSS:
         return <BiomassChart
           payload={results}

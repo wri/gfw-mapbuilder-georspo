@@ -320,7 +320,7 @@ export default {
         promise.resolve(alerts || []);
       }, err => {
         console.error(err);
-        promise.resolve([]);
+        promise.resolve({error: err, message: 'An error occurred while fetching GLAD data. Please select another analysis'});
       });
     } else {
       const success = res => {
@@ -341,7 +341,7 @@ export default {
           promise.resolve(alerts || []);
         }, err => {
           console.error(err);
-          promise.resolve([]);
+          promise.resolve({error: err, message: 'An error occurred while fetching GLAD data. Please select another analysis'});
         });
       };
 
@@ -398,7 +398,7 @@ export default {
         deferred.resolve(lossGainResult || []);
       }, err => {
         console.error(err);
-        deferred.resolve([]);
+        deferred.resolve({error: err, message: 'An error occurred while fetching loss/gain data. Please select another analysis'});
       });
     } else {
 
@@ -419,7 +419,7 @@ export default {
           deferred.resolve(lossGainResult || []);
         }, err => {
           console.error(err);
-          deferred.resolve([]);
+          deferred.resolve({error: err, message: 'An error occurred while fetching loss/gain data. Please select another analysis'});
         });
       };
 
@@ -476,7 +476,7 @@ export default {
         deferred.resolve(biomassResult || []);
       }, err => {
         console.error(err);
-        deferred.resolve([]);
+        deferred.resolve({error: err, message: 'An error occurred while fetching biomass loss data. Please select another analysis'});
       });
     } else {
 
@@ -496,7 +496,7 @@ export default {
           deferred.resolve(biomassResult || []);
         }, err => {
           console.error(err);
-          deferred.resolve([]);
+          deferred.resolve({error: err, message: 'An error occurred while fetching biomass loss data. Please select another analysis'});
         });
       };
 
