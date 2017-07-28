@@ -32,8 +32,6 @@ export default class GladControls extends Component {
       base = base.substring(0, base.length - 1);
     }
 
-    loadCSS(base + assetUrls.pickadateCSS);
-    loadCSS(base + assetUrls.pickadateDateCSS);
     //- Create the date pickers
     const {fromCalendar, toCalendar} = this.refs;
     const {startDate, endDate} = this.props;

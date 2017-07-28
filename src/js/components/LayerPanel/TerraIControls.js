@@ -29,9 +29,6 @@ export default class TerraIControls extends Component {
     if (base && base[base.length - 1] === '/' && base[base.length - 2] === '/') {
       base = base.substring(0, base.length - 1);
     }
-
-    loadCSS(base + assetUrls.pickadateCSS);
-    loadCSS(base + assetUrls.pickadateDateCSS);
   }
 
   componentWillUpdate () {

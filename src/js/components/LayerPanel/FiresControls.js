@@ -29,8 +29,6 @@ export default class FiresControls extends React.Component {
       base = base.substring(0, base.length - 1);
     }
 
-    loadCSS(base + assetUrls.pickadateCSS);
-    loadCSS(base + assetUrls.pickadateDateCSS);
     //- Create the date pickers
     const { fromCalendar, toCalendar } = this.refs;
     const { startDate, endDate } = this.props;
@@ -61,11 +59,6 @@ export default class FiresControls extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, prevContext) {
-    const value = firesOptions[this.props.firesSelectIndex].value;
-
-    // if (prevProps.firesSelectIndex !== this.props.firesSelectIndex) {
-    //   LayersHelper.updateFiresLayerDefinitions(value, this.props.layer);
-    // }
 
     if ((Date.parse(prevProps.startDate) !== Date.parse(this.props.startDate)) || (Date.parse(prevProps.endDate) !== Date.parse(this.props.endDate))) {
       LayersHelper.updateFiresLayerDefinitions(this.props.startDate, this.props.endDate, this.props.layer);

@@ -761,7 +761,7 @@ const runAnalysis = function runAnalysis (params, feature) {
       document.querySelector('.results__viirs-pre').innerHTML = text[lang].ANALYSIS_FIRES_PRE;
       document.querySelector('.results__viirs-count').innerHTML = results.fireCount;
       document.querySelector('.results__viirs-active').innerHTML = text[lang].ANALYSIS_FIRES_ACTIVE + ' (VIIRS)';
-      document.querySelector('.results__viirs-post').innerHTML = `Date range:<br/>${viirsFrom.toLocaleDateString()} - ${viirsTo.toLocaleDateString()}`;
+      document.querySelector('.results__viirs-post').innerHTML = `${text[lang].TIMELINE_START}${viirsFrom.toLocaleDateString()}<br/>${text[lang].TIMELINE_END}${viirsTo.toLocaleDateString()}`;
       document.getElementById('viirs-badge').classList.remove('hidden');
     });
   } else {
@@ -783,7 +783,7 @@ const runAnalysis = function runAnalysis (params, feature) {
       document.querySelector('.results__modis-pre').innerHTML = text[lang].ANALYSIS_FIRES_PRE;
       document.querySelector('.results__modis-count').innerHTML = results.fireCount;
       document.querySelector('.results__modis-active').innerHTML = text[lang].ANALYSIS_FIRES_ACTIVE + ' (MODIS)';
-      document.querySelector('.results__modis-post').innerHTML = `Date range:<br/>${modisFrom.toLocaleDateString()} - ${modisTo.toLocaleDateString()}`;
+      document.querySelector('.results__modis-post').innerHTML = `${text[lang].TIMELINE_START}${modisFrom.toLocaleDateString()}<br/>${text[lang].TIMELINE_END}${modisTo.toLocaleDateString()}`;
       document.getElementById('modis-badge').classList.remove('hidden');
     });
   } else {
