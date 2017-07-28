@@ -125,8 +125,12 @@ strings.en.ANALYSIS_SELECT_TYPE_OPTIONS = [
     value: analysisKeys.TERRA_I_ALERTS,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
-  { label: 'Active fires',
-    value: analysisKeys.FIRES,
+  { label: 'VIIRS fires',
+    value: analysisKeys.VIIRS_FIRES,
+    group: analysisKeys.ANALYSIS_GROUP_OTHER
+  },
+  { label: 'MODIS fires',
+    value: analysisKeys.MODIS_FIRES,
     group: analysisKeys.ANALYSIS_GROUP_OTHER
   },
   { label: 'Land cover composition',

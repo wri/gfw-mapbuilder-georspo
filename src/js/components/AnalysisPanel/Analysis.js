@@ -58,7 +58,8 @@ export default class Analysis extends Component {
       lossToSelectIndex,
       gladStartDate,
       gladEndDate,
-      firesSelectIndex
+      viirsFiresSelectIndex,
+      modisFiresSelectIndex
     } = this.props;
 
     if (selectedFeature && activeAnalysisType && activeTab === tabKeys.ANALYSIS) {
@@ -74,7 +75,8 @@ export default class Analysis extends Component {
           tcLossTo: lossToSelectIndex,
           gladFrom: gladStartDate,
           gladTo: gladEndDate,
-          firesSelectIndex: firesSelectIndex
+          viirsFiresSelectIndex: viirsFiresSelectIndex,
+          modisFiresSelectIndex: modisFiresSelectIndex
         }).then((results) => {
           this.setState({ results: results, isLoading: false });
         }, () => {
@@ -97,7 +99,8 @@ export default class Analysis extends Component {
       lossToSelectIndex,
       gladStartDate,
       gladEndDate,
-      firesSelectIndex
+      viirsFiresSelectIndex,
+      modisFiresSelectIndex
     } = nextProps;
 
     //- Only rerun the analysis if one of these things changes
@@ -125,7 +128,8 @@ export default class Analysis extends Component {
           tcLossTo: lossToSelectIndex,
           gladFrom: gladStartDate,
           gladTo: gladEndDate,
-          firesSelectIndex: firesSelectIndex
+          viirsFiresSelectIndex: viirsFiresSelectIndex,
+          modisFiresSelectIndex: modisFiresSelectIndex
         }).then((results) => {
           this.setState({ results: results, isLoading: false });
         }, () => {
@@ -135,17 +139,19 @@ export default class Analysis extends Component {
     }
   }
 
-  renderResults = (type, results, language, lossFromSelectIndex, lossToSelectIndex, firesSelectIndex) => {
+  renderResults = (type, results, language, lossFromSelectIndex, lossToSelectIndex, viirsFiresSelectIndex, modisFiresSelectIndex) => {
     const {settings} = this.context;
     const layerGroups = settings.layerPanel;
     const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
     const lcLayers = layerGroups.GROUP_LC ? layerGroups.GROUP_LC.layers : [];
     let labels, layerConf, colors;
     switch (type) {
-      case analysisKeys.FIRES:
-        return <FiresBadge count={results.fireCount} firesSelectIndex={firesSelectIndex}/>;
+      case analysisKeys.VIIRS_FIRES:
+        return <FiresBadge count={results.fireCount} viirsFiresSelectIndex={viirsFiresSelectIndex} modisFiresSelectIndex={modisFiresSelectIndex} />;
+      case analysisKeys.MODIS_FIRES:
+        return <FiresBadge count={results.fireCount} viirsFiresSelectIndex={viirsFiresSelectIndex} modisFiresSelectIndex={modisFiresSelectIndex} />;
       case analysisKeys.TC_LOSS_GAIN:
-        return <LossGainBadge lossTotal={results.lossTotal} gainTotal={results.gainTotal} lossFromSelectIndex={lossFromSelectIndex} lossToSelectIndex={lossToSelectIndex} />;
+        return <LossGainBadge results={results} lossFromSelectIndex={lossFromSelectIndex} lossToSelectIndex={lossToSelectIndex} />;
       case analysisKeys.LCC:
         layerConf = utils.getObject(lcLayers, 'id', layerKeys.LAND_COVER);
         return <CompositionPieChart
@@ -216,14 +222,14 @@ export default class Analysis extends Component {
   };
 
   render () {
-    const {selectedFeature, activeAnalysisType, canopyDensity, activeSlopeClass, lossFromSelectIndex, lossToSelectIndex, firesSelectIndex} = this.props;
+    const {selectedFeature, activeAnalysisType, canopyDensity, activeSlopeClass, lossFromSelectIndex, lossToSelectIndex, viirsFiresSelectIndex, modisFiresSelectIndex} = this.props;
     const {results, isLoading, error} = this.state;
     const {language, settings} = this.context;
     let chart, title, slopeSelect;
 
     // If we have results, show a chart
     if (results) {
-      chart = this.renderResults(activeAnalysisType, results, language, lossFromSelectIndex, lossToSelectIndex, firesSelectIndex);
+      chart = this.renderResults(activeAnalysisType, results, language, lossFromSelectIndex, lossToSelectIndex, viirsFiresSelectIndex, modisFiresSelectIndex);
     }
 
     // If we have the restoration module, add in the slope select

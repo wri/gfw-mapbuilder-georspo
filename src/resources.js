@@ -40,7 +40,8 @@ export default {
   //documentsMapserver: 'https://gis.forest-atlas.org/server/rest/services/CMR/documents_administratifs/MapServer',
   //- Layers/Analysis Settings
   iso: '',
-  activeFires: true,
+  viirsFires: true,
+  modisFires: true,
   intactForests: true,
   aboveGroundBiomass: true,
   landCover: true,
@@ -328,7 +329,7 @@ export default {
         order: 7,
         id: 'MODIS_ACTIVE_FIRES',
         type: 'dynamic',
-        url: 'https://gfw-staging.wri.org/arcgis/rest/services/Fires/FIRMS_Global/MapServer',
+        url: 'https://gis-gfw.wri.org/arcgis/rest/services/Fires/FIRMS_Global/MapServer',
         technicalName: 'firms_active_fires',
         layerIds: [9],
         label: {

@@ -188,7 +188,9 @@ const formatResources = () => {
     resources.layerPanel[group].layers = resources.layerPanel[group].layers.filter((layer) => {
       switch (layer.id) {
         case layerKeys.VIIRS_ACTIVE_FIRES:
-          return resources.activeFires;
+          return resources.viirsFires;
+        case layerKeys.MODIS_ACTIVE_FIRES:
+          return resources.modisFires;
         case layerKeys.LAND_COVER:
           return resources.landCover;
         case layerKeys.AG_BIOMASS:

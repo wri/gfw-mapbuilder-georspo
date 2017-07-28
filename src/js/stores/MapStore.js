@@ -12,7 +12,6 @@ import {layerPanelText} from 'js/config';
 class MapStore {
 
   constructor () {
-
     //- Default is closed, using any value as default will cause an ugly
     //- appearance on mobile when loading, set the default in TabButtons componentWillReceiveProps
     //- the default may change based on device, and content available from AGOL
@@ -30,6 +29,12 @@ class MapStore {
     this.lossToSelectIndex = 0;
     this.gladStartDate = new Date('2015', 0, 1);
     this.gladEndDate = new Date();
+    this.viirsStartDate = new Date();
+    this.viirsStartDate.setDate(this.viirsStartDate.getDate() - 1);
+    this.viirsEndDate = new Date();
+    this.modisStartDate = new Date();
+    this.modisStartDate.setDate(this.modisStartDate.getDate() - 1);
+    this.modisEndDate = new Date();
     this.lossOptions = [];
     this.viirsFiresSelectIndex = layerPanelText.firesOptions.length - 1;
     this.modisFiresSelectIndex = layerPanelText.firesOptions.length - 1;
@@ -50,6 +55,8 @@ class MapStore {
     this.imazonStartYear = 0;
     this.imazonEndYear = 0;
     this.iconLoading = '';
+
+    console.log(this.viirsStartDate, this.modisStartDate);
 
     this.bindListeners({
       setDefaults: appActions.applySettings,
@@ -82,6 +89,10 @@ class MapStore {
       updateLossTimeline: layerActions.updateLossTimeline,
       updateGladStartDate: layerActions.updateGladStartDate,
       updateGladEndDate: layerActions.updateGladEndDate,
+      updateViirsStartDate: layerActions.updateViirsStartDate,
+      updateViirsEndDate: layerActions.updateViirsEndDate,
+      updateModisStartDate: layerActions.updateModisStartDate,
+      updateModisEndDate: layerActions.updateModisEndDate,
       changeOpacity: layerActions.changeOpacity,
       updateTimeExtent: mapActions.updateTimeExtent,
       updateImazonAlertSettings: mapActions.updateImazonAlertSettings,
@@ -231,12 +242,12 @@ class MapStore {
     this.lossOptions = lossOptionsData;
   }
 
-  changeViirsFiresTimeline (firesSelectIndex) {
-    this.viirsFiresSelectIndex = firesSelectIndex;
+  changeViirsFiresTimeline (viirsFiresSelectIndex) {
+    this.viirsFiresSelectIndex = viirsFiresSelectIndex;
   }
 
-  changeModisFiresTimeline (firesSelectIndex) {
-    this.modisFiresSelectIndex = firesSelectIndex;
+  changeModisFiresTimeline (viirsFiresSelectIndex) {
+    this.modisFiresSelectIndex = viirsFiresSelectIndex;
   }
 
   updateActiveSlopeClass (newSlopeClass) {
@@ -254,6 +265,22 @@ class MapStore {
 
   updateGladEndDate (endDate) {
     this.gladEndDate = endDate;
+  }
+
+  updateViirsStartDate (startDate) {
+    this.viirsStartDate = startDate;
+  }
+
+  updateViirsEndDate (endDate) {
+    this.viirsEndDate = endDate;
+  }
+
+  updateModisStartDate (startDate) {
+    this.modisStartDate = startDate;
+  }
+
+  updateModisEndDate (endDate) {
+    this.modisEndDate = endDate;
   }
 
   showLayerInfo (layer) {

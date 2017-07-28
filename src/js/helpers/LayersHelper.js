@@ -31,9 +31,9 @@ const LayersHelper = {
   * @param {number} optionIndex - Index of the selected option in the UI, see js/config
   * @param {boolean} dontRefresh - Whether or not to not fetch a new image
   */
-  updateFiresLayerDefinitions (value, layer, dontRefresh) {
-    const queryString = this.generateFiresQuery(value);
-    const firesLayer = layer;
+  updateFiresLayerDefinitions (startDate, endDate, layer, dontRefresh) {
+    const queryString = this.generateFiresQuery(startDate, endDate);
+    const firesLayer = layer.hasOwnProperty('visibleLayers') ? layer : brApp.map.getLayer(layer.id);
     const defs = [];
 
     if (firesLayer) {
@@ -47,12 +47,10 @@ const LayersHelper = {
   * @param {number} filterValue - Numeric value representing the number of days to show in the output query
   * @return {string} Query String to use for Fires Filter
   */
-  generateFiresQuery (filterValue) {
-    const date = new Date();
-    // Set the date to filterValue amount of days before today
-    date.setDate(date.getDate() - filterValue);
-    const dateString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
-    return 'ACQ_DATE > date \'' + dateString + '\'';
+  generateFiresQuery (startDate, endDate) {
+    const start = `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()} ${startDate.getHours()}:${startDate.getMinutes()}:${startDate.getSeconds()}`;
+    const end = `${endDate.getFullYear()}-${endDate.getMonth() + 1}-${endDate.getDate()} ${endDate.getHours()}:${endDate.getMinutes()}:${endDate.getSeconds()}`;
+    return 'ACQ_DATE > date \'' + start + '\'' + ' AND ' + 'ACQ_DATE < date \'' + end + '\'';
   },
 
   changeOpacity (parameters) {

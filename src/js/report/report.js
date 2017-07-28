@@ -84,7 +84,7 @@ const getFeature = function getFeature (params) {
 };
 
 const createLayers = function createLayers (layerPanel, activeLayers, language, params) {
-    const {tcLossFrom, tcLossTo, gladFrom, gladTo, firesSelectIndex, tcd} = params;
+    const {tcLossFrom, tcLossTo, gladFrom, gladTo, viirsFiresSelectIndex, modisFiresSelectIndex, tcd} = params;
 
     //- Organize and order the layers before adding them to the map
     let layers = Object.keys(layerPanel).filter((groupName) => {
@@ -142,7 +142,8 @@ const createLayers = function createLayers (layerPanel, activeLayers, language, 
     // Set the date range for the loss and glad layers
     const lossLayer = esriLayers.filter(layer => layer.id === layerKeys.TREE_COVER_LOSS)[0];
     const gladLayer = esriLayers.filter(layer => layer.id === layerKeys.GLAD_ALERTS)[0];
-    const firesLayer = esriLayers.filter(layer => layer.id === layerKeys.ACTIVE_FIRES)[0];
+    const viirsFiresLayer = esriLayers.filter(layer => layer.id === layerKeys.VIIRS_ACTIVE_FIRES)[0];
+    const modisFiresLayer = esriLayers.filter(layer => layer.id === layerKeys.MODIS_ACTIVE_FIRES)[0];
 
     if (lossLayer && lossLayer.setDateRange) {
       const yearsArray = analysisConfig[analysisKeys.TC_LOSS].labels;
@@ -159,10 +160,16 @@ const createLayers = function createLayers (layerPanel, activeLayers, language, 
       gladLayer.setDateRange(julianFrom, julianTo);
     }
 
-    if (firesLayer) {
+    if (viirsFiresLayer) {
       const firesOptions = layerPanelText.firesOptions;
-      const value = firesOptions[firesSelectIndex].value;
-      layersHelper.updateFiresLayerDefinitions(value, firesLayer);
+      const value = firesOptions[viirsFiresSelectIndex].value;
+      layersHelper.updateFiresLayerDefinitions(value, viirsFiresLayer);
+    }
+
+    if (modisFiresLayer) {
+      const firesOptions = layerPanelText.firesOptions;
+      const value = firesOptions[modisFiresSelectIndex].value;
+      layersHelper.updateFiresLayerDefinitions(value, modisFiresLayer);
     }
 
     map.addLayers(esriLayers);
@@ -552,7 +559,7 @@ const runAnalysis = function runAnalysis (params, feature) {
   const lcdLayers = resources.layerPanel.GROUP_LCD ? resources.layerPanel.GROUP_LCD.layers : [];
   const layerConf = appUtils.getObject(lcLayers, 'id', layerKeys.LAND_COVER);
   const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
-  const { tcd, lang, settings, activeSlopeClass, tcLossFrom, tcLossTo, gladFrom, gladTo, firesSelectIndex } = params;
+  const { tcd, lang, settings, activeSlopeClass, tcLossFrom, tcLossTo, gladFrom, gladTo, viirsFiresSelectIndex, modisFiresSelectIndex } = params;
   const geographic = webmercatorUtils.geographicToWebMercator(feature.geometry);
   //- Only Analyze layers in the analysis
   if (appUtils.containsObject(lcdLayers, 'id', layerKeys.TREE_COVER_LOSS)) {
@@ -745,7 +752,7 @@ const runAnalysis = function runAnalysis (params, feature) {
     node.remove();
   }
 
-  if (settings.activeFires) {
+  if (settings.viirsFires) {
     //- Fires Analysis
     performAnalysis({
       type: analysisKeys.FIRES,
@@ -753,12 +760,33 @@ const runAnalysis = function runAnalysis (params, feature) {
       settings: settings,
       canopyDensity: tcd,
       language: lang,
-      firesSelectIndex: firesSelectIndex
+      viirsFiresSelectIndex: viirsFiresSelectIndex
     }).then((results) => {
       document.querySelector('.results__fires-pre').innerHTML = text[lang].ANALYSIS_FIRES_PRE;
       document.querySelector('.results__fires-count').innerHTML = results.fireCount;
       document.querySelector('.results__fires-active').innerHTML = text[lang].ANALYSIS_FIRES_ACTIVE;
-      document.querySelector('.results__fires-post').innerHTML = text[lang].ANALYSIS_FIRES_POST_LIST[firesSelectIndex];
+      document.querySelector('.results__fires-post').innerHTML = text[lang].ANALYSIS_FIRES_POST_LIST[viirsFiresSelectIndex];
+      document.getElementById('fires-badge').classList.remove('hidden');
+    });
+  } else {
+    const node = document.getElementById('fires-badge');
+    node.remove();
+  }
+
+  if (settings.modisFires) {
+    //- Fires Analysis
+    performAnalysis({
+      type: analysisKeys.FIRES,
+      geometry: feature.geometry,
+      settings: settings,
+      canopyDensity: tcd,
+      language: lang,
+      viirsFiresSelectIndex: viirsFiresSelectIndex
+    }).then((results) => {
+      document.querySelector('.results__fires-pre').innerHTML = text[lang].ANALYSIS_FIRES_PRE;
+      document.querySelector('.results__fires-count').innerHTML = results.fireCount;
+      document.querySelector('.results__fires-active').innerHTML = text[lang].ANALYSIS_FIRES_ACTIVE;
+      document.querySelector('.results__fires-post').innerHTML = text[lang].ANALYSIS_FIRES_POST_LIST[modisFiresSelectIndex];
       document.getElementById('fires-badge').classList.remove('hidden');
     });
   } else {

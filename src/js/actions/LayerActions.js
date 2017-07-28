@@ -53,6 +53,22 @@ class LayerActions {
     return endDate;
   }
 
+  updateViirsStartDate (startDate) {
+    return startDate;
+  }
+
+  updateViirsEndDate (endDate) {
+    return endDate;
+  }
+
+  updateModisStartDate (startDate) {
+    return startDate;
+  }
+
+  updateModisEndDate (endDate) {
+    return endDate;
+  }
+
   setLossOptions (lossOptionsData) {
     return lossOptionsData;
   }
