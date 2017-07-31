@@ -65,7 +65,7 @@ export default class LossControls extends Component {
   }
 
   componentDidUpdate (prevProps, prevState, prevContext) {
-    // //- If the options are ready and something has changed
+    //- If the options are ready and something has changed
     const {lossFromSelectIndex, lossToSelectIndex, canopyDensity} = this.props;
     const fromYear = lossOptions[lossFromSelectIndex].label;
     const toYear = lossOptions[lossToSelectIndex].label;
@@ -114,7 +114,8 @@ export default class LossControls extends Component {
     const start = lossOptions[this.lossSlider.result.from].label - 2000;
     const stop = lossOptions[this.lossSlider.result.to].label - 2000;
     let range = start + 1;
-
+    
+    // Set an interval to increase the date range every second, then start over when at max range
     const timer = setInterval(visualizeLoss, 1000);
 
     function visualizeLoss() {
