@@ -163,6 +163,25 @@
     align-items center
   &.fires
     width 125px
+  &.loss
+    width 100%
+    & .irs-line-left
+    & .irs-line-right
+    & .irs-line-mid
+      background white
+    & .irs-grid-pol.small
+      display none
+    & .irs-bar
+      background $goldTheme
+      border-radius 5px
+      height 7px
+    & .irs-grid-pol
+      border-radius 50%
+      height 2px
+      width 2px
+      top -12px
+    & .irs-slider
+      cursor col-resize
   & select
     -webkit-appearance none
     position absolute
@@ -340,3 +359,10 @@
     display table-cell
     font-size 12px
     margin 3px
+
+#lossPlayButton, #lossPauseButton
+  position absolute
+  top 73px
+  left 4px
+  cursor pointer
+  color $goldTheme
