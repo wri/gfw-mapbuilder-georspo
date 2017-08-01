@@ -3,6 +3,7 @@ import {loadCSS} from 'utils/loaders';
 import {assetUrls} from 'js/config';
 import utils from 'utils/AppUtils';
 import text from 'js/languages';
+import layerActions from 'actions/LayerActions';
 import 'pickadate';
 
 /**
@@ -42,11 +43,6 @@ export default class TerraIControls extends Component {
         const mapLayer = map.getLayer(layer.id);
         const data = JSON.parse(xhr.response);
         const maxDateValue = getJulianDateFromGridCode(data.maxValues[0]);
-        //- Update local state
-        this.setState({
-          minDate: layer.minDateValue,
-          maxDate: maxDateValue
-        });
         //- Update the layer if ready, if not it will get updated on first set
         if (mapLayer) {
           mapLayer.setDateRange(layer.minDateValue, maxDateValue);
@@ -54,6 +50,8 @@ export default class TerraIControls extends Component {
         //- Get date in normal JS Date format
         const min = new Date(((layer.minDateValue / 1000) + 2000).toString(), 0, 1);
         const max = new Date(((maxDateValue / 1000) + 2000).toString(), 0, maxDateValue % 1000);
+        layerActions.updateTerraIStartDate(min);
+        layerActions.updateTerraIEndDate(max);
         //- Create the date pickers
         const {fromTerraCalendar, toTerraCalendar} = this.refs;
         //- Starting date
@@ -66,7 +64,7 @@ export default class TerraIControls extends Component {
           closeOnSelect: true,
           klass: { picker: 'picker__top' },
           onSet: this.didSetStartDate,
-          onStart: function () { this.set('select', min); }
+          onStart: function () { this.set('select', min);}
         }).pickadate('picker');
         //- Ending date
         this.toPicker = $(toTerraCalendar).pickadate({
@@ -88,7 +86,7 @@ export default class TerraIControls extends Component {
 
   didSetStartDate = ({select}) => {
     if (select) {
-      this.setState({ startDate: new Date(select) });
+      layerActions.updateTerraIStartDate(new Date(select));
       this.updateDateRange();
       if (this.fromPicker && this.toPicker) {
         this.toPicker.set('min', this.fromPicker.get('select'));
@@ -98,7 +96,7 @@ export default class TerraIControls extends Component {
 
   didSetEndDate = ({select}) => {
     if (select) {
-      this.setState({ endDate: new Date(select) });
+      layerActions.updateTerraIEndDate(new Date(select));
       this.updateDateRange();
       if (this.fromPicker && this.toPicker) {
         this.fromPicker.set('max', this.toPicker.get('select'));
@@ -107,9 +105,8 @@ export default class TerraIControls extends Component {
   };
 
   updateDateRange = () => {
-    const {startDate, endDate} = this.state;
+    const {layer, startDate, endDate} = this.props;
     const {map} = this.context;
-    const {layer} = this.props;
     const julianFrom = utils.getJulianDate(startDate);
     const julianTo = utils.getJulianDate(endDate);
     if (map.getLayer && map.getLayer(layer.id)) {
@@ -135,5 +132,4 @@ export default class TerraIControls extends Component {
       </div>
     );
   }
-
 }
