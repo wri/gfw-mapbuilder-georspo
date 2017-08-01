@@ -24,6 +24,22 @@ export default class LossControls extends Component {
 
   componentDidMount () {
 
+    // const url = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear/ImageServer';
+    // layerUtils.getLayerMetadata(url).then((results) => {
+      const min = 1;
+      const max = 15;
+      for ( let i = min; i <= max; i++ ) {
+        lossOptions.push({ label: 2000 + i + '', value: i });
+      }
+      //- Update the defaults to be the last year
+      layerActions.updateLossTimeline.defer({
+        fromSelectedIndex: 0,
+        toSelectedIndex: 14
+      });
+      //- Set the options in the store so others can use it
+      layerActions.setLossOptions.defer(lossOptions);
+    // });
+
     let base = window._app.base ? window._app.base + '/' : '';
     if (base && base[base.length - 1] === '/' && base[base.length - 2] === '/') {
       base = base.substring(0, base.length - 1);
@@ -47,21 +63,6 @@ export default class LossControls extends Component {
     });
     loadCSS(base + assetUrls.ionCSS);
     loadCSS(base + assetUrls.ionSkinCSS);
-    // const url = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear/ImageServer';
-    // layerUtils.getLayerMetadata(url).then((results) => {
-      const min = 1;
-      const max = 15;
-      for ( let i = min; i <= max; i++ ) {
-        lossOptions.push({ label: 2000 + i + '', value: i });
-      }
-      //- Update the defaults to be the last year
-      layerActions.updateLossTimeline.defer({
-        fromSelectedIndex: 0,
-        toSelectedIndex: 14
-      });
-      //- Set the options in the store so others can use it
-      layerActions.setLossOptions.defer(lossOptions);
-    // });
   }
 
   componentDidUpdate (prevProps, prevState, prevContext) {
@@ -113,25 +114,42 @@ export default class LossControls extends Component {
     const layer = this.context.map.getLayer(layerKeys.TREE_COVER_LOSS);
     const start = lossOptions[this.lossSlider.result.from].label - 2000;
     const stop = lossOptions[this.lossSlider.result.to].label - 2000;
+    const p_step = lossSlider.coords.p_step;
+    const p_handle = lossSlider.coords.p_handle;
+    const p = p_step - (p_step / p_handle); // Width of one step of the slider (percent)
+    const tooltip = this.refs.sliderTooltip;
+    const tooltipValue = lossSlider.result.from_value + 1;
     let range = start + 1;
-    
+    let barWidth = p;
+    let tooltipHtml = tooltipValue;
+
+
+    lossSlider.update({
+      to_fixed: true,
+      from_fixed: true,
+      hide_from_to: true
+    });
     // Set an interval to increase the date range every second, then start over when at max range
     const timer = setInterval(visualizeLoss, 1000);
 
     function visualizeLoss() {
+      const sliderBar = document.querySelector('.irs-bar');
 
       if (range === stop + 1) {
         range = start + 1;
+        barWidth = p;
+        tooltipHtml = tooltipValue;
       }
 
       layer.setDateRange(start, range);
-      lossSlider.update({
-        to: range - 1,
-        to_fixed: true,
-        from_fixed: true
-      });
-
+      sliderBar.style.width = `${barWidth}%`;
+      const rect = sliderBar.getBoundingClientRect();
+      tooltip.style.left = `${rect.left + rect.width - 69}px`; //TODO Figure out a better way to calculate all of the correct values for bar and tooltip
+      tooltip.innerHTML = tooltipHtml;
+      tooltip.style.display = 'block';
       range++;
+      barWidth += p; // increase barWidth by one step length each iteration
+      tooltipHtml++;
     }
 
     this.setState({playing: true, timer});
@@ -140,6 +158,7 @@ export default class LossControls extends Component {
   stopVisualization = () => {
     const fromYear = lossOptions[this.lossSlider.result.from].label;
     const toYear = lossOptions[this.lossSlider.result.to].label;
+    this.refs.sliderTooltip.style.display = 'none';
 
     const layer = this.context.map.getLayer(layerKeys.TREE_COVER_LOSS);
 
@@ -147,7 +166,8 @@ export default class LossControls extends Component {
     layer.setDateRange(fromYear - 2000, toYear - 2000);
     this.lossSlider.update({
       to_fixed: false,
-      from_fixed: false
+      from_fixed: false,
+      hide_from_to: false
     });
     layerActions.updateLossTimeline({
       fromSelectedIndex: this.lossSlider.result.from,
@@ -172,6 +192,7 @@ export default class LossControls extends Component {
 
     return (
       <div className='timeline-container loss'>
+        <div className='slider-tooltip' ref='sliderTooltip'></div>
         <div id='loss-slider'></div>
         <div id="lossPlayButton" className={`${this.state.playing ? ' hidden' : ''}`} onClick={this.startVisualization}>&#9658;</div>
         <div id="lossPauseButton" className={`${this.state.playing ? '' : ' hidden'}`} onClick={this.stopVisualization}>&#10074;&#10074;</div>
