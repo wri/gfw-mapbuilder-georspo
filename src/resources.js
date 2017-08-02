@@ -293,12 +293,12 @@ export default {
           ka: 'Georgian'
         },
         sublabel: {
-          en: '(daily, 1km, global, NASA)',
-          fr: '(journalier, 1km, global, NASA)',
-          es: '(Diaria, 1km, global, NASA)',
-          pt: '(Diária, 1km, global, NASA)',
-          id: '(daily, 1km, global, NASA)',
-          zh: '(每天更新, 1千米, 全球覆盖, 美国宇航局（NASA))',
+          en: '(daily, 375m, global, NASA)',
+          fr: '(journalier, 375m, global, NASA)',
+          es: '(Diaria, 375m, global, NASA)',
+          pt: '(Diária, 375m, global, NASA)',
+          id: '(daily, 375m, global, NASA)',
+          zh: '(每天更新, 375米, 全球覆盖, 美国宇航局（NASA))',
           ka: 'Georgian'
         },
         popup: {
