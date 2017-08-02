@@ -10,6 +10,7 @@ import utils from 'utils/AppUtils';
 import lang from 'dojo/_base/lang';
 import all from 'dojo/promise/all';
 import layersHelper from 'helpers/LayersHelper';
+import text from 'js/languages';
 
 const INVALID_IMAGE_SIZE = 'The requested image exceeds the size limit.';
 const OP_MULTIPLY = 3;
@@ -260,7 +261,7 @@ export default {
   /**
   * Fetch and format fire results
   */
-  getFireCount: (url, geometry, startDate, endDate) => {
+  getFireCount: (url, geometry, startDate, endDate, language) => {
     const queryTask = new QueryTask(url);
     const promise = new Deferred();
     const query = new Query();
@@ -272,7 +273,8 @@ export default {
     queryTask.execute(query).then(function (response) {
       promise.resolve(formatters.fires(response));
     }, (error) => {
-      promise.resolve(formatters.fires(error));
+      console.error(error);
+      promise.resolve({error: error, message: text[language].ANALYSIS_ERROR_FIRE_COUNT});
     });
     return promise;
   },
@@ -280,7 +282,7 @@ export default {
   /**
   * Get SAD Alerts and format results
   */
-  getSADAlerts: (config, geometry) => {
+  getSADAlerts: (config, geometry, language) => {
     const queryTask = new QueryTask(config.url);
     const promise = new Deferred();
     const query = new Query();
@@ -291,12 +293,13 @@ export default {
     queryTask.execute(query).then(function (response) {
       promise.resolve(formatters.sadAlerts(response));
     }, (error) => {
-      promise.resolve(formatters.sadAlerts(error));
+      console.error(error);
+      promise.resolve({error: error, message: text[language].ANALYSIS_ERROR_SAD});
     });
     return promise;
   },
 
-  getGLADAlerts: function (config, geometry, gladFrom, gladTo, geostoreId) {
+  getGLADAlerts: function (config, geometry, gladFrom, gladTo, language, geostoreId) {
     const promise = new Deferred();
     const gladConfig = analysisConfig[analysisKeys.GLAD_ALERTS];
     const startDate = gladFrom.toISOString().split('T')[0];
@@ -320,7 +323,7 @@ export default {
         promise.resolve(alerts || []);
       }, err => {
         console.error(err);
-        promise.resolve({error: err, message: 'An error occurred while fetching GLAD data. Please select another analysis'});
+        promise.resolve({error: err, message: text[language].ANALYSIS_ERROR_GLAD});
       });
     } else {
       const success = res => {
@@ -341,7 +344,7 @@ export default {
           promise.resolve(alerts || []);
         }, err => {
           console.error(err);
-          promise.resolve({error: err, message: 'An error occurred while fetching GLAD data. Please select another analysis'});
+          promise.resolve({error: err, message: text[language].ANALYSIS_ERROR_GLAD});
         });
       };
 
@@ -398,7 +401,7 @@ export default {
         deferred.resolve(lossGainResult || []);
       }, err => {
         console.error(err);
-        deferred.resolve({error: err, message: 'An error occurred while fetching loss/gain data. Please select another analysis'});
+        deferred.resolve({ error: err });
       });
     } else {
 
@@ -419,7 +422,7 @@ export default {
           deferred.resolve(lossGainResult || []);
         }, err => {
           console.error(err);
-          deferred.resolve({error: err, message: 'An error occurred while fetching loss/gain data. Please select another analysis'});
+          deferred.resolve({ error: err });
         });
       };
 
@@ -429,7 +432,7 @@ export default {
     return deferred;
   },
 
-  getMosaic: (lockRaster, geometry, url) => {
+  getMosaic: (language, lockRaster, geometry, url) => {
     const promise = new Deferred();
     const {imageService, pixelSize} = analysisConfig;
     const content = {
@@ -447,7 +450,7 @@ export default {
         content.pixelSize = 500;
         computeHistogram(url || imageService, content, success, failure);
       } else {
-        promise.resolve(error);
+        promise.resolve({error: error, message: text[language].ANALYSIS_ERROR_LAND_COVER_COMPOSITION});
       }
     };
 
@@ -455,7 +458,7 @@ export default {
     return promise;
   },
 
-  getBiomassLoss: function (geometry, canopyDensity, geostoreId) {
+  getBiomassLoss: function (geometry, canopyDensity, language, geostoreId) {
     const deferred = new Deferred();
     const biomassConfig = analysisConfig[analysisKeys.BIO_LOSS];
 
@@ -476,7 +479,7 @@ export default {
         deferred.resolve(biomassResult || []);
       }, err => {
         console.error(err);
-        deferred.resolve({error: err, message: 'An error occurred while fetching biomass loss data. Please select another analysis'});
+        deferred.resolve({error: err, message: text[language].ANALYSIS_ERROR_BIO_LOSS});
       });
     } else {
 
@@ -496,7 +499,7 @@ export default {
           deferred.resolve(biomassResult || []);
         }, err => {
           console.error(err);
-          deferred.resolve({error: err, message: 'An error occurred while fetching biomass loss data. Please select another analysis'});
+          deferred.resolve({error: err, message: language[text].ANALYSIS_ERROR_BIO_LOSS});
         });
       };
 
@@ -568,7 +571,8 @@ export default {
         content.pixelSize = 500;
         computeHistogram(imageService, content, success, failure);
       } else {
-        promise.resolve(error);
+        console.error(error);
+        promise.resolve({ error });
       }
     };
 
@@ -576,7 +580,7 @@ export default {
     return promise;
   },
 
-  getSlope: (url, slopeValue, raster, restorationId, geometry) => {
+  getSlope: (url, slopeValue, raster, restorationId, geometry, language) => {
     const values = getSlopeInputOutputValues(slopeValue);
     const {pixelSize} = analysisConfig;
     const promise = new Deferred();
@@ -606,7 +610,7 @@ export default {
         content.pixelSize = 500;
         computeHistogram(url, content, success, failure);
       } else {
-        promise.resolve(error);
+        promise.resolve({ error, message: text[language].ANALYSIS_ERROR_SLOPE });
       }
     };
 
