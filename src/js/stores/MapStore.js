@@ -8,6 +8,8 @@ import layerActions from 'actions/LayerActions';
 import dispatcher from 'js/dispatcher';
 import LayersHelper from 'helpers/LayersHelper';
 import {layerPanelText} from 'js/config';
+import request from 'utils/request';
+import all from 'dojo/promise/all';
 
 class MapStore {
 
@@ -153,6 +155,54 @@ class MapStore {
     Object.keys(this.dynamicLayers).forEach((layerId) => {
       this.dynamicLayers[layerId] = [];
     });
+
+    //- Reset all layer filters
+    //- Loss
+    this.lossFromSelectIndex = 0;
+    this.lossToSelectIndex = 14;
+
+    //- Canopy
+    this.canopyDensity = 30;
+
+    //- SAD
+    //- Get the bounds for this layer
+    const STATS = {
+      url: 'https://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer/2',
+      field: 'date',
+      outFields: ['date']
+    };
+    all({
+      'MIN': request.getLayerStatistics({ type: 'min', ...STATS }),
+      'MAX': request.getLayerStatistics({ type: 'max', ...STATS })
+    }).then(results => {
+      const { MIN, MAX } = results;
+      let minDate = MIN.features.length && MIN.features[0].attributes.date;
+      let maxDate = MAX.features.length && MAX.features[0].attributes.date;
+
+      if (minDate && maxDate) {
+        minDate = new Date(minDate);
+        maxDate = new Date(maxDate);
+
+        //- Update default values of the selects in our store
+        this.imazonStartMonth = minDate.getMonth();
+        this.imazonEndMonth = maxDate.getMonth();
+        this.imazonStartYear = minDate.getFullYear();
+        this.imazonEndYear = maxDate.getFullYear();
+      }
+    });
+
+    //- GLAD
+    this.gladStartDate = new Date('2015', 0, 1);
+    this.gladEndDate = new Date();
+
+    //- TERRA I
+    this.viirsStartDate = new Date();
+    this.viirsStartDate.setDate(this.viirsStartDate.getDate() - 1);
+    this.viirsEndDate = new Date();
+    this.modisStartDate = new Date();
+    this.modisStartDate.setDate(this.modisStartDate.getDate() - 1);
+    this.modisEndDate = new Date();
+
   }
 
   mapUpdated () {}
