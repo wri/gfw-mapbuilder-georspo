@@ -82,6 +82,8 @@ export default class LayerPanel extends Component {
       iconLoading,
       gladStartDate,
       gladEndDate,
+      terraIStartDate,
+      terraIEndDate,
       viirsFiresSelectIndex,
       viirsStartDate,
       viirsEndDate,
@@ -144,7 +146,7 @@ export default class LayerPanel extends Component {
         childComponent = <GladControls layer={layer} startDate={gladStartDate} endDate={gladEndDate} />;
       break;
       case LayerKeys.TERRA_I_ALERTS:
-        childComponent = <TerraIControls layer={layer} />;
+        childComponent = <TerraIControls layer={layer} startDate={terraIStartDate} endDate={terraIEndDate}/>;
       break;
       default:
         childComponent = null;
