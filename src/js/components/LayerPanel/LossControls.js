@@ -51,7 +51,6 @@ export default class LossControls extends Component {
         $('#loss-slider').ionRangeSlider({
           type: 'double',
           values: lossOptions.map(option => option.label),
-          min_interval: 1,
           grid: true,
           grid_snap: true,
           hide_min_max: true,
