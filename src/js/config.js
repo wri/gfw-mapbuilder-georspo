@@ -208,7 +208,8 @@ config.analysis[analysisKeys.GLAD_ALERTS] = {
 };
 
 config.analysis[analysisKeys.TERRA_I_ALERTS] = {
-  url: 'https://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer'
+  url: 'https://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
+  analysisUrl: 'https://production-api.globalforestwatch.org/terrai-alerts'
 };
 
 config.analysis[analysisKeys.BIO_LOSS] = {
