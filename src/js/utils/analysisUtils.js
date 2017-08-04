@@ -319,7 +319,7 @@ export default {
         handleAs: 'json',
         timeout: 30000
       }, { usePost: false}).then(gladResult => {
-        const alerts = this.cleanGlad(gladResult.data.attributes);
+        const alerts = this.cleanAlerts(gladResult.data.attributes);
         promise.resolve(alerts || []);
       }, err => {
         console.error(err);
@@ -340,7 +340,7 @@ export default {
           handleAs: 'json',
           timeout: 30000
         }, { usePost: false}).then(gladResult => {
-          const alerts = this.cleanGlad(gladResult.data.attributes);
+          const alerts = this.cleanAlerts(gladResult.data.attributes);
           promise.resolve(alerts || []);
         }, err => {
           console.error(err);
@@ -354,27 +354,60 @@ export default {
     return promise;
   },
 
-  getTerraIAlerts: function (config, geometry) {
+  getTerraIAlerts: function (config, geometry, terraIFrom, terraITo, geostoreId) {
+
     const promise = new Deferred();
-    const content = {
-      geometry: geometry
-    };
+    const terraIConfig = analysisConfig[analysisKeys.TERRA_I_ALERTS];
+    const startDate = terraIFrom.toISOString().split('T')[0];
+    const endDate = terraITo.toISOString().split('T')[0];
 
-    const success = ({histograms}) => {
-      const counts = histograms && histograms.length && histograms[0].counts || [];
-      promise.resolve(formatters.terraIAlerts(counts));
-    };
 
-    const failure = (error) => {
-      if (errorIsInvalidImageSize(error) && content.pixelSize !== 500) {
-        content.pixelSize = 500;
-        computeHistogram(config.url, content, success, failure);
-      } else {
-        promise.resolve(error);
-      }
-    };
+    if (geostoreId) {
+      const terraIData = {
+        geostore: geostoreId,
+        period: `${startDate},${endDate}`,
+        aggregate_values: 'True',
+        aggregate_by: 'day'
+      };
+      esriRequest({
+        url: terraIConfig.analysisUrl,
+        callbackParamName: 'callback',
+        content: terraIData,
+        handleAs: 'json',
+        timeout: 30000
+      }, { usePost: false}).then(terraIResult => {
+        const alerts = this.cleanAlerts(terraIResult.data.attributes);
+        promise.resolve(alerts || []);
+      }, err => {
+        console.error(err);
+        promise.resolve({error: err, message: 'An error occurred while fetching Terra I Alerts. Please select another analysis'});
+      });
+    } else {
+      const success = res => {
+        const terraIData = {
+          geostore: res.data.id,
+          period: `${startDate},${endDate}`,
+          aggregate_values: 'True',
+          aggregate_by: 'day'
+        };
+        esriRequest({
+          url: terraIConfig.analysisUrl,
+          callbackParamName: 'callback',
+          content: terraIData,
+          handleAs: 'json',
+          timeout: 30000
+        }, { usePost: false}).then(terraIResult => {
+          const alerts = this.cleanAlerts(terraIResult.data.attributes);
+          promise.resolve(alerts || []);
+        }, err => {
+          console.error(err);
+          promise.resolve({error: err, message: 'An error occurred while fetching Terra I Alerts. Please select another analysis'});
+        });
+      };
 
-    computeHistogram(config.url, content, success, failure);
+      this.registerGeom(geometry, success, promise);
+    }
+
     return promise;
   },
 
@@ -618,7 +651,7 @@ export default {
     return promise;
   },
 
-  cleanGlad: (results) => {
+  cleanAlerts: (results) => {
     let alerts = [];
     const sortedYears = Object.keys(results)
       .filter(key => !isNaN(Number(key)))

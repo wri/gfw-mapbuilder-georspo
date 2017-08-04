@@ -29,6 +29,8 @@ class MapStore {
     this.lossToSelectIndex = 0;
     this.gladStartDate = new Date('2015', 0, 1);
     this.gladEndDate = new Date();
+    this.terraIStartDate = {};
+    this.terraIEndDate = {};
     this.viirsStartDate = new Date();
     this.viirsStartDate.setDate(this.viirsStartDate.getDate() - 1);
     this.viirsEndDate = new Date();
@@ -87,6 +89,8 @@ class MapStore {
       updateLossTimeline: layerActions.updateLossTimeline,
       updateGladStartDate: layerActions.updateGladStartDate,
       updateGladEndDate: layerActions.updateGladEndDate,
+      updateTerraIStartDate: layerActions.updateTerraIStartDate,
+      updateTerraIEndDate: layerActions.updateTerraIEndDate,
       updateViirsStartDate: layerActions.updateViirsStartDate,
       updateViirsEndDate: layerActions.updateViirsEndDate,
       updateModisStartDate: layerActions.updateModisStartDate,
@@ -263,6 +267,14 @@ class MapStore {
 
   updateGladEndDate (endDate) {
     this.gladEndDate = endDate;
+  }
+
+  updateTerraIStartDate (startDate) {
+    this.terraIStartDate = startDate;
+  }
+
+  updateTerraIEndDate (endDate) {
+    this.terraIEndDate = endDate;
   }
 
   updateViirsStartDate (startDate) {
