@@ -299,7 +299,7 @@ export default {
           pt: '(Diária, 1km, global, NASA)',
           id: '(daily, 1km, global, NASA)',
           zh: '(每天更新, 1千米, 全球覆盖, 美国宇航局（NASA))',
-          ka: '(ყოველდღიური, 1კმ, გლობალური, NASA)'
+          ka: '(ყოველდღიური, 350მ, გლობალური, NASA)'
         },
         popup: {
           title: {
