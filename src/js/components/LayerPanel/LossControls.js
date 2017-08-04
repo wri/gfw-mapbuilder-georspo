@@ -109,6 +109,7 @@ export default class LossControls extends Component {
   }
 
   startVisualization = () => {
+    const _this = this;
     const lossSlider = this.lossSlider;
     const layer = this.context.map.getLayer(layerKeys.TREE_COVER_LOSS);
     const start = lossOptions[this.lossSlider.result.from].label - 2000;
@@ -117,9 +118,9 @@ export default class LossControls extends Component {
     const p_handle = lossSlider.coords.p_handle;
     const p = p_step - (p_step / p_handle); // Width of one step of the slider (percent)
     const tooltip = this.refs.sliderTooltip;
-    const tooltipValue = lossSlider.result.from_value + 1;
-    let range = start + 1;
-    let barWidth = p;
+    const tooltipValue = lossSlider.result.from_value;
+    let range = start;
+    let barWidth = 0;
     let tooltipHtml = tooltipValue;
 
 
@@ -132,11 +133,16 @@ export default class LossControls extends Component {
     const timer = setInterval(visualizeLoss, 1000);
 
     function visualizeLoss() {
+
+      if (start === stop) { // if we are on viewing only a single year of data cancel the animation and don't run the rest of the function
+        _this.stopVisualization();
+        return;
+      }
       const sliderBar = document.querySelector('.irs-bar');
 
       if (range === stop + 1) {
-        range = start + 1;
-        barWidth = p;
+        range = start;
+        barWidth = 0;
         tooltipHtml = tooltipValue;
       }
 
