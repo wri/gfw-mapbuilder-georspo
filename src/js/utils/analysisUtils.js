@@ -354,7 +354,7 @@ export default {
     return promise;
   },
 
-  getTerraIAlerts: function (config, geometry, terraIFrom, terraITo, geostoreId) {
+  getTerraIAlerts: function (config, geometry, terraIFrom, terraITo, language, geostoreId) {
 
     const promise = new Deferred();
     const terraIConfig = analysisConfig[analysisKeys.TERRA_I_ALERTS];
@@ -380,7 +380,7 @@ export default {
         promise.resolve(alerts || []);
       }, err => {
         console.error(err);
-        promise.resolve({error: err, message: 'An error occurred while fetching Terra I Alerts. Please select another analysis'});
+        promise.resolve({error: err, message: text[language].ANALYSIS_ERROR_TERRA_I});
       });
     } else {
       const success = res => {
@@ -401,7 +401,7 @@ export default {
           promise.resolve(alerts || []);
         }, err => {
           console.error(err);
-          promise.resolve({error: err, message: 'An error occurred while fetching Terra I Alerts. Please select another analysis'});
+          promise.resolve({error: err, message: text[language].ANALYSIS_ERROR_TERRA_I});
         });
       };
 

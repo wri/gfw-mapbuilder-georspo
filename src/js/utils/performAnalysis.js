@@ -131,7 +131,7 @@ export default function performAnalysis (options) {
       analysisUtils.getGLADAlerts(config, geometry, gladFrom, gladTo, language, geostoreId).then(promise.resolve);
     break;
     case analysisKeys.TERRA_I_ALERTS:
-      analysisUtils.getTerraIAlerts(config, geometry, terraIFrom, terraITo, geostoreId).then(promise.resolve);
+      analysisUtils.getTerraIAlerts(config, geometry, terraIFrom, terraITo, language, geostoreId).then(promise.resolve);
     break;
     default:
       //- This should only be the restoration analysis, since analysisType is a rasterId
