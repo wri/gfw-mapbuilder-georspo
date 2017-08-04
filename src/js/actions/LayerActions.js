@@ -53,6 +53,14 @@ class LayerActions {
     return endDate;
   }
 
+  updateTerraIStartDate (startDate) {
+    return startDate;
+  }
+
+  updateTerraIEndDate (endDate) {
+    return endDate;
+  }
+
   updateViirsStartDate (startDate) {
     return startDate;
   }
