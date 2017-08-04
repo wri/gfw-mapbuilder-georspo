@@ -199,7 +199,7 @@ class MapStore {
     this.gladStartDate = new Date('2015', 0, 1);
     this.gladEndDate = new Date();
 
-    //- TERRA I
+    //- FIRES
     this.viirsStartDate = new Date();
     this.viirsStartDate.setDate(this.viirsStartDate.getDate() - 1);
     this.viirsEndDate = new Date();
@@ -207,6 +207,9 @@ class MapStore {
     this.modisStartDate.setDate(this.modisStartDate.getDate() - 1);
     this.modisEndDate = new Date();
 
+    //-Terra I
+    this.terraIStartDate = {};
+    this.terraIEndDate = {};
   }
 
   mapUpdated () {}
