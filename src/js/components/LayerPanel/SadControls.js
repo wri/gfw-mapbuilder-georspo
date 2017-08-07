@@ -66,7 +66,6 @@ export default class SadControls extends Component {
     const {min_year, max_year, min_month, max_month} = this.state;
     const {map} = this.context;
     const defs = [];
-    console.log(this.state, this.props);
     // - If the years don't exist, don't even bother attempting to update
     if ((!startYear && startYear !== 0) || (!endYear && endYear !== 0)) { return; }
 
