@@ -660,7 +660,9 @@ export default {
 
     sortedYears.forEach((year, index) => {
         const alertsTmp = [];
-        const sortedKeys = Object.keys(results[year]).map(key => Number(key));
+        const sortedKeys = results[year] ? Object.keys(results[year]).map(key => Number(key)) : [];
+
+        if (sortedKeys.length === 0) { return; }
 
         if (sortedYears.length === 1) { // if there is only one year selected we need start and end dates
           const firstAlertOfYear = sortedKeys.sort((a, b) => a - b)[0];

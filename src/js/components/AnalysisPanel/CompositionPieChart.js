@@ -16,7 +16,7 @@ export default class CompositionPieChart extends Component {
       this.setState({ isError: true });
     } else {
       this.setState({ isError: false });
-      if (counts.length === 0) {
+      if (!counts.some(item => item !== 0)) {
         this.setState({ isEmpty: true });
       } else {
         const series = charts.formatCompositionAnalysis({

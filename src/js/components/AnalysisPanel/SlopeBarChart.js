@@ -27,13 +27,24 @@ export default class SlopeBarChart extends Component {
     }
   }
 
-  render () {
-    return (
-      <div>
-        <div ref='chart' id='slope-breakdown' className='analysis__chart-container'></div>
-        <div id='chartError' className={`chart-error ${this.state.isEmpty ? '' : ' hidden'}`}>No data available.</div>
-      </div>
-    );
+  render() {
+    const { isError } = this.state;
+    const { results } = this.props;
+
+    if (isError) {
+      return (
+        <div>
+          <h5 style={{ color: 'red' }}>{results.message}</h5>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <div ref='chart' id='slope-breakdown' className='analysis__chart-container'></div>
+          <div id='chartError' className={`chart-error ${this.state.isEmpty ? '' : ' hidden'}`}>No data available.</div>
+        </div>
+      );
+    }
   }
 }
 
