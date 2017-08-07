@@ -1,12 +1,7 @@
 import LayersHelper from 'helpers/LayersHelper';
-import {layerPanelText} from 'js/config';
 import React, {PropTypes} from 'react';
-import {loadCSS} from 'utils/loaders';
-import {assetUrls} from 'js/config';
 import text from 'js/languages';
 import 'pickadate';
-
-const firesOptions = layerPanelText.firesOptions;
 
 export default class FiresControls extends React.Component {
 
@@ -23,11 +18,6 @@ export default class FiresControls extends React.Component {
   }
 
   componentDidMount() {
-    //- Load the pickers css
-    let base = window._app.base ? window._app.base + '/' : '';
-    if (base && base[base.length - 1] === '/' && base[base.length - 2] === '/') {
-      base = base.substring(0, base.length - 1);
-    }
 
     //- Create the date pickers
     const { fromCalendar, toCalendar } = this.refs;
@@ -61,6 +51,8 @@ export default class FiresControls extends React.Component {
   componentDidUpdate(prevProps, prevState, prevContext) {
 
     if ((Date.parse(prevProps.startDate) !== Date.parse(this.props.startDate)) || (Date.parse(prevProps.endDate) !== Date.parse(this.props.endDate))) {
+      this.toPicker.set('select', this.props.endDate);
+      this.fromPicker.set('select', this.props.startDate);
       LayersHelper.updateFiresLayerDefinitions(this.props.startDate, this.props.endDate, this.props.layer);
     }
 
@@ -103,17 +95,7 @@ export default class FiresControls extends React.Component {
   }
 
   render () {
-    const activeItem = firesOptions[this.props.firesSelectIndex];
     const {language} = this.context;
-
-    // return (
-    //   <div className='timeline-container relative fires'>
-    //     <select className='pointer' value={activeItem.value} onChange={this.changeFiresTimeline}>
-    //       {firesOptions.map(this.optionsMap, this)}
-    //     </select>
-    //     <div className='active-fires-control fa-button sml white'>{activeItem.label}</div>
-    //   </div>
-    // );
 
     return (
       <div className='relative fires'>
@@ -130,5 +112,4 @@ export default class FiresControls extends React.Component {
       </div>
     );
   }
-
 }

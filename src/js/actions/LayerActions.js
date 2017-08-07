@@ -45,6 +45,10 @@ class LayerActions {
     };
   }
 
+  shouldResetSlider(bool) {
+    return bool;
+  }
+
   updateGladStartDate (startDate) {
     return startDate;
   }

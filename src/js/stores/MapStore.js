@@ -8,6 +8,8 @@ import layerActions from 'actions/LayerActions';
 import dispatcher from 'js/dispatcher';
 import LayersHelper from 'helpers/LayersHelper';
 import {layerPanelText} from 'js/config';
+import request from 'utils/request';
+import all from 'dojo/promise/all';
 
 class MapStore {
 
@@ -27,6 +29,7 @@ class MapStore {
     this.cartoSymbol = {};
     this.lossFromSelectIndex = 0; // Will get initialized when the data is fetched
     this.lossToSelectIndex = 0;
+    this.resetSlider = false;
     this.gladStartDate = new Date('2015', 0, 1);
     this.gladEndDate = new Date();
     this.terraIStartDate = {};
@@ -86,6 +89,7 @@ class MapStore {
       addAll: layerActions.addAll,
       removeAll: layerActions.removeAll,
       setLossOptions: layerActions.setLossOptions,
+      shouldResetSlider: layerActions.shouldResetSlider,
       updateLossTimeline: layerActions.updateLossTimeline,
       updateGladStartDate: layerActions.updateGladStartDate,
       updateGladEndDate: layerActions.updateGladEndDate,
@@ -157,6 +161,35 @@ class MapStore {
     Object.keys(this.dynamicLayers).forEach((layerId) => {
       this.dynamicLayers[layerId] = [];
     });
+
+    //- Reset all layer filters
+    //- Loss
+    this.resetSlider = true;
+
+    //- Canopy
+    this.canopyDensity = 30;
+
+    //- SAD
+    this.imazonStartMonth = 0;
+    this.imazonEndMonth = 0;
+    this.imazonStartYear = 0;
+    this.imazonEndYear = 0;
+
+    //- GLAD
+    this.gladStartDate = new Date('2015', 0, 1);
+    this.gladEndDate = new Date();
+
+    //- FIRES
+    this.viirsStartDate = new Date();
+    this.viirsStartDate.setDate(this.viirsStartDate.getDate() - 1);
+    this.viirsEndDate = new Date();
+    this.modisStartDate = new Date();
+    this.modisStartDate.setDate(this.modisStartDate.getDate() - 1);
+    this.modisEndDate = new Date();
+
+    //-Terra I
+    this.terraIStartDate = {};
+    this.terraIEndDate = {};
   }
 
   mapUpdated () {}
@@ -242,6 +275,10 @@ class MapStore {
 
   setLossOptions (lossOptionsData) {
     this.lossOptions = lossOptionsData;
+  }
+
+  shouldResetSlider(bool) {
+    this.resetSlider = bool;
   }
 
   changeViirsFiresTimeline (viirsFiresSelectIndex) {

@@ -1,9 +1,7 @@
 import ToggleSwitch from 'components/Shared/ToggleSwitch';
 import React, {Component, PropTypes} from 'react';
 import layerActions from 'actions/LayerActions';
-import {loadCSS} from 'utils/loaders';
 import utils from 'utils/AppUtils';
-import {assetUrls} from 'js/config';
 import text from 'js/languages';
 import 'pickadate';
 
@@ -26,12 +24,6 @@ export default class GladControls extends Component {
   }
 
   componentDidMount () {
-    //- Load the pickers css
-    let base = window._app.base ? window._app.base + '/' : '';
-    if (base && base[base.length - 1] === '/' && base[base.length - 2] === '/') {
-      base = base.substring(0, base.length - 1);
-    }
-
     //- Create the date pickers
     const {fromCalendar, toCalendar} = this.refs;
     const {startDate, endDate} = this.props;
@@ -64,6 +56,8 @@ export default class GladControls extends Component {
   componentDidUpdate(prevProps) {
     if ((Date.parse(prevProps.startDate) !== Date.parse(this.props.startDate)) || (Date.parse(prevProps.endDate) !== Date.parse(this.props.endDate))) {
       this.updateDateRange();
+      this.toPicker.set('select', this.props.endDate);
+      this.fromPicker.set('select', this.props.startDate);
     }
   }
 
