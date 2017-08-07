@@ -128,7 +128,7 @@ export default {
         pt: 'Dinâmica de cobertura da terra ',
         id: 'Land Cover Dynamics',
         zh: '土地覆盖动态数据',
-        ka: 'Georgian'
+        ka: 'მიწის საფარის დინამიკა'
       },
       layers: [{
         order: 1,
@@ -155,7 +155,7 @@ export default {
           pt: 'Perda de cobertura arbórea',
           id: 'Tree cover loss',
           zh: '森林覆盖损失',
-          ka: 'Georgian'
+          ka: 'ხის ვარჯის კარგვა'
         },
         sublabel: {
           en: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
@@ -164,7 +164,7 @@ export default {
           pt: '(anual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
           id: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
           zh: '(每年更新, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))',
-          ka: 'Georgian'
+          ka: '(წლიური, 30მ, გლობალური, Hansen/UMD/Google/USGS/NASA)'
         }
       }, {
         order: 2,
@@ -181,7 +181,7 @@ export default {
           pt: 'Ganho de cobertura arbórea',
           id: 'Tree cover gain',
           zh: '森林覆盖增加',
-          ka: 'Georgian'
+          ka: 'ხის ვარჯის ნამატი'
         },
         sublabel: {
           en: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
@@ -190,7 +190,7 @@ export default {
           pt: '(12 anos, 30m, global, Hansen/UMD/Google/USGS/NASA)',
           id: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
           zh: '(12 年, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))',
-          ka: 'Georgian'
+          ka: '(12 წელიწადი, 30მ, გლობალური, Hansen/UMD/Google/USGS/NASA)'
         }
       }, {
         order: 3,
@@ -206,7 +206,7 @@ export default {
           pt: 'Alertas SAD',
           id: 'SAD alerts',
           zh: 'SAD alerts',
-          ka: 'Georgian'
+          ka: 'SAD შეტყობინებები'
         },
         sublabel: {
           en: '(monthly, 250m, Brazilian Amazon, Imazon)',
@@ -215,7 +215,7 @@ export default {
           pt: '(mensal, 250m, Amazônia brasileira, Imazon)',
           id: '(monthly, 250m, Brazilian Amazon, Imazon)',
           zh: '(monthly, 250m, Brazilian Amazon, Imazon)',
-          ka: 'Georgian'
+          ka: '(ყოველთვიური, 250მ, ბრაზილიის ამაზონია, Imazon)'
         }
       }, {
         order: 4,
@@ -234,7 +234,7 @@ export default {
           pt: 'Alertas GLAD',
           id: 'GLAD Alerts',
           zh: 'GLAD Alerts',
-          ka: 'Georgian'
+          ka: 'GLAD შეტყობინებები'
         },
         sublabel: {
           en: '(weekly, 30m, select countries, UMD/ GLAD)',
@@ -243,7 +243,7 @@ export default {
           pt: '(semanal, 30m, select countries, UMD/ GLAD)',
           id: '(weekly, 30m, select countries, UMD/ GLAD)',
           zh: '(weekly, 30m, select countries, UMD/ GLAD)',
-          ka: 'Georgian'
+          ka: '(ყოველკვირეული, 30მ, აარჩიეთ ქვეყნები, UMD/ GLAD)'
         }
       }, {
         order: 5,
@@ -265,7 +265,7 @@ export default {
           pt: 'Alertas Terra-I',
           id: 'Terra-I Alerts',
           zh: 'Terra-I Alerts',
-          ka: 'Georgian'
+          ka: 'Terra-I შეტყობინებები'
         },
         sublabel: {
           en: '(monthly, 250m, Latin America, CIAT)',
@@ -274,7 +274,7 @@ export default {
           pt: '(Mensal, 250m, Latin America, CIAT)',
           id: '(monthly, 250m, Latin America, CIAT)',
           zh: '(monthly, 250m, Latin America, CIAT)',
-          ka: 'Georgian'
+          ka: '(ყოველთვიური, 250მ, ლათინური ამერიკა, CIAT)'
         }
       }, {
         order: 6,
@@ -290,16 +290,16 @@ export default {
           pt: 'Incêndios ativos',
           id: 'Active fires',
           zh: '活跃火点',
-          ka: 'Georgian'
+          ka: 'VIIRS აქტიური ხანძრები'
         },
         sublabel: {
-          en: '(daily, 1km, global, NASA)',
-          fr: '(journalier, 1km, global, NASA)',
-          es: '(Diaria, 1km, global, NASA)',
-          pt: '(Diária, 1km, global, NASA)',
-          id: '(daily, 1km, global, NASA)',
-          zh: '(每天更新, 1千米, 全球覆盖, 美国宇航局（NASA))',
-          ka: 'Georgian'
+          en: '(daily, 375m, global, NASA)',
+          fr: '(journalier, 375m, global, NASA)',
+          es: '(Diaria, 375m, global, NASA)',
+          pt: '(Diária, 375m, global, NASA)',
+          id: '(daily, 375m, global, NASA)',
+          zh: '(每天更新, 375米, 全球覆盖, 美国宇航局（NASA))',
+          ka: '(ყოველდღიური, 375მ, გლობალური, NASA)'
         },
         popup: {
           title: {
@@ -322,7 +322,7 @@ export default {
             pt: '(anual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
             id: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
             zh: '(每年更新, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))',
-            ka: 'Georgian'
+            ka: '(წლიური, 30მ, გლობალური, Hansen/UMD/Google/USGS/NASA)'
           }
         }
       }, {
@@ -339,7 +339,7 @@ export default {
           pt: 'Incêndios ativos',
           id: 'Active fires',
           zh: '活跃火点',
-          ka: 'Georgian'
+          ka: 'MODIS აქტიური ხანძრები'
         },
         sublabel: {
           en: '(daily, 1km, global, NASA)',
@@ -348,7 +348,7 @@ export default {
           pt: '(Diária, 1km, global, NASA)',
           id: '(daily, 1km, global, NASA)',
           zh: '(每天更新, 1千米, 全球覆盖, 美国宇航局（NASA))',
-          ka: 'Georgian'
+          ka: '(ყოველდღიური, 1კმ, გლობალური, NASA)'
         },
         popup: {
           title: {
@@ -371,7 +371,7 @@ export default {
             pt: '(anual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
             id: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
             zh: '(每年更新, 30米, 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))',
-            ka: 'Georgian'
+            ka: '(წლიური, 30მ, გლობალური, Hansen/UMD/Google/USGS/NASA)'
           }
         }
       }]
@@ -385,7 +385,7 @@ export default {
         pt: 'Cobertura do Solo',
         id: 'Land Cover',
         zh: '土地覆盖',
-        ka: 'Georgian'
+        ka: 'მიწის საფარი'
       },
       layers: [{
         order: 1,
@@ -402,7 +402,7 @@ export default {
           pt: 'Global Mangrove',
           id: 'Global Mangrove',
           zh: 'Global Mangrove',
-          ka: 'Georgian'
+          ka: 'გლობალური მანგრები'
         }
       }, {
         order: 2,
@@ -418,7 +418,7 @@ export default {
           pt: 'Paisagens Florestais Intactas',
           id: 'Intact Forest Landscape',
           zh: '原生森林景观',
-          ka: 'Georgian'
+          ka: 'ხელუხლებელი ტყის ლანდშაფტი'
         }
       }, {
         order: 3,
@@ -434,7 +434,7 @@ export default {
           pt: 'Densidade de biomassa viva acima do solo',
           id: 'Aboveground Live Woody Biomass Density',
           zh: 'Aboveground Live Woody Biomass Density',
-          ka: 'Georgian'
+          ka: 'მიწისზედა ცოცხალი ტყის ბიომასის სიხშირე'
         }
       }, {
         order: 4,
@@ -452,7 +452,7 @@ export default {
           pt: ['Culturas Irrigadas', 'Rainfed croplands', 'Mosaico de areas florestais e de cultivo', 'Floresta verde ou semi-decídua', 'Floresta decídua de folha larga', 'Floresta verde de coníferas ou Floresta decídua', 'Misto de floresta de conifera e de folha larga"', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
           id: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
           zh: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
-          ka: 'Georgian'
+          ka: ['მორწყვადი ს/ს კულტურები', 'წვიმით მორწყვადი კულტურები', 'ს/ს კულტურების და ტყის მოზაიკა', 'ფართოფოთლოვანი მარადმწვანე ან ნახევრად-ფოთოლმცვენი ტყე', 'ფართოფოთლოვანი ფოთოლმცვენი ტყე', 'წიწვოვანი მარადმწვანე ან ფოთოლმცვენი ტყე', 'შერეული ფართოფოთლოვანი და წიწვოვანი ტყე', 'ტყის, ბუჩქნარის და მინდორის მოზაიკა', 'ბუჩქნარი', 'მინდორი', 'მეჩხერი მცენარეულობა', 'დატბორილი ფართოფოთლოვანი ტყე', 'დატბორილი მცენარეულობა', 'სახეცვლილი (ხელოვნური) ადგილები', 'მოშიშვლებული ადგილები', 'მუდმივი თოვლი და ყინული']
         },
         colors: ['#825D26', '#D1A969', '#DED6B4', '#157562', '#CC7A29', '#6DAD96', '#968635', '#C2B32F', '#6F7A53', '#96A36F', '#CDDB93', '#7DBDE8', '#0D63A1', '#F41E65', '#FFFFFF', '#DBDBDB'],
         label: {
@@ -462,7 +462,7 @@ export default {
           pt: 'Land cover',
           id: 'Land cover',
           zh: '土地覆盖',
-          ka: 'Georgian'
+          ka: 'მიწის საფარი'
         }
       }, {
         order: 5,
@@ -482,7 +482,7 @@ export default {
           pt: 'Tree cover density',
           id: 'Tree cover density',
           zh: '森林覆盖密度',
-          ka: 'Georgian'
+          ka: 'ხის ვარჯის სიხშირე'
         },
         sublabel: {
           en: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
@@ -491,7 +491,7 @@ export default {
           pt: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
           id: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
           zh: '(2000年, 30米 全球覆盖, 汉森/马里兰大学/谷歌/美国地质测量局(USGS)/美国宇航局(NASA))',
-          ka: 'Georgian'
+          ka: '(2000 წ, 30მ გლობალური, Hansen/UMD/Google/USGS/NASA)'
         }
       }]
     },
@@ -504,7 +504,7 @@ export default {
         pt: 'Basemap',
         id: 'Basemap',
         zh: 'Basemap',
-        ka: 'Georgian'
+        ka: 'საბაზო რუკა'
       },
       layers: [{
         id: 'landsat',
@@ -518,7 +518,7 @@ export default {
           pt: 'Landsat',
           id: 'Landsat',
           zh: 'Landsat',
-          ka: 'Georgian'
+          ka: 'Landsat'
         }
       }, {
         id: 'wri_mono',
@@ -530,7 +530,7 @@ export default {
           pt: 'WRI Mono',
           id: 'WRI Mono',
           zh: 'WRI Mono',
-          ka: 'Georgian'
+          ka: 'WRI Mono'
         }
       }, {
         id: 'wri_contextual',
@@ -542,7 +542,7 @@ export default {
           pt: 'WRI Contextual',
           id: 'WRI Contextual',
           zh: 'WRI Contextual',
-          ka: 'Georgian'
+          ka: 'WRI Contextual'
         }
       }]
     },

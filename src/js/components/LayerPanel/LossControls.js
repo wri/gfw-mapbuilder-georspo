@@ -58,6 +58,10 @@ export default class LossControls extends Component {
           onFinish: this.sliderChanged
         });
         this.lossSlider = $('#loss-slider').data('ionRangeSlider');
+        this.setState({
+          start: lossOptions[this.lossSlider.result.from].label,
+          end: lossOptions[this.lossSlider.result.to].label
+        });
       }
     });
     loadCSS(base + assetUrls.ionCSS);
@@ -97,6 +101,10 @@ export default class LossControls extends Component {
 
   }
 
+  componentWillUnmount () {
+    clearInterval(this.state.timer);
+  }
+
   updateDates (layer, fromYear, toYear) {
     if (layer && layer.setDateRange) {
       layer.setDateRange(fromYear - 2000, toYear - 2000);
@@ -126,11 +134,10 @@ export default class LossControls extends Component {
     const p_handle = lossSlider.coords.p_handle;
     const p = p_step - (p_step / p_handle); // Width of one step of the slider (percent)
     const tooltip = this.refs.sliderTooltip;
-    const tooltipValue = lossSlider.result.from_value + 1;
-    let range = start + 1;
-    let barWidth = p;
+    const tooltipValue = lossSlider.result.from_value;
+    let range = start;
+    let barWidth = 0;
     let tooltipHtml = tooltipValue;
-
 
     lossSlider.update({
       to_fixed: true,
@@ -138,14 +145,14 @@ export default class LossControls extends Component {
       hide_from_to: true
     });
     // Set an interval to increase the date range every second, then start over when at max range
-    const timer = setInterval(visualizeLoss, 1000);
 
-    function visualizeLoss() {
+    const visualizeLoss = () => {
+
       const sliderBar = document.querySelector('.irs-bar');
 
       if (range === stop + 1) {
-        range = start + 1;
-        barWidth = p;
+        range = start;
+        barWidth = 0;
         tooltipHtml = tooltipValue;
       }
 
@@ -158,7 +165,9 @@ export default class LossControls extends Component {
       range++;
       barWidth += p; // increase barWidth by one step length each iteration
       tooltipHtml++;
-    }
+    };
+
+    const timer = setInterval(visualizeLoss, 1000);
 
     this.setState({playing: true, timer});
   }
@@ -191,9 +200,21 @@ export default class LossControls extends Component {
       fromSelectedIndex: this.lossSlider.result.from,
       toSelectedIndex: this.lossSlider.result.to
     });
+    this.setState({
+      start: lossOptions[this.lossSlider.result.from].label,
+      end: lossOptions[this.lossSlider.result.to].label
+    });
   }
 
   render () {
+    const {start, end} = this.state;
+    const disabled = start === end;
+    const disabledStyles = {
+      opacity: '.5',
+      color: '#aaa',
+      cursor: 'default'
+    };
+
     if (lossOptions.length === 0) {
       return <div className='timeline-container loss flex'>loading...</div>;
     }
@@ -202,7 +223,15 @@ export default class LossControls extends Component {
       <div className='timeline-container loss'>
         <div className='slider-tooltip' ref='sliderTooltip'></div>
         <div id='loss-slider'></div>
-        <div id="lossPlayButton" className={`${this.state.playing ? ' hidden' : ''}`} onClick={this.startVisualization}>&#9658;</div>
+        <div
+          id="lossPlayButton"
+          className={`${this.state.playing ? ' hidden' : ''}`}
+          style={disabled ? disabledStyles : {}}
+          onClick={disabled ? null : this.startVisualization}
+          title={disabled ? 'Please select a range to view animation' : ''}
+        >
+          &#9658;
+        </div>
         <div id="lossPauseButton" className={`${this.state.playing ? '' : ' hidden'}`} onClick={this.stopVisualization}>&#10074;&#10074;</div>
       </div>
     );
