@@ -29,6 +29,7 @@ class MapStore {
     this.cartoSymbol = {};
     this.lossFromSelectIndex = 0; // Will get initialized when the data is fetched
     this.lossToSelectIndex = 0;
+    this.resetSlider = false;
     this.gladStartDate = new Date('2015', 0, 1);
     this.gladEndDate = new Date();
     this.terraIStartDate = {};
@@ -88,6 +89,7 @@ class MapStore {
       addAll: layerActions.addAll,
       removeAll: layerActions.removeAll,
       setLossOptions: layerActions.setLossOptions,
+      shouldResetSlider: layerActions.shouldResetSlider,
       updateLossTimeline: layerActions.updateLossTimeline,
       updateGladStartDate: layerActions.updateGladStartDate,
       updateGladEndDate: layerActions.updateGladEndDate,
@@ -162,8 +164,7 @@ class MapStore {
 
     //- Reset all layer filters
     //- Loss
-    this.lossFromSelectIndex = 0;
-    this.lossToSelectIndex = 14;
+    this.resetSlider = true;
 
     //- Canopy
     this.canopyDensity = 30;
@@ -274,6 +275,10 @@ class MapStore {
 
   setLossOptions (lossOptionsData) {
     this.lossOptions = lossOptionsData;
+  }
+
+  shouldResetSlider(bool) {
+    this.resetSlider = bool;
   }
 
   changeViirsFiresTimeline (viirsFiresSelectIndex) {

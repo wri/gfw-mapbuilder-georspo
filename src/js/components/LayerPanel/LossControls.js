@@ -66,16 +66,25 @@ export default class LossControls extends Component {
 
   componentDidUpdate (prevProps, prevState, prevContext) {
     //- If the options are ready and something has changed
-    const {lossFromSelectIndex, lossToSelectIndex, canopyDensity} = this.props;
+    const {lossFromSelectIndex, lossToSelectIndex, canopyDensity, resetSlider} = this.props;
     const fromYear = lossOptions[lossFromSelectIndex].label;
     const toYear = lossOptions[lossToSelectIndex].label;
     const {map} = this.context;
 
     if (map.loaded) {
 
-        if (this.props.lossOptions.length && (prevProps.canopyDensity !== canopyDensity)
-        ) {
-          this.updateDensity(map.getLayer(layerKeys.TREE_COVER_LOSS), canopyDensity);
+        if (this.props.lossOptions.length) {
+          if (prevProps.canopyDensity !== canopyDensity) {
+            this.updateDensity(map.getLayer(layerKeys.TREE_COVER_LOSS), canopyDensity);
+          }
+          if (resetSlider) {
+            this.lossSlider.update({
+              from: 0,
+              to: lossOptions.length - 1
+            });
+            layerActions.shouldResetSlider(false);
+            this.updateDates(map.getLayer(layerKeys.TREE_COVER_LOSS), lossOptions[0].label, lossOptions[lossOptions.length - 1].label);
+          }
         }
 
         if (prevContext.map !== map) {
