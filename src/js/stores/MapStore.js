@@ -169,31 +169,10 @@ class MapStore {
     this.canopyDensity = 30;
 
     //- SAD
-    //- Get the bounds for this layer
-    const STATS = {
-      url: 'https://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer/2',
-      field: 'date',
-      outFields: ['date']
-    };
-    all({
-      'MIN': request.getLayerStatistics({ type: 'min', ...STATS }),
-      'MAX': request.getLayerStatistics({ type: 'max', ...STATS })
-    }).then(results => {
-      const { MIN, MAX } = results;
-      let minDate = MIN.features.length && MIN.features[0].attributes.date;
-      let maxDate = MAX.features.length && MAX.features[0].attributes.date;
-
-      if (minDate && maxDate) {
-        minDate = new Date(minDate);
-        maxDate = new Date(maxDate);
-
-        //- Update default values of the selects in our store
-        this.imazonStartMonth = minDate.getMonth();
-        this.imazonEndMonth = maxDate.getMonth();
-        this.imazonStartYear = minDate.getFullYear();
-        this.imazonEndYear = maxDate.getFullYear();
-      }
-    });
+    this.imazonStartMonth = 0;
+    this.imazonEndMonth = 0;
+    this.imazonStartYear = 0;
+    this.imazonEndYear = 0;
 
     //- GLAD
     this.gladStartDate = new Date('2015', 0, 1);
