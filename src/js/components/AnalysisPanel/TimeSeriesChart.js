@@ -38,8 +38,8 @@ export default class TimeSeriesChart extends Component {
 
     if (isError) {
       return (
-        <div>
-          <h5 style={{ color: 'red' }}>{data.message}</h5>
+        <div className='data-error'>
+          <h5>{data.message}</h5>
         </div>
       );
     } else {

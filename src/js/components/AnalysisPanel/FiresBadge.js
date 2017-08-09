@@ -6,8 +6,8 @@ const FiresBadge = (props, context) => {
 
   if (typeof props.results === 'object' && props.results.hasOwnProperty('error')) {
     return (
-      <div>
-        <h5 style={{ color: 'red' }}>{props.results.message}</h5>
+      <div className='data-error'>
+        <h5>{props.results.message}</h5>
       </div>
     );
   } else {

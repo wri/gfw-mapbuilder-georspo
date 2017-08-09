@@ -33,8 +33,8 @@ export default class SadAlertsChart extends Component {
 
     if (isError) {
       return (
-        <div>
-          <h5 style={{color: 'red'}}>{this.props.results.message}</h5>
+        <div className='data-error'>
+          <h5>{this.props.results.message}</h5>
         </div>
       );
     } else {

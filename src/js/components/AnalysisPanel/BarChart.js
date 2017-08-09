@@ -35,8 +35,8 @@ export default class BarChart extends Component {
 
     if (isError) {
       return (
-        <div>
-          <h5 style={{ color: 'red' }}>{results.message}</h5>
+        <div className='data-error'>
+          <h5>{results.message}</h5>
         </div>
       );
     } else {
