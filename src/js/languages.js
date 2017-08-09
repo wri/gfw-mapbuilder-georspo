@@ -220,6 +220,18 @@ strings.en.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
 strings.en.REPORT_RESTORATION_TABLE_TYPE = 'Category';
 strings.en.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
 
+//- Error Messages
+strings.en.ANALYSIS_ERROR_TC_LOSS_GAIN = 'An error occurred while fetching tree cover loss/gain analysis. Please select another analysis.';
+strings.en.ANALYSIS_ERROR_TC_LOSS = 'An error occurred while fetching tree cover loss analysis. Please select another analysis.';
+strings.en.ANALYSIS_ERROR_LAND_COVER_LOSS = 'An error occurred while fetching land cover loss analysis. Please select another analysis.';
+strings.en.ANALYSIS_ERROR_LAND_COVER_COMPOSITION = 'An error occurred while fetching land cover composition analysis. Please select another analysis.';
+strings.en.ANALYSIS_ERROR_INTACT_LOSS = 'An error occurred while fetching intact loss analysis. Please select another analysis.';
+strings.en.ANALYSIS_ERROR_SAD = 'An error occurred while fetching SAD analysis. Please select another analysis.';
+strings.en.ANALYSIS_ERROR_GLAD = 'An error occurred while fetching GLAD analysis. Please select another analysis.';
+strings.en.ANALYSIS_ERROR_TERRA_I = 'An error occurred while fetching TERRA I analysis. Please select another analysis.';
+strings.en.ANALYSIS_ERROR_BIO_LOSS = 'An error occurred while fetching biomass loss analysis. Please select another analysis.';
+strings.en.ANALYSIS_ERROR_FIRE_COUNT = 'An error occurred while fetching fire count analysis. Please select another analysis.';
+
 //- NOTE: Georgian
 //- Supported Languages
 strings.ka.LANG_EN = 'English';
@@ -434,6 +446,18 @@ strings.ka.REPORT_SLOPE_TABLE_VALUE = 'ჰექტარი';
 strings.ka.REPORT_RESTORATION_TABLE_TYPE = 'კატეგორია';
 strings.ka.REPORT_RESTORATION_TABLE_VALUE = 'ჰექტარი';
 
+//- Error Messages
+strings.ka.ANALYSIS_ERROR_TC_LOSS_GAIN = 'An error occurred while fetching tree cover loss/gain analysis. Please select another analysis.';
+strings.ka.ANALYSIS_ERROR_TC_LOSS = 'An error occurred while fetching tree cover loss analysis. Please select another analysis.';
+strings.ka.ANALYSIS_ERROR_LAND_COVER_LOSS = 'An error occurred while fetching land cover loss analysis. Please select another analysis.';
+strings.ka.ANALYSIS_ERROR_LAND_COVER_COMPOSITION = 'An error occurred while fetching land cover composition analysis. Please select another analysis.';
+strings.ka.ANALYSIS_ERROR_INTACT_LOSS = 'An error occurred while fetching intact loss analysis. Please select another analysis.';
+strings.ka.ANALYSIS_ERROR_SAD = 'An error occurred while fetching SAD analysis. Please select another analysis.';
+strings.ka.ANALYSIS_ERROR_GLAD = 'An error occurred while fetching GLAD analysis. Please select another analysis.';
+strings.ka.ANALYSIS_ERROR_TERRA_I = 'An error occurred while fetching TERRA I analysis. Please select another analysis.';
+strings.ka.ANALYSIS_ERROR_BIO_LOSS = 'An error occurred while fetching biomass loss analysis. Please select another analysis.';
+strings.ka.ANALYSIS_ERROR_FIRE_COUNT = 'An error occurred while fetching fire count analysis. Please select another analysis.';
+
 //- NOTE: French
 //- Supported Languages
 strings.fr.LANG_EN = 'Anglais';
@@ -646,6 +670,18 @@ strings.fr.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
 strings.fr.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
 strings.fr.REPORT_RESTORATION_TABLE_TYPE = 'Category';
 strings.fr.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
+
+//- Error Messages
+strings.fr.ANALYSIS_ERROR_TC_LOSS_GAIN = 'An error occurred while fetching tree cover loss/gain analysis. Please select another analysis.';
+strings.fr.ANALYSIS_ERROR_TC_LOSS = 'An error occurred while fetching tree cover loss analysis. Please select another analysis.';
+strings.fr.ANALYSIS_ERROR_LAND_COVER_LOSS = 'An error occurred while fetching land cover loss analysis. Please select another analysis.';
+strings.fr.ANALYSIS_ERROR_LAND_COVER_COMPOSITION = 'An error occurred while fetching land cover composition analysis. Please select another analysis.';
+strings.fr.ANALYSIS_ERROR_INTACT_LOSS = 'An error occurred while fetching intact loss analysis. Please select another analysis.';
+strings.fr.ANALYSIS_ERROR_SAD = 'An error occurred while fetching SAD analysis. Please select another analysis.';
+strings.fr.ANALYSIS_ERROR_GLAD = 'An error occurred while fetching GLAD analysis. Please select another analysis.';
+strings.fr.ANALYSIS_ERROR_TERRA_I = 'An error occurred while fetching TERRA I analysis. Please select another analysis.';
+strings.fr.ANALYSIS_ERROR_BIO_LOSS = 'An error occurred while fetching biomass loss analysis. Please select another analysis.';
+strings.fr.ANALYSIS_ERROR_FIRE_COUNT = 'An error occurred while fetching fire count analysis. Please select another analysis.';
 
 
 //- NOTE: Spanish
@@ -861,6 +897,18 @@ strings.es.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
 strings.es.REPORT_RESTORATION_TABLE_TYPE = 'Category';
 strings.es.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
 
+//- Error Messages
+strings.es.ANALYSIS_ERROR_TC_LOSS_GAIN = 'An error occurred while fetching tree cover loss/gain analysis. Please select another analysis.';
+strings.es.ANALYSIS_ERROR_TC_LOSS = 'An error occurred while fetching tree cover loss analysis. Please select another analysis.';
+strings.es.ANALYSIS_ERROR_LAND_COVER_LOSS = 'An error occurred while fetching land cover loss analysis. Please select another analysis.';
+strings.es.ANALYSIS_ERROR_LAND_COVER_COMPOSITION = 'An error occurred while fetching land cover composition analysis. Please select another analysis.';
+strings.es.ANALYSIS_ERROR_INTACT_LOSS = 'An error occurred while fetching intact loss analysis. Please select another analysis.';
+strings.es.ANALYSIS_ERROR_SAD = 'An error occurred while fetching SAD analysis. Please select another analysis.';
+strings.es.ANALYSIS_ERROR_GLAD = 'An error occurred while fetching GLAD analysis. Please select another analysis.';
+strings.es.ANALYSIS_ERROR_TERRA_I = 'An error occurred while fetching TERRA I analysis. Please select another analysis.';
+strings.es.ANALYSIS_ERROR_BIO_LOSS = 'An error occurred while fetching biomass loss analysis. Please select another analysis.';
+strings.es.ANALYSIS_ERROR_FIRE_COUNT = 'An error occurred while fetching fire count analysis. Please select another analysis.';
+
 //- NOTE: Portugese
 //- Supported Languages
 strings.pt.LANG_EN = 'Inglês';
@@ -1073,6 +1121,18 @@ strings.pt.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
 strings.pt.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
 strings.pt.REPORT_RESTORATION_TABLE_TYPE = 'Category';
 strings.pt.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
+
+//- Error Messages
+strings.pt.ANALYSIS_ERROR_TC_LOSS_GAIN = 'An error occurred while fetching tree cover loss/gain analysis. Please select another analysis.';
+strings.pt.ANALYSIS_ERROR_TC_LOSS = 'An error occurred while fetching tree cover loss analysis. Please select another analysis.';
+strings.pt.ANALYSIS_ERROR_LAND_COVER_LOSS = 'An error occurred while fetching land cover loss analysis. Please select another analysis.';
+strings.pt.ANALYSIS_ERROR_LAND_COVER_COMPOSITION = 'An error occurred while fetching land cover composition analysis. Please select another analysis.';
+strings.pt.ANALYSIS_ERROR_INTACT_LOSS = 'An error occurred while fetching intact loss analysis. Please select another analysis.';
+strings.pt.ANALYSIS_ERROR_SAD = 'An error occurred while fetching SAD analysis. Please select another analysis.';
+strings.pt.ANALYSIS_ERROR_GLAD = 'An error occurred while fetching GLAD analysis. Please select another analysis.';
+strings.pt.ANALYSIS_ERROR_TERRA_I = 'An error occurred while fetching TERRA I analysis. Please select another analysis.';
+strings.pt.ANALYSIS_ERROR_BIO_LOSS = 'An error occurred while fetching biomass loss analysis. Please select another analysis.';
+strings.pt.ANALYSIS_ERROR_FIRE_COUNT = 'An error occurred while fetching fire count analysis. Please select another analysis.';
 
 //- NOTE: Bahasa Indonesia
 //- Supported Languages
@@ -1287,6 +1347,18 @@ strings.id.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
 strings.id.REPORT_RESTORATION_TABLE_TYPE = 'Category';
 strings.id.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
 
+//- Error Messages
+strings.id.ANALYSIS_ERROR_TC_LOSS_GAIN = 'An error occurred while fetching tree cover loss/gain analysis. Please select another analysis.';
+strings.id.ANALYSIS_ERROR_TC_LOSS = 'An error occurred while fetching tree cover loss analysis. Please select another analysis.';
+strings.id.ANALYSIS_ERROR_LAND_COVER_LOSS = 'An error occurred while fetching land cover loss analysis. Please select another analysis.';
+strings.id.ANALYSIS_ERROR_LAND_COVER_COMPOSITION = 'An error occurred while fetching land cover composition analysis. Please select another analysis.';
+strings.id.ANALYSIS_ERROR_INTACT_LOSS = 'An error occurred while fetching intact loss analysis. Please select another analysis.';
+strings.id.ANALYSIS_ERROR_SAD = 'An error occurred while fetching SAD analysis. Please select another analysis.';
+strings.id.ANALYSIS_ERROR_GLAD = 'An error occurred while fetching GLAD analysis. Please select another analysis.';
+strings.id.ANALYSIS_ERROR_TERRA_I = 'An error occurred while fetching TERRA I analysis. Please select another analysis.';
+strings.id.ANALYSIS_ERROR_BIO_LOSS = 'An error occurred while fetching biomass loss analysis. Please select another analysis.';
+strings.id.ANALYSIS_ERROR_FIRE_COUNT = 'An error occurred while fetching fire count analysis. Please select another analysis.';
+
 //- NOTE: Mandarin
 //- Supported Languages
 strings.zh.LANG_EN = 'English';
@@ -1500,5 +1572,18 @@ strings.zh.REPORT_SLOPE_TABLE_TYPE = 'Slope Potential Type';
 strings.zh.REPORT_SLOPE_TABLE_VALUE = 'Hectares';
 strings.zh.REPORT_RESTORATION_TABLE_TYPE = 'Category';
 strings.zh.REPORT_RESTORATION_TABLE_VALUE = 'Hectares';
+
+//- Error Messages
+strings.zh.ANALYSIS_ERROR_TC_LOSS_GAIN = 'An error occurred while fetching tree cover loss/gain analysis. Please select another analysis.';
+strings.zh.ANALYSIS_ERROR_TC_LOSS = 'An error occurred while fetching tree cover loss analysis. Please select another analysis.';
+strings.zh.ANALYSIS_ERROR_LAND_COVER_LOSS = 'An error occurred while fetching land cover loss analysis. Please select another analysis.';
+strings.zh.ANALYSIS_ERROR_LAND_COVER_COMPOSITION = 'An error occurred while fetching land cover composition analysis. Please select another analysis.';
+strings.zh.ANALYSIS_ERROR_INTACT_LOSS = 'An error occurred while fetching intact loss analysis. Please select another analysis.';
+strings.zh.ANALYSIS_ERROR_SAD = 'An error occurred while fetching SAD analysis. Please select another analysis.';
+strings.zh.ANALYSIS_ERROR_GLAD = 'An error occurred while fetching GLAD analysis. Please select another analysis.';
+strings.zh.ANALYSIS_ERROR_SLOPE = 'An error occurred while fetching slope analysis. Please select another analysis.';
+strings.zh.ANALYSIS_ERROR_TERRA_I = 'An error occurred while fetching TERRA I analysis. Please select another analysis.';
+strings.zh.ANALYSIS_ERROR_BIO_LOSS = 'An error occurred while fetching biomass loss analysis. Please select another analysis.';
+strings.zh.ANALYSIS_ERROR_FIRE_COUNT = 'An error occurred while fetching fire count analysis. Please select another analysis.';
 
 export { strings as default };

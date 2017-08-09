@@ -4,6 +4,7 @@ import analysisUtils from 'utils/analysisUtils';
 import {analysisConfig} from 'js/config';
 import Deferred from 'dojo/Deferred';
 import utils from 'utils/AppUtils';
+import text from 'js/languages';
 
 /**
 * @param {object} options - Value from Analysis Select, also key to options in config
@@ -17,6 +18,7 @@ import utils from 'utils/AppUtils';
 */
 export default function performAnalysis (options) {
   const {
+    language,
     type,
     geometry,
     canopyDensity,
@@ -44,18 +46,18 @@ export default function performAnalysis (options) {
 
   switch (type) {
     case analysisKeys.VIIRS_FIRES:
-      analysisUtils.getFireCount(config.url, geometry, viirsFrom, viirsTo).then(promise.resolve);
+      analysisUtils.getFireCount(config.url, geometry, viirsFrom, viirsTo, language).then(promise.resolve);
     break;
     case analysisKeys.MODIS_FIRES:
-      analysisUtils.getFireCount(config.url, geometry, modisFrom, modisTo).then(promise.resolve);
+      analysisUtils.getFireCount(config.url, geometry, modisFrom, modisTo, language).then(promise.resolve);
     break;
     case analysisKeys.LCC:
-      analysisUtils.getMosaic(landCoverConfig.rasterId, geometry).then(promise.resolve);
+      analysisUtils.getMosaic(language, landCoverConfig.rasterId, geometry).then(promise.resolve);
     break;
     case analysisKeys.TC_LOSS:
       analysisUtils.getCountsWithDensity(geometry, canopyDensity, tcLossFrom, tcLossTo, geostoreId).then(response => {
         if (typeof response === 'object' && response.hasOwnProperty('error')) {
-          promise.resolve({error: response.error, message: response.message});
+          promise.resolve({error: response.error, message: text[language].ANALYSIS_ERROR_TC_LOSS});
         } else {
           const lossObj = response.data.attributes.loss;
           const counts = Object.values(lossObj);
@@ -65,12 +67,12 @@ export default function performAnalysis (options) {
     break;
     case analysisKeys.SLOPE:
       const slopeValue = settings.slopeClasses.indexOf(activeSlopeClass);
-      analysisUtils.getSlope(restorationUrl, slopeValue, config.id, config.restoration, geometry).then(promise.resolve);
+      analysisUtils.getSlope(restorationUrl, slopeValue, config.id, config.restoration, geometry, language).then(promise.resolve);
     break;
     case analysisKeys.TC_LOSS_GAIN:
       analysisUtils.getCountsWithDensity(geometry, canopyDensity, tcLossFrom, tcLossTo, geostoreId).then(response => {
         if (typeof response === 'object' && response.hasOwnProperty('error')) {
-          promise.resolve({ error: response.error, message: response.message});
+          promise.resolve({ error: response.error, message: text[language].ANALYSIS_ERROR_TC_LOSS_GAIN});
         } else {
           const lossObj = response.data.attributes.loss;
           const lossCounts = Object.values(lossObj);
@@ -86,32 +88,50 @@ export default function performAnalysis (options) {
         bounds: landCoverConfig.bounds
       }, analysisConfig[analysisKeys.TC_LOSS], geometry, {
         canopyDensity: canopyDensity
-      }).then(promise.resolve);
+      }).then(response => {
+        if (typeof response === 'object' && response.hasOwnProperty('error')) {
+          promise.resolve({ error: response.error, message: text[language].ANALYSIS_ERROR_LAND_COVER_LOSS});
+        } else {
+          promise.resolve(response);
+        }
+      });
     break;
     case analysisKeys.BIO_LOSS:
       // const generalizedGeometry = GeometryEngine.generalize(geometry, 10, true, 'miles');
-      analysisUtils.getBiomassLoss(geometry, canopyDensity, geostoreId).then(promise.resolve, promise.reject);
+      analysisUtils.getBiomassLoss(geometry, canopyDensity, language, geostoreId).then(promise.resolve, promise.reject);
     break;
     case analysisKeys.INTACT_LOSS:
       analysisUtils.getCrossedWithLoss(config, analysisConfig[analysisKeys.TC_LOSS], geometry, {
         canopyDensity: canopyDensity,
         simple: true
-      }).then(promise.resolve);
+      }).then(response => {
+        if (typeof response === 'object' && response.hasOwnProperty('error')) {
+          promise.resolve({ error: response.error, message: text[language].ANALYSIS_ERROR_INTACT_LOSS});
+        } else {
+          promise.resolve(response);
+        }
+      });
     break;
     case analysisKeys.MANGROVE_LOSS:
       analysisUtils.getCrossedWithLoss(config, analysisConfig[analysisKeys.TC_LOSS], geometry, {
         canopyDensity: canopyDensity,
         simple: true
-      }).then(promise.resolve);
+      }).then(response => {
+        if (typeof response === 'object' && response.hasOwnProperty('error')) {
+          promise.resolve({ error: response.error, message: text[language].ANALYSIS_ERROR_MANGROVE_LOSS});
+        } else {
+          promise.resolve(response);
+        }
+      });
     break;
     case analysisKeys.SAD_ALERTS:
-      analysisUtils.getSADAlerts(config, geometry).then(promise.resolve);
+      analysisUtils.getSADAlerts(config, geometry, language).then(promise.resolve);
     break;
     case analysisKeys.GLAD_ALERTS:
-      analysisUtils.getGLADAlerts(config, geometry, gladFrom, gladTo, geostoreId).then(promise.resolve);
+      analysisUtils.getGLADAlerts(config, geometry, gladFrom, gladTo, language, geostoreId).then(promise.resolve);
     break;
     case analysisKeys.TERRA_I_ALERTS:
-      analysisUtils.getTerraIAlerts(config, geometry, terraIFrom, terraITo, geostoreId).then(promise.resolve);
+      analysisUtils.getTerraIAlerts(config, geometry, terraIFrom, terraITo, language, geostoreId).then(promise.resolve);
     break;
     default:
       //- This should only be the restoration analysis, since analysisType is a rasterId

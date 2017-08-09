@@ -171,7 +171,7 @@ export default class Analysis extends Component {
     let labels, layerConf, colors;
     switch (type) {
       case analysisKeys.VIIRS_FIRES:
-        return <FiresBadge count={results.fireCount} from={viirsFrom.toLocaleDateString()} to={viirsTo.toLocaleDateString()} />;
+        return <FiresBadge results={results} count={results.fireCount} from={viirsFrom.toLocaleDateString()} to={viirsTo.toLocaleDateString()} />;
       case analysisKeys.MODIS_FIRES:
         return <FiresBadge count={results.fireCount} from={modisFrom.toLocaleDateString()} to={modisTo.toLocaleDateString()} />;
       case analysisKeys.TC_LOSS_GAIN:
@@ -179,6 +179,7 @@ export default class Analysis extends Component {
       case analysisKeys.LCC:
         layerConf = utils.getObject(lcLayers, 'id', layerKeys.LAND_COVER);
         return <CompositionPieChart
+          results={results}
           name={text[language].ANALYSIS_LCC_CHART_NAME}
           counts={results.counts}
           colors={layerConf.colors}
@@ -217,6 +218,7 @@ export default class Analysis extends Component {
         })();
         colors = type === analysisKeys.LC_LOSS ? layerConf.colors : analysisConfig[type].colors;
         return <TotalLossChart
+          results={results}
           counts={results.counts}
           encoder={results.encoder}
           options={results.options}
@@ -229,10 +231,11 @@ export default class Analysis extends Component {
         colors = settings.slopeAnalysisPotentialColors;
         const tooltips = settings.labels[language].slopeAnalysisPotentialOptions;
         //- Need a new chart to handle these values correctly
-        return <SlopeBarChart counts={counts} colors={colors} labels={labels} tooltips={tooltips} />;
+        return <SlopeBarChart results={results} counts={counts} colors={colors} labels={labels} tooltips={tooltips} />;
       case analysisKeys.SAD_ALERTS:
         const {alerts} = results;
         return <SadAlertsChart
+          results={results}
           alerts={alerts}
           colors={analysisConfig[type].colors}
           names={text[language].ANALYSIS_SAD_ALERT_NAMES} />;
