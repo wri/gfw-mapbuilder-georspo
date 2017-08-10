@@ -60,7 +60,7 @@ const getFeature = function getFeature (params) {
   const promise = new Deferred();
   if (idvalue) {
     esriRequest({
-      url: 'https://production-api.globalforestwatch.org/geostore/' + idvalue,
+      url: 'https://production-api.globalforestwatch.org/v1/geostore/' + idvalue,
       callbackParamName: 'callback',
       handleAs: 'json',
       timeout: 30000
