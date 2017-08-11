@@ -44,11 +44,6 @@ const getSlopeInputOutputValues = function (value) {
 * Group of formatting functions for results
 */
 const formatters = {
-  fires: (response) => {
-    return {
-      fireCount: response.features ? response.features.length : 0
-    };
-  },
   sadAlerts: (response) => {
     let date, month, year, type, area;
     const {features} = response;
@@ -270,8 +265,8 @@ export default {
     query.returnGeometry = false;
     query.outFields = [''];
     query.where = layerDef;
-    queryTask.execute(query).then(function (response) {
-      promise.resolve(formatters.fires(response));
+    queryTask.executeForCount(query).then(function (response) {
+      promise.resolve({fireCount: response});
     }, (error) => {
       console.error(error);
       promise.resolve({error: error, message: text[language].ANALYSIS_ERROR_FIRE_COUNT});

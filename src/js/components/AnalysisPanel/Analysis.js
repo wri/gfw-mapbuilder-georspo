@@ -69,29 +69,33 @@ export default class Analysis extends Component {
     } = this.props;
 
     if (selectedFeature && activeAnalysisType && activeTab === tabKeys.ANALYSIS) {
-      performAnalysis({
-        type: activeAnalysisType,
-        geostoreId: selectedFeature.attributes.geostoreId,
-        canopyDensity: canopyDensity,
-        activeSlopeClass: activeSlopeClass,
-        settings: settings,
-        language: language,
-        tcLossFrom: lossFromSelectIndex,
-        tcLossTo: lossToSelectIndex,
-        gladFrom: gladStartDate,
-        gladTo: gladEndDate,
-        terraIFrom: terraIStartDate,
-        terraITo: terraIEndDate,
-        viirsFiresSelectIndex: viirsFiresSelectIndex,
-        modisFiresSelectIndex: modisFiresSelectIndex,
-        viirsFrom: viirsStartDate,
-        viirsTo: viirsEndDate,
-        modisFrom: modisStartDate,
-        modisTo: modisEndDate
-      }).then((results) => {
-        this.setState({ results: results, isLoading: false });
-      }, () => {
-        this.setState({ isLoading: false, error: true });
+      request.getRawGeometry(selectedFeature).then(geometry => {
+
+        performAnalysis({
+          type: activeAnalysisType,
+          geometry: geometry,
+          geostoreId: selectedFeature.attributes.geostoreId,
+          canopyDensity: canopyDensity,
+          activeSlopeClass: activeSlopeClass,
+          settings: settings,
+          language: language,
+          tcLossFrom: lossFromSelectIndex,
+          tcLossTo: lossToSelectIndex,
+          gladFrom: gladStartDate,
+          gladTo: gladEndDate,
+          terraIFrom: terraIStartDate,
+          terraITo: terraIEndDate,
+          viirsFiresSelectIndex: viirsFiresSelectIndex,
+          modisFiresSelectIndex: modisFiresSelectIndex,
+          viirsFrom: viirsStartDate,
+          viirsTo: viirsEndDate,
+          modisFrom: modisStartDate,
+          modisTo: modisEndDate
+        }).then((results) => {
+          this.setState({ results: results, isLoading: false });
+        }, () => {
+          this.setState({ isLoading: false, error: true });
+        });
       });
     }
   }
@@ -131,30 +135,33 @@ export default class Analysis extends Component {
       activeAnalysisType !== ''
     ) {
       this.setState(getDefaultState());
-      const {settings, language} = this.context;
-      performAnalysis({
-        type: activeAnalysisType,
-        geostoreId: selectedFeature.attributes.geostoreId,
-        canopyDensity: canopyDensity,
-        activeSlopeClass: activeSlopeClass,
-        settings: settings,
-        language: language,
-        tcLossFrom: lossFromSelectIndex,
-        tcLossTo: lossToSelectIndex,
-        gladFrom: gladStartDate,
-        gladTo: gladEndDate,
-        terraIFrom: terraIStartDate,
-        terraITo: terraIEndDate,
-        viirsFiresSelectIndex: viirsFiresSelectIndex,
-        modisFiresSelectIndex: modisFiresSelectIndex,
-        viirsFrom: viirsStartDate,
-        viirsTo: viirsEndDate,
-        modisFrom: modisStartDate,
-        modisTo: modisEndDate
-      }).then((results) => {
-        this.setState({ results: results, isLoading: false });
-      }, () => {
-        this.setState({ isLoading: false });
+      const { settings, language } = this.context;
+      request.getRawGeometry(selectedFeature).then(geometry => {
+        performAnalysis({
+          type: activeAnalysisType,
+          geometry: geometry,
+          geostoreId: selectedFeature.attributes.geostoreId,
+          canopyDensity: canopyDensity,
+          activeSlopeClass: activeSlopeClass,
+          settings: settings,
+          language: language,
+          tcLossFrom: lossFromSelectIndex,
+          tcLossTo: lossToSelectIndex,
+          gladFrom: gladStartDate,
+          gladTo: gladEndDate,
+          terraIFrom: terraIStartDate,
+          terraITo: terraIEndDate,
+          viirsFiresSelectIndex: viirsFiresSelectIndex,
+          modisFiresSelectIndex: modisFiresSelectIndex,
+          viirsFrom: viirsStartDate,
+          viirsTo: viirsEndDate,
+          modisFrom: modisStartDate,
+          modisTo: modisEndDate
+        }).then((results) => {
+          this.setState({ results: results, isLoading: false });
+        }, () => {
+          this.setState({ isLoading: false });
+        });
       });
     }
   }
