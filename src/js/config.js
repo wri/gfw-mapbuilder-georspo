@@ -155,7 +155,7 @@ const config = {
   //- Analysis for individual layers are defined below so we can use common keys
   //- Generic/Modules config is here
   analysis: {
-    apiUrl: 'https://production-api.globalforestwatch.org/geostore',
+    apiUrl: 'https://production-api.globalforestwatch.org/v1/geostore',
     imageService: analysisImageService,
     pixelSize: 100,
     tcd: {
@@ -202,14 +202,14 @@ config.analysis[analysisKeys.GLAD_ALERTS] = {
     '2016': 4,
     '2017': 9
   },
-  analysisUrl: 'https://production-api.globalforestwatch.org/glad-alerts',
+  analysisUrl: 'https://production-api.globalforestwatch.org/v1/glad-alerts',
   startDate: '2015',
   endDate: new Date().getFullYear()
 };
 
 config.analysis[analysisKeys.TERRA_I_ALERTS] = {
   url: 'https://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
-  analysisUrl: 'https://production-api.globalforestwatch.org/terrai-alerts'
+  analysisUrl: 'https://production-api.globalforestwatch.org/v1/terrai-alerts'
 };
 
 config.analysis[analysisKeys.BIO_LOSS] = {
@@ -232,7 +232,7 @@ config.analysis[analysisKeys.BIO_LOSS] = {
     loss: '#FF6699',
     carbon: '#BEBCC2'
   },
-  analysisUrl: 'https://production-api.globalforestwatch.org/biomass-loss',
+  analysisUrl: 'https://production-api.globalforestwatch.org/v1/biomass-loss',
   startDate: '2001',
   endDate: '2014'
 };
