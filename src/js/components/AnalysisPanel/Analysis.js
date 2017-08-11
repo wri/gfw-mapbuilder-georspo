@@ -68,11 +68,13 @@ export default class Analysis extends Component {
       modisEndDate
     } = this.props;
 
-    if (selectedFeature && activeAnalysisType && activeTab === tabKeys.ANALYSIS) {
-      request.getRawGeometry(selectedFeature).then((geometry) => {
+    if (selectedFeature && activeAnalysisType === 'TC_LOSS_GAIN' && activeTab === tabKeys.ANALYSIS) {
+      request.getRawGeometry(selectedFeature).then(geometry => {
+
         performAnalysis({
           type: activeAnalysisType,
           geometry: geometry,
+          geostoreId: selectedFeature.attributes.geostoreId,
           canopyDensity: canopyDensity,
           activeSlopeClass: activeSlopeClass,
           settings: settings,
@@ -133,11 +135,12 @@ export default class Analysis extends Component {
       activeAnalysisType !== ''
     ) {
       this.setState(getDefaultState());
-      const {settings, language} = this.context;
-      request.getRawGeometry(selectedFeature).then((geometry) => {
+      const { settings, language } = this.context;
+      request.getRawGeometry(selectedFeature).then(geometry => {
         performAnalysis({
           type: activeAnalysisType,
           geometry: geometry,
+          geostoreId: selectedFeature.attributes.geostoreId,
           canopyDensity: canopyDensity,
           activeSlopeClass: activeSlopeClass,
           settings: settings,
