@@ -1,3 +1,5 @@
+import webmercatorUtils from 'esri/geometry/webMercatorUtils';
+import geojsonUtil from 'utils/arcgis-to-geojson';
 import QueryTask from 'esri/tasks/QueryTask';
 import {analysisConfig} from 'js/config';
 import analysisKeys from 'constants/AnalysisConstants';
@@ -469,6 +471,42 @@ export default {
 
     computeHistogram(imageService, content, success, failure);
     return promise;
+  },
+
+  registerGeom: (geometry) => {
+    const deferred = new Deferred();
+    const geographic = webmercatorUtils.webMercatorToGeographic(geometry);
+    const geojson = geojsonUtil.arcgisToGeoJSON(geographic);
+
+    const geoStore = {
+      'geojson': {
+        'type': 'FeatureCollection',
+        'features': [{
+          'type': 'Feature',
+          'properties': {},
+          'geometry': geojson
+        }]
+      }
+    };
+
+    const content = JSON.stringify(geoStore);
+
+    const http = new XMLHttpRequest();
+    const url = analysisConfig.apiUrl;
+    const params = content;
+
+    http.open('POST', url, true);
+    http.setRequestHeader('Content-type', 'application/json');
+
+    http.onreadystatechange = () => {
+      if (http.readyState === 4 && http.status === 200) {
+        deferred.resolve(JSON.parse(http.responseText));
+      } else if (http.readyState === 4) {
+        deferred.resolve({ error: 'There was an error while registering the shape in the geostore', status: http.status });
+      }
+    };
+    http.send(params);
+    return deferred;
   },
 
   getSlope: (url, slopeValue, raster, restorationId, geometry, language) => {

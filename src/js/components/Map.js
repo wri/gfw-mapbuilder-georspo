@@ -20,6 +20,7 @@ import Scalebar from 'esri/dijit/Scalebar';
 import on from 'dojo/on';
 import {getUrlParams} from 'utils/params';
 import basemapUtils from 'utils/basemapUtils';
+import analysisUtils from 'utils/analysisUtils';
 import MapStore from 'stores/MapStore';
 import esriRequest from 'esri/request';
 import {mapConfig} from 'js/config';
@@ -161,7 +162,14 @@ export default class Map extends Component {
         userFeaturesLayer.on('click', (evt) => {
           if (evt.graphic && evt.graphic.attributes) {
             evt.stopPropagation();
-            response.map.infoWindow.setFeatures([evt.graphic]);
+            if (!evt.graphic.attributes.geostoreId) {
+              analysisUtils.registerGeom(evt.graphic.geometry).then(res => {
+                evt.graphic.attributes.geostoreId = res.data.id;
+                response.map.infoWindow.setFeatures([evt.graphic]);
+              });
+            } else {
+              response.map.infoWindow.setFeatures([evt.graphic]);
+            }
           }
         });
       });

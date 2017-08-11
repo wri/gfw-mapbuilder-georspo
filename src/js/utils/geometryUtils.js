@@ -5,9 +5,7 @@ import Polygon from 'esri/geometry/Polygon';
 import symbols from 'utils/symbols';
 import Graphic from 'esri/graphic';
 import Deferred from 'dojo/Deferred';
-import webmercatorUtils from 'esri/geometry/webMercatorUtils';
-import geojsonUtil from 'utils/arcgis-to-geojson';
-import {analysisConfig} from 'js/config';
+import analysisUtils from 'utils/analysisUtils';
 
 //- Really crappy UUID generator but it works
 let cfid = 0;
@@ -21,7 +19,7 @@ export default {
   */
   generateDrawnPolygon: (geometry) => {
     const deferred = new Deferred();
-    this.registerGeom(geometry).then(res => {
+    analysisUtils.registerGeom(geometry).then(res => {
       const id = customFeatureUUIDGenerator();
       deferred.resolve(new Graphic(
         new Polygon(geometry),
@@ -77,42 +75,6 @@ export default {
     });
 
     return graphics;
-  },
-
-  registerGeom: (geometry) => {
-    const deferred = new Deferred();
-    const geographic = webmercatorUtils.webMercatorToGeographic(geometry);
-    const geojson = geojsonUtil.arcgisToGeoJSON(geographic);
-
-    const geoStore = {
-      'geojson': {
-        'type': 'FeatureCollection',
-        'features': [{
-          'type': 'Feature',
-          'properties': {},
-          'geometry': geojson
-        }]
-      }
-    };
-
-    const content = JSON.stringify(geoStore);
-
-    const http = new XMLHttpRequest();
-    const url = analysisConfig.apiUrl;
-    const params = content;
-
-    http.open('POST', url, true);
-    http.setRequestHeader('Content-type', 'application/json');
-
-    http.onreadystatechange = () => {
-      if (http.readyState === 4 && http.status === 200) {
-        deferred.resolve(JSON.parse(http.responseText));
-      } else if (http.readyState === 4) {
-        deferred.resolve({ error: 'There was an error while registering the shape in the geostore', status: http.status });
-      }
-    };
-    http.send(params);
-    return deferred;
   }
 
 };

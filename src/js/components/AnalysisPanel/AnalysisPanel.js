@@ -23,7 +23,6 @@ export default class AnalysisPanel extends Component {
     //- Infer the selected feature from the info window
     if (map.infoWindow && map.infoWindow.getSelectedFeature()) {
       selectedFeature = map.infoWindow.getSelectedFeature();
-      console.log(selectedFeature);
     }
 
     if (selectedFeature !== undefined &&
