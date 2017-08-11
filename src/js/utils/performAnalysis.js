@@ -31,8 +31,6 @@ export default function performAnalysis (options) {
     gladTo,
     terraIFrom,
     terraITo,
-    viirsFiresSelectIndex,
-    modisFiresSelectIndex,
     viirsFrom,
     viirsTo,
     modisFrom,
@@ -55,7 +53,7 @@ export default function performAnalysis (options) {
       analysisUtils.getMosaic(language, landCoverConfig.rasterId, geometry).then(promise.resolve);
     break;
     case analysisKeys.TC_LOSS:
-      analysisUtils.getCountsWithDensity(geometry, canopyDensity, tcLossFrom, tcLossTo, geostoreId).then(response => {
+      analysisUtils.getCountsWithDensity(geostoreId, canopyDensity, tcLossFrom, tcLossTo).then(response => {
         if (typeof response === 'object' && response.hasOwnProperty('error')) {
           promise.resolve({error: response.error, message: text[language].ANALYSIS_ERROR_TC_LOSS});
         } else {
@@ -70,7 +68,7 @@ export default function performAnalysis (options) {
       analysisUtils.getSlope(restorationUrl, slopeValue, config.id, config.restoration, geometry, language).then(promise.resolve);
     break;
     case analysisKeys.TC_LOSS_GAIN:
-      analysisUtils.getCountsWithDensity(geometry, canopyDensity, tcLossFrom, tcLossTo, geostoreId).then(response => {
+      analysisUtils.getCountsWithDensity(geostoreId, canopyDensity, tcLossFrom, tcLossTo).then(response => {
         if (typeof response === 'object' && response.hasOwnProperty('error')) {
           promise.resolve({ error: response.error, message: text[language].ANALYSIS_ERROR_TC_LOSS_GAIN});
         } else {
@@ -98,7 +96,7 @@ export default function performAnalysis (options) {
     break;
     case analysisKeys.BIO_LOSS:
       // const generalizedGeometry = GeometryEngine.generalize(geometry, 10, true, 'miles');
-      analysisUtils.getBiomassLoss(geometry, canopyDensity, language, geostoreId).then(promise.resolve, promise.reject);
+      analysisUtils.getBiomassLoss(geostoreId, canopyDensity, language).then(promise.resolve, promise.reject);
     break;
     case analysisKeys.INTACT_LOSS:
       analysisUtils.getCrossedWithLoss(config, analysisConfig[analysisKeys.TC_LOSS], geometry, {
@@ -128,10 +126,10 @@ export default function performAnalysis (options) {
       analysisUtils.getSADAlerts(config, geometry, language).then(promise.resolve);
     break;
     case analysisKeys.GLAD_ALERTS:
-      analysisUtils.getGLADAlerts(config, geometry, gladFrom, gladTo, language, geostoreId).then(promise.resolve);
+      analysisUtils.getGLADAlerts(config, geostoreId, gladFrom, gladTo, language).then(promise.resolve);
     break;
     case analysisKeys.TERRA_I_ALERTS:
-      analysisUtils.getTerraIAlerts(config, geometry, terraIFrom, terraITo, language, geostoreId).then(promise.resolve);
+      analysisUtils.getTerraIAlerts(config, geostoreId, terraIFrom, terraITo, language).then(promise.resolve);
     break;
     default:
       //- This should only be the restoration analysis, since analysisType is a rasterId

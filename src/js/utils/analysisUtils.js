@@ -1,5 +1,3 @@
-import webmercatorUtils from 'esri/geometry/webMercatorUtils';
-import geojsonUtil from 'utils/arcgis-to-geojson';
 import QueryTask from 'esri/tasks/QueryTask';
 import {analysisConfig} from 'js/config';
 import analysisKeys from 'constants/AnalysisConstants';
@@ -299,168 +297,88 @@ export default {
     return promise;
   },
 
-  getGLADAlerts: function (config, geometry, gladFrom, gladTo, language, geostoreId) {
+  getGLADAlerts: function (config, geostoreId, gladFrom, gladTo, language) {
     const promise = new Deferred();
     const gladConfig = analysisConfig[analysisKeys.GLAD_ALERTS];
     const startDate = gladFrom.toISOString().split('T')[0];
     const endDate = gladTo.toISOString().split('T')[0];
 
-    if (geostoreId) {
-      const gladData = {
-        geostore: geostoreId,
-        period: `${startDate},${endDate}`,
-        aggregate_values: 'True',
-        aggregate_by: 'day'
-      };
-      esriRequest({
-        url: gladConfig.analysisUrl,
-        callbackParamName: 'callback',
-        content: gladData,
-        handleAs: 'json',
-        timeout: 30000
-      }, { usePost: false}).then(gladResult => {
-        const alerts = this.cleanAlerts(gladResult.data.attributes);
-        promise.resolve(alerts || []);
-      }, err => {
-        console.error(err);
-        promise.resolve({error: err, message: text[language].ANALYSIS_ERROR_GLAD});
-      });
-    } else {
-      const success = res => {
-        const gladData = {
-          geostore: res.data.id,
-          period: `${startDate},${endDate}`,
-          aggregate_values: 'True',
-          aggregate_by: 'day'
-        };
-        esriRequest({
-          url: gladConfig.analysisUrl,
-          callbackParamName: 'callback',
-          content: gladData,
-          handleAs: 'json',
-          timeout: 30000
-        }, { usePost: false}).then(gladResult => {
-          const alerts = this.cleanAlerts(gladResult.data.attributes);
-          promise.resolve(alerts || []);
-        }, err => {
-          console.error(err);
-          promise.resolve({error: err, message: text[language].ANALYSIS_ERROR_GLAD});
-        });
-      };
-
-      this.registerGeom(geometry, success, promise);
-    }
+    const gladData = {
+      geostore: geostoreId,
+      period: `${startDate},${endDate}`,
+      aggregate_values: 'True',
+      aggregate_by: 'day'
+    };
+    esriRequest({
+      url: gladConfig.analysisUrl,
+      callbackParamName: 'callback',
+      content: gladData,
+      handleAs: 'json',
+      timeout: 30000
+    }, { usePost: false }).then(gladResult => {
+      const alerts = this.cleanAlerts(gladResult.data.attributes);
+      promise.resolve(alerts || []);
+    }, err => {
+      console.error(err);
+      promise.resolve({ error: err, message: text[language].ANALYSIS_ERROR_GLAD });
+    });
 
     return promise;
   },
 
-  getTerraIAlerts: function (config, geometry, terraIFrom, terraITo, language, geostoreId) {
+  getTerraIAlerts: function (config, geostoreId, terraIFrom, terraITo, language) {
 
     const promise = new Deferred();
     const terraIConfig = analysisConfig[analysisKeys.TERRA_I_ALERTS];
     const startDate = terraIFrom.toISOString().split('T')[0];
     const endDate = terraITo.toISOString().split('T')[0];
 
-
-    if (geostoreId) {
-      const terraIData = {
-        geostore: geostoreId,
-        period: `${startDate},${endDate}`,
-        aggregate_values: 'True',
-        aggregate_by: 'day'
-      };
-      esriRequest({
-        url: terraIConfig.analysisUrl,
-        callbackParamName: 'callback',
-        content: terraIData,
-        handleAs: 'json',
-        timeout: 30000
-      }, { usePost: false}).then(terraIResult => {
-        const alerts = this.cleanAlerts(terraIResult.data.attributes);
-        promise.resolve(alerts || []);
-      }, err => {
-        console.error(err);
-        promise.resolve({error: err, message: text[language].ANALYSIS_ERROR_TERRA_I});
-      });
-    } else {
-      const success = res => {
-        const terraIData = {
-          geostore: res.data.id,
-          period: `${startDate},${endDate}`,
-          aggregate_values: 'True',
-          aggregate_by: 'day'
-        };
-        esriRequest({
-          url: terraIConfig.analysisUrl,
-          callbackParamName: 'callback',
-          content: terraIData,
-          handleAs: 'json',
-          timeout: 30000
-        }, { usePost: false}).then(terraIResult => {
-          const alerts = this.cleanAlerts(terraIResult.data.attributes);
-          promise.resolve(alerts || []);
-        }, err => {
-          console.error(err);
-          promise.resolve({error: err, message: text[language].ANALYSIS_ERROR_TERRA_I});
-        });
-      };
-
-      this.registerGeom(geometry, success, promise);
-    }
+    const terraIData = {
+      geostore: geostoreId,
+      period: `${startDate},${endDate}`,
+      aggregate_values: 'True',
+      aggregate_by: 'day'
+    };
+    esriRequest({
+      url: terraIConfig.analysisUrl,
+      callbackParamName: 'callback',
+      content: terraIData,
+      handleAs: 'json',
+      timeout: 30000
+    }, { usePost: false }).then(terraIResult => {
+      const alerts = this.cleanAlerts(terraIResult.data.attributes);
+      promise.resolve(alerts || []);
+    }, err => {
+      console.error(err);
+      promise.resolve({ error: err, message: text[language].ANALYSIS_ERROR_TERRA_I });
+    });
 
     return promise;
   },
 
-  getCountsWithDensity: function (geometry, canopyDensity, tcLossFrom, tcLossTo, geostoreId) {
+  getCountsWithDensity: function (geostoreId, canopyDensity, tcLossFrom, tcLossTo) {
     const deferred = new Deferred();
     const tcLossGainConfig = analysisConfig[analysisKeys.TC_LOSS_GAIN];
     const yearsArray = analysisConfig[analysisKeys.TC_LOSS].labels;
 
-    // See if the geometry has already been processed or not
-    if (geostoreId) {
-      const lossGainData = {
-        geostore: geostoreId,
-        period: `${yearsArray[tcLossFrom]}-01-01,${yearsArray[tcLossTo]}-12-31`,
-        thresh: canopyDensity,
-        aggregate_values: false
-      };
-      esriRequest({
-        url: tcLossGainConfig.analysisUrl,
-        callbackParamName: 'callback',
-        content: lossGainData,
-        handleAs: 'json',
-        timeout: 30000
-      }, { usePost: false}).then(lossGainResult => {
-        deferred.resolve(lossGainResult || []);
-      }, err => {
-        console.error(err);
-        deferred.resolve({ error: err });
-      });
-    } else {
-
-      const success = res => {
-        const lossGainData = {
-          geostore: res.data.id,
-          period: `${yearsArray[tcLossFrom]}-01-01,${yearsArray[tcLossTo]}-12-31`,
-          thresh: canopyDensity,
-          aggregate_values: false
-        };
-        esriRequest({
-          url: tcLossGainConfig.analysisUrl,
-          callbackParamName: 'callback',
-          content: lossGainData,
-          handleAs: 'json',
-          timeout: 30000
-        }, { usePost: false}).then(lossGainResult => {
-          deferred.resolve(lossGainResult || []);
-        }, err => {
-          console.error(err);
-          deferred.resolve({ error: err });
-        });
-      };
-
-      this.registerGeom(geometry, success, deferred);
-    }
+    const lossGainData = {
+      geostore: geostoreId,
+      period: `${yearsArray[tcLossFrom]}-01-01,${yearsArray[tcLossTo]}-12-31`,
+      thresh: canopyDensity,
+      aggregate_values: false
+    };
+    esriRequest({
+      url: tcLossGainConfig.analysisUrl,
+      callbackParamName: 'callback',
+      content: lossGainData,
+      handleAs: 'json',
+      timeout: 30000
+    }, { usePost: false }).then(lossGainResult => {
+      deferred.resolve(lossGainResult || []);
+    }, err => {
+      console.error(err);
+      deferred.resolve({ error: err });
+    });
 
     return deferred;
   },
@@ -491,89 +409,29 @@ export default {
     return promise;
   },
 
-  getBiomassLoss: function (geometry, canopyDensity, language, geostoreId) {
+  getBiomassLoss: function (geostoreId, canopyDensity, language) {
     const deferred = new Deferred();
     const biomassConfig = analysisConfig[analysisKeys.BIO_LOSS];
 
-    // See if the geometry has already been processed or not
-    if (geostoreId) {
-      const biomassData = {
-        geostore: geostoreId,
-        period: `${biomassConfig.startDate}-01-01,${biomassConfig.endDate}-12-31`,
-        thresh: canopyDensity
-      };
-      esriRequest({
-        url: biomassConfig.analysisUrl,
-        callbackParamName: 'callback',
-        content: biomassData,
-        handleAs: 'json',
-        timeout: 30000
-      }, { usePost: false}).then(biomassResult => {
-        deferred.resolve(biomassResult || []);
-      }, err => {
-        console.error(err);
-        deferred.resolve({error: err, message: text[language].ANALYSIS_ERROR_BIO_LOSS});
-      });
-    } else {
-
-      const success = res => {
-        const biomassData = {
-          geostore: res.data.id,
-          period: `${biomassConfig.startDate}-01-01,${biomassConfig.endDate}-12-31`,
-          thresh: canopyDensity
-        };
-        esriRequest({
-          url: biomassConfig.analysisUrl,
-          callbackParamName: 'callback',
-          content: biomassData,
-          handleAs: 'json',
-          timeout: 30000
-        }, { usePost: false}).then(biomassResult => {
-          deferred.resolve(biomassResult || []);
-        }, err => {
-          console.error(err);
-          deferred.resolve({error: err, message: language[text].ANALYSIS_ERROR_BIO_LOSS});
-        });
-      };
-
-      this.registerGeom(geometry, success, deferred);
-    }
+    const biomassData = {
+      geostore: geostoreId,
+      period: `${biomassConfig.startDate}-01-01,${biomassConfig.endDate}-12-31`,
+      thresh: canopyDensity
+    };
+    esriRequest({
+      url: biomassConfig.analysisUrl,
+      callbackParamName: 'callback',
+      content: biomassData,
+      handleAs: 'json',
+      timeout: 30000
+    }, { usePost: false }).then(biomassResult => {
+      deferred.resolve(biomassResult || []);
+    }, err => {
+      console.error(err);
+      deferred.resolve({ error: err, message: text[language].ANALYSIS_ERROR_BIO_LOSS });
+    });
 
     return deferred;
-  },
-
-  registerGeom: (geometry, success, deferred) => {
-    const geographic = webmercatorUtils.webMercatorToGeographic(geometry);
-    const geojson = geojsonUtil.arcgisToGeoJSON(geographic);
-
-    const geoStore = {
-      'geojson': {
-        'type': 'FeatureCollection',
-        'features': [{
-          'type': 'Feature',
-          'properties': {},
-          'geometry': geojson
-        }]
-      }
-    };
-
-    const content = JSON.stringify(geoStore);
-
-    const http = new XMLHttpRequest();
-    const url = analysisConfig.apiUrl;
-    const params = content;
-
-    http.open('POST', url, true);
-    http.setRequestHeader('Content-type', 'application/json');
-
-    http.onreadystatechange = () => {
-      if(http.readyState === 4 && http.status === 200) {
-        success(JSON.parse(http.responseText));
-      } else if (http.readyState === 4) {
-        deferred.resolve([]);
-      }
-    };
-    http.send(params);
   },
 
   getCrossedWithLoss: (config, lossConfig, geometry, options) => {

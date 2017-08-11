@@ -69,10 +69,10 @@ export default class Analysis extends Component {
     } = this.props;
 
     if (selectedFeature && activeAnalysisType && activeTab === tabKeys.ANALYSIS) {
-      request.getRawGeometry(selectedFeature).then((geometry) => {
+      // request.getRawGeometry(selectedFeature).then((geometry) => {
         performAnalysis({
           type: activeAnalysisType,
-          geometry: geometry,
+          geostoreId: selectedFeature.attributes.geostoreId,
           canopyDensity: canopyDensity,
           activeSlopeClass: activeSlopeClass,
           settings: settings,
@@ -94,7 +94,7 @@ export default class Analysis extends Component {
         }, () => {
           this.setState({ isLoading: false, error: true });
         });
-      });
+      // });
     }
   }
 
@@ -134,10 +134,10 @@ export default class Analysis extends Component {
     ) {
       this.setState(getDefaultState());
       const {settings, language} = this.context;
-      request.getRawGeometry(selectedFeature).then((geometry) => {
+      // request.getRawGeometry(selectedFeature).then((geometry) => {
         performAnalysis({
           type: activeAnalysisType,
-          geometry: geometry,
+          geostoreId: selectedFeature.attributes.geostoreId,
           canopyDensity: canopyDensity,
           activeSlopeClass: activeSlopeClass,
           settings: settings,
@@ -159,7 +159,7 @@ export default class Analysis extends Component {
         }, () => {
           this.setState({ isLoading: false });
         });
-      });
+      // });
     }
   }
 
