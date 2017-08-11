@@ -68,7 +68,7 @@ export default class Analysis extends Component {
       modisEndDate
     } = this.props;
 
-    if (selectedFeature && activeAnalysisType && activeTab === tabKeys.ANALYSIS) {
+    if (selectedFeature && activeAnalysisType === 'TC_LOSS_GAIN' && activeTab === tabKeys.ANALYSIS) {
       request.getRawGeometry(selectedFeature).then(geometry => {
 
         performAnalysis({
