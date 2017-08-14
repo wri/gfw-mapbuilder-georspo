@@ -1,0 +1,27 @@
+.map
+  min-height 100%
+  height 100%
+  width 100%
+
+//- Esri Overrides, they need multiple classes to make them higher priority, either that or !important
+.map .esriLegendServiceLabel
+  display none
+
+.map .esriLegendService
+  padding-bottom 0
+  margin-bottom 0
+
+.esriLegendLayer
+  font-size 12px
+
+.map .esriScalebar
+  bottom 5px
+  z-index 5
+
+//@media (min-width: $mobileBreak)
+//  .esriScalebar
+//    left 50% !important
+
+@media (max-width: $mobileBreak)
+  .map .esriScalebar
+    bottom 55px

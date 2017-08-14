@@ -1,0 +1,114 @@
+.infoWindow
+  color $darkGray
+  height 100%
+
+  .feature-name
+    border-bottom 1px solid #888
+    font-weight bold
+
+  .feature-controls
+  .feature-name
+    box-sizing content-box
+    padding 3px 10px
+
+  .source-row dt
+  .source-row dd
+    font-size 12px
+    text-transform none
+
+  .arrow
+    cursor pointer
+    float right
+  .arrow.right
+    margin-left 1em;
+  .arrow.disabled
+    color $lightGray
+    cursor default
+
+  .actions
+    button
+      background $goldTheme
+      border 0
+      border-radius 12px
+      box-sizing border-box
+      color #fff
+      margin 2% 5%
+      padding 2% 0
+      text-transform uppercase
+      width 40%
+
+.infoWindow__title
+  border-bottom 1px solid #efefef
+  margin 0 10px
+
+.infoWindow__attribute-display
+  overflow-y auto
+  flex-grow 1
+
+.infoWindow__content
+  flex-direction column
+  position absolute
+  display flex
+  bottom 56px
+  width 100%
+  left 0
+  top 0
+
+.infoWindow__instructions
+  padding 10px
+
+.infoWindow__footer
+  position absolute
+  width 100%
+  bottom 0
+  left 0
+
+.infoWindow__clearFeatures-icon
+  margin-left 1em
+  float right
+  height 20px
+  width 20px
+
+.infoWindow__no-configure
+  margin 10px
+
+.custom-feature__input
+  -webkit-appearance none
+  outline none
+  border none
+
+.custom-feature__delete
+  float right
+
+.custom-feature__content
+  padding 10px
+
+//- Esri Overrides
+.esriViewPopup .header
+  padding 0 10px
+
+.esriViewPopup .header
+.infoWindow__title
+.custom-feature__input
+.custom-feature__delete
+  color $grayFont
+  font-size 14px
+
+.esriViewPopup .hzLine
+  margin 5px 10px
+
+.esriViewPopup .mainSection .attrTable
+  font-size 12px
+  width 100%
+
+.map .esriViewPopup .mainSection .attrTable td.attrName
+  padding-left 10px
+  font-weight bold
+  color #555
+
+.esriViewPopup .attrTable tr:nth-child(even)
+  background-color $selectionGray
+
+.esriPopup, .attachmentsSection
+  display none
+//- Esri Overrides
