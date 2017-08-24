@@ -439,12 +439,11 @@ export default {
       }, {
         order: 4,
         id: 'LAND_COVER',
-        type: 'webtiled',
-        url: 'https://wri-tiles.s3.amazonaws.com/global-landcover/{level}/{col}/{row}.png',
+        legendLayer: [26],
+        type: 'dynamic',
+        url: 'https://gis-gfw.wri.org/arcgis/rest/services/partner_requests/geo_rspo_luc_maps/MapServer',
         technicalName: 'global_landcover',
-        legendLayer: [15],
-        rasterId: '$568',
-        bounds: [1, 16],
+        layerIds: [0],
         classes: {
           en: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
           fr: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
@@ -456,7 +455,7 @@ export default {
         },
         colors: ['#825D26', '#D1A969', '#DED6B4', '#157562', '#CC7A29', '#6DAD96', '#968635', '#C2B32F', '#6F7A53', '#96A36F', '#CDDB93', '#7DBDE8', '#0D63A1', '#F41E65', '#FFFFFF', '#DBDBDB'],
         label: {
-          en: 'Land Cover',
+          en: 'RSPO 2005 Land Use Change Categories',
           fr: 'Couverture des sols',
           es: 'Cobertura vegetal',
           pt: 'Land cover',
