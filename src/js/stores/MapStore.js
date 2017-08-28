@@ -340,6 +340,13 @@ class MapStore {
       this.layerModalVisible = true;
       this.iconLoading = '';
       this.emitChange();
+    } else if (id === 'LAND_COVER') {
+      layerInfoCache.fetch(layer, null, true).then(layerInfo => {
+        this.modalLayerInfo = layerInfo;
+        this.layerModalVisible = true;
+        this.iconLoading = '';
+        this.emitChange();
+      });
     } else {
       layerInfoCache.fetch(layer).then(layerInfo => {
         this.modalLayerInfo = layerInfo;

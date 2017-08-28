@@ -229,7 +229,7 @@ export default {
     return _cache[layerId];
   },
 
-  fetch (layer, cartoId) {
+  fetch (layer, cartoId, useRSPOEndpoint = false) {
     const promise = new Deferred();
     let url;
     // If a technicalName is configured, fetch from the metadata API
@@ -270,6 +270,12 @@ export default {
       cartoMeta.then(results => {
         _cache[subId] = JSON.parse(results);
         promise.resolve(reduceCarto(JSON.parse(results)));
+      });
+    } else if (useRSPOEndpoint) {
+      url = urls.rspoLucMetadataApi;
+      getMetadataTask(url).then(results => {
+        _cache[layer.id] = results;
+        promise.resolve(results);
       });
     } else {
       promise.resolve();

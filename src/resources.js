@@ -439,10 +439,9 @@ export default {
       }, {
         order: 4,
         id: 'LAND_COVER',
-        legendLayer: [26],
+        legendLayer: [0],
         type: 'dynamic',
         url: 'https://gis-gfw.wri.org/arcgis/rest/services/partner_requests/geo_rspo_luc_maps/MapServer',
-        technicalName: 'global_landcover',
         layerIds: [0],
         classes: {
           en: ['Irrigated croplands', 'Rainfed croplands', 'Cropland forest mosaic', 'Broadleaved evergreen or semi-deciduous forest', 'Broadleaved deciduous forest', 'Needleleaved evergreen or deciduous forest', 'Mixed broadleaved and needleleaved forest', 'Mosaic of forest, shrubland and grassland', 'Shrubland', 'Grassland', 'Sparse vegetation', 'Flooded broadleaved forest', 'Flooded vegetation', 'Artificial areas', 'Bare areas', 'Permanent snow and ice'],
@@ -458,8 +457,8 @@ export default {
           en: 'RSPO 2005 Land Use Change Categories',
           fr: 'Couverture des sols',
           es: 'Cobertura vegetal',
-          pt: 'Land cover',
-          id: 'Land cover',
+          pt: 'RSPO 2005 Land Use Change Categories',
+          id: 'RSPO 2005 Land Use Change Categories',
           zh: '土地覆盖',
           ka: 'მიწის საფარი'
         }
