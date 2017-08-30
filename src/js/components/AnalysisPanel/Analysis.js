@@ -219,15 +219,14 @@ export default class Analysis extends Component {
               return analysisConfig[type].labels;
           }
         })();
-        colors = type === analysisKeys.LC_LOSS ? layerConf.colors : analysisConfig[type].colors;
         return <TotalLossChart
           results={results}
           counts={results.counts}
           encoder={results.encoder}
           options={results.options}
           labels={labels}
-          lossLabels={lossLabels}
-          colors={colors} />;
+          lossLabels={[2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015]}
+          colors={analysisConfig[type].colors} />;
       case analysisKeys.SLOPE:
         const {counts} = results;
         labels = counts.map((v, index) => text[language].ANALYSIS_SLOPE_OPTION + (index + 1));

@@ -247,6 +247,7 @@ class Encoder {
     );
     //- We need to add an output pixel type to Raster2, need to make sure we need this as I cant remember why it's needed
     outputRule.rasterFunctionArguments.Raster2.outputPixelType = 'U8';
+    console.log(outputRule);
     return outputRule;
   }
 
