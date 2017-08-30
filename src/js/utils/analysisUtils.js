@@ -448,6 +448,7 @@ export default {
     };
 
     const success = (response) => {
+      console.log(response);
       promise.resolve({
         counts: formatters.getCounts(response, content.pixelSize, true).counts,
         encoder: encoder,

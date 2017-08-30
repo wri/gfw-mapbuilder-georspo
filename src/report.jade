@@ -27,35 +27,16 @@ block append content
       h4.slope__description#slope-analysis-description
       div#slope-chart.chart-container
       div#slope-table.table-container
-    div.results-container.results__loss-badge.hidden#total-loss-badge
-      div.results__loss-gain--label
-      div.results__loss-gain--range
-      span.results__loss--count
-      span.results__loss--unit Ha
-    div.results-container.results__gain-badge.hidden#total-gain-badge
-      div.results__loss-gain--label
-      div.results__loss-gain--range
-      span.results__gain--count
-      span.results__gain--unit Ha
-    div.results-container#tc-loss
-    div.results-container#lc-loss
-    div.results-container#bio-loss
-    div.results-container#intact-loss
-    div.results-container#mangroves
-    div.results-container#sad-alerts
-    div.results-container#glad-alerts
-    div.results-container#terrai-alerts
-    div.results-container.results__fires-badge.hidden#viirs-badge
-      div.results__viirs-pre
-      div.results__viirs-count
-      div.results__viirs-active
-      div.results__viirs-post
-    div.results-container.results__fires-badge.hidden#modis-badge
-      div.results__modis-pre
-      div.results__modis-count
-      div.results__modis-active
-      div.results__modis-post
-    div.results-container#lc-composition
+    div.results-container#lc-loss-chart
+    div.results-container#lc-loss-table.hidden
+      table
+        thead.lc-loss-table__head
+          tr
+        tbody.lc-loss-table__body
+          tr.primary
+          tr.secondary
+          tr.agroforestry
+          tr.non-forest
 block append esri-script
   script.
     var _app = {

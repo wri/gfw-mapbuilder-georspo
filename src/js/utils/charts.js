@@ -448,13 +448,11 @@ export default {
           index = encoder.encode(Xs[j], Ys[i]);
 					data.push(counts[index] || 0);
         }
-				if (data.some((value) => value !== 0)) {
-					series.push({
-						'name': labels[i],
-						'data': data
-					});
-					outputColors.push(colors[i]);
-        }
+        series.push({
+          'name': labels[i],
+          'data': data
+        });
+        outputColors.push(colors[i]);
 			}
     }
 

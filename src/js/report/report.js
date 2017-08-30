@@ -563,56 +563,57 @@ const runAnalysis = function runAnalysis (params, feature) {
   const lcdLayers = resources.layerPanel.GROUP_LCD ? resources.layerPanel.GROUP_LCD.layers : [];
   const layerConf = appUtils.getObject(lcLayers, 'id', layerKeys.LAND_COVER);
   const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
+  const lcLossLabels = [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015];
   const { tcd, lang, settings, activeSlopeClass, tcLossFrom, tcLossTo, gladFrom, gladTo, terraIFrom, terraITo, viirsFrom, viirsTo, modisFrom, modisTo } = params;
   const geographic = webmercatorUtils.geographicToWebMercator(feature.geometry);
   //- Only Analyze layers in the analysis
-  if (appUtils.containsObject(lcdLayers, 'id', layerKeys.TREE_COVER_LOSS)) {
-    //- Loss/Gain Analysis
-    performAnalysis({
-      type: analysisKeys.TC_LOSS_GAIN,
-      geometry: feature.geometry,
-      settings: settings,
-      canopyDensity: tcd,
-      language: lang,
-      geostoreId: feature.geostoreId,
-      tcLossFrom: tcLossFrom,
-      tcLossTo: tcLossTo
-    }).then((results) => {
-      const {lossCounts = [], gainTotal, lossTotal} = results;
-      const totalLoss = lossTotal;
-      const totalGain = gainTotal;
-      //- Generate chart for Tree Cover Loss
-      const name = text[lang].ANALYSIS_TC_CHART_NAME;
-      const colors = analysisConfig[analysisKeys.TC_LOSS].colors;
-      const tcLossNode = document.getElementById('tc-loss');
-      const series = [{ name: name, data: lossCounts }];
+  // if (appUtils.containsObject(lcdLayers, 'id', layerKeys.TREE_COVER_LOSS)) {
+  //   //- Loss/Gain Analysis
+  //   performAnalysis({
+  //     type: analysisKeys.TC_LOSS_GAIN,
+  //     geometry: feature.geometry,
+  //     settings: settings,
+  //     canopyDensity: tcd,
+  //     language: lang,
+  //     geostoreId: feature.geostoreId,
+  //     tcLossFrom: tcLossFrom,
+  //     tcLossTo: tcLossTo
+  //   }).then((results) => {
+  //     const {lossCounts = [], gainTotal, lossTotal} = results;
+  //     const totalLoss = lossTotal;
+  //     const totalGain = gainTotal;
+  //     //- Generate chart for Tree Cover Loss
+  //     const name = text[lang].ANALYSIS_TC_CHART_NAME;
+  //     const colors = analysisConfig[analysisKeys.TC_LOSS].colors;
+  //     const tcLossNode = document.getElementById('tc-loss');
+  //     const series = [{ name: name, data: lossCounts }];
 
-      if (results.lossCounts && results.lossCounts.length) {
-        const chartLabels = lossLabels.slice(tcLossFrom, tcLossTo + 1);
-        charts.makeSimpleBarChart(tcLossNode, chartLabels, colors, series);
-      } else {
-        tcLossNode.remove();
-      }
-      //- Generate content for Loss and Gain Badges
-      //- Loss
-      document.querySelector('#total-loss-badge .results__loss-gain--label').innerHTML = text[lang].ANALYSIS_TOTAL_LOSS_LABEL;
-      document.querySelector('#total-loss-badge .results__loss-gain--range').innerHTML = `${lossLabels[tcLossFrom]} &ndash; ${lossLabels[tcLossTo]}`;
-      document.querySelector('.results__loss--count').innerHTML = totalLoss;
-      document.getElementById('total-loss-badge').classList.remove('hidden');
-      //- Gain
-      document.querySelector('#total-gain-badge .results__loss-gain--label').innerHTML = text[lang].ANALYSIS_TOTAL_GAIN_LABEL;
-      document.querySelector('#total-gain-badge .results__loss-gain--range').innerHTML = text[lang].ANALYSIS_TOTAL_GAIN_RANGE;
-      document.querySelector('.results__gain--count').innerHTML = totalGain;
-      document.getElementById('total-gain-badge').classList.remove('hidden');
-    });
-  } else {
-    const lossChart = document.getElementById('tc-loss');
-    const lossBadge = document.getElementById('total-loss-badge');
-    const gainBadge = document.getElementById('total-gain-badge');
-    lossChart.remove();
-    lossBadge.remove();
-    gainBadge.remove();
-  }
+  //     if (results.lossCounts && results.lossCounts.length) {
+  //       const chartLabels = lossLabels.slice(tcLossFrom, tcLossTo + 1);
+  //       charts.makeSimpleBarChart(tcLossNode, chartLabels, colors, series);
+  //     } else {
+  //       tcLossNode.remove();
+  //     }
+  //     //- Generate content for Loss and Gain Badges
+  //     //- Loss
+  //     document.querySelector('#total-loss-badge .results__loss-gain--label').innerHTML = text[lang].ANALYSIS_TOTAL_LOSS_LABEL;
+  //     document.querySelector('#total-loss-badge .results__loss-gain--range').innerHTML = `${lossLabels[tcLossFrom]} &ndash; ${lossLabels[tcLossTo]}`;
+  //     document.querySelector('.results__loss--count').innerHTML = totalLoss;
+  //     document.getElementById('total-loss-badge').classList.remove('hidden');
+  //     //- Gain
+  //     document.querySelector('#total-gain-badge .results__loss-gain--label').innerHTML = text[lang].ANALYSIS_TOTAL_GAIN_LABEL;
+  //     document.querySelector('#total-gain-badge .results__loss-gain--range').innerHTML = text[lang].ANALYSIS_TOTAL_GAIN_RANGE;
+  //     document.querySelector('.results__gain--count').innerHTML = totalGain;
+  //     document.getElementById('total-gain-badge').classList.remove('hidden');
+  //   });
+  // } else {
+  //   const lossChart = document.getElementById('tc-loss');
+  //   const lossBadge = document.getElementById('total-loss-badge');
+  //   const gainBadge = document.getElementById('total-gain-badge');
+  //   lossChart.remove();
+  //   lossBadge.remove();
+  //   gainBadge.remove();
+  // }
 
   if (settings.landCover && layerConf) {
     performAnalysis({
@@ -622,9 +623,10 @@ const runAnalysis = function runAnalysis (params, feature) {
       canopyDensity: tcd,
       language: lang
     }).then((results) => {
-      const configuredColors = layerConf.colors;
+      const configuredColors = analysisConfig[analysisKeys.LC_LOSS].colors;
       const labels = layerConf.classes[lang];
-      const node = document.getElementById('lc-loss');
+      const node = document.getElementById('lc-loss-chart');
+      const tableNode = document.getElementById('lc-loss-table');
       const { counts, encoder } = results;
       const Xs = encoder.A;
       const Ys = encoder.B;
@@ -638,7 +640,37 @@ const runAnalysis = function runAnalysis (params, feature) {
       });
 
       if (chartInfo.series && chartInfo.series.length) {
-        charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
+        console.log(chartInfo.series);
+        charts.makeTotalLossBarChart(node, lcLossLabels, chartInfo.colors, chartInfo.series);
+
+
+        const tableHeader = document.querySelector('#lc-loss-table .lc-loss-table__head tr');
+        const labelColumn = document.createElement('td');
+        labelColumn.innerHTML = 'Forest Type';
+        tableHeader.appendChild(labelColumn);
+
+        lcLossLabels.forEach(label => {
+          const dataColumn = document.createElement('td');
+          dataColumn.innerHTML = label;
+          tableHeader.appendChild(dataColumn);
+        });
+
+        const tableBody = document.querySelector('#lc-loss-table .lc-loss-table__body');
+        const tableLabels = tableBody.children;
+        for (let i = 0; i < tableLabels.length; i++) {
+          const rowLabel = document.createElement('td');
+          rowLabel.innerHTML = chartInfo.series[i].name;
+          tableLabels[i].appendChild(rowLabel);
+
+          for (let j = 0; j < lcLossLabels.length; j++) {
+            const rowData = document.createElement('td');
+            rowData.innerHTML = chartInfo.series[i].data[j];
+            tableLabels[i].appendChild(rowData);
+          }
+        }
+
+
+        tableNode.classList.remove('hidden');
       } else {
         node.remove();
       }
@@ -668,249 +700,249 @@ const runAnalysis = function runAnalysis (params, feature) {
       }
     });
   } else {
-    const lossNode = document.getElementById('lc-loss');
+    const lossNode = document.getElementById('lc-loss-chart');
     const compositionNode = document.getElementById('lc-composition');
     lossNode.remove();
     compositionNode.remove();
   }
 
-  if (settings.aboveGroundBiomass) {
-    //- Carbon Stocks with Loss Analysis
-    performAnalysis({
-      type: analysisKeys.BIO_LOSS,
-      geometry: feature.geometry,
-      settings: settings,
-      canopyDensity: tcd,
-      language: lang,
-      geostoreId: feature.geostoreId
-    }).then((results) => {
-      const { labels, colors } = analysisConfig[analysisKeys.BIO_LOSS];
-      const { data } = results;
-      const node = document.getElementById('bio-loss');
-      const {series, grossLoss, grossEmissions} = charts.formatSeriesForBiomassLoss({
-        data: data.attributes,
-        lossColor: colors.loss,
-        carbonColor: colors.carbon,
-        lossName: text[lang].ANALYSIS_CARBON_LOSS,
-        carbonName: 'MtCO2'
-      });
+  // if (settings.aboveGroundBiomass) {
+  //   //- Carbon Stocks with Loss Analysis
+  //   performAnalysis({
+  //     type: analysisKeys.BIO_LOSS,
+  //     geometry: feature.geometry,
+  //     settings: settings,
+  //     canopyDensity: tcd,
+  //     language: lang,
+  //     geostoreId: feature.geostoreId
+  //   }).then((results) => {
+  //     const { labels, colors } = analysisConfig[analysisKeys.BIO_LOSS];
+  //     const { data } = results;
+  //     const node = document.getElementById('bio-loss');
+  //     const {series, grossLoss, grossEmissions} = charts.formatSeriesForBiomassLoss({
+  //       data: data.attributes,
+  //       lossColor: colors.loss,
+  //       carbonColor: colors.carbon,
+  //       lossName: text[lang].ANALYSIS_CARBON_LOSS,
+  //       carbonName: 'MtCO2'
+  //     });
 
-      charts.makeBiomassLossChart(node, {
-        series,
-        categories: labels
-      }, (chart) => {
-        const content = chart.renderer.html(
-          `<div class='results__legend-container'>` +
-            `<span>${text[lang].ANALYSIS_CARBON_LOSS}</span>` +
-            `<span>${Math.round(grossLoss)} Ha</span>` +
-          `</div>` +
-          `<div class='results__legend-container'>` +
-            `<span>${text[lang].ANALYSIS_CARBON_EMISSION}</span>` +
-            `<span>${Math.round(grossEmissions)}m MtCO2</span>` +
-          `</div>`
-        );
-        content.element.className = 'result__biomass-totals';
-        content.add();
+  //     charts.makeBiomassLossChart(node, {
+  //       series,
+  //       categories: labels
+  //     }, (chart) => {
+  //       const content = chart.renderer.html(
+  //         `<div class='results__legend-container'>` +
+  //           `<span>${text[lang].ANALYSIS_CARBON_LOSS}</span>` +
+  //           `<span>${Math.round(grossLoss)} Ha</span>` +
+  //         `</div>` +
+  //         `<div class='results__legend-container'>` +
+  //           `<span>${text[lang].ANALYSIS_CARBON_EMISSION}</span>` +
+  //           `<span>${Math.round(grossEmissions)}m MtCO2</span>` +
+  //         `</div>`
+  //       );
+  //       content.element.className = 'result__biomass-totals';
+  //       content.add();
 
-      });
-    });
-  } else {
-    const node = document.getElementById('bio-loss');
-    node.remove();
-  }
+  //     });
+  //   });
+  // } else {
+  //   const node = document.getElementById('bio-loss');
+  //   node.remove();
+  // }
 
-  if (settings.intactForests) {
-    //- Intact Forest with Loss Analysis
-    performAnalysis({
-      type: analysisKeys.INTACT_LOSS,
-      geometry: geographic,
-      settings: settings,
-      canopyDensity: tcd,
-      language: lang
-    }).then((results) => {
-      const configuredColors = analysisConfig[analysisKeys.INTACT_LOSS].colors;
-      const labels = text[lang].ANALYSIS_IFL_LABELS;
-      const node = document.getElementById('intact-loss');
-      const { counts, encoder } = results;
-      const Xs = encoder.A;
-      const Ys = encoder.B;
-      const chartInfo = charts.formatSeriesWithEncoder({
-        colors: configuredColors,
-        encoder: encoder,
-        counts: counts,
-        labels: labels,
-        isSimple: true,
-        Xs: Xs,
-        Ys: Ys
-      });
+  // if (settings.intactForests) {
+  //   //- Intact Forest with Loss Analysis
+  //   performAnalysis({
+  //     type: analysisKeys.INTACT_LOSS,
+  //     geometry: geographic,
+  //     settings: settings,
+  //     canopyDensity: tcd,
+  //     language: lang
+  //   }).then((results) => {
+  //     const configuredColors = analysisConfig[analysisKeys.INTACT_LOSS].colors;
+  //     const labels = text[lang].ANALYSIS_IFL_LABELS;
+  //     const node = document.getElementById('intact-loss');
+  //     const { counts, encoder } = results;
+  //     const Xs = encoder.A;
+  //     const Ys = encoder.B;
+  //     const chartInfo = charts.formatSeriesWithEncoder({
+  //       colors: configuredColors,
+  //       encoder: encoder,
+  //       counts: counts,
+  //       labels: labels,
+  //       isSimple: true,
+  //       Xs: Xs,
+  //       Ys: Ys
+  //     });
 
-      if (chartInfo.series && chartInfo.series.length && chartInfo.series[0].data.length) {
-        charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
-      } else {
-        node.remove();
-      }
+  //     if (chartInfo.series && chartInfo.series.length && chartInfo.series[0].data.length) {
+  //       charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
+  //     } else {
+  //       node.remove();
+  //     }
 
-    });
-  } else {
-    const node = document.getElementById('intact-loss');
-    node.remove();
-  }
-  if (settings.viirsFires) {
-    //- Fires Analysis
-    performAnalysis({
-      type: analysisKeys.VIIRS_FIRES,
-      geometry: feature.geometry,
-      settings: settings,
-      canopyDensity: tcd,
-      language: lang,
-      viirsFrom: viirsFrom,
-      viirsTo: viirsTo
-    }).then((results) => {
-      document.querySelector('.results__viirs-pre').innerHTML = text[lang].ANALYSIS_FIRES_PRE;
-      document.querySelector('.results__viirs-count').innerHTML = results.fireCount;
-      document.querySelector('.results__viirs-active').innerHTML = text[lang].ANALYSIS_FIRES_ACTIVE + ' (VIIRS)';
-      document.querySelector('.results__viirs-post').innerHTML = `${text[lang].TIMELINE_START}${viirsFrom.toLocaleDateString()}<br/>${text[lang].TIMELINE_END}${viirsTo.toLocaleDateString()}`;
-      document.getElementById('viirs-badge').classList.remove('hidden');
-    });
-  } else {
-    const node = document.getElementById('viirs-badge');
-    node.remove();
-  }
+  //   });
+  // } else {
+  //   const node = document.getElementById('intact-loss');
+  //   node.remove();
+  // }
+  // if (settings.viirsFires) {
+  //   //- Fires Analysis
+  //   performAnalysis({
+  //     type: analysisKeys.VIIRS_FIRES,
+  //     geometry: feature.geometry,
+  //     settings: settings,
+  //     canopyDensity: tcd,
+  //     language: lang,
+  //     viirsFrom: viirsFrom,
+  //     viirsTo: viirsTo
+  //   }).then((results) => {
+  //     document.querySelector('.results__viirs-pre').innerHTML = text[lang].ANALYSIS_FIRES_PRE;
+  //     document.querySelector('.results__viirs-count').innerHTML = results.fireCount;
+  //     document.querySelector('.results__viirs-active').innerHTML = text[lang].ANALYSIS_FIRES_ACTIVE + ' (VIIRS)';
+  //     document.querySelector('.results__viirs-post').innerHTML = `${text[lang].TIMELINE_START}${viirsFrom.toLocaleDateString()}<br/>${text[lang].TIMELINE_END}${viirsTo.toLocaleDateString()}`;
+  //     document.getElementById('viirs-badge').classList.remove('hidden');
+  //   });
+  // } else {
+  //   const node = document.getElementById('viirs-badge');
+  //   node.remove();
+  // }
 
-  if (settings.modisFires) {
-    //- Fires Analysis
-    performAnalysis({
-      type: analysisKeys.MODIS_FIRES,
-      geometry: feature.geometry,
-      settings: settings,
-      canopyDensity: tcd,
-      language: lang,
-      modisFrom: modisFrom,
-      modisTo: modisTo
-    }).then((results) => {
-      document.querySelector('.results__modis-pre').innerHTML = text[lang].ANALYSIS_FIRES_PRE;
-      document.querySelector('.results__modis-count').innerHTML = results.fireCount;
-      document.querySelector('.results__modis-active').innerHTML = text[lang].ANALYSIS_FIRES_ACTIVE + ' (MODIS)';
-      document.querySelector('.results__modis-post').innerHTML = `${text[lang].TIMELINE_START}${modisFrom.toLocaleDateString()}<br/>${text[lang].TIMELINE_END}${modisTo.toLocaleDateString()}`;
-      document.getElementById('modis-badge').classList.remove('hidden');
-    });
-  } else {
-    const node = document.getElementById('modis-badge');
-    node.remove();
-  }
+  // if (settings.modisFires) {
+  //   //- Fires Analysis
+  //   performAnalysis({
+  //     type: analysisKeys.MODIS_FIRES,
+  //     geometry: feature.geometry,
+  //     settings: settings,
+  //     canopyDensity: tcd,
+  //     language: lang,
+  //     modisFrom: modisFrom,
+  //     modisTo: modisTo
+  //   }).then((results) => {
+  //     document.querySelector('.results__modis-pre').innerHTML = text[lang].ANALYSIS_FIRES_PRE;
+  //     document.querySelector('.results__modis-count').innerHTML = results.fireCount;
+  //     document.querySelector('.results__modis-active').innerHTML = text[lang].ANALYSIS_FIRES_ACTIVE + ' (MODIS)';
+  //     document.querySelector('.results__modis-post').innerHTML = `${text[lang].TIMELINE_START}${modisFrom.toLocaleDateString()}<br/>${text[lang].TIMELINE_END}${modisTo.toLocaleDateString()}`;
+  //     document.getElementById('modis-badge').classList.remove('hidden');
+  //   });
+  // } else {
+  //   const node = document.getElementById('modis-badge');
+  //   node.remove();
+  // }
 
-  //- Mangroves Loss
-  if (settings.mangroves) {
-    performAnalysis({
-      type: analysisKeys.MANGROVE_LOSS,
-      geometry: geographic,
-      settings: settings,
-      canopyDensity: tcd,
-      language: lang
-    }).then((results) => {
-      const node = document.getElementById('mangroves');
-      const colors = analysisConfig[analysisKeys.MANGROVE_LOSS].colors;
-      const labels = text[lang].ANALYSIS_MANGROVE_LABELS;
-      const { counts, encoder } = results;
-      const Xs = encoder.A;
-      const Ys = encoder.B;
-      const chartInfo = charts.formatSeriesWithEncoder({
-        colors: colors,
-        encoder: encoder,
-        counts: counts,
-        labels: labels,
-        isSimple: true,
-        Xs: Xs,
-        Ys: Ys
-      });
+  // //- Mangroves Loss
+  // if (settings.mangroves) {
+  //   performAnalysis({
+  //     type: analysisKeys.MANGROVE_LOSS,
+  //     geometry: geographic,
+  //     settings: settings,
+  //     canopyDensity: tcd,
+  //     language: lang
+  //   }).then((results) => {
+  //     const node = document.getElementById('mangroves');
+  //     const colors = analysisConfig[analysisKeys.MANGROVE_LOSS].colors;
+  //     const labels = text[lang].ANALYSIS_MANGROVE_LABELS;
+  //     const { counts, encoder } = results;
+  //     const Xs = encoder.A;
+  //     const Ys = encoder.B;
+  //     const chartInfo = charts.formatSeriesWithEncoder({
+  //       colors: colors,
+  //       encoder: encoder,
+  //       counts: counts,
+  //       labels: labels,
+  //       isSimple: true,
+  //       Xs: Xs,
+  //       Ys: Ys
+  //     });
 
-      if (chartInfo.series && chartInfo.series.length && chartInfo.series[0].data.length) {
-        charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
-      } else {
-        node.remove();
-      }
-    });
+  //     if (chartInfo.series && chartInfo.series.length && chartInfo.series[0].data.length) {
+  //       charts.makeTotalLossBarChart(node, lossLabels, chartInfo.colors, chartInfo.series);
+  //     } else {
+  //       node.remove();
+  //     }
+  //   });
 
-  } else {
-    const node = document.getElementById('mangroves');
-    node.remove();
-  }
+  // } else {
+  //   const node = document.getElementById('mangroves');
+  //   node.remove();
+  // }
 
-  //- SAD Alerts
-  if (settings.sadAlerts) {
-    performAnalysis({
-      type: analysisKeys.SAD_ALERTS,
-      geometry: feature.geometry,
-      settings: settings,
-      canopyDensity: tcd,
-      language: lang
-    }).then((results) => {
-      const node = document.getElementById('sad-alerts');
-      const colors = analysisConfig[analysisKeys.SAD_ALERTS].colors;
-      const names = text[lang].ANALYSIS_SAD_ALERT_NAMES;
-      const {alerts} = results;
-      const {categories, series} = charts.formatSadAlerts({ alerts, colors, names });
-      if (categories.length) {
-        //- Tell the second series to use the second axis
-        series[0].yAxis = 1;
-        charts.makeDualAxisTimeSeriesChart(node, { series, categories });
-      } else {
-        node.remove();
-      }
-    });
+  // //- SAD Alerts
+  // if (settings.sadAlerts) {
+  //   performAnalysis({
+  //     type: analysisKeys.SAD_ALERTS,
+  //     geometry: feature.geometry,
+  //     settings: settings,
+  //     canopyDensity: tcd,
+  //     language: lang
+  //   }).then((results) => {
+  //     const node = document.getElementById('sad-alerts');
+  //     const colors = analysisConfig[analysisKeys.SAD_ALERTS].colors;
+  //     const names = text[lang].ANALYSIS_SAD_ALERT_NAMES;
+  //     const {alerts} = results;
+  //     const {categories, series} = charts.formatSadAlerts({ alerts, colors, names });
+  //     if (categories.length) {
+  //       //- Tell the second series to use the second axis
+  //       series[0].yAxis = 1;
+  //       charts.makeDualAxisTimeSeriesChart(node, { series, categories });
+  //     } else {
+  //       node.remove();
+  //     }
+  //   });
 
-  } else {
-    const node = document.getElementById('sad-alerts');
-    node.remove();
-  }
+  // } else {
+  //   const node = document.getElementById('sad-alerts');
+  //   node.remove();
+  // }
 
-  //- GLAD Alerts
-  if (settings.gladAlerts) {
-    performAnalysis({
-      type: analysisKeys.GLAD_ALERTS,
-      geometry: feature.geometry,
-      settings: settings,
-      canopyDensity: tcd,
-      language: lang,
-      geostoreId: feature.geostoreId,
-      gladFrom: new Date(gladFrom),
-      gladTo: new Date(gladTo)
-    }).then((results) => {
-      const node = document.getElementById('glad-alerts');
-      const name = text[lang].ANALYSIS_GLAD_ALERT_NAME;
-      if (results.length) {
-        charts.makeTimeSeriesCharts(node, { data: results, name });
-      } else {
-        node.remove();
-      }
-    });
-  } else {
-    const node = document.getElementById('glad-alerts');
-    node.remove();
-  }
+  // //- GLAD Alerts
+  // if (settings.gladAlerts) {
+  //   performAnalysis({
+  //     type: analysisKeys.GLAD_ALERTS,
+  //     geometry: feature.geometry,
+  //     settings: settings,
+  //     canopyDensity: tcd,
+  //     language: lang,
+  //     geostoreId: feature.geostoreId,
+  //     gladFrom: new Date(gladFrom),
+  //     gladTo: new Date(gladTo)
+  //   }).then((results) => {
+  //     const node = document.getElementById('glad-alerts');
+  //     const name = text[lang].ANALYSIS_GLAD_ALERT_NAME;
+  //     if (results.length) {
+  //       charts.makeTimeSeriesCharts(node, { data: results, name });
+  //     } else {
+  //       node.remove();
+  //     }
+  //   });
+  // } else {
+  //   const node = document.getElementById('glad-alerts');
+  //   node.remove();
+  // }
 
-  //- Terra-I Alerts
-  if (settings.terraIAlerts) {
-    performAnalysis({
-      type: analysisKeys.TERRA_I_ALERTS,
-      geometry: geographic,
-      settings: settings,
-      canopyDensity: tcd,
-      language: lang,
-      terraIFrom: new Date(terraIFrom),
-      terraITo: new Date(terraITo)
-    }).then((results) => {
-      const node = document.getElementById('terrai-alerts');
-      const name = text[lang].ANALYSIS_TERRA_I_ALERT_NAME;
-      charts.makeTimeSeriesCharts(node, {
-        data: results,
-        name: name
-      });
-    });
-  } else {
-    const node = document.getElementById('terrai-alerts');
-    node.remove();
-  }
+  // //- Terra-I Alerts
+  // if (settings.terraIAlerts) {
+  //   performAnalysis({
+  //     type: analysisKeys.TERRA_I_ALERTS,
+  //     geometry: geographic,
+  //     settings: settings,
+  //     canopyDensity: tcd,
+  //     language: lang,
+  //     terraIFrom: new Date(terraIFrom),
+  //     terraITo: new Date(terraITo)
+  //   }).then((results) => {
+  //     const node = document.getElementById('terrai-alerts');
+  //     const name = text[lang].ANALYSIS_TERRA_I_ALERT_NAME;
+  //     charts.makeTimeSeriesCharts(node, {
+  //       data: results,
+  //       name: name
+  //     });
+  //   });
+  // } else {
+  //   const node = document.getElementById('terrai-alerts');
+  //   node.remove();
+  // }
 
   if (settings.restorationModule) {
     const infos = settings && settings.labels && settings.labels[lang] && settings.labels[lang].restorationOptions || [];
