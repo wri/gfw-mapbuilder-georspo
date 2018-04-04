@@ -676,29 +676,6 @@ const runAnalysis = function runAnalysis (params, feature) {
       }
     });
 
-    //- Land Cover Composition Analysis
-    performAnalysis({
-      type: analysisKeys.LCC,
-      geometry: geographic,
-      settings: settings,
-      canopyDensity: tcd,
-      language: lang
-    }).then((results) => {
-      const node = document.getElementById('lc-composition');
-
-      if (results.counts && results.counts.length) {
-        const series = charts.formatCompositionAnalysis({
-          colors: layerConf.colors,
-          name: text[lang].ANALYSIS_LCC_CHART_NAME,
-          labels: layerConf.classes[lang],
-          counts: results.counts
-        });
-
-        charts.makeCompositionPieChart(node, series);
-      } else {
-        node.remove();
-      }
-    });
   } else {
     const lossNode = document.getElementById('lc-loss-chart');
     const compositionNode = document.getElementById('lc-composition');
