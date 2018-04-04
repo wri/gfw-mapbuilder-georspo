@@ -4,6 +4,7 @@ import mapActions from 'actions/MapActions';
 // import CartoLegend from 'components/LegendPanel/CartoLegend';
 import WebMapLegend from 'components/LegendPanel/WebMapLegend';
 import LayerLegend from 'components/LegendPanel/LayerLegend';
+import WebMapFeatureLayerLegend from 'components/LegendPanel/WebMapFeatureLayerLegend';
 import utils from 'utils/AppUtils';
 import {urls} from 'js/config';
 import text from 'js/languages';
@@ -119,7 +120,7 @@ export default class LegendPanel extends Component {
         childComponent = <LayerLegend url={urls.esriLegendService} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} layerId={layerDiv.layer.id}/>;
         break;
       case 'LAND_COVER':
-        childComponent = <LayerLegend url={urls.esriLegendService} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} layerId={layerDiv.layer.id}/>;
+        childComponent = <LayerLegend url={urls.rspoLucLegendService} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} layerId={layerDiv.layer.id}/>;
         break;
       case 'TREE_COVER':
         childComponent = <LayerLegend url={urls.esriLegendService} visibleLayers={activeLayers} layerIds={layerDiv.layer.legendLayer} layerId={layerDiv.layer.id}/>;
@@ -181,7 +182,18 @@ export default class LegendPanel extends Component {
       layers.forEach((layer, index) => {
         const subLayerConf = utils.getObject(layerGroups.GROUP_WEBMAP.layers, 'subId', layer.subId);
         const layerConf = utils.getWebMapObject(legendLayers, 'layer', 'id', layer.id);
-        const childComponent = <WebMapLegend url={layerConf.url} labels={subLayerConf.label} visibility={layer.visible} visibleLayers={activeLayers} layerSubIndex={subLayerConf.subIndex} layerId={subLayerConf.subId}/>;
+        // console.log('layer', layer);
+        let childComponent;
+        if (layer.esriLayer.type === 'Feature Layer') {
+          childComponent = <WebMapFeatureLayerLegend
+            layer={layer.esriLayer}
+            label={subLayerConf.label}
+            visibility={activeLayers.indexOf(layer.id) > -1}
+            layerId={subLayerConf.subId}
+          />;
+        } else {
+          childComponent = <WebMapLegend url={layerConf.url} labels={subLayerConf.label} visibility={layer.visible} visibleLayers={activeLayers} layerSubIndex={subLayerConf.subIndex} layerId={subLayerConf.subId}/>;
+        }
         webmapChildComponents.push(this.webmapDiv(childComponent, index + 1000));
       });
 

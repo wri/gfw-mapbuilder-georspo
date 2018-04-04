@@ -81,10 +81,7 @@ export default function performAnalysis (options) {
       });
       break;
     case analysisKeys.LC_LOSS:
-      analysisUtils.getCrossedWithLoss({
-        id: landCoverConfig.rasterId,
-        bounds: landCoverConfig.bounds
-      }, analysisConfig[analysisKeys.TC_LOSS], geometry, {
+      analysisUtils.getCrossedWithLoss(config, analysisConfig[analysisKeys.TC_LOSS], geometry, {
         canopyDensity: canopyDensity
       }).then(response => {
         if (typeof response === 'object' && response.hasOwnProperty('error')) {
